@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أدوات ميكروتيك - سكريبتات مجانية | Same7</title>
+    
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="google6096a3c525d406ea" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دمج خطوط، حجب مواقع، بروفايلات سرعة، سكريبتات جاهزة للاستخدام">
+    <meta name="keywords" content="ميكروتيك, سكريبتات, هوت سبوت, دمج خطوط, حجب مواقع, سرعة, راوتر, MikroTik, scripts, networking">
+    <meta name="author" content="Sameh El-Sayed - 01092503391">
+    
+    <!-- Open Graph للشبكات الاجتماعية -->
+    <meta property="og:title" content="MikroTools - أدوات ميكروتيك مجانية">
+    <meta property="og:description" content="منصة مجانية لإنشاء سكريبتات ميكروتيك احترافية للهوت سبوت ودمج الخطوط وحجب المواقع">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_EG">
+    
+    <title>MikroTools | أدوات ميكروتيك - سكريبتات مجانية | Same7</title>
+    
     <style>
         :root {
             --nav-bg: #1e293b;
@@ -211,7 +227,7 @@
             padding: 14px 18px;
             border: 2px solid var(--border-color);
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 16px; /* تحسين للجوالات */
             outline: none;
             transition: all 0.3s;
             background: #fff;
@@ -711,6 +727,21 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* تحسينات للجوالات */
+        @media (max-height: 600px) {
+            .result-box {
+                height: 250px !important;
+            }
+            
+            .tool-card {
+                padding: 25px 20px !important;
+            }
+            
+            .sidebar-header {
+                padding: 20px 15px;
+            }
+        }
+
         /* التجاوب */
         @media (max-width: 1024px) {
             :root {
@@ -766,12 +797,18 @@
             .system-options {
                 flex-direction: column;
             }
+            
+            .hotspot-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
             .btn {
                 padding: 14px 25px;
                 font-size: 14px;
+                width: 100%;
+                margin: 5px 0;
             }
             
             .tool-title {
@@ -781,12 +818,47 @@
             .main-content {
                 padding: 15px;
             }
+            
+            .contact-footer {
+                font-size: 14px;
+                padding: 15px;
+            }
+            
+            .result-box {
+                height: 300px;
+                font-size: 13px;
+                padding: 15px;
+            }
+        }
+
+        /* تحسينات إضافية */
+        @media (hover: none) {
+            .btn:hover {
+                transform: none;
+            }
+            
+            .speed-profile-card:hover {
+                transform: none;
+            }
+            
+            .value-card:hover {
+                transform: none;
+            }
+        }
+
+        /* تحسين الوصول للجميع */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
     <!-- زر القائمة المتنقلة -->
-    <button class="menu-toggle" onclick="toggleSidebar()">
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="فتح/إغلاق القائمة">
         ☰
     </button>
 
@@ -854,11 +926,11 @@
                 
                 <div class="hotspot-grid">
                     <div class="input-box">
-                        <label>عنوان IP الميكروتك:</label>
+                        <label for="newIp">عنوان IP الميكروتك:</label>
                         <input type="text" id="newIp" value="10.0.0.1/16" placeholder="مثال:16/ 10.0.0.1">
                     </div>
                     <div class="input-box">
-                        <label>اسم كارت الخروج:</label>
+                        <label for="newInterface">اسم كارت الخروج:</label>
                         <input type="text" id="newInterface" value="OUT" placeholder="مثال: bridge-lan">
                     </div>
                 </div>
@@ -883,15 +955,15 @@
 
                 <div class="merge-section">
                     <div class="input-box">
-                        <label>اسم كارت الخروج (LAN)</label>
+                        <label for="lanName2">اسم كارت الخروج (LAN)</label>
                         <input type="text" id="lanName2" value="OUT" placeholder="مثال: bridge-local">
                     </div>
                     <div class="input-box">
-                        <label>رينج آيبي المشتركين</label>
+                        <label for="srcAddr2">رينج آيبي المشتركين</label>
                         <input type="text" id="srcAddr2" value="10.0.0.1/16" placeholder="10.0.0.1/16">
                     </div>
                     <div class="input-box">
-                        <label>عدد الخطوط</label>
+                        <label for="lineCount2">عدد الخطوط</label>
                         <input type="number" id="lineCount2" value="3" min="2" max="20" oninput="createLineInputs('v6')">
                     </div>
                 </div>
@@ -918,11 +990,11 @@
 
                 <div class="merge-section">
                     <div class="input-box">
-                        <label>اسم كارت الخروج (LAN)</label>
+                        <label for="lanName3">اسم كارت الخروج (LAN)</label>
                         <input type="text" id="lanName3" value="OUT" placeholder="مثال: bridge-local">
                     </div>
                     <div class="input-box">
-                        <label>عدد الخطوط</label>
+                        <label for="lineCount3">عدد الخطوط</label>
                         <input type="number" id="lineCount3" value="3" min="2" max="20" oninput="createLineInputs('v7')">
                     </div>
                 </div>
@@ -950,7 +1022,7 @@
                 <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
                     <h3 style="color: var(--danger); margin-bottom: 20px;">✏️ القائمة المطلوب حظرها</h3>
                     <div class="input-box">
-                        <label>أدخل المواقع أو الـ IPs (سطر لكل عنصر):</label>
+                        <label for="blockList">أدخل المواقع أو الـ IPs (سطر لكل عنصر):</label>
                         <textarea id="blockList" placeholder="مثال:
 facebook.com
 youtube.com
@@ -965,7 +1037,7 @@ instagram.com"></textarea>
                     </div>
                     
                     <div class="input-box">
-                        <label>اسم كارت الخروج (Interface):</label>
+                        <label for="interfaceBlock">اسم كارت الخروج (Interface):</label>
                         <input type="text" id="interfaceBlock" value="OUT" placeholder="مثال: ether1, bridge-local">
                     </div>
                 </div>
@@ -1013,13 +1085,13 @@ instagram.com"></textarea>
                     </div>
                     
                     <div class="input-box">
-                        <label>🏷️ اسم البروفايل الأساسي:</label>
+                        <label for="profileName">🏷️ اسم البروفايل الأساسي:</label>
                         <input type="text" id="profileName" value="speed" placeholder="مثال: MyProfile">
                     </div>
                     
                     <div class="input-box">
-                        <label>🔢 عدد البروفايلات:</label>
-                        <select id="profileCount" onchange="updateSpeedProfiles()" style="padding: 12px; border-radius: 8px; border: 2px solid var(--border-color);">
+                        <label for="profileCount">🔢 عدد البروفايلات:</label>
+                        <select id="profileCount" onchange="updateSpeedProfiles()">
                             <option value="4">4 بروفايلات</option>
                             <option value="5" selected>5 بروفايلات</option>
                             <option value="6">6 بروفايلات</option>
@@ -1071,8 +1143,8 @@ instagram.com"></textarea>
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                         <div class="input-box">
-                            <label>📊 نسبة الرفع للتنزيل:</label>
-                            <select id="ratioType" onchange="updateSpeedRatios()" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color);">
+                            <label for="ratioType">📊 نسبة الرفع للتنزيل:</label>
+                            <select id="ratioType" onchange="updateSpeedRatios()">
                                 <option value="4:1">4:1 (اقتصادي - افتراضي)</option>
                                 <option value="3:1">3:1 (متوسط)</option>
                                 <option value="2:1">2:1 (جيد)</option>
@@ -1082,8 +1154,8 @@ instagram.com"></textarea>
                         </div>
                         
                         <div class="input-box">
-                            <label>⏰ مدة الجلسة (Session):</label>
-                            <select id="sessionTime" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color);">
+                            <label for="sessionTime">⏰ مدة الجلسة (Session):</label>
+                            <select id="sessionTime">
                                 <option value="1d">24 ساعة</option>
                                 <option value="12h">12 ساعة</option>
                                 <option value="6h" selected>6 ساعات</option>
@@ -1244,45 +1316,52 @@ instagram.com"></textarea>
     </div>
 
     <script>
-        // ========== المتغيرات العامة ==========
+        // ========== تهيئة العناصر ==========
         const SIGNATURE = "By Same7_01092503391";
+        const ELEMENTS = {
+            sidebar: document.getElementById('sidebar'),
+            pages: document.querySelectorAll('.page'),
+            navItems: document.querySelectorAll('.nav-item')
+        };
+
         let currentBlockType = 'domain';
         let speedProfiles = [];
         let currentSystem = { hotspot: true, broadband: false };
         let currentPreset = 'premium';
 
+        // ========== التحقق من صحة IP ==========
+        function validateIP(ip) {
+            const regex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
+            if (!regex.test(ip)) return false;
+            
+            const parts = ip.split('/')[0].split('.');
+            return parts.every(part => {
+                const num = parseInt(part);
+                return num >= 0 && num <= 255;
+            });
+        }
+
         // ========== دوال التنقل بين الصفحات ==========
         function showPage(pageId) {
-            // إخفاء جميع الصفحات
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+            ELEMENTS.pages.forEach(page => page.classList.remove('active'));
+            ELEMENTS.navItems.forEach(item => item.classList.remove('active'));
             
-            // إزالة النشط من جميع عناصر القائمة الجانبية
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // عرض الصفحة المطلوبة
             document.getElementById(pageId).classList.add('active');
             
-            // جعل عنصر القائمة النشط
-            const navItems = document.querySelectorAll('.nav-item');
             const pageIndex = {
                 'page1': 0, 'page2': 1, 'page3': 2, 
                 'page4': 3, 'page6': 4, 'page5': 5
             }[pageId];
             
-            if (navItems[pageIndex]) {
-                navItems[pageIndex].classList.add('active');
+            if (ELEMENTS.navItems[pageIndex]) {
+                ELEMENTS.navItems[pageIndex].classList.add('active');
             }
             
-            // إغلاق القائمة الجانبية على الهواتف
             if (window.innerWidth <= 768) {
-                document.getElementById('sidebar').classList.remove('active');
+                ELEMENTS.sidebar.classList.remove('active');
             }
             
-            // استدعاء الدوال اللازمة عند تبديل الصفحة
+            // تهيئة الصفحات حسب الحاجة
             if (pageId === 'page2') {
                 setTimeout(() => createLineInputs('v6'), 100);
             } else if (pageId === 'page3') {
@@ -1294,8 +1373,7 @@ instagram.com"></textarea>
 
         // ========== تبديل القائمة الجانبية ==========
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
+            ELEMENTS.sidebar.classList.toggle('active');
         }
 
         // ========== الصفحة 1: الهوت سبوت ==========
@@ -1308,12 +1386,12 @@ instagram.com"></textarea>
                 return;
             }
             
-            const p = ipInput.split('.');
-            if (p.length !== 4) { 
-                alert("خطأ في شكل الـ IP"); 
-                return; 
+            if (!validateIP(ipInput)) {
+                alert("⚠️ عنوان IP غير صحيح");
+                return;
             }
             
+            const p = ipInput.split('.');
             const net2 = p[0] + "." + p[1]; 
             const net3 = p[0] + "." + p[1] + "." + p[2]; 
             const network = p[0] + "." + p[1] + ".0.0/16"; 
@@ -1366,14 +1444,12 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 let wanIp, wanGateway;
                 
                 if (version === 'v6') {
-                    // نظام IPs الجديد لـ v6
                     const ipSegments = [100, 150, 200, 250, 300, 350, 400, 450, 500];
                     const ipSegment = ipSegments[Math.min(i - 1, ipSegments.length - 1)];
                     
                     wanIp = `192.168.${ipSegment}.${100 + i}/24`;
                     wanGateway = `192.168.${ipSegment}.1`;
                 } else {
-                    // نظام IPs لـ v7 يبقى كما هو
                     const baseIP = 100;
                     const ipIncrement = 50;
                     const ipSegment = baseIP + ((i - 1) * ipIncrement);
@@ -1459,6 +1535,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             let gateways = [];
             for (let i = 1; i <= count; i++) {
                 const gateway = document.getElementById(`wan${i}-gw-v6`).value.trim();
+                if (!validateIP(gateway)) {
+                    alert(`⚠️ Gateway غير صحيح للخط WAN${i}`);
+                    return null;
+                }
                 gateways.push(gateway);
                 script += `add gateway=${gateway} routing-mark=route_wan${i} distance=1 check-gateway=ping comment="${SIGNATURE}"\n`;
             }
@@ -1473,7 +1553,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             script += `## Script Generated By samehsayed-01092503391   ##\n`;
             script += `##################################\n\n`;
             
-            // إضافة عناوين IP للواجهات
             script += `/ip address\n`;
             for (let i = 1; i <= count; i++) {
                 const wanIp = document.getElementById(`wan${i}-ip-v7`).value.trim();
@@ -1481,17 +1560,19 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     alert(`⚠️ يرجى إدخال IP للخط WAN${i}`);
                     return null;
                 }
+                if (!validateIP(wanIp)) {
+                    alert(`⚠️ IP غير صحيح للخط WAN${i}`);
+                    return null;
+                }
                 const network = wanIp.split('/')[0].split('.').slice(0,3).join('.') + '.0';
                 script += `add address=${wanIp} interface=WAN${i} network=${network}\n`;
             }
             
-            // NAT
             script += `\n/ip firewall nat\n`;
             for (let i = 1; i <= count; i++) {
                 script += `add action=masquerade chain=srcnat out-interface=WAN${i}\n`;
             }
             
-            // Address List للرواترز
             script += `\n/ip firewall address-list\n`;
             for (let i = 1; i <= count; i++) {
                 const wanIp = document.getElementById(`wan${i}-ip-v7`).value.trim();
@@ -1499,44 +1580,39 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 script += `add address=${network} list=ROUTERS\n`;
             }
             
-            // Routing Tables
             script += `/routing table\n`;
             for (let i = 1; i <= count; i++) {
                 script += `add disabled=no fib name=to_WAN${i}\n`;
             }
             
-            // Mangle Rules
             script += `/ip firewall mangle\n`;
-            
-            // قبول حركة المرور من الراوترز
             script += `add action=accept chain=prerouting dst-address-list=ROUTERS in-interface=${lan}\n`;
             
-            // Mark connection للحركة الواردة
             for (let i = 1; i <= count; i++) {
                 script += `add action=mark-connection chain=input in-interface=WAN${i} new-connection-mark=WAN${i}_conn\n`;
             }
             
-            // Mark routing للحركة الصادرة
             for (let i = 1; i <= count; i++) {
                 script += `add action=mark-routing chain=output connection-mark=WAN${i}_conn new-routing-mark=to_WAN${i}\n`;
             }
             
-            // Load Balancing
             for (let i = 0; i < count; i++) {
                 script += `add chain=prerouting dst-address-type=!local in-interface=${lan} per-connection-classifier=both-addresses-and-ports:${count}/${i} action=mark-connection new-connection-mark=WAN${i+1}_conn passthrough=yes\n`;
             }
             
-            // Mark routing للـ Load Balancing
             for (let i = 1; i <= count; i++) {
                 script += `add action=mark-routing chain=prerouting connection-mark=WAN${i}_conn in-interface=${lan} new-routing-mark=to_WAN${i}\n`;
             }
             
-            // Routes
             script += `/ip route\n`;
             for (let i = 1; i <= count; i++) {
                 const gateway = document.getElementById(`wan${i}-gw-v7`).value.trim();
                 if (!gateway) {
                     alert(`⚠️ يرجى إدخال Gateway للخط WAN${i}`);
+                    return null;
+                }
+                if (!validateIP(gateway)) {
+                    alert(`⚠️ Gateway غير صحيح للخط WAN${i}`);
                     return null;
                 }
                 script += `add check-gateway=ping distance=1 gateway=${gateway} routing-table=to_WAN${i}\n`;
@@ -1563,8 +1639,13 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             }
             
             const items = listText.split('\n').filter(item => item.trim());
+            if (items.length === 0) {
+                alert('⚠️ يرجى إدخال عنصر واحد على الأقل');
+                return;
+            }
             
-            let script = `# سكربت حجب المواقع\n# ${SIGNATURE}\n\n`;
+            let script = `# سكربت حجب المواقع\n# ${SIGNATURE}\n`;
+            script += `# التاريخ: ${new Date().toLocaleDateString('ar-EG')}\n\n`;
             
             if (currentBlockType === 'domain') {
                 script += `/ip dns static\n`;
@@ -1581,7 +1662,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             } else {
                 script += `/ip firewall address-list\n`;
                 items.forEach(ip => {
-                    script += `add list=BLOCKED_IPS address=${ip.trim()} comment="IP محظور ${SIGNATURE}"\n`;
+                    const cleanIP = ip.trim();
+                    if (validateIP(cleanIP)) {
+                        script += `add list=BLOCKED_IPS address=${cleanIP} comment="IP محظور ${SIGNATURE}"\n`;
+                    }
                 });
                 
                 script += `\n/ip firewall filter\n`;
@@ -1606,20 +1690,16 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
         }
 
         // ========== الصفحة 6: بروفايلات السرعة ==========
-
-        // تهيئة الصفحة
         function initSpeedPage() {
             createSpeedProfiles();
             updateSpeedProfiles();
         }
 
-        // تبديل النظام
         function toggleSystem(type) {
             currentSystem[type] = !currentSystem[type];
             updateSpeedProfiles();
         }
 
-        // إنشاء بروفايلات السرعة
         function createSpeedProfiles() {
             const container = document.getElementById('speedProfilesContainer');
             container.innerHTML = '';
@@ -1627,12 +1707,11 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             const count = parseInt(document.getElementById('profileCount').value);
             const baseName = document.getElementById('profileName').value;
             
-            // تعريف الباقات المسبقة
             const presets = {
-                economic: [2, 4, 8, 16, 32],
-                standard: [4, 8, 16, 32, 64],
-                premium: [8, 16, 32, 64, 128],
-                gaming: [10, 20, 30, 50, 100]
+                economic: [2, 4, 8, 16, 32, 64, 128, 256],
+                standard: [4, 8, 16, 32, 64, 128, 256, 512],
+                premium: [8, 16, 32, 64, 128, 256, 512, 1024],
+                gaming: [10, 20, 30, 50, 100, 200, 300, 500]
             };
             
             const speeds = presets[currentPreset] || presets.premium;
@@ -1647,7 +1726,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 const tierName = tierNames[Math.min(i - 1, tierNames.length - 1)];
                 
                 const downloadSpeed = speeds[Math.min(i - 1, speeds.length - 1)];
-                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4)); // نسبة 4:1 افتراضية
+                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4));
                 
                 profileCard.innerHTML = `
                     <div class="profile-header">
@@ -1712,23 +1791,18 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             }
         }
 
-        // تحديث بروفايلات السرعة
         function updateSpeedProfiles() {
-            // تحديث حالة النظام
             document.querySelectorAll('.system-option input').forEach((input, index) => {
                 const systemType = index === 0 ? 'hotspot' : 'broadband';
                 input.checked = currentSystem[systemType];
             });
             
-            // إعادة إنشاء البروفايلات
             createSpeedProfiles();
         }
 
-        // تحميل باقة مسبقة
         function loadPreset(preset) {
             currentPreset = preset;
             
-            // تحديث الأزرار النشطة
             document.querySelectorAll('.preset-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-preset') === preset) {
@@ -1736,17 +1810,14 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 }
             });
             
-            // تحديث البروفايلات
             createSpeedProfiles();
         }
 
-        // الحصول على أيقونة البروفايل
         function getProfileIcon(index) {
             const icons = ['💰', '⚡', '🚀', '👑', '💎', '🌟', '✨', '🔥', '🎯', '🏆'];
             return icons[Math.min(index - 1, icons.length - 1)];
         }
 
-        // الحصول على سعر مقترح للسرعة
         function getPriceForSpeed(speed) {
             if (speed <= 2) return "50-80 جنيه";
             if (speed <= 4) return "80-120 جنيه";
@@ -1758,7 +1829,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             return "750+ جنيه";
         }
 
-        // التحقق من صحة إدخال السرعة
         function validateSpeedInput(profileIndex) {
             const dlInput = document.getElementById(`dl${profileIndex}`);
             const ulInput = document.getElementById(`ul${profileIndex}`);
@@ -1778,7 +1848,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             }
         }
 
-        // تحديث نسب السرعة
         function updateSpeedRatios() {
             const ratio = document.getElementById('ratioType').value;
             if (ratio === 'custom') return;
@@ -1799,7 +1868,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             }
         }
 
-        // توليد سكربت بروفايلات السرعة
         function generateSpeedProfiles() {
             const profileCount = parseInt(document.getElementById('profileCount').value);
             const baseName = document.getElementById('profileName').value;
@@ -1817,7 +1885,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             script += `# نسبة الرفع/التنزيل: ${ratio}\n`;
             script += `##############################################\n\n`;
             
-            // قسم الهوتسبوت
             if (currentSystem.hotspot) {
                 script += `# ======================\n`;
                 script += `# 📡 بروفايلات الهوتسبوت\n`;
@@ -1856,7 +1923,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 script += `\n`;
             }
             
-            // قسم البرودباند
             if (currentSystem.broadband) {
                 script += `# ========================\n`;
                 script += `# 🌐 بروفايلات البرودباند\n`;
@@ -1883,7 +1949,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 script += `\n`;
             }
             
-            // قسم PCC لموازنة الحمل (اختياري)
             if (currentSystem.broadband && profileCount > 1) {
                 script += `# =============================\n`;
                 script += `# 🔀 إعدادات PCC لموازنة الحمل\n`;
@@ -1899,28 +1964,22 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             script += `# ${SIGNATURE}\n`;
             script += `# تم إنشاء ${profileCount} بروفايلات سرعة بنجاح ✓\n`;
             
-            // عرض النتائج
             document.getElementById('speedScriptOutput').value = script;
             document.getElementById('speedResultSection').style.display = 'block';
-            
-            // تحديث الإحصائيات
             updateSpeedStats(script);
         }
 
-        // تحديث الإحصائيات
         function updateSpeedStats(script) {
             const lines = script.split('\n').length;
             const profiles = parseInt(document.getElementById('profileCount').value);
             const scriptSize = (script.length / 1024).toFixed(2);
             
-            // حساب أعلى سرعة
             let maxSpeed = 0;
             for (let i = 1; i <= profiles; i++) {
                 const dl = parseInt(document.getElementById(`dl${i}`).value) || 0;
                 if (dl > maxSpeed) maxSpeed = dl;
             }
             
-            // تحديث العرض
             document.getElementById('profilesCount').textContent = profiles;
             document.getElementById('totalSpeed').textContent = `${maxSpeed}Mbps`;
             document.getElementById('linesCount').textContent = lines;
@@ -1929,7 +1988,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             document.getElementById('scriptInfo').style.display = 'block';
         }
 
-        // إعادة تعيين البروفايلات
         function resetSpeedProfiles() {
             if (confirm('هل تريد إعادة تعيين جميع البروفايلات إلى الإعدادات الافتراضية؟')) {
                 document.getElementById('profileName').value = 'speed';
@@ -1949,7 +2007,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             }
         }
 
-        // عرض أمثلة جاهزة
         function showSpeedExamples() {
             const examples = `
 🎯 أمثلة بروفايلات سرعة واقعية:
@@ -1988,7 +2045,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             alert(examples);
         }
 
-        // تحميل السكربت كملف
         function downloadSpeedScript() {
             const script = document.getElementById('speedScriptOutput').value;
             if (!script) {
@@ -2009,7 +2065,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             alert('✅ تم تحميل السكربت بنجاح');
         }
 
-        // معاينة السكربت
         function testSpeedScript() {
             const script = document.getElementById('speedScriptOutput').value;
             if (!script) {
@@ -2086,26 +2141,17 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 
         // ========== تهيئة الصفحة عند التحميل ==========
         document.addEventListener('DOMContentLoaded', function() {
-            // إنشاء مدخلات الخطوط
             createLineInputs('v6');
             createLineInputs('v7');
-            
-            // تهيئة صفحة الحجب
             selectBlockType('domain');
-            
-            // تهيئة صفحة السرعات
             initSpeedPage();
             
-            // إغلاق القائمة الجانبية عند النقر خارجها (للشاشات الصغيرة)
             document.addEventListener('click', function(event) {
-                const sidebar = document.getElementById('sidebar');
-                const menuToggle = document.querySelector('.menu-toggle');
-                
                 if (window.innerWidth <= 768 && 
-                    sidebar.classList.contains('active') &&
-                    !sidebar.contains(event.target) && 
-                    !menuToggle.contains(event.target)) {
-                    sidebar.classList.remove('active');
+                    ELEMENTS.sidebar.classList.contains('active') &&
+                    !ELEMENTS.sidebar.contains(event.target) && 
+                    !document.querySelector('.menu-toggle').contains(event.target)) {
+                    ELEMENTS.sidebar.classList.remove('active');
                 }
             });
         });
