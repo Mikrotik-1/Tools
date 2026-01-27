@@ -766,6 +766,304 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* ===== تصميم اختيار الشبكة ===== */
+        .subnet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 20px 0 30px;
+        }
+
+        .subnet-box {
+            background: white;
+            border: 3px solid var(--border-color);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subnet-box:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15);
+        }
+
+        .subnet-box.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+        }
+
+        .subnet-box.active::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .subnet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .subnet-mask {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: 5px 15px;
+            border-radius: 10px;
+        }
+
+        .subnet-title {
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+
+        .subnet-info {
+            margin: 15px 0;
+        }
+
+        .ip-count {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .ip-range {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .range-example {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 8px;
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+        }
+
+        .subnet-desc {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+            font-style: italic;
+        }
+
+        /* تفاصيل الشبكة */
+        .subnet-details {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .details-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-item span:first-child {
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .detail-item span:last-child {
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+        }
+
+        /* ===== أنماط القائمة المنسدلة ===== */
+        .dropdown-selector {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .dropdown-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .dropdown-box:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+        }
+
+        .dropdown-box.active {
+            border-color: var(--primary);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .dropdown-selected {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+
+        .dropdown-arrow {
+            color: #64748b;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-box.active .dropdown-arrow {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--primary);
+            border-top: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-list.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 14px 20px;
+            cursor: pointer;
+            color: #475569;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+            color: var(--primary);
+            padding-right: 25px;
+        }
+
+        .dropdown-item::before {
+            content: '📶';
+            font-size: 14px;
+        }
+
+        /* تخصيص شريط التمرير */
+        .dropdown-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .dropdown-list::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .dropdown-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .dropdown-list::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+
+        /* رسالة التأكيد */
+        .count-alert {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         /* تحسينات للجوالات */
         @media (max-height: 600px) {
             .result-box {
@@ -840,6 +1138,27 @@
             .hotspot-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .subnet-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .details-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .dropdown-box {
+                padding: 14px 16px;
+            }
+            
+            .dropdown-selected {
+                font-size: 14px;
+            }
+            
+            .dropdown-item {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -868,6 +1187,15 @@
                 font-size: 13px;
                 padding: 15px;
             }
+            
+            .subnet-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .subnet-mask {
+                font-size: 24px;
+                padding: 3px 10px;
+            }
         }
 
         /* تحسينات إضافية */
@@ -881,6 +1209,10 @@
             }
             
             .value-card:hover {
+                transform: none;
+            }
+            
+            .subnet-box:hover {
                 transform: none;
             }
         }
@@ -963,10 +1295,103 @@
             <div class="tool-card">
                 <h2 class="tool-title">مولد سكربت إعدادات هوت سبوت وبرودباند</h2>
                 
+                <!-- نظام اختيار الشبكة الجديد -->
+                <div class="subnet-selector">
+                    <h3 style="color: var(--primary); margin: 25px 0 15px; display: flex; align-items: center; gap: 10px;">
+                        <span>🌐</span> اختيار حجم الشبكة (Subnet)
+                    </h3>
+                    
+                    <div class="subnet-grid">
+                        <!-- /24 = 254 IP -->
+                        <div class="subnet-box" data-subnet="24" onclick="selectSubnet(24)">
+                            <div class="subnet-header">
+                                <div class="subnet-mask">/24</div>
+                                <div class="subnet-title">شبكة صغيرة</div>
+                            </div>
+                            <div class="subnet-info">
+                                <div class="ip-count">254 IP</div>
+                                <div class="ip-range">x.x.x.1 - x.x.x.254</div>
+                            </div>
+                            <div class="subnet-desc">مثالي للمقاهي والمحلات الصغيرة</div>
+                        </div>
+                        
+                        <!-- /16 = 65,534 IP -->
+                        <div class="subnet-box" data-subnet="16" onclick="selectSubnet(16)">
+                            <div class="subnet-header">
+                                <div class="subnet-mask">/16</div>
+                                <div class="subnet-title">شبكة متوسطة</div>
+                            </div>
+                            <div class="subnet-info">
+                                <div class="ip-count">65,534 IP</div>
+                                <div class="ip-range">x.x.0.1 - x.x.255.254</div>
+                                <div class="range-example">256 شبكة /24</div>
+                            </div>
+                            <div class="subnet-desc">مثالي للمدن والقرى الصغيرة</div>
+                        </div>
+                        
+                        <!-- /8 = 16,777,214 IP -->
+                        <div class="subnet-box" data-subnet="8" onclick="selectSubnet(8)">
+                            <div class="subnet-header">
+                                <div class="subnet-mask">/8</div>
+                                <div class="subnet-title">شبكة كبيرة</div>
+                            </div>
+                            <div class="subnet-info">
+                                <div class="ip-count">16.7 مليون IP</div>
+                                <div class="ip-range">x.0.0.1 - x.255.255.254</div>
+                                <div class="range-example">65,536 شبكة /24</div>
+                            </div>
+                            <div class="subnet-desc">مثالي للمحافظات والمناطق الكبيرة</div>
+                        </div>
+                        
+                        <!-- /4 = 268,435,454 IP -->
+                        <div class="subnet-box active" data-subnet="4" onclick="selectSubnet(4)">
+                            <div class="subnet-header">
+                                <div class="subnet-mask">/4</div>
+                                <div class="subnet-title">شبكة عملاقة</div>
+                            </div>
+                            <div class="subnet-info">
+                                <div class="ip-count">268 مليون IP</div>
+                                <div class="ip-range">0-15.x.x.x</div>
+                                <div class="range-example">1,048,576 شبكة /24</div>
+                            </div>
+                            <div class="subnet-desc">مثالي للدول والشبكات القومية</div>
+                        </div>
+                    </div>
+                    
+                    <div class="subnet-details">
+                        <div class="details-header">
+                            <span>📊</span>
+                            <span>تفاصيل الشبكة المحددة</span>
+                        </div>
+                        <div class="details-content">
+                            <div class="detail-item">
+                                <span>🎯 الشبكة:</span>
+                                <span id="currentNetwork">10.0.0.0/4</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>🔢 عدد الـIPs المتاحة:</span>
+                                <span id="currentIPs">268,435,454</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>📡 نطاق الـIPs:</span>
+                                <span id="currentRange">0.0.0.1 - 15.255.255.254</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>🎪 عدد الشبكات /24:</span>
+                                <span id="currentSubnets">1,048,576</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>⚙️ القناع (Netmask):</span>
+                                <span id="currentNetmask">240.0.0.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="hotspot-grid">
                     <div class="input-box">
                         <label for="newIp">عنوان IP الميكروتك:</label>
-                        <input type="text" id="newIp" value="10.0.0.1/16" placeholder="مثال:16/ 10.0.0.1">
+                        <input type="text" id="newIp" value="10.0.0.1/4" placeholder="مثال: 10.0.0.1/24">
                     </div>
                     <div class="input-box">
                         <label for="newInterface">اسم كارت الخروج:</label>
@@ -1001,9 +1426,61 @@
                         <label for="srcAddr2">رينج آيبي المشتركين</label>
                         <input type="text" id="srcAddr2" value="10.0.0.1/16" placeholder="10.0.0.1/16">
                     </div>
-                    <div class="input-box">
-                        <label for="lineCount2">عدد الخطوط</label>
-                        <input type="number" id="lineCount2" value="3" min="2" max="20" oninput="createLineInputs('v6')">
+                </div>
+
+                <!-- نظام اختيار عدد الخطوط -->
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 25px; border-radius: 15px; margin: 20px 0; border: 2px solid #bae6fd;">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                        <span>🔢</span> اختر عدد الخطوط المطلوب دمجها
+                    </h3>
+                    
+                    <div class="dropdown-selector">
+                        <!-- المربع الرئيسي -->
+                        <div class="dropdown-box" onclick="toggleDropdown('v6')">
+                            <div class="dropdown-selected">
+                                <span>📊</span>
+                                <span id="selectedCountV6">3 خطوط</span>
+                            </div>
+                            <div class="dropdown-arrow">▼</div>
+                        </div>
+                        
+                        <!-- القائمة المنسدلة -->
+                        <div class="dropdown-list" id="dropdownListV6">
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 2)">2 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 3)">3 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 4)">4 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 5)">5 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 6)">6 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 7)">7 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 8)">8 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 9)">9 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 10)">10 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 11)">11 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 12)">12 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 13)">13 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 14)">14 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 15)">15 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 16)">16 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 17)">17 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 18)">18 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 19)">19 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v6', 20)">20 خطوط</div>
+                        </div>
+                        
+                        <!-- حقل الإدخال المخفي -->
+                        <input type="number" id="lineCount2" value="3" min="2" max="20" style="display: none;">
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: white; border-radius: 10px; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <span>💡</span>
+                            <span style="font-weight: 600; color: var(--primary);">معلومات عن الاختيار</span>
+                        </div>
+                        <div style="color: #64748b; font-size: 14px; line-height: 1.6;">
+                            • <strong>2-5 خطوط:</strong> مثالي للشركات والمقاهي الصغيرة<br>
+                            • <strong>6-10 خطوط:</strong> مناسب للفنادق والمجمعات التجارية<br>
+                            • <strong>10-20 خطوط:</strong> مثالي للمدن والقرى الكبيرة
+                        </div>
                     </div>
                 </div>
 
@@ -1032,9 +1509,61 @@
                         <label for="lanName3">اسم كارت الخروج (LAN)</label>
                         <input type="text" id="lanName3" value="OUT" placeholder="مثال: bridge-local">
                     </div>
-                    <div class="input-box">
-                        <label for="lineCount3">عدد الخطوط</label>
-                        <input type="number" id="lineCount3" value="3" min="2" max="20" oninput="createLineInputs('v7')">
+                </div>
+
+                <!-- نظام اختيار عدد الخطوط -->
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 25px; border-radius: 15px; margin: 20px 0; border: 2px solid #bae6fd;">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                        <span>🔢</span> اختر عدد الخطوط المطلوب دمجها
+                    </h3>
+                    
+                    <div class="dropdown-selector">
+                        <!-- المربع الرئيسي -->
+                        <div class="dropdown-box" onclick="toggleDropdown('v7')">
+                            <div class="dropdown-selected">
+                                <span>📊</span>
+                                <span id="selectedCountV7">3 خطوط</span>
+                            </div>
+                            <div class="dropdown-arrow">▼</div>
+                        </div>
+                        
+                        <!-- القائمة المنسدلة -->
+                        <div class="dropdown-list" id="dropdownListV7">
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 2)">2 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 3)">3 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 4)">4 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 5)">5 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 6)">6 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 7)">7 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 8)">8 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 9)">9 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 10)">10 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 11)">11 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 12)">12 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 13)">13 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 14)">14 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 15)">15 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 16)">16 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 17)">17 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 18)">18 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 19)">19 خطوط</div>
+                            <div class="dropdown-item" onclick="selectLineCount('v7', 20)">20 خطوط</div>
+                        </div>
+                        
+                        <!-- حقل الإدخال المخفي -->
+                        <input type="number" id="lineCount3" value="3" min="2" max="20" style="display: none;">
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: white; border-radius: 10px; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <span>💡</span>
+                            <span style="font-weight: 600; color: var(--primary);">معلومات عن الاختيار</span>
+                        </div>
+                        <div style="color: #64748b; font-size: 14px; line-height: 1.6;">
+                            • <strong>2-5 خطوط:</strong> مثالي للشركات والمقاهي الصغيرة<br>
+                            • <strong>6-10 خطوط:</strong> مناسب للفنادق والمجمعات التجارية<br>
+                            • <strong>10-20 خطوط:</strong> مثالي للمدن والقرى الكبيرة
+                        </div>
                     </div>
                 </div>
 
@@ -1367,6 +1896,7 @@ instagram.com"></textarea>
         let speedProfiles = [];
         let currentSystem = { hotspot: true, broadband: false };
         let currentPreset = 'premium';
+        let currentSubnet = 4; // افتراضي /4
 
         // ========== التحقق من صحة IP ==========
         function validateIP(ip) {
@@ -1407,12 +1937,258 @@ instagram.com"></textarea>
                 setTimeout(() => createLineInputs('v7'), 100);
             } else if (pageId === 'page6') {
                 setTimeout(() => initSpeedPage(), 100);
+            } else if (pageId === 'page1') {
+                setTimeout(() => {
+                    selectSubnet(4); // تفعيل الافتراضي /4
+                    updateSubnetDetails();
+                }, 100);
             }
         }
 
         // ========== تبديل القائمة الجانبية ==========
         function toggleSidebar() {
             ELEMENTS.sidebar.classList.toggle('active');
+        }
+
+        // ========== دوال اختيار الشبكة ==========
+        function selectSubnet(subnetMask) {
+            // إزالة النشط من جميع المربعات
+            document.querySelectorAll('.subnet-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // تفعيل المربع المحدد
+            const selectedBox = document.querySelector(`.subnet-box[data-subnet="${subnetMask}"]`);
+            if (selectedBox) {
+                selectedBox.classList.add('active');
+            }
+            
+            // تحديث المتغير
+            currentSubnet = subnetMask;
+            
+            // تحديث التفاصيل
+            updateSubnetDetails();
+            
+            // تحديث حقل الـIP
+            updateIPField();
+        }
+
+        function updateSubnetDetails() {
+            const ipInput = document.getElementById('newIp').value.trim();
+            let baseIP = '10.0.0.0';
+            
+            if (ipInput) {
+                const parts = ipInput.split('.');
+                if (parts.length >= 2) {
+                    baseIP = `${parts[0]}.${parts[1]}.0.0`;
+                }
+            }
+            
+            const details = calculateSubnetDetails(baseIP, currentSubnet);
+            
+            document.getElementById('currentNetwork').textContent = details.network;
+            document.getElementById('currentIPs').textContent = details.totalIPs;
+            document.getElementById('currentRange').textContent = details.ipRange;
+            document.getElementById('currentSubnets').textContent = details.subnetCount;
+            document.getElementById('currentNetmask').textContent = details.netmask;
+        }
+
+        function calculateSubnetDetails(baseIP, subnetMask) {
+            const subnetData = {
+                24: {
+                    totalIPs: '254',
+                    subnetCount: '1',
+                    netmask: '255.255.255.0',
+                    description: 'شبكة واحدة /24'
+                },
+                16: {
+                    totalIPs: '65,534',
+                    subnetCount: '256',
+                    netmask: '255.255.0.0',
+                    description: '256 شبكة /24'
+                },
+                8: {
+                    totalIPs: '16,777,214',
+                    subnetCount: '65,536',
+                    netmask: '255.0.0.0',
+                    description: '65,536 شبكة /24'
+                },
+                4: {
+                    totalIPs: '268,435,454',
+                    subnetCount: '1,048,576',
+                    netmask: '240.0.0.0',
+                    description: '1,048,576 شبكة /24'
+                }
+            };
+            
+            const data = subnetData[subnetMask] || subnetData[24];
+            const ipParts = baseIP.split('.');
+            
+            // حساب نطاق الـIPs
+            let ipRange = '';
+            if (subnetMask === 24) {
+                ipRange = `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.1 - ${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.254`;
+            } else if (subnetMask === 16) {
+                ipRange = `${ipParts[0]}.${ipParts[1]}.0.1 - ${ipParts[0]}.${ipParts[1]}.255.254`;
+            } else if (subnetMask === 8) {
+                ipRange = `${ipParts[0]}.0.0.1 - ${ipParts[0]}.255.255.254`;
+            } else { // /4
+                const firstOctet = parseInt(ipParts[0]) || 10;
+                const startRange = Math.floor(firstOctet / 16) * 16;
+                ipRange = `${startRange}.0.0.1 - ${startRange + 15}.255.255.254`;
+            }
+            
+            return {
+                network: `${baseIP}/${subnetMask}`,
+                totalIPs: data.totalIPs,
+                ipRange: ipRange,
+                subnetCount: data.subnetCount,
+                netmask: data.netmask
+            };
+        }
+
+        function updateIPField() {
+            const ipInput = document.getElementById('newIp');
+            let currentValue = ipInput.value.trim();
+            
+            if (!currentValue || currentValue === '10.0.0.1/16') {
+                // تعيين قيمة افتراضية بناءً على الـSubnet
+                let defaultIP = '10.0.0.1';
+                ipInput.value = `${defaultIP}/${currentSubnet}`;
+            } else {
+                // تحديث الـMask فقط
+                const parts = currentValue.split('/');
+                if (parts.length === 2) {
+                    ipInput.value = `${parts[0]}/${currentSubnet}`;
+                } else {
+                    ipInput.value = `${currentValue}/${currentSubnet}`;
+                }
+            }
+            
+            // تحديث التفاصيل
+            updateSubnetDetails();
+        }
+
+        // ========== دوال القائمة المنسدلة ==========
+        function toggleDropdown(version) {
+            const dropdownList = document.getElementById(`dropdownList${version.toUpperCase()}`);
+            const dropdownBox = dropdownList.previousElementSibling;
+            
+            // إغلاق جميع القوائم الأخرى
+            document.querySelectorAll('.dropdown-list').forEach(list => {
+                if (list.id !== `dropdownList${version.toUpperCase()}`) {
+                    list.classList.remove('active');
+                    list.previousElementSibling.classList.remove('active');
+                }
+            });
+            
+            // تبديل القائمة الحالية
+            dropdownList.classList.toggle('active');
+            dropdownBox.classList.toggle('active');
+        }
+
+        function selectLineCount(version, count) {
+            // تحديث الحقل المخفي
+            const inputField = document.getElementById(`lineCount${version === 'v6' ? '2' : '3'}`);
+            inputField.value = count;
+            
+            // تحديث النص المعروض
+            const selectedText = document.getElementById(`selectedCount${version.toUpperCase()}`);
+            selectedText.textContent = `${count} خطوط`;
+            
+            // إغلاق القائمة المنسدلة
+            const dropdownList = document.getElementById(`dropdownList${version.toUpperCase()}`);
+            const dropdownBox = dropdownList.previousElementSibling;
+            dropdownList.classList.remove('active');
+            dropdownBox.classList.remove('active');
+            
+            // إنشاء مدخلات الخطوط
+            createLineInputs(version);
+            
+            // إظهار رسالة تأكيد
+            showCountMessage(version, count);
+            
+            // إضافة تأثير بصري للمربع
+            dropdownBox.style.animation = 'none';
+            setTimeout(() => {
+                dropdownBox.style.animation = 'selectPulse 0.5s ease';
+            }, 10);
+        }
+
+        // إغلاق القوائم المنسدلة عند النقر خارجها
+        document.addEventListener('click', function(event) {
+            // التحقق إذا كان النقر خارج القائمة المنسدلة
+            if (!event.target.closest('.dropdown-selector')) {
+                document.querySelectorAll('.dropdown-list').forEach(list => {
+                    list.classList.remove('active');
+                    if (list.previousElementSibling) {
+                        list.previousElementSibling.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // إضافة تأثير النبض عند التحديد
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes selectPulse {
+                0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+                70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // دالة عرض رسالة التأكيد
+        function showCountMessage(version, count) {
+            let message = '';
+            
+            if (count === 2) {
+                message = '✅ تم اختيار خطين - مثالي للنسخ الاحتياطي (Failover)';
+            } else if (count >= 3 && count <= 5) {
+                message = '✅ تم اختيار ' + count + ' خطوط - مثالي للشركات الصغيرة';
+            } else if (count >= 6 && count <= 10) {
+                message = '✅ تم اختيار ' + count + ' خطوط - مناسب للمجمعات التجارية';
+            } else if (count >= 11 && count <= 15) {
+                message = '✅ تم اختيار ' + count + ' خطوط - مثالي للمدن الصغيرة';
+            } else {
+                message = '✅ تم اختيار ' + count + ' خطوط - نظام دمج احترافي كبير';
+            }
+            
+            // إظهار التنبيه
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'count-alert';
+            alertDiv.innerHTML = `
+                <div style="background: #10b981; color: white; padding: 12px 20px; border-radius: 10px; margin: 15px 0; display: flex; align-items: center; gap: 10px; animation: fadeIn 0.3s ease;">
+                    <span>📊</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // إزالة التنبيه السابق إن وجد
+            const oldAlert = document.querySelector(`#page${version === 'v6' ? '2' : '3'} .count-alert`);
+            if (oldAlert) {
+                oldAlert.remove();
+            }
+            
+            // إضافة التنبيه الجديد
+            const container = document.querySelector(`#lines-${version}-container`);
+            if (container && container.parentNode) {
+                container.parentNode.insertBefore(alertDiv, container);
+            }
+            
+            // إخفاء التنبيه بعد 5 ثواني
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.style.transition = 'opacity 0.5s ease';
+                    alertDiv.style.opacity = '0';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) {
+                            alertDiv.remove();
+                        }
+                    }, 500);
+                }
+            }, 5000);
         }
 
         // ========== الصفحة 1: الهوت سبوت ==========
@@ -1425,23 +2201,25 @@ instagram.com"></textarea>
                 return;
             }
             
-            if (!validateIP(ipInput)) {
+            const ipParts = ipInput.split('/')[0];
+            if (!validateIP(ipParts)) {
                 alert("⚠️ عنوان IP غير صحيح");
                 return;
             }
             
-            const p = ipInput.split('.');
-            const net2 = p[0] + "." + p[1]; 
-            const net3 = p[0] + "." + p[1] + "." + p[2]; 
-            const network = p[0] + "." + p[1] + ".0.0/16"; 
-
+            const mask = ipInput.includes('/') ? parseInt(ipInput.split('/')[1]) : currentSubnet;
+            const network = calculateNetwork(ipParts, mask);
+            const poolSize = calculatePoolSize(mask);
+            const dhcpRange = calculateDHCPRange(ipParts, mask);
+            
             const scriptTemplate = `# ${SIGNATURE}:
+# شبكة: ${network}/${mask} (${getSubnetName(mask)})
 
 /ip address add address=${ipInput} interface=${iface}
 /ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes 
 
-/ip pool add name=dhcp ranges=${net3}.100-${net2}.50.254 comment="${SIGNATURE}"
-/ip pool add name=ppp ranges=${net2}.51.100-${net2}.200.254 comment="${SIGNATURE}"
+/ip pool add name=dhcp ranges=${dhcpRange.start}-${dhcpRange.end} comment="${SIGNATURE}"
+/ip pool add name=ppp ranges=${dhcpRange.pppStart}-${dhcpRange.pppEnd} comment="${SIGNATURE}"
 
 /interface pppoe-server server remove [find]
 /ppp profile remove [find]
@@ -1450,23 +2228,110 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 
 /interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" 
 
-/ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipInput}
-/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipInput} html-directory=hotspot login-by=mac,cookie,http-chap use-radius=yes 
+/ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}
+/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap use-radius=yes 
 /ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 
 
 /ip firewall nat remove [find]
-/ip firewall nat add action=masquerade chain=srcnat comment="Masquerade All ${SIGNATURE}" src-address=${network}
+/ip firewall nat add action=masquerade chain=srcnat comment="Masquerade All ${SIGNATURE}" src-address=${network}/${mask}
 
 /ip dhcp-server add address-pool=dhcp authoritative=after-2sec-delay disabled=no interface=${iface} lease-time=3d name="Same7.01092503391" 
-/ip dhcp-server network add address=${network} gateway=${ipInput} dns-server=8.8.8.8,8.8.4.4 comment="${SIGNATURE}"
+/ip dhcp-server network add address=${network}/${mask} gateway=${ipParts} dns-server=8.8.8.8,8.8.4.4 comment="${SIGNATURE}"
 
 /system ntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
 /system sntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
 /system clock set time-zone-name=Africa/Cairo 
+
+# تم إنشاء سكربت لشبكة /${mask} (${poolSize} IP متاح)
             `.trim();
 
             document.getElementById('outputScript1').value = scriptTemplate;
             document.getElementById('resultSection1').style.display = 'block';
+        }
+
+        // دوال مساعدة للشبكة
+        function calculateNetwork(ip, mask) {
+            const ipParts = ip.split('.').map(Number);
+            
+            if (mask >= 24) {
+                return `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.0`;
+            } else if (mask >= 16) {
+                return `${ipParts[0]}.${ipParts[1]}.0.0`;
+            } else if (mask >= 8) {
+                return `${ipParts[0]}.0.0.0`;
+            } else { // /4
+                const firstOctet = ipParts[0];
+                const startRange = Math.floor(firstOctet / 16) * 16;
+                return `${startRange}.0.0.0`;
+            }
+        }
+
+        function calculatePoolSize(mask) {
+            const sizes = {
+                24: '254',
+                16: '65,534',
+                8: '16,777,214',
+                4: '268,435,454',
+                23: '510',
+                22: '1,022',
+                21: '2,046',
+                20: '4,094',
+                19: '8,190',
+                18: '16,382',
+                17: '32,766'
+            };
+            return sizes[mask] || '254';
+        }
+
+        function calculateDHCPRange(ip, mask) {
+            const ipParts = ip.split('.').map(Number);
+            
+            if (mask >= 24) {
+                return {
+                    start: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.100`,
+                    end: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.200`,
+                    pppStart: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.201`,
+                    pppEnd: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.250`
+                };
+            } else if (mask >= 16) {
+                return {
+                    start: `${ipParts[0]}.${ipParts[1]}.0.100`,
+                    end: `${ipParts[0]}.${ipParts[1]}.127.200`,
+                    pppStart: `${ipParts[0]}.${ipParts[1]}.128.100`,
+                    pppEnd: `${ipParts[0]}.${ipParts[1]}.255.200`
+                };
+            } else if (mask >= 8) {
+                return {
+                    start: `${ipParts[0]}.0.0.100`,
+                    end: `${ipParts[0]}.127.255.200`,
+                    pppStart: `${ipParts[0]}.128.0.100`,
+                    pppEnd: `${ipParts[0]}.255.255.200`
+                };
+            } else { // /4
+                const firstOctet = ipParts[0];
+                const startRange = Math.floor(firstOctet / 16) * 16;
+                return {
+                    start: `${startRange}.0.0.100`,
+                    end: `${startRange + 7}.255.255.200`,
+                    pppStart: `${startRange + 8}.0.0.100`,
+                    pppEnd: `${startRange + 15}.255.255.200`
+                };
+            }
+        }
+
+        function getSubnetName(mask) {
+            const names = {
+                24: 'صغيرة (254 IP)',
+                16: 'متوسطة (65,534 IP)',
+                8: 'كبيرة (16.7 مليون IP)',
+                4: 'عملاقة (268 مليون IP)',
+                23: 'متوسطة صغيرة',
+                22: 'كبيرة صغيرة',
+                21: 'كبيرة',
+                20: 'شبكة واسعة',
+                19: 'شبكة مؤسسة'
+            };
+            return names[mask] || 'شبكة مخصصة';
         }
 
         // ========== الصفحة 2 و 3: دمج الخطوط ==========
@@ -1476,6 +2341,17 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             
             container.innerHTML = '';
             
+            // إضافة رأس للخطوط
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'lines-header';
+            headerDiv.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 10px; border-right: 4px solid var(--primary);">
+                    <span>📋</span>
+                    <span style="font-weight: 600; color: var(--primary);">تم إنشاء ${linesCount} خط${linesCount > 1 ? 'وط' : ''} - يمكنك تعديل الإعدادات أدناه</span>
+                </div>
+            `;
+            container.appendChild(headerDiv);
+            
             for (let i = 1; i <= linesCount; i++) {
                 const lineBox = document.createElement('div');
                 lineBox.className = 'line-box';
@@ -1484,16 +2360,18 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 
                 if (version === 'v6') {
                     const ipSegments = [100, 150, 200, 250, 300, 350, 400, 450, 500];
-                    const ipSegment = ipSegments[Math.min(i - 1, ipSegments.length - 1)];
+                    const ipSegment = ipSegments[Math.min(Math.floor((i - 1) / 8), ipSegments.length - 1)];
+                    const hostNum = 100 + ((i - 1) % 8) + 1;
                     
-                    wanIp = `192.168.${ipSegment}.${100 + i}/24`;
+                    wanIp = `192.168.${ipSegment}.${hostNum}/24`;
                     wanGateway = `192.168.${ipSegment}.1`;
                 } else {
                     const baseIP = 100;
                     const ipIncrement = 50;
-                    const ipSegment = baseIP + ((i - 1) * ipIncrement);
+                    const ipSegment = baseIP + (Math.floor((i - 1) / 8) * ipIncrement);
+                    const hostNum = 10 + ((i - 1) % 8) + 1;
                     
-                    wanIp = `192.168.${ipSegment}.10${i}/24`;
+                    wanIp = `192.168.${ipSegment}.${hostNum}/24`;
                     wanGateway = `192.168.${ipSegment}.1`;
                 }
                 
@@ -2185,6 +3063,17 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             selectBlockType('domain');
             initSpeedPage();
             
+            // تحديث عند تغيير حقل الـIP
+            document.getElementById('newIp').addEventListener('input', function() {
+                const value = this.value.trim();
+                if (value.includes('/')) {
+                    const mask = parseInt(value.split('/')[1]);
+                    if (!isNaN(mask) && mask !== currentSubnet) {
+                        selectSubnet(mask);
+                    }
+                }
+            });
+            
             document.addEventListener('click', function(event) {
                 if (window.innerWidth <= 768 && 
                     ELEMENTS.sidebar.classList.contains('active') &&
@@ -2193,8 +3082,16 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     ELEMENTS.sidebar.classList.remove('active');
                 }
             });
+            
+            // تفعيل نظام الشبكة عند بدء التحميل
+            setTimeout(() => {
+                selectSubnet(4);
+                updateSubnetDetails();
+            }, 100);
         });
     </script>
 </body>
 </html>
+</html>
+
 
