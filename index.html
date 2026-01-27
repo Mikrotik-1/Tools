@@ -4,7 +4,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="google6096a3c525d406ea" />
@@ -19,7 +19,7 @@
     <meta property="og:title" content="MikroTools | أدوات ميكروتيك مجانية - سكريبتات جاهزة">
     <meta property="og:description" content="منصة مجانية لإنشاء سكريبتات ميكروتيك احترافية للهوت سبوت، دمج خطوط v6/v7، حجب المواقع، بروفايلات السرعة">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mikrotik-1.github.io/Tools/">
+    <meta property="og:url" content="https://mikro-tools.com/">
     <meta property="og:locale" content="ar_EG">
     
     <!-- Twitter Cards -->
@@ -28,10 +28,13 @@
     <meta name="twitter:description" content="أدوات مجانية لسكريبتات ميكروتيك - هوت سبوت، دمج خطوط، حجب مواقع، سرعة">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://mikrotik-1.github.io/Tools/">
+    <link rel="canonical" href="https://mikro-tools.com/">
     
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <title>MikroTools | أدوات ميكروتيك مجانية - سكريبتات هوت سبوت، دمج خطوط، حجب مواقع</title>
     
@@ -42,7 +45,7 @@
       "@type": "WebApplication",
       "name": "MikroTools - أدوات ميكروتيك مجانية",
       "description": "منصة مجانية لإنشاء سكريبتات ميكروتيك احترافية للهوت سبوت، دمج خطوط، حجب مواقع، بروفايلات سرعة",
-      "url": "https://mikrotik-1.github.io/Tools/",
+      "url": "https://mikro-tools.com/",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -2526,8 +2529,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 script += `add action=mark-routing chain=output connection-mark=WAN${i}_conn new-routing-mark=to_WAN${i}\n`;
             }
             
+            // ========== التعديل المطلوب هنا ==========
+            // أضف hotspot=auth في سطر PCC كما طلبت
             for (let i = 0; i < count; i++) {
-                script += `add chain=prerouting dst-address-type=!local in-interface=${lan} per-connection-classifier=both-addresses-and-ports:${count}/${i} action=mark-connection new-connection-mark=WAN${i+1}_conn passthrough=yes\n`;
+                script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${lan} per-connection-classifier=both-addresses-and-ports:${count}/${i} action=mark-connection new-connection-mark=WAN${i+1}_conn passthrough=yes\n`;
             }
             
             for (let i = 1; i <= count; i++) {
@@ -2886,7 +2891,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 
                 script += `/ip firewall mangle\n`;
                 for (let i = 0; i < profileCount; i++) {
-                    script += `add chain=prerouting dst-address-type=!local per-connection-classifier=both-addresses-and-ports:${profileCount}/${i} action=mark-connection new-connection-mark=conn_${i+1} passthrough=yes comment="PCC ${i+1}"\n`;
+                    script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${lanName3.value} per-connection-classifier=both-addresses-and-ports:${profileCount}/${i} action=mark-connection new-connection-mark=conn_${i+1} passthrough=yes comment="PCC ${i+1}"\n`;
                 }
                 script += `\n`;
             }
