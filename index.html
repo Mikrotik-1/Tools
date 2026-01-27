@@ -10,7 +10,7 @@
     <meta name="google-site-verification" content="google6096a3c525d406ea" />
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دمج خطوط، حجب مواقع، بروفايلات سرعة - سكريبتات جاهزة للاستخدام الفوري">
+    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دجم خطوط، حجب مواقع، بروفايلات سرعة - سكريبتات جاهزة للاستخدام الفوري">
     <meta name="keywords" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, بروفايلات سرعة, راوتر, MikroTik scripts, MikroTik hotspot, MikroTik merge lines, MikroTik tools">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -766,19 +766,19 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* ===== تصميم اختيار الشبكة ===== */
+        /* ===== تصميم اختيار الشبكة - مصغر ===== */
         .subnet-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin: 20px 0 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0 25px;
         }
 
         .subnet-box {
             background: white;
-            border: 3px solid var(--border-color);
-            border-radius: 15px;
-            padding: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -787,129 +787,133 @@
 
         .subnet-box:hover {
             border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.1);
         }
 
         .subnet-box.active {
             border-color: var(--primary);
             background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
         }
 
         .subnet-box.active::before {
             content: '✓';
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 8px;
+            left: 8px;
             background: var(--primary);
             color: white;
-            width: 25px;
-            height: 25px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 12px;
         }
 
         .subnet-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f1f5f9;
         }
 
         .subnet-mask {
-            font-size: 28px;
-            font-weight: 800;
+            font-size: 20px;
+            font-weight: 700;
             color: var(--primary);
             background: #eff6ff;
-            padding: 5px 15px;
-            border-radius: 10px;
+            padding: 3px 10px;
+            border-radius: 8px;
         }
 
         .subnet-title {
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-main);
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .subnet-info {
-            margin: 15px 0;
+            margin: 10px 0;
         }
 
         .ip-count {
-            font-size: 22px;
-            font-weight: 800;
+            font-size: 16px;
+            font-weight: 700;
             color: #1e293b;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .ip-range {
-            font-size: 13px;
+            font-size: 11px;
             color: #64748b;
-            line-height: 1.5;
+            line-height: 1.4;
             font-family: 'Fira Code', monospace;
             direction: ltr;
             text-align: left;
         }
 
         .range-example {
-            font-size: 14px;
+            font-size: 11px;
             color: var(--primary);
             font-weight: 600;
-            margin-top: 8px;
+            margin-top: 5px;
             font-family: 'Fira Code', monospace;
             direction: ltr;
         }
 
         .subnet-desc {
-            font-size: 13px;
-            color: #475569;
-            margin-top: 15px;
-            padding-top: 15px;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1px dashed #e2e8f0;
             font-style: italic;
+            display: none;
         }
 
-        /* تفاصيل الشبكة */
+        /* تفاصيل الشبكة - ظاهرة عند التمرير */
         .subnet-details {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+            display: none;
         }
 
         .details-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: 700;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 600;
             color: var(--primary);
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .details-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
         }
 
         .detail-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 15px;
+            padding: 8px 10px;
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #e2e8f0;
+            font-size: 13px;
         }
 
         .detail-item span:first-child {
@@ -918,7 +922,7 @@
         }
 
         .detail-item span:last-child {
-            font-weight: 700;
+            font-weight: 600;
             color: var(--primary);
             font-family: 'Fira Code', monospace;
             direction: ltr;
@@ -1064,7 +1068,7 @@
             to { opacity: 1; }
         }
 
-        /* تحسينات للجوالات */
+        /* ===== تحسينات للجوالات ===== */
         @media (max-height: 600px) {
             .result-box {
                 height: 250px !important;
@@ -1091,6 +1095,10 @@
             
             .tool-card {
                 padding: 30px;
+            }
+            
+            .subnet-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -1193,8 +1201,8 @@
             }
             
             .subnet-mask {
-                font-size: 24px;
-                padding: 3px 10px;
+                font-size: 18px;
+                padding: 3px 8px;
             }
         }
 
@@ -1224,6 +1232,21 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+        }
+
+        /* ===== التلميحات (Tooltips) للمربعات الصغيرة ===== */
+        .subnet-box {
+            position: relative;
+        }
+
+        .subnet-box:hover .subnet-desc,
+        .subnet-box.active .subnet-desc {
+            display: block;
+        }
+
+        .subnet-box:hover .subnet-details,
+        .subnet-box.active .subnet-details {
+            display: block;
         }
     </style>
 </head>
@@ -1295,15 +1318,15 @@
             <div class="tool-card">
                 <h2 class="tool-title">مولد سكربت إعدادات هوت سبوت وبرودباند</h2>
                 
-                <!-- نظام اختيار الشبكة الجديد -->
+                <!-- نظام اختيار الشبكة الجديد - مصغر -->
                 <div class="subnet-selector">
-                    <h3 style="color: var(--primary); margin: 25px 0 15px; display: flex; align-items: center; gap: 10px;">
+                    <h3 style="color: var(--primary); margin: 20px 0 15px; display: flex; align-items: center; gap: 10px; font-size: 18px;">
                         <span>🌐</span> اختيار حجم الشبكة (Subnet)
                     </h3>
                     
                     <div class="subnet-grid">
                         <!-- /24 = 254 IP -->
-                        <div class="subnet-box" data-subnet="24" onclick="selectSubnet(24)">
+                        <div class="subnet-box" data-subnet="24" onmouseover="showSubnetDetails(24)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(24)">
                             <div class="subnet-header">
                                 <div class="subnet-mask">/24</div>
                                 <div class="subnet-title">شبكة صغيرة</div>
@@ -1316,7 +1339,7 @@
                         </div>
                         
                         <!-- /16 = 65,534 IP -->
-                        <div class="subnet-box" data-subnet="16" onclick="selectSubnet(16)">
+                        <div class="subnet-box" data-subnet="16" onmouseover="showSubnetDetails(16)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(16)">
                             <div class="subnet-header">
                                 <div class="subnet-mask">/16</div>
                                 <div class="subnet-title">شبكة متوسطة</div>
@@ -1330,7 +1353,7 @@
                         </div>
                         
                         <!-- /8 = 16,777,214 IP -->
-                        <div class="subnet-box" data-subnet="8" onclick="selectSubnet(8)">
+                        <div class="subnet-box" data-subnet="8" onmouseover="showSubnetDetails(8)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(8)">
                             <div class="subnet-header">
                                 <div class="subnet-mask">/8</div>
                                 <div class="subnet-title">شبكة كبيرة</div>
@@ -1344,7 +1367,7 @@
                         </div>
                         
                         <!-- /4 = 268,435,454 IP -->
-                        <div class="subnet-box active" data-subnet="4" onclick="selectSubnet(4)">
+                        <div class="subnet-box active" data-subnet="4" onmouseover="showSubnetDetails(4)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(4)">
                             <div class="subnet-header">
                                 <div class="subnet-mask">/4</div>
                                 <div class="subnet-title">شبكة عملاقة</div>
@@ -1358,33 +1381,8 @@
                         </div>
                     </div>
                     
-                    <div class="subnet-details">
-                        <div class="details-header">
-                            <span>📊</span>
-                            <span>تفاصيل الشبكة المحددة</span>
-                        </div>
-                        <div class="details-content">
-                            <div class="detail-item">
-                                <span>🎯 الشبكة:</span>
-                                <span id="currentNetwork">10.0.0.0/4</span>
-                            </div>
-                            <div class="detail-item">
-                                <span>🔢 عدد الـIPs المتاحة:</span>
-                                <span id="currentIPs">268,435,454</span>
-                            </div>
-                            <div class="detail-item">
-                                <span>📡 نطاق الـIPs:</span>
-                                <span id="currentRange">0.0.0.1 - 15.255.255.254</span>
-                            </div>
-                            <div class="detail-item">
-                                <span>🎪 عدد الشبكات /24:</span>
-                                <span id="currentSubnets">1,048,576</span>
-                            </div>
-                            <div class="detail-item">
-                                <span>⚙️ القناع (Netmask):</span>
-                                <span id="currentNetmask">240.0.0.0</span>
-                            </div>
-                        </div>
+                    <div id="dynamicSubnetDetails" class="subnet-details" style="display: none;">
+                        <!-- سيتم ملؤها ديناميكياً -->
                     </div>
                 </div>
                 
@@ -1950,7 +1948,7 @@ instagram.com"></textarea>
             ELEMENTS.sidebar.classList.toggle('active');
         }
 
-        // ========== دوال اختيار الشبكة ==========
+        // ========== دوال اختيار الشبكة - محسنة ==========
         function selectSubnet(subnetMask) {
             // إزالة النشط من جميع المربعات
             document.querySelectorAll('.subnet-box').forEach(box => {
@@ -1966,14 +1964,14 @@ instagram.com"></textarea>
             // تحديث المتغير
             currentSubnet = subnetMask;
             
-            // تحديث التفاصيل
-            updateSubnetDetails();
-            
             // تحديث حقل الـIP
             updateIPField();
         }
 
-        function updateSubnetDetails() {
+        function showSubnetDetails(subnetMask) {
+            const detailsDiv = document.getElementById('dynamicSubnetDetails');
+            if (!detailsDiv) return;
+            
             const ipInput = document.getElementById('newIp').value.trim();
             let baseIP = '10.0.0.0';
             
@@ -1984,13 +1982,45 @@ instagram.com"></textarea>
                 }
             }
             
-            const details = calculateSubnetDetails(baseIP, currentSubnet);
+            const details = calculateSubnetDetails(baseIP, subnetMask);
             
-            document.getElementById('currentNetwork').textContent = details.network;
-            document.getElementById('currentIPs').textContent = details.totalIPs;
-            document.getElementById('currentRange').textContent = details.ipRange;
-            document.getElementById('currentSubnets').textContent = details.subnetCount;
-            document.getElementById('currentNetmask').textContent = details.netmask;
+            detailsDiv.innerHTML = `
+                <div class="details-header">
+                    <span>📊</span>
+                    <span>تفاصيل الشبكة ${subnetMask}/</span>
+                </div>
+                <div class="details-content">
+                    <div class="detail-item">
+                        <span>🎯 الشبكة:</span>
+                        <span>${details.network}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>🔢 عدد الـIPs المتاحة:</span>
+                        <span>${details.totalIPs}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>📡 نطاق الـIPs:</span>
+                        <span>${details.ipRange}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>🎪 عدد الشبكات /24:</span>
+                        <span>${details.subnetCount}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>⚙️ القناع (Netmask):</span>
+                        <span>${details.netmask}</span>
+                    </div>
+                </div>
+            `;
+            
+            detailsDiv.style.display = 'block';
+        }
+
+        function hideSubnetDetails() {
+            const detailsDiv = document.getElementById('dynamicSubnetDetails');
+            if (detailsDiv) {
+                detailsDiv.style.display = 'none';
+            }
         }
 
         function calculateSubnetDetails(baseIP, subnetMask) {
@@ -2064,9 +2094,6 @@ instagram.com"></textarea>
                     ipInput.value = `${currentValue}/${currentSubnet}`;
                 }
             }
-            
-            // تحديث التفاصيل
-            updateSubnetDetails();
         }
 
         // ========== دوال القائمة المنسدلة ==========
@@ -2334,9 +2361,9 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             return names[mask] || 'شبكة مخصصة';
         }
 
-        // ========== الصفحة 2 و 3: دمج الخطوط ==========
+        // ========== الصفحة 2 و 3: دمج الخطوط - محسنة ==========
         function createLineInputs(version) {
-            const linesCount = document.getElementById(`lineCount${version === 'v6' ? '2' : '3'}`).value;
+            const linesCount = parseInt(document.getElementById(`lineCount${version === 'v6' ? '2' : '3'}`).value);
             const container = document.getElementById(`lines-${version}-container`);
             
             container.innerHTML = '';
@@ -2356,24 +2383,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 const lineBox = document.createElement('div');
                 lineBox.className = 'line-box';
                 
-                let wanIp, wanGateway;
-                
-                if (version === 'v6') {
-                    const ipSegments = [100, 150, 200, 250, 300, 350, 400, 450, 500];
-                    const ipSegment = ipSegments[Math.min(Math.floor((i - 1) / 8), ipSegments.length - 1)];
-                    const hostNum = 100 + ((i - 1) % 8) + 1;
-                    
-                    wanIp = `192.168.${ipSegment}.${hostNum}/24`;
-                    wanGateway = `192.168.${ipSegment}.1`;
-                } else {
-                    const baseIP = 100;
-                    const ipIncrement = 50;
-                    const ipSegment = baseIP + (Math.floor((i - 1) / 8) * ipIncrement);
-                    const hostNum = 10 + ((i - 1) % 8) + 1;
-                    
-                    wanIp = `192.168.${ipSegment}.${hostNum}/24`;
-                    wanGateway = `192.168.${ipSegment}.1`;
-                }
+                // إنشاء IPs بالشكل المطلوب: 192.168.100.100, 192.168.101.101, إلخ
+                const baseIP = 100 + (i - 1); // تبدأ من 100 وتزيد
+                const wanIp = `192.168.${baseIP}.${baseIP}/24`; // نفس الرقم للجزء الأخير
+                const wanGateway = `192.168.${baseIP}.1`;
                 
                 lineBox.innerHTML = `
                     <div class="line-title">
@@ -3086,12 +3099,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             // تفعيل نظام الشبكة عند بدء التحميل
             setTimeout(() => {
                 selectSubnet(4);
-                updateSubnetDetails();
             }, 100);
         });
     </script>
 </body>
 </html>
-</html>
-
-
