@@ -1593,44 +1593,93 @@
             </div>
         </div>
 
-        <!-- ===== الصفحة 4: حجب المواقع ===== -->
+        <!-- ===== الصفحة 4: حجب المواقع (معدلة) ===== -->
         <div id="page4" class="page">
             <div class="tool-card">
-                <h2 class="tool-title">🔒 مولد سكربت حجب المواقع</h2>
+                <h2 class="tool-title">🔒 مولد سكربت حجب المواقع لميكروتيك</h2>
                 
                 <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
-                    <h3 style="color: var(--danger); margin-bottom: 20px;">✏️ القائمة المطلوب حظرها</h3>
-                    <div class="input-box">
-                        <label for="blockList">أدخل المواقع أو الـ IPs (سطر لكل عنصر):</label>
-                        <textarea id="blockList" placeholder="مثال:
-facebook.com
-youtube.com
-192.168.1.100
-10.0.0.50
-instagram.com"></textarea>
-                    </div>
+                    <h3 style="color: var(--danger); margin-bottom: 20px;">⚙️ إعدادات الموقع المراد حجبه</h3>
                     
-                    <div class="block-type">
-                        <div class="type-btn active" id="btnDomain" onclick="selectBlockType('domain')">🌐 حجب بالنطاقات</div>
-                        <div class="type-btn" id="btnIP" onclick="selectBlockType('ip')">🔢 حجب بعناوين IP</div>
+                    <div class="input-box">
+                        <label for="siteUrlInput">🔗 أدخل رابط الموقع (مثال: youtube.com):</label>
+                        <input type="text" id="siteUrlInput" placeholder="facebook.com, instagram.com, tiktok.com">
+                        <small style="color: #64748b; margin-top: 5px; display: block;">
+                            يمكن إدخال أكثر من موقع بفاصلة: youtube.com, facebook.com, instagram.com
+                        </small>
                     </div>
                     
                     <div class="input-box">
-                        <label for="interfaceBlock">اسم كارت الخروج (Interface):</label>
-                        <input type="text" id="interfaceBlock" value="OUT" placeholder="مثال: ether1, bridge-local">
+                        <label for="siteNameInput">🏷️ اسم الموقع (للسكريبت):</label>
+                        <input type="text" id="siteNameInput" placeholder="YouTube, Facebook, etc">
+                    </div>
+                    
+                    <div class="input-box">
+                        <label for="interfaceBlock">🌐 كارت الخروج (Interface):</label>
+                        <input type="text" id="interfaceBlock" value="OUT" placeholder="OUT, bridge-local">
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary);">🎯 نوع الحجب:</label>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="radio" name="blockType" value="layer7" checked>
+                                <span>🔍 Layer7 (الأفضل)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="radio" name="blockType" value="tls">
+                                <span>🔐 TLS/SSL</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="radio" name="blockType" value="both">
+                                <span>🛡️ كلاهما (أقصى حماية)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #fffbeb; border-radius: 10px; border-right: 4px solid #f59e0b;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <span>💡</span>
+                            <span style="font-weight: 600; color: #d97706;">نصائح للحجب الفعال</span>
+                        </div>
+                        <div style="color: #92400e; font-size: 14px; line-height: 1.5;">
+                            • استخدم <strong>Layer7</strong> لحجب التطبيقات مثل يوتيوب، فيسبوك<br>
+                            • استخدم <strong>TLS/SSL</strong> لحجب المواقع المشفرة (HTTPS)<br>
+                            • اختر <strong>كلاهما</strong> للحجب الشامل والنهائي
+                        </div>
                     </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-danger" onclick="generateBlockScript()">🛡️ توليد سكربت الحجب</button>
-                    <button class="btn" onclick="clearBlockInputs()" style="background: #64748b; color: white;">🗑️ مسح الكل</button>
+                    <button class="btn btn-danger" onclick="generateUniversalBlockScript()">
+                        <span>🛡️</span> توليد سكربت الحجب
+                    </button>
+                    <button class="btn" onclick="resetBlockInputs()" style="background: #64748b; color: white;">
+                        <span>🔄</span> إعادة تعيين
+                    </button>
+                    <button class="btn btn-secondary" onclick="showBlockExamples()">
+                        <span>📚</span> أمثلة جاهزة
+                    </button>
                 </div>
                 
                 <div id="resultSection4" class="result-section">
                     <div style="text-align: center; margin: 20px 0;">
-                        <button id="btnCopy4" class="btn btn-secondary" onclick="copyScript('block')">📋 نسخ السكربت</button>
+                        <button id="btnCopy4" class="btn btn-secondary" onclick="copyScript('block')">
+                            <span>📋</span> نسخ السكربت
+                        </button>
+                        <button class="btn" onclick="downloadBlockScript()" style="background: var(--secondary); color: white;">
+                            <span>💾</span> تحميل كملف
+                        </button>
                     </div>
-                    <textarea id="outputScript4" class="result-box" readonly></textarea>
+                    <textarea id="outputScript4" class="result-box" readonly placeholder="سكربت الحجب سيظهر هنا..."></textarea>
+                    
+                    <div id="blockInfo" style="margin-top: 15px; padding: 15px; background: #1e293b; border-radius: 10px; color: #94a3b8; font-size: 14px; display: none;">
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <span>🎯 المواقع المحجوبة: <span id="blockedCount">0</span></span>
+                            <span>⚡ نوع الحجب: <span id="blockMethod">Layer7</span></span>
+                            <span>📝 عدد الأسطر: <span id="blockLines">0</span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1864,7 +1913,7 @@ instagram.com"></textarea>
                         </li>
                         <li>
                             <div style="background: #f0f9ff; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary);">🔒</div>
-                            <div><strong>مولد حجب المواقع:</strong> أداة متقدمة لحجب المواقع</div>
+                            <div><strong>مولد حجب المواقع:</strong> أداة متقدمة لحجب أي موقع تريده</div>
                         </li>
                         <li>
                             <div style="background: #f0f9ff; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary);">⚡</div>
@@ -1907,7 +1956,7 @@ instagram.com"></textarea>
         let speedProfiles = [];
         let currentSystem = { hotspot: true, broadband: false };
         let currentPreset = 'premium';
-        let currentSubnet = 24; // افتراضي /24 - تم التعديل
+        let currentSubnet = 24;
 
         // ========== التحقق من صحة IP ==========
         function validateIP(ip) {
@@ -1950,7 +1999,7 @@ instagram.com"></textarea>
                 setTimeout(() => initSpeedPage(), 100);
             } else if (pageId === 'page1') {
                 setTimeout(() => {
-                    selectSubnet(24); // تفعيل الافتراضي /24 - تم التعديل
+                    selectSubnet(24);
                     updateSubnetDetails();
                 }, 100);
             }
@@ -1961,23 +2010,18 @@ instagram.com"></textarea>
             ELEMENTS.sidebar.classList.toggle('active');
         }
 
-        // ========== دوال اختيار الشبكة - محسنة ==========
+        // ========== دوال اختيار الشبكة ==========
         function selectSubnet(subnetMask) {
-            // إزالة النشط من جميع المربعات
             document.querySelectorAll('.subnet-box').forEach(box => {
                 box.classList.remove('active');
             });
             
-            // تفعيل المربع المحدد
             const selectedBox = document.querySelector(`.subnet-box[data-subnet="${subnetMask}"]`);
             if (selectedBox) {
                 selectedBox.classList.add('active');
             }
             
-            // تحديث المتغير
             currentSubnet = subnetMask;
-            
-            // تحديث حقل الـIP
             updateIPField();
         }
 
@@ -2067,7 +2111,6 @@ instagram.com"></textarea>
             const data = subnetData[subnetMask] || subnetData[24];
             const ipParts = baseIP.split('.');
             
-            // حساب نطاق الـIPs
             let ipRange = '';
             if (subnetMask === 24) {
                 ipRange = `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.1 - ${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.254`;
@@ -2075,7 +2118,7 @@ instagram.com"></textarea>
                 ipRange = `${ipParts[0]}.${ipParts[1]}.0.1 - ${ipParts[0]}.${ipParts[1]}.255.254`;
             } else if (subnetMask === 8) {
                 ipRange = `${ipParts[0]}.0.0.1 - ${ipParts[0]}.255.255.254`;
-            } else { // /4
+            } else {
                 const firstOctet = parseInt(ipParts[0]) || 10;
                 const startRange = Math.floor(firstOctet / 16) * 16;
                 ipRange = `${startRange}.0.0.1 - ${startRange + 15}.255.255.254`;
@@ -2095,11 +2138,9 @@ instagram.com"></textarea>
             let currentValue = ipInput.value.trim();
             
             if (!currentValue || currentValue === '10.0.0.1/16') {
-                // تعيين قيمة افتراضية بناءً على الـSubnet
                 let defaultIP = '10.0.0.1';
                 ipInput.value = `${defaultIP}/${currentSubnet}`;
             } else {
-                // تحديث الـMask فقط
                 const parts = currentValue.split('/');
                 if (parts.length === 2) {
                     ipInput.value = `${parts[0]}/${currentSubnet}`;
@@ -2114,7 +2155,6 @@ instagram.com"></textarea>
             const dropdownList = document.getElementById(`dropdownList${version.toUpperCase()}`);
             const dropdownBox = dropdownList.previousElementSibling;
             
-            // إغلاق جميع القوائم الأخرى
             document.querySelectorAll('.dropdown-list').forEach(list => {
                 if (list.id !== `dropdownList${version.toUpperCase()}`) {
                     list.classList.remove('active');
@@ -2122,42 +2162,32 @@ instagram.com"></textarea>
                 }
             });
             
-            // تبديل القائمة الحالية
             dropdownList.classList.toggle('active');
             dropdownBox.classList.toggle('active');
         }
 
         function selectLineCount(version, count) {
-            // تحديث الحقل المخفي
             const inputField = document.getElementById(`lineCount${version === 'v6' ? '2' : '3'}`);
             inputField.value = count;
             
-            // تحديث النص المعروض
             const selectedText = document.getElementById(`selectedCount${version.toUpperCase()}`);
             selectedText.textContent = `${count} خطوط`;
             
-            // إغلاق القائمة المنسدلة
             const dropdownList = document.getElementById(`dropdownList${version.toUpperCase()}`);
             const dropdownBox = dropdownList.previousElementSibling;
             dropdownList.classList.remove('active');
             dropdownBox.classList.remove('active');
             
-            // إنشاء مدخلات الخطوط
             createLineInputs(version);
-            
-            // إظهار رسالة تأكيد
             showCountMessage(version, count);
             
-            // إضافة تأثير بصري للمربع
             dropdownBox.style.animation = 'none';
             setTimeout(() => {
                 dropdownBox.style.animation = 'selectPulse 0.5s ease';
             }, 10);
         }
 
-        // إغلاق القوائم المنسدلة عند النقر خارجها
         document.addEventListener('click', function(event) {
-            // التحقق إذا كان النقر خارج القائمة المنسدلة
             if (!event.target.closest('.dropdown-selector')) {
                 document.querySelectorAll('.dropdown-list').forEach(list => {
                     list.classList.remove('active');
@@ -2168,7 +2198,6 @@ instagram.com"></textarea>
             }
         });
 
-        // إضافة تأثير النبض عند التحديد
         const style = document.createElement('style');
         style.textContent = `
             @keyframes selectPulse {
@@ -2179,7 +2208,6 @@ instagram.com"></textarea>
         `;
         document.head.appendChild(style);
 
-        // دالة عرض رسالة التأكيد
         function showCountMessage(version, count) {
             let message = '';
             
@@ -2195,7 +2223,6 @@ instagram.com"></textarea>
                 message = '✅ تم اختيار ' + count + ' خطوط - نظام دمج احترافي كبير';
             }
             
-            // إظهار التنبيه
             const alertDiv = document.createElement('div');
             alertDiv.className = 'count-alert';
             alertDiv.innerHTML = `
@@ -2205,19 +2232,16 @@ instagram.com"></textarea>
                 </div>
             `;
             
-            // إزالة التنبيه السابق إن وجد
             const oldAlert = document.querySelector(`#page${version === 'v6' ? '2' : '3'} .count-alert`);
             if (oldAlert) {
                 oldAlert.remove();
             }
             
-            // إضافة التنبيه الجديد
             const container = document.querySelector(`#lines-${version}-container`);
             if (container && container.parentNode) {
                 container.parentNode.insertBefore(alertDiv, container);
             }
             
-            // إخفاء التنبيه بعد 5 ثواني
             setTimeout(() => {
                 if (alertDiv.parentNode) {
                     alertDiv.style.transition = 'opacity 0.5s ease';
@@ -2269,8 +2293,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 /interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" 
 
 /ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}
-/ip hotspot profile add name=Same7.01092503391 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap,http-pap use-radius=yes 
-/ip hotspot add disabled=no address-pool=none interface=${iface} profile=Same7.01092503391 
+/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap use-radius=yes 
+/ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 
 
 /ip firewall nat remove [find]
 /ip firewall nat add action=masquerade chain=srcnat comment="Masquerade All ${SIGNATURE}" src-address=${network}/${mask}
@@ -2289,7 +2313,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             document.getElementById('resultSection1').style.display = 'block';
         }
 
-        // دوال مساعدة للشبكة
         function calculateNetwork(ip, mask) {
             const ipParts = ip.split('.').map(Number);
             
@@ -2299,7 +2322,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 return `${ipParts[0]}.${ipParts[1]}.0.0`;
             } else if (mask >= 8) {
                 return `${ipParts[0]}.0.0.0`;
-            } else { // /4
+            } else {
                 const firstOctet = ipParts[0];
                 const startRange = Math.floor(firstOctet / 16) * 16;
                 return `${startRange}.0.0.0`;
@@ -2347,7 +2370,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     pppStart: `${ipParts[0]}.128.0.100`,
                     pppEnd: `${ipParts[0]}.255.255.200`
                 };
-            } else { // /4
+            } else {
                 const firstOctet = ipParts[0];
                 const startRange = Math.floor(firstOctet / 16) * 16;
                 return {
@@ -2374,14 +2397,13 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             return names[mask] || 'شبكة مخصصة';
         }
 
-        // ========== الصفحة 2 و 3: دمج الخطوط - محسنة ==========
+        // ========== الصفحة 2 و 3: دمج الخطوط ==========
         function createLineInputs(version) {
             const linesCount = parseInt(document.getElementById(`lineCount${version === 'v6' ? '2' : '3'}`).value);
             const container = document.getElementById(`lines-${version}-container`);
             
             container.innerHTML = '';
             
-            // إضافة رأس للخطوط
             const headerDiv = document.createElement('div');
             headerDiv.className = 'lines-header';
             headerDiv.innerHTML = `
@@ -2393,14 +2415,12 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             container.appendChild(headerDiv);
             
             for (let i = 1; i <= linesCount; i++) {
-                const lineBox = document.createElement('div');
-                lineBox.className = 'line-box';
-                
-                // إنشاء IPs بالشكل المطلوب: 192.168.100.100, 192.168.101.101, إلخ
-                const baseIP = 100 + (i - 1); // تبدأ من 100 وتزيد
-                const wanIp = `192.168.${baseIP}.${baseIP}/24`; // نفس الرقم للجزء الأخير
+                const baseIP = 100 + (i - 1);
+                const wanIp = `192.168.${baseIP}.${baseIP}/24`;
                 const wanGateway = `192.168.${baseIP}.1`;
                 
+                const lineBox = document.createElement('div');
+                lineBox.className = 'line-box';
                 lineBox.innerHTML = `
                     <div class="line-title">
                         <span>🌐</span> الخط WAN${i}
@@ -2539,8 +2559,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 script += `add action=mark-routing chain=output connection-mark=WAN${i}_conn new-routing-mark=to_WAN${i}\n`;
             }
             
-            // ========== التعديل المطلوب هنا ==========
-            // أضف hotspot=auth في سطر PCC كما طلبت
             for (let i = 0; i < count; i++) {
                 script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${lan} per-connection-classifier=both-addresses-and-ports:${count}/${i} action=mark-connection new-connection-mark=WAN${i+1}_conn passthrough=yes\n`;
             }
@@ -2567,71 +2585,166 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             return script;
         }
 
-        // ========== الصفحة 4: حجب المواقع ==========
-        function selectBlockType(type) {
-            currentBlockType = type;
-            document.getElementById('btnDomain').classList.toggle('active', type === 'domain');
-            document.getElementById('btnIP').classList.toggle('active', type === 'ip');
-        }
-
-        function generateBlockScript() {
-            const listText = document.getElementById('blockList').value.trim();
-            const interface = document.getElementById('interfaceBlock').value.trim();
+        // ========== الصفحة 4: حجب المواقع (الدوال الجديدة) ==========
+        function generateUniversalBlockScript() {
+            const siteUrl = document.getElementById('siteUrlInput').value.trim();
+            const siteName = document.getElementById('siteNameInput').value.trim();
+            const interfaceName = document.getElementById('interfaceBlock').value.trim() || "OUT";
+            const blockType = document.querySelector('input[name="blockType"]:checked').value;
             
-            if (!listText || !interface) {
-                alert('⚠️ يرجى ملء جميع الحقول');
+            if (!siteUrl || !siteName) {
+                alert('⚠️ يرجى إدخال رابط الموقع واسمه');
                 return;
             }
             
-            const items = listText.split('\n').filter(item => item.trim());
-            if (items.length === 0) {
-                alert('⚠️ يرجى إدخال عنصر واحد على الأقل');
-                return;
+            // معالجة المدخلات
+            const sites = siteUrl.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            const siteNames = siteName.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            const mainSiteName = siteNames[0] || sites[0].replace(/\./g, '_').toUpperCase();
+            
+            let script = `################################\n`;
+            script += `# سكربت حجب ${mainSiteName} - ${SIGNATURE}\n`;
+            script += `# التاريخ: ${new Date().toLocaleDateString('ar-EG')}\n`;
+            script += `# المواقع: ${sites.join(', ')}\n`;
+            script += `################################\n\n`;
+            
+            // Layer7 Protocol
+            if (blockType === 'layer7' || blockType === 'both') {
+                script += `/ip firewall layer7-protocol\n`;
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add name=${name} regexp="^.+(www\\.)?${site.replace(/\./g, '\\.')}.*\\$"\n`;
+                });
+                script += `\n`;
             }
             
-            let script = `# سكربت حجب المواقع\n# ${SIGNATURE}\n`;
-            script += `# التاريخ: ${new Date().toLocaleDateString('ar-EG')}\n\n`;
-            
-            if (currentBlockType === 'domain') {
-                script += `/ip dns static\n`;
-                items.forEach(domain => {
-                    const cleanDomain = domain.trim()
-                        .replace('https://', '')
-                        .replace('http://', '')
-                        .replace('www.', '');
-                    script += `add type=FWD address=127.0.0.1 name="${cleanDomain}" comment="حظر ${SIGNATURE}"\n`;
+            // TLS Host rules
+            if (blockType === 'tls' || blockType === 'both') {
+                script += `/ip firewall mangle\n`;
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=add-dst-to-address-list address-list=${name}_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*${site}*"\n`;
                 });
-                
-                script += `\n/ip firewall filter\n`;
-                script += `add chain=forward dst-port=53 protocol=udp out-interface=${interface} action=drop comment="حجب DNS ${SIGNATURE}"\n`;
-            } else {
-                script += `/ip firewall address-list\n`;
-                items.forEach(ip => {
-                    const cleanIP = ip.trim();
-                    if (validateIP(cleanIP)) {
-                        script += `add list=BLOCKED_IPS address=${cleanIP} comment="IP محظور ${SIGNATURE}"\n`;
-                    }
-                });
-                
-                script += `\n/ip firewall filter\n`;
-                script += `add chain=forward src-address-list=BLOCKED_IPS out-interface=${interface} action=drop comment="حجب IPs ${SIGNATURE}"\n`;
-                script += `add chain=forward dst-address-list=BLOCKED_IPS out-interface=${interface} action=drop comment="حجب IPs ${SIGNATURE}"\n`;
+                script += `\n`;
             }
             
-            script += `\n# تم حجب ${items.length} عنصرًا\n# ${SIGNATURE}`;
+            // قواعد الحجب في Filter
+            script += `/ip firewall filter\n`;
+            
+            // حجب Layer7
+            if (blockType === 'layer7' || blockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=drop chain=forward comment="حجب ${site} - Layer7" layer7-protocol=${name} out-interface=${interfaceName}\n`;
+                });
+            }
+            
+            // حجب TLS
+            if (blockType === 'tls' || blockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=drop chain=forward comment="حجب ${site} - TLS" protocol=tcp tls-host="*${site}*" out-interface=${interfaceName}\n`;
+                });
+            }
+            
+            // حجب IPs من القائمة
+            if (blockType === 'tls' || blockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=drop chain=forward comment="حجب ${site} - قائمة IPs" dst-address-list=${name}_IPs out-interface=${interfaceName}\n`;
+                });
+            }
+            
+            // حجب QUIC
+            script += `add action=drop chain=forward comment="حجب QUIC" dst-port=443 protocol=udp out-interface=${interfaceName}\n`;
+            
+            script += `\n# ${SIGNATURE}\n`;
+            script += `# تم إنشاء سكربت لحجب ${sites.length} موقع\n`;
+            script += `# نوع الحجب: ${getBlockTypeName(blockType)}\n`;
             
             document.getElementById('outputScript4').value = script;
             document.getElementById('resultSection4').style.display = 'block';
+            
+            // تحديث المعلومات
+            document.getElementById('blockedCount').textContent = sites.length;
+            document.getElementById('blockMethod').textContent = getBlockTypeName(blockType);
+            document.getElementById('blockLines').textContent = script.split('\n').length;
+            document.getElementById('blockInfo').style.display = 'flex';
         }
 
-        function clearBlockInputs() {
-            if (confirm('هل تريد مسح جميع المدخلات؟')) {
-                document.getElementById('blockList').value = '';
-                document.getElementById('interfaceBlock').value = 'bridge-local';
+        function getBlockTypeName(type) {
+            const names = {
+                'layer7': 'Layer7',
+                'tls': 'TLS/SSL',
+                'both': 'Layer7 + TLS/SSL'
+            };
+            return names[type] || type;
+        }
+
+        function resetBlockInputs() {
+            if (confirm('هل تريد إعادة تعيين جميع المدخلات؟')) {
+                document.getElementById('siteUrlInput').value = '';
+                document.getElementById('siteNameInput').value = '';
+                document.getElementById('interfaceBlock').value = 'OUT';
+                document.querySelector('input[name="blockType"][value="layer7"]').checked = true;
                 document.getElementById('outputScript4').value = '';
                 document.getElementById('resultSection4').style.display = 'none';
-                selectBlockType('domain');
+                document.getElementById('blockInfo').style.display = 'none';
             }
+        }
+
+        function showBlockExamples() {
+            const examples = `
+🎯 أمثلة جاهزة للحجب:
+
+1. 🔴 حجب يوتيوب كاملاً:
+   • الموقع: youtube.com, googlevideo.com
+   • الاسم: YouTube
+   • النوع: كلاهما
+
+2. 🔵 حجب مواقع التواصل:
+   • المواقع: facebook.com, instagram.com, twitter.com
+   • الاسم: Social
+   • النوع: Layer7
+
+3. 🟡 حجب ألعاب أونلاين:
+   • المواقع: steam.com, origin.com, battle.net
+   • الاسم: Games
+   • النوع: TLS/SSL
+
+4. 🟣 حجب مواقع البث:
+   • المواقع: netflix.com, hulu.com, twitch.tv
+   • الاسم: Streaming
+   • النوع: كلاهما
+
+💡 نصائح:
+• استخدم "كلاهما" للحجب الأقوى
+• أضف دومينات فرعية مثل googlevideo.com لليوتيوب
+• اختبر السكريبت أولاً على جهاز تجريبي
+    `;
+            
+            alert(examples);
+        }
+
+        function downloadBlockScript() {
+            const script = document.getElementById('outputScript4').value;
+            if (!script) {
+                alert('⚠️ يرجى توليد السكربت أولاً');
+                return;
+            }
+            
+            const siteName = document.getElementById('siteNameInput').value.trim() || 'blocked_sites';
+            const blob = new Blob([script], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `block_${siteName}_${new Date().toISOString().split('T')[0]}.rsc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ تم تحميل السكربت بنجاح');
         }
 
         // ========== الصفحة 6: بروفايلات السرعة ==========
@@ -2847,16 +2960,13 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     
                     const profileName = `${baseName}_HS${i.toString().padStart(2, '0')}`;
                     
-                    // حساب قيم Burst بناءً على الإعدادات
                     const burstDown = addBurst ? dl * 2 : dl;
                     const burstUp = addBurst ? ul * 2 : ul;
                     const burstThresholdDown = Math.floor(dl * 0.8);
                     const burstThresholdUp = Math.floor(ul * 0.8);
                     
-                    // بناء سطر rate-limit كما طلبت
                     const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M ${burstThresholdUp}/${burstThresholdDown}"`;
                     
-                    // بناء الاسم مع المعلومات المطلوبة - التعديل هنا
                     let nameWithDetails = `${baseName}_HS${i.toString().padStart(2, '0')}`;
                     if (price) {
                         nameWithDetails += ` - ${price}`;
@@ -2906,7 +3016,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 
                 script += `/ip firewall mangle\n`;
                 for (let i = 0; i < profileCount; i++) {
-                    script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${lanName3.value} per-connection-classifier=both-addresses-and-ports:${profileCount}/${i} action=mark-connection new-connection-mark=conn_${i+1} passthrough=yes comment="PCC ${i+1}"\n`;
+                    script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${document.getElementById('lanName3').value} per-connection-classifier=both-addresses-and-ports:${profileCount}/${i} action=mark-connection new-connection-mark=conn_${i+1} passthrough=yes comment="PCC ${i+1}"\n`;
                 }
                 script += `\n`;
             }
@@ -3093,10 +3203,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
         document.addEventListener('DOMContentLoaded', function() {
             createLineInputs('v6');
             createLineInputs('v7');
-            selectBlockType('domain');
             initSpeedPage();
             
-            // تحديث عند تغيير حقل الـIP
             document.getElementById('newIp').addEventListener('input', function() {
                 const value = this.value.trim();
                 if (value.includes('/')) {
@@ -3116,15 +3224,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 }
             });
             
-            // تفعيل نظام الشبكة عند بدء التحميل
             setTimeout(() => {
-                selectSubnet(24); // افتراضي /24 - تم التعديل
+                selectSubnet(24);
             }, 100);
         });
     </script>
 </body>
 </html>
-
-
-
-
