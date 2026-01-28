@@ -2269,7 +2269,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 /interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" 
 
 /ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}
-/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap use-radius=yes 
+/ip hotspot profile add name=Same7.01092503391 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap use-radius=yes 
 /ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 
 
 /ip firewall nat remove [find]
@@ -3124,4 +3124,5 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
+
 
