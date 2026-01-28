@@ -1339,7 +1339,7 @@
                     
                     <div class="subnet-grid">
                         <!-- /24 = 254 IP -->
-                        <div class="subnet-box" data-subnet="24" onmouseover="showSubnetDetails(24)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(24)">
+                        <div class="subnet-box active" data-subnet="24" onmouseover="showSubnetDetails(24)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(24)">
                             <div class="subnet-header">
                                 <div class="subnet-mask">/24</div>
                                 <div class="subnet-title">شبكة صغيرة</div>
@@ -1380,7 +1380,7 @@
                         </div>
                         
                         <!-- /4 = 268,435,454 IP -->
-                        <div class="subnet-box active" data-subnet="4" onmouseover="showSubnetDetails(4)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(4)">
+                        <div class="subnet-box" data-subnet="4" onmouseover="showSubnetDetails(4)" onmouseout="hideSubnetDetails()" onclick="selectSubnet(4)">
                             <div class="subnet-header">
                                 <div class="subnet-mask">/4</div>
                                 <div class="subnet-title">شبكة عملاقة</div>
@@ -1907,7 +1907,7 @@ instagram.com"></textarea>
         let speedProfiles = [];
         let currentSystem = { hotspot: true, broadband: false };
         let currentPreset = 'premium';
-        let currentSubnet = 4; // افتراضي /4
+        let currentSubnet = 24; // افتراضي /24 - تم التعديل
 
         // ========== التحقق من صحة IP ==========
         function validateIP(ip) {
@@ -1950,7 +1950,7 @@ instagram.com"></textarea>
                 setTimeout(() => initSpeedPage(), 100);
             } else if (pageId === 'page1') {
                 setTimeout(() => {
-                    selectSubnet(4); // تفعيل الافتراضي /4
+                    selectSubnet(24); // تفعيل الافتراضي /24 - تم التعديل
                     updateSubnetDetails();
                 }, 100);
             }
@@ -2846,22 +2846,27 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     if (!hsEnabled) continue;
                     
                     const profileName = `${baseName}_HS${i.toString().padStart(2, '0')}`;
-                    const burstSpeed = addBurst ? ` burst-limit=${dl*2}M/${ul*2}M` : '';
-                    const userLimit = limitUsers ? ` address-list-limit=1` : '';
-                    const fairness = enableFairness ? ` fair-queue=yes` : '';
                     
-                    script += `add name="${profileName}" `;
+                    // حساب قيم Burst بناءً على الإعدادات
+                    const burstDown = addBurst ? dl * 2 : dl;
+                    const burstUp = addBurst ? ul * 2 : ul;
+                    const burstThresholdDown = Math.floor(dl * 0.8);
+                    const burstThresholdUp = Math.floor(ul * 0.8);
+                    
+                    // بناء سطر rate-limit كما طلبت
+                    const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M ${burstThresholdUp}/${burstThresholdDown}"`;
+                    
+                    // بناء الاسم مع المعلومات المطلوبة - التعديل هنا
+                    let nameWithDetails = `${baseName}_HS${i.toString().padStart(2, '0')}`;
+                    if (price) {
+                        nameWithDetails += ` - ${price}`;
+                    }
+                    
+                    script += `add name="${nameWithDetails}" `;
                     script += `address-list="" `;
                     script += `keepalive-timeout=none `;
                     script += `mac-cookie-timeout=${sessionTime} `;
-                    script += `rate-limit="${ul}M/${dl}M"`;
-                    script += `${burstSpeed}${userLimit}${fairness} `;
-                    
-                    if (price) {
-                        script += `comment="السرعة: ${dl}/${ul}M - السعر: ${price}"`;
-                    } else {
-                        script += `comment="بروفايل ${i}: ${dl}/${ul}M"`;
-                    }
+                    script += `rate-limit=${rateLimit}`;
                     
                     script += `\n`;
                 }
@@ -3113,12 +3118,9 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             
             // تفعيل نظام الشبكة عند بدء التحميل
             setTimeout(() => {
-                selectSubnet(4);
+                selectSubnet(24); // افتراضي /24 - تم التعديل
             }, 100);
         });
     </script>
 </body>
 </html>
-
-
-
