@@ -1081,6 +1081,85 @@
             to { opacity: 1; }
         }
 
+        /* ===== أيقونات التواصل الاجتماعي ===== */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .facebook-icon {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        .social-icons-small {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .social-icon-small {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon-small:hover {
+            transform: scale(1.1);
+        }
+
+        /* أيقونات التواصل في الشريط الجانبي */
+        .sidebar-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .sidebar-social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            transition: all 0.3s ease;
+        }
+
         /* ===== تحسينات للجوالات ===== */
         @media (max-height: 600px) {
             .result-box {
@@ -1180,6 +1259,12 @@
                 padding: 12px 16px;
                 font-size: 14px;
             }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1216,6 +1301,12 @@
             .subnet-mask {
                 font-size: 18px;
                 padding: 3px 8px;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
         }
 
@@ -1320,6 +1411,16 @@
                 <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">📞 للتواصل السريع</div>
                 <div class="phone-sidebar">01092503391</div>
                 <div style="font-size: 12px; color: #64748b; margin-top: 5px;">Sameh El-Sayed</div>
+                
+                <!-- أيقونات التواصل الاجتماعي في الشريط الجانبي -->
+                <div class="sidebar-social">
+                    <a href="http://wa.me/201092503391" target="_blank" class="sidebar-social-icon whatsapp-icon" title="تواصل عبر واتساب">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="sidebar-social-icon facebook-icon" title="تابعنا على فيسبوك">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </aside>
@@ -1719,7 +1820,7 @@
                     
                     <div class="input-box">
                         <label for="profileCount">🔢 عدد البروفايلات:</label>
-                        <select id="profileCount" onchange="updateSpeedProfiles()">
+                        select id="profileCount" onchange="updateSpeedProfiles()">
                             <option value="4"selected>4 بروفايلات</option>
                             <option value="5">5 بروفايلات</option>
                             <option value="6">6 بروفايلات</option>
@@ -1926,12 +2027,34 @@
                     <h3 style="color: white; margin-bottom: 20px;">📞 تواصل معنا</h3>
                     <p>نحن هنا لمساعدتك في أي وقت! للاستفسارات أو الدعم الفني:</p>
                     <div class="phone-number">01092503391</div>
-                    <p style="color: #cbd5e1;">متاحون للرد على استفساراتك</p>
+                    
+                    <!-- أيقونات التواصل الاجتماعي -->
+                    <div class="social-icons">
+                        <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon" title="تواصل عبر واتساب">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon" title="تابعنا على فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                    
+                    <p style="color: #cbd5e1; margin-top: 15px;">متاحون للرد على استفساراتك</p>
                 </div>
                 
                 <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%); border-radius: 15px; margin-top: 40px;">
                     <h3 style="color: var(--primary); margin-bottom: 15px;">🚀 مستعد للبدء؟</h3>
                     <p>اذهب إلى صفحة الأدوات واختبر بنفسك</p>
+                    
+                    <!-- أيقونات التواصل صغيرة -->
+                    <div class="social-icons-small" style="justify-content: center; margin: 20px 0;">
+                        <a href="http://wa.me/201092503391" target="_blank" class="social-icon-small whatsapp-icon" title="تواصل عبر واتساب">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon-small facebook-icon" title="تابعنا على فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                    
                     <button class="btn btn-primary" onclick="showPage('page1')" style="margin-top: 20px;">🚀 ابدأ باستخدام الأدوات</button>
                 </div>
             </div>
@@ -1940,7 +2063,27 @@
         <!-- تذييل التواصل -->
         <div class="contact-footer">
             📞 للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+            
+            <!-- أيقونات التواصل في التذييل -->
+            <div class="social-icons-small" style="justify-content: center; margin-top: 10px;">
+                <a href="http://wa.me/201092503391" target="_blank" class="social-icon-small whatsapp-icon" title="تواصل عبر واتساب">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon-small facebook-icon" title="تابعنا على فيسبوك">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
         </div>
+    </div>
+
+    <!-- أيقونات التواصل العائمة -->
+    <div class="floating-social-icons">
+        <a href="http://wa.me/201092503391" target="_blank" class="floating-icon whatsapp-icon" title="تواصل عبر واتساب">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="floating-icon facebook-icon" title="تابعنا على فيسبوك">
+            <i class="fab fa-facebook-f"></i>
+        </a>
     </div>
 
     <script>
@@ -2204,6 +2347,59 @@
                 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
                 70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
                 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            }
+            
+            /* أنماط الأيقونات العائمة */
+            .floating-social-icons {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .floating-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                color: white;
+                text-decoration: none;
+                font-size: 28px;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+                animation: float 3s ease-in-out infinite;
+            }
+            
+            .floating-icon:nth-child(2) {
+                animation-delay: 0.5s;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            .floating-icon:hover {
+                transform: scale(1.1) translateY(-5px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            }
+            
+            @media (max-width: 768px) {
+                .floating-social-icons {
+                    bottom: 70px;
+                    left: 15px;
+                }
+                
+                .floating-icon {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 24px;
+                }
             }
         `;
         document.head.appendChild(style);
