@@ -1416,6 +1416,336 @@
         .subnet-box.active .subnet-details {
             display: block;
         }
+
+        /* ===== أيقونة المساعدة العائمة ===== */
+        .floating-help {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .help-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+            animation: helpFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes helpFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .help-button:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .help-text {
+            position: absolute;
+            left: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: #1e293b;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-right: 3px solid #8b5cf6;
+        }
+
+        .help-button:hover .help-text {
+            opacity: 1;
+        }
+
+        /* ===== نافذة المساعدة ===== */
+        .help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .help-modal.active {
+            display: flex;
+        }
+
+        .help-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .help-header {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .help-title {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .close-help {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-help:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .help-body {
+            padding: 30px;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+
+        .help-section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .help-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            color: #1e293b;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-list {
+            list-style-type: none;
+            padding-right: 0;
+        }
+
+        .help-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .help-list li:last-child {
+            border-bottom: none;
+        }
+
+        .help-icon {
+            color: #8b5cf6;
+            font-size: 18px;
+            margin-top: 2px;
+        }
+
+        .step-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-right: 3px solid #8b5cf6;
+        }
+
+        .step-title {
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid #bae6fd;
+        }
+
+        .tip-title {
+            color: #0369a1;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid #fecaca;
+        }
+
+        .note-title {
+            color: #dc2626;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* تعديل الأيقونات العائمة للتأكد من ظهورها جميعاً */
+        .floating-social-icons {
+            position: fixed;
+            bottom: 20px;
+            left: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .floating-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .floating-icon:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-icon:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ترتيب الأيقونات العائمة */
+        @media (min-width: 768px) {
+            .floating-help {
+                bottom: 180px;
+                left: 30px;
+            }
+            
+            .floating-social-icons {
+                bottom: 30px;
+                left: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-help {
+                bottom: 140px;
+                left: 15px;
+            }
+            
+            .help-button {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .floating-social-icons {
+                bottom: 80px;
+                left: 15px;
+            }
+            
+            .floating-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .help-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .help-body {
+                padding: 20px;
+                max-height: 75vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2177,7 +2507,14 @@
         </div>
     </div>
 
-    <!-- أيقونات التواصل العائمة -->
+    <!-- أيقونات المساعدة والتواصل العائمة -->
+    <div class="floating-help">
+        <button class="help-button" onclick="showHelpModal()">
+            ❓
+            <span class="help-text">مساعدة هذه الصفحة</span>
+        </button>
+    </div>
+    
     <div class="floating-social-icons">
         <a href="http://wa.me/201092503391" target="_blank" class="floating-icon whatsapp-icon" title="تواصل عبر واتساب">
             <i class="fab fa-whatsapp"></i>
@@ -2187,20 +2524,557 @@
         </a>
     </div>
 
+    <!-- نافذة المساعدة -->
+    <div class="help-modal" id="helpModal">
+        <div class="help-content">
+            <div class="help-header">
+                <div class="help-title">
+                    <span>❓</span>
+                    <span id="helpPageTitle">مساعدة الصفحة</span>
+                </div>
+                <button class="close-help" onclick="closeHelpModal()">✕</button>
+            </div>
+            <div class="help-body" id="helpBody">
+                <!-- سيتم ملؤها ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // ========== تهيئة العناصر ==========
         const SIGNATURE = "By Same7_01092503391";
         const ELEMENTS = {
             sidebar: document.getElementById('sidebar'),
             pages: document.querySelectorAll('.page'),
-            navItems: document.querySelectorAll('.nav-item')
+            navItems: document.querySelectorAll('.nav-item'),
+            helpModal: document.getElementById('helpModal'),
+            helpBody: document.getElementById('helpBody'),
+            helpPageTitle: document.getElementById('helpPageTitle')
         };
 
         let currentBlockType = 'domain';
         let speedProfiles = [];
         let currentSystem = { hotspot: true, broadband: false };
-        let currentPreset = 'economic'; // تغيير من 'premium' إلى 'economic'
+        let currentPreset = 'economic';
         let currentSubnet = 24;
+
+        // ========== بيانات المساعدة لكل صفحة ==========
+        const helpData = {
+            page1: {
+                title: "مساعدة - صفحة إعدادات أساسية",
+                content: `
+                    <div class="help-section">
+                        <h3 class="section-title">🎯 ما هي هذه الصفحة؟</h3>
+                        <p>هذه الصفحة تساعدك في إنشاء <strong>سكربت كامل لإعدادات الهوت سبوت والبرودباند</strong> في جهاز الميكروتيك الخاص بك.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">📝 خطوات الاستخدام</h3>
+                        <div class="step-box">
+                            <div class="step-title"><span>1️⃣</span> اختر حجم الشبكة</div>
+                            <p>اختر حجم الشبكة المناسب لاحتياجاتك:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>/24:</strong> للمقاهي والمحلات الصغيرة (254 IP)</li>
+                                <li><span class="help-icon">•</span> <strong>/16:</strong> للمدن والقرى الصغيرة (65,534 IP)</li>
+                                <li><span class="help-icon">•</span> <strong>/8:</strong> للمحافظات والمناطق الكبيرة (16.7 مليون IP)</li>
+                                <li><span class="help-icon">•</span> <strong>/4:</strong> للدول والشبكات القومية (268 مليون IP)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>2️⃣</span> أدخل بيانات الشبكة</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>عنوان IP الميكروتك:</strong> مثلاً 10.0.0.1/24</li>
+                                <li><span class="help-icon">•</span> <strong>اسم كارت الخروج:</strong> مثلاً OUT أو bridge-lan</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>3️⃣</span> توليد السكربت</div>
+                            <p>اضغط على زر <strong>"توليد السكريبت"</strong> وسيظهر لك سكربت كامل يمكنك نسخه وتطبيقه على الميكروتيك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">💡 نصائح مهمة</h3>
+                        <div class="tip-box">
+                            <div class="tip-title"><span>💡</span> نصائح للاستخدام</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> تأكد من أن IP الميكروتك لا يتعارض مع أي شبكة أخرى</li>
+                                <li><span class="help-icon">•</span> اختر حجم الشبكة المناسب لعدد المستخدمين المتوقع</li>
+                                <li><span class="help-icon">•</span> يمكنك تعديل السكربت النهائي حسب احتياجاتك</li>
+                                <li><span class="help-icon">•</span> احفظ السكربت في ملف .rsc لاستخدامه لاحقاً</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="important-note">
+                            <div class="note-title"><span>⚠️</span> ملاحظات هامة</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> السكربت يعمل على إصدارات ميكروتيك المختلفة</li>
+                                <li><span class="help-icon">•</span> تأكد من تطبيق السكربت في وضع Safe Mode أولاً</li>
+                                <li><span class="help-icon">•</span> احفظ نسخة احتياطية من الإعدادات الحالية قبل التطبيق</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🔄 ماذا يفعل السكربت؟</h3>
+                        <p>السكربت يقوم ب:</p>
+                        <ul class="help-list">
+                            <li><span class="help-icon">✓</span> تعيين IP للجهاز</li>
+                            <li><span class="help-icon">✓</span> إعداد DNS و NTP</li>
+                            <li><span class="help-icon">✓</span> إنشاء IP Pools للـDHCP وـPPP</li>
+                            <li><span class="help-icon">✓</span> إعداد PPPoE Server</li>
+                            <li><span class="help-icon">✓</span> إنشاء Hotspot Profile</li>
+                            <li><span class="help-icon">✓</span> إعداد NAT و Masquerade</li>
+                            <li><span class="help-icon">✓</span> إعداد DHCP Server</li>
+                        </ul>
+                    </div>
+                `
+            },
+            
+            page2: {
+                title: "مساعدة - صفحة دمج خطوط v6",
+                content: `
+                    <div class="help-section">
+                        <h3 class="section-title">🎯 ما هي هذه الصفحة؟</h3>
+                        <p>هذه الصفحة تساعدك في إنشاء <strong>سكربت لدمج عدة خطوط إنترنت (Load Balancing)</strong> لإصدار ميكروتيك v6.x.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">📝 خطوات الاستخدام</h3>
+                        <div class="step-box">
+                            <div class="step-title"><span>1️⃣</span> إعدادات أساسية</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>اسم كارت الخروج (LAN):</strong> اسم الإنترفيس المحلي</li>
+                                <li><span class="help-icon">•</span> <strong>رينج آيبي المشتركين:</strong> نطاق IPs المستخدمين (مثلاً 10.0.0.1/16)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>2️⃣</span> اختيار عدد الخطوط</div>
+                            <p>استخدم القائمة المنسدلة لاختيار عدد الخطوط التي تريد دمجها:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>2-5 خطوط:</strong> مثالي للشركات والمقاهي الصغيرة</li>
+                                <li><span class="help-icon">•</span> <strong>6-10 خطوط:</strong> مناسب للفنادق والمجمعات التجارية</li>
+                                <li><span class="help-icon">•</span> <strong>10-20 خطوط:</strong> مثالي للمدن والقرى الكبيرة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>3️⃣</span> إعدادات كل خط</div>
+                            <p>لكل خط تحتاج إلى:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>آيبي الميكروتك:</strong> IP الميكروتك على هذا الخط</li>
+                                <li><span class="help-icon">•</span> <strong>آيبي الراوتر (Gateway):</strong> Gateway لهذا الخط</li>
+                            </ul>
+                            <p style="color: #64748b; font-size: 14px; margin-top: 10px;">سيتم إنشاء IPs تلقائياً، يمكنك تعديلها إذا أردت.</p>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>4️⃣</span> توليد السكربت</div>
+                            <p>اضغط على زر <strong>"توليد سكربت v6"</strong> ثم استخدم زر <strong>"نسخ الكود"</strong> لنسخ السكربت.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">💡 نصائح فنية</h3>
+                        <div class="tip-box">
+                            <div class="tip-title"><span>💡</span> نصائح للدمج</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> تأكد من أن جميع الخطوط نشطة قبل تطبيق السكربت</li>
+                                <li><span class="help-icon">•</span> استخدم IPs مختلفة لكل خط لتفادي التعارض</li>
+                                <li><span class="help-icon">•</span> اختبر كل خط على حدة قبل الدمج</li>
+                                <li><span class="help-icon">•</span> الدمج يعمل بنظام Round Robin للتوزيع العادل</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="important-note">
+                            <div class="note-title"><span>⚠️</span> متطلبات النظام</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> هذا السكربت يعمل على <strong>ميكروتيك v6.x فقط</strong></li>
+                                <li><span class="help-icon">•</span> تحتاج إلى معرفة أساسية بميكروتيك</li>
+                                <li><span class="help-icon">•</span> تأكد من توافق إعدادات الخطوط مع مزود الخدمة</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🔄 مزايا الدمج</h3>
+                        <ul class="help-list">
+                            <li><span class="help-icon">✓</span> زيادة عرض النطاق الترددي</li>
+                            <li><span class="help-icon">✓</span> توزيع الحمل بين الخطوط</li>
+                            <li><span class="help-icon">✓</span> نسخ احتياطي (Failover) تلقائي</li>
+                            <li><span class="help-icon">✓</span> استقرار أفضل للشبكة</li>
+                            <li><span class="help-icon">✓</span> استخدام أمثل للموارد</li>
+                        </ul>
+                    </div>
+                `
+            },
+            
+            page3: {
+                title: "مساعدة - صفحة دمج خطوط v7",
+                content: `
+                    <div class="help-section">
+                        <h3 class="section-title">🎯 ما هي هذه الصفحة؟</h3>
+                        <p>هذه الصفحة تساعدك في إنشاء <strong>سكربت لدمج عدة خطوط إنترنت (Load Balancing)</strong> لإصدار ميكروتيك v7.x الحديث.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">📝 خطوات الاستخدام</h3>
+                        <div class="step-box">
+                            <div class="step-title"><span>1️⃣</span> إعدادات أساسية</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>اسم كارت الخروج (LAN):</strong> اسم الإنترفيس المحلي (مثلاً OUT)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>2️⃣</span> اختيار عدد الخطوط</div>
+                            <p>استخدم القائمة المنسدلة لاختيار عدد الخطوط التي تريد دمجها:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>2-5 خطوط:</strong> مثالي للشركات والمقاهي الصغيرة</li>
+                                <li><span class="help-icon">•</span> <strong>6-10 خطوط:</strong> مناسب للفنادق والمجمعات التجارية</li>
+                                <li><span class="help-icon">•</span> <strong>10-20 خطوط:</strong> مثالي للمدن والقرى الكبيرة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>3️⃣</span> إعدادات كل خط</div>
+                            <p>لكل خط تحتاج إلى:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>آيبي الميكروتك:</strong> IP الميكروتك على هذا الخط (مثلاً 192.168.100.100/24)</li>
+                                <li><span class="help-icon">•</span> <strong>آيبي الراوتر (Gateway):</strong> Gateway لهذا الخط (مثلاً 192.168.100.1)</li>
+                            </ul>
+                            <p style="color: #64748b; font-size: 14px; margin-top: 10px;">سيتم إنشاء IPs تلقائياً، يمكنك تعديلها إذا أردت.</p>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>4️⃣</span> توليد السكربت</div>
+                            <p>اضغط على زر <strong>"توليد سكربت v7"</strong> ثم استخدم زر <strong>"نسخ الكود"</strong> لنسخ السكربت.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">💡 نصائح فنية</h3>
+                        <div class="tip-box">
+                            <div class="tip-title"><span>💡</span> مميزات v7</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> دعم أفضل للتوزيع الذكي للحمل</li>
+                                <li><span class="help-icon">•</span> إعدادات مبسطة وسهلة</li>
+                                <li><span class="help-icon">•</span> أداء محسّن عن v6</li>
+                                <li><span class="help-icon">•</span> توافق مع الميزات الجديدة في v7</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="important-note">
+                            <div class="note-title"><span>⚠️</span> متطلبات النظام</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> هذا السكربت يعمل على <strong>ميكروتيك v7.x فقط</strong></li>
+                                <li><span class="help-icon">•</span> لا تستخدمه على إصدارات v6 أو أقدم</li>
+                                <li><span class="help-icon">•</span> تأكد من تحديث الميكروتيك لأحدث إصدار</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🔄 الفرق بين v6 و v7</h3>
+                        <ul class="help-list">
+                            <li><span class="help-icon">✓</span> v7 أسرع في معالجة الحزم</li>
+                            <li><span class="help-icon">✓</span> واجهة مستخدم محسنة</li>
+                            <li><span class="help-icon">✓</span> إدارة أفضل للموارد</li>
+                            <li><span class="help-icon">✓</span> أمان محسّن</li>
+                            <li><span class="help-icon">✓</span> دعم للبروتوكولات الحديثة</li>
+                        </ul>
+                    </div>
+                `
+            },
+            
+            page4: {
+                title: "مساعدة - صفحة حجب المواقع",
+                content: `
+                    <div class="help-section">
+                        <h3 class="section-title">🎯 ما هي هذه الصفحة؟</h3>
+                        <p>هذه الصفحة تساعدك في إنشاء <strong>سكربت لحجب المواقع والتطبيقات</strong> على شبكتك الميكروتيك.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">📝 خطوات الاستخدام</h3>
+                        <div class="step-box">
+                            <div class="step-title"><span>1️⃣</span> اختيار مواقع جاهزة</div>
+                            <p>يمكنك الاختيار السريع من المواقع الجاهزة:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">🎥</span> <strong>يوتيوب:</strong> لحجب YouTube وفيديوهاته</li>
+                                <li><span class="help-icon">👥</span> <strong>فيسبوك:</strong> لحجب Facebook ومشتقاته</li>
+                                <li><span class="help-icon">📷</span> <strong>انستجرام:</strong> لحجب Instagram</li>
+                                <li><span class="help-icon">🎵</span> <strong>تيك توك:</strong> لحجب TikTok</li>
+                                <li><span class="help-icon">🎬</span> <strong>نيتفليكس:</strong> لحجب Netflix</li>
+                                <li><span class="help-icon">🎮</span> <strong>ألعاب:</strong> لحجب منصات الألعاب</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>2️⃣</span> إدخال مواقع مخصصة</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>رابط الموقع:</strong> أدخل اسم الموقع (مثلاً youtube.com)</li>
+                                <li><span class="help-icon">•</span> <strong>يمكن إدخال أكثر من موقع:</strong> youtube.com, facebook.com, instagram.com</li>
+                                <li><span class="help-icon">•</span> <strong>اسم الموقع:</strong> اسم يظهر في السكربت (مثلاً YouTube)</li>
+                                <li><span class="help-icon">•</span> <strong>كارت الخروج:</strong> اسم الإنترفيس (مثلاً OUT)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>3️⃣</span> اختيار نوع الحجب</div>
+                            <p>اختر طريقة الحجب المناسبة:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">🔍</span> <strong>Layer7:</strong> للمواقع العادية (HTTP)</li>
+                                <li><span class="help-icon">🔐</span> <strong>TLS/SSL:</strong> للمواقع المشفرة (HTTPS)</li>
+                                <li><span class="help-icon">🛡️</span> <strong>كلاهما:</strong> أقوى حماية للمواقع الصعبة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>4️⃣</span> توليد السكربت</div>
+                            <p>اضغط على زر <strong>"توليد سكربت الحجب"</strong> ثم استخدم زر <strong>"نسخ السكربت"</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">💡 نصائح للحجب الفعال</h3>
+                        <div class="tip-box">
+                            <div class="tip-title"><span>💡</span> نصائح للحجب</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> استخدم <strong>"كلاهما"</strong> للمواقع المهمة مثل يوتيوب</li>
+                                <li><span class="help-icon">•</span> بعض التطبيقات تستخدم IPs متغيرة، قد تحتاج تحديث السكربت</li>
+                                <li><span class="help-icon">•</span> اختبر الحجب بعد التطبيق مباشرة</li>
+                                <li><span class="help-icon">•</span> يمكنك إضافة مواقع إضافية لاحقاً</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="important-note">
+                            <div class="note-title"><span>⚠️</span> ملاحظات هامة</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> بعض المواقع قد تعمل عبر VPN أو بروكسي</li>
+                                <li><span class="help-icon">•</span> قد تحتاج حجب منافذ إضافية لبعض التطبيقات</li>
+                                <li><span class="help-icon">•</span> تأكد من عدم حجب المواقع المهمة للعمل</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🔄 أنواع الحجب المتاحة</h3>
+                        <ul class="help-list">
+                            <li><span class="help-icon">✓</span> <strong>Layer7:</strong> يحجب بناءً على محتوى HTTP</li>
+                            <li><span class="help-icon">✓</span> <strong>TLS/SSL:</strong> يحجب بناءً على اسم النطاق في شهادة SSL</li>
+                            <li><span class="help-icon">✓</span> <strong>قوائم IPs:</strong> يحجب بناءً على عناوين IP للمواقع</li>
+                            <li><span class="help-icon">✓</span> <strong>QUIC:</strong> يحجب بروتوكول QUIC المستخدم في التطبيقات الحديثة</li>
+                        </ul>
+                    </div>
+                `
+            },
+            
+            page6: {
+                title: "مساعدة - صفحة بروفايلات السرعة",
+                content: `
+                    <div class="help-section">
+                        <h3 class="section-title">🎯 ما هي هذه الصفحة؟</h3>
+                        <p>هذه الصفحة تساعدك في إنشاء <strong>بروفايلات سرعة مختلفة للمستخدمين</strong> في نظام الهوتسبوت أو البرودباند.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">📝 خطوات الاستخدام</h3>
+                        <div class="step-box">
+                            <div class="step-title"><span>1️⃣</span> اختيار النظام</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">📡</span> <strong>هوتسبوت:</strong> لإنشاء بروفايلات سرعة للمستخدمين</li>
+                                <li><span class="help-icon">🌐</span> <strong>برودباند:</strong> لإنشاء قوائم انتظار (Queues)</li>
+                                <li><span class="help-icon">•</span> يمكنك اختيار النظامين معاً</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>2️⃣</span> الإعدادات الأساسية</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> <strong>اسم البروفايل الأساسي:</strong> اسم يظهر في البروفايلات (مثلاً speed)</li>
+                                <li><span class="help-icon">•</span> <strong>عدد البروفايلات:</strong> اختر عدد مستويات السرعة التي تريدها</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>3️⃣</span> اختيار باقة السرعات</div>
+                            <p>اختر الباقة المناسبة:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">💰</span> <strong>اقتصادية:</strong> 2ميجا - 4ميجا - 8ميجا (أسعار منخفضة)</li>
+                                <li><span class="help-icon">⚡</span> <strong>أساسية:</strong> 4ميجا - 8ميجا - 16ميجا (متوسطة)</li>
+                                <li><span class="help-icon">🚀</span> <strong>متميزة:</strong> 8ميجا - 16ميجا - 32ميجا (عالية)</li>
+                                <li><span class="help-icon">🎮</span> <strong>ألعاب:</strong> سرعات متماثلة 1:1 للألعاب</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>4️⃣</span> تعديل البروفايلات</div>
+                            <p>يمكنك تعديل كل بروفايل:</p>
+                            <ul class="help-list">
+                                <li><span class="help-icon">⬇️</span> <strong>سرعة التنزيل:</strong> السرعة القصوى للتحميل</li>
+                                <li><span class="help-icon">⬆️</span> <strong>سرعة الرفع:</strong> السرعة القصوى للرفع</li>
+                                <li><span class="help-icon">💰</span> <strong>السعر:</strong> سعر الاشتراك (اختياري)</li>
+                                <li><span class="help-icon">📡</span> <strong>هوتسبوت:</strong> تفعيل البروفايل للهوتسبوت</li>
+                                <li><span class="help-icon">🌐</span> <strong>برودباند:</strong> تفعيل البروفايل للبرودباند</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>5️⃣</span> إعدادات متقدمة</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">📊</span> <strong>نسبة الرفع للتنزيل:</strong> حدد نسبة سرعة الرفع للتنزيل</li>
+                                <li><span class="help-icon">⏰</span> <strong>مدة الجلسة:</strong> المدة قبل إعادة المصادقة</li>
+                                <li><span class="help-icon">🚀</span> <strong>Burst:</strong> سرعة مؤقتة عند بدء الاتصال</li>
+                                <li><span class="help-icon">👥</span> <strong>تحديد المستخدمين:</strong> تحديد عدد المستخدمين لكل بروفايل</li>
+                                <li><span class="help-icon">⚖️</span> <strong>Fairness:</strong> توزيع عادل للسرعة بين المستخدمين</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>6️⃣</span> توليد السكربت</div>
+                            <p>اضغط على زر <strong>"توليد سكربت السرعات"</strong> ثم استخدم زر <strong>"نسخ السكربت"</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">💡 نصائح للبروفايلات</h3>
+                        <div class="tip-box">
+                            <div class="tip-title"><span>💡</span> نصائح التسعير</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> ابدأ بأسعار منخفضة لجذب العملاء</li>
+                                <li><span class="help-icon">•</span> قدم خصومات للاشتراكات طويلة الأجل</li>
+                                <li><span class="help-icon">•</span> ضع عروض خاصة للمقاهي والشركات</li>
+                                <li><span class="help-icon">•</span> راجع الأسعار المنافسة في منطقتك</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="important-note">
+                            <div class="note-title"><span>⚠️</span> ملاحظات تقنية</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">•</span> تأكد من أن سرعات البروفايلات أقل من سعة الخطوط</li>
+                                <li><span class="help-icon">•</span> استخدم Burst لتحسين تجربة المستخدم</li>
+                                <li><span class="help-icon">•</span> نسبة 4:1 (تنزيل:رفع) مناسبة للاستخدام العادي</li>
+                                <li><span class="help-icon">•</span> نسبة 1:1 مناسبة للألعاب والمكالمات</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🔄 مزايا النظام</h3>
+                        <ul class="help-list">
+                            <li><span class="help-icon">✓</span> إدارة سهلة للمستخدمين</li>
+                            <li><span class="help-icon">✓</span> توزيع عادل للسرعة</li>
+                            <li><span class="help-icon">✓</span> مرونة في التسعير</li>
+                            <li><span class="help-icon">✓</span> دعم للنظامين هوتسبوت وبرودباند</li>
+                            <li><span class="help-icon">✓</span> تحكم كامل في سياسات السرعة</li>
+                        </ul>
+                    </div>
+                `
+            },
+            
+            page5: {
+                title: "مساعدة - صفحة من نحن",
+                content: `
+                    <div class="help-section">
+                        <h3 class="section-title">🎯 عن MikroTools</h3>
+                        <p><strong>MikroTools</strong> هي منصة عربية مجانية بالكامل تهدف إلى تبسيط إدارة شبكات ميكروتيك وجعلها في متناول الجميع.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">💪 قيمنا</h3>
+                        <ul class="help-list">
+                            <li><span class="help-icon">🎁</span> <strong>مجانية دائمة:</strong> جميع أدواتنا مجانية 100% للجميع</li>
+                            <li><span class="help-icon">⚡</span> <strong>سرعة الأداء:</strong> نوفر الوقت والجهد في الإعدادات</li>
+                            <li><span class="help-icon">🎯</span> <strong>دقة النتائج:</strong> سكربتات مضمونة وخالية من الأخطاء</li>
+                            <li><span class="help-icon">🤝</span> <strong>دعم مباشر:</strong> مساعدة شخصية لكل مستخدم</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🛠️ أدواتنا المجانية</h3>
+                        <ul class="help-list">
+                            <li><span class="help-icon">⚙️</span> <strong>مولد سكربتات الهوت سبوت:</strong> إعدادات كاملة للهوت سبوت والبرودباند</li>
+                            <li><span class="help-icon">🔀</span> <strong>دمج خطوط v6:</strong> سكربتات محترفة لـ Load Balancing</li>
+                            <li><span class="help-icon">🚀</span> <strong>دمج خطوط v7:</strong> سكربتات متقدمة متوافقة مع v7</li>
+                            <li><span class="help-icon">🔒</span> <strong>مولد حجب المواقع:</strong> أداة متقدمة لحجب أي موقع تريده</li>
+                            <li><span class="help-icon">⚡</span> <strong>مولد بروفايلات السرعة:</strong> بروفايلات سرعة للهوتسبوت والبرودباند</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">📞 تواصل معنا</h3>
+                        <div class="tip-box">
+                            <div class="tip-title"><span>💡</span> طرق التواصل</div>
+                            <ul class="help-list">
+                                <li><span class="help-icon">📱</span> <strong>واتساب:</strong> 01092503391</li>
+                                <li><span class="help-icon">👥</span> <strong>فيسبوك:</strong> <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" style="color: #3b82f6; text-decoration: none;">صفحتنا على فيسبوك</a></li>
+                                <li><span class="help-icon">👨‍💻</span> <strong>المالك:</strong> Sameh El-Sayed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">🚀 كيف تبدأ؟</h3>
+                        <div class="step-box">
+                            <div class="step-title"><span>1️⃣</span> اختر الأداة المناسبة</div>
+                            <p>اذهب إلى صفحة الأدوات من القائمة الجانبية واختر الأداة التي تحتاجها.</p>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>2️⃣</span> اتبع التعليمات</div>
+                            <p>استخدم زر <strong>المساعدة (❓)</strong> في أي صفحة لمعرفة كيفية استخدامها.</p>
+                        </div>
+                        
+                        <div class="step-box">
+                            <div class="step-title"><span>3️⃣</span> استفسر عند الحاجة</div>
+                            <p>لا تتردد في التواصل معنا عبر واتساب أو فيسبوك لأي استفسار.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3 class="section-title">❤️ شكراً لاستخدامك MikroTools</h3>
+                        <p>نحن نسعى دائماً لتطوير أدواتنا وتحسينها بناءً على ملاحظاتكم. شكراً لثقتكم بنا!</p>
+                        <p style="color: #8b5cf6; font-weight: 600; margin-top: 15px;">⚡ MikroTools - أدوات ميكروتيك مجانية للجميع ⚡</p>
+                    </div>
+                `
+            }
+        };
+
+        // ========== وظائف المساعدة ==========
+        function showHelpModal() {
+            const currentPage = document.querySelector('.page.active').id;
+            const help = helpData[currentPage];
+            
+            if (help) {
+                ELEMENTS.helpPageTitle.textContent = help.title;
+                ELEMENTS.helpBody.innerHTML = help.content;
+                ELEMENTS.helpModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeHelpModal() {
+            ELEMENTS.helpModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // إغلاق النافذة عند النقر خارجها
+        ELEMENTS.helpModal.addEventListener('click', function(e) {
+            if (e.target === ELEMENTS.helpModal) {
+                closeHelpModal();
+            }
+        });
+
+        // إغلاق النافذة بالزر Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && ELEMENTS.helpModal.classList.contains('active')) {
+                closeHelpModal();
+            }
+        });
 
         // ========== وظائف مواقع جاهزة (الجديدة) ==========
         function selectQuickSite(url, name) {
@@ -2417,10 +3291,6 @@
             alert('✅ تم تحميل السكربت بنجاح');
         }
 
-        // ========== باقي الوظائف (كما هي بدون تغيير) ==========
-        // [هنا يتبع باقي كود JavaScript كما هو بدون تغيير]
-        // ... (كل الكود السابق من generateHotspotScript إلى copyScript)
-        
         // ========== التحقق من صحة IP ==========
         function validateIP(ip) {
             const regex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
@@ -2667,59 +3537,6 @@
                 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
                 70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
                 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-            }
-            
-            /* أنماط الأيقونات العائمة */
-            .floating-social-icons {
-                position: fixed;
-                bottom: 20px;
-                left: 20px;
-                z-index: 1000;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .floating-icon {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                color: white;
-                text-decoration: none;
-                font-size: 28px;
-                transition: all 0.3s ease;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-                animation: float 3s ease-in-out infinite;
-            }
-            
-            .floating-icon:nth-child(2) {
-                animation-delay: 0.5s;
-            }
-            
-            @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
-            }
-            
-            .floating-icon:hover {
-                transform: scale(1.1) translateY(-5px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            }
-            
-            @media (max-width: 768px) {
-                .floating-social-icons {
-                    bottom: 70px;
-                    left: 15px;
-                }
-                
-                .floating-icon {
-                    width: 50px;
-                    height: 50px;
-                    font-size: 24px;
-                }
             }
         `;
         document.head.appendChild(style);
@@ -3665,4 +4482,3 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
-
