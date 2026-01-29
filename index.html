@@ -3366,8 +3366,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     // حساب سرعات Burst
                     const burstDown = addBurst ? dl * 2 : dl;
                     const burstUp = addBurst ? ul * 2 : ul;
-                    const burstThresholdDown = Math.floor(dl * 0.8);
-                    const burstThresholdUp = Math.floor(ul * 0.8);
+                    const burstThresholdDown = Math.floor(60);
+                    const burstThresholdUp = Math.floor(60);
                     
                     const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M ${burstThresholdUp}/${burstThresholdDown}"`;
                     
@@ -3665,3 +3665,4 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
+
