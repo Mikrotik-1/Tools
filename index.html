@@ -1820,9 +1820,9 @@
                     
                     <div class="input-box">
                         <label for="profileCount">🔢 عدد البروفايلات:</label>
-                        select id="profileCount" onchange="updateSpeedProfiles()">
-                            <option value="4"selected>4 بروفايلات</option>
-                            <option value="5">5 بروفايلات</option>
+                        <select id="profileCount" onchange="updateSpeedProfiles()">
+                            <option value="4">4 بروفايلات</option>
+                            <option value="5" selected>5 بروفايلات</option>
                             <option value="6">6 بروفايلات</option>
                             <option value="7">7 بروفايلات</option>
                             <option value="8">8 بروفايلات</option>
@@ -2943,15 +2943,42 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             alert('✅ تم تحميل السكربت بنجاح');
         }
 
-        // ========== الصفحة 6: بروفايلات السرعة ==========
+        // ========== الصفحة 6: بروفايلات السرعة - الدوال المصححة ==========
         function initSpeedPage() {
+            // إنشاء البروفايلات أول مرة
             createSpeedProfiles();
-            updateSpeedProfiles();
         }
 
         function toggleSystem(type) {
-            currentSystem[type] = !currentSystem[type];
-            updateSpeedProfiles();
+            if (type === 'hotspot') {
+                currentSystem.hotspot = !currentSystem.hotspot;
+                document.getElementById('hotspotSystem').checked = currentSystem.hotspot;
+            } else if (type === 'broadband') {
+                currentSystem.broadband = !currentSystem.broadband;
+                document.getElementById('broadbandSystem').checked = currentSystem.broadband;
+            }
+            
+            // تحديث واجهة البروفايلات
+            updateProfileCheckboxes();
+        }
+
+        function updateProfileCheckboxes() {
+            const count = parseInt(document.getElementById('profileCount').value);
+            
+            for (let i = 1; i <= count; i++) {
+                const hsCheckbox = document.getElementById(`hs${i}`);
+                const bbCheckbox = document.getElementById(`bb${i}`);
+                
+                if (hsCheckbox) {
+                    hsCheckbox.disabled = !currentSystem.hotspot;
+                    hsCheckbox.checked = currentSystem.hotspot;
+                }
+                
+                if (bbCheckbox) {
+                    bbCheckbox.disabled = !currentSystem.broadband;
+                    bbCheckbox.checked = currentSystem.broadband;
+                }
+            }
         }
 
         function createSpeedProfiles() {
@@ -2961,14 +2988,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             const count = parseInt(document.getElementById('profileCount').value);
             const baseName = document.getElementById('profileName').value;
             
-            const presets = {
-                economic: [2, 4, 8, 16, 32, 64, 128, 256],
-                standard: [4, 8, 16, 32, 64, 128, 256, 512],
-                premium: [8, 16, 32, 64, 128, 256, 512, 1024],
-                gaming: [10, 20, 30, 50, 100, 200, 300, 500]
-            };
-            
-            const speeds = presets[currentPreset] || presets.premium;
+            // تحديد السرعات حسب الباقة المختارة
+            const downloadSpeeds = getDownloadSpeedsByPreset(currentPreset, count);
             
             for (let i = 1; i <= count; i++) {
                 const profileCard = document.createElement('div');
@@ -2979,8 +3000,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 const tierNames = ['اقتصادية', 'أساسية', 'متوسطة', 'متقدمة', 'ذهبية', 'ممتازة', 'بلاتينية', 'أعمال', 'ألعاب', 'خارقة'];
                 const tierName = tierNames[Math.min(i - 1, tierNames.length - 1)];
                 
-                const downloadSpeed = speeds[Math.min(i - 1, speeds.length - 1)];
-                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4));
+                const downloadSpeed = downloadSpeeds[i - 1];
+                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4)); // نفس المعادلة 4:1
                 
                 profileCard.innerHTML = `
                     <div class="profile-header">
@@ -3000,7 +3021,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                                    value="${downloadSpeed}"
                                    min="1" 
                                    max="1000"
-                                   onchange="validateSpeedInput(${i})">
+                                   onchange="updateUploadSpeed(${i})">
                             <span class="speed-unit">Mbps</span>
                         </div>
                         
@@ -3012,7 +3033,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                                    value="${uploadSpeed}"
                                    min="1" 
                                    max="500"
-                                   onchange="validateSpeedInput(${i})">
+                                   onchange="validateUploadSpeed(${i})">
                             <span class="speed-unit">Mbps</span>
                         </div>
                         
@@ -3025,7 +3046,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                         </div>
                     </div>
                     
-                    <div style="margin-top: 20px; display: ${currentSystem.hotspot && currentSystem.broadband ? 'flex' : 'none'}; gap: 10px; justify-content: space-between;">
+                    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: space-between;">
                         <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
                             <input type="checkbox" id="hs${i}" ${currentSystem.hotspot ? 'checked' : ''} ${!currentSystem.hotspot ? 'disabled' : ''}>
                             <span style="font-size: 12px;">📡 هوتسبوت</span>
@@ -3035,7 +3056,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                             <span style="font-size: 12px;">🌐 برودباند</span>
                         </label>
                         <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                            <input type="checkbox" id="burst${i}">
+                            <input type="checkbox" id="burst${i}" checked>
                             <span style="font-size: 12px;">🚀 Burst</span>
                         </label>
                     </div>
@@ -3043,20 +3064,19 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 
                 container.appendChild(profileCard);
             }
+            
+            // تحديث خانات الاختيار حسب النظام
+            updateProfileCheckboxes();
         }
 
         function updateSpeedProfiles() {
-            document.querySelectorAll('.system-option input').forEach((input, index) => {
-                const systemType = index === 0 ? 'hotspot' : 'broadband';
-                input.checked = currentSystem[systemType];
-            });
-            
             createSpeedProfiles();
         }
 
         function loadPreset(preset) {
             currentPreset = preset;
             
+            // تحديث حالة الأزرار
             document.querySelectorAll('.preset-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-preset') === preset) {
@@ -3064,7 +3084,29 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 }
             });
             
+            // إعادة إنشاء البروفايلات
             createSpeedProfiles();
+        }
+
+        function getDownloadSpeedsByPreset(preset, count) {
+            const presets = {
+                economic: [2, 4, 8, 16, 32, 64, 128, 256],
+                standard: [4, 8, 16, 32, 64, 128, 256, 512],
+                premium: [8, 16, 32, 64, 128, 256, 512, 1024],
+                gaming: [10, 20, 30, 50, 100, 200, 300, 500]
+            };
+            
+            const speeds = presets[preset] || presets.premium;
+            
+            // إذا كان العدد المطلوب أكثر من المتوفر، نضيف قيماً تزايدية
+            if (count > speeds.length) {
+                const lastSpeed = speeds[speeds.length - 1];
+                for (let i = speeds.length; i < count; i++) {
+                    speeds.push(lastSpeed * 2);
+                }
+            }
+            
+            return speeds.slice(0, count);
         }
 
         function getProfileIcon(index) {
@@ -3083,22 +3125,34 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             return "750+ جنيه";
         }
 
-        function validateSpeedInput(profileIndex) {
+        function updateUploadSpeed(profileIndex) {
             const dlInput = document.getElementById(`dl${profileIndex}`);
             const ulInput = document.getElementById(`ul${profileIndex}`);
             
-            const dl = parseInt(dlInput.value);
-            const ul = parseInt(ulInput.value);
+            const dl = parseInt(dlInput.value) || 1;
+            const ratio = document.getElementById('ratioType').value;
             
-            if (ul > dl) {
-                ulInput.value = Math.floor(dl / 4);
-                alert(`⚠️ سرعة الرفع يجب أن تكون أقل من أو تساوي سرعة التنزيل`);
+            let newUl;
+            if (ratio === 'custom') {
+                // إذا كان مخصصاً، لا نغير القيمة
+                return;
+            } else if (ratio === '1:1') {
+                newUl = dl;
+            } else {
+                const [dlRatio, ulRatio] = ratio.split(':').map(Number);
+                newUl = Math.max(1, Math.floor(dl * ulRatio / dlRatio));
             }
             
-            if (dl > 1000 || ul > 500) {
-                alert(`⚠️ السرعة القصوى المسموح بها هي 1000/500 Mbps`);
-                dlInput.value = Math.min(dl, 1000);
-                ulInput.value = Math.min(ul, 500);
+            ulInput.value = newUl;
+        }
+
+        function validateUploadSpeed(profileIndex) {
+            const ulInput = document.getElementById(`ul${profileIndex}`);
+            const ul = parseInt(ulInput.value) || 1;
+            
+            if (ul > 500) {
+                ulInput.value = 500;
+                alert('⚠️ الحد الأقصى لسرعة الرفع هو 500 Mbps');
             }
         }
 
@@ -3106,19 +3160,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             const ratio = document.getElementById('ratioType').value;
             if (ratio === 'custom') return;
             
-            const [dlRatio, ulRatio] = ratio.split(':').map(Number);
-            const ratioValue = dlRatio / ulRatio;
-            
             const count = parseInt(document.getElementById('profileCount').value);
             
             for (let i = 1; i <= count; i++) {
-                const dlInput = document.getElementById(`dl${i}`);
-                const ulInput = document.getElementById(`ul${i}`);
-                
-                const dl = parseInt(dlInput.value);
-                const newUl = Math.max(1, Math.floor(dl / ratioValue));
-                
-                ulInput.value = newUl;
+                updateUploadSpeed(i);
             }
         }
 
@@ -3139,6 +3184,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             script += `# نسبة الرفع/التنزيل: ${ratio}\n`;
             script += `##############################################\n\n`;
             
+            // Hotspot Profiles
             if (currentSystem.hotspot) {
                 script += `# ======================\n`;
                 script += `# 📡 بروفايلات الهوتسبوت\n`;
@@ -3150,12 +3196,13 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     const dl = document.getElementById(`dl${i}`).value;
                     const ul = document.getElementById(`ul${i}`).value;
                     const price = document.getElementById(`price${i}`).value;
-                    const hsEnabled = document.getElementById(`hs${i}`)?.checked;
+                    const hsEnabled = document.getElementById(`hs${i}`).checked;
                     
                     if (!hsEnabled) continue;
                     
                     const profileName = `${baseName}_HS${i.toString().padStart(2, '0')}`;
                     
+                    // حساب سرعات Burst
                     const burstDown = addBurst ? dl * 2 : dl;
                     const burstUp = addBurst ? ul * 2 : ul;
                     const burstThresholdDown = Math.floor(dl * 0.8);
@@ -3163,9 +3210,9 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     
                     const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M ${burstThresholdUp}/${burstThresholdDown}"`;
                     
-                    let nameWithDetails = `${baseName}_HS${i.toString().padStart(2, '0')}`;
+                    let nameWithDetails = `${profileName}`;
                     if (price) {
-                        nameWithDetails += ` - ${price}`;
+                        nameWithDetails += ` (${price})`;
                     }
                     
                     script += `add name="${nameWithDetails}" `;
@@ -3174,11 +3221,22 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     script += `mac-cookie-timeout=${sessionTime} `;
                     script += `rate-limit=${rateLimit}`;
                     
-                    script += `\n`;
+                    if (limitUsers) {
+                        script += ` `;
+                        script += `shared-users=${Math.floor(50 / i)}`; // عدد مستخدمين متناقص حسب البروفايل
+                    }
+                    
+                    if (enableFairness) {
+                        script += ` `;
+                        script += `parent-queue=global`; // تفعيل Fairness
+                    }
+                    
+                    script += ` comment="${SIGNATURE}_HS${i}"\n`;
                 }
                 script += `\n`;
             }
             
+            // Broadband Profiles
             if (currentSystem.broadband) {
                 script += `# ========================\n`;
                 script += `# 🌐 بروفايلات البرودباند\n`;
@@ -3189,30 +3247,23 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 for (let i = 1; i <= profileCount; i++) {
                     const dl = document.getElementById(`dl${i}`).value;
                     const ul = document.getElementById(`ul${i}`).value;
-                    const bbEnabled = document.getElementById(`bb${i}`)?.checked;
+                    const bbEnabled = document.getElementById(`bb${i}`).checked;
                     
                     if (!bbEnabled) continue;
                     
                     const queueName = `${baseName}_BB${i.toString().padStart(2, '0')}`;
-                    const burstSize = addBurst ? ` burst-threshold=${Math.floor(dl*0.8)}M/${Math.floor(ul*0.8)}M max-limit=${dl*2}M/${ul*2}M` : '';
                     
                     script += `add name="${queueName}" `;
-                    script += `target="" `;
                     script += `max-limit="${dl}M/${ul}M"`;
-                    script += `${burstSize} `;
-                    script += `comment="برودباند ${i}: ${dl}/${ul}M"\n`;
-                }
-                script += `\n`;
-            }
-            
-            if (currentSystem.broadband && profileCount > 1) {
-                script += `# =============================\n`;
-                script += `# 🔀 إعدادات PCC لموازنة الحمل\n`;
-                script += `# =============================\n\n`;
-                
-                script += `/ip firewall mangle\n`;
-                for (let i = 0; i < profileCount; i++) {
-                    script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${document.getElementById('lanName3').value} per-connection-classifier=both-addresses-and-ports:${profileCount}/${i} action=mark-connection new-connection-mark=conn_${i+1} passthrough=yes comment="PCC ${i+1}"\n`;
+                    
+                    if (addBurst) {
+                        script += ` `;
+                        script += `burst-limit="${dl * 2}M/${ul * 2}M" `;
+                        script += `burst-threshold="${Math.floor(dl * 0.8)}M/${Math.floor(ul * 0.8)}M" `;
+                        script += `burst-time=30s`;
+                    }
+                    
+                    script += ` comment="برودباند ${i}: ${dl}/${ul}M ${SIGNATURE}"\n`;
                 }
                 script += `\n`;
             }
@@ -3222,6 +3273,8 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             
             document.getElementById('speedScriptOutput').value = script;
             document.getElementById('speedResultSection').style.display = 'block';
+            
+            // تحديث الإحصائيات
             updateSpeedStats(script);
         }
 
@@ -3231,13 +3284,18 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             const scriptSize = (script.length / 1024).toFixed(2);
             
             let maxSpeed = 0;
+            let totalDownload = 0;
+            
             for (let i = 1; i <= profiles; i++) {
                 const dl = parseInt(document.getElementById(`dl${i}`).value) || 0;
+                const ul = parseInt(document.getElementById(`ul${i}`).value) || 0;
+                
                 if (dl > maxSpeed) maxSpeed = dl;
+                totalDownload += dl;
             }
             
             document.getElementById('profilesCount').textContent = profiles;
-            document.getElementById('totalSpeed').textContent = `${maxSpeed}Mbps`;
+            document.getElementById('totalSpeed').textContent = `${totalDownload}Mbps`;
             document.getElementById('linesCount').textContent = lines;
             document.getElementById('maxSpeed').textContent = `${maxSpeed}Mbps`;
             document.getElementById('scriptSize').textContent = scriptSize;
@@ -3258,7 +3316,15 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 currentSystem.broadband = false;
                 currentPreset = 'premium';
                 
-                updateSpeedProfiles();
+                // تحديث أزرار الباقات
+                document.querySelectorAll('.preset-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-preset') === 'premium') {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                createSpeedProfiles();
                 document.getElementById('speedResultSection').style.display = 'none';
             }
         }
@@ -3308,11 +3374,12 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 return;
             }
             
+            const baseName = document.getElementById('profileName').value;
             const blob = new Blob([script], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `speed_profiles_${new Date().toISOString().split('T')[0]}.rsc`;
+            a.download = `speed_profiles_${baseName}_${new Date().toISOString().split('T')[0]}.rsc`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -3397,10 +3464,18 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 
         // ========== تهيئة الصفحة عند التحميل ==========
         document.addEventListener('DOMContentLoaded', function() {
+            // إنشاء المدخلات للصفحات
             createLineInputs('v6');
             createLineInputs('v7');
-            initSpeedPage();
             
+            // تهيئة صفحة السرعات
+            setTimeout(() => {
+                if (document.getElementById('page6').classList.contains('active')) {
+                    initSpeedPage();
+                }
+            }, 100);
+            
+            // متابعة تغيير IP لتحديث Subnet
             document.getElementById('newIp').addEventListener('input', function() {
                 const value = this.value.trim();
                 if (value.includes('/')) {
@@ -3411,6 +3486,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 }
             });
             
+            // إغلاق القائمة الجانبية عند النقر خارجها (للجوال)
             document.addEventListener('click', function(event) {
                 if (window.innerWidth <= 768 && 
                     ELEMENTS.sidebar.classList.contains('active') &&
@@ -3420,6 +3496,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 }
             });
             
+            // اختيار Subnet افتراضي عند التحميل
             setTimeout(() => {
                 selectSubnet(24);
             }, 100);
@@ -3427,4 +3504,3 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
-
