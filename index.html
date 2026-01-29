@@ -3200,7 +3200,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     
                     if (!hsEnabled) continue;
                     
-                    const profileName = `${baseName}_HS${i.toString().padStart(2, '0')}`;
+                    const profileName = `speed_${dl}M`;
                     
                     // حساب سرعات Burst
                     const burstDown = addBurst ? dl * 2 : dl;
@@ -3504,5 +3504,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
+
 
 
