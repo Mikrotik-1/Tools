@@ -20,7 +20,7 @@
     <meta name="google-site-verification" content="google6096a3c525d406ea" />
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دجم خطوط، حجب مواقع، بروفايلات سرعة - سكريبتات جاهزة للاستخدام الفوري">
+    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دمج خطوط، حجب مواقع، بروفايلات سرعة - سكريبتات جاهزة للاستخدام الفوري">
     <meta name="keywords" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, بروفايلات سرعة, راوتر, MikroTik scripts, MikroTik hotspot, MikroTik merge lines, MikroTik tools">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -390,7 +390,7 @@
             gap: 8px;
         }
 
-        /* الصفحة 4: حجب المواقع */
+        /* الصفحة 4: حجب المواقع - تحسينات جديدة */
         .block-type {
             display: flex;
             gap: 15px;
@@ -419,6 +419,50 @@
             background: var(--danger);
             color: white;
         }
+
+        /* مواقع جاهزة - جديدة */
+        .quick-sites {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .site-btn {
+            padding: 15px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .site-btn:hover {
+            border-color: var(--danger);
+            background: #fef2f2;
+            transform: translateY(-3px);
+        }
+
+        .site-btn .site-icon {
+            font-size: 24px;
+        }
+
+        .site-btn .site-name {
+            font-size: 14px;
+        }
+
+        .site-btn.youtube { border-left: 4px solid #ff0000; }
+        .site-btn.facebook { border-left: 4px solid #1877f2; }
+        .site-btn.instagram { border-left: 4px solid #e4405f; }
+        .site-btn.tiktok { border-left: 4px solid #000000; }
+        .site-btn.netflix { border-left: 4px solid #e50914; }
+        .site-btn.gaming { border-left: 4px solid #00ff00; }
 
         /* الصفحة 5: من نحن */
         .about-section {
@@ -1192,6 +1236,10 @@
             .subnet-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .quick-sites {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -1265,6 +1313,10 @@
                 height: 45px;
                 font-size: 22px;
             }
+            
+            .quick-sites {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 480px) {
@@ -1308,6 +1360,14 @@
                 height: 40px;
                 font-size: 20px;
             }
+            
+            .quick-sites {
+                grid-template-columns: 1fr;
+            }
+            
+            .site-btn {
+                padding: 12px;
+            }
         }
 
         /* تحسينات إضافية */
@@ -1325,6 +1385,10 @@
             }
             
             .subnet-box:hover {
+                transform: none;
+            }
+            
+            .site-btn:hover {
                 transform: none;
             }
         }
@@ -1694,72 +1758,109 @@
             </div>
         </div>
 
-        <!-- ===== الصفحة 4: حجب المواقع (معدلة) ===== -->
+        <!-- ===== الصفحة 4: حجب المواقع (مطورة) ===== -->
         <div id="page4" class="page">
             <div class="tool-card">
                 <h2 class="tool-title">🔒 مولد سكربت حجب المواقع لميكروتيك</h2>
                 
                 <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
-                    <h3 style="color: var(--danger); margin-bottom: 20px;">⚙️ إعدادات الموقع المراد حجبه</h3>
+                    <h3 style="color: var(--danger); margin-bottom: 20px;">🎯 المواقع الجاهزة للاختيار السريع</h3>
                     
-                    <div class="input-box">
-                        <label for="siteUrlInput">🔗 أدخل رابط الموقع (مثال: youtube.com):</label>
-                        <input type="text" id="siteUrlInput" placeholder="facebook.com, instagram.com, tiktok.com">
-                        <small style="color: #64748b; margin-top: 5px; display: block;">
-                            يمكن إدخال أكثر من موقع بفاصلة: youtube.com, facebook.com, instagram.com
-                        </small>
+                    <!-- مواقع جاهزة -->
+                    <div class="quick-sites">
+                        <button class="site-btn youtube" onclick="selectQuickSite('youtube.com', 'YouTube')">
+                            <div class="site-icon">🎥</div>
+                            <div class="site-name">يوتيوب</div>
+                        </button>
+                        
+                        <button class="site-btn facebook" onclick="selectQuickSite('facebook.com', 'Facebook')">
+                            <div class="site-icon">👥</div>
+                            <div class="site-name">فيسبوك</div>
+                        </button>
+                        
+                        <button class="site-btn instagram" onclick="selectQuickSite('instagram.com', 'Instagram')">
+                            <div class="site-icon">📷</div>
+                            <div class="site-name">انستجرام</div>
+                        </button>
+                        
+                        <button class="site-btn tiktok" onclick="selectQuickSite('tiktok.com', 'TikTok')">
+                            <div class="site-icon">🎵</div>
+                            <div class="site-name">تيك توك</div>
+                        </button>
+                        
+                        <button class="site-btn netflix" onclick="selectQuickSite('netflix.com', 'Netflix')">
+                            <div class="site-icon">🎬</div>
+                            <div class="site-name">نيتفليكس</div>
+                        </button>
+                        
+                        <button class="site-btn gaming" onclick="selectQuickSite('steam.com,battle.net,origin.com', 'Gaming')">
+                            <div class="site-icon">🎮</div>
+                            <div class="site-name">ألعاب</div>
+                        </button>
                     </div>
                     
-                    <div class="input-box">
-                        <label for="siteNameInput">🏷️ اسم الموقع (للسكريبت):</label>
-                        <input type="text" id="siteNameInput" placeholder="YouTube, Facebook, etc">
+                    <div style="margin-top: 25px; padding-top: 25px; border-top: 2px dashed #e2e8f0;">
+                        <h3 style="color: var(--primary); margin-bottom: 20px;">⚙️ إعدادات الموقع</h3>
+                        
+                        <div class="input-box">
+                            <label for="siteUrlInput">🔗 رابط الموقع:</label>
+                            <input type="text" id="siteUrlInput" placeholder="مثال: youtube.com, facebook.com">
+                            <small style="color: #64748b; margin-top: 5px; display: block;">
+                                يمكن إدخال أكثر من موقع بفاصلة: youtube.com, facebook.com, instagram.com
+                            </small>
+                        </div>
+                        
+                        <div class="input-box">
+                            <label for="siteNameInput">🏷️ اسم الموقع (للسكريبت):</label>
+                            <input type="text" id="siteNameInput" placeholder="YouTube, Facebook, etc">
+                        </div>
+                        
+                        <div class="input-box">
+                            <label for="interfaceBlock">🌐 كارت الخروج (Interface):</label>
+                            <input type="text" id="interfaceBlock" value="OUT" placeholder="OUT, bridge-local">
+                        </div>
                     </div>
                     
-                    <div class="input-box">
-                        <label for="interfaceBlock">🌐 كارت الخروج (Interface):</label>
-                        <input type="text" id="interfaceBlock" value="OUT" placeholder="OUT, bridge-local">
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary);">🎯 نوع الحجب:</label>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <div style="margin-top: 25px; padding-top: 25px; border-top: 2px dashed #e2e8f0;">
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">🛡️ نوع الحجب</h3>
+                        
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 12px 20px; background: white; border: 2px solid var(--border-color); border-radius: 10px; flex: 1; min-width: 150px; justify-content: center;">
                                 <input type="radio" name="blockType" value="layer7" checked>
-                                <span>🔍 Layer7 (الأفضل)</span>
+                                <div>
+                                    <div style="font-weight: bold; color: var(--primary);">🔍 Layer7</div>
+                                    <div style="font-size: 12px; color: #64748b;">للمواقع العادية</div>
+                                </div>
                             </label>
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 12px 20px; background: white; border: 2px solid var(--border-color); border-radius: 10px; flex: 1; min-width: 150px; justify-content: center;">
                                 <input type="radio" name="blockType" value="tls">
-                                <span>🔐 TLS/SSL</span>
+                                <div>
+                                    <div style="font-weight: bold; color: var(--primary);">🔐 TLS/SSL</div>
+                                    <div style="font-size: 12px; color: #64748b;">للمواقع المشفرة</div>
+                                </div>
                             </label>
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 12px 20px; background: white; border: 2px solid var(--border-color); border-radius: 10px; flex: 1; min-width: 150px; justify-content: center;">
                                 <input type="radio" name="blockType" value="both">
-                                <span>🛡️ كلاهما (أقصى حماية)</span>
+                                <div>
+                                    <div style="font-weight: bold; color: var(--primary);">🛡️ كلاهما</div>
+                                    <div style="font-size: 12px; color: #64748b;">أقصى حماية</div>
+                                </div>
                             </label>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 20px; padding: 15px; background: #fffbeb; border-radius: 10px; border-right: 4px solid #f59e0b;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                            <span>💡</span>
-                            <span style="font-weight: 600; color: #d97706;">نصائح للحجب الفعال</span>
-                        </div>
-                        <div style="color: #92400e; font-size: 14px; line-height: 1.5;">
-                            • استخدم <strong>Layer7</strong> لحجب التطبيقات مثل يوتيوب، فيسبوك<br>
-                            • استخدم <strong>TLS/SSL</strong> لحجب المواقع المشفرة (HTTPS)<br>
-                            • اختر <strong>كلاهما</strong> للحجب الشامل والنهائي
                         </div>
                     </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-danger" onclick="generateUniversalBlockScript()">
-                        <span>🛡️</span> توليد سكربت الحجب
+                    <button class="btn btn-danger" onclick="generateBlockScript()">
+                        <span>⚡</span> توليد سكربت الحجب
                     </button>
                     <button class="btn" onclick="resetBlockInputs()" style="background: #64748b; color: white;">
                         <span>🔄</span> إعادة تعيين
                     </button>
                     <button class="btn btn-secondary" onclick="showBlockExamples()">
-                        <span>📚</span> أمثلة جاهزة
+                        <span>📚</span> أمثلة
                     </button>
                 </div>
                 
@@ -1769,7 +1870,7 @@
                             <span>📋</span> نسخ السكربت
                         </button>
                         <button class="btn" onclick="downloadBlockScript()" style="background: var(--secondary); color: white;">
-                            <span>💾</span> تحميل كملف
+                            <span>💾</span> تحميل
                         </button>
                     </div>
                     <textarea id="outputScript4" class="result-box" readonly placeholder="سكربت الحجب سيظهر هنا..."></textarea>
@@ -1821,7 +1922,7 @@
                     <div class="input-box">
                         <label for="profileCount">🔢 عدد البروفايلات:</label>
                         <select id="profileCount" onchange="updateSpeedProfiles()">
-                            <option value="4"selected>4 بروفايلات</option>
+                            <option value="4" selected>4 بروفايلات</option>
                             <option value="5">5 بروفايلات</option>
                             <option value="6">6 بروفايلات</option>
                             <option value="7">7 بروفايلات</option>
@@ -1874,7 +1975,7 @@
                         <div class="input-box">
                             <label for="ratioType">📊 نسبة الرفع للتنزيل:</label>
                             <select id="ratioType" onchange="updateSpeedRatios()">
-                                <option value="4:1">4:1 (اقتصادي - افتراضي)</option>
+                                <option value="4:1" selected>4:1 (اقتصادي - افتراضي)</option>
                                 <option value="3:1">3:1 (متوسط)</option>
                                 <option value="2:1">2:1 (جيد)</option>
                                 <option value="1:1">1:1 (ألعاب/أعمال)</option>
@@ -2098,9 +2199,228 @@
         let currentBlockType = 'domain';
         let speedProfiles = [];
         let currentSystem = { hotspot: true, broadband: false };
-        let currentPreset = 'economic';
+        let currentPreset = 'economic'; // تغيير من 'premium' إلى 'economic'
         let currentSubnet = 24;
 
+        // ========== وظائف مواقع جاهزة (الجديدة) ==========
+        function selectQuickSite(url, name) {
+            document.getElementById('siteUrlInput').value = url;
+            document.getElementById('siteNameInput').value = name;
+            
+            // رسالة تأكيد
+            showQuickSiteMessage(name);
+        }
+
+        function showQuickSiteMessage(siteName) {
+            const message = document.createElement('div');
+            message.innerHTML = `
+                <div style="background: #10b981; color: white; padding: 12px 20px; border-radius: 10px; margin: 15px 0; display: flex; align-items: center; gap: 10px; animation: fadeIn 0.3s ease;">
+                    <span>✅</span>
+                    <span>تم اختيار ${siteName}</span>
+                </div>
+            `;
+            
+            const oldMessage = document.querySelector('.quick-site-message');
+            if (oldMessage) oldMessage.remove();
+            
+            message.className = 'quick-site-message';
+            const container = document.querySelector('#page4 .tool-card');
+            const buttonsDiv = document.querySelector('#page4 .btn');
+            
+            if (container && buttonsDiv) {
+                container.insertBefore(message, buttonsDiv);
+            }
+            
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.style.transition = 'opacity 0.5s ease';
+                    message.style.opacity = '0';
+                    setTimeout(() => {
+                        if (message.parentNode) {
+                            message.remove();
+                        }
+                    }, 500);
+                }
+            }, 3000);
+        }
+
+        // ========== وظائف حجب المواقع المحسنة ==========
+        function generateBlockScript() {
+            const siteUrl = document.getElementById('siteUrlInput').value.trim();
+            const siteName = document.getElementById('siteNameInput').value.trim();
+            const interfaceName = document.getElementById('interfaceBlock').value.trim() || "OUT";
+            const blockType = document.querySelector('input[name="blockType"]:checked').value;
+            
+            if (!siteUrl || !siteName) {
+                alert('⚠️ يرجى إدخال رابط الموقع واسمه');
+                return;
+            }
+            
+            const sites = siteUrl.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            const siteNames = siteName.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            const mainSiteName = siteNames[0] || sites[0].replace(/\./g, '_').toUpperCase();
+            
+            let script = `################################\n`;
+            script += `# سكربت حجب ${mainSiteName}\n`;
+            script += `# ${SIGNATURE}\n`;
+            script += `# التاريخ: ${new Date().toLocaleDateString('ar-EG')}\n`;
+            script += `################################\n\n`;
+            
+            // Layer7 Protocol - محسن
+            if (blockType === 'layer7' || blockType === 'both') {
+                script += `/ip firewall layer7-protocol\n`;
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    // Regex محسن
+                    let regexPattern = `"^.+(www\\.)?${site.replace(/\./g, '\\.')}.*\\$"`;
+                    
+                    // إضافة دومينات فرعية لمواقع محددة
+                    if (site.includes('youtube.com')) {
+                        regexPattern = `"^.+(youtube\\.com|googlevideo\\.com|akamaihd\\.net).*\\$"`;
+                    } else if (site.includes('facebook.com')) {
+                        regexPattern = `"^.+(facebook\\.com|fbcdn\\.net).*\\$"`;
+                    }
+                    
+                    script += `add name=${name} regexp=${regexPattern}\n`;
+                });
+                script += `\n`;
+            }
+            
+            // TLS Host rules - محسن
+            if (blockType === 'tls' || blockType === 'both') {
+                script += `/ip firewall mangle\n`;
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=add-dst-to-address-list address-list=${name}_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*${site}*"\n`;
+                });
+                script += `\n`;
+            }
+            
+            // قواعد الحجب في Filter - محسن
+            script += `/ip firewall filter\n`;
+            
+            // Layer7 Blocking
+            if (blockType === 'layer7' || blockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=drop chain=forward comment="حجب ${site} - Layer7" layer7-protocol=${name} out-interface=${interfaceName}\n`;
+                });
+            }
+            
+            // TLS Blocking
+            if (blockType === 'tls' || blockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=drop chain=forward comment="حجب ${site} - TLS" protocol=tcp tls-host="*${site}*" out-interface=${interfaceName}\n`;
+                });
+            }
+            
+            // Address List Blocking
+            if (blockType === 'tls' || blockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
+                    script += `add action=drop chain=forward comment="حجب ${site} - قائمة IPs" dst-address-list=${name}_IPs out-interface=${interfaceName}\n`;
+                });
+            }
+            
+            // QUIC Blocking للمواقع الكبيرة
+            if (sites.some(site => site.includes('youtube.com') || site.includes('facebook.com'))) {
+                script += `add action=drop chain=forward comment="حجب QUIC (Mobile Apps)" dst-port=443 protocol=udp out-interface=${interfaceName}\n`;
+            }
+            
+            script += `\n# ${SIGNATURE}\n`;
+            script += `# تم إنشاء سكربت لحجب ${sites.length} موقع\n`;
+            script += `# نوع الحجب: ${getBlockTypeName(blockType)}\n`;
+            
+            document.getElementById('outputScript4').value = script;
+            document.getElementById('resultSection4').style.display = 'block';
+            
+            // تحديث المعلومات
+            document.getElementById('blockedCount').textContent = sites.length;
+            document.getElementById('blockMethod').textContent = getBlockTypeName(blockType);
+            document.getElementById('blockLines').textContent = script.split('\n').length;
+            document.getElementById('blockInfo').style.display = 'flex';
+        }
+
+        function getBlockTypeName(type) {
+            const names = {
+                'layer7': 'Layer7',
+                'tls': 'TLS/SSL',
+                'both': 'Layer7 + TLS/SSL'
+            };
+            return names[type] || type;
+        }
+
+        function resetBlockInputs() {
+            if (confirm('هل تريد إعادة تعيين جميع المدخلات؟')) {
+                document.getElementById('siteUrlInput').value = '';
+                document.getElementById('siteNameInput').value = '';
+                document.getElementById('interfaceBlock').value = 'OUT';
+                document.querySelector('input[name="blockType"][value="layer7"]').checked = true;
+                document.getElementById('outputScript4').value = '';
+                document.getElementById('resultSection4').style.display = 'none';
+                document.getElementById('blockInfo').style.display = 'none';
+            }
+        }
+
+        function showBlockExamples() {
+            const examples = `
+🎯 أمثلة جاهزة:
+
+1. 🔴 يوتيوب كاملاً:
+   • الموقع: youtube.com
+   • الاسم: YouTube
+   • النوع: كلاهما (لأقصى حماية)
+
+2. 🔵 فيسبوك كاملاً:
+   • الموقع: facebook.com
+   • الاسم: Facebook
+   • النوع: Layer7
+
+3. 🟣 مواقع التواصل:
+   • المواقع: instagram.com, twitter.com, tiktok.com
+   • الاسم: Social
+   • النوع: كلاهما
+
+4. 🟡 ألعاب أونلاين:
+   • المواقع: steam.com, origin.com, battle.net
+   • الاسم: Gaming
+   • النوع: TLS/SSL
+
+💡 نصائح:
+• استخدم "كلاهما" للحجب الأقوى
+• اختر الموقع من القائمة الجاهزة
+• اختبر السكريبت أولاً
+            `;
+            
+            alert(examples);
+        }
+
+        function downloadBlockScript() {
+            const script = document.getElementById('outputScript4').value;
+            if (!script) {
+                alert('⚠️ يرجى توليد السكربت أولاً');
+                return;
+            }
+            
+            const siteName = document.getElementById('siteNameInput').value.trim() || 'blocked_sites';
+            const blob = new Blob([script], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `block_${siteName}_${new Date().toISOString().split('T')[0]}.rsc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ تم تحميل السكربت بنجاح');
+        }
+
+        // ========== باقي الوظائف (كما هي بدون تغيير) ==========
+        // [هنا يتبع باقي كود JavaScript كما هو بدون تغيير]
+        // ... (كل الكود السابق من generateHotspotScript إلى copyScript)
+        
         // ========== التحقق من صحة IP ==========
         function validateIP(ip) {
             const regex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
@@ -2781,168 +3101,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             return script;
         }
 
-        // ========== الصفحة 4: حجب المواقع (الدوال الجديدة) ==========
-        function generateUniversalBlockScript() {
-            const siteUrl = document.getElementById('siteUrlInput').value.trim();
-            const siteName = document.getElementById('siteNameInput').value.trim();
-            const interfaceName = document.getElementById('interfaceBlock').value.trim() || "OUT";
-            const blockType = document.querySelector('input[name="blockType"]:checked').value;
-            
-            if (!siteUrl || !siteName) {
-                alert('⚠️ يرجى إدخال رابط الموقع واسمه');
-                return;
-            }
-            
-            // معالجة المدخلات
-            const sites = siteUrl.split(',').map(s => s.trim()).filter(s => s.length > 0);
-            const siteNames = siteName.split(',').map(s => s.trim()).filter(s => s.length > 0);
-            const mainSiteName = siteNames[0] || sites[0].replace(/\./g, '_').toUpperCase();
-            
-            let script = `################################\n`;
-            script += `# سكربت حجب ${mainSiteName} - ${SIGNATURE}\n`;
-            script += `# التاريخ: ${new Date().toLocaleDateString('ar-EG')}\n`;
-            script += `# المواقع: ${sites.join(', ')}\n`;
-            script += `################################\n\n`;
-            
-            // Layer7 Protocol
-            if (blockType === 'layer7' || blockType === 'both') {
-                script += `/ip firewall layer7-protocol\n`;
-                sites.forEach((site, index) => {
-                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
-                    script += `add name=${name} regexp="^.+(www\\.)?${site.replace(/\./g, '\\.')}.*\\$"\n`;
-                });
-                script += `\n`;
-            }
-            
-            // TLS Host rules
-            if (blockType === 'tls' || blockType === 'both') {
-                script += `/ip firewall mangle\n`;
-                sites.forEach((site, index) => {
-                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
-                    script += `add action=add-dst-to-address-list address-list=${name}_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*${site}*"\n`;
-                });
-                script += `\n`;
-            }
-            
-            // قواعد الحجب في Filter
-            script += `/ip firewall filter\n`;
-            
-            // حجب Layer7
-            if (blockType === 'layer7' || blockType === 'both') {
-                sites.forEach((site, index) => {
-                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
-                    script += `add action=drop chain=forward comment="حجب ${site} - Layer7" layer7-protocol=${name} out-interface=${interfaceName}\n`;
-                });
-            }
-            
-            // حجب TLS
-            if (blockType === 'tls' || blockType === 'both') {
-                sites.forEach((site, index) => {
-                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
-                    script += `add action=drop chain=forward comment="حجب ${site} - TLS" protocol=tcp tls-host="*${site}*" out-interface=${interfaceName}\n`;
-                });
-            }
-            
-            // حجب IPs من القائمة
-            if (blockType === 'tls' || blockType === 'both') {
-                sites.forEach((site, index) => {
-                    const name = (siteNames[index] || site.replace(/\./g, '_')).toUpperCase();
-                    script += `add action=drop chain=forward comment="حجب ${site} - قائمة IPs" dst-address-list=${name}_IPs out-interface=${interfaceName}\n`;
-                });
-            }
-            
-            // حجب QUIC
-            script += `add action=drop chain=forward comment="حجب QUIC" dst-port=443 protocol=udp out-interface=${interfaceName}\n`;
-            
-            script += `\n# ${SIGNATURE}\n`;
-            script += `# تم إنشاء سكربت لحجب ${sites.length} موقع\n`;
-            script += `# نوع الحجب: ${getBlockTypeName(blockType)}\n`;
-            
-            document.getElementById('outputScript4').value = script;
-            document.getElementById('resultSection4').style.display = 'block';
-            
-            // تحديث المعلومات
-            document.getElementById('blockedCount').textContent = sites.length;
-            document.getElementById('blockMethod').textContent = getBlockTypeName(blockType);
-            document.getElementById('blockLines').textContent = script.split('\n').length;
-            document.getElementById('blockInfo').style.display = 'flex';
-        }
-
-        function getBlockTypeName(type) {
-            const names = {
-                'layer7': 'Layer7',
-                'tls': 'TLS/SSL',
-                'both': 'Layer7 + TLS/SSL'
-            };
-            return names[type] || type;
-        }
-
-        function resetBlockInputs() {
-            if (confirm('هل تريد إعادة تعيين جميع المدخلات؟')) {
-                document.getElementById('siteUrlInput').value = '';
-                document.getElementById('siteNameInput').value = '';
-                document.getElementById('interfaceBlock').value = 'OUT';
-                document.querySelector('input[name="blockType"][value="layer7"]').checked = true;
-                document.getElementById('outputScript4').value = '';
-                document.getElementById('resultSection4').style.display = 'none';
-                document.getElementById('blockInfo').style.display = 'none';
-            }
-        }
-
-        function showBlockExamples() {
-            const examples = `
-🎯 أمثلة جاهزة للحجب:
-
-1. 🔴 حجب يوتيوب كاملاً:
-   • الموقع: youtube.com, googlevideo.com
-   • الاسم: YouTube
-   • النوع: كلاهما
-
-2. 🔵 حجب مواقع التواصل:
-   • المواقع: facebook.com, instagram.com, twitter.com
-   • الاسم: Social
-   • النوع: Layer7
-
-3. 🟡 حجب ألعاب أونلاين:
-   • المواقع: steam.com, origin.com, battle.net
-   • الاسم: Games
-   • النوع: TLS/SSL
-
-4. 🟣 حجب مواقع البث:
-   • المواقع: netflix.com, hulu.com, twitch.tv
-   • الاسم: Streaming
-   • النوع: كلاهما
-
-💡 نصائح:
-• استخدم "كلاهما" للحجب الأقوى
-• أضف دومينات فرعية مثل googlevideo.com لليوتيوب
-• اختبر السكريبت أولاً على جهاز تجريبي
-    `;
-            
-            alert(examples);
-        }
-
-        function downloadBlockScript() {
-            const script = document.getElementById('outputScript4').value;
-            if (!script) {
-                alert('⚠️ يرجى توليد السكربت أولاً');
-                return;
-            }
-            
-            const siteName = document.getElementById('siteNameInput').value.trim() || 'blocked_sites';
-            const blob = new Blob([script], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `block_${siteName}_${new Date().toISOString().split('T')[0]}.rsc`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            alert('✅ تم تحميل السكربت بنجاح');
-        }
-
         // ========== الصفحة 6: بروفايلات السرعة - الدوال المصححة ==========
         function initSpeedPage() {
             // إنشاء البروفايلات أول مرة
@@ -3001,7 +3159,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 const tierName = tierNames[Math.min(i - 1, tierNames.length - 1)];
                 
                 const downloadSpeed = downloadSpeeds[i - 1];
-                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4)); // نفس المعادلة 4:1
+                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4));
                 
                 profileCard.innerHTML = `
                     <div class="profile-header">
@@ -3090,20 +3248,22 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 
         function getDownloadSpeedsByPreset(preset, count) {
             const presets = {
-                economic: [2, 4, 8, 16, 32, 64, 128, 256],
-                standard: [4, 8, 16, 32, 64, 128, 256, 512],
-                premium: [8, 16, 32, 64, 128, 256, 512, 1024],
-                gaming: [10, 20, 30, 50, 100, 200, 300, 500]
+                economic: [2, 4, 8, 16],
+                standard: [4, 8, 16, 32],
+                premium: [8, 16, 32, 64],
+                gaming: [10, 20, 30, 50]
             };
             
-            const speeds = presets[preset] || presets.premium;
+            const speeds = presets[preset] || presets.economic;
             
             // إذا كان العدد المطلوب أكثر من المتوفر، نضيف قيماً تزايدية
             if (count > speeds.length) {
                 const lastSpeed = speeds[speeds.length - 1];
+                const newSpeeds = [...speeds];
                 for (let i = speeds.length; i < count; i++) {
-                    speeds.push(lastSpeed * 2);
+                    newSpeeds.push(lastSpeed * 2);
                 }
+                return newSpeeds;
             }
             
             return speeds.slice(0, count);
@@ -3200,13 +3360,14 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     
                     if (!hsEnabled) continue;
                     
+                    // التعديل: الاسم يظهر سرعة التنزيل
                     const profileName = `speed_${dl}M`;
                     
                     // حساب سرعات Burst
                     const burstDown = addBurst ? dl * 2 : dl;
                     const burstUp = addBurst ? ul * 2 : ul;
-                    const burstThresholdDown = Math.floor(30);
-                    const burstThresholdUp = Math.floor(30);
+                    const burstThresholdDown = Math.floor(dl * 0.8);
+                    const burstThresholdUp = Math.floor(ul * 0.8);
                     
                     const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M ${burstThresholdUp}/${burstThresholdDown}"`;
                     
@@ -3223,12 +3384,12 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     
                     if (limitUsers) {
                         script += ` `;
-                        script += `shared-users=${Math.floor(50 / i)}`; // عدد مستخدمين متناقص حسب البروفايل
+                        script += `shared-users=${Math.floor(50 / i)}`;
                     }
                     
                     if (enableFairness) {
                         script += ` `;
-                        script += `parent-queue=global`; // تفعيل Fairness
+                        script += `parent-queue=global`;
                     }
                     
                     script += ` comment="${SIGNATURE}_HS${i}"\n`;
@@ -3305,7 +3466,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
         function resetSpeedProfiles() {
             if (confirm('هل تريد إعادة تعيين جميع البروفايلات إلى الإعدادات الافتراضية؟')) {
                 document.getElementById('profileName').value = 'speed';
-                document.getElementById('profileCount').value = '5';
+                document.getElementById('profileCount').value = '4';
                 document.getElementById('ratioType').value = '4:1';
                 document.getElementById('sessionTime').value = '6h';
                 document.getElementById('addBurst').checked = true;
@@ -3314,12 +3475,12 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                 
                 currentSystem.hotspot = true;
                 currentSystem.broadband = false;
-                currentPreset = 'premium';
+                currentPreset = 'economic';
                 
                 // تحديث أزرار الباقات
                 document.querySelectorAll('.preset-btn').forEach(btn => {
                     btn.classList.remove('active');
-                    if (btn.getAttribute('data-preset') === 'premium') {
+                    if (btn.getAttribute('data-preset') === 'economic') {
                         btn.classList.add('active');
                     }
                 });
@@ -3504,7 +3665,3 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
-
-
-
-
