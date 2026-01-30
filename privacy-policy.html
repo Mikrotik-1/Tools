@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سياسة الخصوصية - MikroTools | أدوات ميكروتيك مجانية">
+    <title>سياسة الخصوصية - MikroTools</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --nav-bg: #1e293b;
+            --nav-text: #ffffff;
+            --primary: #007bff;
+            --secondary: #28a745;
+            --danger: #dc2626;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --border-color: #e2e8f0;
+            --bg-color: #f1f5f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            direction: rtl;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--nav-bg), #2d3748);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .logo-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .back-button-container {
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .back-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .privacy-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .privacy-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--primary);
+        }
+
+        .privacy-title {
+            color: var(--primary);
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .privacy-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border-right: 4px solid var(--primary);
+        }
+
+        .section-title {
+            color: var(--text-main);
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .section-content {
+            font-size: 16px;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .info-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+            padding-right: 15px;
+            position: relative;
+            color: #475569;
+        }
+
+        ul li:before {
+            content: "•";
+            color: var(--primary);
+            font-size: 1.5rem;
+            position: absolute;
+            right: -15px;
+            top: -2px;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #1e293b, #2d3748);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .phone-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #38bdf8;
+            direction: ltr;
+        }
+
+        .contact-person {
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+
+        .footer {
+            background: var(--nav-bg);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .facebook-icon {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .sticky-back-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .sticky-back-button:hover {
+            background: #0056b3;
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .privacy-container {
+                padding: 0 15px;
+                margin: 20px auto;
+            }
+            
+            .privacy-card {
+                padding: 25px;
+            }
+            
+            .privacy-title {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .header {
+                padding: 20px 0;
+            }
+            
+            .logo-text {
+                font-size: 22px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .sticky-back-button {
+                bottom: 20px;
+                left: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .back-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .privacy-card {
+                padding: 20px;
+            }
+            
+            .content-section {
+                padding: 15px;
+            }
+            
+            .contact-section {
+                padding: 20px;
+            }
+            
+            .phone-number {
+                font-size: 18px;
+            }
+            
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر الرئيسي -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo-icon">⚡</div>
+                <div>
+                    <div class="logo-text">MikroTools</div>
+                    <div class="logo-subtitle">أدوات ميكروتيك مجانية</div>
+                </div>
+            </div>
+            
+            <h1>سياسة الخصوصية</h1>
+            <p style="color: #cbd5e1; margin-top: 10px;">نحن نحرص على حماية خصوصيتك وبياناتك الشخصية</p>
+            
+            <div class="back-button-container">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة إلى الموقع الرئيسي
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="privacy-container">
+        <div class="privacy-card">
+            <h2 class="privacy-title">سياسة الخصوصية</h2>
+            
+            <!-- القسم 1: مقدمة -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    مقدمة
+                </h3>
+                <div class="section-content">
+                    <p>مرحباً بك في <strong>MikroTools</strong>. نحن نعتبر خصوصيتك أمراً بالغ الأهمية. تشرح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية معلوماتك الشخصية عندما تستخدم موقعنا الإلكتروني.</p>
+                    
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-exclamation-circle"></i>
+                            ملاحظة هامة
+                        </div>
+                        <p>باستخدامك لموقعنا، فإنك توافق على شروط وسياسة الخصوصية المذكورة هنا. إذا كنت لا توافق على هذه السياسة، يرجى عدم استخدام موقعنا.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- القسم 2: المعلومات التي نجمعها -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-database"></i>
+                    المعلومات التي نجمعها
+                </h3>
+                <div class="section-content">
+                    <p>قد نجمع الأنواع التالية من المعلومات:</p>
+                    
+                    <ul>
+                        <li><strong>المعلومات الشخصية:</strong> مثل الاسم والبريد الإلكتروني التي تقدمها طوعاً عند التواصل معنا.</li>
+                        <li><strong>معلومات الاستخدام:</strong> مثل عناوين IP، نوع المتصفح، صفحات الزيارة، وقت ومدة الزيارة.</li>
+                        <li><strong>ملفات تعريف الارتباط (Cookies):</strong> لتحسين تجربة المستخدم وتذكر التفضيلات.</li>
+                        <li><strong>بيانات النماذج:</strong> المعلومات التي تقدمها عبر نماذج توليد السكربتات.</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-shield-alt"></i>
+                            الأمان والحماية
+                        </div>
+                        <p>جميع المعلومات التي تقدمها في أدواتنا <strong>تتم معالجتها محلياً في متصفحك</strong> ولا يتم إرسالها إلى أي خوادم خارجية. سكربتات ميكروتيك يتم توليدها وتنزيلها مباشرة من جهازك.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- القسم 3: كيفية استخدام المعلومات -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    كيفية استخدام المعلومات
+                </h3>
+                <div class="section-content">
+                    <p>نستخدم المعلومات التي نجمعها للأغراض التالية:</p>
+                    
+                    <ul>
+                        <li>توفير وتحسين خدمات وأدوات موقعنا</li>
+                        <li>تحليل استخدام الموقع لتحسين تجربة المستخدم</li>
+                        <li>الرد على استفساراتك وطلباتك</li>
+                        <li>تطوير أدوات جديدة وتحديث الأدوات الحالية</li>
+                        <li>ضمان أمان واستقرار الموقع</li>
+                    </ul>
+                    
+                    <p>نحن <strong>لا نبيع أو نؤجر أو نشارك</strong> معلوماتك الشخصية مع أطراف ثالثة لأغراض تسويقية.</p>
+                </div>
+            </section>
+
+            <!-- القسم 4: ملفات تعريف الارتباط -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-cookie"></i>
+                    ملفات تعريف الارتباط (Cookies)
+                </h3>
+                <div class="section-content">
+                    <p>نستخدم ملفات تعريف الارتباط لتحسين تجربة استخدام موقعنا. هذه الملفات تساعدنا في:</p>
+                    
+                    <ul>
+                        <li>تذكر تفضيلاتك وإعداداتك</li>
+                        <li>تحليل استخدام الموقع</li>
+                        <li>تحسين أداء وسرعة الموقع</li>
+                        <li>توفير محتوى مخصص</li>
+                    </ul>
+                    
+                    <p>يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات متصفحك. يرجى ملاحظة أن تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الموقع.</p>
+                </div>
+            </section>
+
+            <!-- القسم 5: أمان البيانات -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-lock"></i>
+                    أمان البيانات
+                </h3>
+                <div class="section-content">
+                    <p>نحن نلتزم بحماية معلوماتك الشخصية ونستخدم إجراءات أمنية تقنية وإدارية مناسبة لحماية بياناتك من:</p>
+                    
+                    <ul>
+                        <li>الوصول غير المصرح به</li>
+                        <li>التعديل أو الكشف غير المصرح به</li>
+                        <li>التدمير أو الفقدان غير المقصود</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-check-circle"></i>
+                            ميزات الأمان في MikroTools
+                        </div>
+                        <ul>
+                            <li>جميع السكربتات تتم معالجتها محلياً في متصفحك</li>
+                            <li>لا يتم تخزين بياناتك على خوادمنا</li>
+                            <li>اتصال آمن عبر بروتوكول HTTPS</li>
+                            <li>تحديثات أمنية منتظمة</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- القسم 6: روابط خارجية -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-external-link-alt"></i>
+                    روابط خارجية
+                </h3>
+                <div class="section-content">
+                    <p>قد يحتوي موقعنا على روابط لمواقع خارجية. نحن <strong>لسنا مسؤولين</strong> عن ممارسات الخصوصية أو محتوى هذه المواقع. ننصحك بمراجعة سياسات الخصوصية الخاصة بهذه المواقع قبل تقديم أي معلومات شخصية.</p>
+                    
+                    <p>الروابط الخارجية تشمل فقط:</p>
+                    <ul>
+                        <li>روابط لموارد مفيدة تتعلق بميكروتيك</li>
+                        <li>روابط التواصل الاجتماعي</li>
+                        <li>روابط لمواقع شركاء موثوقين</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- القسم 7: حقوق المستخدم -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-user-check"></i>
+                    حقوق المستخدم
+                </h3>
+                <div class="section-content">
+                    <p>كمستخدم لموقع MikroTools، لديك الحق في:</p>
+                    
+                    <ul>
+                        <li>الوصول إلى معلوماتك الشخصية</li>
+                        <li>طلب تصحيح المعلومات غير الدقيقة</li>
+                        <li>طلب حذف معلوماتك الشخصية</li>
+                        <li>رفض تلويحات التسويق</li>
+                        <li>سحب موافقتك على جمع البيانات</li>
+                    </ul>
+                    
+                    <p>لممارسة أي من هذه الحقوق، يرجى التواصل معنا عبر المعلومات المذكورة أدناه.</p>
+                </div>
+            </section>
+
+            <!-- القسم 8: تحديثات السياسة -->
+            <section class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-sync-alt"></i>
+                    تحديثات سياسة الخصوصية
+                </h3>
+                <div class="section-content">
+                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بنشر أي تغييرات على هذه الصفحة وسننبهك عبر إشعار بارز على موقعنا.</p>
+                    
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-bell"></i>
+                            كيفية معرفة التحديثات
+                        </div>
+                        <ul>
+                            <li>تاريخ آخر تحديث يظهر في أسفل هذه الصفحة</li>
+                            <li>الإشعارات تظهر في الصفحة الرئيسية</li>
+                            <li>ننصح بمراجعة هذه الصفحة دورياً</li>
+                        </ul>
+                    </div>
+                    
+                    <p>استمرارك في استخدام الموقع بعد أي تغييرات يعني موافقتك على هذه التغييرات.</p>
+                </div>
+            </section>
+
+            <!-- القسم 9: معلومات التواصل -->
+            <section class="contact-section">
+                <h3 class="contact-title">
+                    <i class="fas fa-headset"></i>
+                    للتواصل والاستفسارات
+                </h3>
+                <p>إذا كان لديك أي استفسارات حول سياسة الخصوصية هذه أو ممارساتنا، يرجى التواصل معنا:</p>
+                
+                <div class="contact-info">
+                    <div>
+                        <div class="phone-number">01092503391</div>
+                        <div class="contact-person">Sameh El-Sayed</div>
+                    </div>
+                    
+                    <div class="social-icons">
+                        <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon" title="تواصل عبر واتساب">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon" title="تابعنا على فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="copyright">
+                © 2024 MikroTools. جميع الحقوق محفوظة.<br>
+                آخر تحديث: 15 ديسمبر 2024
+            </div>
+            
+            <div>
+                <a href="index.html" class="back-button" style="background: var(--secondary);">
+                    <i class="fas fa-home"></i>
+                    الصفحة الرئيسية
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- زر الرجوع العائم -->
+    <a href="index.html" class="sticky-back-button" title="العودة إلى الموقع الرئيسي">
+        <i class="fas fa-arrow-right"></i>
+    </a>
+
+    <script>
+        // إضافة تاريخ التحديث التلقائي
+        document.addEventListener('DOMContentLoaded', function() {
+            const updateDate = document.querySelector('.copyright');
+            if (updateDate) {
+                const today = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const dateString = today.toLocaleDateString('ar-EG', options);
+                updateDate.innerHTML = updateDate.innerHTML.replace('15 ديسمبر 2024', dateString);
+            }
+            
+            // تأثير التمرير الناعم للروابط الداخلية
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // إظهار/إخفاء زر الرجوع العائم
+            const stickyButton = document.querySelector('.sticky-back-button');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    stickyButton.style.opacity = '1';
+                    stickyButton.style.visibility = 'visible';
+                } else {
+                    stickyButton.style.opacity = '0';
+                    stickyButton.style.visibility = 'hidden';
+                }
+            });
+            
+            // تهيئة حالة زر الرجوع العائم
+            if (window.scrollY > 300) {
+                stickyButton.style.opacity = '1';
+                stickyButton.style.visibility = 'visible';
+            }
+        });
+    </script>
+</body>
+</html>
