@@ -339,7 +339,6 @@
         .ad-section {
             background: var(--ad-bg);
             border-right: 4px solid var(--ad-color);
-            border-left: 4px solid var(--ad-color);
         }
 
         .ad-section .section-title i {
@@ -348,20 +347,34 @@
 
         .ad-notice {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
-            margin: 15px 0;
+            margin: 20px 0;
             border: 2px solid var(--ad-color);
-            box-shadow: 0 3px 15px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.1);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .ad-notice-quote {
+            font-style: italic;
+            color: #4c1d95;
+            padding: 15px;
+            background: #f3f4f6;
+            border-right: 4px solid var(--ad-color);
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 16px;
         }
 
         .ad-notice-title {
             color: var(--ad-color);
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 18px;
         }
 
         .ad-badge {
@@ -765,6 +778,11 @@
             .header.scrolled {
                 padding: 10px 0;
             }
+            
+            .ad-notice {
+                padding: 20px;
+                font-size: 15px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -805,6 +823,11 @@
             
             .header-title {
                 font-size: 16px;
+            }
+            
+            .ad-notice {
+                padding: 15px;
+                font-size: 14px;
             }
         }
     </style>
@@ -941,51 +964,57 @@
                     الإعلانات والشركاء الخارجيون
                 </h3>
                 <div class="section-content">
-                    <p>نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا.</p>
-                    
                     <div class="ad-notice">
                         <div class="ad-notice-title">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            كيف تعمل الإعلانات
+                            <i class="fas fa-bullhorn"></i>
+                            بيان الإعلانات
                         </div>
-                        <p>قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع <strong>(لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني)</strong> من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.</p>
+                        <p><strong>نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا. قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع (لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني) من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.</strong></p>
                     </div>
                     
-                    <p>نود توضيح النقاط التالية بخصوص الإعلانات:</p>
+                    <div class="ad-notice-quote">
+                        <i class="fas fa-quote-right" style="color: var(--ad-color); float: left; margin-left: 10px;"></i>
+                        "نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا. قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع (لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني) من أجل تقديم إعلانات حول السلع والخدمات التي تهمك."
+                    </div>
+                    
+                    <p>توضيحات إضافية حول ممارسات الإعلان:</p>
                     
                     <ul>
-                        <li><span class="ad-badge">معلومات مجهولة</span> الإعلانات تستخدم بيانات <strong>مجهولة المصدر</strong> ولا يمكن ربطها بهويتك الشخصية</li>
-                        <li><span class="ad-badge">لا بيانات حساسة</span> لا نشارك أي معلومات شخصية تعريفية مع المعلنين</li>
-                        <li><span class="ad-badge">تتبع محدود</span> قد تستخدم ملفات تعريف ارتباط (cookies) خاصة بالإعلانات</li>
-                        <li><span class="ad-badge">اختياري</span> يمكنك إدارة تفضيلات الإعلانات من خلال إعدادات متصفحك</li>
+                        <li><span class="ad-badge">خصوصية محمية</span> المعلومات المستخدمة للإعلانات <strong>مجهولة تماماً</strong> ولا تتضمن أي بيانات شخصية تعريفية</li>
+                        <li><span class="ad-badge">تتبع محدود</span> قد تستخدم ملفات تعريف ارتباط (cookies) خاصة بالإعلانات لتذكر اهتماماتك العامة</li>
+                        <li><span class="ad-badge">أمان مضمون</span> نتعامل فقط مع شركات إعلانات ملتزمة بمعايير الخصوصية العالية</li>
+                        <li><span class="ad-badge">تحكم كامل</span> يمكنك إدارة أو تعطيل الإعلانات الموجهة في أي وقت</li>
                     </ul>
                     
                     <div class="info-box">
                         <div class="info-title">
-                            <i class="fas fa-shield-alt"></i>
-                            حماية خصوصيتك مع الإعلانات
+                            <i class="fas fa-user-shield"></i>
+                            حماية هويتك مع الإعلانات
                         </div>
-                        <p>لحماية خصوصيتك أثناء عرض الإعلانات:</p>
+                        <p>لتأكيد حماية خصوصيتك:</p>
                         <ul>
-                            <li>نستخدم فقط شركات إعلانات ملتزمة بمعايير الخصوصية</li>
-                            <li>نسعى لعرض إعلانات غير تدخلية وذات صلة</li>
-                            <li>نوفر معلومات واضحة عن ممارسات الإعلان</li>
+                            <li>لا نشارك <strong>أي</strong> معلومات شخصية مع المعلنين</li>
+                            <li>الإعلانات تعتمد على اهتمامات عامة وليس بيانات شخصية</li>
                             <li>نحترم إعدادات "عدم التتبع" (Do Not Track) في المتصفحات</li>
+                            <li>جميع شركاء الإعلان ملتزمون بمعايير الخصوصية الدولية</li>
                         </ul>
                     </div>
                     
                     <div class="highlight-box">
                         <div class="highlight-title">
-                            <i class="fas fa-user-slash"></i>
-                            كيفية إدارة الإعلانات الموجهة
+                            <i class="fas fa-cogs"></i>
+                            كيفية التحكم في الإعلانات الموجهة لك
                         </div>
-                        <p>إذا كنت ترغب في إدارة تفضيلات الإعلانات أو تعطيل الإعلانات الموجهة:</p>
+                        <p>إذا كنت ترغب في إدارة تفضيلات الإعلانات:</p>
                         <ul>
-                            <li><strong>Google AdSense:</strong> يمكنك زيارة <a href="https://adssettings.google.com" target="_blank" style="color: var(--ad-color);">إعدادات إعلانات Google</a></li>
-                            <li><strong>المتصفح:</strong> استخدام وضع التصفح الخاص أو إضافة مانع الإعلانات</li>
-                            <li><strong>الجهاز:</strong> ضبط إعدادات الخصوصية على مستوى النظام</li>
+                            <li><strong>لإدارة إعلانات Google:</strong> زر <a href="https://adssettings.google.com" target="_blank" style="color: var(--ad-color); font-weight: 600;">إعدادات إعلانات Google</a></li>
+                            <li><strong>في متصفحك:</strong> استخدام وضع التصفح الخاص أو إضافة مانع الإعلانات</li>
+                            <li><strong>على جهازك:</strong> ضبط إعدادات الخصوصية على مستوى النظام</li>
+                            <li><strong>خيارات أخرى:</strong> زيارة <a href="https://www.aboutads.info/choices/" target="_blank" style="color: var(--ad-color); font-weight: 600;">Your Online Choices</a> للمزيد من الخيارات</li>
                         </ul>
-                        <p style="margin-top: 10px; font-size: 14px;"><i class="fas fa-info-circle"></i> الإعلانات تساعدنا في استمرار تقديم الخدمة مجاناً للجميع.</p>
+                        <p style="margin-top: 10px; font-size: 14px; color: #64748b;">
+                            <i class="fas fa-info-circle"></i> الإعلانات تساعدنا في الحفاظ على خدماتنا مجانية للجميع ودعم تطوير أدوات جديدة.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -1401,7 +1430,7 @@
         }, observerOptions);
         
         // تطبيق تأثيرات على الأقسام
-        document.querySelectorAll('.content-section, .info-box').forEach(el => {
+        document.querySelectorAll('.content-section, .info-box, .ad-notice').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateX(20px)';
             el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
@@ -1409,7 +1438,7 @@
         });
         
         // تهيئة الأقسام المرئية حالياً
-        document.querySelectorAll('.content-section, .info-box').forEach(el => {
+        document.querySelectorAll('.content-section, .info-box, .ad-notice').forEach(el => {
             const rect = el.getBoundingClientRect();
             if (rect.top < window.innerHeight && rect.bottom > 0) {
                 el.style.opacity = '1';
@@ -1436,7 +1465,7 @@
             const section = document.getElementById(sectionId);
             if (section) {
                 const badge = document.createElement('div');
-                badge.innerHTML = sectionId === 'advertising' ? '<i class="fas fa-ad"></i> هام' : '<i class="fas fa-star"></i> هام';
+                badge.innerHTML = sectionId === 'advertising' ? '<i class="fas fa-ad"></i> بيان الإعلانات' : '<i class="fas fa-star"></i> هام';
                 badge.style.position = 'absolute';
                 badge.style.left = '15px';
                 badge.style.top = '15px';
