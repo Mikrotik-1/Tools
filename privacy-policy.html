@@ -19,6 +19,7 @@
             --danger: #dc2626;
             --warning: #f59e0b;
             --info: #3b82f6;
+            --ad-color: #8b5cf6;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --border-color: #e2e8f0;
@@ -27,6 +28,7 @@
             --success-text: #065f46;
             --info-bg: #dbeafe;
             --info-text: #1e40af;
+            --ad-bg: #f5f3ff;
         }
 
         * {
@@ -43,17 +45,26 @@
             line-height: 1.6;
             min-height: 100vh;
             scroll-behavior: smooth;
+            padding-top: 180px; /* مساحة للهيدر الثابت */
         }
 
         .header {
             background: linear-gradient(135deg, var(--nav-bg), #2d3748);
             color: white;
-            padding: 30px 0;
+            padding: 20px 0;
             text-align: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
         .header-container {
@@ -67,65 +78,111 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .logo-icon {
             background: linear-gradient(135deg, var(--primary), #3b82f6);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo-icon {
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
         }
 
         .logo-text {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: white;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo-text {
+            font-size: 20px;
         }
 
         .logo-subtitle {
-            font-size: 14px;
+            font-size: 12px;
             color: #94a3b8;
-            margin-top: 5px;
+            margin-top: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .logo-subtitle {
+            font-size: 11px;
+        }
+
+        .header-title {
+            font-size: 22px;
+            margin: 10px 0;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .header-title {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .header-subtitle {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .header-subtitle {
+            font-size: 12px;
+            margin-bottom: 8px;
         }
 
         .back-button-container {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .back-button {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: var(--primary);
             color: white;
-            padding: 12px 25px;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .header.scrolled .back-button {
+            padding: 8px 16px;
+            font-size: 13px;
         }
 
         .back-button:hover {
             background: #0056b3;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
         }
 
         .privacy-container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
@@ -279,6 +336,46 @@
             gap: 10px;
         }
 
+        .ad-section {
+            background: var(--ad-bg);
+            border-right: 4px solid var(--ad-color);
+            border-left: 4px solid var(--ad-color);
+        }
+
+        .ad-section .section-title i {
+            color: var(--ad-color);
+        }
+
+        .ad-notice {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid var(--ad-color);
+            box-shadow: 0 3px 15px rgba(139, 92, 246, 0.1);
+        }
+
+        .ad-notice-title {
+            color: var(--ad-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ad-badge {
+            display: inline-block;
+            background: var(--ad-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
         ul {
             list-style-type: none;
             padding-right: 20px;
@@ -299,6 +396,10 @@
             position: absolute;
             right: -15px;
             top: -2px;
+        }
+
+        .ad-section ul li:before {
+            color: var(--ad-color);
         }
 
         .highlight-box {
@@ -479,6 +580,7 @@
             gap: 10px;
             justify-content: center;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .badge {
@@ -488,6 +590,10 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+        }
+
+        .badge.ad-badge-full {
+            background: linear-gradient(135deg, var(--ad-color), #7c3aed);
         }
 
         .sticky-back-button {
@@ -592,6 +698,10 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding-top: 160px;
+            }
+            
             .privacy-container {
                 padding: 0 15px;
                 margin: 20px auto;
@@ -619,12 +729,15 @@
             }
             
             .header {
-                padding: 20px 0;
-                position: relative;
+                padding: 15px 0;
             }
             
             .logo-text {
-                font-size: 22px;
+                font-size: 20px;
+            }
+            
+            .header-title {
+                font-size: 18px;
             }
             
             .footer-content {
@@ -641,16 +754,24 @@
             }
             
             .back-button {
-                padding: 10px 20px;
-                font-size: 14px;
+                padding: 8px 16px;
+                font-size: 13px;
             }
             
             .quick-nav-links {
                 grid-template-columns: 1fr;
             }
+            
+            .header.scrolled {
+                padding: 10px 0;
+            }
         }
 
         @media (max-width: 480px) {
+            body {
+                padding-top: 150px;
+            }
+            
             .privacy-card {
                 padding: 20px;
             }
@@ -677,6 +798,14 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            
+            .header {
+                padding: 10px 0;
+            }
+            
+            .header-title {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -686,8 +815,8 @@
         <div class="progress" id="progress"></div>
     </div>
 
-    <!-- الهيدر الرئيسي -->
-    <header class="header">
+    <!-- الهيدر الرئيسي (ثابت) -->
+    <header class="header" id="main-header">
         <div class="header-container">
             <div class="logo-container">
                 <div class="logo-icon">⚡</div>
@@ -697,8 +826,8 @@
                 </div>
             </div>
             
-            <h1>سياسة الخصوصية</h1>
-            <p style="color: #cbd5e1; margin-top: 10px;">نحن نحرص على حماية خصوصيتك وبياناتك الشخصية</p>
+            <h1 class="header-title">سياسة الخصوصية</h1>
+            <p class="header-subtitle">نحن نحرص على حماية خصوصيتك وبياناتك الشخصية</p>
             
             <div class="back-button-container">
                 <a href="index.html" class="back-button">
@@ -728,7 +857,7 @@
                 <div class="quick-nav-links">
                     <a href="#introduction" class="nav-link"><i class="fas fa-info-circle"></i> مقدمة</a>
                     <a href="#data-collection" class="nav-link"><i class="fas fa-database"></i> البيانات المجمعة</a>
-                    <a href="#data-usage" class="nav-link"><i class="fas fa-cogs"></i> استخدام البيانات</a>
+                    <a href="#advertising" class="nav-link"><i class="fas fa-ad"></i> الإعلانات</a>
                     <a href="#security" class="nav-link"><i class="fas fa-lock"></i> الأمان</a>
                     <a href="#rights" class="nav-link"><i class="fas fa-user-check"></i> حقوقك</a>
                 </div>
@@ -804,9 +933,66 @@
                 </div>
             </section>
 
-            <!-- القسم 3: كيفية استخدام المعلومات -->
-            <section class="content-section" id="data-usage">
+            <!-- القسم الجديد: الإعلانات -->
+            <section class="content-section ad-section" id="advertising">
                 <div class="section-id">3</div>
+                <h3 class="section-title">
+                    <i class="fas fa-ad"></i>
+                    الإعلانات والشركاء الخارجيون
+                </h3>
+                <div class="section-content">
+                    <p>نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا.</p>
+                    
+                    <div class="ad-notice">
+                        <div class="ad-notice-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            كيف تعمل الإعلانات
+                        </div>
+                        <p>قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع <strong>(لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني)</strong> من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.</p>
+                    </div>
+                    
+                    <p>نود توضيح النقاط التالية بخصوص الإعلانات:</p>
+                    
+                    <ul>
+                        <li><span class="ad-badge">معلومات مجهولة</span> الإعلانات تستخدم بيانات <strong>مجهولة المصدر</strong> ولا يمكن ربطها بهويتك الشخصية</li>
+                        <li><span class="ad-badge">لا بيانات حساسة</span> لا نشارك أي معلومات شخصية تعريفية مع المعلنين</li>
+                        <li><span class="ad-badge">تتبع محدود</span> قد تستخدم ملفات تعريف ارتباط (cookies) خاصة بالإعلانات</li>
+                        <li><span class="ad-badge">اختياري</span> يمكنك إدارة تفضيلات الإعلانات من خلال إعدادات متصفحك</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-shield-alt"></i>
+                            حماية خصوصيتك مع الإعلانات
+                        </div>
+                        <p>لحماية خصوصيتك أثناء عرض الإعلانات:</p>
+                        <ul>
+                            <li>نستخدم فقط شركات إعلانات ملتزمة بمعايير الخصوصية</li>
+                            <li>نسعى لعرض إعلانات غير تدخلية وذات صلة</li>
+                            <li>نوفر معلومات واضحة عن ممارسات الإعلان</li>
+                            <li>نحترم إعدادات "عدم التتبع" (Do Not Track) في المتصفحات</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-user-slash"></i>
+                            كيفية إدارة الإعلانات الموجهة
+                        </div>
+                        <p>إذا كنت ترغب في إدارة تفضيلات الإعلانات أو تعطيل الإعلانات الموجهة:</p>
+                        <ul>
+                            <li><strong>Google AdSense:</strong> يمكنك زيارة <a href="https://adssettings.google.com" target="_blank" style="color: var(--ad-color);">إعدادات إعلانات Google</a></li>
+                            <li><strong>المتصفح:</strong> استخدام وضع التصفح الخاص أو إضافة مانع الإعلانات</li>
+                            <li><strong>الجهاز:</strong> ضبط إعدادات الخصوصية على مستوى النظام</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 14px;"><i class="fas fa-info-circle"></i> الإعلانات تساعدنا في استمرار تقديم الخدمة مجاناً للجميع.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- القسم 4: كيفية استخدام المعلومات -->
+            <section class="content-section" id="data-usage">
+                <div class="section-id">4</div>
                 <h3 class="section-title">
                     <i class="fas fa-cogs"></i>
                     كيفية استخدام المعلومات
@@ -837,9 +1023,9 @@
                 </div>
             </section>
 
-            <!-- القسم 4: ملفات تعريف الارتباط -->
+            <!-- القسم 5: ملفات تعريف الارتباط -->
             <section class="content-section" id="cookies">
-                <div class="section-id">4</div>
+                <div class="section-id">5</div>
                 <h3 class="section-title">
                     <i class="fas fa-cookie"></i>
                     ملفات تعريف الارتباط (Cookies)
@@ -851,6 +1037,7 @@
                         <li><strong>جلسة العمل:</strong> لتذكر إعداداتك أثناء استخدام الموقع</li>
                         <li><strong>الأداء:</strong> لتحسين سرعة وأداء الموقع</li>
                         <li><strong>الوظائف:</strong> لتمكين عمل الأدوات بشكل صحيح</li>
+                        <li><strong>الإعلانات:</strong> ملفات تعريف ارتباط خاصة بالإعلانات (اختيارية)</li>
                     </ul>
                     
                     <div class="info-box">
@@ -869,9 +1056,9 @@
                 </div>
             </section>
 
-            <!-- القسم 5: أمان البيانات -->
+            <!-- القسم 6: أمان البيانات -->
             <section class="content-section" id="security">
-                <div class="section-id">5</div>
+                <div class="section-id">6</div>
                 <h3 class="section-title">
                     <i class="fas fa-lock"></i>
                     أمان البيانات
@@ -911,9 +1098,9 @@
                 </div>
             </section>
 
-            <!-- القسم 6: روابط خارجية -->
+            <!-- القسم 7: روابط خارجية -->
             <section class="content-section" id="external-links">
-                <div class="section-id">6</div>
+                <div class="section-id">7</div>
                 <h3 class="section-title">
                     <i class="fas fa-external-link-alt"></i>
                     روابط خارجية
@@ -930,15 +1117,16 @@
                             <li><strong>موارد تعليمية:</strong> روابط لمواقع مفيدة عن ميكروتيك</li>
                             <li><strong>التواصل الاجتماعي:</strong> روابط لقنواتنا على وسائل التواصل</li>
                             <li><strong>المراجع:</strong> روابط للوثائق الرسمية</li>
+                            <li><strong>الشركاء:</strong> روابط لخدمات مساندة معتمدة</li>
                         </ul>
                         <p style="margin-top: 10px;"><i class="fas fa-lightbulb"></i> <strong>نصيحة:</strong> دائماً راجع سياسة الخصوصية لأي موقع تزوره.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- القسم 7: حقوق المستخدم -->
+            <!-- القسم 8: حقوق المستخدم -->
             <section class="content-section" id="rights">
-                <div class="section-id">7</div>
+                <div class="section-id">8</div>
                 <h3 class="section-title">
                     <i class="fas fa-user-check"></i>
                     حقوق المستخدم
@@ -953,6 +1141,7 @@
                         <li><strong>حق الحذف:</strong> طلب حذف معلوماتك الشخصية</li>
                         <li><strong>حق الاعتراض:</strong> رفض معالجة بياناتك</li>
                         <li><strong>حق التنقل:</strong> نقل بياناتك إلى خدمة أخرى</li>
+                        <li><strong>حق إدارة الإعلانات:</strong> التحكم في تفضيلات الإعلانات الموجهة</li>
                     </ul>
                     
                     <div class="info-box">
@@ -971,9 +1160,9 @@
                 </div>
             </section>
 
-            <!-- القسم 8: تحديثات السياسة -->
+            <!-- القسم 9: تحديثات السياسة -->
             <section class="content-section" id="updates">
-                <div class="section-id">8</div>
+                <div class="section-id">9</div>
                 <h3 class="section-title">
                     <i class="fas fa-sync-alt"></i>
                     تحديثات سياسة الخصوصية
@@ -1004,12 +1193,13 @@
                             <li>تغيير كبير في خدماتنا</li>
                             <li>تحديثات تشريعية جديدة</li>
                             <li>تغييرات في ممارسات جمع البيانات</li>
+                            <li>تغييرات في شركاء الإعلانات</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- القسم 9: معلومات التواصل -->
+            <!-- القسم 10: معلومات التواصل -->
             <section class="contact-section" id="contact">
                 <h3 class="contact-title">
                     <i class="fas fa-headset"></i>
@@ -1056,6 +1246,7 @@
             <div class="footer-links">
                 <a href="index.html" class="footer-link">الرئيسية</a>
                 <a href="#contact" class="footer-link">اتصل بنا</a>
+                <a href="#advertising" class="footer-link">الإعلانات</a>
                 <a href="#rights" class="footer-link">حقوق المستخدم</a>
                 <a href="#updates" class="footer-link">آخر التحديثات</a>
             </div>
@@ -1073,6 +1264,7 @@
             <span class="badge">No Data Storage</span>
             <span class="badge">GDPR Aware</span>
             <span class="badge">HTTPS Secure</span>
+            <span class="badge ad-badge-full">AdSense Compliant</span>
         </div>
     </footer>
 
@@ -1082,6 +1274,29 @@
     </a>
 
     <script>
+        // تثبيت الهيدر وتأثير التمرير
+        const header = document.getElementById('main-header');
+        const stickyButton = document.getElementById('sticky-back');
+        
+        window.addEventListener('scroll', function() {
+            // تأثير التمرير على الهيدر
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // إظهار/إخفاء زر الرجوع العائم
+            if (window.scrollY > 300) {
+                stickyButton.classList.add('visible');
+            } else {
+                stickyButton.classList.remove('visible');
+            }
+            
+            // تحديث شريط التقدم
+            updateProgress();
+        });
+        
         // تاريخ التحديث التلقائي
         document.addEventListener('DOMContentLoaded', function() {
             const updateDate = document.getElementById('current-date');
@@ -1113,132 +1328,128 @@
                 }
             });
             
-            // تحديث التقدم في القراءة
-            const progressBar = document.getElementById('progress');
-            const stickyButton = document.getElementById('sticky-back');
-            
-            function updateProgress() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-                progressBar.style.width = `${progress}%`;
-                
-                // إظهار/إخفاء زر الرجوع العائم
-                if (scrolled > 300) {
-                    stickyButton.classList.add('visible');
-                } else {
-                    stickyButton.classList.remove('visible');
-                }
-                
-                // تحديث الروابط النشطة في الفهرس
-                const sections = document.querySelectorAll('.content-section, .contact-section');
-                const links = document.querySelectorAll('.toc-link');
-                
-                let currentSection = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 100;
-                    const sectionHeight = section.clientHeight;
-                    if (scrolled >= sectionTop && scrolled < sectionTop + sectionHeight) {
-                        currentSection = section.id || `section-${Array.from(sections).indexOf(section)}`;
-                    }
-                });
-                
-                links.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSection}`) {
-                        link.classList.add('active');
-                    }
-                });
+            // تهيئة حالة الهيدر
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
             }
+        });
+        
+        // تحديث التقدم في القراءة
+        const progressBar = document.getElementById('progress');
+        
+        function updateProgress() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / documentHeight) * 100;
+            progressBar.style.width = `${progress}%`;
             
-            window.addEventListener('scroll', updateProgress);
-            window.addEventListener('resize', updateProgress);
-            updateProgress(); // التشغيل الأولي
+            // تحديث الروابط النشطة في الفهرس
+            const sections = document.querySelectorAll('.content-section, .contact-section');
+            const links = document.querySelectorAll('.toc-link');
             
-            // تأثير التمرير الناعم للروابط الداخلية
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // إضافة تأثير عند التمرير
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateX(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // تطبيق تأثيرات على الأقسام
-            document.querySelectorAll('.content-section, .info-box').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateX(20px)';
-                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(el);
-            });
-            
-            // تهيئة الأقسام المرئية حالياً
-            document.querySelectorAll('.content-section, .info-box').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateX(0)';
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200; // تعديل لمراعاة الهيدر الثابت
+                const sectionHeight = section.clientHeight;
+                if (scrolled >= sectionTop && scrolled < sectionTop + sectionHeight) {
+                    currentSection = section.id || `section-${Array.from(sections).indexOf(section)}`;
                 }
             });
             
-            // إضافة زر لطباعة السياسة
-            const printButton = document.createElement('button');
-            printButton.innerHTML = '<i class="fas fa-print"></i> طباعة السياسة';
-            printButton.className = 'back-button';
-            printButton.style.background = 'var(--info)';
-            printButton.style.marginTop = '10px';
-            printButton.onclick = () => window.print();
-            
-            const backButtonContainer = document.querySelector('.back-button-container');
-            if (backButtonContainer) {
-                backButtonContainer.appendChild(printButton);
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('resize', updateProgress);
+        
+        // تأثير التمرير الناعم للروابط الداخلية
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    window.scrollTo({
+                        top: targetElement.offsetTop - headerHeight - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // إضافة تأثير عند التمرير
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateX(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // تطبيق تأثيرات على الأقسام
+        document.querySelectorAll('.content-section, .info-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+        
+        // تهيئة الأقسام المرئية حالياً
+        document.querySelectorAll('.content-section, .info-box').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.style.opacity = '1';
+                el.style.transform = 'translateX(0)';
             }
-            
-            // إضافة مؤشر للأقسام الهامة
-            const importantSections = ['security', 'rights', 'data-collection'];
-            importantSections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const badge = document.createElement('div');
-                    badge.innerHTML = '<i class="fas fa-star"></i> هام';
-                    badge.style.position = 'absolute';
-                    badge.style.left = '15px';
-                    badge.style.top = '15px';
-                    badge.style.background = 'var(--warning)';
-                    badge.style.color = 'white';
-                    badge.style.padding = '5px 10px';
-                    badge.style.borderRadius = '20px';
-                    badge.style.fontSize = '12px';
-                    badge.style.fontWeight = 'bold';
-                    badge.style.zIndex = '1';
-                    section.style.position = 'relative';
-                    section.appendChild(badge);
-                }
-            });
+        });
+        
+        // إضافة زر لطباعة السياسة
+        const printButton = document.createElement('button');
+        printButton.innerHTML = '<i class="fas fa-print"></i> طباعة السياسة';
+        printButton.className = 'back-button';
+        printButton.style.background = 'var(--info)';
+        printButton.style.marginTop = '10px';
+        printButton.onclick = () => window.print();
+        
+        const backButtonContainer = document.querySelector('.back-button-container');
+        if (backButtonContainer) {
+            backButtonContainer.appendChild(printButton);
+        }
+        
+        // إضافة مؤشر للأقسام الهامة
+        const importantSections = ['security', 'rights', 'data-collection', 'advertising'];
+        importantSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const badge = document.createElement('div');
+                badge.innerHTML = sectionId === 'advertising' ? '<i class="fas fa-ad"></i> هام' : '<i class="fas fa-star"></i> هام';
+                badge.style.position = 'absolute';
+                badge.style.left = '15px';
+                badge.style.top = '15px';
+                badge.style.background = sectionId === 'advertising' ? 'var(--ad-color)' : 'var(--warning)';
+                badge.style.color = 'white';
+                badge.style.padding = '5px 10px';
+                badge.style.borderRadius = '20px';
+                badge.style.fontSize = '12px';
+                badge.style.fontWeight = 'bold';
+                badge.style.zIndex = '1';
+                section.style.position = 'relative';
+                section.appendChild(badge);
+            }
         });
     </script>
 </body>
