@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="سياسة الخصوصية - MikroTools | أدوات ميكروتيك مجانية">
+    <meta name="description" content="سياسة الخصوصية - MikroTools | أدوات ميكروتيك مجانية | حماية خصوصيتك أولويتنا">
+    <meta name="keywords" content="سياسة الخصوصية, ميكروتيك, MikroTools, حماية البيانات, خصوصية">
     <title>سياسة الخصوصية - MikroTools</title>
     
     <!-- Font Awesome -->
@@ -16,10 +17,16 @@
             --primary: #007bff;
             --secondary: #28a745;
             --danger: #dc2626;
+            --warning: #f59e0b;
+            --info: #3b82f6;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --border-color: #e2e8f0;
             --bg-color: #f1f5f9;
+            --success-bg: #d1fae5;
+            --success-text: #065f46;
+            --info-bg: #dbeafe;
+            --info-text: #1e40af;
         }
 
         * {
@@ -35,6 +42,7 @@
             direction: rtl;
             line-height: 1.6;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
         .header {
@@ -43,6 +51,9 @@
             padding: 30px 0;
             text-align: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-container {
@@ -146,12 +157,61 @@
             border-radius: 2px;
         }
 
+        .quick-nav {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-right: 4px solid var(--primary);
+        }
+
+        .quick-nav-title {
+            color: var(--text-main);
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .nav-link {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
         .content-section {
             margin-bottom: 40px;
-            padding: 20px;
+            padding: 25px;
             background: #f8fafc;
             border-radius: 15px;
             border-right: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .content-section:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transform: translateX(-5px);
         }
 
         .section-title {
@@ -161,10 +221,28 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            position: relative;
         }
 
         .section-title i {
             color: var(--primary);
+        }
+
+        .section-id {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .section-content {
@@ -184,6 +262,12 @@
             margin: 15px 0;
             border: 2px solid #e2e8f0;
             box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .info-title {
@@ -217,6 +301,51 @@
             top: -2px;
         }
 
+        .highlight-box {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 2px solid #fbbf24;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .highlight-title {
+            color: #92400e;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .data-flow-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px dashed var(--border-color);
+        }
+
+        .flow-step {
+            display: inline-block;
+            margin: 0 15px;
+            text-align: center;
+        }
+
+        .flow-icon {
+            background: var(--info-bg);
+            color: var(--info-text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 20px;
+        }
+
         .contact-section {
             background: linear-gradient(135deg, #1e293b, #2d3748);
             color: white;
@@ -224,21 +353,33 @@
             border-radius: 15px;
             margin-top: 30px;
             text-align: center;
+            border-top: 5px solid var(--primary);
         }
 
         .contact-title {
             font-size: 24px;
             margin-bottom: 20px;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .contact-info {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             margin-top: 15px;
             flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
         }
 
         .phone-number {
@@ -246,11 +387,49 @@
             font-weight: 700;
             color: #38bdf8;
             direction: ltr;
+            font-family: monospace;
         }
 
         .contact-person {
             color: #cbd5e1;
             font-size: 16px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .facebook-icon {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        .email-icon {
+            background: linear-gradient(135deg, #ea4335, #d93025);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .footer {
@@ -275,37 +454,40 @@
         .copyright {
             color: #94a3b8;
             font-size: 14px;
+            text-align: right;
         }
 
-        .social-icons {
+        .footer-links {
             display: flex;
             gap: 15px;
         }
 
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
+        .footer-link {
+            color: #cbd5e1;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 14px;
             transition: all 0.3s ease;
         }
 
-        .whatsapp-icon {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+        .footer-link:hover {
+            color: white;
+            text-decoration: underline;
         }
 
-        .facebook-icon {
-            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        .compliance-badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
         }
 
-        .social-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        .badge {
+            background: #334155;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .sticky-back-button {
@@ -326,6 +508,8 @@
             box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
             transition: all 0.3s ease;
             animation: float 3s ease-in-out infinite;
+            opacity: 0;
+            visibility: hidden;
         }
 
         @keyframes float {
@@ -337,6 +521,74 @@
             background: #0056b3;
             transform: scale(1.1) translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 123, 255, 0.6);
+        }
+
+        .sticky-back-button.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .table-of-contents {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .toc-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-right: 0;
+        }
+
+        .toc-item {
+            margin-bottom: 8px;
+        }
+
+        .toc-link {
+            color: #475569;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .toc-link:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+            padding-right: 15px;
+        }
+
+        .toc-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1001;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #3b82f6);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         @media (max-width: 768px) {
@@ -357,8 +609,18 @@
                 font-size: 20px;
             }
             
+            .section-id {
+                position: static;
+                margin-bottom: 10px;
+                transform: none;
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+            
             .header {
                 padding: 20px 0;
+                position: relative;
             }
             
             .logo-text {
@@ -381,6 +643,10 @@
             .back-button {
                 padding: 10px 20px;
                 font-size: 14px;
+            }
+            
+            .quick-nav-links {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -406,10 +672,20 @@
                 height: 35px;
                 font-size: 16px;
             }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- شريط التقدم -->
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+
     <!-- الهيدر الرئيسي -->
     <header class="header">
         <div class="header-container">
@@ -438,8 +714,29 @@
         <div class="privacy-card">
             <h2 class="privacy-title">سياسة الخصوصية</h2>
             
+            <!-- فهرس المحتويات -->
+            <div class="table-of-contents">
+                <h3 class="toc-title"><i class="fas fa-list"></i> فهرس المحتويات</h3>
+                <ul class="toc-list" id="toc-list">
+                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                </ul>
+            </div>
+
+            <!-- التنقل السريع -->
+            <div class="quick-nav">
+                <h3 class="quick-nav-title"><i class="fas fa-bolt"></i> تنقل سريع</h3>
+                <div class="quick-nav-links">
+                    <a href="#introduction" class="nav-link"><i class="fas fa-info-circle"></i> مقدمة</a>
+                    <a href="#data-collection" class="nav-link"><i class="fas fa-database"></i> البيانات المجمعة</a>
+                    <a href="#data-usage" class="nav-link"><i class="fas fa-cogs"></i> استخدام البيانات</a>
+                    <a href="#security" class="nav-link"><i class="fas fa-lock"></i> الأمان</a>
+                    <a href="#rights" class="nav-link"><i class="fas fa-user-check"></i> حقوقك</a>
+                </div>
+            </div>
+
             <!-- القسم 1: مقدمة -->
-            <section class="content-section">
+            <section class="content-section" id="introduction">
+                <div class="section-id">1</div>
                 <h3 class="section-title">
                     <i class="fas fa-info-circle"></i>
                     مقدمة
@@ -447,10 +744,18 @@
                 <div class="section-content">
                     <p>مرحباً بك في <strong>MikroTools</strong>. نحن نعتبر خصوصيتك أمراً بالغ الأهمية. تشرح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية معلوماتك الشخصية عندما تستخدم موقعنا الإلكتروني.</p>
                     
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-exclamation-circle"></i>
+                            الملاحظة الأهم
+                        </div>
+                        <p><strong>جميع أدواتنا تعمل محلياً على متصفحك!</strong> لا يتم إرسال أي بيانات إلى خوادمنا. سكربتات ميكروتيك يتم توليدها وتنزيلها مباشرة من جهازك.</p>
+                    </div>
+                    
                     <div class="info-box">
                         <div class="info-title">
-                            <i class="fas fa-exclamation-circle"></i>
-                            ملاحظة هامة
+                            <i class="fas fa-check-circle"></i>
+                            الموافقة والاستخدام
                         </div>
                         <p>باستخدامك لموقعنا، فإنك توافق على شروط وسياسة الخصوصية المذكورة هنا. إذا كنت لا توافق على هذه السياسة، يرجى عدم استخدام موقعنا.</p>
                     </div>
@@ -458,39 +763,56 @@
             </section>
 
             <!-- القسم 2: المعلومات التي نجمعها -->
-            <section class="content-section">
+            <section class="content-section" id="data-collection">
+                <div class="section-id">2</div>
                 <h3 class="section-title">
                     <i class="fas fa-database"></i>
                     المعلومات التي نجمعها
                 </h3>
                 <div class="section-content">
-                    <p>قد نجمع الأنواع التالية من المعلومات:</p>
+                    <p>نتعهد بجمع الحد الأدنى من البيانات الضرورية فقط لتشغيل أدواتنا:</p>
                     
                     <ul>
-                        <li><strong>المعلومات الشخصية:</strong> مثل الاسم والبريد الإلكتروني التي تقدمها طوعاً عند التواصل معنا.</li>
-                        <li><strong>معلومات الاستخدام:</strong> مثل عناوين IP، نوع المتصفح، صفحات الزيارة، وقت ومدة الزيارة.</li>
-                        <li><strong>ملفات تعريف الارتباط (Cookies):</strong> لتحسين تجربة المستخدم وتذكر التفضيلات.</li>
-                        <li><strong>بيانات النماذج:</strong> المعلومات التي تقدمها عبر نماذج توليد السكربتات.</li>
+                        <li><strong>المعلومات التي تقدمها طوعاً:</strong> مثل الاسم والبريد الإلكتروني عند التواصل معنا فقط.</li>
+                        <li><strong>معلومات الاستخدام التقنية:</strong> مثل نوع المتصفح ونظام التشغيل لأغراض التحسين فقط.</li>
+                        <li><strong>ملفات تعريف الارتباط (Cookies):</strong> لتحسين تجربة المستخدم وتذكر التفضيلات الأساسية.</li>
+                        <li><strong>بيانات النماذج:</strong> المعلومات التي تدخلها في أدوات توليد السكربتات <strong>تظل على جهازك فقط</strong>.</li>
                     </ul>
                     
-                    <div class="info-box">
-                        <div class="info-title">
-                            <i class="fas fa-shield-alt"></i>
-                            الأمان والحماية
+                    <div class="data-flow-diagram">
+                        <h4><i class="fas fa-project-diagram"></i> تدفق البيانات في MikroTools</h4>
+                        <div class="flow-step">
+                            <div class="flow-icon"><i class="fas fa-user"></i></div>
+                            <div>المستخدم</div>
                         </div>
-                        <p>جميع المعلومات التي تقدمها في أدواتنا <strong>تتم معالجتها محلياً في متصفحك</strong> ولا يتم إرسالها إلى أي خوادم خارجية. سكربتات ميكروتيك يتم توليدها وتنزيلها مباشرة من جهازك.</p>
+                        <div class="flow-step">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-icon"><i class="fas fa-laptop"></i></div>
+                            <div>المتصفح</div>
+                        </div>
+                        <div class="flow-step">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-icon"><i class="fas fa-download"></i></div>
+                            <div>التنزيل المباشر</div>
+                        </div>
+                        <p style="margin-top: 10px; font-size: 14px; color: #64748b;">لا توجد خوادم وسيطة - العملية كلها محلية</p>
                     </div>
                 </div>
             </section>
 
             <!-- القسم 3: كيفية استخدام المعلومات -->
-            <section class="content-section">
+            <section class="content-section" id="data-usage">
+                <div class="section-id">3</div>
                 <h3 class="section-title">
                     <i class="fas fa-cogs"></i>
                     كيفية استخدام المعلومات
                 </h3>
                 <div class="section-content">
-                    <p>نستخدم المعلومات التي نجمعها للأغراض التالية:</p>
+                    <p>نستخدم المعلومات التي نجمعها <strong>حصرياً</strong> للأغراض التالية:</p>
                     
                     <ul>
                         <li>توفير وتحسين خدمات وأدوات موقعنا</li>
@@ -500,80 +822,123 @@
                         <li>ضمان أمان واستقرار الموقع</li>
                     </ul>
                     
-                    <p>نحن <strong>لا نبيع أو نؤجر أو نشارك</strong> معلوماتك الشخصية مع أطراف ثالثة لأغراض تسويقية.</p>
-                </div>
-            </section>
-
-            <!-- القسم 4: ملفات تعريف الارتباط -->
-            <section class="content-section">
-                <h3 class="section-title">
-                    <i class="fas fa-cookie"></i>
-                    ملفات تعريف الارتباط (Cookies)
-                </h3>
-                <div class="section-content">
-                    <p>نستخدم ملفات تعريف الارتباط لتحسين تجربة استخدام موقعنا. هذه الملفات تساعدنا في:</p>
-                    
-                    <ul>
-                        <li>تذكر تفضيلاتك وإعداداتك</li>
-                        <li>تحليل استخدام الموقع</li>
-                        <li>تحسين أداء وسرعة الموقع</li>
-                        <li>توفير محتوى مخصص</li>
-                    </ul>
-                    
-                    <p>يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات متصفحك. يرجى ملاحظة أن تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الموقع.</p>
-                </div>
-            </section>
-
-            <!-- القسم 5: أمان البيانات -->
-            <section class="content-section">
-                <h3 class="section-title">
-                    <i class="fas fa-lock"></i>
-                    أمان البيانات
-                </h3>
-                <div class="section-content">
-                    <p>نحن نلتزم بحماية معلوماتك الشخصية ونستخدم إجراءات أمنية تقنية وإدارية مناسبة لحماية بياناتك من:</p>
-                    
-                    <ul>
-                        <li>الوصول غير المصرح به</li>
-                        <li>التعديل أو الكشف غير المصرح به</li>
-                        <li>التدمير أو الفقدان غير المقصود</li>
-                    </ul>
-                    
                     <div class="info-box">
                         <div class="info-title">
-                            <i class="fas fa-check-circle"></i>
-                            ميزات الأمان في MikroTools
+                            <i class="fas fa-ban"></i>
+                            ما لن نفعله ببياناتك
                         </div>
                         <ul>
-                            <li>جميع السكربتات تتم معالجتها محلياً في متصفحك</li>
-                            <li>لا يتم تخزين بياناتك على خوادمنا</li>
-                            <li>اتصال آمن عبر بروتوكول HTTPS</li>
-                            <li>تحديثات أمنية منتظمة</li>
+                            <li>لا نبيع أو نؤجر أو نشارك معلوماتك الشخصية مع أطراف ثالثة</li>
+                            <li>لا نستخدم بياناتك لأغراض تسويقية دون موافقتك الصريحة</li>
+                            <li>لا نخزن بيانات أدواتك بعد إغلاق الصفحة</li>
+                            <li>لا نرسل إشعارات مزعجة</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
+            <!-- القسم 4: ملفات تعريف الارتباط -->
+            <section class="content-section" id="cookies">
+                <div class="section-id">4</div>
+                <h3 class="section-title">
+                    <i class="fas fa-cookie"></i>
+                    ملفات تعريف الارتباط (Cookies)
+                </h3>
+                <div class="section-content">
+                    <p>نستخدم ملفات تعريف الارتباط <strong>الضرورية فقط</strong> لتحسين تجربة استخدام موقعنا:</p>
+                    
+                    <ul>
+                        <li><strong>جلسة العمل:</strong> لتذكر إعداداتك أثناء استخدام الموقع</li>
+                        <li><strong>الأداء:</strong> لتحسين سرعة وأداء الموقع</li>
+                        <li><strong>الوظائف:</strong> لتمكين عمل الأدوات بشكل صحيح</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-sliders-h"></i>
+                            إدارة ملفات تعريف الارتباط
+                        </div>
+                        <p>يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات متصفحك:</p>
+                        <ul>
+                            <li><strong>Chrome:</strong> الإعدادات → الخصوصية والأمان → ملفات تعريف الارتباط</li>
+                            <li><strong>Firefox:</strong> الخيارات → الخصوصية والأمان → ملفات تعريف الارتباط</li>
+                            <li><strong>Safari:</strong> التفضيلات → الخصوصية → إدارة بيانات الموقع</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الموقع.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- القسم 5: أمان البيانات -->
+            <section class="content-section" id="security">
+                <div class="section-id">5</div>
+                <h3 class="section-title">
+                    <i class="fas fa-lock"></i>
+                    أمان البيانات
+                </h3>
+                <div class="section-content">
+                    <p>نحن نلتزم بحماية معلوماتك الشخصية ونستخدم إجراءات أمنية تقنية وإدارية مناسبة:</p>
+                    
+                    <ul>
+                        <li>جميع السكربتات تتم معالجتها محلياً في متصفحك</li>
+                        <li>اتصال آمن عبر بروتوكول HTTPS المشفر</li>
+                        <li>حماية ضد هجمات الويب الشائعة</li>
+                        <li>تحديثات أمنية منتظمة للموقع</li>
+                        <li>مراقبة مستمرة لسلامة النظام</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-shield-alt"></i>
+                            ميزات الأمان الفريدة
+                        </div>
+                        <div class="info-box">
+                            <div class="info-title">
+                                <i class="fas fa-desktop"></i>
+                                المعالجة المحلية
+                            </div>
+                            <p>جميع أدواتنا تعمل 100% في متصفحك. البيانات التي تدخلها لا تخرج من جهازك.</p>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">
+                                <i class="fas fa-history"></i>
+                                لا يوجد تخزين
+                            </div>
+                            <p>بمجرد إغلاق الصفحة، يتم مسح جميع بيانات الإدخال تلقائياً.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- القسم 6: روابط خارجية -->
-            <section class="content-section">
+            <section class="content-section" id="external-links">
+                <div class="section-id">6</div>
                 <h3 class="section-title">
                     <i class="fas fa-external-link-alt"></i>
                     روابط خارجية
                 </h3>
                 <div class="section-content">
-                    <p>قد يحتوي موقعنا على روابط لمواقع خارجية. نحن <strong>لسنا مسؤولين</strong> عن ممارسات الخصوصية أو محتوى هذه المواقع. ننصحك بمراجعة سياسات الخصوصية الخاصة بهذه المواقع قبل تقديم أي معلومات شخصية.</p>
+                    <p>قد يحتوي موقعنا على روابط لمواقع خارجية. نحن <strong>لسنا مسؤولين</strong> عن ممارسات الخصوصية أو محتوى هذه المواقع.</p>
                     
-                    <p>الروابط الخارجية تشمل فقط:</p>
-                    <ul>
-                        <li>روابط لموارد مفيدة تتعلق بميكروتيك</li>
-                        <li>روابط التواصل الاجتماعي</li>
-                        <li>روابط لمواقع شركاء موثوقين</li>
-                    </ul>
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-link"></i>
+                            أنواع الروابط الخارجية
+                        </div>
+                        <ul>
+                            <li><strong>موارد تعليمية:</strong> روابط لمواقع مفيدة عن ميكروتيك</li>
+                            <li><strong>التواصل الاجتماعي:</strong> روابط لقنواتنا على وسائل التواصل</li>
+                            <li><strong>المراجع:</strong> روابط للوثائق الرسمية</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><i class="fas fa-lightbulb"></i> <strong>نصيحة:</strong> دائماً راجع سياسة الخصوصية لأي موقع تزوره.</p>
+                    </div>
                 </div>
             </section>
 
             <!-- القسم 7: حقوق المستخدم -->
-            <section class="content-section">
+            <section class="content-section" id="rights">
+                <div class="section-id">7</div>
                 <h3 class="section-title">
                     <i class="fas fa-user-check"></i>
                     حقوق المستخدم
@@ -582,44 +947,70 @@
                     <p>كمستخدم لموقع MikroTools، لديك الحق في:</p>
                     
                     <ul>
-                        <li>الوصول إلى معلوماتك الشخصية</li>
-                        <li>طلب تصحيح المعلومات غير الدقيقة</li>
-                        <li>طلب حذف معلوماتك الشخصية</li>
-                        <li>رفض تلويحات التسويق</li>
-                        <li>سحب موافقتك على جمع البيانات</li>
+                        <li><strong>حق المعرفة:</strong> معرفة أي بيانات نجمعها ولماذا</li>
+                        <li><strong>حق الوصول:</strong> طلب نسخة من بياناتك الشخصية</li>
+                        <li><strong>حق التصحيح:</strong> طلب تصحيح المعلومات غير الدقيقة</li>
+                        <li><strong>حق الحذف:</strong> طلب حذف معلوماتك الشخصية</li>
+                        <li><strong>حق الاعتراض:</strong> رفض معالجة بياناتك</li>
+                        <li><strong>حق التنقل:</strong> نقل بياناتك إلى خدمة أخرى</li>
                     </ul>
                     
-                    <p>لممارسة أي من هذه الحقوق، يرجى التواصل معنا عبر المعلومات المذكورة أدناه.</p>
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-hand-paper"></i>
+                            كيفية ممارسة حقوقك
+                        </div>
+                        <p>لممارسة أي من هذه الحقوق، يكفي أن تتواصل معنا عبر:</p>
+                        <ul>
+                            <li>رقم الهاتف المباشر</li>
+                            <li>الواتساب</li>
+                            <li>صفحتنا على فيسبوك</li>
+                        </ul>
+                        <p style="margin-top: 10px;">نلتزم بالرد على جميع الطلبات خلال <strong>72 ساعة</strong> عمل كحد أقصى.</p>
+                    </div>
                 </div>
             </section>
 
             <!-- القسم 8: تحديثات السياسة -->
-            <section class="content-section">
+            <section class="content-section" id="updates">
+                <div class="section-id">8</div>
                 <h3 class="section-title">
                     <i class="fas fa-sync-alt"></i>
                     تحديثات سياسة الخصوصية
                 </h3>
                 <div class="section-content">
-                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بنشر أي تغييرات على هذه الصفحة وسننبهك عبر إشعار بارز على موقعنا.</p>
+                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر لتعكس التغييرات في ممارساتنا أو لأسباب تشغيلية أو قانونية.</p>
                     
                     <div class="info-box">
                         <div class="info-title">
                             <i class="fas fa-bell"></i>
-                            كيفية معرفة التحديثات
+                            كيف نعلمك بالتحديثات
                         </div>
                         <ul>
                             <li>تاريخ آخر تحديث يظهر في أسفل هذه الصفحة</li>
-                            <li>الإشعارات تظهر في الصفحة الرئيسية</li>
-                            <li>ننصح بمراجعة هذه الصفحة دورياً</li>
+                            <li>إشعار بارز على الصفحة الرئيسية للتغييرات المهمة</li>
+                            <li>تحديث رابط "آخر تحديث" تلقائياً</li>
+                            <li>الإبقاء على النسخ القديمة متاحة للمراجعة</li>
                         </ul>
                     </div>
                     
-                    <p>استمرارك في استخدام الموقع بعد أي تغييرات يعني موافقتك على هذه التغييرات.</p>
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-calendar-check"></i>
+                            مواعيد المراجعة
+                        </div>
+                        <p>نقوم بمراجعة هذه السياسة بشكل دوري على الأقل <strong>مرة كل 6 أشهر</strong> أو عند:</p>
+                        <ul>
+                            <li>تغيير كبير في خدماتنا</li>
+                            <li>تحديثات تشريعية جديدة</li>
+                            <li>تغييرات في ممارسات جمع البيانات</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <!-- القسم 9: معلومات التواصل -->
-            <section class="contact-section">
+            <section class="contact-section" id="contact">
                 <h3 class="contact-title">
                     <i class="fas fa-headset"></i>
                     للتواصل والاستفسارات
@@ -627,19 +1018,28 @@
                 <p>إذا كان لديك أي استفسارات حول سياسة الخصوصية هذه أو ممارساتنا، يرجى التواصل معنا:</p>
                 
                 <div class="contact-info">
-                    <div>
-                        <div class="phone-number">01092503391</div>
+                    <div class="contact-item">
                         <div class="contact-person">Sameh El-Sayed</div>
+                        <div class="phone-number">+20 109 250 3391</div>
+                        <small style="color: #94a3b8;">مدير الخصوصية وحماية البيانات</small>
                     </div>
                     
-                    <div class="social-icons">
-                        <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon" title="تواصل عبر واتساب">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon" title="تابعنا على فيسبوك">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
+                    <div class="contact-item">
+                        <div class="contact-person">الدعم الفني</div>
+                        <div style="color: #cbd5e1;">متاح 24/7 للإجابة على استفسارات الخصوصية</div>
                     </div>
+                </div>
+                
+                <div class="social-icons">
+                    <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon" title="تواصل عبر واتساب">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon" title="تابعنا على فيسبوك">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="mailto:?subject=استفسار حول سياسة الخصوصية" class="social-icon email-icon" title="راسلنا عبر البريد">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 </div>
             </section>
         </div>
@@ -650,33 +1050,111 @@
         <div class="footer-content">
             <div class="copyright">
                 © 2024 MikroTools. جميع الحقوق محفوظة.<br>
-                آخر تحديث: 15 ديسمبر 2024
+                آخر تحديث: <span id="current-date"></span>
+            </div>
+            
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">الرئيسية</a>
+                <a href="#contact" class="footer-link">اتصل بنا</a>
+                <a href="#rights" class="footer-link">حقوق المستخدم</a>
+                <a href="#updates" class="footer-link">آخر التحديثات</a>
             </div>
             
             <div>
                 <a href="index.html" class="back-button" style="background: var(--secondary);">
                     <i class="fas fa-home"></i>
-                    الصفحة الرئيسية
+                    العودة للرئيسية
                 </a>
             </div>
+        </div>
+        
+        <div class="compliance-badges">
+            <span class="badge">100% Local Processing</span>
+            <span class="badge">No Data Storage</span>
+            <span class="badge">GDPR Aware</span>
+            <span class="badge">HTTPS Secure</span>
         </div>
     </footer>
 
     <!-- زر الرجوع العائم -->
-    <a href="index.html" class="sticky-back-button" title="العودة إلى الموقع الرئيسي">
+    <a href="index.html" class="sticky-back-button" title="العودة إلى الموقع الرئيسي" id="sticky-back">
         <i class="fas fa-arrow-right"></i>
     </a>
 
     <script>
-        // إضافة تاريخ التحديث التلقائي
+        // تاريخ التحديث التلقائي
         document.addEventListener('DOMContentLoaded', function() {
-            const updateDate = document.querySelector('.copyright');
+            const updateDate = document.getElementById('current-date');
             if (updateDate) {
                 const today = new Date();
                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
                 const dateString = today.toLocaleDateString('ar-EG', options);
-                updateDate.innerHTML = updateDate.innerHTML.replace('15 ديسمبر 2024', dateString);
+                updateDate.textContent = dateString;
             }
+            
+            // إنشاء فهرس المحتويات ديناميكياً
+            const sections = document.querySelectorAll('.content-section, .contact-section');
+            const tocList = document.getElementById('toc-list');
+            
+            sections.forEach((section, index) => {
+                const id = section.id || `section-${index}`;
+                const titleElement = section.querySelector('.section-title, .contact-title');
+                if (titleElement) {
+                    const titleText = titleElement.textContent.trim();
+                    const listItem = document.createElement('li');
+                    listItem.className = 'toc-item';
+                    listItem.innerHTML = `
+                        <a href="#${id}" class="toc-link" data-section="${id}">
+                            <i class="fas fa-chevron-left"></i>
+                            ${titleText}
+                        </a>
+                    `;
+                    tocList.appendChild(listItem);
+                }
+            });
+            
+            // تحديث التقدم في القراءة
+            const progressBar = document.getElementById('progress');
+            const stickyButton = document.getElementById('sticky-back');
+            
+            function updateProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // إظهار/إخفاء زر الرجوع العائم
+                if (scrolled > 300) {
+                    stickyButton.classList.add('visible');
+                } else {
+                    stickyButton.classList.remove('visible');
+                }
+                
+                // تحديث الروابط النشطة في الفهرس
+                const sections = document.querySelectorAll('.content-section, .contact-section');
+                const links = document.querySelectorAll('.toc-link');
+                
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    if (scrolled >= sectionTop && scrolled < sectionTop + sectionHeight) {
+                        currentSection = section.id || `section-${Array.from(sections).indexOf(section)}`;
+                    }
+                });
+                
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateProgress);
+            window.addEventListener('resize', updateProgress);
+            updateProgress(); // التشغيل الأولي
             
             // تأثير التمرير الناعم للروابط الداخلية
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -688,30 +1166,79 @@
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
-                            top: targetElement.offsetTop - 100,
+                            top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
                     }
                 });
             });
             
-            // إظهار/إخفاء زر الرجوع العائم
-            const stickyButton = document.querySelector('.sticky-back-button');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    stickyButton.style.opacity = '1';
-                    stickyButton.style.visibility = 'visible';
-                } else {
-                    stickyButton.style.opacity = '0';
-                    stickyButton.style.visibility = 'hidden';
+            // إضافة تأثير عند التمرير
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // تطبيق تأثيرات على الأقسام
+            document.querySelectorAll('.content-section, .info-box').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+            
+            // تهيئة الأقسام المرئية حالياً
+            document.querySelectorAll('.content-section, .info-box').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateX(0)';
                 }
             });
             
-            // تهيئة حالة زر الرجوع العائم
-            if (window.scrollY > 300) {
-                stickyButton.style.opacity = '1';
-                stickyButton.style.visibility = 'visible';
+            // إضافة زر لطباعة السياسة
+            const printButton = document.createElement('button');
+            printButton.innerHTML = '<i class="fas fa-print"></i> طباعة السياسة';
+            printButton.className = 'back-button';
+            printButton.style.background = 'var(--info)';
+            printButton.style.marginTop = '10px';
+            printButton.onclick = () => window.print();
+            
+            const backButtonContainer = document.querySelector('.back-button-container');
+            if (backButtonContainer) {
+                backButtonContainer.appendChild(printButton);
             }
+            
+            // إضافة مؤشر للأقسام الهامة
+            const importantSections = ['security', 'rights', 'data-collection'];
+            importantSections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const badge = document.createElement('div');
+                    badge.innerHTML = '<i class="fas fa-star"></i> هام';
+                    badge.style.position = 'absolute';
+                    badge.style.left = '15px';
+                    badge.style.top = '15px';
+                    badge.style.background = 'var(--warning)';
+                    badge.style.color = 'white';
+                    badge.style.padding = '5px 10px';
+                    badge.style.borderRadius = '20px';
+                    badge.style.fontSize = '12px';
+                    badge.style.fontWeight = 'bold';
+                    badge.style.zIndex = '1';
+                    section.style.position = 'relative';
+                    section.appendChild(badge);
+                }
+            });
         });
     </script>
 </body>
