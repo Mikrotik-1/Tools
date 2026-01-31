@@ -3,3 +3,18 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+Sitemap: https://mikro-tools.com/sitemap.xml
+
+# Google Specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
