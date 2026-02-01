@@ -1917,6 +1917,31 @@
                     </div>
                 </div>
                 
+                <!-- إضافة جديدة: إعدادات DHCP Client -->
+                <div style="background: #f0f9ff; padding: 25px; border-radius: 15px; margin: 25px 0; border: 2px solid #bae6fd;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span>🌐</span> إعدادات DHCP Client للإنترنت
+                    </h3>
+                    
+                    <div class="input-box" style="margin: 0;">
+                        <label for="dhcpInterface">🔌 اسم كارت الدخول (WAN):</label>
+                        <input type="text" id="dhcpInterface" value="WAN" placeholder="مثال: ether1, ether2-wan">
+                    </div>
+                    
+                    <div style="margin-top: 15px; padding: 15px; background: #e0f2fe; border-radius: 10px; border-left: 4px solid #0ea5e9;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <span>⚙️</span>
+                            <span style="font-weight: 600; color: #0369a1;">الإعدادات التلقائية:</span>
+                        </div>
+                        <div style="color: #475569; font-size: 14px; line-height: 1.5;">
+                            • سيتم إضافة DHCP Client مع الخيارات التالية تلقائياً:<br>
+                            • <strong>use-peer-dns=yes</strong><br>
+                            • <strong>use-peer-ntp=yes</strong><br>
+                            • <strong>add-default-route=yes</strong>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="hotspot-grid">
                     <div class="input-box">
                         <label for="newIp">عنوان IP الميكروتك:</label>
@@ -2609,6 +2634,7 @@
                             <ul class="help-list">
                                 <li><span class="help-icon">•</span> <strong>عنوان IP الميكروتك:</strong> مثلاً 10.0.0.1/24</li>
                                 <li><span class="help-icon">•</span> <strong>اسم كارت الخروج:</strong> مثلاً OUT أو bridge-lan</li>
+                                <li><span class="help-icon">•</span> <strong>اسم كارت الدخول:</strong> مثلاً ether1 للإنترنت</li>
                             </ul>
                         </div>
                         
@@ -2625,7 +2651,7 @@
                             <ul class="help-list">
                                 <li><span class="help-icon">•</span> تأكد من أن IP الميكروتك لا يتعارض مع أي شبكة أخرى</li>
                                 <li><span class="help-icon">•</span> اختر حجم الشبكة المناسب لعدد المستخدمين المتوقع</li>
-                                <li><span class="help-icon">•</span> يمكنك تعديل السكربت النهائي حسب احتياجاتك</li>
+                                <li><span class="help-icon">•</span> سيتم إضافة DHCP Client تلقائياً للإعدادات الأساسية</li>
                                 <li><span class="help-icon">•</span> احفظ السكربت في ملف .rsc لاستخدامه لاحقاً</li>
                             </ul>
                         </div>
@@ -2645,6 +2671,7 @@
                         <p>السكربت يقوم ب:</p>
                         <ul class="help-list">
                             <li><span class="help-icon">✓</span> تعيين IP للجهاز</li>
+                            <li><span class="help-icon">✓</span> إعداد DHCP Client للإنترنت</li>
                             <li><span class="help-icon">✓</span> إعداد DNS و NTP</li>
                             <li><span class="help-icon">✓</span> إنشاء IP Pools للـDHCP وـPPP</li>
                             <li><span class="help-icon">✓</span> إعداد PPPoE Server</li>
@@ -3615,9 +3642,10 @@
         function generateHotspotScript() {
             const ipInput = document.getElementById('newIp').value.trim();
             const iface = document.getElementById('newInterface').value.trim();
+            const dhcpInterface = document.getElementById('dhcpInterface').value.trim() || "ether1";
             
             if (!ipInput || !iface) {
-                alert('⚠️ يرجى ملء جميع الحقول');
+                alert('⚠️ يرجى ملء جميع الحقول الإجبارية');
                 return;
             }
             
@@ -3636,6 +3664,10 @@
 # شبكة: ${network}/${mask} (${getSubnetName(mask)})
 
 /ip address add address=${ipInput} interface=${iface}
+
+# إعدادات DHCP Client للإنترنت
+/ip dhcp-client add interface=${dhcpInterface} use-peer-dns=yes use-peer-ntp=yes add-default-route=yes disabled=no
+
 /ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes 
 
 /ip pool add name=dhcp ranges=${dhcpRange.start}-${dhcpRange.end} comment="${SIGNATURE}"
@@ -3649,7 +3681,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 /interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" 
 
 /ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}
-/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap use-radius=yes 
+/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap,http-pap use-radius=yes 
 /ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 
 
 /ip firewall nat remove [find]
