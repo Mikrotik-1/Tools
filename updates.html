@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آخر التحديثات - MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #007bff;
+            --secondary: #28a745;
+            --danger: #dc2626;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            direction: rtl;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* الهيدر */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            background: rgba(255,255,255,0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .page-subtitle {
+            opacity: 0.9;
+            font-size: 18px;
+        }
+
+        /* كروت التحديثات */
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .update-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .update-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .update-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .update-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .update-title {
+            color: #1e293b;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+
+        .update-type {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .update-description {
+            color: #475569;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .update-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .update-footer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* الجدول */
+        .details-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            display: inline-block;
+        }
+
+        /* أقسام المساعدة */
+        .help-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px solid #bae6fd;
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        /* زر العودة */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+            background: #0056b3;
+        }
+
+        /* الفوتر */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            background: #1e293b;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .facebook-icon {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* تحسينات للجوال */
+        @media (max-width: 768px) {
+            .updates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* أنيميشن */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الهيدر -->
+        <div class="header animate">
+            <div class="logo">
+                <div class="logo-icon">📝</div>
+                <div class="logo-text">MikroTools</div>
+            </div>
+            <h1 class="page-title">آخر التحديثات</h1>
+            <p class="page-subtitle">كل الجديد في MikroTools - الإصدار 2.1</p>
+        </div>
+
+        <!-- شبكة التحديثات -->
+        <div class="updates-grid">
+            <!-- تحديث 1 -->
+            <div class="update-card animate">
+                <div class="update-header">
+                    <div class="update-icon" style="background: #10b981;">🌐</div>
+                    <div>
+                        <h3 class="update-title">إضافة كارت الدخول</h3>
+                        <div class="update-type">🆕 صفحة الإعدادات الأساسية</div>
+                    </div>
+                </div>
+                <p class="update-description">
+                    أضفنا حقل منفصل لتحديد <strong>كارت الدخول (WAN)</strong> للإنترنت مع قيمة افتراضية: ether1
+                </p>
+                <div class="update-tags">
+                    <span class="tag" style="background: #f0f9ff; color: #0369a1;">🌐 WAN Interface</span>
+                    <span class="tag" style="background: #f0f9ff; color: #0369a1;">⚙️ إعدادات أساسية</span>
+                </div>
+                <div class="update-footer">
+                    <strong>المميزات:</strong> فصل واضح بين كارت الدخول والخروج
+                </div>
+            </div>
+
+            <!-- تحديث 2 -->
+            <div class="update-card animate">
+                <div class="update-header">
+                    <div class="update-icon" style="background: #3b82f6;">🔄</div>
+                    <div>
+                        <h3 class="update-title">تحسين كود الدمج</h3>
+                        <div class="update-type">✨ صفحات v6 و v7</div>
+                    </div>
+                </div>
+                <p class="update-description">
+                    تحسين تسمية كروت الدخول: <strong>WAN1_IN, WAN2_IN</strong> وتنظيم أفضل للكود
+                </p>
+                <div class="update-tags">
+                    <span class="tag" style="background: #eff6ff; color: #1d4ed8;">🔀 دمج خطوط</span>
+                    <span class="tag" style="background: #eff6ff; color: #1d4ed8;">🚀 تحسين الأداء</span>
+                </div>
+                <div class="update-footer">
+                    <strong>النتيجة:</strong> سكربتات أكثر احترافية وسهولة في الصيانة
+                </div>
+            </div>
+
+            <!-- تحديث 3 -->
+            <div class="update-card animate">
+                <div class="update-header">
+                    <div class="update-icon" style="background: #8b5cf6;">⏰</div>
+                    <div>
+                        <h3 class="update-title">تعديل وقت البروفايلات</h3>
+                        <div class="update-type">⚡ صفحة بروفايلات السرعة</div>
+                    </div>
+                </div>
+                <p class="update-description">
+                    7 خيارات جديدة لوقت الجلسة من <strong>15 دقيقة إلى 24 ساعة</strong>
+                </p>
+                <div class="update-tags">
+                    <span class="tag" style="background: #f5f3ff; color: #7c3aed;">⏰ وقت الجلسة</span>
+                    <span class="tag" style="background: #f5f3ff; color: #7c3aed;">⚡ مرونة كاملة</span>
+                </div>
+                <div class="update-footer">
+                    <strong>الافتراضي:</strong> 6 ساعات (متوازن)
+                </div>
+            </div>
+
+            <!-- تحديث 4 -->
+            <div class="update-card animate">
+                <div class="update-header">
+                    <div class="update-icon" style="background: #f59e0b;">🔒</div>
+                    <div>
+                        <h3 class="update-title">صفحة الخصوصية</h3>
+                        <div class="update-type">📄 صفحة جديدة</div>
+                    </div>
+                </div>
+                <p class="update-description">
+                    إضافة صفحة سياسة الخصوصية للالتزام بالمعايير الدولية وبناء الثقة
+                </p>
+                <div class="update-tags">
+                    <span class="tag" style="background: #fef3c7; color: #d97706;">🔒 خصوصية</span>
+                    <span class="tag" style="background: #fef3c7; color: #d97706;">📋 سياسات</span>
+                </div>
+                <div class="update-footer">
+                    <strong>المبدأ:</strong> لا نجمع أي بيانات شخصية
+                </div>
+            </div>
+        </div>
+
+        <!-- جدول تفصيلي -->
+        <div class="details-table animate">
+            <table>
+                <thead>
+                    <tr>
+                        <th>التحديث</th>
+                        <th>الصفحة</th>
+                        <th>التاريخ</th>
+                        <th>النوع</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>إضافة كارت الدخول</strong></td>
+                        <td>الإعدادات الأساسية</td>
+                        <td>فبراير 2025</td>
+                        <td><span class="badge" style="background: #10b981;">ميزة جديدة</span></td>
+                        <td><span style="color: #10b981;">✅ منجز</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>تحسين كود الدمج</strong></td>
+                        <td>دمج خطوط v6/v7</td>
+                        <td>فبراير 2025</td>
+                        <td><span class="badge" style="background: #3b82f6;">تحسين</span></td>
+                        <td><span style="color: #10b981;">✅ منجز</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>تعديل وقت البروفايلات</strong></td>
+                        <td>بروفايلات السرعة</td>
+                        <td>فبراير 2025</td>
+                        <td><span class="badge" style="background: #8b5cf6;">تخصيص</span></td>
+                        <td><span style="color: #10b981;">✅ منجز</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>صفحة الخصوصية</strong></td>
+                        <td>صفحة جديدة</td>
+                        <td>فبراير 2025</td>
+                        <td><span class="badge" style="background: #f59e0b;">إضافة</span></td>
+                        <td><span style="color: #10b981;">✅ منجز</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>تحسينات تقنية</strong></td>
+                        <td>جميع الصفحات</td>
+                        <td>فبراير 2025</td>
+                        <td><span class="badge" style="background: #64748b;">تقني</span></td>
+                        <td><span style="color: #10b981;">✅ منجز</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- قسم كيفية الاستفادة -->
+        <div class="help-section animate">
+            <h2 class="section-title"><span>🎯</span> كيف تستفيد من التحديثات؟</h2>
+            
+            <div class="features-grid">
+                <div class="feature-box" style="border-left-color: #10b981;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="color: #10b981; font-size: 24px;">👤</span>
+                        <h3 style="color: #1e293b;">للمستخدمين الجدد</h3>
+                    </div>
+                    <ul style="color: #475569; padding-right: 20px;">
+                        <li style="margin-bottom: 8px;">استخدم كارت الدخول الجديد في الإعدادات</li>
+                        <li style="margin-bottom: 8px;">جرب خيارات الوقت المتعددة</li>
+                        <li>اقرأ سياسة الخصوصية لتعرف حقوقك</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box" style="border-left-color: #3b82f6;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="color: #3b82f6; font-size: 24px;">👨‍💻</span>
+                        <h3 style="color: #1e293b;">للمستخدمين القدامى</h3>
+                    </div>
+                    <ul style="color: #475569; padding-right: 20px;">
+                        <li style="margin-bottom: 8px;">حدث السكربتات القديمة بالنسخة الجديدة</li>
+                        <li style="margin-bottom: 8px;">استفد من الكود المحسن والأسرع</li>
+                        <li>استخدم المرونة الجديدة في الإعدادات</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box" style="border-left-color: #8b5cf6;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="color: #8b5cf6; font-size: 24px;">🛠️</span>
+                        <h3 style="color: #1e293b;">للمديرين والفنيين</h3>
+                    </div>
+                    <ul style="color: #475569; padding-right: 20px;">
+                        <li style="margin-bottom: 8px;">إعدادات أكثر دقة واحترافية</li>
+                        <li style="margin-bottom: 8px;">مرونة في إدارة الجلسات</li>
+                        <li>سكربتات منظمة وسهلة الصيانة</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- تحديثات تقنية -->
+        <div class="help-section animate" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+            <h2 class="section-title"><span>🛠️</span> تحسينات تقنية إضافية</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: white; border-radius: 10px;">
+                    <span style="color: var(--primary); font-size: 20px;">✅</span>
+                    <div>
+                        <div style="font-weight: 600; color: #1e293b;">تحسين الأداء</div>
+                        <div style="color: #64748b; font-size: 14px;">سرعة تحميل أفضل</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: white; border-radius: 10px;">
+                    <span style="color: var(--primary); font-size: 20px;">✅</span>
+                    <div>
+                        <div style="font-weight: 600; color: #1e293b;">إصلاح الأخطاء</div>
+                        <div style="color: #64748b; font-size: 14px;">تحسينات في الواجهة</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: white; border-radius: 10px;">
+                    <span style="color: var(--primary); font-size: 20px;">✅</span>
+                    <div>
+                        <div style="font-weight: 600; color: #1e293b;">تجربة الجوال</div>
+                        <div style="color: #64748b; font-size: 14px;">دعم كامل للهواتف</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: white; border-radius: 10px;">
+                    <span style="color: var(--primary); font-size: 20px;">✅</span>
+                    <div>
+                        <div style="font-weight: 600; color: #1e293b;">إضافة تحذيرات</div>
+                        <div style="color: #64748b; font-size: 14px;">لمدخلات غير صحيحة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر العودة للموقع الرئيسي -->
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="index.html" class="back-btn">
+                <span>←</span> العودة للصفحة الرئيسية
+            </a>
+        </div>
+
+        <!-- الفوتر -->
+        <div class="footer animate">
+            <h3 style="color: white; margin-bottom: 20px;">MikroTools - أدوات ميكروتيك مجانية</h3>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>واتساب: 01092503391</span>
+                </div>
+                <div class="contact-item">
+                    <span>👨‍💻</span>
+                    <span>المالك: Sameh El-Sayed</span>
+                </div>
+            </div>
+            
+            <div class="social-icons">
+                <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+            
+            <p style="color: #94a3b8; margin-top: 20px; font-size: 14px;">
+                © 2025 MikroTools. جميع الحقوق محفوظة. الإصدار 2.1
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // إضافة أنيميشن للعناصر
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.animate');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // إضافة تأثير hover للكروت
+        const cards = document.querySelectorAll('.update-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // تتبع التمرير لإضافة أنيميشن
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const elements = document.querySelectorAll('.animate');
+            
+            elements.forEach(el => {
+                const elementPosition = el.offsetTop;
+                if (scrollPosition > elementPosition - window.innerHeight + 100) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
