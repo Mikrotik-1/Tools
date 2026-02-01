@@ -3856,7 +3856,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 
         function generateV6Script(lan, src) {
             const count = parseInt(document.getElementById('lineCount2').value);
-            let script = `# سكربت دمج خطوط v6.x\n# ${SIGNATURE}\n\n`;
+            let script = `###########################################\n`;
+            script += `# Load Balance v6.x - Created By Same7 \n`;
+            script += `# Generated on: ${new Date().toISOString().split('T')[0]} \n`;
+            script += `###########################################\n\n`;
             
             script += `/ip address\n`;
             for (let i = 1; i <= count; i++) {
@@ -3867,14 +3870,18 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             
             script += `\n/ip firewall mangle\n`;
             for (let i = 1; i <= count; i++) {
-                script += `add chain=input in-interface=WAN${i} action=mark-connection new-connection-mark=conn_wan${i} comment="${SIGNATURE}"\n`;
-                script += `add chain=output connection-mark=conn_wan${i} action=mark-routing new-routing-mark=route_wan${i} comment="${SIGNATURE}"\n`;
+                script += `add action=mark-connection chain=input comment="${SIGNATURE}" connection-mark=no-mark in-interface=WAN${i} new-connection-mark=cm_in_public${i} passthrough=yes\n`;
+                script += `add action=mark-routing chain=output connection-mark=cm_in_public${i} new-routing-mark=via_public${i} passthrough=no\n`;
             }
             
-            script += `\nadd chain=prerouting dst-address-type=!local in-interface=${lan} src-address=${src} action=jump jump-target=lb comment="${SIGNATURE}"\n`;
+            script += `\nadd action=jump chain=prerouting comment="JUMP -> LOADBALANCE" dst-address-type=!local hotspot=auth in-interface=${lan} jump-target=loadbalance src-address=${src}\n\n`;
             
             for (let i = 0; i < count; i++) {
-                script += `add chain=lb action=mark-connection new-connection-mark=conn_lb_${i+1} per-connection-classifier=both-addresses-and-ports:${count}/${i} comment="${SIGNATURE}"\n`;
+                script += `add action=mark-connection chain=loadbalance new-connection-mark=cm_lb_${i+1} per-connection-classifier=both-addresses-and-ports:${count}/${i} passthrough=yes comment="${SIGNATURE}"\n`;
+            }
+            
+            for (let i = 1; i <= count; i++) {
+                script += `add action=mark-routing chain=prerouting connection-mark=cm_lb_${i} in-interface=${lan} new-routing-mark=via_public${i} passthrough=no\n`;
             }
             
             script += `\n/ip firewall nat\n`;
@@ -3886,14 +3893,22 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             let gateways = [];
             for (let i = 1; i <= count; i++) {
                 const gateway = document.getElementById(`wan${i}-gw-v6`).value.trim();
+                if (!gateway) {
+                    alert(`⚠️ يرجى إدخال Gateway للخط WAN${i}`);
+                    return null;
+                }
                 if (!validateIP(gateway)) {
                     alert(`⚠️ Gateway غير صحيح للخط WAN${i}`);
                     return null;
                 }
                 gateways.push(gateway);
-                script += `add gateway=${gateway} routing-mark=route_wan${i} distance=1 check-gateway=ping comment="${SIGNATURE}"\n`;
+                script += `add check-gateway=ping distance=1 gateway=${gateway} routing-mark=via_public${i} comment="${SIGNATURE}"\n`;
             }
-            script += `add gateway=${gateways.join(',')} distance=1 comment="Default ${SIGNATURE}"\n`;
+            
+            // إضافة الـ Default Route مع جميع الـ Gateways
+            if (gateways.length > 0) {
+                script += `add check-gateway=ping distance=1 gateway=${gateways.join(',')} comment="Main-Gateways ${SIGNATURE}"\n`;
+            }
             
             return script;
         }
