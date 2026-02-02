@@ -4277,7 +4277,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
                     
                     if (limitUsers) {
                         script += ` `;
-                        script += `shared-users=${Math.floor(50 / i)}`;
+                        script += `shared-users=1`;
                     }
                     
                     if (enableFairness) {
@@ -4558,6 +4558,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
     </script>
 </body>
 </html>
+
 
 
 
