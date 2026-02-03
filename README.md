@@ -1,1 +1,0 @@
-![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fmikrotik-1.github.io%2FTools%2F&count_bg=%232081C1&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)
