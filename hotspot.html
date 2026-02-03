@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات هوت سبوت | MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            direction: rtl;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== قائمة التنقل العلوية ===== */
+        .navbar {
+            background: var(--dark);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            background: var(--gradient);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== الهيرو المعدل ===== */
+        .hero-hotspot {
+            background: var(--gradient-dark);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-hotspot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 200px;
+        }
+
+        .hero-content-hotspot {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge-hotspot {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title-hotspot {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle-hotspot {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        /* ===== قسم توليد السكربت ===== */
+        .generator-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .generator-card {
+            background: var(--gradient-card);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .tool-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== قسم الشبكة (الجديد في الأعلى) ===== */
+        .network-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* ===== تصميم اختيار الشبكة ===== */
+        .subnet-selector {
+            margin: 1.5rem 0;
+        }
+
+        .subnet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .subnet-box {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .subnet-box:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+        }
+
+        .subnet-box.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.15);
+        }
+
+        .subnet-box.active::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .subnet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .subnet-mask {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: 5px 15px;
+            border-radius: 10px;
+        }
+
+        .subnet-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .subnet-info {
+            margin: 10px 0;
+        }
+
+        .ip-count {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .ip-range {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.4;
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* ===== نافذة الشرح ===== */
+        .subnet-description {
+            position: fixed;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            background: var(--dark);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .subnet-description.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(50%) translateY(-10px);
+        }
+
+        .description-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .description-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        /* ===== إعدادات التوليد ===== */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .setting-group {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .setting-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-title i {
+            color: var(--primary);
+        }
+
+        /* ===== إدخال البيانات ===== */
+        .input-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            outline: none;
+        }
+
+        /* ===== الأزرار ===== */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ===== نتيجة السكربت ===== */
+        .result-section {
+            margin-top: 3rem;
+            display: none;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .script-output {
+            width: 100%;
+            min-height: 300px;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #1e293b;
+            color: #38bdf8;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border: none;
+            resize: vertical;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* ===== قسم الاتصال ===== */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #a5b4fc, #f0abfc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-subtitle {
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-phone {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            direction: ltr;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-name {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        /* ===== التذييل ===== */
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 1024px) {
+            .hero-title-hotspot {
+                font-size: 2.5rem;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .subnet-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--dark);
+                width: 100%;
+                padding: 1rem;
+                flex-direction: column;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-title-hotspot {
+                font-size: 2rem;
+            }
+            
+            .generator-section {
+                padding: 2rem 1rem;
+            }
+            
+            .generator-card {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                min-width: 100%;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .subnet-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .subnet-description {
+                position: fixed;
+                bottom: 10px;
+                right: 5%;
+                left: 5%;
+                transform: none;
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-hotspot {
+                min-height: 60vh;
+                padding: 100px 1rem 2rem;
+            }
+            
+            .contact-phone {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- قائمة التنقل العلوية -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="logo-text">MikroTools</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    الرئيسية
+                </a>
+                <a href="hotspot.html" class="nav-link active">
+                    <i class="fas fa-wifi"></i>
+                    هوت سبوت
+                </a>
+                <a href="merge-v6.html" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    دمج v6
+                </a>
+                <a href="merge-v7.html" class="nav-link">
+                    <i class="fas fa-rocket"></i>
+                    دمج v7
+                </a>
+                <a href="block-sites.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    حجب مواقع
+                </a>
+                <a href="speed-profiles.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    بروفايلات
+                </a>
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    من نحن
+                </a>
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    تواصل معنا
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- الهيرو المعدل -->
+    <section class="hero-hotspot">
+        <div class="hero-content-hotspot">
+            <span class="hero-badge-hotspot">
+                <i class="fas fa-magic"></i>
+                توليد سكربت تلقائي
+            </span>
+            
+            <h1 class="hero-title-hotspot">
+                 مولد سكربت هوت سبوت وبرودباند
+            </h1>
+            
+            <p class="hero-subtitle-hotspot">
+                أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة
+                مع إعدادات DHCP، PPPoE، و NAT تلقائية
+            </p>
+        </div>
+    </section>
+
+    <!-- قسم توليد السكربت -->
+    <section class="generator-section">
+        <div class="generator-card">
+            <h2 class="tool-title">
+                <i class="fas fa-cogs"></i>
+                إعدادات السكربت
+            </h2>
+            
+            <!-- الشبكة أولاً -->
+            <div class="network-section">
+                <h3 class="section-title">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    اختر حجم الشبكة المناسب
+                </h3>
+                
+                <div class="subnet-grid" id="subnetSelector">
+                    <!-- /24 = 254 IP -->
+                    <div class="subnet-box active" 
+                         data-subnet="24" 
+                         data-title="شبكة صغيرة مثالية للمنازل والمقاهي"
+                         data-description="مثالية للمنازل، المقاهي، المحلات التجارية الصغيرة. تدعم حتى 254 جهاز متصل في نفس الوقت. مثالية للاستخدام اليومي."
+                         onmouseenter="showDescription(this)" 
+                         onmouseleave="hideDescription()"
+                         onclick="selectSubnet(24)">
+                        <div class="subnet-header">
+                            <div class="subnet-mask">/24</div>
+                            <div class="subnet-title">شبكة صغيرة</div>
+                        </div>
+                        <div class="subnet-info">
+                            <div class="ip-count">254 IP</div>
+                            <div class="ip-range">x.x.x.1 - x.x.x.254</div>
+                        </div>
+                    </div>
+                    
+                    <!-- /16 = 65,534 IP -->
+                    <div class="subnet-box" 
+                         data-subnet="16" 
+                         data-title="شبكة متوسطة للشركات والمؤسسات"
+                         data-description="مناسبة للشركات الصغيرة والمتوسطة، الفنادق، المدارس. تدعم حتى 65,534 جهاز متصل. توفر مرونة كبيرة للنمو."
+                         onmouseenter="showDescription(this)" 
+                         onmouseleave="hideDescription()"
+                         onclick="selectSubnet(16)">
+                        <div class="subnet-header">
+                            <div class="subnet-mask">/16</div>
+                            <div class="subnet-title">شبكة متوسطة</div>
+                        </div>
+                        <div class="subnet-info">
+                            <div class="ip-count">65,534 IP</div>
+                            <div class="ip-range">x.x.0.1 - x.x.255.254</div>
+                        </div>
+                    </div>
+                    
+                    <!-- /8 = 16,777,214 IP -->
+                    <div class="subnet-box" 
+                         data-subnet="8" 
+                         data-title="شبكة كبيرة للمؤسسات والجامعات"
+                         data-description="مثالية للجامعات، المستشفيات الكبيرة، مراكز التسوق. تدعم 16.7 مليون جهاز متصل. مناسبة للمشاريع الكبيرة."
+                         onmouseenter="showDescription(this)" 
+                         onmouseleave="hideDescription()"
+                         onclick="selectSubnet(8)">
+                        <div class="subnet-header">
+                            <div class="subnet-mask">/8</div>
+                            <div class="subnet-title">شبكة كبيرة</div>
+                        </div>
+                        <div class="subnet-info">
+                            <div class="ip-count">16.7 مليون IP</div>
+                            <div class="ip-range">x.0.0.1 - x.255.255.254</div>
+                        </div>
+                    </div>
+                    
+                    <!-- /4 = 268,435,454 IP -->
+                    <div class="subnet-box" 
+                         data-subnet="4" 
+                         data-title="شبكة عملاقة لمزودي الخدمة"
+                         data-description="مصممة لمزودي خدمات الإنترنت (ISPs)، الشركات الكبرى. تدعم 268 مليون جهاز متصل. مثالية للبنية التحتية الضخمة."
+                         onmouseenter="showDescription(this)" 
+                         onmouseleave="hideDescription()"
+                         onclick="selectSubnet(4)">
+                        <div class="subnet-header">
+                            <div class="subnet-mask">/4</div>
+                            <div class="subnet-title">شبكة عملاقة</div>
+                        </div>
+                        <div class="subnet-info">
+                            <div class="ip-count">268 مليون IP</div>
+                            <div class="ip-range">0-15.x.x.x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الإعدادات -->
+            <div class="settings-grid">
+                <!-- الشبكة -->
+                <div class="setting-group">
+                    <h3 class="setting-title">
+                        <i class="fas fa-network-wired"></i>
+                        إعدادات الشبكة
+                    </h3>
+                    
+                    <div class="input-box">
+                        <label class="input-label">عنوان IP الميكروتك:</label>
+                        <input type="text" id="newIp" value="10.0.0.1/24" class="input-field" placeholder="مثال: 10.0.0.1/24">
+                    </div>
+                    
+                    <div class="input-box">
+                        <label class="input-label">اسم كارت الخروج:</label>
+                        <input type="text" id="newInterface" value="OUT" class="input-field" placeholder="مثال: bridge-local, ether2">
+                    </div>
+                </div>
+
+                <!-- DHCP Client -->
+                <div class="setting-group">
+                    <h3 class="setting-title">
+                        <i class="fas fa-plug"></i>
+                        إعدادات الإنترنت
+                    </h3>
+                    
+                    <div class="input-box">
+                        <label class="input-label">كارت الدخول (WAN):</label>
+                        <input type="text" id="dhcpInterface" value="WAN" class="input-field" placeholder="مثال: ether1, wan-port">
+                    </div>
+                </div>
+            </div>
+
+            <!-- أزرار التوليد -->
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="generateHotspotScript()">
+                    <i class="fas fa-play"></i>
+                    توليد السكربت
+                </button>
+                <button class="btn btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-redo"></i>
+                    إعادة تعيين
+                </button>
+            </div>
+
+            <!-- نتيجة السكربت -->
+            <div id="resultSection" class="result-section">
+                <div class="result-header">
+                    <h3 class="result-title">
+                        <i class="fas fa-code"></i>
+                        السكربت الناتج
+                    </h3>
+                    <button class="btn btn-secondary" onclick="copyScript()">
+                        <i class="fas fa-copy"></i>
+                        نسخ السكربت
+                    </button>
+                </div>
+                <textarea id="outputScript" class="script-output" readonly></textarea>
+            </div>
+        </div>
+    </section>
+
+    <!-- نافذة الشرح -->
+    <div class="subnet-description" id="subnetDescription">
+        <h3 class="description-title" id="descTitle">
+            <i class="fas fa-info-circle"></i>
+            عنوان الشرح
+        </h3>
+        <p class="description-text" id="descText">
+            نص الشرح سوف يظهر هنا عند الوقوف على أي مربع من مربعات الشبكة
+        </p>
+    </div>
+
+    <!-- قسم الاتصال -->
+    <section class="contact">
+        <h2 class="contact-title">هل تحتاج مساعدة؟</h2>
+        <p class="contact-subtitle">
+            فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك
+        </p>
+        
+        <div class="contact-info">
+            <h3 style="color: #94a3b8; margin-bottom: 1rem;">
+                <i class="fas fa-headset"></i>
+                للتواصل والدعم الفني
+            </h3>
+            <div class="contact-phone">01092503391</div>
+            <p class="contact-name">Sameh El-Sayed</p>
+            <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
+                <i class="fab fa-whatsapp"></i>
+                تواصل عبر واتساب
+            </a>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                <i class="fas fa-phone-alt"></i>
+                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+            </p>
+            <p class="copyright">
+                © 2024 MikroTools. جميع الحقوق محفوظة.
+            </p>
+        </div>
+    </footer>
+
+    <!-- أيقونات التواصل العائمة -->
+    <iframe 
+        src="mikro-icons.html" 
+        style="
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 90px;
+            height: 280px;
+            border: none;
+            z-index: 99999;
+            background: transparent;
+            pointer-events: auto;
+        "
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true">
+    </iframe>
+
+    <script>
+        // دوال JavaScript مع إضافة نافذة الشرح
+        const SIGNATURE = "By Same7_01092503391";
+        let currentSubnet = 24;
+        let descriptionTimeout;
+
+        // تبديل القائمة في الجوال
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            const icon = this.querySelector('i');
+            
+            navLinks.classList.toggle('active');
+            icon.className = navLinks.classList.contains('active') 
+                ? 'fas fa-times' 
+                : 'fas fa-bars';
+        });
+
+        // اختيار الشبكة
+        function selectSubnet(subnetMask) {
+            currentSubnet = subnetMask;
+            document.querySelectorAll('.subnet-box').forEach(box => {
+                box.classList.remove('active');
+                if (parseInt(box.getAttribute('data-subnet')) === subnetMask) {
+                    box.classList.add('active');
+                }
+            });
+            
+            const ipInput = document.getElementById('newIp');
+            const currentValue = ipInput.value;
+            const baseIP = currentValue.split('/')[0];
+            ipInput.value = `${baseIP}/${subnetMask}`;
+            
+            // إغلاق نافذة الشرح عند الاختيار
+            hideDescription();
+        }
+
+        // عرض نافذة الشرح
+        function showDescription(element) {
+            clearTimeout(descriptionTimeout);
+            
+            const title = element.getAttribute('data-title');
+            const description = element.getAttribute('data-description');
+            const descriptionBox = document.getElementById('subnetDescription');
+            
+            document.getElementById('descTitle').innerHTML = `<i class="fas fa-info-circle"></i> ${title}`;
+            document.getElementById('descText').textContent = description;
+            
+            descriptionTimeout = setTimeout(() => {
+                descriptionBox.classList.add('show');
+            }, 300);
+        }
+
+        // إخفاء نافذة الشرح
+        function hideDescription() {
+            clearTimeout(descriptionTimeout);
+            descriptionTimeout = setTimeout(() => {
+                document.getElementById('subnetDescription').classList.remove('show');
+            }, 500);
+        }
+
+        // تحقق من صحة IP
+        function validateIP(ip) {
+            const regex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
+            if (!regex.test(ip)) return false;
+            
+            const parts = ip.split('/')[0].split('.');
+            return parts.every(part => {
+                const num = parseInt(part);
+                return num >= 0 && num <= 255;
+            });
+        }
+
+        // حساب نطاق الشبكة
+        function calculateNetwork(ip, mask) {
+            const ipParts = ip.split('.').map(Number);
+            
+            if (mask >= 24) {
+                return `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.0`;
+            } else if (mask >= 16) {
+                return `${ipParts[0]}.${ipParts[1]}.0.0`;
+            } else if (mask >= 8) {
+                return `${ipParts[0]}.0.0.0`;
+            } else {
+                const firstOctet = ipParts[0];
+                const startRange = Math.floor(firstOctet / 16) * 16;
+                return `${startRange}.0.0.0`;
+            }
+        }
+
+        // حساب نطاق DHCP
+        function calculateDHCPRange(ip, mask) {
+            const ipParts = ip.split('.').map(Number);
+            
+            if (mask >= 24) {
+                return {
+                    start: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.100`,
+                    end: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.200`,
+                    pppStart: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.201`,
+                    pppEnd: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.250`
+                };
+            } else if (mask >= 16) {
+                return {
+                    start: `${ipParts[0]}.${ipParts[1]}.0.100`,
+                    end: `${ipParts[0]}.${ipParts[1]}.127.200`,
+                    pppStart: `${ipParts[0]}.${ipParts[1]}.128.100`,
+                    pppEnd: `${ipParts[0]}.${ipParts[1]}.255.200`
+                };
+            } else if (mask >= 8) {
+                return {
+                    start: `${ipParts[0]}.0.0.100`,
+                    end: `${ipParts[0]}.127.255.200`,
+                    pppStart: `${ipParts[0]}.128.0.100`,
+                    pppEnd: `${ipParts[0]}.255.255.200`
+                };
+            } else {
+                const firstOctet = ipParts[0];
+                const startRange = Math.floor(firstOctet / 16) * 16;
+                return {
+                    start: `${startRange}.0.0.100`,
+                    end: `${startRange + 7}.255.255.200`,
+                    pppStart: `${startRange + 8}.0.0.100`,
+                    pppEnd: `${startRange + 15}.255.255.200`
+                };
+            }
+        }
+
+        // توليد السكربت
+        function generateHotspotScript() {
+            const ipInput = document.getElementById('newIp').value.trim();
+            const iface = document.getElementById('newInterface').value.trim();
+            const dhcpIface = document.getElementById('dhcpInterface').value.trim();
+            
+            if (!ipInput || !iface || !dhcpIface) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            const ipParts = ipInput.split('/')[0];
+            if (!validateIP(ipParts)) {
+                alert("⚠️ عنوان IP غير صحيح");
+                return;
+            }
+            
+            const mask = ipInput.includes('/') ? parseInt(ipInput.split('/')[1]) : currentSubnet;
+            const network = calculateNetwork(ipParts, mask);
+            const dhcpRange = calculateDHCPRange(ipParts, mask);
+            
+            const script = `# ${SIGNATURE}:
+# شبكة: ${network}/${mask}
+
+/ip address add address=${ipInput} interface=${iface}
+
+# إعدادات DHCP Client للإنترنت
+/ip dhcp-client add interface=${dhcpIface} use-peer-dns=yes use-peer-ntp=yes add-default-route=yes disabled=no
+
+/ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes 
+
+/ip pool add name=dhcp ranges=${dhcpRange.start}-${dhcpRange.end} comment="${SIGNATURE}"
+/ip pool add name=ppp ranges=${dhcpRange.pppStart}-${dhcpRange.pppEnd} comment="${SIGNATURE}"
+
+/interface pppoe-server server remove [find]
+/ppp profile remove [find]
+/ppp profile
+set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
+
+/interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" 
+
+/ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}
+/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap,http-pap use-radius=yes 
+/ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 
+
+/ip firewall nat remove [find]
+/ip firewall nat add action=masquerade chain=srcnat comment="Masquerade All ${SIGNATURE}" src-address=${network}/${mask}
+
+/ip dhcp-server add address-pool=dhcp authoritative=after-2sec-delay disabled=no interface=${iface} lease-time=3d name="Same7.01092503391" 
+/ip dhcp-server network add address=${network}/${mask} gateway=${ipParts} dns-server=8.8.8.8,8.8.4.4 comment="${SIGNATURE}"
+
+/system ntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
+/system sntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
+/system clock set time-zone-name=Africa/Cairo 
+
+# تم إنشاء سكربت لشبكة /${mask}
+            `.trim();
+
+            document.getElementById('outputScript').value = script;
+            document.getElementById('resultSection').style.display = 'block';
+            
+            // تمرير إلى النتيجة
+            window.scrollTo({
+                top: document.getElementById('resultSection').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        // نسخ السكربت
+        function copyScript() {
+            const scriptOutput = document.getElementById('outputScript');
+            if (!scriptOutput.value) {
+                alert('لا يوجد سكربت لنسخه');
+                return;
+            }
+            
+            scriptOutput.select();
+            scriptOutput.setSelectionRange(0, 99999);
+            
+            try {
+                navigator.clipboard.writeText(scriptOutput.value);
+                alert('تم نسخ السكربت بنجاح! ✅');
+            } catch (err) {
+                document.execCommand('copy');
+                alert('تم نسخ السكربت بنجاح! ✅');
+            }
+        }
+
+        // إعادة تعيين النموذج
+        function resetForm() {
+            document.getElementById('newIp').value = '10.0.0.1/24';
+            document.getElementById('newInterface').value = 'OUT';
+            document.getElementById('dhcpInterface').value = 'WAN';
+            selectSubnet(24);
+            document.getElementById('outputScript').value = '';
+            document.getElementById('resultSection').style.display = 'none';
+            hideDescription();
+        }
+
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.querySelector('#menuToggle i').className = 'fas fa-bars';
+            });
+        });
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            selectSubnet(24);
+            
+            // إخفاء نافذة الشرح عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                const descriptionBox = document.getElementById('subnetDescription');
+                if (!event.target.closest('.subnet-box') && !event.target.closest('.subnet-description')) {
+                    hideDescription();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

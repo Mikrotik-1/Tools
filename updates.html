@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آخر التحديثات | MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* نفس الأنماط الأساسية من الصفحات السابقة */
+        :root {
+            --nav-bg: #1e293b;
+            --nav-text: #ffffff;
+            --nav-active: #3b82f6;
+            --nav-hover: #334155;
+            --bg-color: #f1f5f9;
+            --primary: #007bff;
+            --secondary: #28a745;
+            --danger: #dc2626;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            direction: rtl;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== الشريط الجانبي ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--nav-bg);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(10deg) scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+        }
+
+        .logo-subtitle {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* قائمة التنقل في الشريط الجانبي */
+        .sidebar-nav {
+            flex: 1;
+            padding: 25px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 25px;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-right: 4px solid transparent;
+            margin: 5px 0;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-right-color: var(--primary);
+            padding-right: 30px;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), transparent);
+            color: white;
+            border-right-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            margin-right: var(--sidebar-width);
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        /* كروت الأدوات */
+        .tool-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--primary);
+        }
+
+        .tool-title {
+            color: var(--primary);
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .tool-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            opacity: 0.95;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* ===== أنماط صفحة التحديثات ===== */
+        .updates-timeline {
+            position: relative;
+            padding-right: 30px;
+            margin: 40px 0;
+        }
+
+        .updates-timeline::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+            opacity: 0.3;
+        }
+
+        .update-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-right: 40px;
+        }
+
+        .update-item::before {
+            content: '';
+            position: absolute;
+            right: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+
+        .update-date {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .update-content {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border-right: 4px solid var(--primary);
+        }
+
+        .update-content h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .update-features {
+            list-style-type: none;
+            padding-right: 20px;
+            margin: 15px 0;
+        }
+
+        .update-features li {
+            padding: 5px 0;
+            color: #475569;
+            position: relative;
+        }
+
+        .update-features li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 20px;
+            margin-right: -20px;
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        /* تذييل التواصل */
+        .contact-footer {
+            background: #1e293b;
+            color: white;
+            padding: 18px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            text-align: center;
+            margin: 40px auto 20px;
+            max-width: 1000px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-icons-small {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-icon-small {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .facebook-icon {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        /* معلومات الاتصال في الشريط الجانبي */
+        .sidebar-footer {
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .contact-sidebar {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .phone-sidebar {
+            font-size: 18px;
+            font-weight: 700;
+            color: #38bdf8;
+            margin: 10px 0;
+            direction: ltr;
+            display: block;
+        }
+
+        .sidebar-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .sidebar-social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+        }
+
+        /* زر القائمة المتنقلة */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 250px;
+            }
+            
+            .main-content {
+                padding: 30px;
+            }
+            
+            .tool-card {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .sidebar {
+                right: -100%;
+                width: 300px;
+            }
+            
+            .sidebar.active {
+                right: 0;
+            }
+            
+            .main-content {
+                margin-right: 0;
+                padding: 20px;
+            }
+            
+            .tool-card {
+                padding: 20px;
+            }
+            
+            .updates-timeline {
+                padding-right: 20px;
+            }
+            
+            .update-item {
+                padding-right: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 15px;
+            }
+            
+            .contact-footer {
+                font-size: 14px;
+                padding: 15px;
+            }
+            
+            .tool-title {
+                font-size: 22px;
+            }
+            
+            .update-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- زر القائمة المتنقلة -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="فتح/إغلاق القائمة">
+        ☰
+    </button>
+
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>
+                <div>
+                    <div class="logo-text">MikroTools</div>
+                    <div class="logo-subtitle">أدوات ميكروتيك مجانية</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- قائمة التنقل -->
+        <nav class="sidebar-nav">
+            <a href="hotspot.html" class="nav-item">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-text">إعدادات أساسية</div>
+            </a>
+            
+            <a href="merge-v6.html" class="nav-item">
+                <div class="nav-icon">🔀</div>
+                <div class="nav-text">دمج خطوط v6</div>
+            </a>
+            
+            <a href="merge-v7.html" class="nav-item">
+                <div class="nav-icon">🚀</div>
+                <div class="nav-text">دمج خطوط v7</div>
+            </a>
+            
+            <a href="block-sites.html" class="nav-item">
+                <div class="nav-icon">🔒</div>
+                <div class="nav-text">حجب المواقع</div>
+            </a>
+            
+            <a href="speed-profiles.html" class="nav-item">
+                <div class="nav-icon">⚡</div>
+                <div class="nav-text">بروفايلات السرعة</div>
+            </a>
+            
+            <a href="about.html" class="nav-item">
+                <div class="nav-icon">👥</div>
+                <div class="nav-text">من نحن</div>
+            </a>
+            
+            <a href="updates.html" class="nav-item active">
+                <div class="nav-icon">📝</div>
+                <div class="nav-text">آخر التحديثات</div>
+            </a>
+            
+            <a href="privacy-policy.html" class="nav-item">
+                <div class="nav-icon">🔏</div>
+                <div class="nav-text">سياسة الخصوصية</div>
+            </a>
+        </nav>
+
+        <!-- معلومات الاتصال -->
+        <div class="sidebar-footer">
+            <div class="contact-sidebar">
+                <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">📞 للتواصل السريع</div>
+                <div class="phone-sidebar">01092503391</div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 5px;">Sameh El-Sayed</div>
+                
+                <!-- أيقونات التواصل الاجتماعي في الشريط الجانبي -->
+                <div class="sidebar-social">
+                    <a href="http://wa.me/201092503391" target="_blank" class="sidebar-social-icon whatsapp-icon" title="تواصل عبر واتساب">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="sidebar-social-icon facebook-icon" title="تابعنا على فيسبوك">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+        <div class="tool-card">
+            <h2 class="tool-title">📝 آخر التحديثات والمميزات</h2>
+            
+            <div class="updates-timeline">
+                <!-- تحديث يناير 2024 -->
+                <div class="update-item">
+                    <div class="update-date">يناير 2024</div>
+                    <div class="update-content">
+                        <h4><span class="version-badge">v2.0</span> <span>🚀 إطلاق الموقع متعدد الصفحات</span></h4>
+                        <p>تم تحويل الموقع من صفحة واحدة إلى نظام متعدد الصفحات لتحسين الأداء و SEO.</p>
+                        <ul class="update-features">
+                            <li>إنشاء 8 صفحات HTML مستقلة</li>
+                            <li>تحسين سرعة تحميل الصفحات</li>
+                            <li>تحسين تصنيف محركات البحث</li>
+                            <li>تصميم متجاوب لكل الصفحات</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- تحديث ديسمبر 2023 -->
+                <div class="update-item">
+                    <div class="update-date">ديسمبر 2023</div>
+                    <div class="update-content">
+                        <h4><span class="version-badge">v1.5</span> <span>⚡ إضافة أداة بروفايلات السرعة</span></h4>
+                        <p>إطلاق أداة جديدة لإنشاء بروفايلات سرعة للهوتسبوت والبرودباند.</p>
+                        <ul class="update-features">
+                            <li>مولد بروفايلات هوتسبوت</li>
+                            <li>مولد قوائم انتظار برودباند</li>
+                            <li>باقات سرعات مسبقة</li>
+                            <li>إعدادات Burst متقدمة</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- تحديث نوفمبر 2023 -->
+                <div class="update-item">
+                    <div class="update-date">نوفمبر 2023</div>
+                    <div class="update-content">
+                        <h4><span class="version-badge">v1.3</span> <span>🔒 تحسينات أداة حجب المواقع</span></h4>
+                        <p>تحديثات كبيرة على أداة حجب المواقع مع ميزات جديدة.</p>
+                        <ul class="update-features">
+                            <li>إضافة حجب TLS/SSL</li>
+                            <li>مواقع جاهزة للاختيار السريع</li>
+                            <li>تحسين الـ Regex patterns</li>
+                            <li>دعم حجب QUIC</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- تحديث أكتوبر 2023 -->
+                <div class="update-item">
+                    <div class="update-date">أكتوبر 2023</div>
+                    <div class="update-content">
+                        <h4><span class="version-badge">v1.2</span> <span>🔀 تحديث أدوات دمج الخطوط</span></h4>
+                        <p>إضافة ميزات جديدة لأدوات دمج الخطوط v6 و v7.</p>
+                        <ul class="update-features">
+                            <li>دعم حتى 20 خط للدمج</li>
+                            <li>واجهة اختيار عدد الخطوط</li>
+                            <li>تحسين خوارزميات التوزيع</li>
+                            <li>إضافة Gateway checking</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- تحديث سبتمبر 2023 -->
+                <div class="update-item">
+                    <div class="update-date">سبتمبر 2023</div>
+                    <div class="update-content">
+                        <h4><span class="version-badge">v1.1</span> <span>🌐 إضافة اختيار Subnet للهوت سبوت</span></h4>
+                        <p>تحديث أداة الهوت سبوت مع نظام اختيار حجم الشبكة.</p>
+                        <ul class="update-features">
+                            <li>نظام اختيار Subnet مصغر</li>
+                            <li>4 أحجام شبكات مختلفة</li>
+                            <li>حساب تلقائي لـ IP ranges</li>
+                            <li>إضافة DHCP Client تلقائي</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- تحديث أغسطس 2023 -->
+                <div class="update-item">
+                    <div class="update-date">أغسطس 2023</div>
+                    <div class="update-content">
+                        <h4><span class="version-badge">v1.0</span> <span>🎉 الإطلاق الأولي للموقع</span></h4>
+                        <p>الإطلاق الأولي لـ MikroTools مع 5 أدوات أساسية.</p>
+                        <ul class="update-features">
+                            <li>مولد سكربتات الهوت سبوت</li>
+                            <li>دمج خطوط v6</li>
+                            <li>دمج خطوط v7</li>
+                            <li>حجب المواقع</li>
+                            <li>دعم عبر واتساب</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قائمة المهام المستقبلية -->
+            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 25px; border-radius: 15px; margin-top: 40px; border: 2px solid #bae6fd;">
+                <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span>🔮</span> قادم قريباً
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">📱</div>
+                        <div style="font-weight: 600; color: var(--text-main);">تطبيق موبايل</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">🌍</div>
+                        <div style="font-weight: 600; color: var(--text-main);">نسخة إنجليزية</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">📊</div>
+                        <div style="font-weight: 600; color: var(--text-main);">تحليلات متقدمة</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">🔧</div>
+                        <div style="font-weight: 600; color: var(--text-main);">أدوات إضافية</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color);">
+                <h3 style="color: var(--primary); margin-bottom: 20px;">💡 اقتراحات وتحسينات</h3>
+                <p style="color: #64748b; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    لديك اقتراح لتطوير الموقع أو إضافة أداة جديدة؟ 
+                    تواصل معنا عبر واتساب وشاركنا أفكارك.
+                </p>
+                <a href="http://wa.me/201092503391" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-whatsapp"></i> تواصل معنا عبر واتساب
+                </a>
+            </div>
+        </div>
+        
+        <!-- تذييل التواصل -->
+        <div class="contact-footer">
+            📞 للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+            
+            <!-- أيقونات التواصل في التذييل -->
+            <div class="social-icons-small">
+                <a href="http://wa.me/201092503391" target="_blank" class="social-icon-small whatsapp-icon" title="تواصل عبر واتساب">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon-small facebook-icon" title="تابعنا على فيسبوك">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== وظيفة تبديل القائمة الجانبية ==========
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // ========== إغلاق القائمة عند النقر خارجها ==========
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('active') &&
+                !sidebar.contains(event.target) && 
+                !menuToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // ========== إغلاق القائمة بزر Escape ==========
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+    </script>
+<!-- تضمين أيقونات MikroTools -->
+<iframe 
+    src="mikro-icons.html" 
+    style="
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+        width: 90px;
+        height: 280px;
+        border: none;
+        z-index: 99999;
+        background: transparent;
+        pointer-events: auto;
+    "
+    scrolling="no"
+    frameborder="0"
+    allowtransparency="true">
+</iframe>
+</body>
+</html>

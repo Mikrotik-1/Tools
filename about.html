@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن | MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            direction: rtl;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== قائمة التنقل العلوية ===== */
+        .navbar {
+            background: var(--dark);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            background: var(--gradient);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== الهيرو المعدل ===== */
+        .hero-about {
+            background: var(--gradient-dark);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 200px;
+        }
+
+        .hero-content-about {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge-about {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title-about {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle-about {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        /* ===== قسم المحتوى ===== */
+        .about-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: var(--gradient-card);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== قسم المهمة ===== */
+        .mission-section {
+            text-align: center;
+            padding: 2rem;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .mission-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== شبكة القيم ===== */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* ===== قائمة الأدوات ===== */
+        .tools-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateX(-5px);
+            border-color: var(--primary);
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .tool-icon-1 { background: var(--primary); }
+        .tool-icon-2 { background: var(--secondary); }
+        .tool-icon-3 { background: #f59e0b; }
+        .tool-icon-4 { background: #ef4444; }
+        .tool-icon-5 { background: #8b5cf6; }
+
+        .tool-info {
+            flex: 1;
+        }
+
+        .tool-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .tool-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== قسم الاتصال ===== */
+        .contact-section {
+            background: var(--dark);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin: 3rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #a5b4fc, #f0abfc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-phone {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            direction: ltr;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .facebook-icon {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        /* ===== دعوة للبدء ===== */
+        .cta-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: 3rem 0;
+            border: 2px solid var(--primary-light);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== الأزرار ===== */
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ===== التذييل ===== */
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 1024px) {
+            .hero-title-about {
+                font-size: 2.5rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--dark);
+                width: 100%;
+                padding: 1rem;
+                flex-direction: column;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-title-about {
+                font-size: 2rem;
+            }
+            
+            .about-section {
+                padding: 2rem 1rem;
+            }
+            
+            .about-card {
+                padding: 2rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-phone {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-about {
+                min-height: 60vh;
+                padding: 100px 1rem 2rem;
+            }
+            
+            .tool-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .contact-phone {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- قائمة التنقل العلوية -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="logo-text">MikroTools</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    الرئيسية
+                </a>
+                <a href="hotspot.html" class="nav-link">
+                    <i class="fas fa-wifi"></i>
+                    هوت سبوت
+                </a>
+                <a href="merge-v6.html" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    دمج v6
+                </a>
+                <a href="merge-v7.html" class="nav-link">
+                    <i class="fas fa-rocket"></i>
+                    دمج v7
+                </a>
+                <a href="block-sites.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    حجب مواقع
+                </a>
+                <a href="speed-profiles.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    بروفايلات
+                </a>
+                <a href="about.html" class="nav-link active">
+                    <i class="fas fa-users"></i>
+                    من نحن
+                </a>
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    تواصل معنا
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- الهيرو المعدل -->
+    <section class="hero-about">
+        <div class="hero-content-about">
+            <span class="hero-badge-about">
+                <i class="fas fa-users"></i>
+                فريق الدعم الفني
+            </span>
+            
+            <h1 class="hero-title-about">
+                منصة MikroTools
+            </h1>
+            
+            <p class="hero-subtitle-about">
+                منصة عربية مجانية لإنشاء سكريبتات ميكروتيك احترافية
+                بضغطة زر واحدة، دون الحاجة لأي خبرة برمجية
+            </p>
+        </div>
+    </section>
+
+    <!-- قسم المحتوى -->
+    <section class="about-section">
+        <div class="about-card">
+            <!-- مهمتنا -->
+            <div class="mission-section">
+                <div class="mission-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="section-title">
+                    <i class="fas fa-bullseye"></i>
+                    مهمتنا ورؤيتنا
+                </h3>
+                <p style="font-size: 1.1rem; color: var(--dark); margin-bottom: 1.5rem;">
+                    نحن فريق <strong style="color: var(--primary);">MikroTools</strong>، انطلقنا برؤية واضحة:
+                    <strong>تبسيط عالم إدارة شبكات ميكروتيك وجعلها في متناول الجميع</strong>.
+                </p>
+                <p style="color: var(--gray);">
+                    نؤمن بأن الأدوات الذكية يجب أن تكون مجانية وسهلة الاستخدام. مهمتنا هي توفير أدوات ذكية ومجانية
+                    تساعد مديري الشبكات والفنيين على إنجاز مهامهم بسرعة ودقة.
+                </p>
+            </div>
+
+            <!-- قيمنا -->
+            <h3 class="section-title" style="margin-top: 4rem;">
+                <i class="fas fa-heart"></i>
+                قيمنا الأساسية
+            </h3>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4 class="value-title">مجانية دائمة</h4>
+                    <p style="color: var(--gray);">
+                        جميع أدواتنا مجانية 100% ولن تتحول إلى مدفوعة أبداً
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4 class="value-title">سرعة الأداء</h4>
+                    <p style="color: var(--gray);">
+                        توليد سكربتات احترافية في ثوانٍ معدودة
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4 class="value-title">دقة النتائج</h4>
+                    <p style="color: var(--gray);">
+                        سكربتات مضمونة وخالية من الأخطاء
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4 class="value-title">دعم مباشر</h4>
+                    <p style="color: var(--gray);">
+                        فريق دعم متاح 24/7 للإجابة على استفساراتك
+                    </p>
+                </div>
+            </div>
+
+            <!-- أدواتنا -->
+            <h3 class="section-title" style="margin-top: 4rem;">
+                <i class="fas fa-tools"></i>
+                أدواتنا المجانية
+            </h3>
+            
+            <ul class="tools-list">
+                <li class="tool-item">
+                    <div class="tool-icon tool-icon-1">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h4 class="tool-title">مولد سكربتات الهوت سبوت</h4>
+                        <p class="tool-desc">
+                            إعدادات كاملة للهوت سبوت والبرودباند مع DHCP و NAT تلقائية
+                        </p>
+                    </div>
+                </li>
+                
+                <li class="tool-item">
+                    <div class="tool-icon tool-icon-2">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h4 class="tool-title">دمج خطوط v6</h4>
+                        <p class="tool-desc">
+                            دمج حتى 10 خطوط إنترنت مع نظام Load Balancing متكامل
+                        </p>
+                    </div>
+                </li>
+                
+                <li class="tool-item">
+                    <div class="tool-icon tool-icon-3">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h4 class="tool-title">دمج خطوط v7</h4>
+                        <p class="tool-desc">
+                            سكربتات متقدمة للإصدار v7 مع Routing Tables متقدمة
+                        </p>
+                    </div>
+                </li>
+                
+                <li class="tool-item">
+                    <div class="tool-icon tool-icon-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h4 class="tool-title">حجب المواقع</h4>
+                        <p class="tool-desc">
+                            نظام حماية متكامل باستخدام Layer7 و TLS/SSL
+                        </p>
+                    </div>
+                </li>
+                
+                <li class="tool-item">
+                    <div class="tool-icon tool-icon-5">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h4 class="tool-title">بروفايلات السرعة</h4>
+                        <p class="tool-desc">
+                            بروفايلات سرعة متعددة مع نظام تسعير ذكي
+                        </p>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- الاتصال -->
+            <div class="contact-section">
+                <h3 class="contact-title">تواصل معنا</h3>
+                <p style="color: #cbd5e1; margin-bottom: 1.5rem;">
+                    نحن هنا لمساعدتك في أي وقت! للاستفسارات أو الدعم الفني:
+                </p>
+                
+                <div class="contact-phone">01092503391</div>
+                
+                <div style="color: #94a3b8; margin-bottom: 2rem;">
+                    Sameh El-Sayed
+                </div>
+                
+                <div class="social-icons">
+                    <a href="https://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- دعوة للبدء -->
+            <div class="cta-section">
+                <h3 class="cta-title">🚀 مستعد للبدء؟</h3>
+                <p style="color: var(--dark); margin-bottom: 2rem;">
+                    اذهب إلى صفحة الأدوات واختبر بنفسك قوة وسهولة استخدام منصتنا
+                </p>
+                <a href="hotspot.html" class="btn btn-primary">
+                    <i class="fas fa-play"></i>
+                    ابدأ باستخدام الأدوات
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                <i class="fas fa-phone-alt"></i>
+                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+            </p>
+            <p class="copyright">
+                © 2024 MikroTools. جميع الحقوق محفوظة.
+            </p>
+        </div>
+    </footer>
+
+    <!-- أيقونات التواصل العائمة -->
+    <iframe 
+        src="mikro-icons.html" 
+        style="
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 90px;
+            height: 280px;
+            border: none;
+            z-index: 99999;
+            background: transparent;
+            pointer-events: auto;
+        "
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true">
+    </iframe>
+
+    <script>
+        // تبديل القائمة في الجوال
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            const icon = this.querySelector('i');
+            
+            navLinks.classList.toggle('active');
+            icon.className = navLinks.classList.contains('active') 
+                ? 'fas fa-times' 
+                : 'fas fa-bars';
+        });
+
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.querySelector('#menuToggle i').className = 'fas fa-bars';
+            });
+        });
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 صفحة من نحن - MikroTools');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجب المواقع | MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            direction: rtl;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== قائمة التنقل العلوية ===== */
+        .navbar {
+            background: var(--dark);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            background: var(--gradient);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: var(--danger);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: var(--danger);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== الهيرو المعدل ===== */
+        .hero-block {
+            background: var(--gradient-dark);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 200px;
+        }
+
+        .hero-content-block {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge-block {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title-block {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #fca5a5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle-block {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        /* ===== قسم توليد السكربت ===== */
+        .generator-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .generator-card {
+            background: var(--gradient-card);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-danger);
+        }
+
+        .tool-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient-danger);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== إعدادات التوليد ===== */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .setting-group {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .setting-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-title i {
+            color: var(--danger);
+        }
+
+        /* ===== إدخال البيانات ===== */
+        .input-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-field:focus {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            outline: none;
+        }
+
+        /* ===== قسم المواقع الجاهزة ===== */
+        .sites-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 2rem 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--danger);
+        }
+
+        /* ===== شبكة المواقع ===== */
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .site-card {
+            background: white;
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .site-card:hover {
+            border-color: var(--danger);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.1);
+        }
+
+        .site-card.active {
+            border-color: var(--danger);
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            transform: translateY(-3px);
+        }
+
+        .site-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .site-name {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .site-url {
+            font-size: 0.8rem;
+            color: var(--gray);
+            direction: ltr;
+        }
+
+        /* ===== نوع الحجب ===== */
+        .block-types {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .type-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .type-btn:hover {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .type-btn.active {
+            border-color: var(--danger);
+            background: var(--danger);
+            color: white;
+        }
+
+        .type-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .type-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .type-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* ===== الأزرار ===== */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-danger);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ===== نتيجة السكربت ===== */
+        .result-section {
+            margin-top: 3rem;
+            display: none;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .script-output {
+            width: 100%;
+            min-height: 300px;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #1e293b;
+            color: #f87171;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border: none;
+            resize: vertical;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* ===== قسم الاتصال ===== */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fca5a5, #f0abfc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-subtitle {
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-phone {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            direction: ltr;
+            background: var(--gradient-danger);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-name {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        /* ===== التذييل ===== */
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 1024px) {
+            .hero-title-block {
+                font-size: 2.5rem;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sites-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--dark);
+                width: 100%;
+                padding: 1rem;
+                flex-direction: column;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-title-block {
+                font-size: 2rem;
+            }
+            
+            .generator-section {
+                padding: 2rem 1rem;
+            }
+            
+            .generator-card {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                min-width: 100%;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .sites-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .block-types {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-block {
+                min-height: 60vh;
+                padding: 100px 1rem 2rem;
+            }
+            
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-phone {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- قائمة التنقل العلوية -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="logo-text">MikroTools</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    الرئيسية
+                </a>
+                <a href="hotspot.html" class="nav-link">
+                    <i class="fas fa-wifi"></i>
+                    هوت سبوت
+                </a>
+                <a href="merge-v6.html" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    دمج v6
+                </a>
+                <a href="merge-v7.html" class="nav-link">
+                    <i class="fas fa-rocket"></i>
+                    دمج v7
+                </a>
+                <a href="block-sites.html" class="nav-link active">
+                    <i class="fas fa-shield-alt"></i>
+                    حجب مواقع
+                </a>
+                <a href="speed-profiles.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    بروفايلات
+                </a>
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    من نحن
+                </a>
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    تواصل معنا
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- الهيرو المعدل -->
+    <section class="hero-block">
+        <div class="hero-content-block">
+            <span class="hero-badge-block">
+                <i class="fas fa-shield-alt"></i>
+                نظام حماية متكامل
+            </span>
+            
+            <h1 class="hero-title-block">
+                حجب المواقع والبرامج
+            </h1>
+            
+            <p class="hero-subtitle-block">
+                حجب أي موقع باستخدام Layer7 و TLS/SSL مع قوائم جاهزة
+                لحماية شبكتك من المحتوى غير المرغوب فيه
+            </p>
+        </div>
+    </section>
+
+    <!-- قسم توليد السكربت -->
+    <section class="generator-section">
+        <div class="generator-card">
+            <h2 class="tool-title">
+                <i class="fas fa-shield-alt"></i>
+                إعدادات حجب المواقع
+            </h2>
+            
+            <!-- الإعدادات الأساسية -->
+            <div class="settings-grid">
+                <div class="setting-group">
+                    <h3 class="setting-title">
+                        <i class="fas fa-cog"></i>
+                        إعدادات الحجب
+                    </h3>
+                    
+                    <div class="input-box">
+                        <label class="input-label">🔗 مواقع للحجب (مفصولة بفاصلة):</label>
+                        <input type="text" id="sitesInput" class="input-field" placeholder="مثال: youtube.com, facebook.com, instagram.com">
+                        <small style="color: var(--gray); margin-top: 5px; display: block;">
+                            يمكن إدخال أكثر من موقع بفاصلة بينهم
+                        </small>
+                    </div>
+                    
+                    <div class="input-box">
+                        <label class="input-label">🏷️ اسم المجموعة (اختياري):</label>
+                        <input type="text" id="groupName" class="input-field" placeholder="مثال: مواقع التواصل, مواقع الفيديو">
+                    </div>
+                    
+                    <div class="input-box">
+                        <label class="input-label">🌐 كارت الخروج:</label>
+                        <input type="text" id="interfaceName" value="bridge-local" class="input-field" placeholder="مثال: bridge-local, OUT">
+                    </div>
+                </div>
+            </div>
+
+            <!-- مواقع جاهزة -->
+            <div class="sites-section">
+                <h3 class="section-title">
+                    <i class="fas fa-bolt"></i>
+                    مواقع جاهزة للاختيار السريع
+                </h3>
+                
+                <div class="sites-grid" id="sitesGrid">
+                    <div class="site-card" onclick="selectSite('youtube.com', 'YouTube', '🎥')">
+                        <div class="site-icon">🎥</div>
+                        <div class="site-name">يوتيوب</div>
+                        <div class="site-url">youtube.com</div>
+                    </div>
+                    
+                    <div class="site-card" onclick="selectSite('facebook.com', 'Facebook', '👥')">
+                        <div class="site-icon">👥</div>
+                        <div class="site-name">فيسبوك</div>
+                        <div class="site-url">facebook.com</div>
+                    </div>
+                    
+                    <div class="site-card" onclick="selectSite('instagram.com', 'Instagram', '📷')">
+                        <div class="site-icon">📷</div>
+                        <div class="site-name">انستجرام</div>
+                        <div class="site-url">instagram.com</div>
+                    </div>
+                    
+                    <div class="site-card" onclick="selectSite('tiktok.com', 'TikTok', '🎵')">
+                        <div class="site-icon">🎵</div>
+                        <div class="site-name">تيك توك</div>
+                        <div class="site-url">tiktok.com</div>
+                    </div>
+                    
+                    <div class="site-card" onclick="selectSite('twitter.com', 'Twitter', '🐦')">
+                        <div class="site-icon">🐦</div>
+                        <div class="site-name">تويتر</div>
+                        <div class="site-url">twitter.com</div>
+                    </div>
+                    
+                    <div class="site-card" onclick="selectSite('snapchat.com', 'Snapchat', '👻')">
+                        <div class="site-icon">👻</div>
+                        <div class="site-name">سناب شات</div>
+                        <div class="site-url">snapchat.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نوع الحجب -->
+            <div class="sites-section">
+                <h3 class="section-title">
+                    <i class="fas fa-filter"></i>
+                    اختر طريقة الحجب
+                </h3>
+                
+                <div class="block-types">
+                    <div class="type-btn active" onclick="selectBlockType('layer7')">
+                        <div class="type-icon">🔍</div>
+                        <div class="type-name">Layer7</div>
+                        <div class="type-desc">للمواقع العادية</div>
+                    </div>
+                    
+                    <div class="type-btn" onclick="selectBlockType('tls')">
+                        <div class="type-icon">🔐</div>
+                        <div class="type-name">TLS/SSL</div>
+                        <div class="type-desc">للمواقع المشفرة</div>
+                    </div>
+                    
+                    <div class="type-btn" onclick="selectBlockType('both')">
+                        <div class="type-icon">🛡️</div>
+                        <div class="type-name">كلاهما</div>
+                        <div class="type-desc">أقصى حماية</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أزرار التوليد -->
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="generateBlockScript()">
+                    <i class="fas fa-shield-alt"></i>
+                    توليد سكربت الحجب
+                </button>
+                <button class="btn btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-redo"></i>
+                    إعادة تعيين
+                </button>
+            </div>
+
+            <!-- نتيجة السكربت -->
+            <div id="resultSection" class="result-section">
+                <div class="result-header">
+                    <h3 class="result-title">
+                        <i class="fas fa-code"></i>
+                        السكربت الناتج
+                    </h3>
+                    <button class="btn btn-secondary" onclick="copyScript()">
+                        <i class="fas fa-copy"></i>
+                        نسخ السكربت
+                    </button>
+                </div>
+                <textarea id="outputScript" class="script-output" readonly></textarea>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الاتصال -->
+    <section class="contact">
+        <h2 class="contact-title">هل تحتاج مساعدة؟</h2>
+        <p class="contact-subtitle">
+            فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك
+        </p>
+        
+        <div class="contact-info">
+            <h3 style="color: #94a3b8; margin-bottom: 1rem;">
+                <i class="fas fa-headset"></i>
+                للتواصل والدعم الفني
+            </h3>
+            <div class="contact-phone">01092503391</div>
+            <p class="contact-name">Sameh El-Sayed</p>
+            <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
+                <i class="fab fa-whatsapp"></i>
+                تواصل عبر واتساب
+            </a>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                <i class="fas fa-phone-alt"></i>
+                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+            </p>
+            <p class="copyright">
+                © 2024 MikroTools. جميع الحقوق محفوظة.
+            </p>
+        </div>
+    </footer>
+
+    <!-- أيقونات التواصل العائمة -->
+    <iframe 
+        src="mikro-icons.html" 
+        style="
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 90px;
+            height: 280px;
+            border: none;
+            z-index: 99999;
+            background: transparent;
+            pointer-events: auto;
+        "
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true">
+    </iframe>
+
+    <script>
+        // دوال JavaScript لحجب المواقع
+        const SIGNATURE = "By Same7_01092503391";
+        let currentBlockType = 'layer7';
+        let selectedSites = [];
+
+        // تبديل القائمة في الجوال
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            const icon = this.querySelector('i');
+            
+            navLinks.classList.toggle('active');
+            icon.className = navLinks.classList.contains('active') 
+                ? 'fas fa-times' 
+                : 'fas fa-bars';
+        });
+
+        // اختيار موقع
+        function selectSite(url, name, icon) {
+            const sitesInput = document.getElementById('sitesInput');
+            const currentValue = sitesInput.value.trim();
+            
+            // إضافة الموقع إذا لم يكن موجوداً
+            if (!currentValue.includes(url)) {
+                const newValue = currentValue ? `${currentValue}, ${url}` : url;
+                sitesInput.value = newValue;
+                
+                // إضافة الموقع للمصفوفة
+                selectedSites.push({ url, name, icon });
+                
+                // عرض رسالة تأكيد
+                showSiteMessage(name);
+                
+                // تحديث التحديد البصري
+                updateSiteSelection(url);
+            }
+        }
+
+        // تحديث التحديد البصري للموقع
+        function updateSiteSelection(url) {
+            document.querySelectorAll('.site-card').forEach(card => {
+                card.classList.remove('active');
+                if (card.querySelector('.site-url').textContent === url) {
+                    card.classList.add('active');
+                }
+            });
+        }
+
+        // اختيار نوع الحجب
+        function selectBlockType(type) {
+            currentBlockType = type;
+            
+            // تحديث الأزرار
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            
+            // عرض رسالة نوع الحجب
+            showTypeMessage(type);
+        }
+
+        // رسالة تأكيد الموقع
+        function showSiteMessage(siteName) {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                background: linear-gradient(135deg, var(--secondary), #059669);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 10px;
+                margin: 1rem 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            alertDiv.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>تمت إضافة ${siteName} للقائمة</span>
+            `;
+            
+            const oldAlert = document.querySelector('.site-alert');
+            if (oldAlert) oldAlert.remove();
+            
+            alertDiv.className = 'site-alert';
+            const container = document.querySelector('.block-types');
+            if (container && container.parentNode) {
+                container.parentNode.insertBefore(alertDiv, container);
+            }
+            
+            // إزالة الرسالة بعد 3 ثواني
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.style.opacity = '0';
+                    alertDiv.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) {
+                            alertDiv.remove();
+                        }
+                    }, 500);
+                }
+            }, 3000);
+        }
+
+        // رسالة نوع الحجب
+        function showTypeMessage(type) {
+            const typeNames = {
+                'layer7': 'Layer7 (للمواقع العادية)',
+                'tls': 'TLS/SSL (للمواقع المشفرة)',
+                'both': 'Layer7 + TLS/SSL (أقصى حماية)'
+            };
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                background: linear-gradient(135deg, var(--danger), #dc2626);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 10px;
+                margin: 1rem 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            alertDiv.innerHTML = `
+                <i class="fas fa-shield-alt"></i>
+                <span>تم اختيار: ${typeNames[type]}</span>
+            `;
+            
+            const oldAlert = document.querySelector('.type-alert');
+            if (oldAlert) oldAlert.remove();
+            
+            alertDiv.className = 'type-alert';
+            const container = document.querySelector('.btn-group');
+            if (container && container.parentNode) {
+                container.parentNode.insertBefore(alertDiv, container);
+            }
+            
+            // إزالة الرسالة بعد 3 ثواني
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.style.opacity = '0';
+                    alertDiv.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) {
+                            alertDiv.remove();
+                        }
+                    }, 500);
+                }
+            }, 3000);
+        }
+
+        // توليد سكربت الحجب
+        function generateBlockScript() {
+            const sitesInput = document.getElementById('sitesInput').value.trim();
+            const groupName = document.getElementById('groupName').value.trim();
+            const interfaceName = document.getElementById('interfaceName').value.trim();
+            
+            if (!sitesInput) {
+                alert('يرجى إدخال مواقع للحجب');
+                return;
+            }
+            
+            const sites = sitesInput.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            const group = groupName || 'مواقع محجوبة';
+            
+            // بناء السكربت
+            let script = `# ${SIGNATURE}\n`;
+            script += `# سكربت حجب المواقع - ${group}\n`;
+            script += `# المواقع: ${sites.join(', ')}\n`;
+            script += `# نوع الحجب: ${getBlockTypeName(currentBlockType)}\n\n`;
+            
+            // Layer7 Protocol
+            if (currentBlockType === 'layer7' || currentBlockType === 'both') {
+                script += `/ip firewall layer7-protocol\n`;
+                sites.forEach((site, index) => {
+                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
+                    let regexPattern = `"^.+(www\\.)?${site.replace(/\./g, '\\.')}.*\\$"`;
+                    
+                    // تحسين regex لمواقع محددة
+                    if (site.includes('youtube.com')) {
+                        regexPattern = `"^.+(youtube\\.com|googlevideo\\.com|ytimg\\.com).*\\$"`;
+                    } else if (site.includes('facebook.com')) {
+                        regexPattern = `"^.+(facebook\\.com|fbcdn\\.net).*\\$"`;
+                    }
+                    
+                    script += `add name=${name} regexp=${regexPattern} comment="حجب ${site}"\n`;
+                });
+                script += `\n`;
+            }
+            
+            // TLS Host rules
+            if (currentBlockType === 'tls' || currentBlockType === 'both') {
+                script += `/ip firewall mangle\n`;
+                sites.forEach((site, index) => {
+                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
+                    script += `add action=add-dst-to-address-list address-list=${name}_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*${site}*" comment="تتبع IPs ${site}"\n`;
+                });
+                script += `\n`;
+            }
+            
+            // قواعد الحجب في Filter
+            script += `/ip firewall filter\n`;
+            
+            // Layer7 Blocking
+            if (currentBlockType === 'layer7' || currentBlockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
+                    script += `add action=drop chain=forward layer7-protocol=${name} out-interface=${interfaceName} comment="حجب ${site} - Layer7"\n`;
+                });
+            }
+            
+            // TLS Blocking
+            if (currentBlockType === 'tls' || currentBlockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
+                    script += `add action=drop chain=forward protocol=tcp tls-host="*${site}*" out-interface=${interfaceName} comment="حجب ${site} - TLS"\n`;
+                });
+            }
+            
+            // Address List Blocking
+            if (currentBlockType === 'tls' || currentBlockType === 'both') {
+                sites.forEach((site, index) => {
+                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
+                    script += `add action=drop chain=forward dst-address-list=${name}_IPs out-interface=${interfaceName} comment="حجب ${site} - قائمة IPs"\n`;
+                });
+            }
+            
+            script += `\n# تم إنشاء بواسطة MikroTools\n`;
+            script += `# للتواصل: 01092503391 - Sameh El-Sayed\n`;
+            script += `# عدد المواقع المحجوبة: ${sites.length}\n`;
+            
+            document.getElementById('outputScript').value = script;
+            document.getElementById('resultSection').style.display = 'block';
+            
+            // تمرير إلى النتيجة
+            window.scrollTo({
+                top: document.getElementById('resultSection').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        // الحصول على اسم نوع الحجب
+        function getBlockTypeName(type) {
+            const names = {
+                'layer7': 'Layer7 Protocol',
+                'tls': 'TLS/SSL Host',
+                'both': 'Layer7 + TLS/SSL'
+            };
+            return names[type] || type;
+        }
+
+        // نسخ السكربت
+        function copyScript() {
+            const scriptOutput = document.getElementById('outputScript');
+            if (!scriptOutput.value) {
+                alert('لا يوجد سكربت لنسخه');
+                return;
+            }
+            
+            scriptOutput.select();
+            scriptOutput.setSelectionRange(0, 99999);
+            
+            try {
+                navigator.clipboard.writeText(scriptOutput.value);
+                alert('تم نسخ السكربت بنجاح! ✅');
+            } catch (err) {
+                document.execCommand('copy');
+                alert('تم نسخ السكربت بنجاح! ✅');
+            }
+        }
+
+        // إعادة تعيين النموذج
+        function resetForm() {
+            document.getElementById('sitesInput').value = '';
+            document.getElementById('groupName').value = '';
+            document.getElementById('interfaceName').value = 'bridge-local';
+            document.querySelectorAll('.site-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector('.type-btn').classList.add('active');
+            currentBlockType = 'layer7';
+            selectedSites = [];
+            document.getElementById('outputScript').value = '';
+            document.getElementById('resultSection').style.display = 'none';
+        }
+
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.querySelector('#menuToggle i').className = 'fas fa-bars';
+            });
+        });
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // إغلاق القائمة عند الضغط على Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
