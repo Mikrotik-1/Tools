@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
+        /* إضافة جميع أنماط الأدمن السابقة هنا */
         :root {
             --primary: #4361ee;
             --secondary: #3a0ca3;
@@ -1176,6 +1177,33 @@
                     </div>
                 </div>
                 
+                <!-- مخططات الزوار -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-line"></i>
+                                حركة الزوار اليومية
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="dailyVisitorsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-globe"></i>
+                                مصادر الزوار
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="trafficSourcesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- قائمة الزوار -->
                 <div class="table-container">
                     <div class="table-title">
@@ -1198,6 +1226,18 @@
                             <!-- سيتم ملؤها بالجافاسكريبت -->
                         </tbody>
                     </table>
+                </div>
+                
+                <!-- أزرار التصدير -->
+                <div class="export-buttons">
+                    <button class="export-btn" onclick="exportVisitorsData()">
+                        <i class="fas fa-file-excel"></i>
+                        تصدير البيانات
+                    </button>
+                    <button class="export-btn" onclick="printVisitorsReport()">
+                        <i class="fas fa-print"></i>
+                        طباعة التقرير
+                    </button>
                 </div>
             </div>
             
@@ -1266,6 +1306,33 @@
                     </div>
                 </div>
                 
+                <!-- مخططات الصفحات -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-bar"></i>
+                                ترتيب الصفحات حسب المشاهدات
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="pagesViewsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-clock"></i>
+                                متوسط مدة الجلسة
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="sessionDurationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- جدول الصفحات -->
                 <div class="table-container">
                     <div class="table-title">
@@ -1310,6 +1377,57 @@
                     </div>
                 </div>
                 
+                <!-- إحصائيات المباشر -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">صفحات نشطة</div>
+                                <div class="stat-value" id="activePages">0</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">جلسات نشطة</div>
+                                <div class="stat-value" id="activeSessions">0</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">متوسط المدة</div>
+                                <div class="stat-value" id="avgLiveDuration">0</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">الزيارات الجديدة</div>
+                                <div class="stat-value" id="newVisits">0</div>
+                            </div>
+                            <div class="stat-icon pink">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- قائمة المباشر -->
                 <div class="table-container">
                     <div class="table-title">
@@ -1317,11 +1435,16 @@
                         نشاط حي الآن
                     </div>
                     <div id="liveActivity">
-                        <div style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 15px;"></i>
-                            <div>جاري تحميل النشاط الحي...</div>
-                        </div>
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
                     </div>
+                </div>
+                
+                <!-- تحديث المباشر -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="refreshLiveData()">
+                        <i class="fas fa-sync-alt"></i>
+                        تحديث البيانات الآن
+                    </button>
                 </div>
             </div>
             
@@ -1397,8 +1520,60 @@
                                     <i class="fas fa-trash"></i>
                                     حذف جميع البيانات
                                 </button>
+                                
+                                <button class="logout-btn" style="margin-top: 10px; width: 100%; background: rgba(76, 201, 240, 0.2); color: var(--success); border-color: var(--success);" onclick="backupData()">
+                                    <i class="fas fa-download"></i>
+                                    نسخ احتياطي للبيانات
+                                </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- معلومات النظام -->
+                <div class="table-container" style="margin-top: 30px;">
+                    <div class="table-title">
+                        <i class="fas fa-info-circle"></i>
+                        معلومات النظام
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">إصدار النظام</div>
+                            <div style="color: white; font-size: 16px;">v2.0.1</div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">آخر تحديث</div>
+                            <div style="color: white; font-size: 16px;" id="lastSystemUpdate">15 يناير 2024</div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">حجم قاعدة البيانات</div>
+                            <div style="color: white; font-size: 16px;" id="databaseSize">0 KB</div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">حالة النظام</div>
+                            <div>
+                                <span class="badge badge-success">
+                                    <i class="fas fa-check-circle"></i>
+                                    نشط
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- السجلات -->
+                <div class="table-container" style="margin-top: 30px;">
+                    <div class="table-title">
+                        <i class="fas fa-history"></i>
+                        سجلات النظام
+                    </div>
+                    
+                    <div id="systemLogs" style="max-height: 300px; overflow-y: auto;">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
                     </div>
                 </div>
             </div>
@@ -1479,16 +1654,20 @@
         const PAGES_KEY = 'mikrotools_pages';
         const ADMIN_CONFIG_KEY = 'mikrotools_admin_config';
         const SESSION_KEY = 'mikrotools_admin_session';
+        const SYSTEM_LOGS_KEY = 'mikrotools_system_logs';
         
         // ===== متغيرات النظام =====
         let messagesData = [];
         let analyticsData = null;
         let visitorsData = [];
         let pagesData = {};
+        let systemLogs = [];
         let currentFilter = 'all';
         let searchQuery = '';
         let currentMessageId = null;
         let realtimeInterval = null;
+        let liveVisitors = 0;
+        let activePages = [];
         
         // ===== نظام الصفحات =====
         const PAGES_LIST = {
@@ -1498,7 +1677,8 @@
             'merge-v7.html': { name: 'دمج v7', color: '#f72585' },
             'block-sites.html': { name: 'حجب مواقع', color: '#7209b7' },
             'speed-profiles.html': { name: 'بروفايلات السرعة', color: '#3a0ca3' },
-            'troubleshooting.html': { name: 'المشكلات الشائعة', color: '#560bad' }
+            'troubleshooting.html': { name: 'المشكلات الشائعة', color: '#560bad' },
+            'about.html': { name: 'من نحن', color: '#10b981' }
         };
         
         // ===== تهيئة النظام =====
@@ -1526,13 +1706,21 @@
             loadAnalyticsData();
             loadVisitorsData();
             loadPagesData();
+            loadSystemLogs();
             
             // تحديث العرض
             updateDashboard();
             updateMessagesDisplay();
+            updateVisitorsDisplay();
+            updatePagesDisplay();
+            updateRealtimeData();
+            updateSystemLogs();
             
             // بدء التحديث التلقائي
             startRealtimeUpdates();
+            
+            // تسجيل دخول النظام
+            addSystemLog('تهيئة النظام', 'success');
         }
         
         // ===== نظام المصادقة =====
@@ -1596,8 +1784,10 @@
                 initSystem();
                 
                 showNotification('تم تسجيل الدخول بنجاح', 'success');
+                addSystemLog('تسجيل دخول ناجح للمدير', 'info');
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
+                addSystemLog('محاولة تسجيل دخول فاشلة', 'error');
             }
         }
         
@@ -1616,6 +1806,7 @@
                 document.getElementById('loginForm').reset();
                 
                 showNotification('تم تسجيل الخروج بنجاح', 'success');
+                addSystemLog('تسجيل خروج المدير', 'info');
             }
         }
         
@@ -1648,6 +1839,8 @@
                         }
                         if (!msg.replies) msg.replies = [];
                     });
+                    
+                    addSystemLog(`تم تحميل ${messagesData.length} رسالة`, 'success');
                 } else {
                     messagesData = [];
                     generateDemoMessages();
@@ -1656,6 +1849,7 @@
                 console.error('خطأ في تحميل الرسائل:', error);
                 messagesData = [];
                 generateDemoMessages();
+                addSystemLog('خطأ في تحميل الرسائل، إنشاء بيانات تجريبية', 'error');
             }
         }
         
@@ -1698,11 +1892,34 @@
                     views: 8,
                     adminReplies: 0,
                     replies: []
+                },
+                {
+                    id: 3,
+                    user: "أحمد سعيد",
+                    type: "dhcp",
+                    problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
+                    date: new Date(Date.now() - 2 * 86400000),
+                    likes: 5,
+                    likedBy: [],
+                    solved: true,
+                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
+                    status: "resolved",
+                    priority: "medium",
+                    views: 12,
+                    adminReplies: 1,
+                    replies: [
+                        {
+                            author: "فريق الدعم",
+                            date: new Date(Date.now() - 86400000),
+                            content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
+                        }
+                    ]
                 }
             ];
             
             messagesData = demoMessages;
             saveMessagesData();
+            addSystemLog('تم إنشاء بيانات رسائل تجريبية', 'info');
         }
         
         function saveMessagesData() {
@@ -1710,6 +1927,7 @@
                 localStorage.setItem(MESSAGES_KEY, JSON.stringify(messagesData));
             } catch (error) {
                 console.error('خطأ في حفظ الرسائل:', error);
+                addSystemLog('خطأ في حفظ الرسائل', 'error');
             }
         }
         
@@ -1929,7 +2147,10 @@
                     firstVisit: firstVisit.toISOString(),
                     lastVisit: lastVisit.toISOString(),
                     visits: visits,
-                    pages: pages.sort(() => 0.5 - Math.random()).slice(0, 3)
+                    pages: pages.sort(() => 0.5 - Math.random()).slice(0, 3),
+                    location: ['القاهرة', 'الجيزة', 'الإسكندرية', 'المنصورة'][Math.floor(Math.random() * 4)],
+                    device: ['Desktop', 'Mobile', 'Tablet'][Math.floor(Math.random() * 3)],
+                    browser: ['Chrome', 'Firefox', 'Safari', 'Edge'][Math.floor(Math.random() * 4)]
                 });
             });
             
@@ -1939,6 +2160,7 @@
             analyticsData.todayVisits = getTodayVisits();
             
             saveVisitorsData();
+            addSystemLog('تم إنشاء بيانات زوار تجريبية', 'info');
         }
         
         function getTodayVisits() {
@@ -1955,6 +2177,7 @@
                 localStorage.setItem(ANALYTICS_KEY, JSON.stringify(analyticsData));
             } catch (error) {
                 console.error('خطأ في حفظ بيانات الزوار:', error);
+                addSystemLog('خطأ في حفظ بيانات الزوار', 'error');
             }
         }
         
@@ -1970,7 +2193,8 @@
                             views: Math.floor(Math.random() * 100) + 50,
                             uniqueVisitors: Math.floor(Math.random() * 50) + 10,
                             totalTime: Math.floor(Math.random() * 500) + 100,
-                            visits: Math.floor(Math.random() * 200) + 50
+                            visits: Math.floor(Math.random() * 200) + 50,
+                            bounceRate: Math.floor(Math.random() * 30) + 10
                         };
                     }
                 });
@@ -1990,91 +2214,93 @@
             }
         }
         
-        function updateVisitorsDisplay() {
-            const tbody = document.getElementById('visitorsTableBody');
+        function loadSystemLogs() {
+            try {
+                const savedLogs = localStorage.getItem(SYSTEM_LOGS_KEY);
+                systemLogs = savedLogs ? JSON.parse(savedLogs) : [];
+                
+                // تحديد حجم السجلات (الاحتفاظ بآخر 100 سجل فقط)
+                if (systemLogs.length > 100) {
+                    systemLogs = systemLogs.slice(-100);
+                }
+            } catch (error) {
+                systemLogs = [];
+                console.error('خطأ في تحميل سجلات النظام:', error);
+            }
+        }
+        
+        function saveSystemLogs() {
+            try {
+                localStorage.setItem(SYSTEM_LOGS_KEY, JSON.stringify(systemLogs));
+            } catch (error) {
+                console.error('خطأ في حفظ سجلات النظام:', error);
+            }
+        }
+        
+        function addSystemLog(message, type = 'info') {
+            const log = {
+                timestamp: new Date().toISOString(),
+                message: message,
+                type: type
+            };
             
-            if (visitorsData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                            <div style="font-size: 16px;">لا توجد بيانات زوار</div>
-                        </td>
-                    </tr>
+            systemLogs.push(log);
+            
+            // تحديد حجم السجلات
+            if (systemLogs.length > 100) {
+                systemLogs.shift();
+            }
+            
+            saveSystemLogs();
+            updateSystemLogs();
+        }
+        
+        function updateSystemLogs() {
+            const container = document.getElementById('systemLogs');
+            
+            if (systemLogs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #94a3b8;">
+                        <i class="fas fa-history" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <div>لا توجد سجلات نظام</div>
+                    </div>
                 `;
                 return;
             }
             
-            tbody.innerHTML = visitorsData.map((visitor, index) => {
-                const favoritePages = (visitor.pages || []).map(page => 
-                    PAGES_LIST[page] ? PAGES_LIST[page].name : page
-                ).join(', ') || 'لا يوجد';
+            // عرض آخر 10 سجلات
+            const recentLogs = systemLogs.slice(-10).reverse();
+            
+            container.innerHTML = recentLogs.map(log => {
+                const time = new Date(log.timestamp).toLocaleTimeString('ar-EG', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                const typeClass = log.type === 'error' ? 'badge-danger' : 
+                                 log.type === 'success' ? 'badge-success' : 
+                                 log.type === 'warning' ? 'badge-warning' : 'badge-info';
                 
                 return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${visitor.id}</td>
-                        <td>${formatDate(visitor.firstVisit)}</td>
-                        <td>${formatDate(visitor.lastVisit)}</td>
-                        <td>${visitor.visits || 1}</td>
-                        <td>${favoritePages}</td>
-                        <td>
-                            <span class="badge ${isVisitorOnline(visitor.id) ? 'badge-success' : 'badge-warning'}">
-                                ${isVisitorOnline(visitor.id) ? 'نشط' : 'غير نشط'}
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div>
+                            <span class="badge ${typeClass}" style="font-size: 10px;">
+                                ${log.type === 'error' ? 'خطأ' : 
+                                  log.type === 'success' ? 'نجاح' : 
+                                  log.type === 'warning' ? 'تحذير' : 'معلومات'}
                             </span>
-                        </td>
-                    </tr>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: white; font-size: 13px;">${log.message}</div>
+                            <div style="color: #94a3b8; font-size: 11px;">${time}</div>
+                        </div>
+                    </div>
                 `;
             }).join('');
         }
         
-        function isVisitorOnline(visitorId) {
-            const visitor = visitorsData.find(v => v.id === visitorId);
-            if (!visitor) return false;
-            
-            const lastVisitTime = new Date(visitor.lastVisit);
-            const now = new Date();
-            const diffMinutes = (now - lastVisitTime) / (1000 * 60);
-            
-            return diffMinutes < 5; // نشط إذا كانت آخر زيارة منذ أقل من 5 دقائق
-        }
-        
-        function updatePagesDisplay() {
-            const tbody = document.getElementById('pagesTableBody');
-            
-            const pagesArray = Object.keys(PAGES_LIST).map(page => {
-                const data = pagesData[page] || { views: 0, uniqueVisitors: 0, totalTime: 0, visits: 0 };
-                return {
-                    name: PAGES_LIST[page].name,
-                    color: PAGES_LIST[page].color,
-                    views: data.views || 0,
-                    unique: data.uniqueVisitors || 0,
-                    avgTime: data.visits ? Math.round(data.totalTime / data.visits) : 0,
-                    bounceRate: '30%'
-                };
-            });
-            
-            // ترتيب حسب المشاهدات (الأكثر مشاهدة أولاً)
-            pagesArray.sort((a, b) => b.views - a.views);
-            
-            tbody.innerHTML = pagesArray.map(page => `
-                <tr>
-                    <td>
-                        <i class="fas fa-file" style="color: ${page.color}; margin-left: 10px;"></i>
-                        ${page.name}
-                    </td>
-                    <td>${page.views}</td>
-                    <td>${page.unique}</td>
-                    <td>${page.avgTime} ثانية</td>
-                    <td>${page.bounceRate}</td>
-                    <td>
-                        <span class="badge ${page.views > 100 ? 'badge-success' : page.views > 50 ? 'badge-warning' : 'badge-info'}">
-                            ${page.views > 100 ? 'عالية' : page.views > 50 ? 'متوسطة' : 'منخفضة'}
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
-        }
+        // ===== تحديث لوحة التحكم =====
         
         function updateDashboard() {
             // تحديث إحصائيات الزوار
@@ -2138,116 +2364,285 @@
         
         function updateCharts() {
             // مخطط الزوار
-            const visitorsCtx = document.getElementById('visitorsChart').getContext('2d');
-            const last7Days = Array.from({length: 7}, (_, i) => {
-                const date = new Date();
-                date.setDate(date.getDate() - (6 - i));
-                return date.toLocaleDateString('ar-EG', { weekday: 'short' });
-            });
-            
-            const dailyVisits = Array.from({length: 7}, (_, i) => {
-                const date = new Date();
-                date.setDate(date.getDate() - (6 - i));
-                const dateStr = date.toDateString();
+            const visitorsCtx = document.getElementById('visitorsChart');
+            if (visitorsCtx) {
+                const last7Days = Array.from({length: 7}, (_, i) => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - (6 - i));
+                    return date.toLocaleDateString('ar-EG', { weekday: 'short' });
+                });
                 
-                return visitorsData.filter(v => {
-                    const visitDate = new Date(v.lastVisit).toDateString();
-                    return visitDate === dateStr;
-                }).length;
-            });
-            
-            new Chart(visitorsCtx, {
-                type: 'line',
-                data: {
-                    labels: last7Days,
-                    datasets: [{
-                        label: 'عدد الزوار',
-                        data: dailyVisits,
-                        borderColor: '#4361ee',
-                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#cbd5e1'
-                            }
-                        }
+                const dailyVisits = Array.from({length: 7}, (_, i) => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - (6 - i));
+                    const dateStr = date.toDateString();
+                    
+                    return visitorsData.filter(v => {
+                        const visitDate = new Date(v.lastVisit).toDateString();
+                        return visitDate === dateStr;
+                    }).length;
+                });
+                
+                new Chart(visitorsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: last7Days,
+                        datasets: [{
+                            label: 'عدد الزوار',
+                            data: dailyVisits,
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
                     },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: '#94a3b8'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#cbd5e1'
+                                }
                             }
                         },
-                        y: {
-                            ticks: {
-                                color: '#94a3b8'
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#94a3b8'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
                             },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
+                            y: {
+                                ticks: {
+                                    color: '#94a3b8'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
             
             // مخطط المشكلات
-            const problemsCtx = document.getElementById('problemsChart').getContext('2d');
-            const problemTypes = ['network', 'performance', 'dhcp', 'hardware', 'other'];
-            const typeCounts = problemTypes.map(type => 
-                messagesData.filter(msg => msg.type === type).length
-            );
-            
-            new Chart(problemsCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
-                    datasets: [{
-                        data: typeCounts,
-                        backgroundColor: [
-                            '#4361ee', '#4cc9f0', '#f8961e', 
-                            '#f72585', '#7209b7'
-                        ],
-                        borderWidth: 1,
-                        borderColor: 'var(--darker)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: {
-                                color: '#cbd5e1',
-                                padding: 15
+            const problemsCtx = document.getElementById('problemsChart');
+            if (problemsCtx) {
+                const problemTypes = ['network', 'performance', 'dhcp', 'hardware', 'other'];
+                const typeCounts = problemTypes.map(type => 
+                    messagesData.filter(msg => msg.type === type).length
+                );
+                
+                new Chart(problemsCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
+                        datasets: [{
+                            data: typeCounts,
+                            backgroundColor: [
+                                '#4361ee', '#4cc9f0', '#f8961e', 
+                                '#f72585', '#7209b7'
+                            ],
+                            borderWidth: 1,
+                            borderColor: 'var(--darker)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: '#cbd5e1',
+                                    padding: 15
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
         }
         
+        // ===== تحديث الزوار =====
+        
+        function updateVisitorsDisplay() {
+            const tbody = document.getElementById('visitorsTableBody');
+            
+            if (visitorsData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                            <div style="font-size: 16px;">لا توجد بيانات زوار</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // ترتيب حسب آخر زيارة
+            const sortedVisitors = [...visitorsData].sort((a, b) => 
+                new Date(b.lastVisit) - new Date(a.firstVisit)
+            );
+            
+            tbody.innerHTML = sortedVisitors.map((visitor, index) => {
+                const favoritePages = (visitor.pages || []).map(page => 
+                    PAGES_LIST[page] ? PAGES_LIST[page].name : page
+                ).join(', ') || 'لا يوجد';
+                
+                return `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>
+                            <div style="font-weight: 600; color: white;">${visitor.id}</div>
+                            <div style="font-size: 12px; color: #94a3b8;">
+                                ${visitor.location || 'غير معروف'} - ${visitor.device || 'غير معروف'}
+                            </div>
+                        </td>
+                        <td>${formatDate(visitor.firstVisit)}</td>
+                        <td>${formatDate(visitor.lastVisit)}</td>
+                        <td>${visitor.visits || 1}</td>
+                        <td>${favoritePages}</td>
+                        <td>
+                            <span class="badge ${isVisitorOnline(visitor.id) ? 'badge-success' : 'badge-warning'}">
+                                ${isVisitorOnline(visitor.id) ? 'نشط' : 'غير نشط'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // تحديث إحصائيات الزوار
+            updateVisitorsStats();
+        }
+        
+        function isVisitorOnline(visitorId) {
+            const visitor = visitorsData.find(v => v.id === visitorId);
+            if (!visitor) return false;
+            
+            const lastVisitTime = new Date(visitor.lastVisit);
+            const now = new Date();
+            const diffMinutes = (now - lastVisitTime) / (1000 * 60);
+            
+            return diffMinutes < 5; // نشط إذا كانت آخر زيارة منذ أقل من 5 دقائق
+        }
+        
+        function updateVisitorsStats() {
+            const uniqueVisitors = visitorsData.length;
+            const totalVisits = visitorsData.reduce((sum, v) => sum + (v.visits || 1), 0);
+            
+            // حساب متوسط مدة الزيارة
+            let totalDuration = 0;
+            let count = 0;
+            
+            visitorsData.forEach(v => {
+                if (v.visits > 1) {
+                    const firstVisit = new Date(v.firstVisit);
+                    const lastVisit = new Date(v.lastVisit);
+                    const duration = (lastVisit - firstVisit) / (1000 * 60); // بالدقائق
+                    totalDuration += duration;
+                    count++;
+                }
+            });
+            
+            const avgDuration = count > 0 ? Math.round(totalDuration / count) : 0;
+            const bounceRate = '25%'; // قيمة افتراضية
+            
+            document.getElementById('uniqueVisitors').textContent = uniqueVisitors;
+            document.getElementById('totalVisits').textContent = totalVisits;
+            document.getElementById('avgDuration').textContent = avgDuration + ' دقيقة';
+            document.getElementById('bounceRate').textContent = bounceRate;
+        }
+        
+        // ===== تحديث الصفحات =====
+        
+        function updatePagesDisplay() {
+            const tbody = document.getElementById('pagesTableBody');
+            
+            const pagesArray = Object.keys(PAGES_LIST).map(page => {
+                const data = pagesData[page] || { views: 0, uniqueVisitors: 0, totalTime: 0, visits: 0 };
+                return {
+                    name: PAGES_LIST[page].name,
+                    color: PAGES_LIST[page].color,
+                    views: data.views || 0,
+                    unique: data.uniqueVisitors || 0,
+                    avgTime: data.visits ? Math.round(data.totalTime / data.visits) : 0,
+                    bounceRate: data.bounceRate ? data.bounceRate + '%' : '30%'
+                };
+            });
+            
+            // ترتيب حسب المشاهدات (الأكثر مشاهدة أولاً)
+            pagesArray.sort((a, b) => b.views - a.views);
+            
+            tbody.innerHTML = pagesArray.map(page => `
+                <tr>
+                    <td>
+                        <i class="fas fa-file" style="color: ${page.color}; margin-left: 10px;"></i>
+                        ${page.name}
+                    </td>
+                    <td>${page.views}</td>
+                    <td>${page.unique}</td>
+                    <td>${page.avgTime} ثانية</td>
+                    <td>${page.bounceRate}</td>
+                    <td>
+                        <span class="badge ${page.views > 100 ? 'badge-success' : page.views > 50 ? 'badge-warning' : 'badge-info'}">
+                            ${page.views > 100 ? 'عالية' : page.views > 50 ? 'متوسطة' : 'منخفضة'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+            
+            // تحديث إحصائيات الصفحات
+            updatePagesStats();
+        }
+        
+        function updatePagesStats() {
+            const totalPages = Object.keys(PAGES_LIST).length;
+            const totalViews = Object.values(pagesData).reduce((sum, page) => sum + (page.views || 0), 0);
+            const avgViews = totalViews / totalPages;
+            
+            let topPage = '';
+            let topPageViews = 0;
+            Object.keys(pagesData).forEach(page => {
+                if (pagesData[page].views > topPageViews) {
+                    topPageViews = pagesData[page].views;
+                    topPage = PAGES_LIST[page].name;
+                }
+            });
+            
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('totalViews').textContent = totalViews;
+            document.getElementById('avgViews').textContent = Math.round(avgViews);
+            document.getElementById('topPage').textContent = topPage;
+        }
+        
+        // ===== نظام المباشر =====
+        
         function updateRealtimeData() {
-            // الزوار النشطين الآن
+            // توليد زوار مباشرين عشوائيين
+            liveVisitors = Math.floor(Math.random() * 10) + 1;
+            
+            // تحديث الزوار النشطين
             const activeVisitors = visitorsData.filter(v => isVisitorOnline(v.id)).length;
             
             // تحديث العداد
-            document.getElementById('liveVisitors').textContent = activeVisitors;
+            document.getElementById('liveVisitors').textContent = liveVisitors;
             document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG', {
                 hour: '2-digit',
-                minute: '2-digit'
+                minute: '2-digit',
+                second: '2-digit'
             });
+            
+            // تحديث إحصائيات المباشر
+            document.getElementById('activePages').textContent = activePages.length;
+            document.getElementById('activeSessions').textContent = activeVisitors;
+            document.getElementById('avgLiveDuration').textContent = Math.floor(Math.random() * 5) + 1 + ' دقيقة';
+            document.getElementById('newVisits').textContent = Math.floor(Math.random() * 3) + 1;
             
             // تحديث النشاط الحي
             updateLiveActivity();
@@ -2255,9 +2650,26 @@
         
         function updateLiveActivity() {
             const container = document.getElementById('liveActivity');
-            const activeVisitors = visitorsData.filter(v => isVisitorOnline(v.id));
             
-            if (activeVisitors.length === 0) {
+            // توليد نشاط حي عشوائي
+            const activities = [];
+            const pages = Object.keys(PAGES_LIST);
+            const actions = ['يشاهد', 'يتصفح', 'يقرأ', 'يتنقل في', 'يزور'];
+            
+            for (let i = 0; i < liveVisitors; i++) {
+                const page = PAGES_LIST[pages[Math.floor(Math.random() * pages.length)]];
+                const action = actions[Math.floor(Math.random() * actions.length)];
+                const timeAgo = Math.floor(Math.random() * 3) + 1;
+                
+                activities.push({
+                    visitor: `زائر_${1000 + i}`,
+                    page: page.name,
+                    action: action,
+                    timeAgo: timeAgo
+                });
+            }
+            
+            if (activities.length === 0) {
                 container.innerHTML = `
                     <div style="text-align: center; padding: 40px; color: #94a3b8;">
                         <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
@@ -2268,26 +2680,28 @@
                 return;
             }
             
-            container.innerHTML = activeVisitors.map(visitor => `
+            container.innerHTML = activities.map(activity => `
                 <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; margin-bottom: 10px;">
                     <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
                         <i class="fas fa-user"></i>
                     </div>
                     <div style="flex: 1;">
-                        <div style="color: white; font-weight: 600;">${visitor.id}</div>
-                        <div style="color: #94a3b8; font-size: 12px;">
-                            <i class="fas fa-clock"></i>
-                            ${formatTimeAgo(new Date(visitor.lastVisit))}
+                        <div style="color: white; font-weight: 600;">${activity.visitor}</div>
+                        <div style="color: #94a3b8; font-size: 13px;">
+                            ${activity.action} ${activity.page}
                         </div>
                     </div>
-                    <div>
-                        <span class="badge badge-success">
-                            <i class="fas fa-circle" style="font-size: 8px; margin-left: 5px;"></i>
-                            نشط الآن
-                        </span>
+                    <div style="font-size: 12px; color: #94a3b8;">
+                        <i class="fas fa-clock"></i>
+                        منذ ${activity.timeAgo} دقيقة
                     </div>
                 </div>
             `).join('');
+        }
+        
+        function refreshLiveData() {
+            updateRealtimeData();
+            showNotification('تم تحديث البيانات المباشرة', 'success');
         }
         
         function startRealtimeUpdates() {
@@ -2399,6 +2813,8 @@
             
             // عرض النافذة
             document.getElementById('messageModal').classList.add('active');
+            
+            addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
         }
         
         function replyToMessage(messageId) {
@@ -2429,6 +2845,7 @@
                 message.solution = replyText;
                 message.solved = true;
                 message.solvedDate = new Date();
+                message.status = 'resolved';
             }
             
             // حفظ التغييرات
@@ -2444,6 +2861,8 @@
             // تحديث القائمة
             updateMessagesDisplay();
             updateDashboard();
+            
+            addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
         }
         
         function markAsSolved() {
@@ -2459,6 +2878,7 @@
             message.solution = replyText;
             message.solved = true;
             message.solvedDate = new Date();
+            message.status = 'resolved';
             
             if (!message.replies) message.replies = [];
             message.replies.push({
@@ -2472,16 +2892,21 @@
             updateMessagesDisplay();
             updateDashboard();
             showNotification('تم تعيين المشكلة كمحلولة', 'success');
+            
+            addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
         }
         
         function deleteMessage(messageId) {
             if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
             
+            const message = messagesData.find(msg => msg.id === messageId);
             messagesData = messagesData.filter(msg => msg.id !== messageId);
             saveMessagesData();
             updateMessagesDisplay();
             updateDashboard();
             showNotification('تم حذف الرسالة', 'success');
+            
+            addSystemLog(`تم حذف رسالة #${messageId} من ${message.user}`, 'warning');
         }
         
         function closeModal() {
@@ -2530,6 +2955,7 @@
             document.getElementById('confirmPassword').value = '';
             
             showNotification('تم تحديث إعدادات المدير بنجاح', 'success');
+            addSystemLog('تم تحديث إعدادات المدير', 'success');
         }
         
         function saveSystemSettings() {
@@ -2553,6 +2979,7 @@
             }
             
             showNotification('تم حفظ إعدادات النظام', 'success');
+            addSystemLog('تم حفظ إعدادات النظام', 'success');
         }
         
         function resetAllData() {
@@ -2565,11 +2992,13 @@
                     localStorage.removeItem(ANALYTICS_KEY);
                     localStorage.removeItem(VISITORS_KEY);
                     localStorage.removeItem(PAGES_KEY);
+                    localStorage.removeItem(SYSTEM_LOGS_KEY);
                     localStorage.removeItem('mikrotools_system_settings');
                     
                     messagesData = [];
                     visitorsData = [];
                     pagesData = {};
+                    systemLogs = [];
                     analyticsData = {
                         totalVisits: 0,
                         uniqueVisitors: 0,
@@ -2581,10 +3010,53 @@
                     
                     initSystem();
                     showNotification('تم حذف جميع البيانات', 'success');
+                    addSystemLog('تم حذف جميع بيانات النظام', 'warning');
                 } else {
                     showNotification('كلمة المرور غير صحيحة', 'error');
                 }
             }
+        }
+        
+        function backupData() {
+            const backup = {
+                messages: messagesData,
+                visitors: visitorsData,
+                pages: pagesData,
+                analytics: analyticsData,
+                logs: systemLogs,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(backup, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `mikrotools_backup_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('تم إنشاء نسخة احتياطية', 'success');
+            addSystemLog('تم إنشاء نسخة احتياطية للبيانات', 'success');
+        }
+        
+        function exportVisitorsData() {
+            const dataStr = JSON.stringify(visitorsData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `visitors_data_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('تم تصدير بيانات الزوار', 'success');
+        }
+        
+        function printVisitorsReport() {
+            window.print();
         }
         
         // ===== التنقل بين الصفحات =====
