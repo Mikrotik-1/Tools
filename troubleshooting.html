@@ -250,6 +250,8 @@
             font-size: 1rem;
             transition: all 0.3s;
             font-family: 'Tajawal', sans-serif;
+            background: white;
+            color: var(--dark);
         }
 
         .search-input:focus {
@@ -746,6 +748,8 @@
             font-family: 'Tajawal', sans-serif;
             font-size: 1rem;
             transition: all 0.3s;
+            background: white;
+            color: var(--dark);
         }
 
         .form-input:focus, .form-select:focus, .form-textarea:focus {
@@ -763,6 +767,7 @@
             width: 100%;
             min-height: 120px;
             margin-bottom: 1.5rem;
+            resize: vertical;
         }
 
         .submit-btn {
@@ -949,7 +954,7 @@
                     <i class="fas fa-tachometer-alt"></i>
                     بروفايلات
                 </a>
-                               <a href="about.html" class="nav-link ">
+                <a href="about.html" class="nav-link">
                     <i class="fas fa-users"></i>
                     من نحن
                 </a>
@@ -987,7 +992,7 @@
     <!-- شريط البحث -->
     <section class="search-section">
         <div class="search-box">
-            <input type="text" class="search-input" placeholder="ابحث عن مشكلة معينة..." id="searchInput">
+            <input type="text" class="search-input" placeholder="ابحث عن مشكلة معينة..." id="searchInput" value="">
             <button class="search-btn" id="searchBtn">
                 <i class="fas fa-search"></i>
                 بحث
@@ -1242,6 +1247,104 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- المشكلة 4: بطء سرعة النت -->
+                <div class="faq-item" data-category="performance speed">
+                    <button class="faq-question">
+                        <span>
+                            <span class="problem-icon problem-danger">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </span>
+                            بطء سرعة النت بشكل مفاجئ
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            <strong>المشكلة:</strong> الشبكة كانت سريعة وفجأة أصبحت بطيئة دون تغيير في الإعدادات.
+                        </p>
+                        
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">الأسباب المحتملة:</h4>
+                        
+                        <div class="solution-steps">
+                            <li class="solution-step">
+                                <strong>سبب 1:</strong> ازدحام الشبكة في وقت الذروة
+                            </li>
+                            <li class="solution-step">
+                                <strong>سبب 2:</strong> أحد العملاء يقوم بعمل download ثقيل
+                            </li>
+                            <li class="solution-step">
+                                <strong>سبب 3:</strong> مشكلة في كابل الشبكة
+                            </li>
+                            <li class="solution-step">
+                                <strong>سبب 4:</strong> تلف في منفذ السويتش أو الراوتر
+                            </li>
+                        </div>
+                        
+                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">الحلول:</h4>
+                        
+                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                            <h5 style="color: var(--primary); margin-bottom: 1rem;">
+                                <i class="fas fa-wrench"></i>
+                                الخطوات العملية
+                            </h5>
+                            
+                            <ol style="color: var(--dark); padding-right: 1.5rem;">
+                                <li style="margin-bottom: 0.8rem;">افصل جميع العملاء ثم شاهد إذا عادت السرعة</li>
+                                <li style="margin-bottom: 0.8rem;">صل العميل مباشرة بالراوتر بدون سويتش</li>
+                                <li style="margin-bottom: 0.8rem;">تحقق من إعدادات QoS والسرعات المحددة</li>
+                                <li>افحص السويتشات والأسلاك</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="note-box">
+                            <strong>نصيحة:</strong> استخدام أداة Speed Test على فترات منتظمة لمراقبة أداء الشبكة.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المشكلة 5: قطع متكرر للخدمة -->
+                <div class="faq-item" data-category="network connection">
+                    <button class="faq-question">
+                        <span>
+                            <span class="problem-icon problem-warning">
+                                <i class="fas fa-plug"></i>
+                            </span>
+                            قطع متكرر للخدمة (Disconnection)
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            <strong>المشكلة:</strong> الاتصال ينقطع كل فترة ثم يعود تلقائياً، خاصة مع استخدام VPN أو تطبيقات معينة.
+                        </p>
+                        
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">الحل:</h4>
+                        
+                        <p style="color: var(--dark); margin-bottom: 1rem;">
+                            اتبع هذه الخطوات:
+                        </p>
+                        
+                        <div class="solution-steps">
+                            <li class="solution-step">
+                                <strong>الخطوة 1:</strong> تحقق من Timeout settings في الـ PPP
+                            </li>
+                            <li class="solution-step">
+                                <strong>الخطوة 2:</strong> قم بتعديل إعدادات Keepalive
+                            </li>
+                            <li class="solution-step">
+                                <strong>الخطوة 3:</strong> تأكد من عدم وجود IP conflict
+                            </li>
+                            <li class="solution-step">
+                                <strong>الخطوة 4:</strong> راجع إعدادات Firewall وخاصة connection tracking
+                            </li>
+                        </div>
+                        
+                        <p style="background: rgba(67, 97, 238, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--primary); margin: 1.5rem 0;">
+                            <strong>ملاحظة:</strong> معظم مشاكل القطع سببها إعدادات Timeout غير مناسبة للاستخدام.
+                        </p>
+                    </div>
+                </div>
             </div>
             
             <!-- قسم الأدوات المقترحة -->
@@ -1279,6 +1382,16 @@
                         <h4 style="color: var(--dark); margin-bottom: 0.5rem;">Firewall Analyzer</h4>
                         <p style="color: var(--gray);">
                             لتحليل حركة البيانات والأمان
+                        </p>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">Bandwidth Monitor</h4>
+                        <p style="color: var(--gray);">
+                            لمراقبة استهلاك النطاق الترددي
                         </p>
                     </div>
                 </div>
@@ -1339,12 +1452,7 @@
         
         <!-- قائمة المشاكل -->
         <div class="problems-list" id="problemsList">
-            <!-- المشاكل تظهر هنا عبر JavaScript -->
-            <div class="no-problems" style="text-align: center; padding: 3rem; color: var(--gray);">
-                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; color: #e2e8f0;"></i>
-                <h4 style="color: var(--dark); margin-bottom: 0.5rem;">لا توجد مشاكل بعد</h4>
-                <p>كن أول من يشارك مشكلته مع المجتمع!</p>
-            </div>
+            <!-- سيتم ملؤها بالجافاسكريبت -->
         </div>
         
         <!-- نموذج إضافة مشكلة -->
@@ -1363,7 +1471,8 @@
                     <input type="text" 
                            class="form-input" 
                            id="userName" 
-                           placeholder="اسمك (اختياري)">
+                           placeholder="اسمك (اختياري)"
+                           value="">
                     
                     <select class="form-select" id="problemType">
                         <option value="network">شبكة واتصال</option>
@@ -1400,25 +1509,6 @@
             </p>
         </div>
     </footer>
-
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
 
     <script>
         // ===== نظام المشاكل فقط =====
@@ -1469,13 +1559,87 @@
             }
         ];
         
-        // تهيئة النظام
+        // ===== تهيئة الكتابة والتفاعل =====
         document.addEventListener('DOMContentLoaded', function() {
+            // إصلاح مشكلة الكتابة
+            fixWritingIssues();
+            
+            // إعداد الأنظمة
             setupEventListeners();
             setupNavigation();
             setupFAQ();
             loadProblems();
+            
+            // تهيئة حقول النموذج
+            initFormFields();
         });
+        
+        function fixWritingIssues() {
+            // التأكد من أن جميع حقول الكتابة فعالة
+            const inputFields = document.querySelectorAll('input, textarea, select');
+            
+            inputFields.forEach(field => {
+                // إزالة أي قيود
+                field.removeAttribute('disabled');
+                field.removeAttribute('readonly');
+                
+                // إضافة خصائص للكتابة
+                field.style.pointerEvents = 'auto';
+                field.style.opacity = '1';
+                field.style.userSelect = 'auto';
+                field.style.cursor = 'text';
+                
+                if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                    // التأكد من أن الحقل قابل للكتابة
+                    field.onfocus = function() {
+                        this.style.borderColor = 'var(--primary)';
+                        this.style.boxShadow = '0 0 0 3px rgba(99, 102, 241, 0.1)';
+                    };
+                    
+                    field.onblur = function() {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    };
+                }
+            });
+            
+            // التأكد من أن textarea يمكن الكتابة فيها
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                textarea.style.resize = 'vertical';
+                textarea.style.minHeight = '120px';
+                textarea.oninput = function() {
+                    // السماح بالكتابة
+                    console.log('الكتابة في textarea:', this.value);
+                };
+            });
+        }
+        
+        function initFormFields() {
+            // تهيئة حقل البحث
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.oninput = function() {
+                    console.log('بحث:', this.value);
+                };
+            }
+            
+            // تهيئة textarea
+            const problemText = document.getElementById('problemText');
+            if (problemText) {
+                problemText.value = '';
+                problemText.oninput = function() {
+                    console.log('مشكلة:', this.value);
+                };
+            }
+            
+            // تهيئة حقل الاسم
+            const userName = document.getElementById('userName');
+            if (userName) {
+                userName.value = '';
+            }
+        }
         
         function setupEventListeners() {
             // البحث
@@ -1504,20 +1668,22 @@
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
             
-            menuToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                menuToggle.innerHTML = navLinks.classList.contains('active') 
-                    ? '<i class="fas fa-times"></i>' 
-                    : '<i class="fas fa-bars"></i>';
-            });
-            
-            // إغلاق القائمة عند النقر خارجها
-            document.addEventListener('click', function(event) {
-                if (!event.target.closest('.nav-container') && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    menuToggle.innerHTML = navLinks.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
+                
+                // إغلاق القائمة عند النقر خارجها
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.nav-container') && navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
         }
         
         function setupFAQ() {
@@ -1638,7 +1804,7 @@
             const problemType = document.getElementById('problemType').value;
             
             if (!problemText) {
-                showNotification('الرجاء كتابة وصف المشكلة', 'error');
+                alert('الرجاء كتابة وصف المشكلة');
                 return;
             }
             
@@ -1657,11 +1823,15 @@
             userProblems.push(newProblem);
             localStorage.setItem('userProblems', JSON.stringify(userProblems));
             
+            // مسح الحقول
             document.getElementById('problemText').value = '';
             document.getElementById('userName').value = '';
             
+            // تحديث العرض
             displayProblems('all');
-            showNotification('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً', 'success');
+            
+            // إظهار رسالة نجاح
+            alert('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً');
         }
         
         function likeProblem(problemId) {
@@ -1719,64 +1889,6 @@
             }
             return userId;
         }
-        
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : '#ef4444'};
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: slideInRight 0.3s ease;
-            `;
-            
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                ${message}
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // إضافة أنماط الحركة
-        const animationStyles = document.createElement('style');
-        animationStyles.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(animationStyles);
     </script>
 </body>
 </html>
