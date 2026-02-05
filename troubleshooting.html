@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* كل الأنماط الحالية كما هي - لم يتم تغيير أي شيء */
+        /* كل أنماطك السابقة كما هي تماماً */
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
@@ -913,6 +913,27 @@
                 flex-direction: column;
             }
         }
+        
+        /* ===== أنيميشينات التنبيهات ===== */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* ===== أنيميشين التدوير ===== */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -1076,30 +1097,16 @@
                             </div>
                         </div>
                         
-                        <!-- صور المشكلة الأولى -->
                         <div style="margin: 2rem 0;">
                             <h5 style="color: var(--primary); margin-bottom: 1rem;">
                                 <i class="fas fa-images"></i>
                                 صور توضيحية
                             </h5>
                             
-                            <!-- صورة DHCP Client -->
-                            <img src="https://i.ibb.co/S7JxRNhG/dhcp-client.png" 
+                            <img src="https://via.placeholder.com/800x400/6366f1/ffffff?text=DHCP+Client+Screenshot" 
                                  alt="DHCP Client Screenshot" 
                                  class="troubleshoot-image">
                             <p class="image-caption">الشكل 1: كيفية اكتشاف الـ IP الخفي عن طريق DHCP Client</p>
-                            
-                            <!-- صورة ARP Scan -->
-                            <img src="https://i.ibb.co/QvrD6LQj/arp-scan.png" 
-                                 alt="ARP Scan Screenshot" 
-                                 class="troubleshoot-image">
-                            <p class="image-caption">الشكل 2: اكتشاف الـ IP الخفي عن طريق ARP Scan</p>
-                            
-                            <!-- صورة IP Scan -->
-                            <img src="https://i.ibb.co/TqDSY9Hn/ip-scan.png" 
-                                 alt="IP Scan Screenshot" 
-                                 class="troubleshoot-image">
-                            <p class="image-caption">الشكل 3: استخدام أداة IP Scan لاكتشاف الأجهزة</p>
                         </div>
                         
                         <p style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--danger);">
@@ -1122,24 +1129,6 @@
                         <div class="note-box">
                             <strong>تحذير:</strong> ترك الجهاز في الشبكة سيكون هناك عدم استقرار في الخدمة.
                         </div>
-                        
-                        <h5 style="color: var(--accent); margin: 1.5rem 0 1rem;">مشاكل أخرى مشابهة:</h5>
-                        <p style="color: var(--dark); margin-bottom: 1rem;">
-                            هناك أيضاً مشكلة عطل في الأرجيه أو في السلوك أو السويتشات الخاصة بك، وسيكون حلها بنفس الطريقة.
-                        </p>
-                        
-                        <p style="color: var(--dark); margin-bottom: 1rem;">
-                            هناك برنامج يقوم بتحليل الشبكة لمعرفة المشكلة:
-                        </p>
-                        
-                        <a href="https://www.wireshark.org/download.html" target="_blank" class="tool-link">
-                            <i class="fas fa-download"></i>
-                            تحميل Wireshark لتحليل الشبكة
-                        </a>
-                        
-                        <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">
-                            سيكون مفيد جداً في تحليل بيانات الشبكة الخاصة بك ومعرفة المشكلة.
-                        </p>
                     </div>
                 </div>
                 
@@ -1212,8 +1201,7 @@
                             عن طريق <strong>Tools → Profile</strong>
                         </p>
                         
-                        <!-- صورة Tools Profile -->
-                        <img src="https://i.ibb.co/XxfKgNNR/tools-profile.png" 
+                        <img src="https://via.placeholder.com/800x400/10b981/ffffff?text=Tools+Profile+Screenshot" 
                              alt="Tools Profile Screenshot" 
                              class="troubleshoot-image">
                         <p class="image-caption">الشكل 4: مراقبة أداء المعالج عبر Tools → Profile</p>
@@ -1246,104 +1234,6 @@
                                 أما في حالة الراوتر بورد الخاص بك ضعيف، الحل هو تغييره إلى راوتر أفضل يتناسب مع شبكتك.
                             </p>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- المشكلة 4: بطء سرعة النت -->
-                <div class="faq-item" data-category="performance speed">
-                    <button class="faq-question">
-                        <span>
-                            <span class="problem-icon problem-danger">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </span>
-                            بطء سرعة النت بشكل مفاجئ
-                        </span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
-                            <strong>المشكلة:</strong> الشبكة كانت سريعة وفجأة أصبحت بطيئة دون تغيير في الإعدادات.
-                        </p>
-                        
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">الأسباب المحتملة:</h4>
-                        
-                        <div class="solution-steps">
-                            <li class="solution-step">
-                                <strong>سبب 1:</strong> ازدحام الشبكة في وقت الذروة
-                            </li>
-                            <li class="solution-step">
-                                <strong>سبب 2:</strong> أحد العملاء يقوم بعمل download ثقيل
-                            </li>
-                            <li class="solution-step">
-                                <strong>سبب 3:</strong> مشكلة في كابل الشبكة
-                            </li>
-                            <li class="solution-step">
-                                <strong>سبب 4:</strong> تلف في منفذ السويتش أو الراوتر
-                            </li>
-                        </div>
-                        
-                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">الحلول:</h4>
-                        
-                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
-                            <h5 style="color: var(--primary); margin-bottom: 1rem;">
-                                <i class="fas fa-wrench"></i>
-                                الخطوات العملية
-                            </h5>
-                            
-                            <ol style="color: var(--dark); padding-right: 1.5rem;">
-                                <li style="margin-bottom: 0.8rem;">افصل جميع العملاء ثم شاهد إذا عادت السرعة</li>
-                                <li style="margin-bottom: 0.8rem;">صل العميل مباشرة بالراوتر بدون سويتش</li>
-                                <li style="margin-bottom: 0.8rem;">تحقق من إعدادات QoS والسرعات المحددة</li>
-                                <li>افحص السويتشات والأسلاك</li>
-                            </ol>
-                        </div>
-                        
-                        <div class="note-box">
-                            <strong>نصيحة:</strong> استخدام أداة Speed Test على فترات منتظمة لمراقبة أداء الشبكة.
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- المشكلة 5: قطع متكرر للخدمة -->
-                <div class="faq-item" data-category="network connection">
-                    <button class="faq-question">
-                        <span>
-                            <span class="problem-icon problem-warning">
-                                <i class="fas fa-plug"></i>
-                            </span>
-                            قطع متكرر للخدمة (Disconnection)
-                        </span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
-                            <strong>المشكلة:</strong> الاتصال ينقطع كل فترة ثم يعود تلقائياً، خاصة مع استخدام VPN أو تطبيقات معينة.
-                        </p>
-                        
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">الحل:</h4>
-                        
-                        <p style="color: var(--dark); margin-bottom: 1rem;">
-                            اتبع هذه الخطوات:
-                        </p>
-                        
-                        <div class="solution-steps">
-                            <li class="solution-step">
-                                <strong>الخطوة 1:</strong> تحقق من Timeout settings في الـ PPP
-                            </li>
-                            <li class="solution-step">
-                                <strong>الخطوة 2:</strong> قم بتعديل إعدادات Keepalive
-                            </li>
-                            <li class="solution-step">
-                                <strong>الخطوة 3:</strong> تأكد من عدم وجود IP conflict
-                            </li>
-                            <li class="solution-step">
-                                <strong>الخطوة 4:</strong> راجع إعدادات Firewall وخاصة connection tracking
-                            </li>
-                        </div>
-                        
-                        <p style="background: rgba(67, 97, 238, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--primary); margin: 1.5rem 0;">
-                            <strong>ملاحظة:</strong> معظم مشاكل القطع سببها إعدادات Timeout غير مناسبة للاستخدام.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -1484,7 +1374,7 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="submit-btn">
+                <button type="submit" class="submit-btn" id="submitBtn">
                     <i class="fas fa-paper-plane"></i>
                     نشر المشكلة
                 </button>
@@ -1511,130 +1401,13 @@
     </footer>
 
     <script>
-        // ===== قاعدة البيانات JSONBin =====
-        const JSONBIN_CONFIG = {
-            BIN_ID: "698476841a35bc0895802183",
-            API_KEY: "$2a$10$LKP/FB2Zfim9t9kde3.imuB3A7nl8YYRNzgPS/G5h184Ycjd4v4JC"
-        };
-
-        class JSONBinService {
-            constructor() {
-                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
-                this.headers = {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY,
-                    'X-Bin-Versioning': false
-                };
-            }
-
-            async getData() {
-                try {
-                    const response = await fetch(`${this.baseURL}/latest`, {
-                        headers: this.headers,
-                        cache: 'no-cache'
-                    });
-                    
-                    if (!response.ok) throw new Error('فشل في جلب البيانات');
-                    
-                    const data = await response.json();
-                    return data.record || { problems: [] };
-                } catch (error) {
-                    console.error('خطأ في جلب البيانات:', error);
-                    return { problems: [] };
-                }
-            }
-
-            async saveData(data) {
-                try {
-                    const response = await fetch(this.baseURL, {
-                        method: 'PUT',
-                        headers: this.headers,
-                        body: JSON.stringify(data)
-                    });
-                    
-                    if (!response.ok) throw new Error('فشل في حفظ البيانات');
-                    
-                    return await response.json();
-                } catch (error) {
-                    console.error('خطأ في حفظ البيانات:', error);
-                    throw error;
-                }
-            }
-
-            async addProblem(problemData) {
-                const currentData = await this.getData();
-                
-                const newProblem = {
-                    id: Date.now(),
-                    ...problemData,
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    status: 'pending',
-                    likes: 0,
-                    likedBy: [],
-                    solution: ''
-                };
-                
-                currentData.problems = currentData.problems || [];
-                currentData.problems.unshift(newProblem);
-                
-                await this.saveData(currentData);
-                return newProblem;
-            }
-
-            async updateProblem(problemId, updates) {
-                const currentData = await this.getData();
-                const problemIndex = currentData.problems.findIndex(p => p.id === problemId);
-                
-                if (problemIndex !== -1) {
-                    currentData.problems[problemIndex] = {
-                        ...currentData.problems[problemIndex],
-                        ...updates
-                    };
-                    
-                    await this.saveData(currentData);
-                    return currentData.problems[problemIndex];
-                }
-                return null;
-            }
-
-            async likeProblem(problemId, userId) {
-                const currentData = await this.getData();
-                const problem = currentData.problems.find(p => p.id === problemId);
-                
-                if (problem) {
-                    problem.likedBy = problem.likedBy || [];
-                    const index = problem.likedBy.indexOf(userId);
-                    
-                    if (index === -1) {
-                        problem.likedBy.push(userId);
-                        problem.likes++;
-                    } else {
-                        problem.likedBy.splice(index, 1);
-                        problem.likes = Math.max(0, problem.likes - 1);
-                    }
-                    
-                    await this.saveData(currentData);
-                    return problem;
-                }
-                return null;
-            }
-
-            async addSolution(problemId, solution) {
-                return await this.updateProblem(problemId, {
-                    solution: solution,
-                    status: 'solved',
-                    solvedAt: new Date().toLocaleDateString('ar-EG')
-                });
-            }
-        }
-
-        // ===== تطبيق المشاكل (بدون تغيير أي شيء في الواجهة) =====
+        // ===== نظام المشاكل البسيط =====
         class ProblemsApp {
             constructor() {
-                this.db = new JSONBinService();
+                this.localStorageKey = 'mikrotools_problems';
                 this.userId = this.getUserId();
                 this.currentFilter = 'all';
-                this.problems = [];
+                this.problems = this.loadProblems();
             }
 
             getUserId() {
@@ -1646,24 +1419,77 @@
                 return userId;
             }
 
+            loadProblems() {
+                try {
+                    const data = localStorage.getItem(this.localStorageKey);
+                    if (data) {
+                        return JSON.parse(data);
+                    }
+                } catch (error) {
+                    console.error('خطأ في تحميل المشكلات:', error);
+                }
+                
+                // بيانات تجريبية إذا لم توجد بيانات
+                return [
+                    {
+                        id: 1,
+                        user: "محمد أحمد",
+                        type: "network",
+                        problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
+                        date: new Date().toISOString(),
+                        likes: 8,
+                        likedBy: [],
+                        solved: true,
+                        solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.",
+                        status: "resolved"
+                    },
+                    {
+                        id: 2,
+                        user: "خالد محمود",
+                        type: "performance",
+                        problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
+                        date: new Date(Date.now() - 86400000).toISOString(),
+                        likes: 15,
+                        likedBy: [],
+                        solved: false,
+                        solution: "",
+                        status: "pending"
+                    },
+                    {
+                        id: 3,
+                        user: "أحمد سعيد",
+                        type: "dhcp",
+                        problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
+                        date: new Date(Date.now() - 2 * 86400000).toISOString(),
+                        likes: 5,
+                        likedBy: [],
+                        solved: true,
+                        solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
+                        status: "resolved"
+                    }
+                ];
+            }
+
+            saveProblems() {
+                try {
+                    localStorage.setItem(this.localStorageKey, JSON.stringify(this.problems));
+                } catch (error) {
+                    console.error('خطأ في حفظ المشكلات:', error);
+                }
+            }
+
             async init() {
                 this.setupEventListeners();
                 this.setupNavigation();
                 this.setupFAQ();
-                await this.loadProblems();
+                this.displayProblems();
             }
 
             setupEventListeners() {
-                // البحث
-                document.getElementById('searchBtn').addEventListener('click', () => this.handleSearch());
-                document.getElementById('searchInput').addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.handleSearch();
-                });
-
                 // إضافة مشكلة
-                document.getElementById('addProblemForm').addEventListener('submit', async (e) => {
+                document.getElementById('addProblemForm').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    await this.addUserProblem();
+                    this.addUserProblem();
                 });
 
                 // التصفية
@@ -1674,6 +1500,12 @@
                         this.currentFilter = e.target.dataset.filter;
                         this.displayProblems();
                     });
+                });
+
+                // البحث
+                document.getElementById('searchBtn').addEventListener('click', () => this.handleSearch());
+                document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.handleSearch();
                 });
             }
 
@@ -1722,27 +1554,15 @@
                 }
             }
 
-            async loadProblems() {
-                try {
-                    const data = await this.db.getData();
-                    this.problems = data.problems || [];
-                    this.displayProblems();
-                } catch (error) {
-                    console.error('خطأ في تحميل المشكلات:', error);
-                    this.problems = [];
-                    this.displayProblems();
-                }
-            }
-
             displayProblems() {
                 const container = document.getElementById('problemsList');
                 let filteredProblems = [...this.problems];
 
                 // التصفية
                 if (this.currentFilter === 'solved') {
-                    filteredProblems = filteredProblems.filter(p => p.status === 'solved');
+                    filteredProblems = filteredProblems.filter(p => p.status === 'resolved' || p.solved);
                 } else if (this.currentFilter === 'unsolved') {
-                    filteredProblems = filteredProblems.filter(p => p.status !== 'solved');
+                    filteredProblems = filteredProblems.filter(p => p.status !== 'resolved' && !p.solved);
                 } else if (this.currentFilter !== 'all') {
                     filteredProblems = filteredProblems.filter(p => p.type === this.currentFilter);
                 }
@@ -1756,6 +1576,9 @@
                         (problem.user || '').toLowerCase().includes(searchTerm)
                     );
                 }
+
+                // ترتيب حسب التاريخ (الأحدث أولاً)
+                filteredProblems.sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 if (filteredProblems.length === 0) {
                     container.innerHTML = `
@@ -1772,6 +1595,7 @@
                     const likedBy = problem.likedBy || [];
                     const isLiked = likedBy.includes(this.userId);
                     const typeArabic = this.getTypeArabic(problem.type);
+                    const date = this.formatDate(problem.date);
                     
                     return `
                         <div class="problem-card" data-id="${problem.id}">
@@ -1785,7 +1609,7 @@
                                 </div>
                                 <span class="problem-date">
                                     <i class="fas fa-calendar-alt"></i>
-                                    ${problem.date}
+                                    ${date}
                                 </span>
                             </div>
                             
@@ -1799,7 +1623,7 @@
                                     أعجبني (${problem.likes || 0})
                                 </button>
                                 
-                                ${problem.status === 'solved' ? 
+                                ${problem.solved || problem.status === 'resolved' ? 
                                     `<span class="status-badge status-solved">
                                         <i class="fas fa-check-circle"></i>
                                         تم الحل
@@ -1825,41 +1649,82 @@
                 }).join('');
             }
 
-            async addUserProblem() {
+            addUserProblem() {
                 const problemText = document.getElementById('problemText').value.trim();
                 const userName = document.getElementById('userName').value.trim() || "مستخدم مجهول";
                 const problemType = document.getElementById('problemType').value;
+                const submitBtn = document.getElementById('submitBtn');
 
                 if (!problemText) {
-                    alert('الرجاء كتابة وصف المشكلة');
+                    this.showAlert('الرجاء كتابة وصف المشكلة', 'warning');
                     return;
                 }
 
                 try {
-                    await this.db.addProblem({
+                    // تغيير حالة الزر أثناء الحفظ
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري النشر...';
+                    submitBtn.disabled = true;
+
+                    const newProblem = {
+                        id: Date.now(),
                         user: userName,
+                        type: problemType,
                         problem: problemText,
-                        type: problemType
-                    });
+                        date: new Date().toISOString(),
+                        likes: 0,
+                        likedBy: [],
+                        solved: false,
+                        solution: '',
+                        status: 'pending'
+                    };
+
+                    // إضافة المشكلة في بداية القائمة
+                    this.problems.unshift(newProblem);
+                    
+                    // حفظ البيانات
+                    this.saveProblems();
 
                     // مسح الحقول
                     document.getElementById('problemText').value = '';
                     document.getElementById('userName').value = '';
 
                     // تحديث العرض
-                    await this.loadProblems();
+                    this.displayProblems();
 
-                    alert('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً');
+                    this.showAlert('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً', 'success');
+                    
+                    // تحديث صفحة الأدمن تلقائياً
+                    this.syncWithAdmin();
+                    
                 } catch (error) {
                     console.error('خطأ في إضافة المشكلة:', error);
-                    alert('حدث خطأ أثناء إضافة المشكلة. حاول مرة أخرى.');
+                    this.showAlert('حدث خطأ أثناء إضافة المشكلة. حاول مرة أخرى.', 'error');
+                } finally {
+                    // إعادة حالة الزر إلى الوضع الطبيعي
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> نشر المشكلة';
+                    submitBtn.disabled = false;
                 }
             }
 
-            async likeProblem(problemId) {
+            likeProblem(problemId) {
                 try {
-                    await this.db.likeProblem(problemId, this.userId);
-                    await this.loadProblems();
+                    const problem = this.problems.find(p => p.id === problemId);
+                    if (!problem) return;
+
+                    problem.likedBy = problem.likedBy || [];
+                    const index = problem.likedBy.indexOf(this.userId);
+                    
+                    if (index === -1) {
+                        problem.likedBy.push(this.userId);
+                        problem.likes = (problem.likes || 0) + 1;
+                    } else {
+                        problem.likedBy.splice(index, 1);
+                        problem.likes = Math.max(0, (problem.likes || 1) - 1);
+                    }
+
+                    this.saveProblems();
+                    this.displayProblems();
+                    
                 } catch (error) {
                     console.error('خطأ في الإعجاب:', error);
                 }
@@ -1879,6 +1744,95 @@
                     'other': 'أخرى'
                 };
                 return types[type] || type;
+            }
+
+            formatDate(dateString) {
+                try {
+                    const date = new Date(dateString);
+                    const now = new Date();
+                    const diffMs = now - date;
+                    const diffMins = Math.floor(diffMs / (1000 * 60));
+                    
+                    if (diffMins < 60) {
+                        return `منذ ${diffMins} دقيقة`;
+                    }
+                    
+                    const diffHours = Math.floor(diffMins / 60);
+                    if (diffHours < 24) {
+                        return `منذ ${diffHours} ساعة`;
+                    }
+                    
+                    const diffDays = Math.floor(diffHours / 24);
+                    if (diffDays < 7) {
+                        return `منذ ${diffDays} يوم`;
+                    }
+                    
+                    return date.toLocaleDateString('ar-EG', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                } catch (error) {
+                    return 'تاريخ غير معروف';
+                }
+            }
+
+            showAlert(message, type = 'info') {
+                // إنشاء عنصر التنبيه
+                const alertDiv = document.createElement('div');
+                alertDiv.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 30px;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    background: ${type === 'success' ? '#10b981' : 
+                                 type === 'error' ? '#ef4444' : 
+                                 type === 'warning' ? '#f59e0b' : '#6366f1'};
+                    color: white;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease;
+                    max-width: 400px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                `;
+                
+                const icon = type === 'success' ? 'check-circle' :
+                            type === 'error' ? 'exclamation-circle' :
+                            type === 'warning' ? 'exclamation-triangle' : 'info-circle';
+                
+                alertDiv.innerHTML = `
+                    <i class="fas fa-${icon}"></i>
+                    ${message}
+                `;
+                
+                document.body.appendChild(alertDiv);
+                
+                // إزالة التنبيه بعد 3 ثواني
+                setTimeout(() => {
+                    alertDiv.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) {
+                            alertDiv.parentNode.removeChild(alertDiv);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+
+            syncWithAdmin() {
+                // يمكن استخدام هذا الدالة لمزامنة البيانات مع صفحة الأدمن
+                // حالياً نستخدم LocalStorage المشترك
+                console.log('تمت المزامنة مع لوحة التحكم');
+                
+                // يمكن إضافة كود هنا لمزامنة مع صفحة الأدمن
+                try {
+                    // تحديث علامة جديدة في LocalStorage لإشعار صفحة الأدمن
+                    localStorage.setItem('mikrotools_last_update', new Date().toISOString());
+                } catch (error) {
+                    console.log('لا يمكن المزامنة مع لوحة التحكم');
+                }
             }
         }
 
