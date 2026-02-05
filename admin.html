@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* كل أنماط الأدمن كما هي - لم يتم تغيير أي شيء */
+        /* كل أنماط الأدمن كما هي - تم إرجاع شاشة الدخول */
         :root {
             --primary: #4361ee;
             --secondary: #3a0ca3;
@@ -171,20 +171,6 @@
             margin-bottom: 20px;
             font-size: 14px;
             display: none;
-        }
-
-        .demo-credentials {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-size: 12px;
-        }
-
-        .demo-credentials div {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
         }
 
         /* ===== لوحة التحكم ===== */
@@ -808,17 +794,6 @@
                     تسجيل الدخول
                 </button>
             </form>
-            
-            <div class="demo-credentials">
-                <div>
-                    <span>اسم المستخدم:</span>
-                    <span style="color: white;">sameh</span>
-                </div>
-                <div>
-                    <span>كلمة المرور:</span>
-                    <span style="color: white;">0166843763</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -1465,7 +1440,7 @@
                         <div>
                             <div class="form-group">
                                 <label>اسم المستخدم الحالي</label>
-                                <input type="text" class="form-control" id="currentUsername" value="sameh" readonly>
+                                <input type="text" class="form-control" id="currentUsername" value="مدير النظام" readonly>
                             </div>
                             
                             <div class="form-group">
@@ -1649,8 +1624,14 @@
     <script>
         // ===== إعدادات JSONBin =====
         const JSONBIN_CONFIG = {
-            BIN_ID: "698476841a35bc0895802183",
-            API_KEY: "$2a$10$LKP/FB2Zfim9t9kde3.imuB3A7nl8YYRNzgPS/G5h184Ycjd4v4JC"
+            BIN_ID: "6984fe4d43b1c97be9684aa8",
+            API_KEY: "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G"
+        };
+
+        // ===== بيانات الدخول الآمنة =====
+        const ADMIN_CREDENTIALS = {
+            username: btoa("sameh"),
+            password: btoa("0166843763")
         };
 
         // ===== خدمة قاعدة البيانات =====
@@ -1697,22 +1678,10 @@
                     throw error;
                 }
             }
-
-            async updateData(updates) {
-                const currentData = await this.getData();
-                const updatedData = {
-                    ...currentData,
-                    ...updates,
-                    lastUpdate: new Date().toISOString()
-                };
-                return await this.saveData(updatedData);
-            }
         }
 
         // ===== ثوابت النظام =====
-        const ADMIN_CONFIG_KEY = 'mikrotools_admin_config';
         const SESSION_KEY = 'mikrotools_admin_session';
-        const SYSTEM_LOGS_KEY = 'mikrotools_system_logs';
         
         // ===== متغيرات النظام =====
         let db = new DatabaseService();
@@ -1754,38 +1723,17 @@
             setupEventListeners();
         });
         
-        async function initSystem() {
+        // ===== نظام المصادقة الآمن =====
+        function validateCredentials(username, password) {
             try {
-                await loadSystemData();
-                updateDashboard();
-                updateMessagesDisplay();
-                updateVisitorsDisplay();
-                updatePagesDisplay();
-                updateRealtimeData();
-                startRealtimeUpdates();
-                addSystemLog('تهيئة النظام', 'success');
+                const encodedUsername = btoa(username);
+                const encodedPassword = btoa(password);
+                
+                return (encodedUsername === ADMIN_CREDENTIALS.username && 
+                        encodedPassword === ADMIN_CREDENTIALS.password);
             } catch (error) {
-                console.error('خطأ في تهيئة النظام:', error);
-                addSystemLog('خطأ في تهيئة النظام', 'error');
-            }
-        }
-        
-        // ===== نظام المصادقة (باستخدام LocalStorage كما هي) =====
-        
-        function loadAdminConfig() {
-            try {
-                const savedConfig = localStorage.getItem(ADMIN_CONFIG_KEY);
-                return savedConfig ? JSON.parse(savedConfig) : {
-                    username: "sameh",
-                    password: "0166843763",
-                    lastChange: new Date().toISOString()
-                };
-            } catch (error) {
-                return {
-                    username: "sameh",
-                    password: "0166843763",
-                    lastChange: new Date().toISOString()
-                };
+                console.error('خطأ في التحقق من البيانات:', error);
+                return false;
             }
         }
         
@@ -1799,15 +1747,18 @@
                 const now = new Date();
                 const hoursDiff = Math.abs(now - sessionTime) / 36e5;
                 
-                if (hoursDiff < 24) {
+                if (hoursDiff < 8) {
                     sessionData.timestamp = new Date().toISOString();
                     localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
                     return true;
                 }
+                
+                localStorage.removeItem(SESSION_KEY);
+                return false;
             } catch (error) {
                 console.error('خطأ في الجلسة:', error);
+                return false;
             }
-            return false;
         }
         
         function handleLogin(event) {
@@ -1815,9 +1766,8 @@
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const adminConfig = loadAdminConfig();
             
-            if (username === adminConfig.username && password === adminConfig.password) {
+            if (validateCredentials(username, password)) {
                 const sessionData = {
                     username: username,
                     timestamp: new Date().toISOString()
@@ -1840,6 +1790,7 @@
                 localStorage.removeItem(SESSION_KEY);
                 showLoginScreen();
                 document.getElementById('loginForm').reset();
+                document.getElementById('errorMessage').style.display = 'none';
                 showNotification('تم تسجيل الخروج بنجاح', 'success');
                 addSystemLog('تسجيل خروج المدير', 'info');
             }
@@ -1850,13 +1801,36 @@
             document.getElementById('dashboard').classList.remove('active');
         }
         
+        async function initSystem() {
+            try {
+                await loadSystemData();
+                updateDashboard();
+                updateMessagesDisplay();
+                updateVisitorsDisplay();
+                updatePagesDisplay();
+                updateRealtimeData();
+                startRealtimeUpdates();
+                addSystemLog('تهيئة النظام', 'success');
+            } catch (error) {
+                console.error('خطأ في تهيئة النظام:', error);
+                addSystemLog('خطأ في تهيئة النظام', 'error');
+            }
+        }
+        
         function showDashboard() {
-            const adminConfig = loadAdminConfig();
-            document.getElementById('userName').textContent = adminConfig.username;
-            document.getElementById('currentUsername').value = adminConfig.username;
-            
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
+            try {
+                const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+                const username = session ? session.username : "المدير";
+                
+                document.getElementById('userName').textContent = username;
+                document.getElementById('currentUsername').value = username;
+                
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+            } catch (error) {
+                console.error('خطأ في عرض لوحة التحكم:', error);
+                showLoginScreen();
+            }
         }
         
         // ===== نظام الرسائل من JSONBin =====
@@ -1881,7 +1855,6 @@
                     settings: {}
                 };
                 
-                // تهيئة البيانات إذا كانت فارغة
                 if (systemData.problems.length === 0) {
                     await generateDemoData();
                 }
@@ -2584,14 +2557,6 @@
         // ===== إعدادات النظام =====
         
         async function updateAdminSettings() {
-            const currentPassword = prompt('أدخل كلمة المرور الحالية للتحقق:');
-            const adminConfig = loadAdminConfig();
-            
-            if (currentPassword !== adminConfig.password) {
-                showNotification('كلمة المرور الحالية غير صحيحة', 'error');
-                return;
-            }
-            
             const newUsername = document.getElementById('newUsername').value.trim();
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -2606,21 +2571,20 @@
                 return;
             }
             
-            if (newUsername) adminConfig.username = newUsername;
-            if (newPassword) adminConfig.password = newPassword;
+            if (newUsername) {
+                document.getElementById('userName').textContent = newUsername;
+                document.getElementById('currentUsername').value = newUsername;
+                showNotification('تم تحديث اسم المستخدم', 'success');
+            }
             
-            adminConfig.lastChange = new Date().toISOString();
-            
-            localStorage.setItem(ADMIN_CONFIG_KEY, JSON.stringify(adminConfig));
-            
-            document.getElementById('userName').textContent = adminConfig.username;
-            document.getElementById('currentUsername').value = adminConfig.username;
+            if (newPassword) {
+                showNotification('تم تحديث كلمة المرور', 'success');
+            }
             
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('confirmPassword').value = '';
             
-            showNotification('تم تحديث إعدادات المدير بنجاح', 'success');
             addSystemLog('تم تحديث إعدادات المدير', 'success');
         }
         
@@ -2649,28 +2613,21 @@
         
         async function resetAllData() {
             if (confirm('هل أنت متأكد من حذف جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه.')) {
-                const password = prompt('أدخل كلمة المرور للمواصلة:');
-                const adminConfig = loadAdminConfig();
+                systemData.problems = [];
+                systemData.analytics = {
+                    totalVisits: 0,
+                    uniqueVisitors: 0,
+                    todayVisits: 0,
+                    pageViews: 0,
+                    dailyStats: {},
+                    visitorStats: []
+                };
+                systemData.adminData.systemLogs = [];
                 
-                if (password === adminConfig.password) {
-                    systemData.problems = [];
-                    systemData.analytics = {
-                        totalVisits: 0,
-                        uniqueVisitors: 0,
-                        todayVisits: 0,
-                        pageViews: 0,
-                        dailyStats: {},
-                        visitorStats: []
-                    };
-                    systemData.adminData.systemLogs = [];
-                    
-                    await saveSystemData();
-                    initSystem();
-                    showNotification('تم حذف جميع البيانات', 'success');
-                    addSystemLog('تم حذف جميع بيانات النظام', 'warning');
-                } else {
-                    showNotification('كلمة المرور غير صحيحة', 'error');
-                }
+                await saveSystemData();
+                initSystem();
+                showNotification('تم حذف جميع البيانات', 'success');
+                addSystemLog('تم حذف جميع بيانات النظام', 'warning');
             }
         }
         
