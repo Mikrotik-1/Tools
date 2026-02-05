@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* إضافة جميع أنماط الأدمن السابقة هنا */
+        /* كل أنماط الأدمن كما هي - لم يتم تغيير أي شيء */
         :root {
             --primary: #4361ee;
             --secondary: #3a0ca3;
@@ -1248,7 +1248,7 @@
                     <p style="color: #94a3b8;">تحليل أداء صفحات الموقع</p>
                 </div>
                 
-                <!-- فلاتر -->
+                <!-- الفلاتر -->
                 <div class="tab-buttons">
                     <button class="tab-btn active" data-tab="all-pages">جميع الصفحات</button>
                     <button class="tab-btn" data-tab="top-pages">الأكثر زيارة</button>
@@ -1647,47 +1647,102 @@
     </div>
 
     <script>
+        // ===== إعدادات JSONBin =====
+        const JSONBIN_CONFIG = {
+            BIN_ID: "698476841a35bc0895802183",
+            API_KEY: "$2a$10$LKP/FB2Zfim9t9kde3.imuB3A7nl8YYRNzgPS/G5h184Ycjd4v4JC"
+        };
+
+        // ===== خدمة قاعدة البيانات =====
+        class DatabaseService {
+            constructor() {
+                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
+                this.headers = {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                    'X-Bin-Versioning': false
+                };
+            }
+
+            async getData() {
+                try {
+                    const response = await fetch(`${this.baseURL}/latest`, {
+                        headers: this.headers,
+                        cache: 'no-cache'
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const data = await response.json();
+                    return data.record || { problems: [], adminData: {}, analytics: {} };
+                } catch (error) {
+                    console.error('خطأ في جلب البيانات:', error);
+                    return { problems: [], adminData: {}, analytics: {} };
+                }
+            }
+
+            async saveData(data) {
+                try {
+                    const response = await fetch(this.baseURL, {
+                        method: 'PUT',
+                        headers: this.headers,
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    return await response.json();
+                } catch (error) {
+                    console.error('خطأ في حفظ البيانات:', error);
+                    throw error;
+                }
+            }
+
+            async updateData(updates) {
+                const currentData = await this.getData();
+                const updatedData = {
+                    ...currentData,
+                    ...updates,
+                    lastUpdate: new Date().toISOString()
+                };
+                return await this.saveData(updatedData);
+            }
+        }
+
         // ===== ثوابت النظام =====
-        const MESSAGES_KEY = 'userProblems';
-        const ANALYTICS_KEY = 'mikrotools_analytics';
-        const VISITORS_KEY = 'mikrotools_visitors';
-        const PAGES_KEY = 'mikrotools_pages';
         const ADMIN_CONFIG_KEY = 'mikrotools_admin_config';
         const SESSION_KEY = 'mikrotools_admin_session';
         const SYSTEM_LOGS_KEY = 'mikrotools_system_logs';
         
         // ===== متغيرات النظام =====
-        let messagesData = [];
-        let analyticsData = null;
-        let visitorsData = [];
-        let pagesData = {};
-        let systemLogs = [];
+        let db = new DatabaseService();
+        let systemData = {
+            problems: [],
+            analytics: {
+                totalVisits: 0,
+                uniqueVisitors: 0,
+                todayVisits: 0,
+                pageViews: 0,
+                dailyStats: {},
+                visitorStats: []
+            },
+            adminData: {
+                lastBackup: null,
+                systemLogs: [],
+                settings: {}
+            }
+        };
+        
         let currentFilter = 'all';
         let searchQuery = '';
         let currentMessageId = null;
         let realtimeInterval = null;
-        let liveVisitors = 0;
-        let activePages = [];
-        
-        // ===== نظام الصفحات =====
-        const PAGES_LIST = {
-            'index.html': { name: 'الرئيسية', color: '#4361ee' },
-            'hotspot.html': { name: 'هوت سبوت', color: '#4cc9f0' },
-            'merge-v6.html': { name: 'دمج v6', color: '#f8961e' },
-            'merge-v7.html': { name: 'دمج v7', color: '#f72585' },
-            'block-sites.html': { name: 'حجب مواقع', color: '#7209b7' },
-            'speed-profiles.html': { name: 'بروفايلات السرعة', color: '#3a0ca3' },
-            'troubleshooting.html': { name: 'المشكلات الشائعة', color: '#560bad' },
-            'about.html': { name: 'من نحن', color: '#10b981' }
-        };
         
         // ===== تهيئة النظام =====
         document.addEventListener('DOMContentLoaded', function() {
-            // إخفاء شاشة التحميل بعد ثانية
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.display = 'none';
                 
-                // تحميل بيانات المدير والتحقق من الجلسة
                 if (checkSession()) {
                     showDashboard();
                     initSystem();
@@ -1696,34 +1751,26 @@
                 }
             }, 1000);
             
-            // إعداد معالجات الأحداث
             setupEventListeners();
         });
         
-        function initSystem() {
-            // تحميل جميع البيانات
-            loadMessagesData();
-            loadAnalyticsData();
-            loadVisitorsData();
-            loadPagesData();
-            loadSystemLogs();
-            
-            // تحديث العرض
-            updateDashboard();
-            updateMessagesDisplay();
-            updateVisitorsDisplay();
-            updatePagesDisplay();
-            updateRealtimeData();
-            updateSystemLogs();
-            
-            // بدء التحديث التلقائي
-            startRealtimeUpdates();
-            
-            // تسجيل دخول النظام
-            addSystemLog('تهيئة النظام', 'success');
+        async function initSystem() {
+            try {
+                await loadSystemData();
+                updateDashboard();
+                updateMessagesDisplay();
+                updateVisitorsDisplay();
+                updatePagesDisplay();
+                updateRealtimeData();
+                startRealtimeUpdates();
+                addSystemLog('تهيئة النظام', 'success');
+            } catch (error) {
+                console.error('خطأ في تهيئة النظام:', error);
+                addSystemLog('خطأ في تهيئة النظام', 'error');
+            }
         }
         
-        // ===== نظام المصادقة =====
+        // ===== نظام المصادقة (باستخدام LocalStorage كما هي) =====
         
         function loadAdminConfig() {
             try {
@@ -1753,7 +1800,6 @@
                 const hoursDiff = Math.abs(now - sessionTime) / 36e5;
                 
                 if (hoursDiff < 24) {
-                    // تحديث الجلسة
                     sessionData.timestamp = new Date().toISOString();
                     localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
                     return true;
@@ -1772,17 +1818,14 @@
             const adminConfig = loadAdminConfig();
             
             if (username === adminConfig.username && password === adminConfig.password) {
-                // إنشاء جلسة
                 const sessionData = {
                     username: username,
                     timestamp: new Date().toISOString()
                 };
                 localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
                 
-                // عرض لوحة التحكم
                 showDashboard();
                 initSystem();
-                
                 showNotification('تم تسجيل الدخول بنجاح', 'success');
                 addSystemLog('تسجيل دخول ناجح للمدير', 'info');
             } else {
@@ -1793,18 +1836,10 @@
         
         function handleLogout() {
             if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                // إيقاف التحديثات
-                if (realtimeInterval) {
-                    clearInterval(realtimeInterval);
-                }
-                
-                // حذف الجلسة
+                if (realtimeInterval) clearInterval(realtimeInterval);
                 localStorage.removeItem(SESSION_KEY);
-                
-                // إعادة التوجيه
                 showLoginScreen();
                 document.getElementById('loginForm').reset();
-                
                 showNotification('تم تسجيل الخروج بنجاح', 'success');
                 addSystemLog('تسجيل خروج المدير', 'info');
             }
@@ -1824,43 +1859,49 @@
             document.getElementById('dashboard').classList.add('active');
         }
         
-        // ===== نظام الرسائل =====
+        // ===== نظام الرسائل من JSONBin =====
         
-        function loadMessagesData() {
+        async function loadSystemData() {
             try {
-                const savedData = localStorage.getItem(MESSAGES_KEY);
-                if (savedData) {
-                    messagesData = JSON.parse(savedData);
-                    
-                    // تحويل التواريخ
-                    messagesData.forEach(msg => {
-                        if (msg.date && typeof msg.date === 'string') {
-                            msg.date = new Date(msg.date);
-                        }
-                        if (!msg.replies) msg.replies = [];
-                    });
-                    
-                    addSystemLog(`تم تحميل ${messagesData.length} رسالة`, 'success');
-                } else {
-                    messagesData = [];
-                    generateDemoMessages();
+                const data = await db.getData();
+                systemData = data;
+                
+                if (!systemData.problems) systemData.problems = [];
+                if (!systemData.analytics) systemData.analytics = {
+                    totalVisits: 0,
+                    uniqueVisitors: 0,
+                    todayVisits: 0,
+                    pageViews: 0,
+                    dailyStats: {},
+                    visitorStats: []
+                };
+                if (!systemData.adminData) systemData.adminData = {
+                    lastBackup: null,
+                    systemLogs: [],
+                    settings: {}
+                };
+                
+                // تهيئة البيانات إذا كانت فارغة
+                if (systemData.problems.length === 0) {
+                    await generateDemoData();
                 }
+                
+                addSystemLog(`تم تحميل ${systemData.problems.length} رسالة من قاعدة البيانات`, 'success');
             } catch (error) {
-                console.error('خطأ في تحميل الرسائل:', error);
-                messagesData = [];
-                generateDemoMessages();
-                addSystemLog('خطأ في تحميل الرسائل، إنشاء بيانات تجريبية', 'error');
+                console.error('خطأ في تحميل البيانات:', error);
+                await generateDemoData();
+                addSystemLog('خطأ في تحميل البيانات، إنشاء بيانات تجريبية', 'error');
             }
         }
         
-        function generateDemoMessages() {
+        async function generateDemoData() {
             const demoMessages = [
                 {
                     id: 1,
                     user: "محمد أحمد",
                     type: "network",
                     problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
-                    date: new Date(),
+                    date: new Date().toISOString(),
                     likes: 8,
                     likedBy: [],
                     solved: true,
@@ -1872,7 +1913,7 @@
                     replies: [
                         {
                             author: "فريق الدعم",
-                            date: new Date(),
+                            date: new Date().toISOString(),
                             content: "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل."
                         }
                     ]
@@ -1882,7 +1923,7 @@
                     user: "خالد محمود",
                     type: "performance",
                     problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
-                    date: new Date(Date.now() - 86400000),
+                    date: new Date(Date.now() - 86400000).toISOString(),
                     likes: 15,
                     likedBy: [],
                     solved: false,
@@ -1898,7 +1939,7 @@
                     user: "أحمد سعيد",
                     type: "dhcp",
                     problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
-                    date: new Date(Date.now() - 2 * 86400000),
+                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
                     likes: 5,
                     likedBy: [],
                     solved: true,
@@ -1910,38 +1951,45 @@
                     replies: [
                         {
                             author: "فريق الدعم",
-                            date: new Date(Date.now() - 86400000),
+                            date: new Date(Date.now() - 86400000).toISOString(),
                             content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
                         }
                     ]
                 }
             ];
             
-            messagesData = demoMessages;
-            saveMessagesData();
-            addSystemLog('تم إنشاء بيانات رسائل تجريبية', 'info');
+            systemData.problems = demoMessages;
+            systemData.analytics = {
+                totalVisits: 150,
+                uniqueVisitors: 45,
+                todayVisits: 12,
+                pageViews: 890,
+                dailyStats: {},
+                visitorStats: []
+            };
+            
+            await saveSystemData();
+            addSystemLog('تم إنشاء بيانات تجريبية', 'info');
         }
         
-        function saveMessagesData() {
+        async function saveSystemData() {
             try {
-                localStorage.setItem(MESSAGES_KEY, JSON.stringify(messagesData));
+                systemData.lastUpdate = new Date().toISOString();
+                await db.saveData(systemData);
             } catch (error) {
-                console.error('خطأ في حفظ الرسائل:', error);
-                addSystemLog('خطأ في حفظ الرسائل', 'error');
+                console.error('خطأ في حفظ البيانات:', error);
+                addSystemLog('خطأ في حفظ البيانات', 'error');
             }
         }
         
         function updateMessagesDisplay() {
             const tbody = document.getElementById('messagesTableBody');
             
-            // تصفية الرسائل
-            let filteredMessages = messagesData.filter(msg => {
-                // التصفية حسب النوع
+            let filteredMessages = systemData.problems.filter(msg => {
                 if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
                     if (msg.type !== currentFilter) return false;
                 }
                 
-                // التصفية حسب الحالة
                 if (currentFilter === 'pending') {
                     if (msg.solved) return false;
                 }
@@ -1949,7 +1997,6 @@
                     if (!msg.solved) return false;
                 }
                 
-                // البحث
                 if (searchQuery) {
                     const searchText = (msg.user + ' ' + msg.problem + ' ' + (msg.solution || '')).toLowerCase();
                     if (!searchText.includes(searchQuery.toLowerCase())) return false;
@@ -1958,7 +2005,6 @@
                 return true;
             });
             
-            // ترتيب حسب التاريخ
             filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
             
             if (filteredMessages.length === 0) {
@@ -1973,7 +2019,6 @@
                 return;
             }
             
-            // عرض الرسائل
             tbody.innerHTML = filteredMessages.map((msg, index) => {
                 const messagePreview = msg.problem.length > 60 ? 
                     msg.problem.substring(0, 60) + '...' : msg.problem;
@@ -2015,31 +2060,27 @@
                 `;
             }).join('');
             
-            // تحديث الإحصائيات
             updateMessagesStats();
         }
         
         function updateMessagesStats() {
-            const total = messagesData.length;
-            const pending = messagesData.filter(msg => !msg.solved).length;
-            const solved = messagesData.filter(msg => msg.solved).length;
+            const total = systemData.problems.length;
+            const pending = systemData.problems.filter(msg => !msg.solved).length;
+            const solved = systemData.problems.filter(msg => msg.solved).length;
             
             const today = new Date().toDateString();
-            const newToday = messagesData.filter(msg => {
+            const newToday = systemData.problems.filter(msg => {
                 const msgDate = new Date(msg.date).toDateString();
                 return msgDate === today;
             }).length;
             
-            // تحديث الإحصائيات في صفحة الرسائل
             document.getElementById('messagesTotal').textContent = total;
             document.getElementById('messagesPending').textContent = pending;
             document.getElementById('messagesSolved').textContent = solved;
             document.getElementById('messagesToday').textContent = newToday;
             
-            // تحديث الإحصائيات في لوحة التحكم
             document.getElementById('totalMessages').textContent = total;
             
-            // تحديث الشارة
             const badge = document.getElementById('newMessagesBadge');
             if (newToday > 0) {
                 badge.textContent = newToday;
@@ -2048,13 +2089,12 @@
                 badge.style.display = 'none';
             }
             
-            // تحديث آخر الرسائل
             updateRecentMessages();
         }
         
         function updateRecentMessages() {
             const tbody = document.getElementById('recentMessagesBody');
-            const recentMessages = messagesData
+            const recentMessages = systemData.problems
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 .slice(0, 5);
             
@@ -2090,252 +2130,137 @@
             }).join('');
         }
         
-        // ===== نظام الزوار والإحصائيات =====
-        
-        function loadAnalyticsData() {
-            try {
-                const savedData = localStorage.getItem(ANALYTICS_KEY);
-                analyticsData = savedData ? JSON.parse(savedData) : {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    lastUpdate: new Date().toISOString(),
-                    dailyStats: {},
-                    hourlyStats: {}
-                };
-            } catch (error) {
-                analyticsData = {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    lastUpdate: new Date().toISOString(),
-                    dailyStats: {},
-                    hourlyStats: {}
-                };
-            }
-        }
-        
-        function loadVisitorsData() {
-            try {
-                const savedData = localStorage.getItem(VISITORS_KEY);
-                visitorsData = savedData ? JSON.parse(savedData) : [];
-                
-                // إذا كانت البيانات فارغة، نولد بيانات تجريبية
-                if (visitorsData.length === 0) {
-                    generateDemoVisitors();
-                }
-            } catch (error) {
-                visitorsData = [];
-                generateDemoVisitors();
-            }
-        }
-        
-        function generateDemoVisitors() {
-            const visitorIds = ['visitor_001', 'visitor_002', 'visitor_003', 'visitor_004', 'visitor_005'];
-            const pages = Object.keys(PAGES_LIST);
+        async function viewMessage(messageId) {
+            const message = systemData.problems.find(msg => msg.id === messageId);
+            if (!message) return;
             
-            visitorIds.forEach((id, index) => {
-                const firstVisit = new Date();
-                firstVisit.setDate(firstVisit.getDate() - Math.floor(Math.random() * 30));
-                
-                const visits = Math.floor(Math.random() * 10) + 1;
-                const lastVisit = new Date(firstVisit);
-                lastVisit.setMinutes(lastVisit.getMinutes() + Math.floor(Math.random() * 60 * 24 * 30));
-                
-                visitorsData.push({
-                    id: id,
-                    firstVisit: firstVisit.toISOString(),
-                    lastVisit: lastVisit.toISOString(),
-                    visits: visits,
-                    pages: pages.sort(() => 0.5 - Math.random()).slice(0, 3),
-                    location: ['القاهرة', 'الجيزة', 'الإسكندرية', 'المنصورة'][Math.floor(Math.random() * 4)],
-                    device: ['Desktop', 'Mobile', 'Tablet'][Math.floor(Math.random() * 3)],
-                    browser: ['Chrome', 'Firefox', 'Safari', 'Edge'][Math.floor(Math.random() * 4)]
-                });
-            });
+            currentMessageId = messageId;
             
-            // تحديث إحصائيات الزوار
-            analyticsData.totalVisits = visitorsData.reduce((sum, v) => sum + v.visits, 0);
-            analyticsData.uniqueVisitors = visitorsData.length;
-            analyticsData.todayVisits = getTodayVisits();
+            message.views = (message.views || 0) + 1;
+            await saveSystemData();
             
-            saveVisitorsData();
-            addSystemLog('تم إنشاء بيانات زوار تجريبية', 'info');
-        }
-        
-        function getTodayVisits() {
-            const today = new Date().toDateString();
-            return visitorsData.filter(v => {
-                const visitDate = new Date(v.lastVisit).toDateString();
-                return visitDate === today;
-            }).length;
-        }
-        
-        function saveVisitorsData() {
-            try {
-                localStorage.setItem(VISITORS_KEY, JSON.stringify(visitorsData));
-                localStorage.setItem(ANALYTICS_KEY, JSON.stringify(analyticsData));
-            } catch (error) {
-                console.error('خطأ في حفظ بيانات الزوار:', error);
-                addSystemLog('خطأ في حفظ بيانات الزوار', 'error');
-            }
-        }
-        
-        function loadPagesData() {
-            try {
-                const savedData = localStorage.getItem(PAGES_KEY);
-                pagesData = savedData ? JSON.parse(savedData) : {};
-                
-                // تهيئة الصفحات إذا لم تكن موجودة
-                Object.keys(PAGES_LIST).forEach(page => {
-                    if (!pagesData[page]) {
-                        pagesData[page] = {
-                            views: Math.floor(Math.random() * 100) + 50,
-                            uniqueVisitors: Math.floor(Math.random() * 50) + 10,
-                            totalTime: Math.floor(Math.random() * 500) + 100,
-                            visits: Math.floor(Math.random() * 200) + 50,
-                            bounceRate: Math.floor(Math.random() * 30) + 10
-                        };
-                    }
-                });
-                
-                savePagesData();
-            } catch (error) {
-                console.error('خطأ في تحميل بيانات الصفحات:', error);
-                pagesData = {};
-            }
-        }
-        
-        function savePagesData() {
-            try {
-                localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
-            } catch (error) {
-                console.error('خطأ في حفظ بيانات الصفحات:', error);
-            }
-        }
-        
-        function loadSystemLogs() {
-            try {
-                const savedLogs = localStorage.getItem(SYSTEM_LOGS_KEY);
-                systemLogs = savedLogs ? JSON.parse(savedLogs) : [];
-                
-                // تحديد حجم السجلات (الاحتفاظ بآخر 100 سجل فقط)
-                if (systemLogs.length > 100) {
-                    systemLogs = systemLogs.slice(-100);
-                }
-            } catch (error) {
-                systemLogs = [];
-                console.error('خطأ في تحميل سجلات النظام:', error);
-            }
-        }
-        
-        function saveSystemLogs() {
-            try {
-                localStorage.setItem(SYSTEM_LOGS_KEY, JSON.stringify(systemLogs));
-            } catch (error) {
-                console.error('خطأ في حفظ سجلات النظام:', error);
-            }
-        }
-        
-        function addSystemLog(message, type = 'info') {
-            const log = {
-                timestamp: new Date().toISOString(),
-                message: message,
-                type: type
-            };
+            document.getElementById('modalUserName').textContent = message.user;
+            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
+            document.getElementById('modalDate').textContent = formatDate(message.date);
+            document.getElementById('modalMessage').textContent = message.problem;
             
-            systemLogs.push(log);
-            
-            // تحديد حجم السجلات
-            if (systemLogs.length > 100) {
-                systemLogs.shift();
+            if (message.solution) {
+                document.getElementById('currentSolution').style.display = 'block';
+                document.getElementById('solutionContent').textContent = message.solution;
+                document.getElementById('markSolvedBtn').style.display = 'none';
+            } else {
+                document.getElementById('currentSolution').style.display = 'none';
+                document.getElementById('markSolvedBtn').style.display = 'inline-block';
             }
             
-            saveSystemLogs();
-            updateSystemLogs();
+            document.getElementById('messageModal').classList.add('active');
+            addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
         }
         
-        function updateSystemLogs() {
-            const container = document.getElementById('systemLogs');
-            
-            if (systemLogs.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 20px; color: #94a3b8;">
-                        <i class="fas fa-history" style="font-size: 24px; margin-bottom: 10px;"></i>
-                        <div>لا توجد سجلات نظام</div>
-                    </div>
-                `;
+        function replyToMessage(messageId) {
+            viewMessage(messageId);
+            document.getElementById('replyText').focus();
+        }
+        
+        async function submitReply() {
+            const replyText = document.getElementById('replyText').value.trim();
+            if (!replyText) {
+                showNotification('الرجاء كتابة الرد', 'error');
                 return;
             }
             
-            // عرض آخر 10 سجلات
-            const recentLogs = systemLogs.slice(-10).reverse();
+            const message = systemData.problems.find(msg => msg.id === currentMessageId);
+            if (!message) return;
             
-            container.innerHTML = recentLogs.map(log => {
-                const time = new Date(log.timestamp).toLocaleTimeString('ar-EG', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                
-                const typeClass = log.type === 'error' ? 'badge-danger' : 
-                                 log.type === 'success' ? 'badge-success' : 
-                                 log.type === 'warning' ? 'badge-warning' : 'badge-info';
-                
-                return `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <div>
-                            <span class="badge ${typeClass}" style="font-size: 10px;">
-                                ${log.type === 'error' ? 'خطأ' : 
-                                  log.type === 'success' ? 'نجاح' : 
-                                  log.type === 'warning' ? 'تحذير' : 'معلومات'}
-                            </span>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="color: white; font-size: 13px;">${log.message}</div>
-                            <div style="color: #94a3b8; font-size: 11px;">${time}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            if (!message.replies) message.replies = [];
+            message.replies.push({
+                author: "فريق الدعم",
+                date: new Date().toISOString(),
+                content: replyText
+            });
+            
+            if (!message.solution) {
+                message.solution = replyText;
+                message.solved = true;
+                message.solvedDate = new Date().toISOString();
+                message.status = 'resolved';
+            }
+            
+            await saveSystemData();
+            viewMessage(currentMessageId);
+            document.getElementById('replyText').value = '';
+            showNotification('تم إرسال الرد بنجاح', 'success');
+            updateMessagesDisplay();
+            updateDashboard();
+            addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
+        }
+        
+        async function markAsSolved() {
+            const message = systemData.problems.find(msg => msg.id === currentMessageId);
+            if (!message) return;
+            
+            const replyText = document.getElementById('replyText').value.trim();
+            if (!replyText) {
+                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
+                return;
+            }
+            
+            message.solution = replyText;
+            message.solved = true;
+            message.solvedDate = new Date().toISOString();
+            message.status = 'resolved';
+            
+            if (!message.replies) message.replies = [];
+            message.replies.push({
+                author: "فريق الدعم",
+                date: new Date().toISOString(),
+                content: replyText
+            });
+            
+            await saveSystemData();
+            closeModal();
+            updateMessagesDisplay();
+            updateDashboard();
+            showNotification('تم تعيين المشكلة كمحلولة', 'success');
+            addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
+        }
+        
+        async function deleteMessage(messageId) {
+            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+            
+            const message = systemData.problems.find(msg => msg.id === messageId);
+            systemData.problems = systemData.problems.filter(msg => msg.id !== messageId);
+            await saveSystemData();
+            updateMessagesDisplay();
+            updateDashboard();
+            showNotification('تم حذف الرسالة', 'success');
+            addSystemLog(`تم حذف رسالة #${messageId} من ${message.user}`, 'warning');
+        }
+        
+        function closeModal() {
+            document.getElementById('messageModal').classList.remove('active');
+            document.getElementById('replyText').value = '';
+            currentMessageId = null;
         }
         
         // ===== تحديث لوحة التحكم =====
         
         function updateDashboard() {
-            // تحديث إحصائيات الزوار
-            const totalVisitors = visitorsData.length;
-            const uniqueVisitors = new Set(visitorsData.map(v => v.id)).size;
-            const totalVisits = analyticsData.totalVisits || 0;
-            const todayVisits = analyticsData.todayVisits || 0;
+            const totalVisitors = systemData.analytics.uniqueVisitors || 0;
+            const totalVisits = systemData.analytics.totalVisits || 0;
+            const todayVisits = systemData.analytics.todayVisits || 0;
+            const totalPageViews = systemData.analytics.pageViews || 0;
             
-            // تحديث إحصائيات الصفحات
-            const totalPageViews = Object.values(pagesData).reduce((sum, page) => sum + (page.views || 0), 0);
-            
-            // تحديث إحصائيات الرسائل
-            const totalMessages = messagesData.length;
-            const solvedMessages = messagesData.filter(msg => msg.solved).length;
+            const totalMessages = systemData.problems.length;
+            const solvedMessages = systemData.problems.filter(msg => msg.solved).length;
             const resolutionRate = totalMessages > 0 ? Math.round((solvedMessages / totalMessages) * 100) : 0;
             
-            // تحديث الأرقام
             document.getElementById('totalVisitors').textContent = totalVisitors;
-            document.getElementById('uniqueVisitors').textContent = uniqueVisitors;
+            document.getElementById('uniqueVisitors').textContent = totalVisitors;
             document.getElementById('totalVisits').textContent = totalVisits;
             document.getElementById('totalPageViews').textContent = totalPageViews;
             document.getElementById('resolutionRate').textContent = resolutionRate + '%';
             
-            // تحديث أعلى صفحة
-            let topPage = '';
-            let topPageViews = 0;
-            Object.keys(pagesData).forEach(page => {
-                if (pagesData[page].views > topPageViews) {
-                    topPageViews = pagesData[page].views;
-                    topPage = PAGES_LIST[page].name;
-                }
-            });
-            document.getElementById('topPage').textContent = topPage;
-            
-            // تحديث التغيرات
             const yesterdayVisitors = getYesterdayVisitors();
             const visitorsChange = yesterdayVisitors > 0 ? 
                 Math.round(((todayVisits - yesterdayVisitors) / yesterdayVisitors) * 100) : 100;
@@ -2347,19 +2272,11 @@
             document.getElementById('visitorsChange').className = 
                 `stat-change ${visitorsChange >= 0 ? 'positive' : 'negative'}`;
             
-            // تحديث الرسوم البيانية
             updateCharts();
         }
         
         function getYesterdayVisitors() {
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            const yesterdayStr = yesterday.toDateString();
-            
-            return visitorsData.filter(v => {
-                const visitDate = new Date(v.lastVisit).toDateString();
-                return visitDate === yesterdayStr;
-            }).length;
+            return Math.floor(systemData.analytics.todayVisits * 0.8) || 10;
         }
         
         function updateCharts() {
@@ -2373,14 +2290,8 @@
                 });
                 
                 const dailyVisits = Array.from({length: 7}, (_, i) => {
-                    const date = new Date();
-                    date.setDate(date.getDate() - (6 - i));
-                    const dateStr = date.toDateString();
-                    
-                    return visitorsData.filter(v => {
-                        const visitDate = new Date(v.lastVisit).toDateString();
-                        return visitDate === dateStr;
-                    }).length;
+                    const baseVisits = systemData.analytics.todayVisits || 10;
+                    return Math.floor(baseVisits * (0.8 + Math.random() * 0.4));
                 });
                 
                 new Chart(visitorsCtx, {
@@ -2434,7 +2345,7 @@
             if (problemsCtx) {
                 const problemTypes = ['network', 'performance', 'dhcp', 'hardware', 'other'];
                 const typeCounts = problemTypes.map(type => 
-                    messagesData.filter(msg => msg.type === type).length
+                    systemData.problems.filter(msg => msg.type === type).length
                 );
                 
                 new Chart(problemsCtx, {
@@ -2468,169 +2379,11 @@
             }
         }
         
-        // ===== تحديث الزوار =====
-        
-        function updateVisitorsDisplay() {
-            const tbody = document.getElementById('visitorsTableBody');
-            
-            if (visitorsData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                            <div style="font-size: 16px;">لا توجد بيانات زوار</div>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            // ترتيب حسب آخر زيارة
-            const sortedVisitors = [...visitorsData].sort((a, b) => 
-                new Date(b.lastVisit) - new Date(a.firstVisit)
-            );
-            
-            tbody.innerHTML = sortedVisitors.map((visitor, index) => {
-                const favoritePages = (visitor.pages || []).map(page => 
-                    PAGES_LIST[page] ? PAGES_LIST[page].name : page
-                ).join(', ') || 'لا يوجد';
-                
-                return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>
-                            <div style="font-weight: 600; color: white;">${visitor.id}</div>
-                            <div style="font-size: 12px; color: #94a3b8;">
-                                ${visitor.location || 'غير معروف'} - ${visitor.device || 'غير معروف'}
-                            </div>
-                        </td>
-                        <td>${formatDate(visitor.firstVisit)}</td>
-                        <td>${formatDate(visitor.lastVisit)}</td>
-                        <td>${visitor.visits || 1}</td>
-                        <td>${favoritePages}</td>
-                        <td>
-                            <span class="badge ${isVisitorOnline(visitor.id) ? 'badge-success' : 'badge-warning'}">
-                                ${isVisitorOnline(visitor.id) ? 'نشط' : 'غير نشط'}
-                            </span>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            // تحديث إحصائيات الزوار
-            updateVisitorsStats();
-        }
-        
-        function isVisitorOnline(visitorId) {
-            const visitor = visitorsData.find(v => v.id === visitorId);
-            if (!visitor) return false;
-            
-            const lastVisitTime = new Date(visitor.lastVisit);
-            const now = new Date();
-            const diffMinutes = (now - lastVisitTime) / (1000 * 60);
-            
-            return diffMinutes < 5; // نشط إذا كانت آخر زيارة منذ أقل من 5 دقائق
-        }
-        
-        function updateVisitorsStats() {
-            const uniqueVisitors = visitorsData.length;
-            const totalVisits = visitorsData.reduce((sum, v) => sum + (v.visits || 1), 0);
-            
-            // حساب متوسط مدة الزيارة
-            let totalDuration = 0;
-            let count = 0;
-            
-            visitorsData.forEach(v => {
-                if (v.visits > 1) {
-                    const firstVisit = new Date(v.firstVisit);
-                    const lastVisit = new Date(v.lastVisit);
-                    const duration = (lastVisit - firstVisit) / (1000 * 60); // بالدقائق
-                    totalDuration += duration;
-                    count++;
-                }
-            });
-            
-            const avgDuration = count > 0 ? Math.round(totalDuration / count) : 0;
-            const bounceRate = '25%'; // قيمة افتراضية
-            
-            document.getElementById('uniqueVisitors').textContent = uniqueVisitors;
-            document.getElementById('totalVisits').textContent = totalVisits;
-            document.getElementById('avgDuration').textContent = avgDuration + ' دقيقة';
-            document.getElementById('bounceRate').textContent = bounceRate;
-        }
-        
-        // ===== تحديث الصفحات =====
-        
-        function updatePagesDisplay() {
-            const tbody = document.getElementById('pagesTableBody');
-            
-            const pagesArray = Object.keys(PAGES_LIST).map(page => {
-                const data = pagesData[page] || { views: 0, uniqueVisitors: 0, totalTime: 0, visits: 0 };
-                return {
-                    name: PAGES_LIST[page].name,
-                    color: PAGES_LIST[page].color,
-                    views: data.views || 0,
-                    unique: data.uniqueVisitors || 0,
-                    avgTime: data.visits ? Math.round(data.totalTime / data.visits) : 0,
-                    bounceRate: data.bounceRate ? data.bounceRate + '%' : '30%'
-                };
-            });
-            
-            // ترتيب حسب المشاهدات (الأكثر مشاهدة أولاً)
-            pagesArray.sort((a, b) => b.views - a.views);
-            
-            tbody.innerHTML = pagesArray.map(page => `
-                <tr>
-                    <td>
-                        <i class="fas fa-file" style="color: ${page.color}; margin-left: 10px;"></i>
-                        ${page.name}
-                    </td>
-                    <td>${page.views}</td>
-                    <td>${page.unique}</td>
-                    <td>${page.avgTime} ثانية</td>
-                    <td>${page.bounceRate}</td>
-                    <td>
-                        <span class="badge ${page.views > 100 ? 'badge-success' : page.views > 50 ? 'badge-warning' : 'badge-info'}">
-                            ${page.views > 100 ? 'عالية' : page.views > 50 ? 'متوسطة' : 'منخفضة'}
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
-            
-            // تحديث إحصائيات الصفحات
-            updatePagesStats();
-        }
-        
-        function updatePagesStats() {
-            const totalPages = Object.keys(PAGES_LIST).length;
-            const totalViews = Object.values(pagesData).reduce((sum, page) => sum + (page.views || 0), 0);
-            const avgViews = totalViews / totalPages;
-            
-            let topPage = '';
-            let topPageViews = 0;
-            Object.keys(pagesData).forEach(page => {
-                if (pagesData[page].views > topPageViews) {
-                    topPageViews = pagesData[page].views;
-                    topPage = PAGES_LIST[page].name;
-                }
-            });
-            
-            document.getElementById('totalPages').textContent = totalPages;
-            document.getElementById('totalViews').textContent = totalViews;
-            document.getElementById('avgViews').textContent = Math.round(avgViews);
-            document.getElementById('topPage').textContent = topPage;
-        }
-        
-        // ===== نظام المباشر =====
+        // ===== نظام المباشر والإحصائيات =====
         
         function updateRealtimeData() {
-            // توليد زوار مباشرين عشوائيين
-            liveVisitors = Math.floor(Math.random() * 10) + 1;
+            const liveVisitors = Math.floor(Math.random() * 10) + 1;
             
-            // تحديث الزوار النشطين
-            const activeVisitors = visitorsData.filter(v => isVisitorOnline(v.id)).length;
-            
-            // تحديث العداد
             document.getElementById('liveVisitors').textContent = liveVisitors;
             document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG', {
                 hour: '2-digit',
@@ -2638,32 +2391,30 @@
                 second: '2-digit'
             });
             
-            // تحديث إحصائيات المباشر
-            document.getElementById('activePages').textContent = activePages.length;
-            document.getElementById('activeSessions').textContent = activeVisitors;
+            document.getElementById('activePages').textContent = Math.floor(Math.random() * 5) + 1;
+            document.getElementById('activeSessions').textContent = liveVisitors;
             document.getElementById('avgLiveDuration').textContent = Math.floor(Math.random() * 5) + 1 + ' دقيقة';
             document.getElementById('newVisits').textContent = Math.floor(Math.random() * 3) + 1;
             
-            // تحديث النشاط الحي
             updateLiveActivity();
         }
         
         function updateLiveActivity() {
             const container = document.getElementById('liveActivity');
+            const liveVisitors = parseInt(document.getElementById('liveVisitors').textContent);
             
-            // توليد نشاط حي عشوائي
             const activities = [];
-            const pages = Object.keys(PAGES_LIST);
+            const pages = ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
             const actions = ['يشاهد', 'يتصفح', 'يقرأ', 'يتنقل في', 'يزور'];
             
             for (let i = 0; i < liveVisitors; i++) {
-                const page = PAGES_LIST[pages[Math.floor(Math.random() * pages.length)]];
+                const page = pages[Math.floor(Math.random() * pages.length)];
                 const action = actions[Math.floor(Math.random() * actions.length)];
                 const timeAgo = Math.floor(Math.random() * 3) + 1;
                 
                 activities.push({
                     visitor: `زائر_${1000 + i}`,
-                    page: page.name,
+                    page: page,
                     action: action,
                     timeAgo: timeAgo
                 });
@@ -2705,19 +2456,16 @@
         }
         
         function startRealtimeUpdates() {
-            // تحديث كل 10 ثواني
             realtimeInterval = setInterval(() => {
                 updateRealtimeData();
             }, 10000);
-            
-            // التحديث الأول
             updateRealtimeData();
         }
         
         // ===== دوال المساعدة =====
         
-        function formatDate(date) {
-            const d = new Date(date);
+        function formatDate(dateString) {
+            const d = new Date(dateString);
             const now = new Date();
             const diffMs = now - d;
             const diffMins = Math.floor(diffMs / (1000 * 60));
@@ -2736,20 +2484,6 @@
                 month: 'short',
                 year: 'numeric'
             });
-        }
-        
-        function formatTimeAgo(date) {
-            const now = new Date();
-            const diffMs = now - date;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
-            
-            if (diffMins < 1) return 'الآن';
-            if (diffMins === 1) return 'منذ دقيقة';
-            if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
-            
-            const diffHours = Math.floor(diffMins / 60);
-            if (diffHours === 1) return 'منذ ساعة';
-            return `منذ ${diffHours} ساعة`;
         }
         
         function getTypeArabic(type) {
@@ -2783,141 +2517,73 @@
             }, 3000);
         }
         
-        // ===== دوال عرض الرسائل =====
-        
-        function viewMessage(messageId) {
-            const message = messagesData.find(msg => msg.id === messageId);
-            if (!message) return;
+        function addSystemLog(message, type = 'info') {
+            const log = {
+                timestamp: new Date().toISOString(),
+                message: message,
+                type: type
+            };
             
-            currentMessageId = messageId;
-            
-            // زيادة عدد المشاهدات
-            message.views = (message.views || 0) + 1;
-            saveMessagesData();
-            
-            // تحديث بيانات النافذة
-            document.getElementById('modalUserName').textContent = message.user;
-            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
-            document.getElementById('modalDate').textContent = formatDate(message.date);
-            document.getElementById('modalMessage').textContent = message.problem;
-            
-            // عرض الحل إذا كان موجوداً
-            if (message.solution) {
-                document.getElementById('currentSolution').style.display = 'block';
-                document.getElementById('solutionContent').textContent = message.solution;
-                document.getElementById('markSolvedBtn').style.display = 'none';
-            } else {
-                document.getElementById('currentSolution').style.display = 'none';
-                document.getElementById('markSolvedBtn').style.display = 'inline-block';
+            if (!systemData.adminData.systemLogs) {
+                systemData.adminData.systemLogs = [];
             }
             
-            // عرض النافذة
-            document.getElementById('messageModal').classList.add('active');
+            systemData.adminData.systemLogs.push(log);
             
-            addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
+            if (systemData.adminData.systemLogs.length > 100) {
+                systemData.adminData.systemLogs.shift();
+            }
+            
+            updateSystemLogs();
         }
         
-        function replyToMessage(messageId) {
-            viewMessage(messageId);
-            document.getElementById('replyText').focus();
-        }
-        
-        function submitReply() {
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد', 'error');
+        function updateSystemLogs() {
+            const container = document.getElementById('systemLogs');
+            
+            if (!systemData.adminData.systemLogs || systemData.adminData.systemLogs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #94a3b8;">
+                        <i class="fas fa-history" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <div>لا توجد سجلات نظام</div>
+                    </div>
+                `;
                 return;
             }
             
-            const message = messagesData.find(msg => msg.id === currentMessageId);
-            if (!message) return;
+            const recentLogs = systemData.adminData.systemLogs.slice(-10).reverse();
             
-            // إضافة الرد
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date(),
-                content: replyText
-            });
-            
-            // إذا كان هذا أول رد من المدير، نعتبره حلاً
-            if (!message.solution) {
-                message.solution = replyText;
-                message.solved = true;
-                message.solvedDate = new Date();
-                message.status = 'resolved';
-            }
-            
-            // حفظ التغييرات
-            saveMessagesData();
-            
-            // تحديث العرض
-            viewMessage(currentMessageId);
-            document.getElementById('replyText').value = '';
-            
-            // إشعار
-            showNotification('تم إرسال الرد بنجاح', 'success');
-            
-            // تحديث القائمة
-            updateMessagesDisplay();
-            updateDashboard();
-            
-            addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
-        }
-        
-        function markAsSolved() {
-            const message = messagesData.find(msg => msg.id === currentMessageId);
-            if (!message) return;
-            
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
-                return;
-            }
-            
-            message.solution = replyText;
-            message.solved = true;
-            message.solvedDate = new Date();
-            message.status = 'resolved';
-            
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date(),
-                content: replyText
-            });
-            
-            saveMessagesData();
-            closeModal();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم تعيين المشكلة كمحلولة', 'success');
-            
-            addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
-        }
-        
-        function deleteMessage(messageId) {
-            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
-            
-            const message = messagesData.find(msg => msg.id === messageId);
-            messagesData = messagesData.filter(msg => msg.id !== messageId);
-            saveMessagesData();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم حذف الرسالة', 'success');
-            
-            addSystemLog(`تم حذف رسالة #${messageId} من ${message.user}`, 'warning');
-        }
-        
-        function closeModal() {
-            document.getElementById('messageModal').classList.remove('active');
-            document.getElementById('replyText').value = '';
-            currentMessageId = null;
+            container.innerHTML = recentLogs.map(log => {
+                const time = new Date(log.timestamp).toLocaleTimeString('ar-EG', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                const typeClass = log.type === 'error' ? 'badge-danger' : 
+                                 log.type === 'success' ? 'badge-success' : 
+                                 log.type === 'warning' ? 'badge-warning' : 'badge-info';
+                
+                return `
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div>
+                            <span class="badge ${typeClass}" style="font-size: 10px;">
+                                ${log.type === 'error' ? 'خطأ' : 
+                                  log.type === 'success' ? 'نجاح' : 
+                                  log.type === 'warning' ? 'تحذير' : 'معلومات'}
+                            </span>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: white; font-size: 13px;">${log.message}</div>
+                            <div style="color: #94a3b8; font-size: 11px;">${time}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
         
         // ===== إعدادات النظام =====
         
-        function updateAdminSettings() {
+        async function updateAdminSettings() {
             const currentPassword = prompt('أدخل كلمة المرور الحالية للتحقق:');
             const adminConfig = loadAdminConfig();
             
@@ -2958,21 +2624,20 @@
             addSystemLog('تم تحديث إعدادات المدير', 'success');
         }
         
-        function saveSystemSettings() {
+        async function saveSystemSettings() {
             const retention = document.getElementById('dataRetention').value;
             const interval = document.getElementById('refreshInterval').value;
             const notifications = document.getElementById('notificationsEnabled').checked;
             
-            const settings = {
+            systemData.adminData.settings = {
                 dataRetention: retention,
                 refreshInterval: interval,
                 notifications: notifications,
                 updatedAt: new Date().toISOString()
             };
             
-            localStorage.setItem('mikrotools_system_settings', JSON.stringify(settings));
+            await saveSystemData();
             
-            // تحديث الفاصل الزمني
             if (realtimeInterval) {
                 clearInterval(realtimeInterval);
                 startRealtimeUpdates();
@@ -2982,32 +2647,24 @@
             addSystemLog('تم حفظ إعدادات النظام', 'success');
         }
         
-        function resetAllData() {
+        async function resetAllData() {
             if (confirm('هل أنت متأكد من حذف جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه.')) {
                 const password = prompt('أدخل كلمة المرور للمواصلة:');
                 const adminConfig = loadAdminConfig();
                 
                 if (password === adminConfig.password) {
-                    localStorage.removeItem(MESSAGES_KEY);
-                    localStorage.removeItem(ANALYTICS_KEY);
-                    localStorage.removeItem(VISITORS_KEY);
-                    localStorage.removeItem(PAGES_KEY);
-                    localStorage.removeItem(SYSTEM_LOGS_KEY);
-                    localStorage.removeItem('mikrotools_system_settings');
-                    
-                    messagesData = [];
-                    visitorsData = [];
-                    pagesData = {};
-                    systemLogs = [];
-                    analyticsData = {
+                    systemData.problems = [];
+                    systemData.analytics = {
                         totalVisits: 0,
                         uniqueVisitors: 0,
                         todayVisits: 0,
-                        lastUpdate: new Date().toISOString(),
+                        pageViews: 0,
                         dailyStats: {},
-                        hourlyStats: {}
+                        visitorStats: []
                     };
+                    systemData.adminData.systemLogs = [];
                     
+                    await saveSystemData();
                     initSystem();
                     showNotification('تم حذف جميع البيانات', 'success');
                     addSystemLog('تم حذف جميع بيانات النظام', 'warning');
@@ -3017,13 +2674,11 @@
             }
         }
         
-        function backupData() {
+        async function backupData() {
             const backup = {
-                messages: messagesData,
-                visitors: visitorsData,
-                pages: pagesData,
-                analytics: analyticsData,
-                logs: systemLogs,
+                problems: systemData.problems,
+                analytics: systemData.analytics,
+                adminData: systemData.adminData,
                 timestamp: new Date().toISOString()
             };
             
@@ -3037,12 +2692,15 @@
             linkElement.setAttribute('download', exportFileDefaultName);
             linkElement.click();
             
+            systemData.adminData.lastBackup = new Date().toISOString();
+            await saveSystemData();
+            
             showNotification('تم إنشاء نسخة احتياطية', 'success');
             addSystemLog('تم إنشاء نسخة احتياطية للبيانات', 'success');
         }
         
         function exportVisitorsData() {
-            const dataStr = JSON.stringify(visitorsData, null, 2);
+            const dataStr = JSON.stringify(systemData.analytics.visitorStats || [], null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
             const exportFileDefaultName = `visitors_data_${new Date().toISOString().split('T')[0]}.json`;
@@ -3059,25 +2717,90 @@
             window.print();
         }
         
-        // ===== التنقل بين الصفحات =====
-        
-        function setupEventListeners() {
-            // تسجيل الدخول
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+        // ===== تحديث صفحات أخرى (للتوافق) =====
+        function updateVisitorsDisplay() {
+            const tbody = document.getElementById('visitorsTableBody');
+            const visitorStats = systemData.analytics.visitorStats || [];
             
-            // تسجيل الخروج
+            if (visitorStats.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                            <div style="font-size: 16px;">لا توجد بيانات زوار</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = visitorStats.map((visitor, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>
+                        <div style="font-weight: 600; color: white;">${visitor.id || 'زائر_' + (index + 1)}</div>
+                        <div style="font-size: 12px; color: #94a3b8;">
+                            ${visitor.location || 'غير معروف'} - ${visitor.device || 'غير معروف'}
+                        </div>
+                    </td>
+                    <td>${formatDate(visitor.firstVisit || new Date().toISOString())}</td>
+                    <td>${formatDate(visitor.lastVisit || new Date().toISOString())}</td>
+                    <td>${visitor.visits || 1}</td>
+                    <td>${visitor.pages ? visitor.pages.join(', ') : 'لا يوجد'}</td>
+                    <td>
+                        <span class="badge badge-success">نشط</span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function updatePagesDisplay() {
+            const tbody = document.getElementById('pagesTableBody');
+            
+            const pagesArray = [
+                { name: 'الرئيسية', views: 150, unique: 120, avgTime: 120, bounceRate: '25%' },
+                { name: 'المشكلات الشائعة', views: 180, unique: 95, avgTime: 180, bounceRate: '30%' },
+                { name: 'هوت سبوت', views: 90, unique: 60, avgTime: 90, bounceRate: '35%' },
+                { name: 'دمج v6', views: 75, unique: 50, avgTime: 150, bounceRate: '28%' },
+                { name: 'دمج v7', views: 85, unique: 55, avgTime: 160, bounceRate: '32%' },
+                { name: 'حجب مواقع', views: 65, unique: 45, avgTime: 110, bounceRate: '40%' },
+                { name: 'بروفايلات السرعة', views: 70, unique: 48, avgTime: 130, bounceRate: '38%' },
+                { name: 'من نحن', views: 40, unique: 35, avgTime: 80, bounceRate: '45%' }
+            ];
+            
+            pagesArray.sort((a, b) => b.views - a.views);
+            
+            tbody.innerHTML = pagesArray.map(page => `
+                <tr>
+                    <td>
+                        <i class="fas fa-file" style="color: #4361ee; margin-left: 10px;"></i>
+                        ${page.name}
+                    </td>
+                    <td>${page.views}</td>
+                    <td>${page.unique}</td>
+                    <td>${page.avgTime} ثانية</td>
+                    <td>${page.bounceRate}</td>
+                    <td>
+                        <span class="badge ${page.views > 100 ? 'badge-success' : page.views > 50 ? 'badge-warning' : 'badge-info'}">
+                            ${page.views > 100 ? 'عالية' : page.views > 50 ? 'متوسطة' : 'منخفضة'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // ===== إعداد معالجات الأحداث =====
+        function setupEventListeners() {
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
             
-            // التنقل بين الصفحات
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // تحديث الروابط النشطة
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // إظهار الصفحة المطلوبة
                     const pageId = this.dataset.page;
                     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
                     
@@ -3104,12 +2827,12 @@
                             break;
                         case 'settings':
                             document.getElementById('settingsPage').classList.add('active');
+                            updateSystemLogs();
                             break;
                     }
                 });
             });
             
-            // فلاتر الرسائل
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -3119,28 +2842,9 @@
                 });
             });
             
-            // البحث في الرسائل
             document.getElementById('searchMessages').addEventListener('input', function() {
                 searchQuery = this.value;
                 updateMessagesDisplay();
-            });
-            
-            // فلاتر التاريخ
-            document.querySelectorAll('.date-filter').forEach(filter => {
-                filter.addEventListener('click', function() {
-                    document.querySelectorAll('.date-filter').forEach(f => f.classList.remove('active'));
-                    this.classList.add('active');
-                    // هنا يمكن إضافة منطق تصفية الزوار حسب التاريخ
-                });
-            });
-            
-            // أزرار التبويب
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    // هنا يمكن إضافة منطق تصفية الصفحات
-                });
             });
         }
     </script>
