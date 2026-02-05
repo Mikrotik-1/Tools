@@ -3,24 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم مدير MikroTools المتكاملة</title>
+    <title>المشكلات الشائعة وحلولها | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --dark: #1a1a2e;
-            --darker: #0d0d1a;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --info: #7209b7;
-            --purple: #560bad;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
         }
 
         * {
@@ -31,2074 +34,1668 @@
         }
 
         body {
-            background: var(--darker);
-            color: var(--light);
+            background: var(--light);
+            color: var(--dark);
+            direction: rtl;
+            line-height: 1.8;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* ===== شاشة التحميل ===== */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--darker);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* ===== تسجيل الدخول ===== */
-        .login-screen {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
-            padding: 20px;
-        }
-
-        .login-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-header i {
-            font-size: 50px;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .login-header h1 {
-            color: white;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .login-header p {
-            color: #94a3b8;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border-radius: 10px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #3a56d4;
-            transform: translateY(-2px);
-        }
-
-        .error-message {
-            background: rgba(247, 37, 133, 0.2);
-            border: 1px solid rgba(247, 37, 133, 0.3);
-            color: #f8a5c2;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .demo-credentials {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-size: 12px;
-        }
-
-        .demo-credentials div {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        /* ===== لوحة التحكم ===== */
-        .dashboard {
-            display: none;
-        }
-
-        .dashboard.active {
-            display: block;
-        }
-
-        /* الشريط العلوي */
+        /* ===== قائمة التنقل العلوية ===== */
         .navbar {
             background: var(--dark);
-            padding: 0 20px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
+            padding: 1rem 2rem;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
-        }
-
-        .logo i {
-            font-size: 24px;
-            color: var(--primary);
-        }
-
-        .logo h1 {
-            color: white;
-            font-size: 20px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-name {
-            color: white;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            background: rgba(247, 37, 133, 0.2);
-            color: #f8a5c2;
-            border: 1px solid rgba(247, 37, 133, 0.3);
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .logout-btn:hover {
-            background: rgba(247, 37, 133, 0.3);
-        }
-
-        /* القائمة الجانبية */
-        .sidebar {
-            width: 250px;
-            background: var(--dark);
-            height: calc(100vh - 70px);
-            position: fixed;
-            right: 0;
-            top: 70px;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px 0;
-            overflow-y: auto;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 5px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: #cbd5e1;
             text-decoration: none;
-            transition: all 0.3s;
-            border-right: 3px solid transparent;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
             color: white;
         }
 
-        .nav-link.active {
-            background: rgba(67, 97, 238, 0.2);
-            color: var(--primary);
-            border-right-color: var(--primary);
-        }
-
-        /* المحتوى الرئيسي */
-        .main-content {
-            margin-right: 250px;
-            padding: 30px;
-            min-height: calc(100vh - 70px);
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== بطاقات الإحصائيات ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .stat-icon {
+        .logo-icon {
+            background: var(--gradient);
             width: 50px;
             height: 50px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
+            animation: pulse 2s infinite;
         }
 
-        .stat-icon.blue { background: rgba(67, 97, 238, 0.2); color: var(--primary); }
-        .stat-icon.green { background: rgba(76, 201, 240, 0.2); color: var(--success); }
-        .stat-icon.pink { background: rgba(247, 37, 133, 0.2); color: var(--danger); }
-        .stat-icon.orange { background: rgba(248, 150, 30, 0.2); color: var(--warning); }
-        .stat-icon.purple { background: rgba(86, 11, 173, 0.2); color: var(--purple); }
-
-        .stat-title {
-            color: #94a3b8;
-            font-size: 14px;
-            margin-bottom: 5px;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .stat-value {
-            color: white;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
         }
 
-        .stat-change {
+        .nav-links {
             display: flex;
+            gap: 2rem;
             align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 500;
         }
 
-        .stat-change.positive { color: #10b981; }
-        .stat-change.negative { color: #ef4444; }
-
-        /* ===== جداول ===== */
-        .table-container {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .table-title {
-            color: white;
-            font-size: 18px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: rgba(255, 255, 255, 0.1);
+        .nav-link {
             color: #cbd5e1;
-            padding: 15px;
-            text-align: right;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        tr:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            text-decoration: none;
             font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 10px;
+            position: relative;
         }
 
-        .badge-success { background: rgba(76, 201, 240, 0.2); color: var(--success); }
-        .badge-warning { background: rgba(248, 150, 30, 0.2); color: var(--warning); }
-        .badge-danger { background: rgba(247, 37, 133, 0.2); color: var(--danger); }
-        .badge-info { background: rgba(114, 9, 183, 0.2); color: var(--info); }
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-        /* ===== أزرار الإجراءات ===== */
-        .action-btn {
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-size: 12px;
-            margin: 0 2px;
+        .nav-link.active {
+            color: white;
+            background: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
             transition: all 0.3s;
         }
 
-        .btn-view { background: rgba(67, 97, 238, 0.2); color: var(--primary); }
-        .btn-reply { background: rgba(76, 201, 240, 0.2); color: var(--success); }
-        .btn-delete { background: rgba(247, 37, 133, 0.2); color: var(--danger); }
-
-        .action-btn:hover {
-            opacity: 0.8;
-            transform: translateY(-1px);
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
-        /* ===== نافذة الرد ===== */
-        .modal-overlay {
+        .menu-toggle {
             display: none;
-            position: fixed;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== الهيرو ===== */
+        .hero-troubleshooting {
+            background: var(--gradient-dark);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-troubleshooting::before {
+            content: '';
+            position: absolute;
             top: 0;
             right: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 200px;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--dark);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
+        .hero-content-troubleshooting {
+            max-width: 1200px;
+            text-align: center;
             color: white;
+            position: relative;
+            z-index: 1;
         }
 
-        .modal-body {
-            padding: 20px;
-        }
-
-        .message-content {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .reply-form textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: white;
+        .hero-badge-troubleshooting {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 8px 20px;
+            border-radius: 50px;
             font-size: 14px;
-            margin-bottom: 15px;
-            resize: vertical;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .modal-footer {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
+        .hero-title-troubleshooting {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
-        /* ===== البحث والتصفية ===== */
-        .filters {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
+        .hero-subtitle-troubleshooting {
+            font-size: 1.1rem;
             color: #cbd5e1;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-right: auto;
+            margin-left: auto;
         }
 
-        .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+        /* ===== شريط البحث ===== */
+        .search-section {
+            max-width: 800px;
+            margin: -2rem auto 3rem;
+            position: relative;
+            z-index: 10;
+            padding: 0 1rem;
         }
 
         .search-box {
-            position: relative;
-            margin-bottom: 15px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
         }
 
-        .search-box input {
-            width: 100%;
-            padding: 12px 40px 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-btn {
+            background: var(--gradient);
             color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
         }
 
-        .search-box i {
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== قسم المحتوى الرئيسي ===== */
+        .troubleshooting-section {
+            padding: 2rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .faq-container {
+            background: var(--gradient-card);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-container::before {
+            content: '';
             position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
         }
 
-        /* ===== مخططات ===== */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .chart-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
+        /* ===== Accordion للأسئلة ===== */
+        .faq-accordion {
+            margin: 3rem 0;
         }
 
-        .chart-header {
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            cursor: pointer;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: right;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            transition: all 0.3s;
         }
 
-        .chart-title {
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 2rem;
+            max-height: 5000px;
+        }
+
+        .problem-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+        .problem-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .problem-warning { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
+        .problem-info { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+
+        /* ===== تنسيق المحتوى داخل الإجابات ===== */
+        .solution-steps {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .solution-step {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            border-right: 4px solid var(--secondary);
+        }
+
+        .solution-step strong {
+            color: var(--secondary);
+            margin-left: 5px;
+        }
+
+        .troubleshoot-image {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+            margin: 1.5rem auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .troubleshoot-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tool-link {
+            display: inline-block;
+            background: var(--gradient);
             color: white;
-            font-size: 16px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 1rem 0;
             font-weight: 600;
-        }
-
-        .chart-container {
-            height: 300px;
-            position: relative;
-        }
-
-        /* ===== فلاتر التاريخ ===== */
-        .date-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .date-filter {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: #cbd5e1;
-            cursor: pointer;
             transition: all 0.3s;
-            font-size: 13px;
         }
 
-        .date-filter:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .tool-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
-        .date-filter.active {
-            background: var(--success);
+        .note-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-right: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .note-box strong {
+            color: var(--primary);
+        }
+
+        /* ===== قسم الأدوات المقترحة ===== */
+        .tools-section {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== دعوة للاتصال ===== */
+        .contact-cta {
+            background: var(--dark);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin: 3rem 0;
+            text-align: center;
             color: white;
-            border-color: var(--success);
         }
 
-        /* ===== أزرار التبويب ===== */
-        .tab-buttons {
-            display: flex;
+        .contact-cta-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #a5b4fc, #f0abfc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== الأزرار ===== */
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
             gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            min-width: 200px;
+            justify-content: center;
         }
 
-        .tab-btn {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ===== قسم مشاكل المستخدمين ===== */
+        .user-problems-section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .problem-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            background: white;
             border-radius: 8px;
-            color: #cbd5e1;
+            cursor: pointer;
+            color: var(--dark);
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .problems-list {
+            margin-bottom: 3rem;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .user-name {
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .problem-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .problem-type {
+            background: #e2e8f0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--dark);
+        }
+
+        .problem-content {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .problem-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .like-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: var(--gray);
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Tajawal', sans-serif;
         }
 
-        .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .like-btn:hover {
+            background: var(--primary-light);
+            color: white;
+            border-color: var(--primary);
         }
 
-        .tab-btn.active {
+        .like-btn.liked {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
         }
 
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-solved {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-pending {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .solution-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border-right: 4px solid #10b981;
+        }
+
+        .solution-box strong {
+            color: #10b981;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== نموذج إضافة مشكلة ===== */
+        .add-problem-form {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px solid var(--primary-light);
+        }
+
+        .form-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-input, .form-select {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 120px;
+            margin-bottom: 1.5rem;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            width: 100%;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .form-note {
+            text-align: center;
+            color: var(--gray);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== التذييل ===== */
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
         /* ===== التجاوب ===== */
+        @media (max-width: 1024px) {
+            .hero-title-troubleshooting {
+                font-size: 2.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-            }
-            
-            .nav-link span {
+            .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--dark);
+                width: 100%;
+                padding: 1rem;
+                flex-direction: column;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             }
             
-            .main-content {
-                margin-right: 70px;
-                padding: 15px;
+            .nav-links.active {
+                display: flex;
             }
             
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .menu-toggle {
+                display: block;
             }
             
-            .charts-grid {
-                grid-template-columns: 1fr;
+            .hero-title-troubleshooting {
+                font-size: 2rem;
+            }
+            
+            .faq-container, .user-problems-section {
+                padding: 2rem;
+            }
+            
+            .search-box, .form-row {
+                flex-direction: column;
+            }
+            
+            .search-btn, .submit-btn, .form-input, .form-select {
+                width: 100%;
+            }
+            
+            .troubleshoot-image {
+                max-width: 100%;
+            }
+            
+            .problem-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .problem-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
             }
         }
 
         @media (max-width: 480px) {
-            .sidebar {
-                display: none;
+            .hero-troubleshooting {
+                min-height: 60vh;
+                padding: 100px 1rem 2rem;
             }
             
-            .main-content {
-                margin-right: 0;
+            .faq-question {
+                padding: 1.25rem;
+                font-size: 1rem;
             }
-        }
-
-        /* ===== إشعارات ===== */
-        .notification {
-            position: fixed;
-            top: 90px;
-            right: 30px;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideInRight 0.3s ease;
-            max-width: 400px;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .notification.success {
-            background: var(--success);
-            color: white;
-            border-right: 4px solid #0891b2;
-        }
-
-        .notification.error {
-            background: var(--danger);
-            color: white;
-            border-right: 4px solid #dc2626;
-        }
-
-        /* ===== أزرار التصدير ===== */
-        .export-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .export-btn {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .export-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        /* ===== تحديثات جديدة ===== */
-        .refresh-btn {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-        
-        .refresh-btn:hover {
-            background: #3aa8c9;
-            transform: translateY(-2px);
-        }
-        
-        .sync-animation {
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            
+            .faq-item.active .faq-answer {
+                padding: 1.5rem;
+            }
+            
+            .btn, .filter-btn {
+                min-width: 100%;
+                text-align: center;
+            }
+            
+            .filter-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- شاشة التحميل -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
-        <div style="color: #94a3b8; margin-top: 10px;">جاري تحميل لوحة التحكم...</div>
-    </div>
-
-    <!-- شاشة تسجيل الدخول -->
-    <div class="login-screen" id="loginScreen">
-        <div class="login-box">
-            <div class="login-header">
-                <i class="fas fa-user-shield"></i>
-                <h1>لوحة تحكم المدير</h1>
-                <p>تسجيل الدخول إلى نظام إدارة MikroTools المتكامل</p>
-            </div>
-            
-            <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-circle"></i>
-                اسم المستخدم أو كلمة المرور غير صحيحة
-            </div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>اسم المستخدم</label>
-                    <input type="text" class="form-control" id="username" placeholder="أدخل اسم المستخدم" required>
+    <!-- قائمة التنقل العلوية -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
                 </div>
+                <span class="logo-text">MikroTools</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    الرئيسية
+                </a>
+                <a href="hotspot.html" class="nav-link">
+                    <i class="fas fa-wifi"></i>
+                    هوت سبوت
+                </a>
+                <a href="merge-v6.html" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    دمج v6
+                </a>
+                <a href="merge-v7.html" class="nav-link">
+                    <i class="fas fa-rocket"></i>
+                    دمج v7
+                </a>
+                <a href="block-sites.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    حجب مواقع
+                </a>
+                <a href="speed-profiles.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    بروفايلات
+                </a>
+                               <a href="about.html" class="nav-link ">
+                    <i class="fas fa-users"></i>
+                    من نحن
+                </a>
+                <a href="troubleshooting.html" class="nav-link active">
+                    <i class="fas fa-question-circle"></i>
+                    المشكلات الشائعة
+                </a>
                 
-                <div class="form-group">
-                    <label>كلمة المرور</label>
-                    <input type="password" class="form-control" id="password" placeholder="أدخل كلمة المرور" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i>
-                    تسجيل الدخول
-                </button>
-            </form>
-            
-            <div class="demo-credentials">
-                <div>
-                    <span>اسم المستخدم:</span>
-                    <span style="color: white;">sameh</span>
-                </div>
-                <div>
-                    <span>كلمة المرور:</span>
-                    <span style="color: white;">0166843763</span>
-                </div>
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    تواصل معنا
+                </a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- لوحة التحكم -->
-    <div class="dashboard" id="dashboard">
-        <!-- الشريط العلوي -->
-        <nav class="navbar">
-            <div class="logo">
-                <i class="fas fa-chart-pie"></i>
-                <h1>لوحة التحكم المتكاملة</h1>
-            </div>
+    <!-- الهيرو -->
+    <section class="hero-troubleshooting">
+        <div class="hero-content-troubleshooting">
+            <span class="hero-badge-troubleshooting">
+                <i class="fas fa-life-ring"></i>
+                دعم فني متكامل
+            </span>
             
-            <div class="user-info">
-                <span class="user-name" id="userName">المدير</span>
-                <button class="refresh-btn" id="refreshDataBtn" onclick="refreshData()">
-                    <i class="fas fa-sync-alt" id="syncIcon"></i>
-                    تحديث البيانات
-                </button>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    خروج
-                </button>
-            </div>
-        </nav>
-        
-        <!-- القائمة الجانبية -->
-        <div class="sidebar">
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" data-page="dashboard">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>لوحة التحكم</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="messages">
-                        <i class="fas fa-comments"></i>
-                        <span>رسائل المشكلات</span>
-                        <span class="badge badge-danger" id="newMessagesBadge" style="margin-right: auto; display: none;">0</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="visitors">
-                        <i class="fas fa-users"></i>
-                        <span>الزوار</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="pages">
-                        <i class="fas fa-file-alt"></i>
-                        <span>الصفحات</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="realtime">
-                        <i class="fas fa-clock"></i>
-                        <span>مباشر</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="settings">
-                        <i class="fas fa-cog"></i>
-                        <span>الإعدادات</span>
-                    </a>
-                </li>
-            </ul>
+            <h1 class="hero-title-troubleshooting">
+                المشكلات الشائعة وحلولها
+            </h1>
+            
+            <p class="hero-subtitle-troubleshooting">
+                دليل شامل لأهم المشاكل التقنية التي تواجه مستخدمي MikroTik مع حلول عملية ومضمونة
+            </p>
         </div>
-        
-        <!-- المحتوى الرئيسي -->
-        <div class="main-content">
-            <!-- صفحة لوحة التحكم الرئيسية -->
-            <div id="dashboardPage" class="page active">
-                <div style="margin-bottom: 30px;">
-                    <h1 style="color: white; margin-bottom: 10px;">لوحة التحكم الرئيسية</h1>
-                    <p style="color: #94a3b8;">نظرة عامة على أداء الموقع والرسائل</p>
-                </div>
-                
-                <!-- إحصائيات سريعة -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الزوار</div>
-                                <div class="stat-value" id="totalVisitors">0</div>
-                                <div class="stat-change positive" id="visitorsChange">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
+    </section>
+
+    <!-- شريط البحث -->
+    <section class="search-section">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="ابحث عن مشكلة معينة..." id="searchInput">
+            <button class="search-btn" id="searchBtn">
+                <i class="fas fa-search"></i>
+                بحث
+            </button>
+        </div>
+    </section>
+
+    <!-- قسم المحتوى الرئيسي -->
+    <section class="troubleshooting-section">
+        <div class="faq-container">
+            <h2 class="section-title">
+                <i class="fas fa-tools"></i>
+                حلول المشكلات الأكثر شيوعاً
+            </h2>
+            
+            <div class="faq-accordion" id="faqAccordion">
+                <!-- المشكلة 1: IP خفي -->
+                <div class="faq-item active" data-category="network ip dhcp">
+                    <button class="faq-question">
+                        <span>
+                            <span class="problem-icon problem-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                            IP خفي داخل الشبكة (DHCP Rouge)
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            <strong>المشكلة:</strong> وجود IP يرسل رسائل داخل الشبكة - هذه الرسائل عندما تكون كثيرة تعمل loop في الشبكة ويحصل أشياء غير طبيعية:
+                        </p>
+                        
+                        <ul style="color: var(--dark); margin-bottom: 1.5rem; padding-right: 1.5rem;">
+                            <li style="margin-bottom: 0.5rem;">بعض العملاء ظاهرين عندك ومفيش عندهم نت</li>
+                            <li style="margin-bottom: 0.5rem;">الخدمة عندهم بطيئة جداً</li>
+                            <li style="margin-bottom: 0.5rem;">عدم استقرار الخدمة بشكل عام</li>
+                        </ul>
+                        
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">كيف أعرف أن هناك IP داخل شبكتي؟</h4>
+                        
+                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                            <h5 style="color: var(--secondary); margin-bottom: 1rem;">ثلاث طرق للكشف:</h5>
+                            
+                            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; border-right: 4px solid var(--primary);">
+                                        <h6 style="color: var(--primary); margin-bottom: 0.5rem;">
+                                            <i class="fas fa-network-wired"></i>
+                                            الطريقة الأولى
+                                        </h6>
+                                        <p style="color: var(--gray); font-size: 0.9rem;">
+                                            عن طريق <strong>DHCP Client</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div style="flex: 1; min-width: 200px;">
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; border-right: 4px solid var(--secondary);">
+                                        <h6 style="color: var(--secondary); margin-bottom: 0.5rem;">
+                                            <i class="fas fa-sitemap"></i>
+                                            الطريقة الثانية
+                                        </h6>
+                                        <p style="color: var(--gray); font-size: 0.9rem;">
+                                            عن طريق <strong>ARP</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div style="flex: 1; min-width: 200px;">
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; border-right: 4px solid var(--accent);">
+                                        <h6 style="color: var(--accent); margin-bottom: 0.5rem;">
+                                            <i class="fas fa-search"></i>
+                                            الطريقة الثالثة
+                                        </h6>
+                                        <p style="color: var(--gray); font-size: 0.9rem;">
+                                            عن طريق <strong>Tools → IP Scan</strong>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">رسائل المشكلات</div>
-                                <div class="stat-value" id="totalMessages">0</div>
-                                <div class="stat-change positive" id="messagesChange">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
-                                </div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الصفحات المشاهدة</div>
-                                <div class="stat-value" id="totalPageViews">0</div>
-                                <div class="stat-change positive" id="pageViewsChange">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
-                                </div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">معدل الحل</div>
-                                <div class="stat-value" id="resolutionRate">0%</div>
-                                <div class="stat-change positive">
-                                    <i class="fas fa-chart-line"></i>
-                                    <span>أداء جيد</span>
-                                </div>
-                            </div>
-                            <div class="stat-icon purple">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- مخططات -->
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-bar"></i>
-                                نشاط الزوار خلال 7 أيام
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="visitorsChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-pie"></i>
-                                توزيع المشكلات حسب النوع
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="problemsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- آخر الرسائل -->
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-history"></i>
-                        آخر 5 رسائل
-                    </div>
-                    <table id="recentMessagesTable">
-                        <thead>
-                            <tr>
-                                <th>المستخدم</th>
-                                <th>المشكلة</th>
-                                <th>النوع</th>
-                                <th>الحالة</th>
-                                <th>التاريخ</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentMessagesBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- صفحة الرسائل -->
-            <div id="messagesPage" class="page">
-                <div style="margin-bottom: 30px;">
-                    <h1 style="color: white; margin-bottom: 10px;">إدارة رسائل المشكلات</h1>
-                    <p style="color: #94a3b8;">إدارة ورد على جميع مشاكل المستخدمين من صفحة المشكلات</p>
-                </div>
-                
-                <!-- إحصائيات سريعة -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الرسائل</div>
-                                <div class="stat-value" id="messagesTotal">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-inbox"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">قيد الانتظار</div>
-                                <div class="stat-value" id="messagesPending">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">تم الحل</div>
-                                <div class="stat-value" id="messagesSolved">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">جديدة اليوم</div>
-                                <div class="stat-value" id="messagesToday">0</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- الفلاتر -->
-                <div class="filters">
-                    <div class="search-box">
-                        <input type="text" id="searchMessages" placeholder="ابحث في الرسائل...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <button class="filter-btn active" data-filter="all">الكل</button>
-                        <button class="filter-btn" data-filter="network">شبكة</button>
-                        <button class="filter-btn" data-filter="performance">أداء</button>
-                        <button class="filter-btn" data-filter="dhcp">DHCP</button>
-                        <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
-                        <button class="filter-btn" data-filter="solved">تم الحل</button>
-                    </div>
-                </div>
-                
-                <!-- جدول الرسائل -->
-                <div class="table-container">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <div class="table-title">
-                            <i class="fas fa-list"></i>
-                            قائمة الرسائل من المستخدمين
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button class="refresh-btn" onclick="refreshMessages()">
-                                <i class="fas fa-sync-alt"></i>
-                                تحديث القائمة
-                            </button>
-                            <button class="logout-btn" onclick="clearAdminNotifications()" title="مسح إشعارات المشاكل الجديدة">
-                                <i class="fas fa-bell-slash"></i>
-                                مسح الإشعارات
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <table id="messagesTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>المستخدم</th>
-                                <th>نوع المشكلة</th>
-                                <th>الرسالة</th>
-                                <th>التاريخ</th>
-                                <th>الحالة</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="messagesTableBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- صفحة الزوار -->
-            <div id="visitorsPage" class="page">
-                <div style="margin-bottom: 30px;">
-                    <h1 style="color: white; margin-bottom: 10px;">إحصائيات الزوار</h1>
-                    <p style="color: #94a3b8;">تحليل شامل لزوار الموقع</p>
-                </div>
-                
-                <!-- فلاتر التاريخ -->
-                <div class="date-filters">
-                    <button class="date-filter active" data-period="today">اليوم</button>
-                    <button class="date-filter" data-period="yesterday">أمس</button>
-                    <button class="date-filter" data-period="week">أسبوع</button>
-                    <button class="date-filter" data-period="month">شهر</button>
-                    <button class="date-filter" data-period="all">كل الوقت</button>
-                </div>
-                
-                <!-- إحصائيات الزوار -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">زوار فريدون</div>
-                                <div class="stat-value" id="uniqueVisitors">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-user-friends"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الزيارات الكلية</div>
-                                <div class="stat-value" id="totalVisits">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">متوسط مدة الزيارة</div>
-                                <div class="stat-value" id="avgDuration">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-hourglass-half"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">معدل الارتداد</div>
-                                <div class="stat-value" id="bounceRate">0%</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-running"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- قائمة الزوار -->
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-list"></i>
-                        قائمة الزوار
-                    </div>
-                    <table id="visitorsTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>معرف الزائر</th>
-                                <th>أول زيارة</th>
-                                <th>آخر زيارة</th>
-                                <th>عدد الزيارات</th>
-                                <th>الصفحات المفضلة</th>
-                                <th>الحالة</th>
-                            </tr>
-                        </thead>
-                        <tbody id="visitorsTableBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- صفحة الصفحات -->
-            <div id="pagesPage" class="page">
-                <div style="margin-bottom: 30px;">
-                    <h1 style="color: white; margin-bottom: 10px;">إحصائيات الصفحات</h1>
-                    <p style="color: #94a3b8;">تحليل أداء صفحات الموقع</p>
-                </div>
-                
-                <!-- فلاتر -->
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="all-pages">جميع الصفحات</button>
-                    <button class="tab-btn" data-tab="top-pages">الأكثر زيارة</button>
-                    <button class="tab-btn" data-tab="least-pages">الأقل زيارة</button>
-                </div>
-                
-                <!-- إحصائيات الصفحات -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الصفحات</div>
-                                <div class="stat-value" id="totalPages">7</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-sitemap"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي المشاهدات</div>
-                                <div class="stat-value" id="totalViews">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">متوسط المشاهدات</div>
-                                <div class="stat-value" id="avgViews">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الصفحة الأعلى</div>
-                                <div class="stat-value" style="font-size: 18px;" id="topPage">-</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- جدول الصفحات -->
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-table"></i>
-                        تفاصيل الصفحات
-                    </div>
-                    <table id="pagesTable">
-                        <thead>
-                            <tr>
-                                <th>الصفحة</th>
-                                <th>المشاهدات</th>
-                                <th>الزوار الفريدون</th>
-                                <th>متوسط المدة</th>
-                                <th>معدل الارتداد</th>
-                                <th>الشعبية</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pagesTableBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- صفحة المباشر -->
-            <div id="realtimePage" class="page">
-                <div style="margin-bottom: 30px;">
-                    <h1 style="color: white; margin-bottom: 10px;">المتابعة المباشرة</h1>
-                    <p style="color: #94a3b8;">متابعة الزوار في الوقت الفعلي</p>
-                </div>
-                
-                <!-- عداد المباشر -->
-                <div style="background: rgba(67, 97, 238, 0.1); border: 2px solid var(--primary); border-radius: 15px; padding: 30px; text-align: center; margin-bottom: 30px;">
-                    <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">
-                        <i class="fas fa-globe"></i>
-                        زوار مباشرون الآن
-                    </div>
-                    <div style="font-size: 48px; font-weight: 800; color: white; margin: 10px 0;" id="liveVisitors">0</div>
-                    <div style="color: #cbd5e1; font-size: 14px;">
-                        <i class="fas fa-user-clock"></i>
-                        آخر تحديث: <span id="lastUpdateTime">الآن</span>
-                    </div>
-                </div>
-                
-                <!-- قائمة المباشر -->
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-broadcast-tower"></i>
-                        نشاط حي الآن
-                    </div>
-                    <div id="liveActivity">
-                        <div style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 15px;"></i>
-                            <div>جاري تحميل النشاط الحي...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- صفحة الإعدادات -->
-            <div id="settingsPage" class="page">
-                <div style="margin-bottom: 30px;">
-                    <h1 style="color: white; margin-bottom: 10px;">إعدادات النظام</h1>
-                    <p style="color: #94a3b8;">تعديل إعدادات المدير والنظام</p>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-user-cog"></i>
-                        إعدادات المدير
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                        <div>
-                            <div class="form-group">
-                                <label>اسم المستخدم الحالي</label>
-                                <input type="text" class="form-control" id="currentUsername" value="sameh" readonly>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>اسم المستخدم الجديد</label>
-                                <input type="text" class="form-control" id="newUsername" placeholder="اتركه فارغاً للاحتفاظ بالاسم الحالي">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>كلمة المرور الجديدة</label>
-                                <input type="password" class="form-control" id="newPassword" placeholder="أدخل كلمة المرور الجديدة">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>تأكيد كلمة المرور</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="أعد إدخال كلمة المرور الجديدة">
-                            </div>
-                            
-                            <button class="btn btn-primary" onclick="updateAdminSettings()">
-                                <i class="fas fa-save"></i>
-                                حفظ التغييرات
-                            </button>
                         </div>
                         
-                        <div>
-                            <div class="form-group">
-                                <label>مدة تخزين البيانات (أيام)</label>
-                                <input type="number" class="form-control" id="dataRetention" value="30" min="7" max="365">
-                            </div>
+                        <!-- صور المشكلة الأولى -->
+                        <div style="margin: 2rem 0;">
+                            <h5 style="color: var(--primary); margin-bottom: 1rem;">
+                                <i class="fas fa-images"></i>
+                                صور توضيحية
+                            </h5>
                             
-                            <div class="form-group">
-                                <label>تحديث المباشر كل (ثانية)</label>
-                                <input type="number" class="form-control" id="refreshInterval" value="10" min="5" max="60">
-                            </div>
+                            <!-- صورة DHCP Client -->
+                            <img src="https://i.ibb.co/S7JxRNhG/dhcp-client.png" 
+                                 alt="DHCP Client Screenshot" 
+                                 class="troubleshoot-image">
+                            <p class="image-caption">الشكل 1: كيفية اكتشاف الـ IP الخفي عن طريق DHCP Client</p>
                             
-                            <div class="form-group">
-                                <label>تلقي إشعارات جديدة</label>
-                                <div>
-                                    <label style="color: #cbd5e1; margin-left: 10px;">
-                                        <input type="checkbox" id="notificationsEnabled" checked>
-                                        تفعيل الإشعارات
-                                    </label>
-                                </div>
-                            </div>
+                            <!-- صورة ARP Scan -->
+                            <img src="https://i.ibb.co/QvrD6LQj/arp-scan.png" 
+                                 alt="ARP Scan Screenshot" 
+                                 class="troubleshoot-image">
+                            <p class="image-caption">الشكل 2: اكتشاف الـ IP الخفي عن طريق ARP Scan</p>
                             
-                            <div style="margin-top: 30px;">
-                                <button class="btn btn-primary" onclick="saveSystemSettings()">
-                                    <i class="fas fa-cog"></i>
-                                    حفظ إعدادات النظام
-                                </button>
-                                
-                                <button class="logout-btn" style="margin-top: 10px; width: 100%;" onclick="resetAllData()">
-                                    <i class="fas fa-trash"></i>
-                                    حذف جميع البيانات
-                                </button>
+                            <!-- صورة IP Scan -->
+                            <img src="https://i.ibb.co/TqDSY9Hn/ip-scan.png" 
+                                 alt="IP Scan Screenshot" 
+                                 class="troubleshoot-image">
+                            <p class="image-caption">الشكل 3: استخدام أداة IP Scan لاكتشاف الأجهزة</p>
+                        </div>
+                        
+                        <p style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--danger);">
+                            <strong>ملاحظة مهمة:</strong> بمجرد ظهور IP مختلف عن IPs الشبكة الخاصة بك، هذا معناه أن هناك رسائل في شبكتك وغير مستقرة.
+                        </p>
+                        
+                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">الحل:</h4>
+                        
+                        <ol class="solution-steps">
+                            <li class="solution-step">
+                                <strong>الخطوة الأولى:</strong> محاولة الدخول على هذا الجهاز وإغلاق الـ DHCP الخاص به.
+                                <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;">في حالة عدم الاتصال به:</p>
+                            </li>
+                            <li class="solution-step">
+                                <strong>الخطوة الثانية:</strong> محاولة معرفة مكان الجهاز عن طريق تقسيم الشبكة لمناطق وفصل كل منطقة.
+                                <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;">في حالة عدم ظهور الـ IP، سيكون سهل الوصول إلى الجهاز وفصله من شبكتك.</p>
+                            </li>
+                        </ol>
+                        
+                        <div class="note-box">
+                            <strong>تحذير:</strong> ترك الجهاز في الشبكة سيكون هناك عدم استقرار في الخدمة.
+                        </div>
+                        
+                        <h5 style="color: var(--accent); margin: 1.5rem 0 1rem;">مشاكل أخرى مشابهة:</h5>
+                        <p style="color: var(--dark); margin-bottom: 1rem;">
+                            هناك أيضاً مشكلة عطل في الأرجيه أو في السلوك أو السويتشات الخاصة بك، وسيكون حلها بنفس الطريقة.
+                        </p>
+                        
+                        <p style="color: var(--dark); margin-bottom: 1rem;">
+                            هناك برنامج يقوم بتحليل الشبكة لمعرفة المشكلة:
+                        </p>
+                        
+                        <a href="https://www.wireshark.org/download.html" target="_blank" class="tool-link">
+                            <i class="fas fa-download"></i>
+                            تحميل Wireshark لتحليل الشبكة
+                        </a>
+                        
+                        <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">
+                            سيكون مفيد جداً في تحليل بيانات الشبكة الخاصة بك ومعرفة المشكلة.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- المشكلة 2: عدد الـIPs قليل -->
+                <div class="faq-item" data-category="network ip subnet">
+                    <button class="faq-question">
+                        <span>
+                            <span class="problem-icon problem-warning">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </span>
+                            عدد الـIPs الخروج الخاص بك قليل
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            <strong>المشكلة:</strong> هذا يحدث بسبب اختيار Subnet غير مناسب مع عدد IPs شبكتك. (مثال: /24)
+                        </p>
+                        
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">الحل:</h4>
+                        
+                        <p style="color: var(--dark); margin-bottom: 1rem;">
+                            يقدمه الموقع الخاص بنا في الإعدادات:
+                        </p>
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0;">
+                            <h5 style="color: var(--secondary); margin-bottom: 1rem;">
+                                <i class="fas fa-cog"></i>
+                                اختر Subnet أكبر:
+                            </h5>
+                            <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                                <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 8px;">/16</span>
+                                <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 8px;">/8</span>
+                                <span style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 8px;">/4</span>
                             </div>
+                            <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">
+                                سيكون هناك وفرة في IPs الخروج.
+                            </p>
+                        </div>
+                        
+                        <div class="note-box">
+                            <strong>ملاحظة:</strong> يمكنك استخدام أدوات الموقع لتوليد Subnet مناسب لشبكتك.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المشكلة 3: استهلاك المعالج عالي -->
+                <div class="faq-item" data-category="performance cpu hardware">
+                    <button class="faq-question">
+                        <span>
+                            <span class="problem-icon problem-info">
+                                <i class="fas fa-microchip"></i>
+                            </span>
+                            استهلاك المعالج عالي
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            <strong>المشكلة:</strong> مشكلة شائعة مع مستخدمين النسخ 5 أو أجهزة الرواتر بورد الضعيفة.
+                        </p>
+                        
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">كيف أعرف قوة استخدام جهازي؟</h4>
+                        
+                        <p style="color: var(--dark); margin-bottom: 1rem;">
+                            كيف الجهاز بتاعي قادر يتحمل العملاء والشبكة تكون قوية؟
+                        </p>
+                        
+                        <p style="color: var(--dark); margin-bottom: 1.5rem;">
+                            عن طريق <strong>Tools → Profile</strong>
+                        </p>
+                        
+                        <!-- صورة Tools Profile -->
+                        <img src="https://i.ibb.co/XxfKgNNR/tools-profile.png" 
+                             alt="Tools Profile Screenshot" 
+                             class="troubleshoot-image">
+                        <p class="image-caption">الشكل 4: مراقبة أداء المعالج عبر Tools → Profile</p>
+                        
+                        <p style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--accent); margin: 1.5rem 0;">
+                            <strong>تحليل النتيجة:</strong> في حالة وجود استهلاك قوي أو بجانب كلمة "IDE" أكثر من 50%، هذا معناه أن الجهاز غير قادر على معالجة البيانات بشكل سريع، وخصوصاً مع تطور المواقع مثل AI.
+                        </p>
+                        
+                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">الحلول المقترحة:</h4>
+                        
+                        <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                            <h5 style="color: var(--primary); margin-bottom: 0.5rem;">
+                                <i class="fas fa-sync-alt"></i>
+                                الحل الأول: تحديث النسخة
+                            </h5>
+                            <p style="color: var(--dark);">
+                                لو أنت بستخدم CPU عليه نسخة 5، الحل عمل تحديث إلى نسخة 6.
+                            </p>
+                            <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;">
+                                يمكننا مساعدتك في التحديث - تواصل مع الدعم الفني.
+                            </p>
+                        </div>
+                        
+                        <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 10px;">
+                            <h5 style="color: var(--secondary); margin-bottom: 0.5rem;">
+                                <i class="fas fa-server"></i>
+                                الحل الثاني: تغيير الهاردوير
+                            </h5>
+                            <p style="color: var(--dark);">
+                                أما في حالة الراوتر بورد الخاص بك ضعيف، الحل هو تغييره إلى راوتر أفضل يتناسب مع شبكتك.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- نافذة عرض الرسالة -->
-    <div class="modal-overlay" id="messageModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>
-                    <i class="fas fa-comment-alt"></i>
-                    عرض الرسالة والرد
-                </h3>
-                <button onclick="closeModal()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
             
-            <div class="modal-body">
-                <div style="background: rgba(67, 97, 238, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
-                            <i class="fas fa-user"></i>
+            <!-- قسم الأدوات المقترحة -->
+            <div class="tools-section">
+                <h3 class="section-title" style="margin-bottom: 3rem;">
+                    <i class="fas fa-toolbox"></i>
+                    أدوات مقترحة للتحليل
+                </h3>
+                
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-search"></i>
                         </div>
-                        <div>
-                            <div style="color: white; font-weight: 600;" id="modalUserName"></div>
-                            <div style="color: #94a3b8; font-size: 12px;" id="modalUserType"></div>
-                        </div>
-                        <div style="margin-right: auto; font-size: 12px; color: #94a3b8;" id="modalDate"></div>
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">IP Scanner</h4>
+                        <p style="color: var(--gray);">
+                            للكشف عن الأجهزة المتصلة بالشبكة
+                        </p>
                     </div>
                     
-                    <div class="message-content" id="modalMessage"></div>
-                </div>
-                
-                <!-- الحل الحالي -->
-                <div id="currentSolution" style="display: none;">
-                    <h4 style="color: white; margin-bottom: 10px;">
-                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                        الحل الحالي
-                    </h4>
-                    <div style="background: rgba(76, 201, 240, 0.1); padding: 15px; border-radius: 10px; color: #cbd5e1; line-height: 1.6;" id="solutionContent"></div>
-                </div>
-                
-                <!-- إضافة رد -->
-                <div style="margin-top: 20px;">
-                    <h4 style="color: white; margin-bottom: 10px;">
-                        <i class="fas fa-reply"></i>
-                        إضافة رد جديد
-                    </h4>
-                    <div class="reply-form">
-                        <textarea id="replyText" placeholder="اكتب ردك هنا..."></textarea>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">System Profile</h4>
+                        <p style="color: var(--gray);">
+                            لمراقبة أداء المعالج والذاكرة
+                        </p>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">Firewall Analyzer</h4>
+                        <p style="color: var(--gray);">
+                            لتحليل حركة البيانات والأمان
+                        </p>
                     </div>
                 </div>
             </div>
             
-            <div class="modal-footer">
-                <button class="btn btn-primary" onclick="submitReply()">
-                    <i class="fas fa-paper-plane"></i>
-                    إرسال الرد
-                </button>
-                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()">
-                    <i class="fas fa-check-circle"></i>
-                    تم الحل
-                </button>
-                <button class="logout-btn" onclick="closeModal()">
-                    إلغاء
-                </button>
+            <!-- دعوة للاتصال -->
+            <div class="contact-cta">
+                <h3 class="contact-cta-title">لم تجد حل مشكلتك؟</h3>
+                <p style="color: #cbd5e1; margin-bottom: 2rem; max-width: 600px; margin-right: auto; margin-left: auto;">
+                    فريق الدعم الفني لدينا متاح 24/7 للإجابة على استفساراتك وحل أي مشكلة تواجهك
+                </p>
+                <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-whatsapp"></i>
+                    تواصل مع الدعم عبر واتساب
+                </a>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- قسم مشاكل المستخدمين التفاعلي -->
+    <section class="user-problems-section">
+        <h2 class="section-title">
+            <i class="fas fa-comments"></i>
+            منتدى مشاكل المستخدمين
+        </h2>
+        
+        <p style="text-align: center; color: var(--gray); margin-bottom: 2rem; max-width: 800px; margin-right: auto; margin-left: auto;">
+            شارك مشكلتك مع مجتمع MikroTools، وساعد الآخرين بحلول مشاكلهم
+        </p>
+        
+        <!-- أزرار التصفية -->
+        <div class="problem-filters">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-layer-group"></i>
+                جميع المشاكل
+            </button>
+            <button class="filter-btn" data-filter="network">
+                <i class="fas fa-network-wired"></i>
+                شبكة واتصال
+            </button>
+            <button class="filter-btn" data-filter="performance">
+                <i class="fas fa-tachometer-alt"></i>
+                أداء وبطء
+            </button>
+            <button class="filter-btn" data-filter="dhcp">
+                <i class="fas fa-server"></i>
+                مشاكل DHCP
+            </button>
+            <button class="filter-btn" data-filter="solved">
+                <i class="fas fa-check-circle"></i>
+                تم الحل
+            </button>
+            <button class="filter-btn" data-filter="unsolved">
+                <i class="fas fa-clock"></i>
+                قيد الانتظار
+            </button>
+        </div>
+        
+        <!-- قائمة المشاكل -->
+        <div class="problems-list" id="problemsList">
+            <!-- المشاكل تظهر هنا عبر JavaScript -->
+            <div class="no-problems" style="text-align: center; padding: 3rem; color: var(--gray);">
+                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; color: #e2e8f0;"></i>
+                <h4 style="color: var(--dark); margin-bottom: 0.5rem;">لا توجد مشاكل بعد</h4>
+                <p>كن أول من يشارك مشكلته مع المجتمع!</p>
+            </div>
+        </div>
+        
+        <!-- نموذج إضافة مشكلة -->
+        <div class="add-problem-form">
+            <h3 class="form-title">
+                <i class="fas fa-plus-circle"></i>
+                أضف مشكلتك
+            </h3>
+            
+            <form id="addProblemForm">
+                <textarea class="form-textarea" 
+                          id="problemText" 
+                          placeholder="اكتب مشكلتك بالتفصيل..."></textarea>
+                
+                <div class="form-row">
+                    <input type="text" 
+                           class="form-input" 
+                           id="userName" 
+                           placeholder="اسمك (اختياري)">
+                    
+                    <select class="form-select" id="problemType">
+                        <option value="network">شبكة واتصال</option>
+                        <option value="dhcp">مشاكل DHCP</option>
+                        <option value="performance">أداء وبطء</option>
+                        <option value="hardware">مشاكل هاردوير</option>
+                        <option value="configuration">إعدادات وتهيئة</option>
+                        <option value="other">مشاكل أخرى</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    نشر المشكلة
+                </button>
+                
+                <p class="form-note">
+                    <i class="fas fa-info-circle"></i>
+                    ستظهر مشكلتك للجميع وسيقوم فريق الدعم بحلها من خلال لوحة التحكم
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                <i class="fas fa-phone-alt"></i>
+                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+            </p>
+            <p class="copyright">
+                © 2024 MikroTools. جميع الحقوق محفوظة.
+            </p>
+        </div>
+    </footer>
+
+    <!-- أيقونات التواصل العائمة -->
+    <iframe 
+        src="mikro-icons.html" 
+        style="
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 90px;
+            height: 280px;
+            border: none;
+            z-index: 99999;
+            background: transparent;
+            pointer-events: auto;
+        "
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true">
+    </iframe>
 
     <script>
-        // ===== ثوابت النظام =====
-        const ALL_PROBLEMS_KEY = 'allUserProblems';
-        const ADMIN_NEW_PROBLEMS_KEY = 'adminNewProblems';
-        const ANALYTICS_KEY = 'mikrotools_analytics';
-        const VISITORS_KEY = 'mikrotools_visitors';
-        const PAGES_KEY = 'mikrotools_pages';
-        const ADMIN_CONFIG_KEY = 'mikrotools_admin_config';
-        const SESSION_KEY = 'mikrotools_admin_session';
-        
-        // ===== متغيرات النظام =====
-        let messagesData = [];
-        let analyticsData = null;
-        let visitorsData = [];
-        let pagesData = {};
-        let currentFilter = 'all';
-        let searchQuery = '';
-        let currentMessageId = null;
-        let realtimeInterval = null;
-        
-        // ===== نظام الصفحات =====
-        const PAGES_LIST = {
-            'index.html': { name: 'الرئيسية', color: '#4361ee' },
-            'hotspot.html': { name: 'هوت سبوت', color: '#4cc9f0' },
-            'merge-v6.html': { name: 'دمج v6', color: '#f8961e' },
-            'merge-v7.html': { name: 'دمج v7', color: '#f72585' },
-            'block-sites.html': { name: 'حجب مواقع', color: '#7209b7' },
-            'speed-profiles.html': { name: 'بروفايلات السرعة', color: '#3a0ca3' },
-            'troubleshooting.html': { name: 'المشكلات الشائعة', color: '#560bad' }
-        };
-        
-        // ===== تهيئة النظام =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // إخفاء شاشة التحميل بعد ثانية
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                
-                // تحميل بيانات المدير والتحقق من الجلسة
-                if (checkSession()) {
-                    showDashboard();
-                    initSystem();
-                } else {
-                    showLoginScreen();
-                }
-            }, 1000);
-            
-            // إعداد معالجات الأحداث
-            setupEventListeners();
-            
-            // طلب إذن الإشعارات
-            if (Notification.permission === "default") {
-                Notification.requestPermission();
+        // ===== نظام المشاكل فقط =====
+        let userProblems = JSON.parse(localStorage.getItem('userProblems')) || [
+            {
+                id: 1,
+                user: "محمد أحمد",
+                problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
+                type: "network",
+                date: "15 يناير 2024",
+                likes: 8,
+                likedBy: [],
+                solved: true,
+                solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً."
+            },
+            {
+                id: 2,
+                user: "خالد محمود",
+                problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
+                type: "performance",
+                date: "14 يناير 2024",
+                likes: 15,
+                likedBy: [],
+                solved: false,
+                solution: ""
+            },
+            {
+                id: 3,
+                user: "أحمد سعيد",
+                problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
+                type: "dhcp",
+                date: "13 يناير 2024",
+                likes: 5,
+                likedBy: [],
+                solved: true,
+                solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases."
+            },
+            {
+                id: 4,
+                user: "عمرو",
+                problem: "الواي فاي بيضعف فجأة في أوقات الذروة",
+                type: "performance",
+                date: "12 يناير 2024",
+                likes: 12,
+                likedBy: [],
+                solved: false,
+                solution: ""
             }
+        ];
+        
+        // تهيئة النظام
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            setupNavigation();
+            setupFAQ();
+            loadProblems();
         });
         
-        function initSystem() {
-            // تحميل جميع البيانات
-            loadMessagesData();
-            loadAnalyticsData();
-            loadVisitorsData();
-            loadPagesData();
-            
-            // تحديث العرض
-            updateDashboard();
-            updateMessagesDisplay();
-            
-            // بدء التحديث التلقائي
-            startRealtimeUpdates();
-        }
-        
-        // ===== نظام المصادقة =====
-        
-        function loadAdminConfig() {
-            try {
-                const savedConfig = localStorage.getItem(ADMIN_CONFIG_KEY);
-                return savedConfig ? JSON.parse(savedConfig) : {
-                    username: "sameh",
-                    password: "0166843763",
-                    lastChange: new Date().toISOString()
-                };
-            } catch (error) {
-                return {
-                    username: "sameh",
-                    password: "0166843763",
-                    lastChange: new Date().toISOString()
-                };
-            }
-        }
-        
-        function checkSession() {
-            try {
-                const session = localStorage.getItem(SESSION_KEY);
-                if (!session) return false;
-                
-                const sessionData = JSON.parse(session);
-                const sessionTime = new Date(sessionData.timestamp);
-                const now = new Date();
-                const hoursDiff = Math.abs(now - sessionTime) / 36e5;
-                
-                if (hoursDiff < 24) {
-                    // تحديث الجلسة
-                    sessionData.timestamp = new Date().toISOString();
-                    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-                    return true;
-                }
-            } catch (error) {
-                console.error('خطأ في الجلسة:', error);
-            }
-            return false;
-        }
-        
-        function handleLogin(event) {
-            event.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const adminConfig = loadAdminConfig();
-            
-            if (username === adminConfig.username && password === adminConfig.password) {
-                // إنشاء جلسة
-                const sessionData = {
-                    username: username,
-                    timestamp: new Date().toISOString()
-                };
-                localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-                
-                // عرض لوحة التحكم
-                showDashboard();
-                initSystem();
-                
-                showNotification('تم تسجيل الدخول بنجاح', 'success');
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        }
-        
-        function handleLogout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                // إيقاف التحديثات
-                if (realtimeInterval) {
-                    clearInterval(realtimeInterval);
-                }
-                
-                // حذف الجلسة
-                localStorage.removeItem(SESSION_KEY);
-                
-                // إعادة التوجيه
-                showLoginScreen();
-                document.getElementById('loginForm').reset();
-                
-                showNotification('تم تسجيل الخروج بنجاح', 'success');
-            }
-        }
-        
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboard').classList.remove('active');
-        }
-        
-        function showDashboard() {
-            const adminConfig = loadAdminConfig();
-            document.getElementById('userName').textContent = adminConfig.username;
-            document.getElementById('currentUsername').value = adminConfig.username;
-            
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-        }
-        
-        // ===== نظام الرسائل =====
-        
-        function loadMessagesData() {
-            try {
-                console.log('🔄 جاري تحميل بيانات الرسائل...');
-                
-                // تحميل البيانات من التخزين المركزي
-                const savedData = localStorage.getItem(ALL_PROBLEMS_KEY);
-                console.log('📊 بيانات التخزين المركزي:', savedData);
-                
-                if (savedData) {
-                    messagesData = JSON.parse(savedData);
-                    console.log(`✅ تم تحميل ${messagesData.length} رسالة من المستخدمين`);
-                    
-                    // تحويل تواريخ النصوص إلى كائنات Date
-                    messagesData.forEach(msg => {
-                        if (msg.date && typeof msg.date === 'string') {
-                            msg.date = new Date(msg.date);
-                        }
-                        if (!msg.likes) msg.likes = 0;
-                        if (!msg.likedBy) msg.likedBy = [];
-                        if (!msg.solved) msg.solved = false;
-                        if (!msg.solution) msg.solution = "";
-                        if (!msg.replies) msg.replies = [];
-                        if (!msg.views) msg.views = 0;
-                        if (!msg.priority) msg.priority = "medium";
-                        if (!msg.status) msg.status = "pending";
-                        if (!msg.adminReplies) msg.adminReplies = 0;
-                    });
-                    
-                    // تحديث الشارة
-                    updateNewMessagesBadge();
-                } else {
-                    // لا توجد بيانات بعد
-                    messagesData = [];
-                    console.log('📭 لا توجد بيانات للمستخدمين بعد');
-                }
-            } catch (error) {
-                console.error('❌ خطأ في تحميل الرسائل:', error);
-                messagesData = [];
-            }
-        }
-        
-        // تحديث شارة المشاكل الجديدة
-        function updateNewMessagesBadge() {
-            const badge = document.getElementById('newMessagesBadge');
-            
-            // التحقق من المشاكل الجديدة من قائمة انتظار الإدمن
-            let newProblemsCount = 0;
-            try {
-                const adminQueue = localStorage.getItem(ADMIN_NEW_PROBLEMS_KEY);
-                if (adminQueue) {
-                    const queueData = JSON.parse(adminQueue);
-                    newProblemsCount = queueData.filter(p => !p.read).length;
-                }
-            } catch (error) {
-                console.error('خطأ في قراءة إشعارات الإدمن:', error);
-            }
-            
-            if (newProblemsCount > 0) {
-                badge.textContent = newProblemsCount;
-                badge.style.display = 'inline-block';
-            } else {
-                badge.style.display = 'none';
-            }
-        }
-        
-        function saveMessagesData() {
-            try {
-                // حفظ في التخزين المركزي
-                localStorage.setItem(ALL_PROBLEMS_KEY, JSON.stringify(messagesData));
-                console.log(`💾 تم حفظ ${messagesData.length} رسالة في التخزين المركزي`);
-            } catch (error) {
-                console.error('❌ خطأ في حفظ الرسائل:', error);
-                showNotification('خطأ في حفظ البيانات', 'error');
-            }
-        }
-        
-        function updateMessagesDisplay() {
-            const tbody = document.getElementById('messagesTableBody');
-            
-            // تصفية الرسائل
-            let filteredMessages = messagesData.filter(msg => {
-                // التصفية حسب النوع
-                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
-                    if (msg.type !== currentFilter) return false;
-                }
-                
-                // التصفية حسب الحالة
-                if (currentFilter === 'pending') {
-                    if (msg.solved) return false;
-                }
-                if (currentFilter === 'solved') {
-                    if (!msg.solved) return false;
-                }
-                
-                // البحث
-                if (searchQuery) {
-                    const searchText = (msg.user + ' ' + msg.problem + ' ' + (msg.solution || '')).toLowerCase();
-                    if (!searchText.includes(searchQuery.toLowerCase())) return false;
-                }
-                
-                return true;
+        function setupEventListeners() {
+            // البحث
+            document.getElementById('searchBtn').addEventListener('click', handleSearch);
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleSearch();
             });
             
-            // ترتيب حسب التاريخ (الأحدث أولاً)
-            filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
+            // إضافة مشكلة
+            document.getElementById('addProblemForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addUserProblem();
+            });
             
-            if (filteredMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                            <div style="font-size: 16px;">لا توجد رسائل</div>
-                            <div style="font-size: 14px; margin-top: 10px;">سيظهر هنا المشاكل التي يضيفها المستخدمون في صفحة المشكلات</div>
-                        </td>
-                    </tr>
+            // التصفية
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterProblems(this.dataset.filter);
+                });
+            });
+        }
+        
+        function setupNavigation() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                menuToggle.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.nav-container') && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+        
+        function setupFAQ() {
+            // Accordion للأسئلة الشائعة
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const item = button.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    document.querySelectorAll('.faq-item').forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+            
+            // فتح أول سؤال
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) {
+                firstFaq.classList.add('active');
+            }
+        }
+        
+        function loadProblems() {
+            displayProblems('all');
+        }
+        
+        function displayProblems(filter = 'all') {
+            const container = document.getElementById('problemsList');
+            let filteredProblems = userProblems;
+            
+            if (filter === 'solved') {
+                filteredProblems = userProblems.filter(p => p.solved);
+            } else if (filter === 'unsolved') {
+                filteredProblems = userProblems.filter(p => !p.solved);
+            } else if (filter !== 'all') {
+                filteredProblems = userProblems.filter(p => p.type === filter);
+            }
+            
+            if (filteredProblems.length === 0) {
+                container.innerHTML = `
+                    <div class="no-problems" style="text-align: center; padding: 3rem; color: var(--gray);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; color: #e2e8f0;"></i>
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">لا توجد مشاكل في هذا القسم</h4>
+                        <p>جرب قسم آخر أو أضف مشكلة جديدة</p>
+                    </div>
                 `;
                 return;
             }
             
-            // عرض الرسائل
-            tbody.innerHTML = filteredMessages.map((msg, index) => {
-                const messagePreview = msg.problem.length > 60 ? 
-                    msg.problem.substring(0, 60) + '...' : msg.problem;
-                
-                const dateStr = formatDate(msg.date);
+            container.innerHTML = filteredProblems.map(problem => {
+                const likedBy = problem.likedBy || [];
+                const isLiked = likedBy.includes(getUserIdentifier());
+                const typeArabic = getTypeArabic(problem.type);
                 
                 return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>
-                            <div style="font-weight: 600; color: white;">${msg.user}</div>
-                            <div style="font-size: 12px; color: #94a3b8;">${getTypeArabic(msg.type)}</div>
-                        </td>
-                        <td>
-                            <span class="badge ${msg.type === 'network' ? 'badge-success' : msg.type === 'performance' ? 'badge-warning' : 'badge-info'}">
-                                ${getTypeArabic(msg.type)}
+                    <div class="problem-card" data-id="${problem.id}" data-type="${problem.type}">
+                        <div class="problem-header">
+                            <div>
+                                <span class="user-name">
+                                    <i class="fas fa-user"></i>
+                                    ${problem.user}
+                                </span>
+                                <span class="problem-type">${typeArabic}</span>
+                            </div>
+                            <span class="problem-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                ${problem.date}
                             </span>
-                        </td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${dateStr}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>' : 
-                                '<span class="badge badge-warning"><i class="fas fa-clock"></i> قيد الانتظار</span>'
+                        </div>
+                        
+                        <div class="problem-content">
+                            <p>${problem.problem}</p>
+                        </div>
+                        
+                        <div class="problem-footer">
+                            <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeProblem(${problem.id})">
+                                <i class="fas fa-thumbs-up"></i>
+                                أعجبني (${problem.likes})
+                            </button>
+                            
+                            ${problem.solved ? 
+                                `<span class="status-badge status-solved">
+                                    <i class="fas fa-check-circle"></i>
+                                    تم الحل
+                                </span>` : 
+                                `<span class="status-badge status-pending">
+                                    <i class="fas fa-clock"></i>
+                                    قيد الانتظار
+                                </span>`
                             }
-                        </td>
-                        <td>
-                            <button class="action-btn btn-view" onclick="viewMessage(${msg.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})">
-                                <i class="fas fa-reply"></i>
-                            </button>
-                            <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                        </div>
+                        
+                        ${problem.solved && problem.solution ? `
+                            <div class="solution-box">
+                                <strong>
+                                    <i class="fas fa-lightbulb"></i>
+                                    الحل من فريق الدعم:
+                                </strong>
+                                <p>${problem.solution}</p>
+                            </div>
+                        ` : ''}
+                    </div>
                 `;
             }).join('');
-            
-            // تحديث الإحصائيات
-            updateMessagesStats();
         }
         
-        function updateMessagesStats() {
-            const total = messagesData.length;
-            const pending = messagesData.filter(msg => !msg.solved).length;
-            const solved = messagesData.filter(msg => msg.solved).length;
-            
-            const today = new Date().toDateString();
-            const newToday = messagesData.filter(msg => {
-                const msgDate = new Date(msg.date).toDateString();
-                return msgDate === today;
-            }).length;
-            
-            // تحديث الإحصائيات في صفحة الرسائل
-            document.getElementById('messagesTotal').textContent = total;
-            document.getElementById('messagesPending').textContent = pending;
-            document.getElementById('messagesSolved').textContent = solved;
-            document.getElementById('messagesToday').textContent = newToday;
-            
-            // تحديث الإحصائيات في لوحة التحكم
-            document.getElementById('totalMessages').textContent = total;
-            
-            // تحديث الشارة
-            updateNewMessagesBadge();
-            
-            // تحديث آخر الرسائل
-            updateRecentMessages();
+        function filterProblems(filter) {
+            displayProblems(filter);
         }
         
-        function updateRecentMessages() {
-            const tbody = document.getElementById('recentMessagesBody');
-            const recentMessages = messagesData
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 5);
+        function addUserProblem() {
+            const problemText = document.getElementById('problemText').value.trim();
+            const userName = document.getElementById('userName').value.trim() || "مستخدم";
+            const problemType = document.getElementById('problemType').value;
             
-            if (recentMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #94a3b8;">
-                            لا توجد رسائل حديثة
-                        </td>
-                    </tr>
-                `;
+            if (!problemText) {
+                showNotification('الرجاء كتابة وصف المشكلة', 'error');
                 return;
             }
             
-            tbody.innerHTML = recentMessages.map(msg => {
-                const messagePreview = msg.problem.length > 50 ? 
-                    msg.problem.substring(0, 50) + '...' : msg.problem;
-                
-                return `
-                    <tr>
-                        <td>${msg.user}</td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${getTypeArabic(msg.type)}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success">تم الحل</span>' : 
-                                '<span class="badge badge-warning">قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>${formatDate(msg.date)}</td>
-                    </tr>
-                `;
-            }).join('');
+            const newProblem = {
+                id: userProblems.length > 0 ? Math.max(...userProblems.map(p => p.id)) + 1 : 1,
+                user: userName,
+                problem: problemText,
+                type: problemType,
+                date: new Date().toLocaleDateString('ar-EG'),
+                likes: 0,
+                likedBy: [],
+                solved: false,
+                solution: ""
+            };
+            
+            userProblems.push(newProblem);
+            localStorage.setItem('userProblems', JSON.stringify(userProblems));
+            
+            document.getElementById('problemText').value = '';
+            document.getElementById('userName').value = '';
+            
+            displayProblems('all');
+            showNotification('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً', 'success');
         }
         
-        // ===== دوال عرض الرسائل =====
-        
-        function viewMessage(messageId) {
-            const message = messagesData.find(msg => msg.id === messageId);
-            if (!message) return;
+        function likeProblem(problemId) {
+            const problem = userProblems.find(p => p.id === problemId);
+            if (!problem) return;
             
-            currentMessageId = messageId;
+            problem.likedBy = problem.likedBy || [];
+            const userId = getUserIdentifier();
+            const index = problem.likedBy.indexOf(userId);
             
-            // زيادة عدد المشاهدات
-            message.views = (message.views || 0) + 1;
-            saveMessagesData();
-            
-            // تحديث بيانات النافذة
-            document.getElementById('modalUserName').textContent = message.user;
-            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
-            document.getElementById('modalDate').textContent = formatDate(message.date);
-            document.getElementById('modalMessage').textContent = message.problem;
-            
-            // عرض الحل إذا كان موجوداً
-            if (message.solution) {
-                document.getElementById('currentSolution').style.display = 'block';
-                document.getElementById('solutionContent').textContent = message.solution;
-                document.getElementById('markSolvedBtn').style.display = 'none';
+            if (index === -1) {
+                problem.likedBy.push(userId);
+                problem.likes++;
             } else {
-                document.getElementById('currentSolution').style.display = 'none';
-                document.getElementById('markSolvedBtn').style.display = 'inline-block';
+                problem.likedBy.splice(index, 1);
+                problem.likes = Math.max(0, problem.likes - 1);
             }
             
-            // عرض النافذة
-            document.getElementById('messageModal').classList.add('active');
+            localStorage.setItem('userProblems', JSON.stringify(userProblems));
+            displayProblems('all');
+        }
+        
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const problems = document.querySelectorAll('.problem-card');
             
-            // تعليم المشكلة كمقروءة في قائمة انتظار الإدمن
-            markProblemAsRead(messageId);
-        }
-        
-        function markProblemAsRead(problemId) {
-            try {
-                let adminQueue = localStorage.getItem(ADMIN_NEW_PROBLEMS_KEY);
-                if (adminQueue) {
-                    let queueData = JSON.parse(adminQueue);
-                    queueData = queueData.map(p => {
-                        if (p.problemId === problemId) {
-                            p.read = true;
-                        }
-                        return p;
-                    });
-                    localStorage.setItem(ADMIN_NEW_PROBLEMS_KEY, JSON.stringify(queueData));
-                    updateNewMessagesBadge();
-                }
-            } catch (error) {
-                console.error('خطأ في تعليم المشكلة كمقروءة:', error);
-            }
-        }
-        
-        function clearAdminNotifications() {
-            try {
-                localStorage.removeItem(ADMIN_NEW_PROBLEMS_KEY);
-                updateNewMessagesBadge();
-                showNotification('تم مسح جميع الإشعارات', 'success');
-            } catch (error) {
-                console.error('خطأ في مسح الإشعارات:', error);
-            }
-        }
-        
-        function replyToMessage(messageId) {
-            viewMessage(messageId);
-            document.getElementById('replyText').focus();
-        }
-        
-        function submitReply() {
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد', 'error');
+            if (!searchTerm) {
+                problems.forEach(p => p.style.display = 'block');
                 return;
             }
             
-            const message = messagesData.find(msg => msg.id === currentMessageId);
-            if (!message) return;
-            
-            // إضافة الرد
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date(),
-                content: replyText
-            });
-            
-            // زيادة عدد ردود المدير
-            message.adminReplies = (message.adminReplies || 0) + 1;
-            
-            // إذا كان هذا أول رد من المدير، نعتبره حلاً
-            if (!message.solution) {
-                message.solution = replyText;
-                message.solved = true;
-                message.solvedDate = new Date();
-                message.status = "resolved";
-            }
-            
-            // حفظ التغييرات
-            saveMessagesData();
-            
-            // تحديث العرض
-            viewMessage(currentMessageId);
-            document.getElementById('replyText').value = '';
-            
-            // إشعار
-            showNotification('تم إرسال الرد بنجاح', 'success');
-            
-            // تحديث القائمة
-            updateMessagesDisplay();
-            updateDashboard();
-        }
-        
-        function markAsSolved() {
-            const message = messagesData.find(msg => msg.id === currentMessageId);
-            if (!message) return;
-            
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
-                return;
-            }
-            
-            message.solution = replyText;
-            message.solved = true;
-            message.solvedDate = new Date();
-            message.status = "resolved";
-            
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date(),
-                content: replyText
-            });
-            
-            message.adminReplies = (message.adminReplies || 0) + 1;
-            
-            saveMessagesData();
-            closeModal();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم تعيين المشكلة كمحلولة', 'success');
-        }
-        
-        function deleteMessage(messageId) {
-            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
-            
-            messagesData = messagesData.filter(msg => msg.id !== messageId);
-            saveMessagesData();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم حذف الرسالة', 'success');
-        }
-        
-        function closeModal() {
-            document.getElementById('messageModal').classList.remove('active');
-            document.getElementById('replyText').value = '';
-            currentMessageId = null;
-        }
-        
-        // ===== دوال المساعدة =====
-        
-        function formatDate(date) {
-            if (!date) return 'غير معروف';
-            
-            const d = new Date(date);
-            const now = new Date();
-            const diffMs = now - d;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
-            
-            if (diffMins < 60) {
-                return `منذ ${diffMins} دقيقة`;
-            }
-            
-            const diffHours = Math.floor(diffMins / 60);
-            if (diffHours < 24) {
-                return `منذ ${diffHours} ساعة`;
-            }
-            
-            return d.toLocaleDateString('ar-EG', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
+            problems.forEach(problem => {
+                const text = problem.textContent.toLowerCase();
+                problem.style.display = text.includes(searchTerm) ? 'block' : 'none';
             });
         }
         
@@ -2114,9 +1711,33 @@
             return types[type] || type;
         }
         
-        function showNotification(message, type = 'success') {
+        function getUserIdentifier() {
+            let userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('userId', userId);
+            }
+            return userId;
+        }
+        
+        function showNotification(message, type) {
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideInRight 0.3s ease;
+            `;
+            
             notification.innerHTML = `
                 <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
                 ${message}
@@ -2125,210 +1746,37 @@
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideInRight 0.3s ease reverse';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
         
-        // ===== تحديث البيانات =====
-        
-        function refreshData() {
-            const syncIcon = document.getElementById('syncIcon');
-            syncIcon.classList.add('sync-animation');
-            
-            setTimeout(() => {
-                loadMessagesData();
-                loadAnalyticsData();
-                loadVisitorsData();
-                loadPagesData();
-                
-                updateDashboard();
-                updateMessagesDisplay();
-                updateVisitorsDisplay();
-                updatePagesDisplay();
-                
-                syncIcon.classList.remove('sync-animation');
-                showNotification('تم تحديث جميع البيانات بنجاح', 'success');
-            }, 1000);
-        }
-        
-        function refreshMessages() {
-            loadMessagesData();
-            updateMessagesDisplay();
-            showNotification('تم تحديث قائمة الرسائل', 'success');
-        }
-        
-        // ===== التنقل بين الصفحات =====
-        
-        function setupEventListeners() {
-            // تسجيل الدخول
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            
-            // تسجيل الخروج
-            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-            
-            // التنقل بين الصفحات
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // تحديث الروابط النشطة
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // إظهار الصفحة المطلوبة
-                    const pageId = this.dataset.page;
-                    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-                    
-                    switch(pageId) {
-                        case 'dashboard':
-                            document.getElementById('dashboardPage').classList.add('active');
-                            updateDashboard();
-                            break;
-                        case 'messages':
-                            document.getElementById('messagesPage').classList.add('active');
-                            updateMessagesDisplay();
-                            break;
-                        case 'visitors':
-                            document.getElementById('visitorsPage').classList.add('active');
-                            updateVisitorsDisplay();
-                            break;
-                        case 'pages':
-                            document.getElementById('pagesPage').classList.add('active');
-                            updatePagesDisplay();
-                            break;
-                        case 'realtime':
-                            document.getElementById('realtimePage').classList.add('active');
-                            updateRealtimeData();
-                            break;
-                        case 'settings':
-                            document.getElementById('settingsPage').classList.add('active');
-                            break;
-                    }
-                });
-            });
-            
-            // فلاتر الرسائل
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    updateMessagesDisplay();
-                });
-            });
-            
-            // البحث في الرسائل
-            document.getElementById('searchMessages').addEventListener('input', function() {
-                searchQuery = this.value;
-                updateMessagesDisplay();
-            });
-        }
-        
-        // ===== دوال أخرى (للتوافق) =====
-        
-        function loadAnalyticsData() {
-            try {
-                const savedData = localStorage.getItem(ANALYTICS_KEY);
-                analyticsData = savedData ? JSON.parse(savedData) : {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    lastUpdate: new Date().toISOString(),
-                    dailyStats: {},
-                    hourlyStats: {}
-                };
-            } catch (error) {
-                analyticsData = {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    lastUpdate: new Date().toISOString(),
-                    dailyStats: {},
-                    hourlyStats: {}
-                };
+        // إضافة أنماط الحركة
+        const animationStyles = document.createElement('style');
+        animationStyles.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
             }
-        }
-        
-        function loadVisitorsData() {
-            try {
-                const savedData = localStorage.getItem(VISITORS_KEY);
-                visitorsData = savedData ? JSON.parse(savedData) : [];
-            } catch (error) {
-                visitorsData = [];
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
             }
-        }
-        
-        function loadPagesData() {
-            try {
-                const savedData = localStorage.getItem(PAGES_KEY);
-                pagesData = savedData ? JSON.parse(savedData) : {};
-            } catch (error) {
-                pagesData = {};
-            }
-        }
-        
-        function updateDashboard() {
-            // تحديث إحصائيات الزوار
-            const totalVisitors = visitorsData.length;
-            const totalVisits = analyticsData.totalVisits || 0;
-            const totalPageViews = Object.values(pagesData).reduce((sum, page) => sum + (page.views || 0), 0);
-            const totalMessages = messagesData.length;
-            const solvedMessages = messagesData.filter(msg => msg.solved).length;
-            const resolutionRate = totalMessages > 0 ? Math.round((solvedMessages / totalMessages) * 100) : 0;
-            
-            // تحديث الأرقام
-            document.getElementById('totalVisitors').textContent = totalVisitors;
-            document.getElementById('totalVisits').textContent = totalVisits;
-            document.getElementById('totalPageViews').textContent = totalPageViews;
-            document.getElementById('resolutionRate').textContent = resolutionRate + '%';
-            
-            // تحديث الرسوم البيانية
-            updateCharts();
-        }
-        
-        function updateCharts() {
-            // ... كود المخططات السابق
-        }
-        
-        function startRealtimeUpdates() {
-            // تحديث كل 30 ثانية
-            realtimeInterval = setInterval(() => {
-                updateRealtimeData();
-            }, 30000);
-            
-            updateRealtimeData();
-        }
-        
-        function updateRealtimeData() {
-            // ... كود تحديث الوقت الحقيقي السابق
-        }
-        
-        function updateVisitorsDisplay() {
-            // ... كود عرض الزوار السابق
-        }
-        
-        function updatePagesDisplay() {
-            // ... كود عرض الصفحات السابق
-        }
-        
-        // ===== إعدادات النظام =====
-        
-        function updateAdminSettings() {
-            // ... كود تحديث إعدادات المدير السابق
-        }
-        
-        function saveSystemSettings() {
-            // ... كود حفظ إعدادات النظام السابق
-        }
-        
-        function resetAllData() {
-            // ... كود إعادة تعيين البيانات السابق
-        }
+        `;
+        document.head.appendChild(animationStyles);
     </script>
 </body>
 </html>
