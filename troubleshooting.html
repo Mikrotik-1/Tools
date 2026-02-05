@@ -1401,95 +1401,135 @@
     </footer>
 
     <script>
-        // ===== نظام المشاكل البسيط =====
+        // ===== إعدادات JSONbin =====
+        const JSONBIN_CONFIG = {
+            BIN_ID: "6984eca2d0ea881f40a39cbb",
+            API_KEY: "$2a$10$LKP/FB2Zfim9t9kde3.imuB3A7nl8YYRNzgPS/G5h184Ycjd4v4JC"
+        };
+
+        // ===== خدمة JSONbin =====
+        class JsonbinService {
+            constructor() {
+                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
+                this.headers = {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_CONFIG.API_KEY
+                };
+            }
+
+            async getProblems() {
+                try {
+                    const response = await fetch(`${this.baseURL}/latest`, {
+                        headers: this.headers,
+                        cache: 'no-cache'
+                    });
+                    
+                    if (!response.ok) throw new Error('فشل في جلب البيانات');
+                    
+                    const data = await response.json();
+                    return data.record || { problems: [] };
+                } catch (error) {
+                    console.error('خطأ في جلب المشكلات:', error);
+                    return { problems: [] };
+                }
+            }
+
+            async saveProblems(problems) {
+                try {
+                    const response = await fetch(this.baseURL, {
+                        method: 'PUT',
+                        headers: this.headers,
+                        body: JSON.stringify({
+                            problems: problems,
+                            lastUpdate: new Date().toISOString()
+                        })
+                    });
+                    
+                    if (!response.ok) throw new Error('فشل في حفظ البيانات');
+                    
+                    return await response.json();
+                } catch (error) {
+                    console.error('خطأ في حفظ المشكلات:', error);
+                    throw error;
+                }
+            }
+
+            async addProblem(newProblem) {
+                try {
+                    const currentData = await this.getProblems();
+                    const problems = currentData.problems || [];
+                    
+                    problems.unshift(newProblem);
+                    
+                    await this.saveProblems(problems);
+                    return newProblem;
+                } catch (error) {
+                    console.error('خطأ في إضافة مشكلة:', error);
+                    throw error;
+                }
+            }
+
+            async updateProblem(problemId, updates) {
+                try {
+                    const currentData = await this.getProblems();
+                    const problems = currentData.problems || [];
+                    
+                    const index = problems.findIndex(p => p.id === problemId);
+                    if (index !== -1) {
+                        problems[index] = { ...problems[index], ...updates };
+                        await this.saveProblems(problems);
+                        return problems[index];
+                    }
+                    return null;
+                } catch (error) {
+                    console.error('خطأ في تحديث المشكلة:', error);
+                    throw error;
+                }
+            }
+        }
+
+        // ===== نظام المشاكل مع JSONbin =====
         class ProblemsApp {
             constructor() {
-                this.localStorageKey = 'mikrotools_problems';
+                this.jsonbinService = new JsonbinService();
                 this.userId = this.getUserId();
                 this.currentFilter = 'all';
-                this.problems = this.loadProblems();
+                this.problems = [];
             }
 
             getUserId() {
-                let userId = localStorage.getItem('userId');
+                let userId = localStorage.getItem('mikrotools_user_id');
                 if (!userId) {
-                    userId = 'user_' + Math.random().toString(36).substr(2, 9);
-                    localStorage.setItem('userId', userId);
+                    userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+                    localStorage.setItem('mikrotools_user_id', userId);
                 }
                 return userId;
             }
 
-            loadProblems() {
-                try {
-                    const data = localStorage.getItem(this.localStorageKey);
-                    if (data) {
-                        return JSON.parse(data);
-                    }
-                } catch (error) {
-                    console.error('خطأ في تحميل المشكلات:', error);
-                }
-                
-                // بيانات تجريبية إذا لم توجد بيانات
-                return [
-                    {
-                        id: 1,
-                        user: "محمد أحمد",
-                        type: "network",
-                        problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
-                        date: new Date().toISOString(),
-                        likes: 8,
-                        likedBy: [],
-                        solved: true,
-                        solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.",
-                        status: "resolved"
-                    },
-                    {
-                        id: 2,
-                        user: "خالد محمود",
-                        type: "performance",
-                        problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
-                        date: new Date(Date.now() - 86400000).toISOString(),
-                        likes: 15,
-                        likedBy: [],
-                        solved: false,
-                        solution: "",
-                        status: "pending"
-                    },
-                    {
-                        id: 3,
-                        user: "أحمد سعيد",
-                        type: "dhcp",
-                        problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
-                        date: new Date(Date.now() - 2 * 86400000).toISOString(),
-                        likes: 5,
-                        likedBy: [],
-                        solved: true,
-                        solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
-                        status: "resolved"
-                    }
-                ];
-            }
-
-            saveProblems() {
-                try {
-                    localStorage.setItem(this.localStorageKey, JSON.stringify(this.problems));
-                } catch (error) {
-                    console.error('خطأ في حفظ المشكلات:', error);
-                }
-            }
-
             async init() {
+                await this.loadProblems();
                 this.setupEventListeners();
                 this.setupNavigation();
                 this.setupFAQ();
                 this.displayProblems();
             }
 
+            async loadProblems() {
+                try {
+                    const data = await this.jsonbinService.getProblems();
+                    this.problems = data.problems || [];
+                    console.log('تم تحميل المشكلات:', this.problems.length);
+                } catch (error) {
+                    console.error('خطأ في تحميل المشكلات:', error);
+                    this.problems = [];
+                }
+            }
+
             setupEventListeners() {
                 // إضافة مشكلة
-                document.getElementById('addProblemForm').addEventListener('submit', (e) => {
+                document.getElementById('addProblemForm').addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    this.addUserProblem();
+                    await this.addUserProblem();
                 });
 
                 // التصفية
@@ -1649,7 +1689,7 @@
                 }).join('');
             }
 
-            addUserProblem() {
+            async addUserProblem() {
                 const problemText = document.getElementById('problemText').value.trim();
                 const userName = document.getElementById('userName').value.trim() || "مستخدم مجهول";
                 const problemType = document.getElementById('problemType').value;
@@ -1678,11 +1718,11 @@
                         status: 'pending'
                     };
 
-                    // إضافة المشكلة في بداية القائمة
-                    this.problems.unshift(newProblem);
+                    // إضافة المشكلة إلى JSONbin
+                    await this.jsonbinService.addProblem(newProblem);
                     
-                    // حفظ البيانات
-                    this.saveProblems();
+                    // تحديث القائمة المحلية
+                    this.problems.unshift(newProblem);
 
                     // مسح الحقول
                     document.getElementById('problemText').value = '';
@@ -1692,9 +1732,6 @@
                     this.displayProblems();
 
                     this.showAlert('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً', 'success');
-                    
-                    // تحديث صفحة الأدمن تلقائياً
-                    this.syncWithAdmin();
                     
                 } catch (error) {
                     console.error('خطأ في إضافة المشكلة:', error);
@@ -1706,7 +1743,7 @@
                 }
             }
 
-            likeProblem(problemId) {
+            async likeProblem(problemId) {
                 try {
                     const problem = this.problems.find(p => p.id === problemId);
                     if (!problem) return;
@@ -1722,7 +1759,12 @@
                         problem.likes = Math.max(0, (problem.likes || 1) - 1);
                     }
 
-                    this.saveProblems();
+                    // تحديث في JSONbin
+                    await this.jsonbinService.updateProblem(problemId, {
+                        likes: problem.likes,
+                        likedBy: problem.likedBy
+                    });
+                    
                     this.displayProblems();
                     
                 } catch (error) {
@@ -1819,20 +1861,6 @@
                         }
                     }, 300);
                 }, 3000);
-            }
-
-            syncWithAdmin() {
-                // يمكن استخدام هذا الدالة لمزامنة البيانات مع صفحة الأدمن
-                // حالياً نستخدم LocalStorage المشترك
-                console.log('تمت المزامنة مع لوحة التحكم');
-                
-                // يمكن إضافة كود هنا لمزامنة مع صفحة الأدمن
-                try {
-                    // تحديث علامة جديدة في LocalStorage لإشعار صفحة الأدمن
-                    localStorage.setItem('mikrotools_last_update', new Date().toISOString());
-                } catch (error) {
-                    console.log('لا يمكن المزامنة مع لوحة التحكم');
-                }
             }
         }
 
