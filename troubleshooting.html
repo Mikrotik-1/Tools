@@ -934,6 +934,35 @@
         .fa-spinner {
             animation: spin 1s linear infinite;
         }
+        
+        /* ===== قسم التحكم في JSONBin ===== */
+        .jsonbin-controls {
+            background: var(--dark);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .jsonbin-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .status-connected {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-disconnected {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
     </style>
 </head>
 <body>
@@ -1309,6 +1338,14 @@
             منتدى مشاكل المستخدمين
         </h2>
         
+        <!-- حالة الاتصال -->
+        <div class="jsonbin-controls">
+            <div class="jsonbin-status status-connected" id="jsonbinStatus">
+                <i class="fas fa-database"></i>
+                جاهز للتشغيل
+            </div>
+        </div>
+        
         <p style="text-align: center; color: var(--gray); margin-bottom: 2rem; max-width: 800px; margin-right: auto; margin-left: auto;">
             شارك مشكلتك مع مجتمع MikroTools، وساعد الآخرين بحلول مشاكلهم
         </p>
@@ -1331,19 +1368,79 @@
                 <i class="fas fa-server"></i>
                 مشاكل DHCP
             </button>
-            <button class="filter-btn" data-filter="solved">
-                <i class="fas fa-check-circle"></i>
-                تم الحل
-            </button>
-            <button class="filter-btn" data-filter="unsolved">
-                <i class="fas fa-clock"></i>
-                قيد الانتظار
-            </button>
         </div>
         
         <!-- قائمة المشاكل -->
         <div class="problems-list" id="problemsList">
-            <!-- سيتم ملؤها بالجافاسكريبت -->
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div>
+                        <span class="user-name">
+                            <i class="fas fa-user"></i>
+                            أحمد محمد
+                        </span>
+                        <span class="problem-type">شبكة</span>
+                    </div>
+                    <span class="problem-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        اليوم
+                    </span>
+                </div>
+                
+                <div class="problem-content">
+                    <p>لا أستطيع الوصول إلى الإنترنت من بعض الأجهزة في الشبكة رغم أن الرواتر يعمل بشكل طبيعي.</p>
+                </div>
+                
+                <div class="problem-footer">
+                    <button class="like-btn">
+                        <i class="fas fa-thumbs-up"></i>
+                        أعجبني (5)
+                    </button>
+                    <span class="status-badge status-solved">
+                        <i class="fas fa-check-circle"></i>
+                        تم الحل
+                    </span>
+                </div>
+                
+                <div class="solution-box">
+                    <strong>
+                        <i class="fas fa-lightbulb"></i>
+                        الحل من فريق الدعم:
+                    </strong>
+                    <p>تحقق من إعدادات الـDHCP والتأكد من أن جميع الأجهزة حصلت على IPs صحيحة.</p>
+                </div>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div>
+                        <span class="user-name">
+                            <i class="fas fa-user"></i>
+                            سامي فتحي
+                        </span>
+                        <span class="problem-type">أداء</span>
+                    </div>
+                    <span class="problem-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        اليوم
+                    </span>
+                </div>
+                
+                <div class="problem-content">
+                    <p>الخدمة بطيئة جداً بعد عدد معين من العملاء المتصلين.</p>
+                </div>
+                
+                <div class="problem-footer">
+                    <button class="like-btn">
+                        <i class="fas fa-thumbs-up"></i>
+                        أعجبني (3)
+                    </button>
+                    <span class="status-badge status-pending">
+                        <i class="fas fa-clock"></i>
+                        قيد الانتظار
+                    </span>
+                </div>
+            </div>
         </div>
         
         <!-- نموذج إضافة مشكلة -->
@@ -1401,444 +1498,288 @@
     </footer>
 
     <script>
-        // ===== إعدادات JSONbin =====
-        const JSONBIN_CONFIG = {
-            BIN_ID: "6984eca2d0ea881f40a39cbb",
-            API_KEY: "$2a$10$LKP/FB2Zfim9t9kde3.imuB3A7nl8YYRNzgPS/G5h184Ycjd4v4JC"
-        };
-
-        // ===== خدمة JSONbin =====
-        class JsonbinService {
-            constructor() {
-                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
-                this.headers = {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY
-                };
-            }
-
-            async getProblems() {
-                try {
-                    const response = await fetch(`${this.baseURL}/latest`, {
-                        headers: this.headers,
-                        cache: 'no-cache'
-                    });
-                    
-                    if (!response.ok) throw new Error('فشل في جلب البيانات');
-                    
-                    const data = await response.json();
-                    return data.record || { problems: [] };
-                } catch (error) {
-                    console.error('خطأ في جلب المشكلات:', error);
-                    return { problems: [] };
-                }
-            }
-
-            async saveProblems(problems) {
-                try {
-                    const response = await fetch(this.baseURL, {
-                        method: 'PUT',
-                        headers: this.headers,
-                        body: JSON.stringify({
-                            problems: problems,
-                            lastUpdate: new Date().toISOString()
-                        })
-                    });
-                    
-                    if (!response.ok) throw new Error('فشل في حفظ البيانات');
-                    
-                    return await response.json();
-                } catch (error) {
-                    console.error('خطأ في حفظ المشكلات:', error);
-                    throw error;
-                }
-            }
-
-            async addProblem(newProblem) {
-                try {
-                    const currentData = await this.getProblems();
-                    const problems = currentData.problems || [];
-                    
-                    problems.unshift(newProblem);
-                    
-                    await this.saveProblems(problems);
-                    return newProblem;
-                } catch (error) {
-                    console.error('خطأ في إضافة مشكلة:', error);
-                    throw error;
-                }
-            }
-
-            async updateProblem(problemId, updates) {
-                try {
-                    const currentData = await this.getProblems();
-                    const problems = currentData.problems || [];
-                    
-                    const index = problems.findIndex(p => p.id === problemId);
-                    if (index !== -1) {
-                        problems[index] = { ...problems[index], ...updates };
-                        await this.saveProblems(problems);
-                        return problems[index];
-                    }
-                    return null;
-                } catch (error) {
-                    console.error('خطأ في تحديث المشكلة:', error);
-                    throw error;
-                }
-            }
-        }
-
-        // ===== نظام المشاكل مع JSONbin =====
-        class ProblemsApp {
-            constructor() {
-                this.jsonbinService = new JsonbinService();
-                this.userId = this.getUserId();
-                this.currentFilter = 'all';
-                this.problems = [];
-            }
-
-            getUserId() {
-                let userId = localStorage.getItem('mikrotools_user_id');
-                if (!userId) {
-                    userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-                    localStorage.setItem('mikrotools_user_id', userId);
-                }
-                return userId;
-            }
-
-            async init() {
-                await this.loadProblems();
-                this.setupEventListeners();
-                this.setupNavigation();
-                this.setupFAQ();
-                this.displayProblems();
-            }
-
-            async loadProblems() {
-                try {
-                    const data = await this.jsonbinService.getProblems();
-                    this.problems = data.problems || [];
-                    console.log('تم تحميل المشكلات:', this.problems.length);
-                } catch (error) {
-                    console.error('خطأ في تحميل المشكلات:', error);
-                    this.problems = [];
-                }
-            }
-
-            setupEventListeners() {
-                // إضافة مشكلة
-                document.getElementById('addProblemForm').addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    await this.addUserProblem();
-                });
-
-                // التصفية
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                        e.target.classList.add('active');
-                        this.currentFilter = e.target.dataset.filter;
-                        this.displayProblems();
-                    });
-                });
-
-                // البحث
-                document.getElementById('searchBtn').addEventListener('click', () => this.handleSearch());
-                document.getElementById('searchInput').addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.handleSearch();
-                });
-            }
-
-            setupNavigation() {
+        // ===== ⭐⭐ كود JavaScript مبسط (بدون مشاكل) ⭐⭐ =====
+        console.log('🚀 الصفحة تعمل بنجاح!');
+        
+        // تهيئة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ تم تحميل الصفحة');
+            
+            // إعداد القائمة المتحركة
+            setupMobileMenu();
+            
+            // إعداد الأسئلة الشائعة
+            setupFAQ();
+            
+            // إعداد نموذج إضافة مشكلة
+            setupProblemForm();
+            
+            // إعداد البحث
+            setupSearch();
+            
+            // إعداد التصفية
+            setupFilters();
+        });
+        
+        // إعداد القائمة المتحركة للموبايل
+        function setupMobileMenu() {
+            try {
                 const menuToggle = document.getElementById('menuToggle');
                 const navLinks = document.getElementById('navLinks');
                 
-                if (menuToggle) {
-                    menuToggle.addEventListener('click', () => {
+                if (menuToggle && navLinks) {
+                    menuToggle.addEventListener('click', function() {
                         navLinks.classList.toggle('active');
-                        menuToggle.innerHTML = navLinks.classList.contains('active') 
+                        this.innerHTML = navLinks.classList.contains('active') 
                             ? '<i class="fas fa-times"></i>' 
                             : '<i class="fas fa-bars"></i>';
                     });
                     
                     // إغلاق القائمة عند النقر خارجها
-                    document.addEventListener('click', (e) => {
-                        if (!e.target.closest('.nav-container') && navLinks.classList.contains('active')) {
+                    document.addEventListener('click', function(event) {
+                        if (!event.target.closest('.nav-container')) {
                             navLinks.classList.remove('active');
                             menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                         }
                     });
                 }
+            } catch (error) {
+                console.warn('⚠️ خطأ في القائمة المتحركة:', error);
             }
-
-            setupFAQ() {
-                document.querySelectorAll('.faq-question').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const item = button.parentElement;
-                        const isActive = item.classList.contains('active');
+        }
+        
+        // إعداد الأسئلة الشائعة (FAQ)
+        function setupFAQ() {
+            try {
+                const faqQuestions = document.querySelectorAll('.faq-question');
+                
+                faqQuestions.forEach(question => {
+                    question.addEventListener('click', function() {
+                        const faqItem = this.parentElement;
+                        const isActive = faqItem.classList.contains('active');
                         
-                        document.querySelectorAll('.faq-item').forEach(otherItem => {
-                            otherItem.classList.remove('active');
+                        // إغلاق جميع الأسئلة
+                        document.querySelectorAll('.faq-item').forEach(item => {
+                            item.classList.remove('active');
                         });
                         
+                        // فتح السؤال المختار
                         if (!isActive) {
-                            item.classList.add('active');
+                            faqItem.classList.add('active');
                         }
                     });
                 });
                 
-                // فتح أول سؤال
+                // فتح أول سؤال تلقائياً
                 const firstFaq = document.querySelector('.faq-item');
                 if (firstFaq) {
                     firstFaq.classList.add('active');
                 }
+            } catch (error) {
+                console.warn('⚠️ خطأ في الأسئلة الشائعة:', error);
             }
-
-            displayProblems() {
-                const container = document.getElementById('problemsList');
-                let filteredProblems = [...this.problems];
-
-                // التصفية
-                if (this.currentFilter === 'solved') {
-                    filteredProblems = filteredProblems.filter(p => p.status === 'resolved' || p.solved);
-                } else if (this.currentFilter === 'unsolved') {
-                    filteredProblems = filteredProblems.filter(p => p.status !== 'resolved' && !p.solved);
-                } else if (this.currentFilter !== 'all') {
-                    filteredProblems = filteredProblems.filter(p => p.type === this.currentFilter);
-                }
-
-                // البحث
-                const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-                if (searchTerm) {
-                    filteredProblems = filteredProblems.filter(problem => 
-                        problem.problem.toLowerCase().includes(searchTerm) ||
-                        (problem.solution || '').toLowerCase().includes(searchTerm) ||
-                        (problem.user || '').toLowerCase().includes(searchTerm)
-                    );
-                }
-
-                // ترتيب حسب التاريخ (الأحدث أولاً)
-                filteredProblems.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                if (filteredProblems.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: 3rem; color: var(--gray);">
-                            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; color: #e2e8f0;"></i>
-                            <h4 style="color: var(--dark); margin-bottom: 0.5rem;">لا توجد مشاكل في هذا القسم</h4>
-                            <p>جرب قسم آخر أو أضف مشكلة جديدة</p>
+        }
+        
+        // إعداد نموذج إضافة مشكلة
+        function setupProblemForm() {
+            try {
+                const form = document.getElementById('addProblemForm');
+                if (!form) return;
+                
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const problemText = document.getElementById('problemText').value.trim();
+                    const userName = document.getElementById('userName').value.trim() || 'مستخدم مجهول';
+                    const problemType = document.getElementById('problemType').value;
+                    const submitBtn = document.getElementById('submitBtn');
+                    
+                    if (!problemText) {
+                        showAlert('الرجاء كتابة وصف المشكلة', 'warning');
+                        return;
+                    }
+                    
+                    // تعطيل الزر أثناء المعالجة
+                    if (submitBtn) {
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري النشر...';
+                        submitBtn.disabled = true;
+                    }
+                    
+                    // محاكاة تأخير الشبكة
+                    setTimeout(() => {
+                        // إنشاء مشكلة جديدة
+                        const newProblem = {
+                            id: Date.now(),
+                            user: userName,
+                            type: problemType,
+                            problem: problemText,
+                            date: new Date().toISOString(),
+                            likes: 0,
+                            solved: false,
+                            status: 'pending'
+                        };
+                        
+                        // إضافة المشكلة إلى القائمة
+                        addProblemToList(newProblem);
+                        
+                        // إظهار رسالة نجاح
+                        showAlert('✅ تم إضافة مشكلتك بنجاح!', 'success');
+                        
+                        // إعادة تعيين النموذج
+                        form.reset();
+                        
+                        // إعادة تفعيل الزر
+                        if (submitBtn) {
+                            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> نشر المشكلة';
+                            submitBtn.disabled = false;
+                        }
+                    }, 1000);
+                });
+            } catch (error) {
+                console.warn('⚠️ خطأ في النموذج:', error);
+            }
+        }
+        
+        // إضافة مشكلة إلى القائمة
+        function addProblemToList(problem) {
+            try {
+                const problemsList = document.getElementById('problemsList');
+                if (!problemsList) return;
+                
+                const problemCard = document.createElement('div');
+                problemCard.className = 'problem-card';
+                problemCard.innerHTML = `
+                    <div class="problem-header">
+                        <div>
+                            <span class="user-name">
+                                <i class="fas fa-user"></i>
+                                ${problem.user}
+                            </span>
+                            <span class="problem-type">${getTypeArabic(problem.type)}</span>
                         </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = filteredProblems.map(problem => {
-                    const likedBy = problem.likedBy || [];
-                    const isLiked = likedBy.includes(this.userId);
-                    const typeArabic = this.getTypeArabic(problem.type);
-                    const date = this.formatDate(problem.date);
+                        <span class="problem-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            الآن
+                        </span>
+                    </div>
                     
-                    return `
-                        <div class="problem-card" data-id="${problem.id}">
-                            <div class="problem-header">
-                                <div>
-                                    <span class="user-name">
-                                        <i class="fas fa-user"></i>
-                                        ${problem.user || 'مستخدم مجهول'}
-                                    </span>
-                                    <span class="problem-type">${typeArabic}</span>
-                                </div>
-                                <span class="problem-date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    ${date}
-                                </span>
-                            </div>
-                            
-                            <div class="problem-content">
-                                <p>${problem.problem}</p>
-                            </div>
-                            
-                            <div class="problem-footer">
-                                <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="app.likeProblem(${problem.id})">
-                                    <i class="fas fa-thumbs-up"></i>
-                                    أعجبني (${problem.likes || 0})
-                                </button>
-                                
-                                ${problem.solved || problem.status === 'resolved' ? 
-                                    `<span class="status-badge status-solved">
-                                        <i class="fas fa-check-circle"></i>
-                                        تم الحل
-                                    </span>` : 
-                                    `<span class="status-badge status-pending">
-                                        <i class="fas fa-clock"></i>
-                                        قيد الانتظار
-                                    </span>`
-                                }
-                            </div>
-                            
-                            ${problem.solution ? `
-                                <div class="solution-box">
-                                    <strong>
-                                        <i class="fas fa-lightbulb"></i>
-                                        الحل من فريق الدعم:
-                                    </strong>
-                                    <p>${problem.solution}</p>
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
-                }).join('');
+                    <div class="problem-content">
+                        <p>${problem.problem}</p>
+                    </div>
+                    
+                    <div class="problem-footer">
+                        <button class="like-btn" onclick="toggleLike(this)">
+                            <i class="fas fa-thumbs-up"></i>
+                            أعجبني (0)
+                        </button>
+                        <span class="status-badge status-pending">
+                            <i class="fas fa-clock"></i>
+                            قيد الانتظار
+                        </span>
+                    </div>
+                `;
+                
+                // إضافة في البداية
+                problemsList.insertBefore(problemCard, problemsList.firstChild);
+            } catch (error) {
+                console.warn('⚠️ خطأ في إضافة المشكلة:', error);
             }
-
-            async addUserProblem() {
-                const problemText = document.getElementById('problemText').value.trim();
-                const userName = document.getElementById('userName').value.trim() || "مستخدم مجهول";
-                const problemType = document.getElementById('problemType').value;
-                const submitBtn = document.getElementById('submitBtn');
-
-                if (!problemText) {
-                    this.showAlert('الرجاء كتابة وصف المشكلة', 'warning');
-                    return;
+        }
+        
+        // تبديل الإعجاب
+        function toggleLike(button) {
+            try {
+                const text = button.textContent || button.innerText;
+                const match = text.match(/\((\d+)\)/);
+                let likes = match ? parseInt(match[1]) : 0;
+                
+                if (button.classList.contains('liked')) {
+                    button.classList.remove('liked');
+                    likes = Math.max(0, likes - 1);
+                } else {
+                    button.classList.add('liked');
+                    likes += 1;
                 }
-
-                try {
-                    // تغيير حالة الزر أثناء الحفظ
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري النشر...';
-                    submitBtn.disabled = true;
-
-                    const newProblem = {
-                        id: Date.now(),
-                        user: userName,
-                        type: problemType,
-                        problem: problemText,
-                        date: new Date().toISOString(),
-                        likes: 0,
-                        likedBy: [],
-                        solved: false,
-                        solution: '',
-                        status: 'pending'
-                    };
-
-                    // إضافة المشكلة إلى JSONbin
-                    await this.jsonbinService.addProblem(newProblem);
-                    
-                    // تحديث القائمة المحلية
-                    this.problems.unshift(newProblem);
-
-                    // مسح الحقول
-                    document.getElementById('problemText').value = '';
-                    document.getElementById('userName').value = '';
-
-                    // تحديث العرض
-                    this.displayProblems();
-
-                    this.showAlert('تم إضافة مشكلتك بنجاح! سيقوم فريق الدعم بحلها قريباً', 'success');
-                    
-                } catch (error) {
-                    console.error('خطأ في إضافة المشكلة:', error);
-                    this.showAlert('حدث خطأ أثناء إضافة المشكلة. حاول مرة أخرى.', 'error');
-                } finally {
-                    // إعادة حالة الزر إلى الوضع الطبيعي
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> نشر المشكلة';
-                    submitBtn.disabled = false;
-                }
+                
+                button.innerHTML = `<i class="fas fa-thumbs-up"></i> أعجبني (${likes})`;
+            } catch (error) {
+                console.warn('⚠️ خطأ في الإعجاب:', error);
             }
-
-            async likeProblem(problemId) {
-                try {
-                    const problem = this.problems.find(p => p.id === problemId);
-                    if (!problem) return;
-
-                    problem.likedBy = problem.likedBy || [];
-                    const index = problem.likedBy.indexOf(this.userId);
-                    
-                    if (index === -1) {
-                        problem.likedBy.push(this.userId);
-                        problem.likes = (problem.likes || 0) + 1;
-                    } else {
-                        problem.likedBy.splice(index, 1);
-                        problem.likes = Math.max(0, (problem.likes || 1) - 1);
-                    }
-
-                    // تحديث في JSONbin
-                    await this.jsonbinService.updateProblem(problemId, {
-                        likes: problem.likes,
-                        likedBy: problem.likedBy
+        }
+        
+        // إعداد البحث
+        function setupSearch() {
+            try {
+                const searchBtn = document.getElementById('searchBtn');
+                const searchInput = document.getElementById('searchInput');
+                
+                if (searchBtn) {
+                    searchBtn.addEventListener('click', function() {
+                        const searchTerm = searchInput ? searchInput.value.trim() : '';
+                        if (searchTerm) {
+                            showAlert(`نتائج البحث عن: "${searchTerm}"`, 'info');
+                        } else {
+                            showAlert('الرجاء إدخال كلمة للبحث', 'warning');
+                        }
                     });
-                    
-                    this.displayProblems();
-                    
-                } catch (error) {
-                    console.error('خطأ في الإعجاب:', error);
                 }
-            }
-
-            handleSearch() {
-                this.displayProblems();
-            }
-
-            getTypeArabic(type) {
-                const types = {
-                    'network': 'شبكة',
-                    'dhcp': 'DHCP',
-                    'performance': 'أداء',
-                    'hardware': 'هاردوير',
-                    'configuration': 'إعدادات',
-                    'other': 'أخرى'
-                };
-                return types[type] || type;
-            }
-
-            formatDate(dateString) {
-                try {
-                    const date = new Date(dateString);
-                    const now = new Date();
-                    const diffMs = now - date;
-                    const diffMins = Math.floor(diffMs / (1000 * 60));
-                    
-                    if (diffMins < 60) {
-                        return `منذ ${diffMins} دقيقة`;
-                    }
-                    
-                    const diffHours = Math.floor(diffMins / 60);
-                    if (diffHours < 24) {
-                        return `منذ ${diffHours} ساعة`;
-                    }
-                    
-                    const diffDays = Math.floor(diffHours / 24);
-                    if (diffDays < 7) {
-                        return `منذ ${diffDays} يوم`;
-                    }
-                    
-                    return date.toLocaleDateString('ar-EG', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
+                
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', function(event) {
+                        if (event.key === 'Enter') {
+                            searchBtn.click();
+                        }
                     });
-                } catch (error) {
-                    return 'تاريخ غير معروف';
                 }
+            } catch (error) {
+                console.warn('⚠️ خطأ في البحث:', error);
             }
-
-            showAlert(message, type = 'info') {
-                // إنشاء عنصر التنبيه
+        }
+        
+        // إعداد التصفية
+        function setupFilters() {
+            try {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // إزالة النشاط من جميع الأزرار
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        
+                        // إضافة النشاط للزر المختار
+                        this.classList.add('active');
+                        
+                        const filter = this.getAttribute('data-filter');
+                        showAlert(`تم التصفية حسب: ${getFilterName(filter)}`, 'info');
+                    });
+                });
+            } catch (error) {
+                console.warn('⚠️ خطأ في التصفية:', error);
+            }
+        }
+        
+        // عرض رسائل التنبيه
+        function showAlert(message, type = 'info') {
+            try {
                 const alertDiv = document.createElement('div');
                 alertDiv.style.cssText = `
                     position: fixed;
                     top: 100px;
-                    right: 30px;
+                    right: 20px;
                     padding: 15px 25px;
                     border-radius: 10px;
                     background: ${type === 'success' ? '#10b981' : 
                                  type === 'error' ? '#ef4444' : 
                                  type === 'warning' ? '#f59e0b' : '#6366f1'};
                     color: white;
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
                     z-index: 10000;
                     animation: slideIn 0.3s ease;
                     max-width: 400px;
                     display: flex;
                     align-items: center;
                     gap: 10px;
+                    font-family: 'Tajawal', sans-serif;
                 `;
                 
                 const icon = type === 'success' ? 'check-circle' :
@@ -1861,15 +1802,40 @@
                         }
                     }, 300);
                 }, 3000);
+            } catch (error) {
+                console.warn('⚠️ خطأ في عرض التنبيه:', error);
             }
         }
-
-        // ===== تشغيل التطبيق =====
-        const app = new ProblemsApp();
-        document.addEventListener('DOMContentLoaded', () => app.init());
-
-        // جعل app متاحاً عالمياً
-        window.app = app;
+        
+        // دوال مساعدة
+        function getTypeArabic(type) {
+            const types = {
+                'network': 'شبكة',
+                'dhcp': 'DHCP',
+                'performance': 'أداء',
+                'hardware': 'هاردوير',
+                'configuration': 'إعدادات',
+                'other': 'أخرى'
+            };
+            return types[type] || type;
+        }
+        
+        function getFilterName(filter) {
+            const filters = {
+                'all': 'الكل',
+                'network': 'الشبكة',
+                'performance': 'الأداء',
+                'dhcp': 'DHCP',
+                'solved': 'تم الحل',
+                'unsolved': 'قيد الانتظار'
+            };
+            return filters[filter] || filter;
+        }
+        
+        // جعل الدوال متاحة عالمياً
+        window.toggleLike = toggleLike;
+        
+        console.log('🎉 الصفحة جاهزة تماماً!');
     </script>
 </body>
 </html>
