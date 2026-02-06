@@ -112,6 +112,90 @@
             background: var(--primary);
         }
 
+        /* ===== زر القائمة المتنقلة للموبايل ===== */
+        .menu-toggle {
+            display: none;
+            background: var(--gradient);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== القائمة الجانبية للموبايل ===== */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--dark);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding-top: 80px;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .mobile-nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            border-right: 4px solid transparent;
+            font-weight: 500;
+        }
+
+        .mobile-nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border-right-color: var(--primary);
+        }
+
+        .mobile-nav-link.active {
+            color: white;
+            background: var(--gradient);
+            border-right-color: white;
+        }
+
+        /* طبقة التعتيم للقائمة */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         /* ===== الهيرو ===== */
         .hero {
             background: var(--gradient-dark);
@@ -566,10 +650,122 @@
             margin-bottom: 1rem;
         }
 
-        /* ===== التجاوب ===== */
+        /* ===== الأيقونات العائمة ===== */
+        .floating-icons-container {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            z-index: 1000;
+        }
+
+        .mikro-icons-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .mikro-help-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+            animation: mikro-float 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .mikro-social-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mikro-social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            animation: mikro-float 3s ease-in-out infinite;
+        }
+
+        .mikro-social-icon:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .mikro-social-icon:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        @keyframes mikro-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .mikro-help-icon:hover,
+        .mikro-social-icon:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .mikro-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .mikro-facebook {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
+        .mikro-help-text {
+            position: absolute;
+            right: 75px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: var(--dark);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-left: 4px solid var(--primary);
+        }
+
+        .mikro-help-icon:hover .mikro-help-text {
+            opacity: 1;
+        }
+
+        /* ===== التجاوب للموبايل ===== */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 100px 1rem 3rem;
             }
             
             .hero-title {
@@ -591,6 +787,47 @@
             .search-btn, .form-input, .form-select {
                 width: 100%;
             }
+            
+            /* تعديل الأيقونات العائمة للموبايل */
+            .floating-icons-container {
+                left: 15px;
+                bottom: 15px;
+            }
+            
+            .mikro-help-icon,
+            .mikro-social-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+            }
+            
+            .mikro-help-text {
+                font-size: 12px;
+                right: 65px;
+                padding: 8px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .mobile-sidebar {
+                width: 280px;
+            }
+            
+            .container, .problems-section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -605,7 +842,13 @@
                 <span class="logo-text">MikroTools</span>
             </a>
             
-            <div class="nav-links">
+            <!-- زر القائمة المتنقلة للموبايل -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- القائمة الأصلية للشاشات الكبيرة -->
+            <div class="nav-links" id="navLinks">
                 <a href="index.html" class="nav-link">
                     <i class="fas fa-home"></i> الرئيسية
                 </a>
@@ -633,6 +876,49 @@
             </div>
         </div>
     </nav>
+
+    <!-- القائمة الجانبية للموبايل -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">
+                <i class="fas fa-home"></i> الرئيسية
+            </a>
+            <a href="hotspot.html" class="mobile-nav-link">
+                <i class="fas fa-wifi"></i> هوت سبوت
+            </a>
+            <a href="merge-v6.html" class="mobile-nav-link">
+                <i class="fas fa-link"></i> دمج v6
+            </a>
+            <a href="merge-v7.html" class="mobile-nav-link">
+                <i class="fas fa-rocket"></i> دمج v7
+            </a>
+            <a href="block-sites.html" class="mobile-nav-link">
+                <i class="fas fa-shield-alt"></i> حجب مواقع
+            </a>
+            <a href="speed-profiles.html" class="mobile-nav-link">
+                <i class="fas fa-tachometer-alt"></i> بروفايلات
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+                <i class="fas fa-users"></i> من نحن
+            </a>
+            <a href="troubleshooting.html" class="mobile-nav-link active">
+                <i class="fas fa-question-circle"></i> المشكلات الشائعة
+            </a>
+            <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 1rem 0;"></div>
+            <a href="https://wa.me/201092503391" target="_blank" class="mobile-nav-link">
+                <i class="fab fa-whatsapp"></i> واتساب
+            </a>
+            <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="mobile-nav-link">
+                <i class="fab fa-facebook"></i> فيسبوك
+            </a>
+            <a href="javascript:void(0)" class="mobile-nav-link" onclick="showMikroHelp()">
+                <i class="fas fa-life-ring"></i> المساعدة
+            </a>
+        </div>
+    </div>
+
+    <!-- طبقة التعتيم -->
+    <div class="overlay" id="overlay"></div>
 
     <!-- الهيرو -->
     <section class="hero">
@@ -949,6 +1235,31 @@
         </div>
     </footer>
 
+    <!-- الأيقونات العائمة -->
+    <div class="floating-icons-container">
+        <div class="mikro-icons-wrapper">
+            <!-- التواصل -->
+            <div class="mikro-social-icons">
+                <a href="https://wa.me/201092503391" target="_blank" 
+                   class="mikro-social-icon mikro-whatsapp" 
+                   title="واتساب">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" 
+                   class="mikro-social-icon mikro-facebook" 
+                   title="فيسبوك">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+            
+            <!-- المساعدة -->
+            <button class="mikro-help-icon" onclick="showMikroHelp()">
+                ❓
+                <span class="mikro-help-text">مساعدة هذه الصفحة</span>
+            </button>
+        </div>
+    </div>
+
     <script>
         // إعدادات JSONBin
         const JSONBIN_CONFIG = {
@@ -960,6 +1271,38 @@
         // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 الصفحة تعمل!');
+            
+            // إعداد القائمة المتنقلة للموبايل
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('overlay');
+            
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileSidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                this.innerHTML = mobileSidebar.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // إغلاق القائمة عند النقر على التعتيم
+            overlay.addEventListener('click', function() {
+                mobileSidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+            
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.mobile-sidebar') && 
+                    !event.target.closest('.menu-toggle') &&
+                    !event.target.closest('.floating-icons-container')) {
+                    mobileSidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
             
             // إعداد الأسئلة الشائعة
             document.querySelectorAll('.faq-question').forEach(question => {
@@ -990,7 +1333,7 @@
             document.querySelector('.search-btn').addEventListener('click', function() {
                 const searchTerm = document.querySelector('.search-input').value;
                 if (searchTerm) {
-                    alert('بحث عن: ' + searchTerm);
+                    searchProblems(searchTerm);
                 }
             });
         });
@@ -1016,6 +1359,30 @@
                 console.error('❌ خطأ:', error);
                 displayDemoProblems();
                 updateStatus(3, false);
+            }
+        }
+
+        // بحث المشاكل
+        function searchProblems(searchTerm) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            let found = false;
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                const searchTermLower = searchTerm.toLowerCase();
+                
+                if (question.includes(searchTermLower) || answer.includes(searchTermLower)) {
+                    item.classList.add('active');
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    found = true;
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            if (!found) {
+                alert('لم يتم العثور على نتائج تطابق "' + searchTerm + '"');
             }
         }
 
@@ -1062,7 +1429,7 @@
                             ` : ''}
                         </div>
                         <div class="problem-footer">
-                            <button class="like-btn">
+                            <button class="like-btn" onclick="likeProblem(this)">
                                 <i class="fas fa-thumbs-up"></i> أعجبني (${problem.likes || 0})
                             </button>
                             <span class="status-badge ${problem.solved ? 'status-solved' : 'status-pending'}">
@@ -1188,7 +1555,7 @@
                         <p>${problem.problem}</p>
                     </div>
                     <div class="problem-footer">
-                        <button class="like-btn">
+                        <button class="like-btn" onclick="likeProblem(this)">
                             <i class="fas fa-thumbs-up"></i> أعجبني (0)
                         </button>
                         <span class="status-badge status-pending">
@@ -1240,6 +1607,25 @@
                 console.error('❌ خطأ في الحفظ:', error);
                 throw error;
             }
+        }
+
+        // وظيفة الإعجاب بالمشكلة
+        function likeProblem(button) {
+            const currentLikes = parseInt(button.textContent.match(/\((\d+)\)/)[1]);
+            const newLikes = currentLikes + 1;
+            button.innerHTML = `<i class="fas fa-thumbs-up"></i> أعجبني (${newLikes})`;
+            button.style.background = 'var(--primary-light)';
+            button.style.color = 'white';
+            
+            setTimeout(() => {
+                button.style.background = '#f8fafc';
+                button.style.color = 'var(--gray)';
+            }, 1000);
+        }
+
+        // وظيفة المساعدة للأيقونات العائمة
+        function showMikroHelp() {
+            alert('🎯 MikroTools - أدوات ميكروتيك مجانية\n\n📞 للتواصل والدعم:\n01092503391\n\nSameh El-Sayed\n\n💡 تذكر: يمكنك إضافة مشكلتك في قسم "منتدى مشاكل المستخدمين" وسنحاول حلها معاً!');
         }
     </script>
 </body>
