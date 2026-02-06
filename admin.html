@@ -765,21 +765,21 @@
 
         @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(100%);
-                position: fixed;
-                width: 280px;
-                top: 70px;
-                right: -280px;
-                z-index: 999;
+                display: none !important;
             }
             
-            .sidebar.active {
-                transform: translateX(0);
-                right: 0;
+            .mobile-sidebar {
+                display: block;
             }
             
             .mobile-menu-btn {
-                display: block;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                background: rgba(67, 97, 238, 0.2);
+                border-radius: 8px;
+                width: 40px;
+                height: 40px;
             }
             
             .main-content {
@@ -803,6 +803,30 @@
             
             table {
                 min-width: 600px;
+            }
+            
+            .main-content {
+                padding-top: 20px;
+            }
+            
+            .nav-link.active {
+                background: rgba(67, 97, 238, 0.2);
+                color: var(--primary);
+                border-right-color: var(--primary);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-sidebar {
+                display: none !important;
+            }
+            
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .sidebar {
+                display: block !important;
             }
         }
 
@@ -973,6 +997,27 @@
             justify-content: center;
             color: white;
             font-size: 20px;
+        }
+        
+        /* تحسين ظهور الروابط في قائمة الموبايل */
+        .mobile-nav-link {
+            width: 100%;
+        }
+        
+        .mobile-nav-link .badge {
+            margin-right: auto;
+            font-size: 12px;
+            padding: 3px 8px;
+        }
+        
+        /* تأكد من أن القائمة الموبايل تظهر فوق كل شيء */
+        .mobile-sidebar.active {
+            z-index: 1002;
+        }
+        
+        /* تحسين طبقة التعتيم */
+        .overlay.active {
+            z-index: 1001;
         }
     </style>
 </head>
