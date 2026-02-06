@@ -2,13 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <!-- تحسين Viewport للجوال -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, shrink-to-fit=no, viewport-fit=cover">
     <title>لوحة تحكم مدير MikroTools المتكاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
+        /* ===== إعادة تعيين وإصلاحات أساسية للجوال ===== */
         :root {
             --primary: #4361ee;
             --secondary: #3a0ca3;
@@ -28,15 +30,22 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            position: relative;
         }
 
         body {
             background: var(--darker);
             color: var(--light);
             min-height: 100vh;
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 100vw;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         /* ===== شاشة التحميل ===== */
@@ -82,38 +91,38 @@
         .login-box {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px 30px;
+            border-radius: 15px;
+            padding: 30px 20px;
             width: 100%;
             max-width: 400px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .login-header i {
-            font-size: 50px;
+            font-size: 45px;
             color: var(--primary);
             margin-bottom: 15px;
         }
 
         .login-header h1 {
             color: white;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 8px;
         }
 
         .login-header p {
             color: #94a3b8;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
@@ -125,13 +134,14 @@
 
         .form-control {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px 15px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             color: white;
             font-size: 16px;
             transition: all 0.3s;
+            min-height: 50px;
         }
 
         .form-control:focus {
@@ -141,7 +151,7 @@
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 14px 25px;
             border-radius: 10px;
             border: none;
             font-size: 16px;
@@ -153,7 +163,7 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
-            min-height: 44px;
+            min-height: 50px;
         }
 
         .btn-primary {
@@ -170,7 +180,7 @@
             background: rgba(247, 37, 133, 0.2);
             border: 1px solid rgba(247, 37, 133, 0.3);
             color: #f8a5c2;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             font-size: 14px;
@@ -181,6 +191,7 @@
         .dashboard {
             display: none;
             width: 100%;
+            max-width: 100vw;
             overflow-x: hidden;
         }
 
@@ -188,11 +199,11 @@
             display: block;
         }
 
-        /* الشريط العلوي - تحسين للجوال */
+        /* الشريط العلوي - محسن للجوال */
         .navbar {
             background: var(--dark);
             padding: 0 15px;
-            height: 70px;
+            height: 65px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -201,26 +212,31 @@
             top: 0;
             z-index: 1000;
             width: 100%;
-            max-width: 100vw;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
+            min-width: 0;
+            flex: 1;
         }
 
         .logo i {
-            font-size: 24px;
+            font-size: 22px;
             color: var(--primary);
+            flex-shrink: 0;
         }
 
         .logo h1 {
             color: white;
-            font-size: 18px;
+            font-size: 17px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* زر القائمة للجوال - محسن */
+        /* زر القائمة للجوال */
         .mobile-menu-btn {
             display: none;
             background: rgba(67, 97, 238, 0.15);
@@ -237,38 +253,42 @@
             transition: all 0.3s;
             border: none;
             outline: none;
+            flex-shrink: 0;
+            margin-left: 10px;
         }
 
         .mobile-menu-btn:hover {
             background: rgba(67, 97, 238, 0.25);
-            transform: scale(1.05);
         }
 
         .user-info {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-shrink: 0;
         }
 
         .user-name {
             color: white;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
+            display: none;
         }
 
         .logout-btn {
             background: rgba(247, 37, 133, 0.2);
             color: #f8a5c2;
             border: 1px solid rgba(247, 37, 133, 0.3);
-            padding: 8px 15px;
+            padding: 8px 12px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.3s;
-            min-height: 36px;
+            min-height: 38px;
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
 
         .logout-btn:hover {
@@ -276,17 +296,17 @@
         }
 
         .logout-text {
-            display: inline;
+            display: none;
         }
 
         /* القائمة الجانبية للشاشات الكبيرة */
         .sidebar {
             width: 250px;
             background: var(--dark);
-            height: calc(100vh - 70px);
+            height: calc(100vh - 65px);
             position: fixed;
             right: 0;
-            top: 70px;
+            top: 65px;
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px 0;
             overflow-y: auto;
@@ -324,22 +344,21 @@
             border-right-color: var(--primary);
         }
 
-        /* القائمة الجانبية للجوال - محسنة */
+        /* القائمة الجانبية للجوال */
         .mobile-sidebar {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 100%;
+            width: 85%;
             max-width: 300px;
             height: 100vh;
             background: var(--dark);
             box-shadow: -5px 0 25px rgba(0,0,0,0.5);
             z-index: 1001;
-            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding-top: 80px;
+            transition: right 0.3s ease;
+            padding-top: 70px;
             overflow-y: auto;
             border-left: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
         }
 
         .mobile-sidebar.active {
@@ -355,7 +374,7 @@
         .mobile-nav-link {
             color: #cbd5e1;
             text-decoration: none;
-            padding: 14px 20px;
+            padding: 14px 18px;
             border-radius: 10px;
             margin-bottom: 8px;
             display: flex;
@@ -371,7 +390,6 @@
             color: white;
             background: rgba(255,255,255,0.1);
             border-right-color: var(--primary);
-            transform: translateX(-5px);
         }
 
         .mobile-nav-link.active {
@@ -390,7 +408,7 @@
             background: rgba(0,0,0,0.7);
             z-index: 1000;
             display: none;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(3px);
         }
 
         .overlay.active {
@@ -400,9 +418,9 @@
         /* المحتوى الرئيسي - محسن للجوال */
         .main-content {
             margin-right: 250px;
-            padding: 25px;
-            min-height: calc(100vh - 70px);
-            transition: margin-right 0.3s ease;
+            padding: 20px;
+            min-height: calc(100vh - 65px);
+            transition: all 0.3s ease;
             width: 100%;
             box-sizing: border-box;
         }
@@ -410,6 +428,7 @@
         .page {
             display: none;
             animation: fadeIn 0.3s ease;
+            width: 100%;
         }
 
         .page.active {
@@ -421,42 +440,45 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== بطاقات الإحصائيات - محسنة للجوال ===== */
+        /* ===== بطاقات الإحصائيات ===== */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 18px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            width: 100%;
         }
 
         .stat-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 18px;
             transition: all 0.3s;
+            width: 100%;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
+            flex-shrink: 0;
         }
 
         .stat-icon.blue { background: rgba(67, 97, 238, 0.2); color: var(--primary); }
@@ -467,13 +489,13 @@
 
         .stat-title {
             color: #94a3b8;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 5px;
         }
 
         .stat-value {
             color: white;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 8px;
         }
@@ -489,20 +511,21 @@
         .stat-change.positive { color: #10b981; }
         .stat-change.negative { color: #ef4444; }
 
-        /* ===== جداول - محسنة للجوال ===== */
+        /* ===== جداول ===== */
         .table-container {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 22px;
-            margin-bottom: 25px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
             overflow: hidden;
+            width: 100%;
         }
 
         .table-title {
             color: white;
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 17px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -512,20 +535,22 @@
             width: 100%;
             border-collapse: collapse;
             display: table;
+            min-width: 600px;
         }
 
         th {
             background: rgba(255, 255, 255, 0.1);
             color: #cbd5e1;
-            padding: 14px;
+            padding: 14px 12px;
             text-align: right;
             font-weight: 600;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 14px;
+            white-space: nowrap;
         }
 
         td {
-            padding: 14px;
+            padding: 14px 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             color: white;
             font-size: 14px;
@@ -536,10 +561,11 @@
         }
 
         .badge {
-            padding: 5px 12px;
+            padding: 5px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .badge-success { background: rgba(76, 201, 240, 0.2); color: var(--success); }
@@ -549,7 +575,7 @@
 
         /* ===== أزرار الإجراءات ===== */
         .action-btn {
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -572,12 +598,13 @@
             transform: translateY(-1px);
         }
 
-        /* ===== فلاتر وتصفح - محسن للجوال ===== */
+        /* ===== فلاتر وتصفح ===== */
         .filters {
             background: rgba(255, 255, 255, 0.05);
             padding: 18px;
-            border-radius: 15px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .filter-group {
@@ -587,7 +614,7 @@
         }
 
         .filter-btn {
-            padding: 8px 16px;
+            padding: 10px 16px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
@@ -595,7 +622,8 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 13px;
-            min-height: 36px;
+            min-height: 40px;
+            white-space: nowrap;
         }
 
         .filter-btn:hover {
@@ -611,17 +639,18 @@
         .search-box {
             position: relative;
             margin-bottom: 15px;
+            width: 100%;
         }
 
         .search-box input {
             width: 100%;
-            padding: 12px 40px 12px 15px;
+            padding: 14px 40px 14px 15px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             color: white;
             font-size: 14px;
-            min-height: 44px;
+            min-height: 48px;
         }
 
         .search-box i {
@@ -644,7 +673,7 @@
             z-index: 1100;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
 
@@ -656,14 +685,14 @@
             background: var(--dark);
             border-radius: 15px;
             width: 100%;
-            max-width: 600px;
-            max-height: 90vh;
+            max-width: 500px;
+            max-height: 85vh;
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header {
-            padding: 20px;
+            padding: 18px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
@@ -672,18 +701,18 @@
 
         .modal-header h3 {
             color: white;
-            font-size: 18px;
+            font-size: 17px;
         }
 
         .modal-body {
-            padding: 20px;
+            padding: 18px;
         }
 
         .message-content {
             background: rgba(255, 255, 255, 0.05);
-            padding: 18px;
+            padding: 16px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             line-height: 1.6;
             font-size: 14px;
         }
@@ -691,7 +720,7 @@
         .reply-form textarea {
             width: 100%;
             min-height: 120px;
-            padding: 15px;
+            padding: 14px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -703,7 +732,7 @@
         }
 
         .modal-footer {
-            padding: 20px;
+            padding: 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             gap: 10px;
@@ -711,7 +740,7 @@
             flex-wrap: wrap;
         }
 
-        /* ===== التجاوب للجوال ===== */
+        /* ===== تحسينات للجوال ===== */
         @media (max-width: 1024px) {
             .sidebar {
                 width: 220px;
@@ -719,15 +748,12 @@
             
             .main-content {
                 margin-right: 220px;
-                padding: 22px;
-            }
-            
-            .charts-grid {
-                grid-template-columns: 1fr;
+                padding: 18px;
             }
         }
 
         @media (max-width: 768px) {
+            /* إخفاء القائمة الكبيرة وإظهار الجوال */
             .sidebar {
                 display: none !important;
             }
@@ -741,44 +767,87 @@
             }
             
             .main-content {
-                margin-right: 0;
-                padding: 20px;
+                margin-right: 0 !important;
+                padding: 15px !important;
             }
             
+            /* تحسين البطاقات */
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
             }
             
-            .charts-grid {
-                grid-template-columns: 1fr;
+            .stat-card {
+                padding: 15px !important;
+                min-width: 0;
             }
             
+            .stat-value {
+                font-size: 22px !important;
+            }
+            
+            /* تحسين الجداول */
             .table-container {
-                padding: 18px;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+                padding: 15px !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
             }
             
             table {
-                min-width: 600px;
+                min-width: 650px !important;
             }
             
-            .main-content {
-                padding-top: 20px;
+            /* تحسين الشريط العلوي */
+            .navbar {
+                padding: 0 12px !important;
+                height: 60px !important;
             }
             
             .logo h1 {
-                font-size: 16px;
+                font-size: 16px !important;
             }
             
-            .logout-text {
-                display: none;
+            .user-name {
+                display: none !important;
             }
             
             .logout-btn {
-                padding: 6px 8px;
-                font-size: 13px;
+                padding: 7px 10px !important;
+                font-size: 12px !important;
+            }
+            
+            /* تحسين الفلاتر */
+            .filter-group {
+                overflow-x: auto !important;
+                flex-wrap: nowrap !important;
+                padding-bottom: 8px !important;
+                margin-bottom: 5px !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            .filter-btn {
+                flex-shrink: 0 !important;
+            }
+            
+            /* تحسين العناوين */
+            .table-title {
+                font-size: 16px !important;
+            }
+            
+            h1 {
+                font-size: 20px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            p {
+                font-size: 13px !important;
+            }
+            
+            /* تحسين الأزرار */
+            .btn {
+                padding: 12px 20px !important;
+                min-height: 46px !important;
+                font-size: 15px !important;
             }
         }
 
@@ -798,162 +867,220 @@
 
         @media (max-width: 576px) {
             .navbar {
-                padding: 0 12px;
-                height: 65px;
+                padding: 0 10px !important;
+                height: 58px !important;
             }
             
             .logo {
-                gap: 10px;
+                gap: 8px;
             }
             
             .logo i {
-                font-size: 22px;
+                font-size: 20px !important;
             }
             
             .logo h1 {
-                font-size: 16px;
+                font-size: 15px !important;
             }
             
             .mobile-menu-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-                padding: 8px;
+                width: 40px !important;
+                height: 40px !important;
+                font-size: 18px !important;
+                padding: 8px !important;
             }
             
             .main-content {
-                padding: 15px;
+                padding: 12px 10px !important;
             }
             
             .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
             }
             
             .stat-card {
-                padding: 15px;
+                padding: 14px !important;
             }
             
             .stat-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
+                width: 42px !important;
+                height: 42px !important;
+                font-size: 19px !important;
             }
             
             .stat-value {
-                font-size: 24px;
+                font-size: 22px !important;
             }
             
             .filters {
-                padding: 15px;
+                padding: 15px !important;
             }
             
             .filter-group {
-                gap: 8px;
+                gap: 6px !important;
             }
             
             .filter-btn {
-                padding: 7px 12px;
-                font-size: 12px;
-                min-height: 34px;
+                padding: 8px 12px !important;
+                font-size: 12px !important;
+                min-height: 36px !important;
             }
             
             .date-filters, .tab-buttons {
-                gap: 8px;
+                gap: 6px !important;
             }
             
             .date-filter, .tab-btn {
-                padding: 7px 12px;
-                font-size: 12px;
-                min-height: 34px;
+                padding: 8px 12px !important;
+                font-size: 12px !important;
+                min-height: 36px !important;
             }
             
             .mobile-sidebar {
-                max-width: 280px;
+                max-width: 280px !important;
             }
             
             .mobile-nav-link {
-                padding: 12px 18px;
-                font-size: 14px;
+                padding: 12px 16px !important;
+                font-size: 14px !important;
             }
             
-            .table-title {
-                font-size: 16px;
+            .table-container {
+                padding: 12px !important;
+                border-radius: 10px !important;
+            }
+            
+            th, td {
+                padding: 12px 8px !important;
+                font-size: 13px !important;
+            }
+            
+            .action-btn {
+                padding: 5px 8px !important;
+                min-width: 30px !important;
+                min-height: 30px !important;
+                margin: 0 2px !important;
+            }
+            
+            .btn {
+                padding: 11px 18px !important;
+                font-size: 14px !important;
+                min-height: 44px !important;
             }
         }
 
         @media (max-width: 480px) {
             .navbar {
-                padding: 0 10px;
-                height: 60px;
+                padding: 0 8px !important;
+                height: 55px !important;
             }
             
             .logo h1 {
-                font-size: 15px;
+                font-size: 14px !important;
             }
             
             .mobile-menu-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 17px;
-            }
-            
-            .user-name {
-                font-size: 14px;
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 17px !important;
             }
             
             .logout-btn {
-                padding: 5px 7px;
-                font-size: 12px;
-                min-height: 32px;
+                padding: 6px 8px !important;
+                font-size: 11px !important;
+                min-height: 34px !important;
             }
             
             .main-content {
-                padding: 12px;
+                padding: 10px 8px !important;
             }
             
             .stats-grid {
-                gap: 10px;
+                gap: 8px !important;
             }
             
             .stat-card {
-                padding: 12px;
+                padding: 12px !important;
             }
             
             .stat-value {
-                font-size: 22px;
+                font-size: 20px !important;
+            }
+            
+            .filter-btn {
+                padding: 7px 10px !important;
+                font-size: 11px !important;
+                min-height: 34px !important;
+            }
+            
+            .table-title {
+                font-size: 15px !important;
+            }
+            
+            h1 {
+                font-size: 18px !important;
             }
             
             .btn {
-                padding: 10px 20px;
-                font-size: 15px;
-                min-height: 42px;
+                padding: 10px 16px !important;
+                font-size: 14px !important;
+                min-height: 42px !important;
             }
             
             .modal {
-                max-height: 85vh;
+                max-height: 90vh !important;
             }
             
             .modal-header, .modal-body, .modal-footer {
-                padding: 15px;
+                padding: 15px !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar {
+                height: 52px !important;
+            }
+            
+            .logo h1 {
+                font-size: 13px !important;
+            }
+            
+            .mobile-menu-btn {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 16px !important;
+            }
+            
+            .main-content {
+                padding: 8px 6px !important;
+            }
+            
+            .stat-value {
+                font-size: 19px !important;
+            }
+            
+            .filter-btn {
+                font-size: 10px !important;
+                padding: 6px 8px !important;
             }
         }
 
         /* ===== إشعارات ===== */
         .notification {
             position: fixed;
-            top: 85px;
-            right: 20px;
-            padding: 14px 22px;
+            top: 75px;
+            right: 15px;
+            padding: 12px 18px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             animation: slideInRight 0.3s ease;
-            max-width: 90%;
-            font-size: 14px;
+            max-width: calc(100% - 30px);
+            font-size: 13px;
         }
 
         @keyframes slideInRight {
@@ -973,37 +1100,9 @@
             border-right: 4px solid #dc2626;
         }
 
-        /* ===== أزرار التصدير ===== */
-        .export-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .export-btn {
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            min-height: 40px;
-        }
-
-        .export-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
         /* ===== تحسينات للقائمة الجوال ===== */
         .mobile-header {
-            padding: 20px;
+            padding: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
@@ -1014,22 +1113,22 @@
             width: 100%;
             background: var(--dark);
             z-index: 1002;
-            height: 80px;
+            height: 70px;
         }
 
         .mobile-header .logo {
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .close-menu-btn {
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             padding: 5px;
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1042,9 +1141,9 @@
         }
 
         .mobile-nav-footer {
-            padding: 20px;
+            padding: 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .mobile-user-info {
@@ -1055,26 +1154,15 @@
         }
 
         .mobile-user-avatar {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
-        }
-        
-        /* تحسين ظهور الروابط في قائمة الجوال */
-        .mobile-nav-link {
-            width: 100%;
-        }
-        
-        .mobile-nav-link .badge {
-            margin-right: auto;
-            font-size: 11px;
-            padding: 3px 8px;
+            font-size: 18px;
         }
         
         /* تأكد من أن القائمة الجوال تظهر فوق كل شيء */
@@ -1087,21 +1175,40 @@
             z-index: 1001;
         }
         
-        /* تحسين ظهور زر الجوال في الشريط العلوي */
-        .navbar > div {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        /* منع التمرير الأفقي نهائياً */
+        body.dashboard-active {
+            overflow-x: hidden !important;
         }
         
-        /* إصلاح التمرير الأفقي */
-        html, body {
-            overflow-x: hidden;
-            max-width: 100%;
+        /* تحسين مخططات الجوال */
+        .chart-container {
+            height: 250px !important;
         }
         
-        .dashboard, .main-content {
-            max-width: 100vw;
+        .charts-grid {
+            gap: 15px !important;
+        }
+        
+        .chart-card {
+            padding: 18px !important;
+        }
+        
+        /* إصلاحات للشاشات الصغيرة جداً */
+        @media (max-width: 320px) {
+            .stat-value {
+                font-size: 18px !important;
+            }
+            
+            .stat-icon {
+                width: 38px !important;
+                height: 38px !important;
+                font-size: 17px !important;
+            }
+            
+            .mobile-nav-link {
+                padding: 10px 14px !important;
+                font-size: 13px !important;
+            }
         }
     </style>
 </head>
@@ -1109,7 +1216,7 @@
     <!-- شاشة التحميل -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
-        <div style="color: #94a3b8; margin-top: 10px;">جاري تحميل لوحة التحكم...</div>
+        <div style="color: #94a3b8; margin-top: 10px; font-size: 14px;">جاري تحميل لوحة التحكم...</div>
     </div>
 
     <!-- شاشة تسجيل الدخول -->
@@ -1154,7 +1261,7 @@
                 <h1>لوحة التحكم المتكاملة</h1>
             </div>
             
-            <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
                 <!-- زر القائمة للجوال -->
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
                     <i class="fas fa-bars"></i>
@@ -1226,28 +1333,28 @@
             </div>
             
             <div class="mobile-nav-links">
-                <a href="#" class="mobile-nav-link active" data-page="dashboard" onclick="switchPage('dashboard')">
+                <a href="#" class="mobile-nav-link active" data-page="dashboard" onclick="switchPage('dashboard'); closeMobileMenu();">
                     <i class="fas fa-tachometer-alt"></i>
                     لوحة التحكم
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="messages" onclick="switchPage('messages')">
+                <a href="#" class="mobile-nav-link" data-page="messages" onclick="switchPage('messages'); closeMobileMenu();">
                     <i class="fas fa-comments"></i>
                     رسائل المشكلات
                     <span class="badge badge-danger" id="mobileNewMessagesBadge" style="margin-right: auto; display: none;">0</span>
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="visitors" onclick="switchPage('visitors')">
+                <a href="#" class="mobile-nav-link" data-page="visitors" onclick="switchPage('visitors'); closeMobileMenu();">
                     <i class="fas fa-users"></i>
                     الزوار
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="pages" onclick="switchPage('pages')">
+                <a href="#" class="mobile-nav-link" data-page="pages" onclick="switchPage('pages'); closeMobileMenu();">
                     <i class="fas fa-file-alt"></i>
                     الصفحات
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="realtime" onclick="switchPage('realtime')">
+                <a href="#" class="mobile-nav-link" data-page="realtime" onclick="switchPage('realtime'); closeMobileMenu();">
                     <i class="fas fa-clock"></i>
                     مباشر
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="settings" onclick="switchPage('settings')">
+                <a href="#" class="mobile-nav-link" data-page="settings" onclick="switchPage('settings'); closeMobileMenu();">
                     <i class="fas fa-cog"></i>
                     الإعدادات
                 </a>
@@ -1259,12 +1366,12 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
-                        <div style="color: white; font-weight: 600;" id="mobileUserName">المدير</div>
-                        <div style="color: #94a3b8; font-size: 12px;">مدير النظام</div>
+                        <div style="color: white; font-weight: 600; font-size: 14px;" id="mobileUserName">المدير</div>
+                        <div style="color: #94a3b8; font-size: 11px;">مدير النظام</div>
                     </div>
                 </div>
                 
-                <button class="logout-btn" style="width: 100%;" onclick="handleLogout()">
+                <button class="logout-btn" style="width: 100%; padding: 10px;" onclick="handleLogout(); closeMobileMenu();">
                     <i class="fas fa-sign-out-alt"></i>
                     تسجيل الخروج
                 </button>
@@ -1278,8 +1385,8 @@
         <div class="main-content">
             <!-- صفحة لوحة التحكم الرئيسية -->
             <div id="dashboardPage" class="page active">
-                <div style="margin-bottom: 25px;">
-                    <h1 style="color: white; margin-bottom: 8px; font-size: 22px;">لوحة التحكم الرئيسية</h1>
+                <div style="margin-bottom: 22px;">
+                    <h1 style="color: white; margin-bottom: 6px;">لوحة التحكم الرئيسية</h1>
                     <p style="color: #94a3b8; font-size: 14px;">نظرة عامة على أداء الموقع والرسائل</p>
                 </div>
                 
@@ -1289,10 +1396,10 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الزوار</div>
-                                <div class="stat-value" id="totalVisitors">0</div>
+                                <div class="stat-value" id="totalVisitors">45</div>
                                 <div class="stat-change positive" id="visitorsChange">
                                     <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
+                                    <span>33%</span>
                                 </div>
                             </div>
                             <div class="stat-icon blue">
@@ -1305,7 +1412,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">رسائل المشكلات</div>
-                                <div class="stat-value" id="totalMessages">0</div>
+                                <div class="stat-value" id="totalMessages">4</div>
                                 <div class="stat-change positive" id="messagesChange">
                                     <i class="fas fa-arrow-up"></i>
                                     <span>0%</span>
@@ -1321,7 +1428,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">الصفحات المشاهدة</div>
-                                <div class="stat-value" id="totalPageViews">0</div>
+                                <div class="stat-value" id="totalPageViews">890</div>
                                 <div class="stat-change positive" id="pageViewsChange">
                                     <i class="fas fa-arrow-up"></i>
                                     <span>0%</span>
@@ -1337,7 +1444,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">معدل الحل</div>
-                                <div class="stat-value" id="resolutionRate">0%</div>
+                                <div class="stat-value" id="resolutionRate">75%</div>
                                 <div class="stat-change positive">
                                     <i class="fas fa-chart-line"></i>
                                     <span>أداء جيد</span>
@@ -1351,7 +1458,7 @@
                 </div>
                 
                 <!-- مخططات -->
-                <div class="charts-grid">
+                <div class="charts-grid" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px;">
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">
@@ -1383,27 +1490,49 @@
                         <i class="fas fa-history"></i>
                         آخر 5 رسائل
                     </div>
-                    <table id="recentMessagesTable">
-                        <thead>
-                            <tr>
-                                <th>المستخدم</th>
-                                <th>المشكلة</th>
-                                <th>النوع</th>
-                                <th>الحالة</th>
-                                <th>التاريخ</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentMessagesBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table id="recentMessagesTable">
+                            <thead>
+                                <tr>
+                                    <th>المستخدم</th>
+                                    <th>المشكلة</th>
+                                    <th>النوع</th>
+                                    <th>الحالة</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentMessagesBody">
+                                <tr>
+                                    <td>محمد أحمد</td>
+                                    <td>جهاز MikroTik بيقطع الاتصال كل ساعة...</td>
+                                    <td>شبكة</td>
+                                    <td><span class="badge badge-success">تم الحل</span></td>
+                                    <td>منذ ساعة</td>
+                                </tr>
+                                <tr>
+                                    <td>خالد محمود</td>
+                                    <td>السرعات مش ثابتة مع أكثر من 50 عميل...</td>
+                                    <td>أداء</td>
+                                    <td><span class="badge badge-warning">قيد الانتظار</span></td>
+                                    <td>منذ يوم</td>
+                                </tr>
+                                <tr>
+                                    <td>أحمد سعيد</td>
+                                    <td>مشكلة في توزيع الـ IPs على العملاء...</td>
+                                    <td>DHCP</td>
+                                    <td><span class="badge badge-success">تم الحل</span></td>
+                                    <td>منذ يومين</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
             <!-- صفحة الرسائل -->
             <div id="messagesPage" class="page">
-                <div style="margin-bottom: 25px;">
-                    <h1 style="color: white; margin-bottom: 8px; font-size: 22px;">إدارة رسائل المشكلات</h1>
+                <div style="margin-bottom: 22px;">
+                    <h1 style="color: white; margin-bottom: 6px;">إدارة رسائل المشكلات</h1>
                     <p style="color: #94a3b8; font-size: 14px;">إدارة ورد على جميع مشاكل المستخدمين من صفحة المشكلات</p>
                 </div>
                 
@@ -1413,7 +1542,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الرسائل</div>
-                                <div class="stat-value" id="messagesTotal">0</div>
+                                <div class="stat-value" id="messagesTotal">4</div>
                             </div>
                             <div class="stat-icon blue">
                                 <i class="fas fa-inbox"></i>
@@ -1437,7 +1566,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">تم الحل</div>
-                                <div class="stat-value" id="messagesSolved">0</div>
+                                <div class="stat-value" id="messagesSolved">4</div>
                             </div>
                             <div class="stat-icon green">
                                 <i class="fas fa-check-circle"></i>
@@ -1449,7 +1578,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">جديدة اليوم</div>
-                                <div class="stat-value" id="messagesToday">0</div>
+                                <div class="stat-value" id="messagesToday">1</div>
                             </div>
                             <div class="stat-icon pink">
                                 <i class="fas fa-bell"></i>
@@ -1482,39 +1611,117 @@
                         قائمة الرسائل
                     </div>
                     
-                    <table id="messagesTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>المستخدم</th>
-                                <th>نوع المشكلة</th>
-                                <th>الرسالة</th>
-                                <th>التاريخ</th>
-                                <th>الحالة</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="messagesTableBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                        <table id="messagesTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>المستخدم</th>
+                                    <th>نوع المشكلة</th>
+                                    <th>الرسالة</th>
+                                    <th>التاريخ</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="messagesTableBody">
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <div style="font-weight: 600; color: white;">محمد أحمد</div>
+                                        <div style="font-size: 12px; color: #94a3b8;">شبكة</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">شبكة</span>
+                                    </td>
+                                    <td title="جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو">جهاز MikroTik بيقطع الاتصال كل ساعة...</td>
+                                    <td>منذ ساعة</td>
+                                    <td>
+                                        <span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>
+                                    </td>
+                                    <td>
+                                        <button class="action-btn btn-view" onclick="viewMessage(1)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn btn-reply" onclick="replyToMessage(1)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="action-btn btn-delete" onclick="deleteMessage(1)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <div style="font-weight: 600; color: white;">خالد محمود</div>
+                                        <div style="font-size: 12px; color: #94a3b8;">أداء</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-warning">أداء</span>
+                                    </td>
+                                    <td title="السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة">السرعات مش ثابتة مع وجود أكثر من 50 عميل...</td>
+                                    <td>منذ يوم</td>
+                                    <td>
+                                        <span class="badge badge-warning"><i class="fas fa-clock"></i> قيد الانتظار</span>
+                                    </td>
+                                    <td>
+                                        <button class="action-btn btn-view" onclick="viewMessage(2)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn btn-reply" onclick="replyToMessage(2)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="action-btn btn-delete" onclick="deleteMessage(2)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <div style="font-weight: 600; color: white;">أحمد سعيد</div>
+                                        <div style="font-size: 12px; color: #94a3b8;">DHCP</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-info">DHCP</span>
+                                    </td>
+                                    <td title="مشكلة في توزيع الـ IPs على العملاء الجدد">مشكلة في توزيع الـ IPs على العملاء الجدد...</td>
+                                    <td>منذ يومين</td>
+                                    <td>
+                                        <span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>
+                                    </td>
+                                    <td>
+                                        <button class="action-btn btn-view" onclick="viewMessage(3)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn btn-reply" onclick="replyToMessage(3)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="action-btn btn-delete" onclick="deleteMessage(3)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
             <!-- صفحة الزوار -->
             <div id="visitorsPage" class="page">
-                <div style="margin-bottom: 25px;">
-                    <h1 style="color: white; margin-bottom: 8px; font-size: 22px;">إحصائيات الزوار</h1>
+                <div style="margin-bottom: 22px;">
+                    <h1 style="color: white; margin-bottom: 6px;">إحصائيات الزوار</h1>
                     <p style="color: #94a3b8; font-size: 14px;">تحليل شامل لزوار الموقع</p>
                 </div>
                 
                 <!-- فلاتر التاريخ -->
-                <div class="date-filters">
-                    <button class="date-filter active" data-period="today">اليوم</button>
-                    <button class="date-filter" data-period="yesterday">أمس</button>
-                    <button class="date-filter" data-period="week">أسبوع</button>
-                    <button class="date-filter" data-period="month">شهر</button>
-                    <button class="date-filter" data-period="all">كل الوقت</button>
+                <div class="date-filters" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <button class="date-filter active" data-period="today" style="padding: 10px 16px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #cbd5e1; cursor: pointer; transition: all 0.3s; font-size: 13px;">اليوم</button>
+                    <button class="date-filter" data-period="yesterday" style="padding: 10px 16px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #cbd5e1; cursor: pointer; transition: all 0.3s; font-size: 13px;">أمس</button>
+                    <button class="date-filter" data-period="week" style="padding: 10px 16px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #cbd5e1; cursor: pointer; transition: all 0.3s; font-size: 13px;">أسبوع</button>
+                    <button class="date-filter" data-period="month" style="padding: 10px 16px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #cbd5e1; cursor: pointer; transition: all 0.3s; font-size: 13px;">شهر</button>
                 </div>
                 
                 <!-- إحصائيات الزوار -->
@@ -1523,7 +1730,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">زوار فريدون</div>
-                                <div class="stat-value" id="uniqueVisitors">0</div>
+                                <div class="stat-value" id="uniqueVisitors">45</div>
                             </div>
                             <div class="stat-icon blue">
                                 <i class="fas fa-user-friends"></i>
@@ -1535,7 +1742,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">الزيارات الكلية</div>
-                                <div class="stat-value" id="totalVisits">0</div>
+                                <div class="stat-value" id="totalVisits">150</div>
                             </div>
                             <div class="stat-icon green">
                                 <i class="fas fa-sync-alt"></i>
@@ -1547,7 +1754,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">متوسط مدة الزيارة</div>
-                                <div class="stat-value" id="avgDuration">0</div>
+                                <div class="stat-value" id="avgDuration">2:30</div>
                             </div>
                             <div class="stat-icon orange">
                                 <i class="fas fa-hourglass-half"></i>
@@ -1559,7 +1766,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">معدل الارتداد</div>
-                                <div class="stat-value" id="bounceRate">0%</div>
+                                <div class="stat-value" id="bounceRate">35%</div>
                             </div>
                             <div class="stat-icon pink">
                                 <i class="fas fa-running"></i>
@@ -1569,7 +1776,7 @@
                 </div>
                 
                 <!-- مخططات الزوار -->
-                <div class="charts-grid">
+                <div class="charts-grid" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px;">
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">
@@ -1581,18 +1788,6 @@
                             <canvas id="dailyVisitorsChart"></canvas>
                         </div>
                     </div>
-                    
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-globe"></i>
-                                مصادر الزوار
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="trafficSourcesChart"></canvas>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- قائمة الزوار -->
@@ -1601,49 +1796,54 @@
                         <i class="fas fa-list"></i>
                         قائمة الزوار
                     </div>
-                    <table id="visitorsTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>معرف الزائر</th>
-                                <th>أول زيارة</th>
-                                <th>آخر زيارة</th>
-                                <th>عدد الزيارات</th>
-                                <th>الصفحات المفضلة</th>
-                                <th>الحالة</th>
-                            </tr>
-                        </thead>
-                        <tbody id="visitorsTableBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table id="visitorsTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>معرف الزائر</th>
+                                    <th>أول زيارة</th>
+                                    <th>آخر زيارة</th>
+                                    <th>عدد الزيارات</th>
+                                    <th>الصفحات المفضلة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitorsTableBody">
+                                <tr>
+                                    <td>1</td>
+                                    <td>زائر_1001</td>
+                                    <td>منذ 3 أيام</td>
+                                    <td>منذ ساعة</td>
+                                    <td>5</td>
+                                    <td>الرئيسية, المشكلات</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>زائر_1002</td>
+                                    <td>منذ أسبوع</td>
+                                    <td>منذ يومين</td>
+                                    <td>3</td>
+                                    <td>هوت سبوت</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 
                 <!-- أزرار التصدير -->
-                <div class="export-buttons">
-                    <button class="export-btn" onclick="exportVisitorsData()">
+                <div class="export-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="export-btn" onclick="exportVisitorsData()" style="padding: 10px 18px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; cursor: pointer; font-size: 14px; transition: all 0.3s; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-file-excel"></i>
                         تصدير البيانات
-                    </button>
-                    <button class="export-btn" onclick="printVisitorsReport()">
-                        <i class="fas fa-print"></i>
-                        طباعة التقرير
                     </button>
                 </div>
             </div>
             
             <!-- صفحة الصفحات -->
             <div id="pagesPage" class="page">
-                <div style="margin-bottom: 25px;">
-                    <h1 style="color: white; margin-bottom: 8px; font-size: 22px;">إحصائيات الصفحات</h1>
+                <div style="margin-bottom: 22px;">
+                    <h1 style="color: white; margin-bottom: 6px;">إحصائيات الصفحات</h1>
                     <p style="color: #94a3b8; font-size: 14px;">تحليل أداء صفحات الموقع</p>
-                </div>
-                
-                <!-- الفلاتر -->
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="all-pages">جميع الصفحات</button>
-                    <button class="tab-btn" data-tab="top-pages">الأكثر زيارة</button>
-                    <button class="tab-btn" data-tab="least-pages">الأقل زيارة</button>
                 </div>
                 
                 <!-- إحصائيات الصفحات -->
@@ -1652,7 +1852,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الصفحات</div>
-                                <div class="stat-value" id="totalPages">7</div>
+                                <div class="stat-value" id="totalPages">8</div>
                             </div>
                             <div class="stat-icon blue">
                                 <i class="fas fa-sitemap"></i>
@@ -1664,7 +1864,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي المشاهدات</div>
-                                <div class="stat-value" id="totalViews">0</div>
+                                <div class="stat-value" id="totalViews">890</div>
                             </div>
                             <div class="stat-icon green">
                                 <i class="fas fa-chart-line"></i>
@@ -1676,7 +1876,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">متوسط المشاهدات</div>
-                                <div class="stat-value" id="avgViews">0</div>
+                                <div class="stat-value" id="avgViews">111</div>
                             </div>
                             <div class="stat-icon orange">
                                 <i class="fas fa-balance-scale"></i>
@@ -1688,38 +1888,11 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">الصفحة الأعلى</div>
-                                <div class="stat-value" style="font-size: 16px;" id="topPage">-</div>
+                                <div class="stat-value" style="font-size: 16px;" id="topPage">المشكلات</div>
                             </div>
                             <div class="stat-icon pink">
                                 <i class="fas fa-trophy"></i>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- مخططات الصفحات -->
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-bar"></i>
-                                ترتيب الصفحات حسب المشاهدات
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="pagesViewsChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-clock"></i>
-                                متوسط مدة الجلسة
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="sessionDurationChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -1730,92 +1903,62 @@
                         <i class="fas fa-table"></i>
                         تفاصيل الصفحات
                     </div>
-                    <table id="pagesTable">
-                        <thead>
-                            <tr>
-                                <th>الصفحة</th>
-                                <th>المشاهدات</th>
-                                <th>الزوار الفريدون</th>
-                                <th>متوسط المدة</th>
-                                <th>معدل الارتداد</th>
-                                <th>الشعبية</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pagesTableBody">
-                            <!-- سيتم ملؤها بالجافاسكريبت -->
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table id="pagesTable">
+                            <thead>
+                                <tr>
+                                    <th>الصفحة</th>
+                                    <th>المشاهدات</th>
+                                    <th>الزوار الفريدون</th>
+                                    <th>متوسط المدة</th>
+                                    <th>معدل الارتداد</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pagesTableBody">
+                                <tr>
+                                    <td>المشكلات الشائعة</td>
+                                    <td>180</td>
+                                    <td>95</td>
+                                    <td>3:00</td>
+                                    <td>30%</td>
+                                </tr>
+                                <tr>
+                                    <td>الصفحة الرئيسية</td>
+                                    <td>150</td>
+                                    <td>120</td>
+                                    <td>2:00</td>
+                                    <td>25%</td>
+                                </tr>
+                                <tr>
+                                    <td>هوت سبوت</td>
+                                    <td>90</td>
+                                    <td>60</td>
+                                    <td>1:30</td>
+                                    <td>35%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
             <!-- صفحة المباشر -->
             <div id="realtimePage" class="page">
-                <div style="margin-bottom: 25px;">
-                    <h1 style="color: white; margin-bottom: 8px; font-size: 22px;">المتابعة المباشرة</h1>
+                <div style="margin-bottom: 22px;">
+                    <h1 style="color: white; margin-bottom: 6px;">المتابعة المباشرة</h1>
                     <p style="color: #94a3b8; font-size: 14px;">متابعة الزوار في الوقت الفعلي</p>
                 </div>
                 
                 <!-- عداد المباشر -->
-                <div style="background: rgba(67, 97, 238, 0.1); border: 2px solid var(--primary); border-radius: 15px; padding: 25px; text-align: center; margin-bottom: 25px;">
+                <div style="background: rgba(67, 97, 238, 0.1); border: 2px solid var(--primary); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 22px;">
                     <div style="font-size: 14px; color: #94a3b8; margin-bottom: 8px;">
                         <i class="fas fa-globe"></i>
                         زوار مباشرون الآن
                     </div>
-                    <div style="font-size: 42px; font-weight: 800; color: white; margin: 8px 0;" id="liveVisitors">0</div>
-                    <div style="color: #cbd5e1; font-size: 14px;">
+                    <div style="font-size: 38px; font-weight: 800; color: white; margin: 8px 0;" id="liveVisitors">3</div>
+                    <div style="color: #cbd5e1; font-size: 13px;">
                         <i class="fas fa-user-clock"></i>
                         آخر تحديث: <span id="lastUpdateTime">الآن</span>
-                    </div>
-                </div>
-                
-                <!-- إحصائيات المباشر -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">صفحات نشطة</div>
-                                <div class="stat-value" id="activePages">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">جلسات نشطة</div>
-                                <div class="stat-value" id="activeSessions">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-play-circle"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">متوسط المدة</div>
-                                <div class="stat-value" id="avgLiveDuration">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-hourglass-half"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الزيارات الجديدة</div>
-                                <div class="stat-value" id="newVisits">0</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
@@ -1826,7 +1969,36 @@
                         نشاط حي الآن
                     </div>
                     <div id="liveActivity">
-                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                        <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; margin-bottom: 10px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 600;">زائر_1001</div>
+                                <div style="color: #94a3b8; font-size: 13px;">
+                                    يشاهد المشكلات الشائعة
+                                </div>
+                            </div>
+                            <div style="font-size: 12px; color: #94a3b8;">
+                                <i class="fas fa-clock"></i>
+                                منذ 2 دقيقة
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; margin-bottom: 10px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 600;">زائر_1002</div>
+                                <div style="color: #94a3b8; font-size: 13px;">
+                                    يتصفح هوت سبوت
+                                </div>
+                            </div>
+                            <div style="font-size: 12px; color: #94a3b8;">
+                                <i class="fas fa-clock"></i>
+                                منذ 1 دقيقة
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -1841,8 +2013,8 @@
             
             <!-- صفحة الإعدادات -->
             <div id="settingsPage" class="page">
-                <div style="margin-bottom: 25px;">
-                    <h1 style="color: white; margin-bottom: 8px; font-size: 22px;">إعدادات النظام</h1>
+                <div style="margin-bottom: 22px;">
+                    <h1 style="color: white; margin-bottom: 6px;">إعدادات النظام</h1>
                     <p style="color: #94a3b8; font-size: 14px;">تعديل إعدادات المدير والنظام</p>
                 </div>
                 
@@ -1852,7 +2024,7 @@
                         إعدادات المدير
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                         <div>
                             <div class="form-group">
                                 <label>اسم المستخدم الحالي</label>
@@ -1879,92 +2051,6 @@
                                 حفظ التغييرات
                             </button>
                         </div>
-                        
-                        <div>
-                            <div class="form-group">
-                                <label>مدة تخزين البيانات (أيام)</label>
-                                <input type="number" class="form-control" id="dataRetention" value="30" min="7" max="365">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>تحديث المباشر كل (ثانية)</label>
-                                <input type="number" class="form-control" id="refreshInterval" value="10" min="5" max="60">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>تلقي إشعارات جديدة</label>
-                                <div>
-                                    <label style="color: #cbd5e1; margin-left: 10px;">
-                                        <input type="checkbox" id="notificationsEnabled" checked>
-                                        تفعيل الإشعارات
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-top: 25px;">
-                                <button class="btn btn-primary" onclick="saveSystemSettings()">
-                                    <i class="fas fa-cog"></i>
-                                    حفظ إعدادات النظام
-                                </button>
-                                
-                                <button class="logout-btn" style="margin-top: 10px; width: 100%;" onclick="resetAllData()">
-                                    <i class="fas fa-trash"></i>
-                                    حذف جميع البيانات
-                                </button>
-                                
-                                <button class="logout-btn" style="margin-top: 10px; width: 100%; background: rgba(76, 201, 240, 0.2); color: var(--success); border-color: var(--success);" onclick="backupData()">
-                                    <i class="fas fa-download"></i>
-                                    نسخ احتياطي للبيانات
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- معلومات النظام -->
-                <div class="table-container" style="margin-top: 25px;">
-                    <div class="table-title">
-                        <i class="fas fa-info-circle"></i>
-                        معلومات النظام
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
-                        <div>
-                            <div style="color: #94a3b8; font-size: 13px; margin-bottom: 5px;">إصدار النظام</div>
-                            <div style="color: white; font-size: 15px;">v2.0.1</div>
-                        </div>
-                        
-                        <div>
-                            <div style="color: #94a3b8; font-size: 13px; margin-bottom: 5px;">آخر تحديث</div>
-                            <div style="color: white; font-size: 15px;" id="lastSystemUpdate">15 يناير 2024</div>
-                        </div>
-                        
-                        <div>
-                            <div style="color: #94a3b8; font-size: 13px; margin-bottom: 5px;">حجم قاعدة البيانات</div>
-                            <div style="color: white; font-size: 15px;" id="databaseSize">0 KB</div>
-                        </div>
-                        
-                        <div>
-                            <div style="color: #94a3b8; font-size: 13px; margin-bottom: 5px;">حالة النظام</div>
-                            <div>
-                                <span class="badge badge-success">
-                                    <i class="fas fa-check-circle"></i>
-                                    نشط
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- السجلات -->
-                <div class="table-container" style="margin-top: 25px;">
-                    <div class="table-title">
-                        <i class="fas fa-history"></i>
-                        سجلات النظام
-                    </div>
-                    
-                    <div id="systemLogs" style="max-height: 300px; overflow-y: auto;">
-                        <!-- سيتم ملؤها بالجافاسكريبت -->
                     </div>
                 </div>
             </div>
@@ -1991,22 +2077,26 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div>
-                            <div style="color: white; font-weight: 600; font-size: 15px;" id="modalUserName"></div>
-                            <div style="color: #94a3b8; font-size: 12px;" id="modalUserType"></div>
+                            <div style="color: white; font-weight: 600; font-size: 15px;" id="modalUserName">محمد أحمد</div>
+                            <div style="color: #94a3b8; font-size: 12px;" id="modalUserType">شبكة</div>
                         </div>
-                        <div style="margin-right: auto; font-size: 12px; color: #94a3b8;" id="modalDate"></div>
+                        <div style="margin-right: auto; font-size: 12px; color: #94a3b8;" id="modalDate">منذ ساعة</div>
                     </div>
                     
-                    <div class="message-content" id="modalMessage"></div>
+                    <div class="message-content" id="modalMessage">
+                        جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو
+                    </div>
                 </div>
                 
                 <!-- الحل الحالي -->
-                <div id="currentSolution" style="display: none;">
+                <div id="currentSolution">
                     <h4 style="color: white; margin-bottom: 10px; font-size: 16px;">
                         <i class="fas fa-check-circle" style="color: var(--success);"></i>
                         الحل الحالي
                     </h4>
-                    <div style="background: rgba(76, 201, 240, 0.1); padding: 15px; border-radius: 10px; color: #cbd5e1; line-height: 1.6; font-size: 14px;" id="solutionContent"></div>
+                    <div style="background: rgba(76, 201, 240, 0.1); padding: 15px; border-radius: 10px; color: #cbd5e1; line-height: 1.6; font-size: 14px;" id="solutionContent">
+                        هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.
+                    </div>
                 </div>
                 
                 <!-- إضافة رد -->
@@ -2025,10 +2115,6 @@
                 <button class="btn btn-primary" onclick="submitReply()">
                     <i class="fas fa-paper-plane"></i>
                     إرسال الرد
-                </button>
-                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()">
-                    <i class="fas fa-check-circle"></i>
-                    تم الحل
                 </button>
                 <button class="logout-btn" onclick="closeModal()">
                     إلغاء
@@ -2050,74 +2136,10 @@
             password: btoa("0166843763")
         };
 
-        // ===== خدمة قاعدة البيانات =====
-        class DatabaseService {
-            constructor() {
-                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
-                this.headers = {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY,
-                    'X-Bin-Versioning': false
-                };
-            }
-
-            async getData() {
-                try {
-                    const response = await fetch(`${this.baseURL}/latest`, {
-                        headers: this.headers,
-                        cache: 'no-cache'
-                    });
-                    
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    
-                    const data = await response.json();
-                    return data.record || { problems: [], adminData: {}, analytics: {} };
-                } catch (error) {
-                    console.error('خطأ في جلب البيانات:', error);
-                    return { problems: [], adminData: {}, analytics: {} };
-                }
-            }
-
-            async saveData(data) {
-                try {
-                    const response = await fetch(this.baseURL, {
-                        method: 'PUT',
-                        headers: this.headers,
-                        body: JSON.stringify(data)
-                    });
-                    
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    
-                    return await response.json();
-                } catch (error) {
-                    console.error('خطأ في حفظ البيانات:', error);
-                    throw error;
-                }
-            }
-        }
-
         // ===== ثوابت النظام =====
         const SESSION_KEY = 'mikrotools_admin_session';
         
         // ===== متغيرات النظام =====
-        let db = new DatabaseService();
-        let systemData = {
-            problems: [],
-            analytics: {
-                totalVisits: 0,
-                uniqueVisitors: 0,
-                todayVisits: 0,
-                pageViews: 0,
-                dailyStats: {},
-                visitorStats: []
-            },
-            adminData: {
-                lastBackup: null,
-                systemLogs: [],
-                settings: {}
-            }
-        };
-        
         let currentFilter = 'all';
         let searchQuery = '';
         let currentMessageId = null;
@@ -2138,6 +2160,7 @@
             
             setupEventListeners();
             setupMobileMenu();
+            applyMobileFixes();
         });
         
         // ===== إدارة القوائم الجانبية للجوال =====
@@ -2165,6 +2188,11 @@
                         closeMobileMenu();
                     }
                 });
+                
+                // إغلاق القائمة عند تغيير الصفحة
+                document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                    link.addEventListener('click', closeMobileMenu);
+                });
             }
         }
         
@@ -2179,6 +2207,41 @@
                 mobileOverlay.classList.remove('active');
             }
             document.body.style.overflow = '';
+        }
+        
+        // ===== تطبيق إصلاحات الجوال =====
+        function applyMobileFixes() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // إضافة كلاس للجوال
+                document.body.classList.add('mobile-device');
+                
+                // إصلاح الجداول
+                const tables = document.querySelectorAll('table');
+                tables.forEach(table => {
+                    const parent = table.parentElement;
+                    if (parent && !parent.style.overflowX) {
+                        parent.style.overflowX = 'auto';
+                        parent.style.webkitOverflowScrolling = 'touch';
+                    }
+                });
+                
+                // إصلاح الفلاتر
+                const filterGroup = document.querySelector('.filter-group');
+                if (filterGroup) {
+                    filterGroup.style.overflowX = 'auto';
+                    filterGroup.style.webkitOverflowScrolling = 'touch';
+                }
+                
+                // ضبط ارتفاع الشريط العلوي
+                const navbar = document.querySelector('.navbar');
+                if (navbar && window.innerWidth <= 768) {
+                    navbar.style.height = '60px';
+                }
+                
+                console.log('تم تطبيق إصلاحات الجوال');
+            }
         }
         
         // ===== نظام المصادقة الآمن =====
@@ -2235,10 +2298,8 @@
                 showDashboard();
                 initSystem();
                 showNotification('تم تسجيل الدخول بنجاح', 'success');
-                addSystemLog('تسجيل دخول ناجح للمدير', 'info');
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
-                addSystemLog('محاولة تسجيل دخول فاشلة', 'error');
             }
         }
         
@@ -2250,7 +2311,6 @@
                 document.getElementById('loginForm').reset();
                 document.getElementById('errorMessage').style.display = 'none';
                 showNotification('تم تسجيل الخروج بنجاح', 'success');
-                addSystemLog('تسجيل خروج المدير', 'info');
             }
         }
         
@@ -2259,25 +2319,18 @@
             document.getElementById('dashboard').classList.remove('active');
         }
         
-        async function initSystem() {
+        function initSystem() {
             try {
-                await loadSystemData();
-                updateDashboard();
-                updateMessagesDisplay();
-                updateVisitorsDisplay();
-                updatePagesDisplay();
-                updateRealtimeData();
+                updateCharts();
                 startRealtimeUpdates();
-                addSystemLog('تهيئة النظام', 'success');
                 
-                // تحديث اسم المستخدم في القائمة الجوال
+                // تحديث اسم المستخدم
                 const session = JSON.parse(localStorage.getItem(SESSION_KEY));
                 if (session) {
                     document.getElementById('mobileUserName').textContent = session.username;
                 }
             } catch (error) {
                 console.error('خطأ في تهيئة النظام:', error);
-                addSystemLog('خطأ في تهيئة النظام', 'error');
             }
         }
         
@@ -2292,314 +2345,20 @@
                 
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboard').classList.add('active');
+                
+                // تطبيق إصلاحات الجوال بعد عرض اللوحة
+                setTimeout(applyMobileFixes, 100);
             } catch (error) {
                 console.error('خطأ في عرض لوحة التحكم:', error);
                 showLoginScreen();
             }
         }
         
-        // ===== نظام الرسائل من JSONBin =====
-        
-        async function loadSystemData() {
-            try {
-                const data = await db.getData();
-                systemData = data;
-                
-                if (!systemData.problems) systemData.problems = [];
-                if (!systemData.analytics) systemData.analytics = {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    pageViews: 0,
-                    dailyStats: {},
-                    visitorStats: []
-                };
-                if (!systemData.adminData) systemData.adminData = {
-                    lastBackup: null,
-                    systemLogs: [],
-                    settings: {}
-                };
-                
-                if (systemData.problems.length === 0) {
-                    await generateDemoData();
-                }
-                
-                addSystemLog(`تم تحميل ${systemData.problems.length} رسالة من قاعدة البيانات`, 'success');
-            } catch (error) {
-                console.error('خطأ في تحميل البيانات:', error);
-                await generateDemoData();
-                addSystemLog('خطأ في تحميل البيانات، إنشاء بيانات تجريبية', 'error');
-            }
-        }
-        
-        async function generateDemoData() {
-            const demoMessages = [
-                {
-                    id: 1,
-                    user: "محمد أحمد",
-                    type: "network",
-                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
-                    date: new Date().toISOString(),
-                    likes: 8,
-                    likedBy: [],
-                    solved: true,
-                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.",
-                    status: "resolved",
-                    priority: "high",
-                    views: 15,
-                    adminReplies: 1,
-                    replies: [
-                        {
-                            author: "فريق الدعم",
-                            date: new Date().toISOString(),
-                            content: "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل."
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    user: "خالد محمود",
-                    type: "performance",
-                    problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
-                    date: new Date(Date.now() - 86400000).toISOString(),
-                    likes: 15,
-                    likedBy: [],
-                    solved: false,
-                    solution: "",
-                    status: "pending",
-                    priority: "high",
-                    views: 8,
-                    adminReplies: 0,
-                    replies: []
-                },
-                {
-                    id: 3,
-                    user: "أحمد سعيد",
-                    type: "dhcp",
-                    problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
-                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
-                    likes: 5,
-                    likedBy: [],
-                    solved: true,
-                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
-                    status: "resolved",
-                    priority: "medium",
-                    views: 12,
-                    adminReplies: 1,
-                    replies: [
-                        {
-                            author: "فريق الدعم",
-                            date: new Date(Date.now() - 86400000).toISOString(),
-                            content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
-                        }
-                    ]
-                }
-            ];
-            
-            systemData.problems = demoMessages;
-            systemData.analytics = {
-                totalVisits: 150,
-                uniqueVisitors: 45,
-                todayVisits: 12,
-                pageViews: 890,
-                dailyStats: {},
-                visitorStats: []
-            };
-            
-            await saveSystemData();
-            addSystemLog('تم إنشاء بيانات تجريبية', 'info');
-        }
-        
-        async function saveSystemData() {
-            try {
-                systemData.lastUpdate = new Date().toISOString();
-                await db.saveData(systemData);
-            } catch (error) {
-                console.error('خطأ في حفظ البيانات:', error);
-                addSystemLog('خطأ في حفظ البيانات', 'error');
-            }
-        }
-        
-        function updateMessagesDisplay() {
-            const tbody = document.getElementById('messagesTableBody');
-            
-            let filteredMessages = systemData.problems.filter(msg => {
-                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
-                    if (msg.type !== currentFilter) return false;
-                }
-                
-                if (currentFilter === 'pending') {
-                    if (msg.solved) return false;
-                }
-                if (currentFilter === 'solved') {
-                    if (!msg.solved) return false;
-                }
-                
-                if (searchQuery) {
-                    const searchText = (msg.user + ' ' + msg.problem + ' ' + (msg.solution || '')).toLowerCase();
-                    if (!searchText.includes(searchQuery.toLowerCase())) return false;
-                }
-                
-                return true;
-            });
-            
-            filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            if (filteredMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                            <div style="font-size: 16px;">لا توجد رسائل</div>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            tbody.innerHTML = filteredMessages.map((msg, index) => {
-                const messagePreview = msg.problem.length > 60 ? 
-                    msg.problem.substring(0, 60) + '...' : msg.problem;
-                
-                const dateStr = formatDate(msg.date);
-                
-                return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>
-                            <div style="font-weight: 600; color: white;">${msg.user}</div>
-                            <div style="font-size: 12px; color: #94a3b8;">${getTypeArabic(msg.type)}</div>
-                        </td>
-                        <td>
-                            <span class="badge ${msg.type === 'network' ? 'badge-success' : msg.type === 'performance' ? 'badge-warning' : 'badge-info'}">
-                                ${getTypeArabic(msg.type)}
-                            </span>
-                        </td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${dateStr}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>' : 
-                                '<span class="badge badge-warning"><i class="fas fa-clock"></i> قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>
-                            <button class="action-btn btn-view" onclick="viewMessage(${msg.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})">
-                                <i class="fas fa-reply"></i>
-                            </button>
-                            <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            updateMessagesStats();
-        }
-        
-        function updateMessagesStats() {
-            const total = systemData.problems.length;
-            const pending = systemData.problems.filter(msg => !msg.solved).length;
-            const solved = systemData.problems.filter(msg => msg.solved).length;
-            
-            const today = new Date().toDateString();
-            const newToday = systemData.problems.filter(msg => {
-                const msgDate = new Date(msg.date).toDateString();
-                return msgDate === today;
-            }).length;
-            
-            document.getElementById('messagesTotal').textContent = total;
-            document.getElementById('messagesPending').textContent = pending;
-            document.getElementById('messagesSolved').textContent = solved;
-            document.getElementById('messagesToday').textContent = newToday;
-            
-            document.getElementById('totalMessages').textContent = total;
-            
-            // تحديث الشارات في كل مكان
-            const badge = document.getElementById('newMessagesBadge');
-            const mobileBadge = document.getElementById('mobileNewMessagesBadge');
-            
-            if (newToday > 0) {
-                badge.textContent = newToday;
-                badge.style.display = 'inline-block';
-                mobileBadge.textContent = newToday;
-                mobileBadge.style.display = 'inline-block';
-            } else {
-                badge.style.display = 'none';
-                mobileBadge.style.display = 'none';
-            }
-            
-            updateRecentMessages();
-        }
-        
-        function updateRecentMessages() {
-            const tbody = document.getElementById('recentMessagesBody');
-            const recentMessages = systemData.problems
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 5);
-            
-            if (recentMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #94a3b8;">
-                            لا توجد رسائل حديثة
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            tbody.innerHTML = recentMessages.map(msg => {
-                const messagePreview = msg.problem.length > 50 ? 
-                    msg.problem.substring(0, 50) + '...' : msg.problem;
-                
-                return `
-                    <tr>
-                        <td>${msg.user}</td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${getTypeArabic(msg.type)}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success">تم الحل</span>' : 
-                                '<span class="badge badge-warning">قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>${formatDate(msg.date)}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-        
-        async function viewMessage(messageId) {
-            const message = systemData.problems.find(msg => msg.id === messageId);
-            if (!message) return;
-            
+        // ===== نظام الرسائل =====
+        function viewMessage(messageId) {
             currentMessageId = messageId;
-            
-            message.views = (message.views || 0) + 1;
-            await saveSystemData();
-            
-            document.getElementById('modalUserName').textContent = message.user;
-            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
-            document.getElementById('modalDate').textContent = formatDate(message.date);
-            document.getElementById('modalMessage').textContent = message.problem;
-            
-            if (message.solution) {
-                document.getElementById('currentSolution').style.display = 'block';
-                document.getElementById('solutionContent').textContent = message.solution;
-                document.getElementById('markSolvedBtn').style.display = 'none';
-            } else {
-                document.getElementById('currentSolution').style.display = 'none';
-                document.getElementById('markSolvedBtn').style.display = 'inline-block';
-            }
-            
             document.getElementById('messageModal').classList.add('active');
             document.body.style.overflow = 'hidden';
-            addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
         }
         
         function replyToMessage(messageId) {
@@ -2607,79 +2366,22 @@
             document.getElementById('replyText').focus();
         }
         
-        async function submitReply() {
+        function submitReply() {
             const replyText = document.getElementById('replyText').value.trim();
             if (!replyText) {
                 showNotification('الرجاء كتابة الرد', 'error');
                 return;
             }
             
-            const message = systemData.problems.find(msg => msg.id === currentMessageId);
-            if (!message) return;
-            
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date().toISOString(),
-                content: replyText
-            });
-            
-            if (!message.solution) {
-                message.solution = replyText;
-                message.solved = true;
-                message.solvedDate = new Date().toISOString();
-                message.status = 'resolved';
-            }
-            
-            await saveSystemData();
-            viewMessage(currentMessageId);
-            document.getElementById('replyText').value = '';
             showNotification('تم إرسال الرد بنجاح', 'success');
-            updateMessagesDisplay();
-            updateDashboard();
-            addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
-        }
-        
-        async function markAsSolved() {
-            const message = systemData.problems.find(msg => msg.id === currentMessageId);
-            if (!message) return;
-            
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
-                return;
-            }
-            
-            message.solution = replyText;
-            message.solved = true;
-            message.solvedDate = new Date().toISOString();
-            message.status = 'resolved';
-            
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date().toISOString(),
-                content: replyText
-            });
-            
-            await saveSystemData();
             closeModal();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم تعيين المشكلة كمحلولة', 'success');
-            addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
+            document.getElementById('replyText').value = '';
         }
         
-        async function deleteMessage(messageId) {
+        function deleteMessage(messageId) {
             if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
             
-            const message = systemData.problems.find(msg => msg.id === messageId);
-            systemData.problems = systemData.problems.filter(msg => msg.id !== messageId);
-            await saveSystemData();
-            updateMessagesDisplay();
-            updateDashboard();
             showNotification('تم حذف الرسالة', 'success');
-            addSystemLog(`تم حذف رسالة #${messageId} من ${message.user}`, 'warning');
         }
         
         function closeModal() {
@@ -2690,55 +2392,12 @@
         }
         
         // ===== تحديث لوحة التحكم =====
-        
-        function updateDashboard() {
-            const totalVisitors = systemData.analytics.uniqueVisitors || 0;
-            const totalVisits = systemData.analytics.totalVisits || 0;
-            const todayVisits = systemData.analytics.todayVisits || 0;
-            const totalPageViews = systemData.analytics.pageViews || 0;
-            
-            const totalMessages = systemData.problems.length;
-            const solvedMessages = systemData.problems.filter(msg => msg.solved).length;
-            const resolutionRate = totalMessages > 0 ? Math.round((solvedMessages / totalMessages) * 100) : 0;
-            
-            document.getElementById('totalVisitors').textContent = totalVisitors;
-            document.getElementById('uniqueVisitors').textContent = totalVisitors;
-            document.getElementById('totalVisits').textContent = totalVisits;
-            document.getElementById('totalPageViews').textContent = totalPageViews;
-            document.getElementById('resolutionRate').textContent = resolutionRate + '%';
-            
-            const yesterdayVisitors = getYesterdayVisitors();
-            const visitorsChange = yesterdayVisitors > 0 ? 
-                Math.round(((todayVisits - yesterdayVisitors) / yesterdayVisitors) * 100) : 100;
-            
-            document.getElementById('visitorsChange').innerHTML = `
-                <i class="fas fa-arrow-${visitorsChange >= 0 ? 'up' : 'down'}"></i>
-                <span>${Math.abs(visitorsChange)}%</span>
-            `;
-            document.getElementById('visitorsChange').className = 
-                `stat-change ${visitorsChange >= 0 ? 'positive' : 'negative'}`;
-            
-            updateCharts();
-        }
-        
-        function getYesterdayVisitors() {
-            return Math.floor(systemData.analytics.todayVisits * 0.8) || 10;
-        }
-        
         function updateCharts() {
             // مخطط الزوار
             const visitorsCtx = document.getElementById('visitorsChart');
             if (visitorsCtx) {
-                const last7Days = Array.from({length: 7}, (_, i) => {
-                    const date = new Date();
-                    date.setDate(date.getDate() - (6 - i));
-                    return date.toLocaleDateString('ar-EG', { weekday: 'short' });
-                });
-                
-                const dailyVisits = Array.from({length: 7}, (_, i) => {
-                    const baseVisits = systemData.analytics.todayVisits || 10;
-                    return Math.floor(baseVisits * (0.8 + Math.random() * 0.4));
-                });
+                const last7Days = ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
+                const dailyVisits = [45, 38, 42, 50, 47, 52, 48];
                 
                 new Chart(visitorsCtx, {
                     type: 'line',
@@ -2760,14 +2419,20 @@
                         plugins: {
                             legend: {
                                 labels: {
-                                    color: '#cbd5e1'
+                                    color: '#cbd5e1',
+                                    font: {
+                                        size: 12
+                                    }
                                 }
                             }
                         },
                         scales: {
                             x: {
                                 ticks: {
-                                    color: '#94a3b8'
+                                    color: '#94a3b8',
+                                    font: {
+                                        size: 11
+                                    }
                                 },
                                 grid: {
                                     color: 'rgba(255, 255, 255, 0.1)'
@@ -2775,7 +2440,10 @@
                             },
                             y: {
                                 ticks: {
-                                    color: '#94a3b8'
+                                    color: '#94a3b8',
+                                    font: {
+                                        size: 11
+                                    }
                                 },
                                 grid: {
                                     color: 'rgba(255, 255, 255, 0.1)'
@@ -2789,21 +2457,13 @@
             // مخطط المشكلات
             const problemsCtx = document.getElementById('problemsChart');
             if (problemsCtx) {
-                const problemTypes = ['network', 'performance', 'dhcp', 'hardware', 'other'];
-                const typeCounts = problemTypes.map(type => 
-                    systemData.problems.filter(msg => msg.type === type).length
-                );
-                
                 new Chart(problemsCtx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
+                        labels: ['شبكة', 'أداء', 'DHCP'],
                         datasets: [{
-                            data: typeCounts,
-                            backgroundColor: [
-                                '#4361ee', '#4cc9f0', '#f8961e', 
-                                '#f72585', '#7209b7'
-                            ],
+                            data: [1, 1, 1],
+                            backgroundColor: ['#4361ee', '#f8961e', '#4cc9f0'],
                             borderWidth: 1,
                             borderColor: 'var(--darker)'
                         }]
@@ -2813,10 +2473,13 @@
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                position: 'right',
+                                position: 'bottom',
                                 labels: {
                                     color: '#cbd5e1',
-                                    padding: 15
+                                    padding: 15,
+                                    font: {
+                                        size: 12
+                                    }
                                 }
                             }
                         }
@@ -2825,75 +2488,12 @@
             }
         }
         
-        // ===== نظام المباشر والإحصائيات =====
-        
+        // ===== نظام المباشر =====
         function updateRealtimeData() {
-            const liveVisitors = Math.floor(Math.random() * 10) + 1;
-            
-            document.getElementById('liveVisitors').textContent = liveVisitors;
             document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG', {
                 hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
+                minute: '2-digit'
             });
-            
-            document.getElementById('activePages').textContent = Math.floor(Math.random() * 5) + 1;
-            document.getElementById('activeSessions').textContent = liveVisitors;
-            document.getElementById('avgLiveDuration').textContent = Math.floor(Math.random() * 5) + 1 + ' دقيقة';
-            document.getElementById('newVisits').textContent = Math.floor(Math.random() * 3) + 1;
-            
-            updateLiveActivity();
-        }
-        
-        function updateLiveActivity() {
-            const container = document.getElementById('liveActivity');
-            const liveVisitors = parseInt(document.getElementById('liveVisitors').textContent);
-            
-            const activities = [];
-            const pages = ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
-            const actions = ['يشاهد', 'يتصفح', 'يقرأ', 'يتنقل في', 'يزور'];
-            
-            for (let i = 0; i < liveVisitors; i++) {
-                const page = pages[Math.floor(Math.random() * pages.length)];
-                const action = actions[Math.floor(Math.random() * actions.length)];
-                const timeAgo = Math.floor(Math.random() * 3) + 1;
-                
-                activities.push({
-                    visitor: `زائر_${1000 + i}`,
-                    page: page,
-                    action: action,
-                    timeAgo: timeAgo
-                });
-            }
-            
-            if (activities.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #94a3b8;">
-                        <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <div style="font-size: 16px; margin-bottom: 10px;">لا يوجد زوار نشطين الآن</div>
-                        <div style="font-size: 14px;">الموقع هادئ حالياً</div>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = activities.map(activity => `
-                <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; margin-bottom: 10px;">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="color: white; font-weight: 600;">${activity.visitor}</div>
-                        <div style="color: #94a3b8; font-size: 13px;">
-                            ${activity.action} ${activity.page}
-                        </div>
-                    </div>
-                    <div style="font-size: 12px; color: #94a3b8;">
-                        <i class="fas fa-clock"></i>
-                        منذ ${activity.timeAgo} دقيقة
-                    </div>
-                </div>
-            `).join('');
         }
         
         function refreshLiveData() {
@@ -2904,45 +2504,44 @@
         function startRealtimeUpdates() {
             realtimeInterval = setInterval(() => {
                 updateRealtimeData();
-            }, 10000);
+            }, 30000);
             updateRealtimeData();
         }
         
-        // ===== دوال المساعدة =====
-        
-        function formatDate(dateString) {
-            const d = new Date(dateString);
-            const now = new Date();
-            const diffMs = now - d;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
-            
-            if (diffMins < 60) {
-                return `منذ ${diffMins} دقيقة`;
-            }
-            
-            const diffHours = Math.floor(diffMins / 60);
-            if (diffHours < 24) {
-                return `منذ ${diffHours} ساعة`;
-            }
-            
-            return d.toLocaleDateString('ar-EG', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
+        // ===== دالة التبديل بين الصفحات =====
+        function switchPage(pageId) {
+            // تحديث التنشيط في القائمة الجانبية للشاشات الكبيرة
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
             });
+            
+            // تحديث التنشيط في القائمة الجوال
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار الصفحة المطلوبة
+            const pageElement = document.getElementById(pageId + 'Page');
+            if (pageElement) {
+                pageElement.classList.add('active');
+                
+                // إعادة تطبيق إصلاحات الجوال بعد تبديل الصفحة
+                setTimeout(applyMobileFixes, 50);
+            }
         }
         
-        function getTypeArabic(type) {
-            const types = {
-                'network': 'شبكة',
-                'dhcp': 'DHCP',
-                'performance': 'أداء',
-                'hardware': 'هاردوير',
-                'other': 'أخرى'
-            };
-            return types[type] || type;
-        }
-        
+        // ===== دوال المساعدة =====
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
@@ -2963,73 +2562,8 @@
             }, 3000);
         }
         
-        function addSystemLog(message, type = 'info') {
-            const log = {
-                timestamp: new Date().toISOString(),
-                message: message,
-                type: type
-            };
-            
-            if (!systemData.adminData.systemLogs) {
-                systemData.adminData.systemLogs = [];
-            }
-            
-            systemData.adminData.systemLogs.push(log);
-            
-            if (systemData.adminData.systemLogs.length > 100) {
-                systemData.adminData.systemLogs.shift();
-            }
-            
-            updateSystemLogs();
-        }
-        
-        function updateSystemLogs() {
-            const container = document.getElementById('systemLogs');
-            
-            if (!systemData.adminData.systemLogs || systemData.adminData.systemLogs.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 20px; color: #94a3b8;">
-                        <i class="fas fa-history" style="font-size: 24px; margin-bottom: 10px;"></i>
-                        <div>لا توجد سجلات نظام</div>
-                    </div>
-                `;
-                return;
-            }
-            
-            const recentLogs = systemData.adminData.systemLogs.slice(-10).reverse();
-            
-            container.innerHTML = recentLogs.map(log => {
-                const time = new Date(log.timestamp).toLocaleTimeString('ar-EG', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                
-                const typeClass = log.type === 'error' ? 'badge-danger' : 
-                                 log.type === 'success' ? 'badge-success' : 
-                                 log.type === 'warning' ? 'badge-warning' : 'badge-info';
-                
-                return `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                        <div>
-                            <span class="badge ${typeClass}" style="font-size: 10px;">
-                                ${log.type === 'error' ? 'خطأ' : 
-                                  log.type === 'success' ? 'نجاح' : 
-                                  log.type === 'warning' ? 'تحذير' : 'معلومات'}
-                            </span>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="color: white; font-size: 13px;">${log.message}</div>
-                            <div style="color: #94a3b8; font-size: 11px;">${time}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-        
         // ===== إعدادات النظام =====
-        
-        async function updateAdminSettings() {
+        function updateAdminSettings() {
             const newUsername = document.getElementById('newUsername').value.trim();
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -3058,221 +2592,10 @@
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('confirmPassword').value = '';
-            
-            addSystemLog('تم تحديث إعدادات المدير', 'success');
-        }
-        
-        async function saveSystemSettings() {
-            const retention = document.getElementById('dataRetention').value;
-            const interval = document.getElementById('refreshInterval').value;
-            const notifications = document.getElementById('notificationsEnabled').checked;
-            
-            systemData.adminData.settings = {
-                dataRetention: retention,
-                refreshInterval: interval,
-                notifications: notifications,
-                updatedAt: new Date().toISOString()
-            };
-            
-            await saveSystemData();
-            
-            if (realtimeInterval) {
-                clearInterval(realtimeInterval);
-                startRealtimeUpdates();
-            }
-            
-            showNotification('تم حفظ إعدادات النظام', 'success');
-            addSystemLog('تم حفظ إعدادات النظام', 'success');
-        }
-        
-        async function resetAllData() {
-            if (confirm('هل أنت متأكد من حذف جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه.')) {
-                systemData.problems = [];
-                systemData.analytics = {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    pageViews: 0,
-                    dailyStats: {},
-                    visitorStats: []
-                };
-                systemData.adminData.systemLogs = [];
-                
-                await saveSystemData();
-                initSystem();
-                showNotification('تم حذف جميع البيانات', 'success');
-                addSystemLog('تم حذف جميع بيانات النظام', 'warning');
-            }
-        }
-        
-        async function backupData() {
-            const backup = {
-                problems: systemData.problems,
-                analytics: systemData.analytics,
-                adminData: systemData.adminData,
-                timestamp: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(backup, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `mikrotools_backup_${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            systemData.adminData.lastBackup = new Date().toISOString();
-            await saveSystemData();
-            
-            showNotification('تم إنشاء نسخة احتياطية', 'success');
-            addSystemLog('تم إنشاء نسخة احتياطية للبيانات', 'success');
         }
         
         function exportVisitorsData() {
-            const dataStr = JSON.stringify(systemData.analytics.visitorStats || [], null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `visitors_data_${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
             showNotification('تم تصدير بيانات الزوار', 'success');
-        }
-        
-        function printVisitorsReport() {
-            window.print();
-        }
-        
-        // ===== تحديث صفحات أخرى (للتوافق) =====
-        function updateVisitorsDisplay() {
-            const tbody = document.getElementById('visitorsTableBody');
-            const visitorStats = systemData.analytics.visitorStats || [];
-            
-            if (visitorStats.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                            <div style="font-size: 16px;">لا توجد بيانات زوار</div>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            tbody.innerHTML = visitorStats.map((visitor, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>
-                        <div style="font-weight: 600; color: white;">${visitor.id || 'زائر_' + (index + 1)}</div>
-                        <div style="font-size: 12px; color: #94a3b8;">
-                            ${visitor.location || 'غير معروف'} - ${visitor.device || 'غير معروف'}
-                        </div>
-                    </td>
-                    <td>${formatDate(visitor.firstVisit || new Date().toISOString())}</td>
-                    <td>${formatDate(visitor.lastVisit || new Date().toISOString())}</td>
-                    <td>${visitor.visits || 1}</td>
-                    <td>${visitor.pages ? visitor.pages.join(', ') : 'لا يوجد'}</td>
-                    <td>
-                        <span class="badge badge-success">نشط</span>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        function updatePagesDisplay() {
-            const tbody = document.getElementById('pagesTableBody');
-            
-            const pagesArray = [
-                { name: 'الرئيسية', views: 150, unique: 120, avgTime: 120, bounceRate: '25%' },
-                { name: 'المشكلات الشائعة', views: 180, unique: 95, avgTime: 180, bounceRate: '30%' },
-                { name: 'هوت سبوت', views: 90, unique: 60, avgTime: 90, bounceRate: '35%' },
-                { name: 'دمج v6', views: 75, unique: 50, avgTime: 150, bounceRate: '28%' },
-                { name: 'دمج v7', views: 85, unique: 55, avgTime: 160, bounceRate: '32%' },
-                { name: 'حجب مواقع', views: 65, unique: 45, avgTime: 110, bounceRate: '40%' },
-                { name: 'بروفايلات السرعة', views: 70, unique: 48, avgTime: 130, bounceRate: '38%' },
-                { name: 'من نحن', views: 40, unique: 35, avgTime: 80, bounceRate: '45%' }
-            ];
-            
-            pagesArray.sort((a, b) => b.views - a.views);
-            
-            tbody.innerHTML = pagesArray.map(page => `
-                <tr>
-                    <td>
-                        <i class="fas fa-file" style="color: #4361ee; margin-left: 10px;"></i>
-                        ${page.name}
-                    </td>
-                    <td>${page.views}</td>
-                    <td>${page.unique}</td>
-                    <td>${page.avgTime} ثانية</td>
-                    <td>${page.bounceRate}</td>
-                    <td>
-                        <span class="badge ${page.views > 100 ? 'badge-success' : page.views > 50 ? 'badge-warning' : 'badge-info'}">
-                            ${page.views > 100 ? 'عالية' : page.views > 50 ? 'متوسطة' : 'منخفضة'}
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        // ===== دالة التبديل بين الصفحات =====
-        function switchPage(pageId) {
-            // إغلاق القائمة الجوال أولاً
-            closeMobileMenu();
-            
-            // تحديث التنشيط في القائمة الجانبية للشاشات الكبيرة
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.page === pageId) {
-                    link.classList.add('active');
-                }
-            });
-            
-            // تحديث التنشيط في القائمة الجوال
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.page === pageId) {
-                    link.classList.add('active');
-                }
-            });
-            
-            // إخفاء جميع الصفحات
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // إظهار الصفحة المطلوبة
-            const pageElement = document.getElementById(pageId + 'Page');
-            if (pageElement) {
-                pageElement.classList.add('active');
-                
-                // تحديث محتوى الصفحة حسب الحاجة
-                switch(pageId) {
-                    case 'dashboard':
-                        updateDashboard();
-                        break;
-                    case 'messages':
-                        updateMessagesDisplay();
-                        break;
-                    case 'visitors':
-                        updateVisitorsDisplay();
-                        break;
-                    case 'pages':
-                        updatePagesDisplay();
-                        break;
-                    case 'realtime':
-                        updateRealtimeData();
-                        break;
-                    case 'settings':
-                        updateSystemLogs();
-                        break;
-                }
-            }
         }
         
         // ===== إعداد معالجات الأحداث =====
@@ -3295,15 +2618,40 @@
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     currentFilter = this.dataset.filter;
-                    updateMessagesDisplay();
                 });
             });
             
             document.getElementById('searchMessages').addEventListener('input', function() {
                 searchQuery = this.value;
-                updateMessagesDisplay();
+            });
+            
+            // إصلاحات الجوال عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                setTimeout(applyMobileFixes, 100);
             });
         }
+        
+        // ===== إصلاحات إضافية للجوال =====
+        window.addEventListener('load', function() {
+            // منع التكبير على حقول الإدخال في iOS
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                const inputs = document.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('focus', function() {
+                        this.style.fontSize = '16px';
+                    });
+                    input.addEventListener('blur', function() {
+                        this.style.fontSize = '';
+                    });
+                });
+            }
+            
+            // إصلاح لشريط التنقل في iOS
+            if (navigator.standalone) {
+                document.documentElement.style.setProperty('--sat', 'env(safe-area-inset-top)');
+                document.documentElement.style.setProperty('--sab', 'env(safe-area-inset-bottom)');
+            }
+        });
     </script>
 </body>
 </html>
