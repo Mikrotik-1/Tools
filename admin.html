@@ -780,6 +780,7 @@
                 border-radius: 8px;
                 width: 40px;
                 height: 40px;
+                cursor: pointer;
             }
             
             .main-content {
@@ -807,12 +808,6 @@
             
             .main-content {
                 padding-top: 20px;
-            }
-            
-            .nav-link.active {
-                background: rgba(67, 97, 238, 0.2);
-                color: var(--primary);
-                border-right-color: var(--primary);
             }
         }
 
@@ -1019,6 +1014,13 @@
         .overlay.active {
             z-index: 1001;
         }
+        
+        /* تحسين ظهور زر الموبايل في الشريط العلوي */
+        .navbar > div {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
     </style>
 </head>
 <body>
@@ -1142,28 +1144,28 @@
             </div>
             
             <div class="mobile-nav-links">
-                <a href="#" class="mobile-nav-link active" data-page="dashboard" onclick="closeMobileMenu()">
+                <a href="#" class="mobile-nav-link active" data-page="dashboard" onclick="switchPage('dashboard')">
                     <i class="fas fa-tachometer-alt"></i>
                     لوحة التحكم
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="messages" onclick="closeMobileMenu()">
+                <a href="#" class="mobile-nav-link" data-page="messages" onclick="switchPage('messages')">
                     <i class="fas fa-comments"></i>
                     رسائل المشكلات
                     <span class="badge badge-danger" id="mobileNewMessagesBadge" style="margin-right: auto; display: none;">0</span>
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="visitors" onclick="closeMobileMenu()">
+                <a href="#" class="mobile-nav-link" data-page="visitors" onclick="switchPage('visitors')">
                     <i class="fas fa-users"></i>
                     الزوار
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="pages" onclick="closeMobileMenu()">
+                <a href="#" class="mobile-nav-link" data-page="pages" onclick="switchPage('pages')">
                     <i class="fas fa-file-alt"></i>
                     الصفحات
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="realtime" onclick="closeMobileMenu()">
+                <a href="#" class="mobile-nav-link" data-page="realtime" onclick="switchPage('realtime')">
                     <i class="fas fa-clock"></i>
                     مباشر
                 </a>
-                <a href="#" class="mobile-nav-link" data-page="settings" onclick="closeMobileMenu()">
+                <a href="#" class="mobile-nav-link" data-page="settings" onclick="switchPage('settings')">
                     <i class="fas fa-cog"></i>
                     الإعدادات
                 </a>
@@ -2038,7 +2040,6 @@
         let searchQuery = '';
         let currentMessageId = null;
         let realtimeInterval = null;
-        let isMobile = window.innerWidth <= 768;
         
         // ===== تهيئة النظام =====
         document.addEventListener('DOMContentLoaded', function() {
@@ -2055,11 +2056,6 @@
             
             setupEventListeners();
             setupMobileMenu();
-            
-            // تحديث حالة الموبايل عند تغيير حجم النافذة
-            window.addEventListener('resize', function() {
-                isMobile = window.innerWidth <= 768;
-            });
         });
         
         // ===== إدارة القوائم الجانبية للموبايل =====
@@ -2069,32 +2065,38 @@
             const mobileOverlay = document.getElementById('mobileOverlay');
             const mobileSidebar = document.getElementById('mobileSidebar');
             
-            // فتح القائمة
-            mobileMenuBtn.addEventListener('click', function() {
-                mobileSidebar.classList.add('active');
-                mobileOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // منع التمرير عند فتح القائمة
-            });
-            
-            // إغلاق القائمة
-            closeMenuBtn.addEventListener('click', closeMobileMenu);
-            mobileOverlay.addEventListener('click', closeMobileMenu);
-            
-            // إغلاق القائمة عند الضغط على زر الهروب
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeMobileMenu();
-                }
-            });
+            if (mobileMenuBtn && mobileSidebar) {
+                // فتح القائمة
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileSidebar.classList.add('active');
+                    mobileOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                // إغلاق القائمة
+                closeMenuBtn.addEventListener('click', closeMobileMenu);
+                mobileOverlay.addEventListener('click', closeMobileMenu);
+                
+                // إغلاق القائمة عند الضغط على زر الهروب
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeMobileMenu();
+                    }
+                });
+            }
         }
         
         function closeMobileMenu() {
             const mobileSidebar = document.getElementById('mobileSidebar');
             const mobileOverlay = document.getElementById('mobileOverlay');
             
-            mobileSidebar.classList.remove('active');
-            mobileOverlay.classList.remove('active');
-            document.body.style.overflow = ''; // إعادة تفعيل التمرير
+            if (mobileSidebar) {
+                mobileSidebar.classList.remove('active');
+            }
+            if (mobileOverlay) {
+                mobileOverlay.classList.remove('active');
+            }
+            document.body.style.overflow = '';
         }
         
         // ===== نظام المصادقة الآمن =====
@@ -2208,9 +2210,6 @@
                 
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboard').classList.add('active');
-                
-                // إغلاق القائمة الموبايل إذا كانت مفتوحة
-                closeMobileMenu();
             } catch (error) {
                 console.error('خطأ في عرض لوحة التحكم:', error);
                 showLoginScreen();
@@ -2518,11 +2517,6 @@
             
             document.getElementById('messageModal').classList.add('active');
             addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
-            
-            // إغلاق القائمة الموبايل إذا كانت مفتوحة
-            if (isMobile) {
-                closeMobileMenu();
-            }
         }
         
         function replyToMessage(messageId) {
@@ -3142,6 +3136,61 @@
             `).join('');
         }
         
+        // ===== دالة التبديل بين الصفحات =====
+        function switchPage(pageId) {
+            // إغلاق القائمة الموبايل أولاً
+            closeMobileMenu();
+            
+            // تحديث التنشيط في القائمة الجانبية للشاشات الكبيرة
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // تحديث التنشيط في القائمة الموبايل
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار الصفحة المطلوبة
+            const pageElement = document.getElementById(pageId + 'Page');
+            if (pageElement) {
+                pageElement.classList.add('active');
+                
+                // تحديث محتوى الصفحة حسب الحاجة
+                switch(pageId) {
+                    case 'dashboard':
+                        updateDashboard();
+                        break;
+                    case 'messages':
+                        updateMessagesDisplay();
+                        break;
+                    case 'visitors':
+                        updateVisitorsDisplay();
+                        break;
+                    case 'pages':
+                        updatePagesDisplay();
+                        break;
+                    case 'realtime':
+                        updateRealtimeData();
+                        break;
+                    case 'settings':
+                        updateSystemLogs();
+                        break;
+                }
+            }
+        }
+        
         // ===== إعداد معالجات الأحداث =====
         function setupEventListeners() {
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
@@ -3151,59 +3200,12 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // تحديث التنشيط
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    document.querySelectorAll('.mobile-nav-link').forEach(l => l.classList.remove('active'));
-                    
-                    this.classList.add('active');
-                    
-                    // تحديث القائمة الموبايل
                     const pageId = this.dataset.page;
-                    const mobileLink = document.querySelector(`.mobile-nav-link[data-page="${pageId}"]`);
-                    if (mobileLink) {
-                        mobileLink.classList.add('active');
-                    }
-                    
-                    // تبديل الصفحات
-                    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-                    
-                    switch(pageId) {
-                        case 'dashboard':
-                            document.getElementById('dashboardPage').classList.add('active');
-                            updateDashboard();
-                            break;
-                        case 'messages':
-                            document.getElementById('messagesPage').classList.add('active');
-                            updateMessagesDisplay();
-                            break;
-                        case 'visitors':
-                            document.getElementById('visitorsPage').classList.add('active');
-                            updateVisitorsDisplay();
-                            break;
-                        case 'pages':
-                            document.getElementById('pagesPage').classList.add('active');
-                            updatePagesDisplay();
-                            break;
-                        case 'realtime':
-                            document.getElementById('realtimePage').classList.add('active');
-                            updateRealtimeData();
-                            break;
-                        case 'settings':
-                            document.getElementById('settingsPage').classList.add('active');
-                            updateSystemLogs();
-                            break;
-                    }
-                    
-                    // إغلاق القائمة الموبايل إذا كانت مفتوحة
-                    if (isMobile) {
-                        closeMobileMenu();
-                    }
+                    switchPage(pageId);
                 });
             });
             
-            // معالجات التنقل للقائمة الموبايل (تم التعامل معها في الروابط نفسها)
-            
+            // معالجات الفلاتر
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
