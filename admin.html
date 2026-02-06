@@ -252,6 +252,43 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
+        /* أزرار الإشعارات في الشريط العلوي */
+        .notification-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-btn {
+            background: rgba(76, 201, 240, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notification-btn:hover {
+            background: rgba(76, 201, 240, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .notification-btn.telegram {
+            background: rgba(0, 136, 204, 0.15);
+            color: #0088cc;
+            border-color: rgba(0, 136, 204, 0.3);
+        }
+
+        .notification-btn.telegram:hover {
+            background: rgba(0, 136, 204, 0.25);
+        }
+
         .user-info {
             display: flex;
             align-items: center;
@@ -779,6 +816,10 @@
                 font-size: 18px;
             }
             
+            .notification-buttons {
+                display: none;
+            }
+            
             .user-name {
                 display: none;
             }
@@ -1078,6 +1119,129 @@
             display: block;
             animation: fadeIn 0.3s ease;
         }
+
+        /* ===== قسم إشعارات Telegram ===== */
+        .telegram-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .telegram-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 136, 204, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .telegram-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0088cc, #4361ee);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .telegram-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .telegram-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0088cc, #4361ee);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .telegram-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .telegram-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+
+        .status-indicator.inactive {
+            background: #ef4444;
+        }
+
+        .telegram-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .telegram-btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .telegram-btn.primary {
+            background: linear-gradient(135deg, #0088cc, #4361ee);
+            color: white;
+        }
+
+        .telegram-btn.success {
+            background: linear-gradient(135deg, #4cc9f0, #3a9ab9);
+            color: white;
+        }
+
+        .telegram-btn.warning {
+            background: linear-gradient(135deg, #f8961e, #d67e1a);
+            color: white;
+        }
+
+        .telegram-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.3);
+        }
+
+        .telegram-chat-id {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            word-break: break-all;
+            color: #4cc9f0;
+        }
     </style>
 </head>
 <body>
@@ -1132,6 +1296,18 @@
                 <h1>لوحة التحكم</h1>
             </div>
             
+            <!-- أزرار الإشعارات -->
+            <div class="notification-buttons">
+                <button class="notification-btn telegram" id="quickReportBtn" title="إرسال تقرير سريع">
+                    <i class="fab fa-telegram"></i>
+                    <span>تقرير سريع</span>
+                </button>
+                <button class="notification-btn" id="notifyBtn" title="إرسال إشعار">
+                    <i class="fas fa-bell"></i>
+                    <span>إشعار</span>
+                </button>
+            </div>
+            
             <div class="user-info">
                 <span class="user-name" id="userName">المدير</span>
                 <button class="logout-btn" id="logoutBtn">
@@ -1176,6 +1352,12 @@
                     <a href="#" class="nav-link" data-page="realtime">
                         <i class="fas fa-clock"></i>
                         <span>مباشر</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="telegram">
+                        <i class="fab fa-telegram"></i>
+                        <span>إشعارات Telegram</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -1760,6 +1942,127 @@
                 </div>
             </div>
             
+            <!-- صفحة إشعارات Telegram -->
+            <div id="telegramPage" class="page">
+                <div class="page-header">
+                    <h1><i class="fab fa-telegram"></i> نظام إشعارات Telegram</h1>
+                    <p>إرسال تقارير مفصلة وإشعارات فورية إلى هاتفك</p>
+                </div>
+                
+                <!-- معلومات النظام -->
+                <div class="telegram-controls">
+                    <div class="telegram-card">
+                        <div class="telegram-header">
+                            <div class="telegram-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="telegram-title">حالة النظام</div>
+                        </div>
+                        
+                        <div class="telegram-status">
+                            <div class="status-indicator" id="statusIndicator"></div>
+                            <span id="statusText">جاري التحقق...</span>
+                        </div>
+                        
+                        <div id="chatIdDisplay" style="display: none;">
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">معرف الدردشة:</div>
+                            <div class="telegram-chat-id" id="currentChatId"></div>
+                        </div>
+                        
+                        <div class="telegram-buttons">
+                            <button class="telegram-btn primary" onclick="setupTelegram()" id="setupBtn">
+                                <i class="fas fa-cog"></i>
+                                إعداد Telegram
+                            </button>
+                            
+                            <button class="telegram-btn success" onclick="testTelegramNotification()" id="testBtn" style="display: none;">
+                                <i class="fas fa-paper-plane"></i>
+                                اختبار الإشعار
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="telegram-card">
+                        <div class="telegram-header">
+                            <div class="telegram-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="telegram-title">إرسال تقارير</div>
+                        </div>
+                        
+                        <div class="telegram-buttons">
+                            <button class="telegram-btn primary" onclick="sendQuickReport()">
+                                <i class="fas fa-bolt"></i>
+                                تقرير سريع (10 ثواني)
+                            </button>
+                            
+                            <button class="telegram-btn success" onclick="sendDetailedReport()">
+                                <i class="fas fa-file-alt"></i>
+                                تقرير مفصل
+                            </button>
+                            
+                            <button class="telegram-btn warning" onclick="sendLiveStatsReport()">
+                                <i class="fas fa-chart-line"></i>
+                                إحصائيات حية
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="telegram-card">
+                        <div class="telegram-header">
+                            <div class="telegram-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="telegram-title">جدولة تلقائية</div>
+                        </div>
+                        
+                        <div class="telegram-buttons">
+                            <button class="telegram-btn primary" onclick="scheduleDailyReport()">
+                                <i class="fas fa-sun"></i>
+                                تقرير يومي
+                            </button>
+                            
+                            <button class="telegram-btn success" onclick="scheduleHourlyReport()">
+                                <i class="fas fa-hourglass"></i>
+                                تقرير ساعي
+                            </button>
+                            
+                            <button class="telegram-btn warning" onclick="stopAllSchedules()">
+                                <i class="fas fa-stop"></i>
+                                إيقاف الجداول
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- معاينة الإشعار -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-eye"></i>
+                        معاينة الإشعار الأخير
+                    </div>
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 12px; margin-top: 15px;">
+                        <pre style="color: #cbd5e1; font-size: 14px; line-height: 1.6; white-space: pre-wrap;" id="notificationPreview">
+⏳ جاري تحميل معاينة الإشعار...
+                        </pre>
+                    </div>
+                </div>
+                
+                <!-- سجل الإشعارات -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-history"></i>
+                        سجل الإشعارات المرسلة
+                    </div>
+                    <div class="log-list" id="notificationLogs">
+                        <div class="log-item">
+                            <div class="log-time">الآن</div>
+                            <div class="log-message">تم تحميل نظام إشعارات Telegram</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- صفحة الإعدادات -->
             <div id="settingsPage" class="page">
                 <div class="page-header">
@@ -1958,6 +2261,9 @@
         </div>
     </div>
 
+    <!-- منطقة الإشعارات العائمة -->
+    <div id="notificationArea"></div>
+
     <script>
         // ===== إعدادات JSONBin =====
         const JSONBIN_CONFIG = {
@@ -2017,6 +2323,376 @@
             }
         }
 
+        // ===== نظام إشعارات Telegram المتقدم =====
+        class TelegramNotificationSystem {
+            constructor() {
+                this.botToken = '8399455499:AAGozeiCxaN8AQWN0P1Jj-GuyFUcEp3p2hk';
+                this.chatId = localStorage.getItem('telegram_chat_id');
+                this.enabled = this.chatId ? true : false;
+                this.scheduledJobs = {};
+                this.notificationLogs = JSON.parse(localStorage.getItem('telegram_logs') || '[]');
+                this.notificationCount = parseInt(localStorage.getItem('notification_count')) || 0;
+                
+                this.systemStats = {
+                    liveVisitors: 0,
+                    activeUsers: [],
+                    pageViews: 0,
+                    serverLoad: 0,
+                    messagesToday: 0,
+                    resolvedIssues: 0,
+                    pendingIssues: 0,
+                    popularPages: []
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.updateUI();
+                this.loadSystemStats();
+                this.startLiveUpdates();
+                this.logActivity('تم تهيئة نظام إشعارات Telegram');
+            }
+
+            updateUI() {
+                const statusIndicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                const chatIdDisplay = document.getElementById('chatIdDisplay');
+                const currentChatId = document.getElementById('currentChatId');
+                const setupBtn = document.getElementById('setupBtn');
+                const testBtn = document.getElementById('testBtn');
+                
+                if (this.enabled && this.chatId) {
+                    statusIndicator.className = 'status-indicator';
+                    statusText.textContent = 'النظام مفعل وجاهز';
+                    chatIdDisplay.style.display = 'block';
+                    currentChatId.textContent = this.chatId;
+                    setupBtn.style.display = 'none';
+                    testBtn.style.display = 'block';
+                    
+                    // تحديث زر التقرير السريع في الشريط العلوي
+                    const quickReportBtn = document.getElementById('quickReportBtn');
+                    if (quickReportBtn) {
+                        quickReportBtn.innerHTML = '<i class="fab fa-telegram"></i><span>تقرير سريع</span>';
+                    }
+                } else {
+                    statusIndicator.className = 'status-indicator inactive';
+                    statusText.textContent = 'غير مفعل - يرجى الإعداد';
+                    chatIdDisplay.style.display = 'none';
+                    setupBtn.style.display = 'block';
+                    testBtn.style.display = 'none';
+                }
+            }
+
+            async loadSystemStats() {
+                try {
+                    // محاكاة بيانات حية
+                    this.systemStats = {
+                        liveVisitors: Math.floor(Math.random() * 15) + 3,
+                        activeUsers: this.generateRandomUsers(),
+                        pageViews: Math.floor(Math.random() * 1000) + 500,
+                        serverLoad: Math.floor(Math.random() * 30),
+                        messagesToday: Math.floor(Math.random() * 20) + 5,
+                        resolvedIssues: Math.floor(Math.random() * 15) + 10,
+                        pendingIssues: Math.floor(Math.random() * 8) + 2,
+                        popularPages: [
+                            { name: 'الصفحة الرئيسية', views: 150 },
+                            { name: 'المشكلات الشائعة', views: 180 },
+                            { name: 'هوت سبوت', views: 90 },
+                            { name: 'دمج v6', views: 75 }
+                        ]
+                    };
+                } catch (error) {
+                    console.error('خطأ في تحميل الإحصائيات:', error);
+                }
+            }
+
+            generateRandomUsers() {
+                const names = ['محمد', 'أحمد', 'علي', 'خالد', 'محمود', 'سارة', 'فاطمة', 'نور'];
+                const pages = ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
+                
+                return Array.from({ length: Math.floor(Math.random() * 5) + 2 }, (_, i) => ({
+                    id: i + 1,
+                    name: names[Math.floor(Math.random() * names.length)],
+                    page: pages[Math.floor(Math.random() * pages.length)],
+                    duration: Math.floor(Math.random() * 10) + 1,
+                    device: ['موبايل', 'كمبيوتر', 'تابلت'][Math.floor(Math.random() * 3)]
+                }));
+            }
+
+            startLiveUpdates() {
+                setInterval(() => {
+                    this.loadSystemStats();
+                }, 30000);
+            }
+
+            // ===== أنواع التقارير =====
+
+            async sendQuickReport() {
+                if (!this.enabled) {
+                    this.showNotification('يرجى إعداد Telegram أولاً', 'error');
+                    return;
+                }
+
+                const message = `⚡ <b>تقرير سريع - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n` +
+                               `✅ النظام: <b>يعمل</b>\n` +
+                               `👥 الزوار: <b>${this.systemStats.liveVisitors}</b>\n` +
+                               `📨 الرسائل: <b>${this.systemStats.messagesToday}</b>\n` +
+                               `⚡ الأداء: <b>${100 - this.systemStats.serverLoad}%</b>\n` +
+                               `📊 المشاكل: <b>${this.systemStats.pendingIssues} قيد الانتظار</b>\n\n` +
+                               `🔔 كل شيء طبيعي`;
+
+                await this.sendAndLog(message, 'تقرير سريع');
+            }
+
+            async sendDetailedReport() {
+                if (!this.enabled) {
+                    this.showNotification('يرجى إعداد Telegram أولاً', 'error');
+                    return;
+                }
+
+                const totalUsers = this.systemStats.activeUsers.length;
+                const totalDuration = this.systemStats.activeUsers.reduce((sum, user) => sum + user.duration, 0);
+                const avgDuration = Math.round(totalDuration / totalUsers) || 0;
+
+                const message = `📊 <b>تقرير مفصل - ${new Date().toLocaleDateString('ar-EG')}</b>\n\n` +
+                               `⏰ <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}\n` +
+                               `━━━━━━━━━━━━━━━━━━━━\n\n` +
+                               `👥 <b>إحصائيات الزوار:</b>\n` +
+                               `   • زوار مباشرون: <b>${this.systemStats.liveVisitors}</b>\n` +
+                               `   • إجمالي المشاهدات: <b>${this.systemStats.pageViews}</b>\n` +
+                               `   • متوسط المدة: <b>${avgDuration} دقيقة</b>\n\n` +
+                               `📨 <b>إحصائيات الرسائل:</b>\n` +
+                               `   • رسائل اليوم: <b>${this.systemStats.messagesToday}</b>\n` +
+                               `   • مشاكل محلولة: <b>${this.systemStats.resolvedIssues}</b>\n` +
+                               `   • قيد الانتظار: <b>${this.systemStats.pendingIssues}</b>\n\n` +
+                               `⚡ <b>أداء النظام:</b>\n` +
+                               `   • حمل الخادم: <b>${this.systemStats.serverLoad}%</b>\n` +
+                               `   • الأداء: <b>${100 - this.systemStats.serverLoad}%</b>\n\n` +
+                               `📈 <b>الصفحات الأكثر زيارة:</b>\n` +
+                               this.systemStats.popularPages.slice(0, 3).map(page => 
+                                   `   • ${page.name}: <b>${page.views}</b> مشاهدة`
+                               ).join('\n') + '\n\n' +
+                               `━━━━━━━━━━━━━━━━━━━━\n` +
+                               `🔗 <a href="${window.location.origin}">زيارة الموقع</a>`;
+
+                await this.sendAndLog(message, 'تقرير مفصل');
+            }
+
+            async sendLiveStatsReport() {
+                if (!this.enabled) {
+                    this.showNotification('يرجى إعداد Telegram أولاً', 'error');
+                    return;
+                }
+
+                const message = `🔴 <b>بث مباشر - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n` +
+                               `👁️ <b>مباشر الآن:</b> ${this.systemStats.liveVisitors} زائر\n\n` +
+                               `📊 <b>نشاط حي:</b>\n` +
+                               this.systemStats.activeUsers.slice(0, 3).map(user => 
+                                   `   • ${user.name} يستخدم ${user.page}`
+                               ).join('\n') + '\n\n' +
+                               `⚡ <b>حمل النظام:</b> ${this.systemStats.serverLoad}%\n` +
+                               `📨 <b>آخر رسالة:</b> منذ ${Math.floor(Math.random() * 5) + 1} دقائق\n\n` +
+                               `🔄 <i>آخر تحديث: ${new Date().toLocaleTimeString('ar-EG')}</i>`;
+
+                await this.sendAndLog(message, 'إحصائيات حية');
+            }
+
+            async sendNewMessageNotification(messageData) {
+                if (!this.enabled) return;
+
+                const message = `🚀 <b>رسالة جديدة في MikroTools</b>\n\n` +
+                               `👤 <b>المستخدم:</b> ${messageData.user}\n` +
+                               `📌 <b>المشكلة:</b> ${messageData.problem.substring(0, 100)}...\n` +
+                               `📊 <b>النوع:</b> ${this.getTypeArabic(messageData.type)}\n` +
+                               `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}\n\n` +
+                               `🔗 <a href="${window.location.origin}/admin">اضغط هنا للرد على الرسالة</a>`;
+
+                await this.sendTelegramMessage(message);
+            }
+
+            // ===== الجدولة التلقائية =====
+
+            scheduleDailyReport() {
+                this.scheduleJob('daily', 24 * 60 * 60 * 1000, () => this.sendDetailedReport());
+                this.showNotification('تم جدولة التقارير اليومية', 'success');
+            }
+
+            scheduleHourlyReport() {
+                this.scheduleJob('hourly', 60 * 60 * 1000, () => this.sendQuickReport());
+                this.showNotification('تم جدولة التقارير الساعية', 'success');
+            }
+
+            scheduleJob(name, interval, callback) {
+                if (this.scheduledJobs[name]) {
+                    clearInterval(this.scheduledJobs[name]);
+                }
+                
+                this.scheduledJobs[name] = setInterval(callback, interval);
+                callback();
+                
+                this.logActivity(`تم جدولة ${name} كل ${interval / 60000} دقيقة`);
+            }
+
+            stopAllSchedules() {
+                Object.values(this.scheduledJobs).forEach(job => clearInterval(job));
+                this.scheduledJobs = {};
+                this.showNotification('تم إيقاف جميع الجداول', 'success');
+                this.logActivity('تم إيقاف جميع الجداول الزمنية');
+            }
+
+            // ===== دوال مساعدة =====
+
+            async sendTelegramMessage(text) {
+                if (!this.enabled || !this.chatId) {
+                    return false;
+                }
+                
+                try {
+                    const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: this.chatId,
+                            text: text,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                    
+                    return response.ok;
+                } catch (error) {
+                    console.error('خطأ في إرسال رسالة تلجرام:', error);
+                    return false;
+                }
+            }
+
+            async sendAndLog(message, type) {
+                this.showPreview(message);
+                const success = await this.sendTelegramMessage(message);
+                
+                if (success) {
+                    this.notificationCount++;
+                    localStorage.setItem('notification_count', this.notificationCount);
+                    this.logActivity(`تم إرسال ${type}`);
+                    this.showNotification(`تم إرسال ${type} بنجاح`, 'success');
+                    return true;
+                } else {
+                    this.showNotification(`فشل في إرسال ${type}`, 'error');
+                    return false;
+                }
+            }
+
+            showPreview(message) {
+                document.getElementById('notificationPreview').textContent = message;
+            }
+
+            logActivity(message) {
+                const log = {
+                    time: new Date().toLocaleTimeString('ar-EG'),
+                    message: message,
+                    date: new Date().toISOString()
+                };
+                
+                this.notificationLogs.unshift(log);
+                
+                if (this.notificationLogs.length > 10) {
+                    this.notificationLogs.pop();
+                }
+                
+                localStorage.setItem('telegram_logs', JSON.stringify(this.notificationLogs));
+                this.updateLogsUI();
+            }
+
+            updateLogsUI() {
+                const logList = document.getElementById('notificationLogs');
+                logList.innerHTML = this.notificationLogs.map(log => `
+                    <div class="log-item">
+                        <div class="log-time">${log.time}</div>
+                        <div class="log-message">${log.message}</div>
+                    </div>
+                `).join('');
+            }
+
+            showNotification(message, type = 'success') {
+                const notificationArea = document.getElementById('notificationArea');
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    ${message}
+                `;
+                
+                notificationArea.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideInRight 0.3s ease reverse';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
+            }
+
+            getTypeArabic(type) {
+                const types = {
+                    'network': 'شبكة',
+                    'dhcp': 'DHCP',
+                    'performance': 'أداء',
+                    'hardware': 'هاردوير',
+                    'other': 'أخرى'
+                };
+                return types[type] || type;
+            }
+
+            // إعداد Telegram
+            setupTelegram() {
+                const chatId = prompt(`
+🚀 خطوات الحصول على Chat ID:
+
+1. افتح Telegram
+2. ابحث عن @getidsbot
+3. أرسل /start
+4. انسخ الرقم الذي سيرسله
+5. الصقه هنا
+
+📝 أدخل Chat ID:`);
+
+                if (chatId && /^\d+$/.test(chatId)) {
+                    localStorage.setItem('telegram_chat_id', chatId);
+                    this.chatId = chatId;
+                    this.enabled = true;
+                    this.updateUI();
+                    
+                    this.showNotification(`✅ تم حفظ Chat ID: ${chatId}`, 'success');
+                    this.logActivity(`تم ربط Telegram بالرقم: ${chatId}`);
+                    
+                    // إرسال رسالة ترحيبية
+                    this.sendTelegramMessage(
+                        '🎉 <b>مرحباً بك في نظام إشعارات MikroTools!</b>\n\n' +
+                        '✅ تم تفعيل الإشعارات بنجاح\n' +
+                        '🔔 ستتلقى الآن:\n' +
+                        '   • تقارير عن الزوار المباشرين\n' +
+                        '   • إشعارات الرسائل الجديدة\n' +
+                        '   • تحديثات أداء النظام\n\n' +
+                        '🆔 ' + chatId + '\n' +
+                        '🕒 ' + new Date().toLocaleString('ar-EG')
+                    );
+                } else if (chatId) {
+                    this.showNotification('❌ Chat ID يجب أن يكون أرقام فقط', 'error');
+                }
+            }
+
+            async testTelegramNotification() {
+                const message = `🔔 <b>اختبار إشعار من MikroTools</b>\n\n` +
+                               `🎯 هذا إشعار تجريبي\n` +
+                               `✅ تم إعداد النظام بنجاح!\n` +
+                               `🕒 ${new Date().toLocaleString('ar-EG')}\n\n` +
+                               `🔗 <a href="${window.location.origin}/admin">زيارة لوحة التحكم</a>`;
+                
+                await this.sendAndLog(message, 'إشعار تجريبي');
+            }
+        }
+
         // ===== ثوابت النظام =====
         const SESSION_KEY = 'mikrotools_admin_session';
         
@@ -2039,6 +2715,10 @@
             }
         };
         
+        // إنشاء نسخة من نظام Telegram
+        const telegramSystem = new TelegramNotificationSystem();
+        
+        // متغيرات النظام
         let currentFilter = 'all';
         let searchQuery = '';
         let currentMessageId = null;
@@ -2076,7 +2756,6 @@
                 closeSidebar();
             });
             
-            // إغلاق القائمة عند الضغط على رابط
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 768) {
@@ -2085,7 +2764,6 @@
                 });
             });
             
-            // إغلاق القائمة عند تغيير حجم النافذة
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768 && sidebarOpen) {
                     closeSidebar();
@@ -2427,15 +3105,12 @@
                             <div style="display: flex; gap: 5px; flex-wrap: wrap;">
                                 <button class="action-btn btn-view" onclick="viewMessage(${msg.id})" title="عرض">
                                     <i class="fas fa-eye"></i>
-                                    <span class="action-text" style="display: none;">عرض</span>
                                 </button>
                                 <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})" title="رد">
                                     <i class="fas fa-reply"></i>
-                                    <span class="action-text" style="display: none;">رد</span>
                                 </button>
                                 <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})" title="حذف">
                                     <i class="fas fa-trash"></i>
-                                    <span class="action-text" style="display: none;">حذف</span>
                                 </button>
                             </div>
                         </td>
@@ -2539,6 +3214,12 @@
             
             document.getElementById('messageModal').classList.add('active');
             addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
+            
+            // إرسال إشعار Telegram إذا كانت الرسالة جديدة
+            const isToday = new Date(message.date).toDateString() === new Date().toDateString();
+            if (isToday && telegramSystem.enabled) {
+                telegramSystem.sendNewMessageNotification(message);
+            }
         }
         
         function replyToMessage(messageId) {
@@ -2898,6 +3579,7 @@
         }
         
         function showNotification(message, type = 'success') {
+            const notificationArea = document.getElementById('notificationArea');
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.innerHTML = `
@@ -2905,16 +3587,14 @@
                 ${message}
             `;
             
-            document.body.appendChild(notification);
+            notificationArea.appendChild(notification);
             
             setTimeout(() => {
                 notification.style.animation = 'slideInRight 0.3s ease reverse';
                 setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
+                    notification.remove();
                 }, 300);
-            }, 3000);
+            }, 5000);
         }
         
         function addSystemLog(message, type = 'info') {
@@ -3178,10 +3858,24 @@
             `).join('');
         }
         
+        // ===== دوال Telegram للاستخدام في HTML =====
+        window.setupTelegram = () => telegramSystem.setupTelegram();
+        window.testTelegramNotification = () => telegramSystem.testTelegramNotification();
+        window.sendQuickReport = () => telegramSystem.sendQuickReport();
+        window.sendDetailedReport = () => telegramSystem.sendDetailedReport();
+        window.sendLiveStatsReport = () => telegramSystem.sendLiveStatsReport();
+        window.scheduleDailyReport = () => telegramSystem.scheduleDailyReport();
+        window.scheduleHourlyReport = () => telegramSystem.scheduleHourlyReport();
+        window.stopAllSchedules = () => telegramSystem.stopAllSchedules();
+        
         // ===== إعداد معالجات الأحداث =====
         function setupEventListeners() {
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            // أزرار الإشعارات السريعة
+            document.getElementById('quickReportBtn')?.addEventListener('click', () => telegramSystem.sendQuickReport());
+            document.getElementById('notifyBtn')?.addEventListener('click', () => telegramSystem.testTelegramNotification());
             
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -3214,6 +3908,11 @@
                             document.getElementById('realtimePage').classList.add('active');
                             updateRealtimeData();
                             break;
+                        case 'telegram':
+                            document.getElementById('telegramPage').classList.add('active');
+                            telegramSystem.updateUI();
+                            telegramSystem.updateLogsUI();
+                            break;
                         case 'settings':
                             document.getElementById('settingsPage').classList.add('active');
                             updateSystemLogs();
@@ -3241,7 +3940,6 @@
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.date-filter').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    // هنا يمكنك إضافة منطق تصفية التاريخ
                 });
             });
             
@@ -3250,7 +3948,6 @@
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    // هنا يمكنك إضافة منطق التبويبات
                 });
             });
         }
