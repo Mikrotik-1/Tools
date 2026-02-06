@@ -35,6 +35,7 @@
             background: var(--darker);
             color: var(--light);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* ===== شاشة التحميل ===== */
@@ -193,7 +194,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .logo {
@@ -210,6 +211,18 @@
         .logo h1 {
             color: white;
             font-size: 20px;
+        }
+
+        /* زر القائمة للموبايل */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            margin-left: 10px;
         }
 
         .user-info {
@@ -237,7 +250,7 @@
             background: rgba(247, 37, 133, 0.3);
         }
 
-        /* القائمة الجانبية */
+        /* القائمة الجانبية للشاشات الكبيرة */
         .sidebar {
             width: 250px;
             background: var(--dark);
@@ -248,6 +261,8 @@
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px 0;
             overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 999;
         }
 
         .nav-menu {
@@ -280,11 +295,81 @@
             border-right-color: var(--primary);
         }
 
+        /* القائمة الجانبية للموبايل */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: var(--dark);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+            z-index: 1001;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding-top: 80px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .mobile-nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            border-right: 4px solid transparent;
+            font-weight: 500;
+        }
+
+        .mobile-nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border-right-color: var(--primary);
+        }
+
+        .mobile-nav-link.active {
+            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-right-color: white;
+        }
+
+        /* طبقة التعتيم للقائمة الموبايل */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         /* المحتوى الرئيسي */
         .main-content {
             margin-right: 250px;
             padding: 30px;
             min-height: calc(100vh - 70px);
+            transition: margin-right 0.3s ease;
         }
 
         .page {
@@ -452,7 +537,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            z-index: 1100;
             align-items: center;
             justify-content: center;
         }
@@ -663,23 +748,14 @@
             border-color: var(--primary);
         }
 
-        /* ===== التجاوب ===== */
-        @media (max-width: 768px) {
+        /* ===== التجاوب للموبايل ===== */
+        @media (max-width: 1024px) {
             .sidebar {
-                width: 70px;
-            }
-            
-            .nav-link span {
-                display: none;
+                width: 220px;
             }
             
             .main-content {
-                margin-right: 70px;
-                padding: 15px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
+                margin-right: 220px;
             }
             
             .charts-grid {
@@ -687,13 +763,103 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .sidebar {
-                display: none;
+                transform: translateX(100%);
+                position: fixed;
+                width: 280px;
+                top: 70px;
+                right: -280px;
+                z-index: 999;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+                right: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
             }
             
             .main-content {
                 margin-right: 0;
+                padding: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-container {
+                padding: 15px;
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 0 15px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 20px;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                padding: 15px;
+            }
+            
+            .filter-group {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .date-filters {
+                gap: 8px;
+            }
+            
+            .date-filter {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .tab-buttons {
+                gap: 8px;
+            }
+            
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .mobile-sidebar {
+                width: 260px;
             }
         }
 
@@ -755,6 +921,59 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
+
+        /* ===== تحسينات للقائمة الموبايل ===== */
+        .mobile-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background: var(--dark);
+            z-index: 1002;
+        }
+
+        .mobile-header .logo {
+            font-size: 18px;
+        }
+
+        .close-menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-nav-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .mobile-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .mobile-user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -806,17 +1025,24 @@
                 <h1>لوحة التحكم المتكاملة</h1>
             </div>
             
-            <div class="user-info">
-                <span class="user-name" id="userName">المدير</span>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    خروج
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <!-- زر القائمة للموبايل -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
                 </button>
+                
+                <div class="user-info">
+                    <span class="user-name" id="userName">المدير</span>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        خروج
+                    </button>
+                </div>
             </div>
         </nav>
         
-        <!-- القائمة الجانبية -->
-        <div class="sidebar">
+        <!-- القائمة الجانبية للشاشات الكبيرة -->
+        <div class="sidebar" id="desktopSidebar">
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#" class="nav-link active" data-page="dashboard">
@@ -858,6 +1084,67 @@
             </ul>
         </div>
         
+        <!-- القائمة الجانبية للموبايل -->
+        <div class="mobile-sidebar" id="mobileSidebar">
+            <div class="mobile-header">
+                <div class="logo">
+                    <i class="fas fa-chart-pie"></i>
+                    <h1>القائمة</h1>
+                </div>
+                <button class="close-menu-btn" id="closeMenuBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mobile-nav-links">
+                <a href="#" class="mobile-nav-link active" data-page="dashboard" onclick="closeMobileMenu()">
+                    <i class="fas fa-tachometer-alt"></i>
+                    لوحة التحكم
+                </a>
+                <a href="#" class="mobile-nav-link" data-page="messages" onclick="closeMobileMenu()">
+                    <i class="fas fa-comments"></i>
+                    رسائل المشكلات
+                    <span class="badge badge-danger" id="mobileNewMessagesBadge" style="margin-right: auto; display: none;">0</span>
+                </a>
+                <a href="#" class="mobile-nav-link" data-page="visitors" onclick="closeMobileMenu()">
+                    <i class="fas fa-users"></i>
+                    الزوار
+                </a>
+                <a href="#" class="mobile-nav-link" data-page="pages" onclick="closeMobileMenu()">
+                    <i class="fas fa-file-alt"></i>
+                    الصفحات
+                </a>
+                <a href="#" class="mobile-nav-link" data-page="realtime" onclick="closeMobileMenu()">
+                    <i class="fas fa-clock"></i>
+                    مباشر
+                </a>
+                <a href="#" class="mobile-nav-link" data-page="settings" onclick="closeMobileMenu()">
+                    <i class="fas fa-cog"></i>
+                    الإعدادات
+                </a>
+            </div>
+            
+            <div class="mobile-nav-footer">
+                <div class="mobile-user-info">
+                    <div class="mobile-user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="color: white; font-weight: 600;" id="mobileUserName">المدير</div>
+                        <div style="color: #94a3b8; font-size: 12px;">مدير النظام</div>
+                    </div>
+                </div>
+                
+                <button class="logout-btn" style="width: 100%;" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل الخروج
+                </button>
+            </div>
+        </div>
+        
+        <!-- طبقة التعتيم للقائمة الموبايل -->
+        <div class="overlay" id="mobileOverlay"></div>
+
         <!-- المحتوى الرئيسي -->
         <div class="main-content">
             <!-- صفحة لوحة التحكم الرئيسية -->
@@ -1706,6 +1993,7 @@
         let searchQuery = '';
         let currentMessageId = null;
         let realtimeInterval = null;
+        let isMobile = window.innerWidth <= 768;
         
         // ===== تهيئة النظام =====
         document.addEventListener('DOMContentLoaded', function() {
@@ -1721,7 +2009,48 @@
             }, 1000);
             
             setupEventListeners();
+            setupMobileMenu();
+            
+            // تحديث حالة الموبايل عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                isMobile = window.innerWidth <= 768;
+            });
         });
+        
+        // ===== إدارة القوائم الجانبية للموبايل =====
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            
+            // فتح القائمة
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileSidebar.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // منع التمرير عند فتح القائمة
+            });
+            
+            // إغلاق القائمة
+            closeMenuBtn.addEventListener('click', closeMobileMenu);
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+            
+            // إغلاق القائمة عند الضغط على زر الهروب
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+        }
+        
+        function closeMobileMenu() {
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            mobileSidebar.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // إعادة تفعيل التمرير
+        }
         
         // ===== نظام المصادقة الآمن =====
         function validateCredentials(username, password) {
@@ -1811,6 +2140,12 @@
                 updateRealtimeData();
                 startRealtimeUpdates();
                 addSystemLog('تهيئة النظام', 'success');
+                
+                // تحديث اسم المستخدم في القائمة الموبايل
+                const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+                if (session) {
+                    document.getElementById('mobileUserName').textContent = session.username;
+                }
             } catch (error) {
                 console.error('خطأ في تهيئة النظام:', error);
                 addSystemLog('خطأ في تهيئة النظام', 'error');
@@ -1823,10 +2158,14 @@
                 const username = session ? session.username : "المدير";
                 
                 document.getElementById('userName').textContent = username;
+                document.getElementById('mobileUserName').textContent = username;
                 document.getElementById('currentUsername').value = username;
                 
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboard').classList.add('active');
+                
+                // إغلاق القائمة الموبايل إذا كانت مفتوحة
+                closeMobileMenu();
             } catch (error) {
                 console.error('خطأ في عرض لوحة التحكم:', error);
                 showLoginScreen();
@@ -2054,12 +2393,18 @@
             
             document.getElementById('totalMessages').textContent = total;
             
+            // تحديث الشارات في كل مكان
             const badge = document.getElementById('newMessagesBadge');
+            const mobileBadge = document.getElementById('mobileNewMessagesBadge');
+            
             if (newToday > 0) {
                 badge.textContent = newToday;
                 badge.style.display = 'inline-block';
+                mobileBadge.textContent = newToday;
+                mobileBadge.style.display = 'inline-block';
             } else {
                 badge.style.display = 'none';
+                mobileBadge.style.display = 'none';
             }
             
             updateRecentMessages();
@@ -2128,6 +2473,11 @@
             
             document.getElementById('messageModal').classList.add('active');
             addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
+            
+            // إغلاق القائمة الموبايل إذا كانت مفتوحة
+            if (isMobile) {
+                closeMobileMenu();
+            }
         }
         
         function replyToMessage(messageId) {
@@ -2573,6 +2923,7 @@
             
             if (newUsername) {
                 document.getElementById('userName').textContent = newUsername;
+                document.getElementById('mobileUserName').textContent = newUsername;
                 document.getElementById('currentUsername').value = newUsername;
                 showNotification('تم تحديث اسم المستخدم', 'success');
             }
@@ -2751,14 +3102,25 @@
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
             
+            // معالجات التنقل للشاشات الكبيرة
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
+                    // تحديث التنشيط
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    document.querySelectorAll('.mobile-nav-link').forEach(l => l.classList.remove('active'));
+                    
                     this.classList.add('active');
                     
+                    // تحديث القائمة الموبايل
                     const pageId = this.dataset.page;
+                    const mobileLink = document.querySelector(`.mobile-nav-link[data-page="${pageId}"]`);
+                    if (mobileLink) {
+                        mobileLink.classList.add('active');
+                    }
+                    
+                    // تبديل الصفحات
                     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
                     
                     switch(pageId) {
@@ -2787,8 +3149,15 @@
                             updateSystemLogs();
                             break;
                     }
+                    
+                    // إغلاق القائمة الموبايل إذا كانت مفتوحة
+                    if (isMobile) {
+                        closeMobileMenu();
+                    }
                 });
             });
+            
+            // معالجات التنقل للقائمة الموبايل (تم التعامل معها في الروابط نفسها)
             
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
