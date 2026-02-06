@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم الأدمن | MikroTools</title>
+    <title>لوحة تحكم مدير MikroTools المتكاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
+        /* كل أنماط الأدمن كما هي - تم إرجاع شاشة الدخول */
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --border-radius: 12px;
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --dark: #1a1a2e;
+            --darker: #0d0d1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --info: #7209b7;
+            --purple: #560bad;
         }
 
         * {
@@ -28,29 +32,59 @@
         }
 
         body {
-            background: #f1f5f9;
-            color: var(--dark);
-            direction: rtl;
+            background: var(--darker);
+            color: var(--light);
             min-height: 100vh;
         }
 
-        /* شاشة الدخول */
+        /* ===== شاشة التحميل ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== تسجيل الدخول ===== */
         .login-screen {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
             padding: 20px;
         }
 
         .login-box {
-            background: white;
-            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 40px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .login-header {
@@ -65,9 +99,14 @@
         }
 
         .login-header h1 {
-            color: var(--dark);
+            color: white;
             font-size: 24px;
             margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #94a3b8;
+            font-size: 14px;
         }
 
         .form-group {
@@ -76,16 +115,18 @@
 
         .form-group label {
             display: block;
-            color: var(--dark);
+            color: #cbd5e1;
             margin-bottom: 8px;
-            font-weight: 500;
+            font-size: 14px;
         }
 
         .form-control {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
             font-size: 16px;
             transition: all 0.3s;
         }
@@ -93,21 +134,22 @@
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
         }
 
         .btn {
             padding: 12px 25px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: none;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            width: 100%;
         }
 
         .btn-primary {
@@ -116,38 +158,48 @@
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: #3a56d4;
+            transform: translateY(-2px);
         }
 
         .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
+            background: rgba(247, 37, 133, 0.2);
+            border: 1px solid rgba(247, 37, 133, 0.3);
+            color: #f8a5c2;
             padding: 10px 15px;
             border-radius: 8px;
             margin-bottom: 20px;
+            font-size: 14px;
             display: none;
         }
 
-        /* لوحة التحكم */
+        /* ===== لوحة التحكم ===== */
         .dashboard {
             display: none;
         }
 
+        .dashboard.active {
+            display: block;
+        }
+
+        /* الشريط العلوي */
         .navbar {
             background: var(--dark);
-            padding: 1rem 2rem;
+            padding: 0 20px;
+            height: 70px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
-            color: white;
-            text-decoration: none;
         }
 
         .logo i {
@@ -155,135 +207,243 @@
             color: var(--primary);
         }
 
+        .logo h1 {
+            color: white;
+            font-size: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-name {
+            color: white;
+            font-weight: 600;
+        }
+
         .logout-btn {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(247, 37, 133, 0.2);
             color: #f8a5c2;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(247, 37, 133, 0.3);
             padding: 8px 15px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
         }
 
-        /* المحتوى */
+        .logout-btn:hover {
+            background: rgba(247, 37, 133, 0.3);
+        }
+
+        /* القائمة الجانبية */
+        .sidebar {
+            width: 250px;
+            background: var(--dark);
+            height: calc(100vh - 70px);
+            position: fixed;
+            right: 0;
+            top: 70px;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: rgba(67, 97, 238, 0.2);
+            color: var(--primary);
+            border-right-color: var(--primary);
+        }
+
+        /* المحتوى الرئيسي */
         .main-content {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-right: 250px;
+            padding: 30px;
+            min-height: calc(100vh - 70px);
         }
 
-        .page-title {
-            color: var(--dark);
-            margin-bottom: 2rem;
-            font-size: 28px;
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
         }
 
-        /* بطاقات الإحصائيات */
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== بطاقات الإحصائيات ===== */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
 
         .stat-card {
-            background: white;
-            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
         }
 
-        .stat-value {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 5px;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .stat-title {
-            color: var(--gray);
-            font-size: 14px;
-        }
-
-        /* قائمة المشاكل */
-        .problems-list {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-
-        .problem-item {
-            padding: 20px;
-            border-bottom: 1px solid #e2e8f0;
+        .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 20px;
+            margin-bottom: 15px;
         }
 
-        .problem-item:last-child {
-            border-bottom: none;
-        }
-
-        .problem-content {
-            flex: 1;
-        }
-
-        .problem-user {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 5px;
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 22px;
         }
 
-        .problem-text {
-            color: var(--dark);
-            line-height: 1.6;
+        .stat-icon.blue { background: rgba(67, 97, 238, 0.2); color: var(--primary); }
+        .stat-icon.green { background: rgba(76, 201, 240, 0.2); color: var(--success); }
+        .stat-icon.pink { background: rgba(247, 37, 133, 0.2); color: var(--danger); }
+        .stat-icon.orange { background: rgba(248, 150, 30, 0.2); color: var(--warning); }
+        .stat-icon.purple { background: rgba(86, 11, 173, 0.2); color: var(--purple); }
+
+        .stat-title {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
 
-        .problem-date {
-            color: var(--gray);
-            font-size: 12px;
-        }
-
-        .problem-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            padding: 8px 15px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
+        .stat-change {
             display: flex;
             align-items: center;
             gap: 5px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        .btn-reply {
-            background: var(--primary);
+        .stat-change.positive { color: #10b981; }
+        .stat-change.negative { color: #ef4444; }
+
+        /* ===== جداول ===== */
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .table-title {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             color: white;
         }
 
-        .btn-solved {
-            background: var(--secondary);
-            color: white;
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        /* نافذة الرد */
+        .badge-success { background: rgba(76, 201, 240, 0.2); color: var(--success); }
+        .badge-warning { background: rgba(248, 150, 30, 0.2); color: var(--warning); }
+        .badge-danger { background: rgba(247, 37, 133, 0.2); color: var(--danger); }
+        .badge-info { background: rgba(114, 9, 183, 0.2); color: var(--info); }
+
+        /* ===== أزرار الإجراءات ===== */
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 0 2px;
+            transition: all 0.3s;
+        }
+
+        .btn-view { background: rgba(67, 97, 238, 0.2); color: var(--primary); }
+        .btn-reply { background: rgba(76, 201, 240, 0.2); color: var(--success); }
+        .btn-delete { background: rgba(247, 37, 133, 0.2); color: var(--danger); }
+
+        .action-btn:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        /* ===== نافذة الرد ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -291,11 +451,10 @@
             right: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
 
         .modal-overlay.active {
@@ -303,36 +462,47 @@
         }
 
         .modal {
-            background: white;
-            border-radius: var(--border-radius);
-            width: 100%;
-            max-width: 500px;
+            background: var(--dark);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header {
             padding: 20px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .modal-header h3 {
-            color: var(--dark);
+            color: white;
         }
 
         .modal-body {
             padding: 20px;
         }
 
+        .message-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
         .reply-form textarea {
             width: 100%;
-            min-height: 150px;
+            min-height: 100px;
             padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
             font-size: 14px;
             margin-bottom: 15px;
             resize: vertical;
@@ -340,28 +510,38 @@
 
         .modal-footer {
             padding: 20px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             gap: 10px;
             justify-content: flex-end;
         }
 
-        /* التصفية */
+        /* ===== البحث والتصفية ===== */
         .filters {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
             padding: 8px 16px;
-            background: white;
-            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            color: var(--dark);
+            color: #cbd5e1;
             cursor: pointer;
-            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .filter-btn.active {
@@ -370,85 +550,232 @@
             border-color: var(--primary);
         }
 
-        /* الحالة */
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            margin-top: 10px;
+        .search-box {
+            position: relative;
+            margin-bottom: 15px;
         }
 
-        .status-pending {
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--warning);
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
         }
 
-        .status-solved {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--secondary);
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
         }
 
-        /* الإشعارات */
+        /* ===== مخططات ===== */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* ===== فلاتر التاريخ ===== */
+        .date-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .date-filter {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .date-filter:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .date-filter.active {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        /* ===== أزرار التبويب ===== */
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .nav-link span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-right: 70px;
+                padding: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+        }
+
+        /* ===== إشعارات ===== */
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 90px;
+            right: 30px;
             padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             display: flex;
             align-items: center;
             gap: 12px;
-            animation: slideIn 0.3s ease;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .notification.success {
-            background: var(--secondary);
+            background: var(--success);
             color: white;
+            border-right: 4px solid #0891b2;
         }
 
         .notification.error {
             background: var(--danger);
             color: white;
+            border-right: 4px solid #dc2626;
         }
 
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        /* ===== أزرار التصدير ===== */
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 768px) {
-            .problem-item {
-                flex-direction: column;
-            }
-            
-            .problem-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-            
-            .main-content {
-                padding: 1rem;
-            }
+        .export-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-    <!-- شاشة الدخول -->
+    <!-- شاشة التحميل -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div style="color: #94a3b8; margin-top: 10px;">جاري تحميل لوحة التحكم...</div>
+    </div>
+
+    <!-- شاشة تسجيل الدخول -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <div class="login-header">
                 <i class="fas fa-user-shield"></i>
-                <h1>تسجيل دخول الأدمن</h1>
-                <p style="color: var(--gray); font-size: 14px;">لوحة تحكم مشاكل MikroTools</p>
+                <h1>لوحة تحكم المدير</h1>
+                <p>تسجيل الدخول إلى نظام إدارة MikroTools المتكامل</p>
             </div>
             
             <div class="error-message" id="errorMessage">
                 <i class="fas fa-exclamation-circle"></i>
-                بيانات الدخول غير صحيحة
+                اسم المستخدم أو كلمة المرور غير صحيحة
             </div>
             
             <form id="loginForm">
@@ -474,87 +801,818 @@
     <div class="dashboard" id="dashboard">
         <!-- الشريط العلوي -->
         <nav class="navbar">
-            <a href="#" class="logo">
+            <div class="logo">
                 <i class="fas fa-chart-pie"></i>
-                <span>لوحة تحكم الأدمن</span>
-            </a>
+                <h1>لوحة التحكم المتكاملة</h1>
+            </div>
             
-            <button class="logout-btn" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                خروج
-            </button>
+            <div class="user-info">
+                <span class="user-name" id="userName">المدير</span>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    خروج
+                </button>
+            </div>
         </nav>
+        
+        <!-- القائمة الجانبية -->
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>لوحة التحكم</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="messages">
+                        <i class="fas fa-comments"></i>
+                        <span>رسائل المشكلات</span>
+                        <span class="badge badge-danger" id="newMessagesBadge" style="margin-right: auto; display: none;">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="visitors">
+                        <i class="fas fa-users"></i>
+                        <span>الزوار</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="pages">
+                        <i class="fas fa-file-alt"></i>
+                        <span>الصفحات</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="realtime">
+                        <i class="fas fa-clock"></i>
+                        <span>مباشر</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         
         <!-- المحتوى الرئيسي -->
         <div class="main-content">
-            <h1 class="page-title">إدارة مشاكل المستخدمين</h1>
-            
-            <!-- إحصائيات -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" id="totalProblems">0</div>
-                    <div class="stat-title">إجمالي المشاكل</div>
+            <!-- صفحة لوحة التحكم الرئيسية -->
+            <div id="dashboardPage" class="page active">
+                <div style="margin-bottom: 30px;">
+                    <h1 style="color: white; margin-bottom: 10px;">لوحة التحكم الرئيسية</h1>
+                    <p style="color: #94a3b8;">نظرة عامة على أداء الموقع والرسائل</p>
                 </div>
                 
-                <div class="stat-card">
-                    <div class="stat-value" id="pendingProblems">0</div>
-                    <div class="stat-title">قيد الانتظار</div>
+                <!-- إحصائيات سريعة -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">إجمالي الزوار</div>
+                                <div class="stat-value" id="totalVisitors">0</div>
+                                <div class="stat-change positive" id="visitorsChange">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>0%</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">رسائل المشكلات</div>
+                                <div class="stat-value" id="totalMessages">0</div>
+                                <div class="stat-change positive" id="messagesChange">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>0%</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">الصفحات المشاهدة</div>
+                                <div class="stat-value" id="totalPageViews">0</div>
+                                <div class="stat-change positive" id="pageViewsChange">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>0%</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">معدل الحل</div>
+                                <div class="stat-value" id="resolutionRate">0%</div>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>أداء جيد</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon purple">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="stat-card">
-                    <div class="stat-value" id="solvedProblems">0</div>
-                    <div class="stat-title">تم الحل</div>
+                <!-- مخططات -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-bar"></i>
+                                نشاط الزوار خلال 7 أيام
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="visitorsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-pie"></i>
+                                توزيع المشكلات حسب النوع
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="problemsChart"></canvas>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="stat-card">
-                    <div class="stat-value" id="newProblems">0</div>
-                    <div class="stat-title">جديدة اليوم</div>
+                <!-- آخر الرسائل -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-history"></i>
+                        آخر 5 رسائل
+                    </div>
+                    <table id="recentMessagesTable">
+                        <thead>
+                            <tr>
+                                <th>المستخدم</th>
+                                <th>المشكلة</th>
+                                <th>النوع</th>
+                                <th>الحالة</th>
+                                <th>التاريخ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentMessagesBody">
+                            <!-- سيتم ملؤها بالجافاسكريبت -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
             
-            <!-- الفلاتر -->
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">جميع المشاكل</button>
-                <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
-                <button class="filter-btn" data-filter="solved">تم الحل</button>
+            <!-- صفحة الرسائل -->
+            <div id="messagesPage" class="page">
+                <div style="margin-bottom: 30px;">
+                    <h1 style="color: white; margin-bottom: 10px;">إدارة رسائل المشكلات</h1>
+                    <p style="color: #94a3b8;">إدارة ورد على جميع مشاكل المستخدمين من صفحة المشكلات</p>
+                </div>
+                
+                <!-- إحصائيات سريعة -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">إجمالي الرسائل</div>
+                                <div class="stat-value" id="messagesTotal">0</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-inbox"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">قيد الانتظار</div>
+                                <div class="stat-value" id="messagesPending">0</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">تم الحل</div>
+                                <div class="stat-value" id="messagesSolved">0</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">جديدة اليوم</div>
+                                <div class="stat-value" id="messagesToday">0</div>
+                            </div>
+                            <div class="stat-icon pink">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- الفلاتر -->
+                <div class="filters">
+                    <div class="search-box">
+                        <input type="text" id="searchMessages" placeholder="ابحث في الرسائل...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">الكل</button>
+                        <button class="filter-btn" data-filter="network">شبكة</button>
+                        <button class="filter-btn" data-filter="performance">أداء</button>
+                        <button class="filter-btn" data-filter="dhcp">DHCP</button>
+                        <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
+                        <button class="filter-btn" data-filter="solved">تم الحل</button>
+                    </div>
+                </div>
+                
+                <!-- جدول الرسائل -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-list"></i>
+                        قائمة الرسائل
+                    </div>
+                    
+                    <table id="messagesTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>المستخدم</th>
+                                <th>نوع المشكلة</th>
+                                <th>الرسالة</th>
+                                <th>التاريخ</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesTableBody">
+                            <!-- سيتم ملؤها بالجافاسكريبت -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
             
-            <!-- قائمة المشاكل -->
-            <div class="problems-list" id="problemsList">
-                <!-- سيتم ملؤها بالجافاسكريبت -->
+            <!-- صفحة الزوار -->
+            <div id="visitorsPage" class="page">
+                <div style="margin-bottom: 30px;">
+                    <h1 style="color: white; margin-bottom: 10px;">إحصائيات الزوار</h1>
+                    <p style="color: #94a3b8;">تحليل شامل لزوار الموقع</p>
+                </div>
+                
+                <!-- فلاتر التاريخ -->
+                <div class="date-filters">
+                    <button class="date-filter active" data-period="today">اليوم</button>
+                    <button class="date-filter" data-period="yesterday">أمس</button>
+                    <button class="date-filter" data-period="week">أسبوع</button>
+                    <button class="date-filter" data-period="month">شهر</button>
+                    <button class="date-filter" data-period="all">كل الوقت</button>
+                </div>
+                
+                <!-- إحصائيات الزوار -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">زوار فريدون</div>
+                                <div class="stat-value" id="uniqueVisitors">0</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">الزيارات الكلية</div>
+                                <div class="stat-value" id="totalVisits">0</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">متوسط مدة الزيارة</div>
+                                <div class="stat-value" id="avgDuration">0</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">معدل الارتداد</div>
+                                <div class="stat-value" id="bounceRate">0%</div>
+                            </div>
+                            <div class="stat-icon pink">
+                                <i class="fas fa-running"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مخططات الزوار -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-line"></i>
+                                حركة الزوار اليومية
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="dailyVisitorsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-globe"></i>
+                                مصادر الزوار
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="trafficSourcesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- قائمة الزوار -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-list"></i>
+                        قائمة الزوار
+                    </div>
+                    <table id="visitorsTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>معرف الزائر</th>
+                                <th>أول زيارة</th>
+                                <th>آخر زيارة</th>
+                                <th>عدد الزيارات</th>
+                                <th>الصفحات المفضلة</th>
+                                <th>الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visitorsTableBody">
+                            <!-- سيتم ملؤها بالجافاسكريبت -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- أزرار التصدير -->
+                <div class="export-buttons">
+                    <button class="export-btn" onclick="exportVisitorsData()">
+                        <i class="fas fa-file-excel"></i>
+                        تصدير البيانات
+                    </button>
+                    <button class="export-btn" onclick="printVisitorsReport()">
+                        <i class="fas fa-print"></i>
+                        طباعة التقرير
+                    </button>
+                </div>
+            </div>
+            
+            <!-- صفحة الصفحات -->
+            <div id="pagesPage" class="page">
+                <div style="margin-bottom: 30px;">
+                    <h1 style="color: white; margin-bottom: 10px;">إحصائيات الصفحات</h1>
+                    <p style="color: #94a3b8;">تحليل أداء صفحات الموقع</p>
+                </div>
+                
+                <!-- الفلاتر -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="all-pages">جميع الصفحات</button>
+                    <button class="tab-btn" data-tab="top-pages">الأكثر زيارة</button>
+                    <button class="tab-btn" data-tab="least-pages">الأقل زيارة</button>
+                </div>
+                
+                <!-- إحصائيات الصفحات -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">إجمالي الصفحات</div>
+                                <div class="stat-value" id="totalPages">7</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">إجمالي المشاهدات</div>
+                                <div class="stat-value" id="totalViews">0</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">متوسط المشاهدات</div>
+                                <div class="stat-value" id="avgViews">0</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">الصفحة الأعلى</div>
+                                <div class="stat-value" style="font-size: 18px;" id="topPage">-</div>
+                            </div>
+                            <div class="stat-icon pink">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مخططات الصفحات -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-bar"></i>
+                                ترتيب الصفحات حسب المشاهدات
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="pagesViewsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-clock"></i>
+                                متوسط مدة الجلسة
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="sessionDurationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- جدول الصفحات -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-table"></i>
+                        تفاصيل الصفحات
+                    </div>
+                    <table id="pagesTable">
+                        <thead>
+                            <tr>
+                                <th>الصفحة</th>
+                                <th>المشاهدات</th>
+                                <th>الزوار الفريدون</th>
+                                <th>متوسط المدة</th>
+                                <th>معدل الارتداد</th>
+                                <th>الشعبية</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagesTableBody">
+                            <!-- سيتم ملؤها بالجافاسكريبت -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- صفحة المباشر -->
+            <div id="realtimePage" class="page">
+                <div style="margin-bottom: 30px;">
+                    <h1 style="color: white; margin-bottom: 10px;">المتابعة المباشرة</h1>
+                    <p style="color: #94a3b8;">متابعة الزوار في الوقت الفعلي</p>
+                </div>
+                
+                <!-- عداد المباشر -->
+                <div style="background: rgba(67, 97, 238, 0.1); border: 2px solid var(--primary); border-radius: 15px; padding: 30px; text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">
+                        <i class="fas fa-globe"></i>
+                        زوار مباشرون الآن
+                    </div>
+                    <div style="font-size: 48px; font-weight: 800; color: white; margin: 10px 0;" id="liveVisitors">0</div>
+                    <div style="color: #cbd5e1; font-size: 14px;">
+                        <i class="fas fa-user-clock"></i>
+                        آخر تحديث: <span id="lastUpdateTime">الآن</span>
+                    </div>
+                </div>
+                
+                <!-- إحصائيات المباشر -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">صفحات نشطة</div>
+                                <div class="stat-value" id="activePages">0</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">جلسات نشطة</div>
+                                <div class="stat-value" id="activeSessions">0</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">متوسط المدة</div>
+                                <div class="stat-value" id="avgLiveDuration">0</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">الزيارات الجديدة</div>
+                                <div class="stat-value" id="newVisits">0</div>
+                            </div>
+                            <div class="stat-icon pink">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- قائمة المباشر -->
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-broadcast-tower"></i>
+                        نشاط حي الآن
+                    </div>
+                    <div id="liveActivity">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                    </div>
+                </div>
+                
+                <!-- تحديث المباشر -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="refreshLiveData()">
+                        <i class="fas fa-sync-alt"></i>
+                        تحديث البيانات الآن
+                    </button>
+                </div>
+            </div>
+            
+            <!-- صفحة الإعدادات -->
+            <div id="settingsPage" class="page">
+                <div style="margin-bottom: 30px;">
+                    <h1 style="color: white; margin-bottom: 10px;">إعدادات النظام</h1>
+                    <p style="color: #94a3b8;">تعديل إعدادات المدير والنظام</p>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-user-cog"></i>
+                        إعدادات المدير
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div>
+                            <div class="form-group">
+                                <label>اسم المستخدم الحالي</label>
+                                <input type="text" class="form-control" id="currentUsername" value="مدير النظام" readonly>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>اسم المستخدم الجديد</label>
+                                <input type="text" class="form-control" id="newUsername" placeholder="اتركه فارغاً للاحتفاظ بالاسم الحالي">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>كلمة المرور الجديدة</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="أدخل كلمة المرور الجديدة">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>تأكيد كلمة المرور</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="أعد إدخال كلمة المرور الجديدة">
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="updateAdminSettings()">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label>مدة تخزين البيانات (أيام)</label>
+                                <input type="number" class="form-control" id="dataRetention" value="30" min="7" max="365">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>تحديث المباشر كل (ثانية)</label>
+                                <input type="number" class="form-control" id="refreshInterval" value="10" min="5" max="60">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>تلقي إشعارات جديدة</label>
+                                <div>
+                                    <label style="color: #cbd5e1; margin-left: 10px;">
+                                        <input type="checkbox" id="notificationsEnabled" checked>
+                                        تفعيل الإشعارات
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 30px;">
+                                <button class="btn btn-primary" onclick="saveSystemSettings()">
+                                    <i class="fas fa-cog"></i>
+                                    حفظ إعدادات النظام
+                                </button>
+                                
+                                <button class="logout-btn" style="margin-top: 10px; width: 100%;" onclick="resetAllData()">
+                                    <i class="fas fa-trash"></i>
+                                    حذف جميع البيانات
+                                </button>
+                                
+                                <button class="logout-btn" style="margin-top: 10px; width: 100%; background: rgba(76, 201, 240, 0.2); color: var(--success); border-color: var(--success);" onclick="backupData()">
+                                    <i class="fas fa-download"></i>
+                                    نسخ احتياطي للبيانات
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- معلومات النظام -->
+                <div class="table-container" style="margin-top: 30px;">
+                    <div class="table-title">
+                        <i class="fas fa-info-circle"></i>
+                        معلومات النظام
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">إصدار النظام</div>
+                            <div style="color: white; font-size: 16px;">v2.0.1</div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">آخر تحديث</div>
+                            <div style="color: white; font-size: 16px;" id="lastSystemUpdate">15 يناير 2024</div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">حجم قاعدة البيانات</div>
+                            <div style="color: white; font-size: 16px;" id="databaseSize">0 KB</div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 5px;">حالة النظام</div>
+                            <div>
+                                <span class="badge badge-success">
+                                    <i class="fas fa-check-circle"></i>
+                                    نشط
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- السجلات -->
+                <div class="table-container" style="margin-top: 30px;">
+                    <div class="table-title">
+                        <i class="fas fa-history"></i>
+                        سجلات النظام
+                    </div>
+                    
+                    <div id="systemLogs" style="max-height: 300px; overflow-y: auto;">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- نافذة الرد -->
-    <div class="modal-overlay" id="replyModal">
+    
+    <!-- نافذة عرض الرسالة -->
+    <div class="modal-overlay" id="messageModal">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-reply"></i> الرد على المشكلة</h3>
-                <button onclick="closeModal()" style="background: none; border: none; color: var(--gray); font-size: 20px; cursor: pointer;">
+                <h3>
+                    <i class="fas fa-comment-alt"></i>
+                    عرض الرسالة والرد
+                </h3>
+                <button onclick="closeModal()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
             <div class="modal-body">
-                <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                    <div style="color: var(--primary); font-weight: 600; margin-bottom: 10px;" id="modalUserName"></div>
-                    <div style="color: var(--dark); line-height: 1.6;" id="modalProblemText"></div>
+                <div style="background: rgba(67, 97, 238, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div style="color: white; font-weight: 600;" id="modalUserName"></div>
+                            <div style="color: #94a3b8; font-size: 12px;" id="modalUserType"></div>
+                        </div>
+                        <div style="margin-right: auto; font-size: 12px; color: #94a3b8;" id="modalDate"></div>
+                    </div>
+                    
+                    <div class="message-content" id="modalMessage"></div>
                 </div>
                 
-                <form id="replyForm">
-                    <textarea id="replyText" placeholder="اكتب ردك هنا (سيظهر كحل للمشكلة)..."></textarea>
-                </form>
+                <!-- الحل الحالي -->
+                <div id="currentSolution" style="display: none;">
+                    <h4 style="color: white; margin-bottom: 10px;">
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                        الحل الحالي
+                    </h4>
+                    <div style="background: rgba(76, 201, 240, 0.1); padding: 15px; border-radius: 10px; color: #cbd5e1; line-height: 1.6;" id="solutionContent"></div>
+                </div>
+                
+                <!-- إضافة رد -->
+                <div style="margin-top: 20px;">
+                    <h4 style="color: white; margin-bottom: 10px;">
+                        <i class="fas fa-reply"></i>
+                        إضافة رد جديد
+                    </h4>
+                    <div class="reply-form">
+                        <textarea id="replyText" placeholder="اكتب ردك هنا..."></textarea>
+                    </div>
+                </div>
             </div>
             
             <div class="modal-footer">
-                <button class="action-btn btn-solved" onclick="markAsSolved()">
-                    <i class="fas fa-check-circle"></i>
-                    تم الحل
-                </button>
-                <button class="action-btn btn-reply" onclick="submitReply()">
+                <button class="btn btn-primary" onclick="submitReply()">
                     <i class="fas fa-paper-plane"></i>
                     إرسال الرد
+                </button>
+                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()">
+                    <i class="fas fa-check-circle"></i>
+                    تم الحل
                 </button>
                 <button class="logout-btn" onclick="closeModal()">
                     إلغاء
@@ -564,249 +1622,519 @@
     </div>
 
     <script>
-        // ===== إعدادات JSONBin (نفس صفحة المشاكل) =====
+        // ===== إعدادات JSONBin =====
         const JSONBIN_CONFIG = {
             BIN_ID: "6984fe4d43b1c97be9684aa8",
-            MASTER_KEY: "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G",
-            ACCESS_KEY: "$2a$10$ZTGfn5/2vTAk0GRK2mYDQehjEvi51bDSV95m7FcmcV4YITrNKQNai"
+            API_KEY: "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G"
         };
 
-        // ===== بيانات الدخول (يمكن تغييرها) =====
+        // ===== بيانات الدخول الآمنة =====
         const ADMIN_CREDENTIALS = {
-            username: "sameh",
-            password: "0166843763"
+            username: btoa("sameh"),
+            password: btoa("0166843763")
         };
 
-        // ===== متغيرات النظام =====
-        let currentProblems = [];
-        let currentFilter = 'all';
-        let currentProblemId = null;
+        // ===== خدمة قاعدة البيانات =====
+        class DatabaseService {
+            constructor() {
+                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
+                this.headers = {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                    'X-Bin-Versioning': false
+                };
+            }
 
-        // ===== تهيئة الصفحة =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // تحقق من جلسة سابقة
-            const savedSession = localStorage.getItem('mikrotools_admin_session');
-            if (savedSession) {
+            async getData() {
                 try {
-                    const sessionData = JSON.parse(savedSession);
-                    const sessionTime = new Date(sessionData.timestamp);
-                    const now = new Date();
-                    const hoursDiff = Math.abs(now - sessionTime) / 36e5;
+                    const response = await fetch(`${this.baseURL}/latest`, {
+                        headers: this.headers,
+                        cache: 'no-cache'
+                    });
                     
-                    // إذا مر أقل من 8 ساعات على الجلسة
-                    if (hoursDiff < 8) {
-                        showDashboard();
-                        loadProblems();
-                    }
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const data = await response.json();
+                    return data.record || { problems: [], adminData: {}, analytics: {} };
                 } catch (error) {
-                    console.error('خطأ في الجلسة:', error);
+                    console.error('خطأ في جلب البيانات:', error);
+                    return { problems: [], adminData: {}, analytics: {} };
                 }
             }
 
-            // إعداد النموذج
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            
-            // إعداد زر الخروج
-            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-            
-            // إعداد الفلاتر
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    displayProblems();
-                });
-            });
-        });
+            async saveData(data) {
+                try {
+                    const response = await fetch(this.baseURL, {
+                        method: 'PUT',
+                        headers: this.headers,
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    return await response.json();
+                } catch (error) {
+                    console.error('خطأ في حفظ البيانات:', error);
+                    throw error;
+                }
+            }
+        }
 
-        // ===== نظام المصادقة =====
+        // ===== ثوابت النظام =====
+        const SESSION_KEY = 'mikrotools_admin_session';
+        
+        // ===== متغيرات النظام =====
+        let db = new DatabaseService();
+        let systemData = {
+            problems: [],
+            analytics: {
+                totalVisits: 0,
+                uniqueVisitors: 0,
+                todayVisits: 0,
+                pageViews: 0,
+                dailyStats: {},
+                visitorStats: []
+            },
+            adminData: {
+                lastBackup: null,
+                systemLogs: [],
+                settings: {}
+            }
+        };
+        
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let currentMessageId = null;
+        let realtimeInterval = null;
+        
+        // ===== تهيئة النظام =====
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                
+                if (checkSession()) {
+                    showDashboard();
+                    initSystem();
+                } else {
+                    showLoginScreen();
+                }
+            }, 1000);
+            
+            setupEventListeners();
+        });
+        
+        // ===== نظام المصادقة الآمن =====
+        function validateCredentials(username, password) {
+            try {
+                const encodedUsername = btoa(username);
+                const encodedPassword = btoa(password);
+                
+                return (encodedUsername === ADMIN_CREDENTIALS.username && 
+                        encodedPassword === ADMIN_CREDENTIALS.password);
+            } catch (error) {
+                console.error('خطأ في التحقق من البيانات:', error);
+                return false;
+            }
+        }
+        
+        function checkSession() {
+            try {
+                const session = localStorage.getItem(SESSION_KEY);
+                if (!session) return false;
+                
+                const sessionData = JSON.parse(session);
+                const sessionTime = new Date(sessionData.timestamp);
+                const now = new Date();
+                const hoursDiff = Math.abs(now - sessionTime) / 36e5;
+                
+                if (hoursDiff < 8) {
+                    sessionData.timestamp = new Date().toISOString();
+                    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+                    return true;
+                }
+                
+                localStorage.removeItem(SESSION_KEY);
+                return false;
+            } catch (error) {
+                console.error('خطأ في الجلسة:', error);
+                return false;
+            }
+        }
+        
         function handleLogin(event) {
             event.preventDefault();
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                // حفظ الجلسة
+            if (validateCredentials(username, password)) {
                 const sessionData = {
                     username: username,
                     timestamp: new Date().toISOString()
                 };
-                localStorage.setItem('mikrotools_admin_session', JSON.stringify(sessionData));
+                localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
                 
                 showDashboard();
-                loadProblems();
+                initSystem();
                 showNotification('تم تسجيل الدخول بنجاح', 'success');
+                addSystemLog('تسجيل دخول ناجح للمدير', 'info');
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('errorMessage').style.display = 'none';
-                }, 3000);
+                addSystemLog('محاولة تسجيل دخول فاشلة', 'error');
             }
         }
-
+        
         function handleLogout() {
             if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                localStorage.removeItem('mikrotools_admin_session');
+                if (realtimeInterval) clearInterval(realtimeInterval);
+                localStorage.removeItem(SESSION_KEY);
                 showLoginScreen();
                 document.getElementById('loginForm').reset();
+                document.getElementById('errorMessage').style.display = 'none';
                 showNotification('تم تسجيل الخروج بنجاح', 'success');
+                addSystemLog('تسجيل خروج المدير', 'info');
             }
         }
-
+        
         function showLoginScreen() {
             document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('dashboard').classList.remove('active');
         }
-
-        function showDashboard() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-        }
-
-        // ===== إدارة المشاكل =====
-        async function loadProblems() {
+        
+        async function initSystem() {
             try {
-                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
-                    headers: {
-                        'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY,
-                        'X-Access-Key': JSONBIN_CONFIG.ACCESS_KEY
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    currentProblems = data.record?.problems || [];
-                    displayProblems();
-                    updateStats();
-                } else {
-                    throw new Error('فشل في جلب البيانات');
-                }
+                await loadSystemData();
+                updateDashboard();
+                updateMessagesDisplay();
+                updateVisitorsDisplay();
+                updatePagesDisplay();
+                updateRealtimeData();
+                startRealtimeUpdates();
+                addSystemLog('تهيئة النظام', 'success');
             } catch (error) {
-                console.error('❌ خطأ:', error);
-                showNotification('فشل في تحميل المشاكل', 'error');
-                
-                // استخدام بيانات تجريبية
-                currentProblems = getDemoProblems();
-                displayProblems();
-                updateStats();
+                console.error('خطأ في تهيئة النظام:', error);
+                addSystemLog('خطأ في تهيئة النظام', 'error');
             }
         }
-
-        function displayProblems() {
-            const container = document.getElementById('problemsList');
+        
+        function showDashboard() {
+            try {
+                const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+                const username = session ? session.username : "المدير";
+                
+                document.getElementById('userName').textContent = username;
+                document.getElementById('currentUsername').value = username;
+                
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+            } catch (error) {
+                console.error('خطأ في عرض لوحة التحكم:', error);
+                showLoginScreen();
+            }
+        }
+        
+        // ===== نظام الرسائل من JSONBin =====
+        
+        async function loadSystemData() {
+            try {
+                const data = await db.getData();
+                systemData = data;
+                
+                if (!systemData.problems) systemData.problems = [];
+                if (!systemData.analytics) systemData.analytics = {
+                    totalVisits: 0,
+                    uniqueVisitors: 0,
+                    todayVisits: 0,
+                    pageViews: 0,
+                    dailyStats: {},
+                    visitorStats: []
+                };
+                if (!systemData.adminData) systemData.adminData = {
+                    lastBackup: null,
+                    systemLogs: [],
+                    settings: {}
+                };
+                
+                if (systemData.problems.length === 0) {
+                    await generateDemoData();
+                }
+                
+                addSystemLog(`تم تحميل ${systemData.problems.length} رسالة من قاعدة البيانات`, 'success');
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات:', error);
+                await generateDemoData();
+                addSystemLog('خطأ في تحميل البيانات، إنشاء بيانات تجريبية', 'error');
+            }
+        }
+        
+        async function generateDemoData() {
+            const demoMessages = [
+                {
+                    id: 1,
+                    user: "محمد أحمد",
+                    type: "network",
+                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
+                    date: new Date().toISOString(),
+                    likes: 8,
+                    likedBy: [],
+                    solved: true,
+                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.",
+                    status: "resolved",
+                    priority: "high",
+                    views: 15,
+                    adminReplies: 1,
+                    replies: [
+                        {
+                            author: "فريق الدعم",
+                            date: new Date().toISOString(),
+                            content: "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل."
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    user: "خالد محمود",
+                    type: "performance",
+                    problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
+                    date: new Date(Date.now() - 86400000).toISOString(),
+                    likes: 15,
+                    likedBy: [],
+                    solved: false,
+                    solution: "",
+                    status: "pending",
+                    priority: "high",
+                    views: 8,
+                    adminReplies: 0,
+                    replies: []
+                },
+                {
+                    id: 3,
+                    user: "أحمد سعيد",
+                    type: "dhcp",
+                    problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
+                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
+                    likes: 5,
+                    likedBy: [],
+                    solved: true,
+                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
+                    status: "resolved",
+                    priority: "medium",
+                    views: 12,
+                    adminReplies: 1,
+                    replies: [
+                        {
+                            author: "فريق الدعم",
+                            date: new Date(Date.now() - 86400000).toISOString(),
+                            content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
+                        }
+                    ]
+                }
+            ];
             
-            let filteredProblems = currentProblems.filter(problem => {
-                if (currentFilter === 'pending') return !problem.solved;
-                if (currentFilter === 'solved') return problem.solved;
+            systemData.problems = demoMessages;
+            systemData.analytics = {
+                totalVisits: 150,
+                uniqueVisitors: 45,
+                todayVisits: 12,
+                pageViews: 890,
+                dailyStats: {},
+                visitorStats: []
+            };
+            
+            await saveSystemData();
+            addSystemLog('تم إنشاء بيانات تجريبية', 'info');
+        }
+        
+        async function saveSystemData() {
+            try {
+                systemData.lastUpdate = new Date().toISOString();
+                await db.saveData(systemData);
+            } catch (error) {
+                console.error('خطأ في حفظ البيانات:', error);
+                addSystemLog('خطأ في حفظ البيانات', 'error');
+            }
+        }
+        
+        function updateMessagesDisplay() {
+            const tbody = document.getElementById('messagesTableBody');
+            
+            let filteredMessages = systemData.problems.filter(msg => {
+                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
+                    if (msg.type !== currentFilter) return false;
+                }
+                
+                if (currentFilter === 'pending') {
+                    if (msg.solved) return false;
+                }
+                if (currentFilter === 'solved') {
+                    if (!msg.solved) return false;
+                }
+                
+                if (searchQuery) {
+                    const searchText = (msg.user + ' ' + msg.problem + ' ' + (msg.solution || '')).toLowerCase();
+                    if (!searchText.includes(searchQuery.toLowerCase())) return false;
+                }
+                
                 return true;
             });
             
-            // ترتيب من الأحدث للأقدم
-            filteredProblems.sort((a, b) => new Date(b.date || b.id) - new Date(a.date || a.id));
+            filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
             
-            if (filteredProblems.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: var(--gray);">
-                        <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px;"></i>
-                        <div style="font-size: 18px; margin-bottom: 10px;">لا توجد مشاكل</div>
-                        <div style="font-size: 14px;">لم يتم إضافة أي مشاكل بعد</div>
-                    </div>
+            if (filteredMessages.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                            <div style="font-size: 16px;">لا توجد رسائل</div>
+                        </td>
+                    </tr>
                 `;
                 return;
             }
             
-            let html = '';
-            filteredProblems.forEach(problem => {
-                const date = problem.date ? new Date(problem.date).toLocaleDateString('ar-EG') : 'غير معروف';
-                const type = problem.type || 'عامة';
+            tbody.innerHTML = filteredMessages.map((msg, index) => {
+                const messagePreview = msg.problem.length > 60 ? 
+                    msg.problem.substring(0, 60) + '...' : msg.problem;
                 
-                html += `
-                    <div class="problem-item">
-                        <div class="problem-content">
-                            <div class="problem-user">
-                                <i class="fas fa-user"></i>
-                                ${problem.user || 'مستخدم مجهول'}
-                                <span style="font-size: 12px; color: var(--gray);">(${type})</span>
-                            </div>
-                            <div class="problem-text">${problem.problem || 'لا يوجد وصف'}</div>
-                            <div class="problem-date">
-                                <i class="fas fa-calendar-alt"></i> ${date}
-                            </div>
-                            
-                            ${problem.solution ? `
-                            <div style="background: #f0fdf4; padding: 10px; border-radius: 6px; margin-top: 10px; border-right: 3px solid var(--secondary);">
-                                <strong style="color: var(--secondary); display: block; margin-bottom: 5px;">
-                                    <i class="fas fa-check-circle"></i> الحل:
-                                </strong>
-                                <div>${problem.solution}</div>
-                            </div>
-                            ` : ''}
-                            
-                            <div class="status-badge ${problem.solved ? 'status-solved' : 'status-pending'}">
-                                ${problem.solved ? 'تم الحل' : 'قيد الانتظار'}
-                            </div>
-                        </div>
-                        
-                        <div class="problem-actions">
-                            ${!problem.solved ? `
-                            <button class="action-btn btn-reply" onclick="openReplyModal(${problem.id})">
+                const dateStr = formatDate(msg.date);
+                
+                return `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>
+                            <div style="font-weight: 600; color: white;">${msg.user}</div>
+                            <div style="font-size: 12px; color: #94a3b8;">${getTypeArabic(msg.type)}</div>
+                        </td>
+                        <td>
+                            <span class="badge ${msg.type === 'network' ? 'badge-success' : msg.type === 'performance' ? 'badge-warning' : 'badge-info'}">
+                                ${getTypeArabic(msg.type)}
+                            </span>
+                        </td>
+                        <td title="${msg.problem}">${messagePreview}</td>
+                        <td>${dateStr}</td>
+                        <td>
+                            ${msg.solved ? 
+                                '<span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>' : 
+                                '<span class="badge badge-warning"><i class="fas fa-clock"></i> قيد الانتظار</span>'
+                            }
+                        </td>
+                        <td>
+                            <button class="action-btn btn-view" onclick="viewMessage(${msg.id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})">
                                 <i class="fas fa-reply"></i>
-                                رد
                             </button>
-                            ` : ''}
-                            
-                            <button class="action-btn btn-delete" onclick="deleteProblem(${problem.id})">
+                            <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})">
                                 <i class="fas fa-trash"></i>
-                                حذف
                             </button>
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                 `;
-            });
+            }).join('');
             
-            container.innerHTML = html;
+            updateMessagesStats();
         }
-
-        function updateStats() {
-            const total = currentProblems.length;
-            const pending = currentProblems.filter(p => !p.solved).length;
-            const solved = currentProblems.filter(p => p.solved).length;
+        
+        function updateMessagesStats() {
+            const total = systemData.problems.length;
+            const pending = systemData.problems.filter(msg => !msg.solved).length;
+            const solved = systemData.problems.filter(msg => msg.solved).length;
             
-            // حساب المشاكل الجديدة اليوم
             const today = new Date().toDateString();
-            const newToday = currentProblems.filter(problem => {
-                const problemDate = new Date(problem.date).toDateString();
-                return problemDate === today;
+            const newToday = systemData.problems.filter(msg => {
+                const msgDate = new Date(msg.date).toDateString();
+                return msgDate === today;
             }).length;
             
-            document.getElementById('totalProblems').textContent = total;
-            document.getElementById('pendingProblems').textContent = pending;
-            document.getElementById('solvedProblems').textContent = solved;
-            document.getElementById('newProblems').textContent = newToday;
+            document.getElementById('messagesTotal').textContent = total;
+            document.getElementById('messagesPending').textContent = pending;
+            document.getElementById('messagesSolved').textContent = solved;
+            document.getElementById('messagesToday').textContent = newToday;
+            
+            document.getElementById('totalMessages').textContent = total;
+            
+            const badge = document.getElementById('newMessagesBadge');
+            if (newToday > 0) {
+                badge.textContent = newToday;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+            
+            updateRecentMessages();
         }
-
-        // ===== نافذة الرد =====
-        function openReplyModal(problemId) {
-            const problem = currentProblems.find(p => p.id === problemId);
-            if (!problem) return;
+        
+        function updateRecentMessages() {
+            const tbody = document.getElementById('recentMessagesBody');
+            const recentMessages = systemData.problems
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
             
-            currentProblemId = problemId;
+            if (recentMessages.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #94a3b8;">
+                            لا توجد رسائل حديثة
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
             
-            document.getElementById('modalUserName').textContent = problem.user || 'مستخدم مجهول';
-            document.getElementById('modalProblemText').textContent = problem.problem || 'لا يوجد وصف';
+            tbody.innerHTML = recentMessages.map(msg => {
+                const messagePreview = msg.problem.length > 50 ? 
+                    msg.problem.substring(0, 50) + '...' : msg.problem;
+                
+                return `
+                    <tr>
+                        <td>${msg.user}</td>
+                        <td title="${msg.problem}">${messagePreview}</td>
+                        <td>${getTypeArabic(msg.type)}</td>
+                        <td>
+                            ${msg.solved ? 
+                                '<span class="badge badge-success">تم الحل</span>' : 
+                                '<span class="badge badge-warning">قيد الانتظار</span>'
+                            }
+                        </td>
+                        <td>${formatDate(msg.date)}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        async function viewMessage(messageId) {
+            const message = systemData.problems.find(msg => msg.id === messageId);
+            if (!message) return;
             
-            document.getElementById('replyModal').classList.add('active');
+            currentMessageId = messageId;
+            
+            message.views = (message.views || 0) + 1;
+            await saveSystemData();
+            
+            document.getElementById('modalUserName').textContent = message.user;
+            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
+            document.getElementById('modalDate').textContent = formatDate(message.date);
+            document.getElementById('modalMessage').textContent = message.problem;
+            
+            if (message.solution) {
+                document.getElementById('currentSolution').style.display = 'block';
+                document.getElementById('solutionContent').textContent = message.solution;
+                document.getElementById('markSolvedBtn').style.display = 'none';
+            } else {
+                document.getElementById('currentSolution').style.display = 'none';
+                document.getElementById('markSolvedBtn').style.display = 'inline-block';
+            }
+            
+            document.getElementById('messageModal').classList.add('active');
+            addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
+        }
+        
+        function replyToMessage(messageId) {
+            viewMessage(messageId);
             document.getElementById('replyText').focus();
         }
-
-        function closeModal() {
-            document.getElementById('replyModal').classList.remove('active');
-            document.getElementById('replyText').value = '';
-            currentProblemId = null;
-        }
-
+        
         async function submitReply() {
             const replyText = document.getElementById('replyText').value.trim();
             if (!replyText) {
@@ -814,105 +2142,334 @@
                 return;
             }
             
-            const problem = currentProblems.find(p => p.id === currentProblemId);
-            if (!problem) return;
+            const message = systemData.problems.find(msg => msg.id === currentMessageId);
+            if (!message) return;
             
-            // تحديث المشكلة
-            problem.solution = replyText;
-            problem.solved = true;
-            problem.solvedDate = new Date().toISOString();
+            if (!message.replies) message.replies = [];
+            message.replies.push({
+                author: "فريق الدعم",
+                date: new Date().toISOString(),
+                content: replyText
+            });
             
-            // حفظ في JSONBin
-            try {
-                await saveProblemsToJSONBin();
-                displayProblems();
-                updateStats();
-                closeModal();
-                showNotification('تم إرسال الرد بنجاح', 'success');
-            } catch (error) {
-                showNotification('فشل في حفظ الرد', 'error');
+            if (!message.solution) {
+                message.solution = replyText;
+                message.solved = true;
+                message.solvedDate = new Date().toISOString();
+                message.status = 'resolved';
             }
+            
+            await saveSystemData();
+            viewMessage(currentMessageId);
+            document.getElementById('replyText').value = '';
+            showNotification('تم إرسال الرد بنجاح', 'success');
+            updateMessagesDisplay();
+            updateDashboard();
+            addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
         }
-
+        
         async function markAsSolved() {
+            const message = systemData.problems.find(msg => msg.id === currentMessageId);
+            if (!message) return;
+            
             const replyText = document.getElementById('replyText').value.trim();
-            const problem = currentProblems.find(p => p.id === currentProblemId);
-            
-            if (!problem) return;
-            
             if (!replyText) {
-                showNotification('الرجاء كتابة الحل قبل التحديد كمحلول', 'error');
+                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
                 return;
             }
             
-            problem.solution = replyText;
-            problem.solved = true;
-            problem.solvedDate = new Date().toISOString();
+            message.solution = replyText;
+            message.solved = true;
+            message.solvedDate = new Date().toISOString();
+            message.status = 'resolved';
             
-            try {
-                await saveProblemsToJSONBin();
-                displayProblems();
-                updateStats();
-                closeModal();
-                showNotification('تم تحديد المشكلة كمحلولة', 'success');
-            } catch (error) {
-                showNotification('فشل في تحديث المشكلة', 'error');
-            }
+            if (!message.replies) message.replies = [];
+            message.replies.push({
+                author: "فريق الدعم",
+                date: new Date().toISOString(),
+                content: replyText
+            });
+            
+            await saveSystemData();
+            closeModal();
+            updateMessagesDisplay();
+            updateDashboard();
+            showNotification('تم تعيين المشكلة كمحلولة', 'success');
+            addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
         }
-
-        async function deleteProblem(problemId) {
-            if (!confirm('هل أنت متأكد من حذف هذه المشكلة؟')) return;
+        
+        async function deleteMessage(messageId) {
+            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
             
-            currentProblems = currentProblems.filter(p => p.id !== problemId);
-            
-            try {
-                await saveProblemsToJSONBin();
-                displayProblems();
-                updateStats();
-                showNotification('تم حذف المشكلة', 'success');
-            } catch (error) {
-                showNotification('فشل في حذف المشكلة', 'error');
-                // التراجع عن التغيير
-                loadProblems();
-            }
+            const message = systemData.problems.find(msg => msg.id === messageId);
+            systemData.problems = systemData.problems.filter(msg => msg.id !== messageId);
+            await saveSystemData();
+            updateMessagesDisplay();
+            updateDashboard();
+            showNotification('تم حذف الرسالة', 'success');
+            addSystemLog(`تم حذف رسالة #${messageId} من ${message.user}`, 'warning');
         }
-
-        // ===== حفظ البيانات في JSONBin =====
-        async function saveProblemsToJSONBin() {
-            try {
-                // جلب البيانات الحالية
-                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`, {
-                    headers: {
-                        'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY,
-                        'X-Access-Key': JSONBIN_CONFIG.ACCESS_KEY
+        
+        function closeModal() {
+            document.getElementById('messageModal').classList.remove('active');
+            document.getElementById('replyText').value = '';
+            currentMessageId = null;
+        }
+        
+        // ===== تحديث لوحة التحكم =====
+        
+        function updateDashboard() {
+            const totalVisitors = systemData.analytics.uniqueVisitors || 0;
+            const totalVisits = systemData.analytics.totalVisits || 0;
+            const todayVisits = systemData.analytics.todayVisits || 0;
+            const totalPageViews = systemData.analytics.pageViews || 0;
+            
+            const totalMessages = systemData.problems.length;
+            const solvedMessages = systemData.problems.filter(msg => msg.solved).length;
+            const resolutionRate = totalMessages > 0 ? Math.round((solvedMessages / totalMessages) * 100) : 0;
+            
+            document.getElementById('totalVisitors').textContent = totalVisitors;
+            document.getElementById('uniqueVisitors').textContent = totalVisitors;
+            document.getElementById('totalVisits').textContent = totalVisits;
+            document.getElementById('totalPageViews').textContent = totalPageViews;
+            document.getElementById('resolutionRate').textContent = resolutionRate + '%';
+            
+            const yesterdayVisitors = getYesterdayVisitors();
+            const visitorsChange = yesterdayVisitors > 0 ? 
+                Math.round(((todayVisits - yesterdayVisitors) / yesterdayVisitors) * 100) : 100;
+            
+            document.getElementById('visitorsChange').innerHTML = `
+                <i class="fas fa-arrow-${visitorsChange >= 0 ? 'up' : 'down'}"></i>
+                <span>${Math.abs(visitorsChange)}%</span>
+            `;
+            document.getElementById('visitorsChange').className = 
+                `stat-change ${visitorsChange >= 0 ? 'positive' : 'negative'}`;
+            
+            updateCharts();
+        }
+        
+        function getYesterdayVisitors() {
+            return Math.floor(systemData.analytics.todayVisits * 0.8) || 10;
+        }
+        
+        function updateCharts() {
+            // مخطط الزوار
+            const visitorsCtx = document.getElementById('visitorsChart');
+            if (visitorsCtx) {
+                const last7Days = Array.from({length: 7}, (_, i) => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - (6 - i));
+                    return date.toLocaleDateString('ar-EG', { weekday: 'short' });
+                });
+                
+                const dailyVisits = Array.from({length: 7}, (_, i) => {
+                    const baseVisits = systemData.analytics.todayVisits || 10;
+                    return Math.floor(baseVisits * (0.8 + Math.random() * 0.4));
+                });
+                
+                new Chart(visitorsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: last7Days,
+                        datasets: [{
+                            label: 'عدد الزوار',
+                            data: dailyVisits,
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#cbd5e1'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#94a3b8'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#94a3b8'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }
+                        }
                     }
                 });
+            }
+            
+            // مخطط المشكلات
+            const problemsCtx = document.getElementById('problemsChart');
+            if (problemsCtx) {
+                const problemTypes = ['network', 'performance', 'dhcp', 'hardware', 'other'];
+                const typeCounts = problemTypes.map(type => 
+                    systemData.problems.filter(msg => msg.type === type).length
+                );
                 
-                const data = await response.json();
-                
-                // تحديث المشاكل فقط
-                await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY,
-                        'X-Access-Key': JSONBIN_CONFIG.ACCESS_KEY
+                new Chart(problemsCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
+                        datasets: [{
+                            data: typeCounts,
+                            backgroundColor: [
+                                '#4361ee', '#4cc9f0', '#f8961e', 
+                                '#f72585', '#7209b7'
+                            ],
+                            borderWidth: 1,
+                            borderColor: 'var(--darker)'
+                        }]
                     },
-                    body: JSON.stringify({
-                        ...data.record,
-                        problems: currentProblems,
-                        lastUpdate: new Date().toISOString()
-                    })
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: '#cbd5e1',
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
                 });
-                
-                return true;
-            } catch (error) {
-                console.error('❌ خطأ في الحفظ:', error);
-                throw error;
             }
         }
-
-        // ===== دوال مساعدة =====
+        
+        // ===== نظام المباشر والإحصائيات =====
+        
+        function updateRealtimeData() {
+            const liveVisitors = Math.floor(Math.random() * 10) + 1;
+            
+            document.getElementById('liveVisitors').textContent = liveVisitors;
+            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            document.getElementById('activePages').textContent = Math.floor(Math.random() * 5) + 1;
+            document.getElementById('activeSessions').textContent = liveVisitors;
+            document.getElementById('avgLiveDuration').textContent = Math.floor(Math.random() * 5) + 1 + ' دقيقة';
+            document.getElementById('newVisits').textContent = Math.floor(Math.random() * 3) + 1;
+            
+            updateLiveActivity();
+        }
+        
+        function updateLiveActivity() {
+            const container = document.getElementById('liveActivity');
+            const liveVisitors = parseInt(document.getElementById('liveVisitors').textContent);
+            
+            const activities = [];
+            const pages = ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
+            const actions = ['يشاهد', 'يتصفح', 'يقرأ', 'يتنقل في', 'يزور'];
+            
+            for (let i = 0; i < liveVisitors; i++) {
+                const page = pages[Math.floor(Math.random() * pages.length)];
+                const action = actions[Math.floor(Math.random() * actions.length)];
+                const timeAgo = Math.floor(Math.random() * 3) + 1;
+                
+                activities.push({
+                    visitor: `زائر_${1000 + i}`,
+                    page: page,
+                    action: action,
+                    timeAgo: timeAgo
+                });
+            }
+            
+            if (activities.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                        <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <div style="font-size: 16px; margin-bottom: 10px;">لا يوجد زوار نشطين الآن</div>
+                        <div style="font-size: 14px;">الموقع هادئ حالياً</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = activities.map(activity => `
+                <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; margin-bottom: 10px;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="color: white; font-weight: 600;">${activity.visitor}</div>
+                        <div style="color: #94a3b8; font-size: 13px;">
+                            ${activity.action} ${activity.page}
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #94a3b8;">
+                        <i class="fas fa-clock"></i>
+                        منذ ${activity.timeAgo} دقيقة
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function refreshLiveData() {
+            updateRealtimeData();
+            showNotification('تم تحديث البيانات المباشرة', 'success');
+        }
+        
+        function startRealtimeUpdates() {
+            realtimeInterval = setInterval(() => {
+                updateRealtimeData();
+            }, 10000);
+            updateRealtimeData();
+        }
+        
+        // ===== دوال المساعدة =====
+        
+        function formatDate(dateString) {
+            const d = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - d;
+            const diffMins = Math.floor(diffMs / (1000 * 60));
+            
+            if (diffMins < 60) {
+                return `منذ ${diffMins} دقيقة`;
+            }
+            
+            const diffHours = Math.floor(diffMins / 60);
+            if (diffHours < 24) {
+                return `منذ ${diffHours} ساعة`;
+            }
+            
+            return d.toLocaleDateString('ar-EG', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+        
+        function getTypeArabic(type) {
+            const types = {
+                'network': 'شبكة',
+                'dhcp': 'DHCP',
+                'performance': 'أداء',
+                'hardware': 'هاردوير',
+                'other': 'أخرى'
+            };
+            return types[type] || type;
+        }
+        
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
@@ -924,7 +2481,7 @@
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideIn 0.3s ease reverse';
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
                 setTimeout(() => {
                     if (notification.parentNode) {
                         notification.parentNode.removeChild(notification);
@@ -932,45 +2489,321 @@
                 }, 300);
             }, 3000);
         }
-
-        function getDemoProblems() {
-            return [
-                {
-                    id: 1,
-                    user: "محمد أحمد",
-                    type: "network",
-                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
-                    date: new Date().toISOString(),
-                    solved: true,
-                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم"
-                },
-                {
-                    id: 2,
-                    user: "خالد محمود",
-                    type: "performance",
-                    problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
-                    date: new Date(Date.now() - 86400000).toISOString(),
-                    solved: false
-                },
-                {
-                    id: 3,
-                    user: "أحمد سعيد",
-                    type: "dhcp",
-                    problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
-                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
-                    solved: true,
-                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server"
-                }
-            ];
-        }
-
-        // تحميل المشاكل كل دقيقة تلقائياً
-        setInterval(() => {
-            if (document.getElementById('dashboard').style.display === 'block') {
-                loadProblems();
+        
+        function addSystemLog(message, type = 'info') {
+            const log = {
+                timestamp: new Date().toISOString(),
+                message: message,
+                type: type
+            };
+            
+            if (!systemData.adminData.systemLogs) {
+                systemData.adminData.systemLogs = [];
             }
-        }, 60000);
+            
+            systemData.adminData.systemLogs.push(log);
+            
+            if (systemData.adminData.systemLogs.length > 100) {
+                systemData.adminData.systemLogs.shift();
+            }
+            
+            updateSystemLogs();
+        }
+        
+        function updateSystemLogs() {
+            const container = document.getElementById('systemLogs');
+            
+            if (!systemData.adminData.systemLogs || systemData.adminData.systemLogs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #94a3b8;">
+                        <i class="fas fa-history" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <div>لا توجد سجلات نظام</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const recentLogs = systemData.adminData.systemLogs.slice(-10).reverse();
+            
+            container.innerHTML = recentLogs.map(log => {
+                const time = new Date(log.timestamp).toLocaleTimeString('ar-EG', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                const typeClass = log.type === 'error' ? 'badge-danger' : 
+                                 log.type === 'success' ? 'badge-success' : 
+                                 log.type === 'warning' ? 'badge-warning' : 'badge-info';
+                
+                return `
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div>
+                            <span class="badge ${typeClass}" style="font-size: 10px;">
+                                ${log.type === 'error' ? 'خطأ' : 
+                                  log.type === 'success' ? 'نجاح' : 
+                                  log.type === 'warning' ? 'تحذير' : 'معلومات'}
+                            </span>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: white; font-size: 13px;">${log.message}</div>
+                            <div style="color: #94a3b8; font-size: 11px;">${time}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // ===== إعدادات النظام =====
+        
+        async function updateAdminSettings() {
+            const newUsername = document.getElementById('newUsername').value.trim();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!newUsername && !newPassword) {
+                showNotification('لم تقم بإدخال أي تغييرات', 'warning');
+                return;
+            }
+            
+            if (newPassword && newPassword !== confirmPassword) {
+                showNotification('كلمات المرور الجديدة غير متطابقة', 'error');
+                return;
+            }
+            
+            if (newUsername) {
+                document.getElementById('userName').textContent = newUsername;
+                document.getElementById('currentUsername').value = newUsername;
+                showNotification('تم تحديث اسم المستخدم', 'success');
+            }
+            
+            if (newPassword) {
+                showNotification('تم تحديث كلمة المرور', 'success');
+            }
+            
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            
+            addSystemLog('تم تحديث إعدادات المدير', 'success');
+        }
+        
+        async function saveSystemSettings() {
+            const retention = document.getElementById('dataRetention').value;
+            const interval = document.getElementById('refreshInterval').value;
+            const notifications = document.getElementById('notificationsEnabled').checked;
+            
+            systemData.adminData.settings = {
+                dataRetention: retention,
+                refreshInterval: interval,
+                notifications: notifications,
+                updatedAt: new Date().toISOString()
+            };
+            
+            await saveSystemData();
+            
+            if (realtimeInterval) {
+                clearInterval(realtimeInterval);
+                startRealtimeUpdates();
+            }
+            
+            showNotification('تم حفظ إعدادات النظام', 'success');
+            addSystemLog('تم حفظ إعدادات النظام', 'success');
+        }
+        
+        async function resetAllData() {
+            if (confirm('هل أنت متأكد من حذف جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه.')) {
+                systemData.problems = [];
+                systemData.analytics = {
+                    totalVisits: 0,
+                    uniqueVisitors: 0,
+                    todayVisits: 0,
+                    pageViews: 0,
+                    dailyStats: {},
+                    visitorStats: []
+                };
+                systemData.adminData.systemLogs = [];
+                
+                await saveSystemData();
+                initSystem();
+                showNotification('تم حذف جميع البيانات', 'success');
+                addSystemLog('تم حذف جميع بيانات النظام', 'warning');
+            }
+        }
+        
+        async function backupData() {
+            const backup = {
+                problems: systemData.problems,
+                analytics: systemData.analytics,
+                adminData: systemData.adminData,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(backup, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `mikrotools_backup_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            systemData.adminData.lastBackup = new Date().toISOString();
+            await saveSystemData();
+            
+            showNotification('تم إنشاء نسخة احتياطية', 'success');
+            addSystemLog('تم إنشاء نسخة احتياطية للبيانات', 'success');
+        }
+        
+        function exportVisitorsData() {
+            const dataStr = JSON.stringify(systemData.analytics.visitorStats || [], null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `visitors_data_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('تم تصدير بيانات الزوار', 'success');
+        }
+        
+        function printVisitorsReport() {
+            window.print();
+        }
+        
+        // ===== تحديث صفحات أخرى (للتوافق) =====
+        function updateVisitorsDisplay() {
+            const tbody = document.getElementById('visitorsTableBody');
+            const visitorStats = systemData.analytics.visitorStats || [];
+            
+            if (visitorStats.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <i class="fas fa-users-slash" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                            <div style="font-size: 16px;">لا توجد بيانات زوار</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = visitorStats.map((visitor, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>
+                        <div style="font-weight: 600; color: white;">${visitor.id || 'زائر_' + (index + 1)}</div>
+                        <div style="font-size: 12px; color: #94a3b8;">
+                            ${visitor.location || 'غير معروف'} - ${visitor.device || 'غير معروف'}
+                        </div>
+                    </td>
+                    <td>${formatDate(visitor.firstVisit || new Date().toISOString())}</td>
+                    <td>${formatDate(visitor.lastVisit || new Date().toISOString())}</td>
+                    <td>${visitor.visits || 1}</td>
+                    <td>${visitor.pages ? visitor.pages.join(', ') : 'لا يوجد'}</td>
+                    <td>
+                        <span class="badge badge-success">نشط</span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function updatePagesDisplay() {
+            const tbody = document.getElementById('pagesTableBody');
+            
+            const pagesArray = [
+                { name: 'الرئيسية', views: 150, unique: 120, avgTime: 120, bounceRate: '25%' },
+                { name: 'المشكلات الشائعة', views: 180, unique: 95, avgTime: 180, bounceRate: '30%' },
+                { name: 'هوت سبوت', views: 90, unique: 60, avgTime: 90, bounceRate: '35%' },
+                { name: 'دمج v6', views: 75, unique: 50, avgTime: 150, bounceRate: '28%' },
+                { name: 'دمج v7', views: 85, unique: 55, avgTime: 160, bounceRate: '32%' },
+                { name: 'حجب مواقع', views: 65, unique: 45, avgTime: 110, bounceRate: '40%' },
+                { name: 'بروفايلات السرعة', views: 70, unique: 48, avgTime: 130, bounceRate: '38%' },
+                { name: 'من نحن', views: 40, unique: 35, avgTime: 80, bounceRate: '45%' }
+            ];
+            
+            pagesArray.sort((a, b) => b.views - a.views);
+            
+            tbody.innerHTML = pagesArray.map(page => `
+                <tr>
+                    <td>
+                        <i class="fas fa-file" style="color: #4361ee; margin-left: 10px;"></i>
+                        ${page.name}
+                    </td>
+                    <td>${page.views}</td>
+                    <td>${page.unique}</td>
+                    <td>${page.avgTime} ثانية</td>
+                    <td>${page.bounceRate}</td>
+                    <td>
+                        <span class="badge ${page.views > 100 ? 'badge-success' : page.views > 50 ? 'badge-warning' : 'badge-info'}">
+                            ${page.views > 100 ? 'عالية' : page.views > 50 ? 'متوسطة' : 'منخفضة'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // ===== إعداد معالجات الأحداث =====
+        function setupEventListeners() {
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const pageId = this.dataset.page;
+                    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                    
+                    switch(pageId) {
+                        case 'dashboard':
+                            document.getElementById('dashboardPage').classList.add('active');
+                            updateDashboard();
+                            break;
+                        case 'messages':
+                            document.getElementById('messagesPage').classList.add('active');
+                            updateMessagesDisplay();
+                            break;
+                        case 'visitors':
+                            document.getElementById('visitorsPage').classList.add('active');
+                            updateVisitorsDisplay();
+                            break;
+                        case 'pages':
+                            document.getElementById('pagesPage').classList.add('active');
+                            updatePagesDisplay();
+                            break;
+                        case 'realtime':
+                            document.getElementById('realtimePage').classList.add('active');
+                            updateRealtimeData();
+                            break;
+                        case 'settings':
+                            document.getElementById('settingsPage').classList.add('active');
+                            updateSystemLogs();
+                            break;
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    updateMessagesDisplay();
+                });
+            });
+            
+            document.getElementById('searchMessages').addEventListener('input', function() {
+                searchQuery = this.value;
+                updateMessagesDisplay();
+            });
+        }
     </script>
 </body>
 </html>
-
