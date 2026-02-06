@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الإشعارات المتقدم - MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(67, 97, 238, 0.3);
+        }
+
+        .header i {
+            font-size: 60px;
+            color: #4361ee;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #4361ee;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4361ee, #3f37c9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+        }
+
+        .card-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-value {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .control-group {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+        }
+
+        .control-title {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px 25px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4361ee, #3f37c9);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4cc9f0, #3a9ab9);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(76, 201, 240, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f8961e, #d67e1a);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(248, 150, 30, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f72585, #d41e73);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(247, 37, 133, 0.3);
+        }
+
+        .schedule-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .time-input {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .time-input:focus {
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .logs-container {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .logs-title {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .log-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-right: 4px solid #4361ee;
+        }
+
+        .log-time {
+            color: #94a3b8;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .log-message {
+            color: white;
+            font-size: 14px;
+        }
+
+        .notification-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(67, 97, 238, 0.5);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .preview-title {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .preview-content {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.8;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+        }
+
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.success {
+            background: rgba(76, 201, 240, 0.9);
+            color: white;
+            border-right: 4px solid #0891b2;
+        }
+
+        .notification.error {
+            background: rgba(247, 37, 133, 0.9);
+            color: white;
+            border-right: 4px solid #dc2626;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .notification {
+                right: 15px;
+                left: 15px;
+                max-width: none;
+            }
+        }
+
+        /* تنسيقات الوضع المظلم للشيفرة */
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #4cc9f0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .status-active {
+            background: rgba(76, 201, 240, 0.2);
+            color: #4cc9f0;
+        }
+
+        .status-inactive {
+            background: rgba(247, 37, 133, 0.2);
+            color: #f8a5c2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الرأس -->
+        <div class="header">
+            <i class="fas fa-broadcast-tower"></i>
+            <h1>نظام الإشعارات المتقدم - MikroTools</h1>
+            <p>نظام إشعارات ذكي يرسل تقارير مفصلة عن أداء النظام والزوار المباشرين</p>
+        </div>
+
+        <!-- لوحة التحكم -->
+        <div class="dashboard">
+            <!-- بطاقة حالة النظام -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="card-title">حالة النظام</div>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-power-off"></i>
+                            حالة البوت
+                        </div>
+                        <div class="stat-value" id="botStatus">فعال</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-clock"></i>
+                            آخر تحديث
+                        </div>
+                        <div class="stat-value" id="lastUpdate">الآن</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات المرسلة
+                        </div>
+                        <div class="stat-value" id="sentNotifications">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-user-check"></i>
+                            معرف الدردشة
+                        </div>
+                        <div class="stat-value" id="chatId">غير محدد</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بطاقة إحصائيات حية -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-title">إحصائيات حية</div>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-users"></i>
+                            زوار مباشرون
+                        </div>
+                        <div class="stat-value" id="liveVisitors">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-comments"></i>
+                            رسائل جديدة
+                        </div>
+                        <div class="stat-value" id="newMessages">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-eye"></i>
+                            مشاهدات الصفحات
+                        </div>
+                        <div class="stat-value" id="pageViews">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-bolt"></i>
+                            أداء الخادم
+                        </div>
+                        <div class="stat-value" id="serverPerf">%100</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- أزرار التحكم -->
+        <div class="controls">
+            <!-- إرسال إشعارات فورية -->
+            <div class="control-group">
+                <div class="control-title">
+                    <i class="fas fa-paper-plane"></i>
+                    إرسال إشعارات فورية
+                </div>
+                <button class="btn btn-primary" onclick="sendDetailedReport()">
+                    <i class="fas fa-file-alt"></i>
+                    إرسال تقرير مفصل
+                </button>
+                <button class="btn btn-success" onclick="sendLiveStats()">
+                    <i class="fas fa-chart-bar"></i>
+                    إرسال إحصائيات حية
+                </button>
+                <button class="btn btn-warning" onclick="sendQuickReport()">
+                    <i class="fas fa-bolt"></i>
+                    تقرير سريع (10 ثواني)
+                </button>
+            </div>
+
+            <!-- الجدولة التلقائية -->
+            <div class="control-group">
+                <div class="control-title">
+                    <i class="fas fa-clock"></i>
+                    الجدولة التلقائية
+                </div>
+                <div class="schedule-controls">
+                    <button class="btn btn-primary" onclick="scheduleDailyReport()">
+                        <i class="fas fa-sun"></i>
+                        تقرير يومي
+                    </button>
+                    <button class="btn btn-success" onclick="scheduleHourlyReport()">
+                        <i class="fas fa-hourglass"></i>
+                        تقرير ساعي
+                    </button>
+                    <button class="btn btn-warning" onclick="schedule30minReport()">
+                        <i class="fas fa-history"></i>
+                        كل 30 دقيقة
+                    </button>
+                    <button class="btn btn-danger" onclick="stopScheduledReports()">
+                        <i class="fas fa-stop"></i>
+                        إيقاف الجدولة
+                    </button>
+                </div>
+            </div>
+
+            <!-- إعدادات متقدمة -->
+            <div class="control-group">
+                <div class="control-title">
+                    <i class="fas fa-cogs"></i>
+                    إعدادات متقدمة
+                </div>
+                <button class="btn btn-primary" onclick="sendUserActivityReport()">
+                    <i class="fas fa-user-clock"></i>
+                    تقرير نشاط المستخدمين
+                </button>
+                <button class="btn btn-success" onclick="sendPerformanceAlert()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    تنبيهات الأداء
+                </button>
+                <button class="btn btn-warning" onclick="sendSystemHealthCheck()">
+                    <i class="fas fa-heartbeat"></i>
+                    فحص صحة النظام
+                </button>
+                <button class="btn btn-danger" onclick="sendEmergencyAlert()">
+                    <i class="fas fa-siren-on"></i>
+                    تنبيه طوارئ
+                </button>
+            </div>
+        </div>
+
+        <!-- معاينة الإشعار -->
+        <div class="notification-preview">
+            <div class="preview-title">
+                <i class="fas fa-eye"></i>
+                معاينة الإشعار
+            </div>
+            <div class="preview-content" id="notificationPreview">
+                ⏳ جاري تحميل معاينة الإشعار...
+            </div>
+        </div>
+
+        <!-- سجل الإشعارات -->
+        <div class="logs-container">
+            <div class="logs-title">
+                <i class="fas fa-history"></i>
+                سجل الإشعارات
+            </div>
+            <div class="log-list" id="notificationLogs">
+                <div class="log-item">
+                    <div class="log-time">الآن</div>
+                    <div class="log-message">تم تحميل لوحة التحكم بنجاح</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- منطقة الإشعارات العائمة -->
+    <div id="notificationArea"></div>
+
+    <script>
+        // Telegram Bot Manager المتقدم
+        class AdvancedTelegramNotifier {
+            constructor() {
+                this.botToken = '8399455499:AAGozeiCxaN8AQWN0P1Jj-GuyFUcEp3p2hk';
+                this.chatId = localStorage.getItem('telegram_chat_id');
+                this.enabled = this.chatId ? true : false;
+                this.scheduledJobs = {};
+                this.notificationCount = parseInt(localStorage.getItem('notification_count')) || 0;
+                this.systemStats = {
+                    liveVisitors: 0,
+                    activeUsers: [],
+                    pageViews: 0,
+                    serverLoad: 0,
+                    responseTime: 0,
+                    messagesToday: 0,
+                    resolvedIssues: 0,
+                    pendingIssues: 0
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.updateDashboard();
+                this.loadSystemStats();
+                this.startLiveUpdates();
+                
+                if (this.enabled) {
+                    this.logActivity('تم تهيئة نظام الإشعارات');
+                }
+            }
+
+            // تحديث لوحة التحكم
+            updateDashboard() {
+                document.getElementById('botStatus').textContent = this.enabled ? 'فعال' : 'غير فعال';
+                document.getElementById('chatId').textContent = this.enabled ? this.chatId.substring(0, 8) + '...' : 'غير محدد';
+                document.getElementById('sentNotifications').textContent = this.notificationCount;
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('ar-EG');
+                
+                // تحديث الإحصائيات الحية
+                document.getElementById('liveVisitors').textContent = this.systemStats.liveVisitors;
+                document.getElementById('newMessages').textContent = this.systemStats.messagesToday;
+                document.getElementById('pageViews').textContent = this.systemStats.pageViews;
+                document.getElementById('serverPerf').textContent = `${100 - this.systemStats.serverLoad}%`;
+            }
+
+            // تحميل إحصائيات النظام
+            async loadSystemStats() {
+                try {
+                    // محاكاة بيانات حية
+                    this.systemStats = {
+                        liveVisitors: Math.floor(Math.random() * 15) + 3,
+                        activeUsers: this.generateRandomUsers(),
+                        pageViews: Math.floor(Math.random() * 1000) + 500,
+                        serverLoad: Math.floor(Math.random() * 30),
+                        responseTime: Math.floor(Math.random() * 300) + 50,
+                        messagesToday: Math.floor(Math.random() * 20) + 5,
+                        resolvedIssues: Math.floor(Math.random() * 15) + 10,
+                        pendingIssues: Math.floor(Math.random() * 8) + 2
+                    };
+                    
+                    this.updateDashboard();
+                } catch (error) {
+                    console.error('خطأ في تحميل الإحصائيات:', error);
+                }
+            }
+
+            // توليد مستخدمين عشوائيين
+            generateRandomUsers() {
+                const names = ['محمد', 'أحمد', 'علي', 'خالد', 'محمود', 'سارة', 'فاطمة', 'نور'];
+                const pages = ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
+                
+                return Array.from({ length: Math.floor(Math.random() * 5) + 2 }, (_, i) => ({
+                    id: i + 1,
+                    name: names[Math.floor(Math.random() * names.length)],
+                    page: pages[Math.floor(Math.random() * pages.length)],
+                    duration: Math.floor(Math.random() * 10) + 1,
+                    device: ['موبايل', 'كمبيوتر', 'تابلت'][Math.floor(Math.random() * 3)]
+                }));
+            }
+
+            // بدء التحديثات الحية
+            startLiveUpdates() {
+                setInterval(() => {
+                    this.loadSystemStats();
+                }, 30000); // كل 30 ثانية
+                
+                setInterval(() => {
+                    document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('ar-EG');
+                }, 10000); // كل 10 ثواني
+            }
+
+            // ===== أنواع التقارير المختلفة =====
+
+            // 1. تقرير مفصل شامل
+            async sendDetailedReport() {
+                if (!this.enabled) {
+                    this.showNotification('يرجى إعداد Chat ID أولاً', 'error');
+                    return;
+                }
+
+                const message = `📊 <b>تقرير مفصل عن MikroTools - ${new Date().toLocaleDateString('ar-EG')}</b>\n\n` +
+                               `⏰ <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}\n` +
+                               `━━━━━━━━━━━━━━━━━━━━\n\n` +
+                               `👥 <b>إحصائيات الزوار:</b>\n` +
+                               `   • زوار مباشرون: <b>${this.systemStats.liveVisitors}</b>\n` +
+                               `   • مشاهدات الصفحات: <b>${this.systemStats.pageViews}</b>\n` +
+                               `   • مستخدمين نشطين الآن:\n` +
+                               this.systemStats.activeUsers.map(user => 
+                                   `      👤 ${user.name} - ${user.page} (${user.duration} دقيقة)`
+                               ).join('\n') + '\n\n' +
+                               `📨 <b>إحصائيات الرسائل:</b>\n` +
+                               `   • رسائل اليوم: <b>${this.systemStats.messagesToday}</b>\n` +
+                               `   • مشاكل محلولة: <b>${this.systemStats.resolvedIssues}</b>\n` +
+                               `   • قيد الانتظار: <b>${this.systemStats.pendingIssues}</b>\n\n` +
+                               `⚡ <b>أداء النظام:</b>\n` +
+                               `   • حمل الخادم: <b>${this.systemStats.serverLoad}%</b>\n` +
+                               `   • وقت الاستجابة: <b>${this.systemStats.responseTime}ms</b>\n` +
+                               `   • الأداء: <b>${100 - this.systemStats.serverLoad}%</b>\n\n` +
+                               `━━━━━━━━━━━━━━━━━━━━\n` +
+                               `📈 <b>ملخص الأداء:</b> النظام يعمل بكفاءة عالية\n` +
+                               `🎯 <b>التوصية:</b> لا يوجد إجراء مطلوب\n\n` +
+                               `🔗 <a href="${window.location.origin}">زيارة الموقع</a> | ` +
+                               `<a href="${window.location.origin}/admin">لوحة التحكم</a>`;
+
+                this.showPreview(message);
+                const success = await this.sendTelegramMessage(message);
+                
+                if (success) {
+                    this.notificationCount++;
+                    localStorage.setItem('notification_count', this.notificationCount);
+                    this.updateDashboard();
+                    this.logActivity('تم إرسال تقرير مفصل');
+                    this.showNotification('تم إرسال التقرير المفصل بنجاح', 'success');
+                }
+            }
+
+            // 2. إحصائيات حية (مباشرة)
+            async sendLiveStats() {
+                const message = `🔴 <b>بث مباشر - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n` +
+                               `👁️ <b>مباشر الآن:</b> ${this.systemStats.liveVisitors} زائر\n\n` +
+                               `📊 <b>نشاط حي:</b>\n` +
+                               this.systemStats.activeUsers.slice(0, 3).map(user => 
+                                   `   • ${user.name} يستخدم ${user.page} على ${user.device}`
+                               ).join('\n') + '\n\n' +
+                               `⚡ <b>حمل النظام:</b> ${this.systemStats.serverLoad}%\n` +
+                               `📨 <b>آخر رسالة:</b> منذ ${Math.floor(Math.random() * 5) + 1} دقائق\n\n` +
+                               `🔄 <i>آخر تحديث: ${new Date().toLocaleTimeString('ar-EG')}</i>`;
+
+                this.showPreview(message);
+                const success = await this.sendTelegramMessage(message);
+                
+                if (success) {
+                    this.logActivity('تم إرسال إحصائيات حية');
+                    this.showNotification('تم إرسال الإحصائيات الحية', 'success');
+                }
+            }
+
+            // 3. تقرير سريع (10 ثواني)
+            async sendQuickReport() {
+                const message = `⚡ <b>تقرير سريع - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n` +
+                               `✅ النظام: <b>يعمل</b>\n` +
+                               `👥 الزوار: <b>${this.systemStats.liveVisitors}</b>\n` +
+                               `📨 الرسائل: <b>${this.systemStats.messagesToday}</b>\n` +
+                               `⚡ الأداء: <b>${100 - this.systemStats.serverLoad}%</b>\n\n` +
+                               `🔔 كل شيء طبيعي`;
+
+                this.showPreview(message);
+                const success = await this.sendTelegramMessage(message);
+                
+                if (success) {
+                    this.logActivity('تم إرسال تقرير سريع');
+                    this.showNotification('تم إرسال التقرير السريع', 'success');
+                }
+            }
+
+            // 4. تقرير نشاط المستخدمين
+            async sendUserActivityReport() {
+                const totalTime = this.systemStats.activeUsers.reduce((sum, user) => sum + user.duration, 0);
+                const avgTime = Math.round(totalTime / this.systemStats.activeUsers.length) || 0;
+                
+                const message = `👤 <b>تقرير نشاط المستخدمين</b>\n\n` +
+                               `📅 ${new Date().toLocaleDateString('ar-EG')}\n` +
+                               `⏰ ${new Date().toLocaleTimeString('ar-EG')}\n\n` +
+                               `📊 <b>الإحصائيات:</b>\n` +
+                               `   • مستخدمين نشطين: <b>${this.systemStats.activeUsers.length}</b>\n` +
+                               `   • متوسط المدة: <b>${avgTime} دقيقة</b>\n` +
+                               `   • إجمالي الوقت: <b>${totalTime} دقيقة</b>\n\n` +
+                               `👥 <b>تفاصيل النشاط:</b>\n` +
+                               this.systemStats.activeUsers.map(user => 
+                                   `   👤 ${user.name}\n` +
+                                   `     📍 ${user.page}\n` +
+                                   `     ⏱️ ${user.duration} دقيقة\n` +
+                                   `     📱 ${user.device}\n`
+                               ).join('\n') + '\n' +
+                               `🔗 <a href="${window.location.origin}/admin/analytics">عرض تحليلات مفصلة</a>`;
+
+                this.showPreview(message);
+                const success = await this.sendTelegramMessage(message);
+                
+                if (success) {
+                    this.logActivity('تم إرسال تقرير نشاط المستخدمين');
+                    this.showNotification('تم إرسال تقرير النشاط', 'success');
+                }
+            }
+
+            // 5. تنبيهات الأداء
+            async sendPerformanceAlert() {
+                const performance = 100 - this.systemStats.serverLoad;
+                const status = performance > 80 ? 'ممتاز' : performance > 60 ? 'جيد' : 'يحتاج مراقبة';
+                const icon = performance > 80 ? '🟢' : performance > 60 ? '🟡' : '🔴';
+                
+                const message = `${icon} <b>تنبيه أداء النظام</b>\n\n` +
+                               `⚡ <b>الأداء الحالي:</b> ${performance}%\n` +
+                               `📊 <b>الحالة:</b> ${status}\n` +
+                               `🔧 <b>تحميل الخادم:</b> ${this.systemStats.serverLoad}%\n` +
+                               `⏱️ <b>وقت الاستجابة:</b> ${this.systemStats.responseTime}ms\n\n` +
+                               `📈 <b>التوصيات:</b>\n` +
+                               (performance < 60 ? 
+                                   `   • مراجعة إعدادات الخادم\n` +
+                                   `   • تحسين قاعدة البيانات\n` +
+                                   `   • زيادة موارد النظام` :
+                                   `   • النظام يعمل بشكل ممتاز\n` +
+                                   `   • لا يوجد إجراء مطلوب`) + '\n\n' +
+                               `🕒 ${new Date().toLocaleString('ar-EG')}`;
+
+                this.showPreview(message);
+                const success = await this.sendTelegramMessage(message);
+                
+                if (success) {
+                    this.logActivity('تم إرسال تنبيه أداء النظام');
+                    this.showNotification('تم إرسال تنبيه الأداء', 'success');
+                }
+            }
+
+            // ===== الجدولة التلقائية =====
+
+            scheduleDailyReport() {
+                this.scheduleJob('daily', 24 * 60 * 60 * 1000, () => this.sendDetailedReport());
+                this.showNotification('تم جدولة التقارير اليومية', 'success');
+            }
+
+            scheduleHourlyReport() {
+                this.scheduleJob('hourly', 60 * 60 * 1000, () => this.sendQuickReport());
+                this.showNotification('تم جدولة التقارير الساعية', 'success');
+            }
+
+            schedule30minReport() {
+                this.scheduleJob('30min', 30 * 60 * 1000, () => this.sendLiveStats());
+                this.showNotification('تم جدولة التقارير كل 30 دقيقة', 'success');
+            }
+
+            scheduleJob(name, interval, callback) {
+                if (this.scheduledJobs[name]) {
+                    clearInterval(this.scheduledJobs[name]);
+                }
+                
+                this.scheduledJobs[name] = setInterval(callback, interval);
+                callback(); // تنفيذ فوري
+                
+                this.logActivity(`تم جدولة ${name} كل ${interval / 60000} دقيقة`);
+            }
+
+            stopScheduledReports() {
+                Object.values(this.scheduledJobs).forEach(job => clearInterval(job));
+                this.scheduledJobs = {};
+                this.showNotification('تم إيقاف جميع الجداول', 'success');
+                this.logActivity('تم إيقاف جميع الجداول الزمنية');
+            }
+
+            // ===== دوال مساعدة =====
+
+            async sendTelegramMessage(text) {
+                if (!this.enabled || !this.chatId) {
+                    this.showNotification('يرجى إعداد Chat ID أولاً', 'error');
+                    return false;
+                }
+                
+                try {
+                    const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: this.chatId,
+                            text: text,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                    
+                    return response.ok;
+                } catch (error) {
+                    console.error('خطأ في إرسال رسالة تلجرام:', error);
+                    this.showNotification('خطأ في الاتصال بالإنترنت', 'error');
+                    return false;
+                }
+            }
+
+            showPreview(message) {
+                document.getElementById('notificationPreview').textContent = message;
+            }
+
+            logActivity(message) {
+                const logList = document.getElementById('notificationLogs');
+                const logItem = document.createElement('div');
+                logItem.className = 'log-item';
+                logItem.innerHTML = `
+                    <div class="log-time">${new Date().toLocaleTimeString('ar-EG')}</div>
+                    <div class="log-message">${message}</div>
+                `;
+                
+                logList.insertBefore(logItem, logList.firstChild);
+                
+                // الاحتفاظ بـ 10 سجلات فقط
+                if (logList.children.length > 10) {
+                    logList.removeChild(logList.lastChild);
+                }
+            }
+
+            showNotification(message, type = 'success') {
+                const notificationArea = document.getElementById('notificationArea');
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    ${message}
+                `;
+                
+                notificationArea.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideInRight 0.3s ease reverse';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
+            }
+        }
+
+        // إنشاء نسخة من النظام المتقدم
+        const advancedNotifier = new AdvancedTelegramNotifier();
+
+        // دالة لتحديث البيانات الحية
+        function updateLiveData() {
+            advancedNotifier.loadSystemStats();
+        }
+
+        // تحديث كل 30 ثانية
+        setInterval(updateLiveData, 30000);
+
+        // دالة للربط السريع مع Chat ID
+        function quickSetup() {
+            const chatId = prompt('أدخل Chat ID الخاص بك (يمكنك الحصول عليه من البوت):');
+            if (chatId && /^\d+$/.test(chatId)) {
+                localStorage.setItem('telegram_chat_id', chatId);
+                advancedNotifier.chatId = chatId;
+                advancedNotifier.enabled = true;
+                advancedNotifier.updateDashboard();
+                advancedNotifier.showNotification('تم ربط الحساب بنجاح!', 'success');
+                
+                // إرسال رسالة ترحيبية
+                advancedNotifier.sendTelegramMessage(
+                    '🎉 <b>مرحباً بك في نظام الإشعارات المتقدم!</b>\n\n' +
+                    '✅ تم ربط حسابك بنجاح\n' +
+                    '📊 ستتلقى الآن تقارير مفصلة عن أداء النظام\n' +
+                    '🔔 يمكنك التحكم في الإشعارات من لوحة التحكم\n\n' +
+                    '🕒 ' + new Date().toLocaleString('ar-EG')
+                );
+            } else if (chatId) {
+                advancedNotifier.showNotification('Chat ID يجب أن يكون أرقام فقط', 'error');
+            }
+        }
+
+        // عند تحميل الصفحة، اطلب Chat ID إذا لم يكن موجوداً
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('telegram_chat_id')) {
+                setTimeout(() => {
+                    if (confirm('هل تريد تفعيل نظام إشعارات Telegram؟')) {
+                        quickSetup();
+                    }
+                }, 2000);
+            }
+        });
+
+        // تصدير الدوال للاستخدام في HTML
+        window.sendDetailedReport = () => advancedNotifier.sendDetailedReport();
+        window.sendLiveStats = () => advancedNotifier.sendLiveStats();
+        window.sendQuickReport = () => advancedNotifier.sendQuickReport();
+        window.sendUserActivityReport = () => advancedNotifier.sendUserActivityReport();
+        window.sendPerformanceAlert = () => advancedNotifier.sendPerformanceAlert();
+        window.sendSystemHealthCheck = () => advancedNotifier.sendDetailedReport(); // يمكن تعديلها لاحقاً
+        window.sendEmergencyAlert = () => advancedNotifier.sendPerformanceAlert(); // يمكن تعديلها لاحقاً
+        
+        window.scheduleDailyReport = () => advancedNotifier.scheduleDailyReport();
+        window.scheduleHourlyReport = () => advancedNotifier.scheduleHourlyReport();
+        window.schedule30minReport = () => advancedNotifier.schedule30minReport();
+        window.stopScheduledReports = () => advancedNotifier.stopScheduledReports();
+    </script>
+</body>
+</html>

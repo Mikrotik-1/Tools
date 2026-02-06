@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>احصل على Chat ID - MikroTools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 32px;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4361ee;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: #4361ee;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            border: 2px solid #4361ee;
+        }
+        
+        .telegram-link {
+            display: inline-block;
+            background: #0088cc;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+        
+        .telegram-link:hover {
+            background: #0077b5;
+            transform: translateY(-2px);
+        }
+        
+        .code-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: monospace;
+            direction: ltr;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin-top: 30px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #4361ee;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4361ee, #3f37c9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+        
+        .screenshot {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin: 15px auto;
+            display: block;
+        }
+        
+        .note {
+            background: rgba(76, 201, 240, 0.1);
+            border: 1px solid #4cc9f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #94a3b8;
+        }
+        
+        .success {
+            color: #4cc9f0;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 احصل على Chat ID لتفعيل إشعارات Telegram</h1>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">1</span>
+                افتح Telegram
+            </div>
+            <p>اذهب إلى تطبيق Telegram على هاتفك أو الكمبيوتر</p>
+            <div class="qr-code">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1200px-Telegram_logo.svg.png" alt="Telegram Logo">
+            </div>
+            <a href="https://t.me/getidsbot" target="_blank" class="telegram-link">
+                <i class="fab fa-telegram"></i> افتح Get IDs Bot
+            </a>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">2</span>
+                ابدأ المحادثة مع البوت
+            </div>
+            <p>بعد فتح الرابط، اضغط على زر START أو أرسل:</p>
+            <div class="code-box">/start</div>
+            <img src="https://i.imgur.com/6YQmZ9c.png" alt="Screenshot of start command" class="screenshot">
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">3</span>
+                احصل على Chat ID
+            </div>
+            <p>سيرسل لك البوت رسالة تحتوي على رقم مثل:</p>
+            <div class="code-box">123456789</div>
+            <div class="note">
+                💡 <strong>ملاحظة:</strong> هذا الرقم خاص بك فقط ولا تشاركه مع أحد
+            </div>
+            <img src="https://i.imgur.com/8VJkL7p.png" alt="Screenshot of chat ID" class="screenshot">
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">4</span>
+                أدخل Chat ID هنا
+            </div>
+            <div class="input-group">
+                <input type="text" id="chatIdInput" placeholder="أدخل الرقم الذي حصلت عليه هنا">
+                <button onclick="saveChatId()">
+                    💾 حفظ Chat ID وتفعيل الإشعارات
+                </button>
+            </div>
+            <div class="success" id="successMessage">
+                ✅ تم حفظ Chat ID بنجاح! سيتم تفعيل الإشعارات الآن.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function saveChatId() {
+            const chatIdInput = document.getElementById('chatIdInput');
+            const chatId = chatIdInput.value.trim();
+            
+            if (!chatId) {
+                alert('يرجى إدخال Chat ID');
+                return;
+            }
+            
+            if (!/^\d+$/.test(chatId)) {
+                alert('Chat ID يجب أن يكون أرقام فقط');
+                return;
+            }
+            
+            // حفظ في LocalStorage
+            localStorage.setItem('telegram_chat_id', chatId);
+            
+            // عرض رسالة النجاح
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            chatIdInput.value = '';
+            
+            // إرسال رسالة ترحيبية عبر البوت
+            sendWelcomeMessage(chatId);
+            
+            // توجيه إلى لوحة التحكم بعد 3 ثواني
+            setTimeout(() => {
+                window.location.href = 'admin-dashboard.html';
+            }, 3000);
+        }
+        
+        async function sendWelcomeMessage(chatId) {
+            const botToken = '8399455499:AAGozeiCxaN8AQWN0P1Jj-GuyFUcEp3p2hk';
+            const message = `🎉 <b>مرحباً بك في نظام إشعارات MikroTools!</b>\n\n` +
+                           `✅ تم تفعيل الإشعارات بنجاح\n` +
+                           `🔔 ستتلقى الآن إشعارات فورية عن:\n` +
+                           `   • الزوار المباشرين\n` +
+                           `   • الرسائل الجديدة\n` +
+                           `   • أداء النظام\n` +
+                           `   • التقارير المهمة\n\n` +
+                           `🆔 Chat ID: ${chatId}\n` +
+                           `🕒 ${new Date().toLocaleString('ar-EG')}\n\n` +
+                           `🔗 <a href="https://mikrotools.com/admin">لوحة التحكم</a>`;
+            
+            try {
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (error) {
+                console.log('تم حفظ Chat ID، سيتم الإرسال لاحقاً');
+            }
+        }
+        
+        // تحميل FontAwesome للأيقونات
+        const fa = document.createElement('link');
+        fa.rel = 'stylesheet';
+        fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+        document.head.appendChild(fa);
+    </script>
+</body>
+</html>
