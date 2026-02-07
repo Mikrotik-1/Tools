@@ -3196,8 +3196,11 @@
         }
         
         async function viewMessage(messageId) {
-            const message = systemData.problems.find(msg => msg.id === messageId);
-            if (!message) return;
+            const message = systemData.problems.find(msg => msg.id == messageId);
+            if (!message) {
+                console.error('رسالة غير موجودة:', messageId);
+                return;
+            }
             
             currentMessageId = messageId;
             
@@ -3240,7 +3243,7 @@
                 return;
             }
             
-            const message = systemData.problems.find(msg => msg.id === currentMessageId);
+            const message = systemData.problems.find(msg => msg.id == currentMessageId);
             if (!message) return;
             
             if (!message.replies) message.replies = [];
@@ -3267,7 +3270,7 @@
         }
         
         async function markAsSolved() {
-            const message = systemData.problems.find(msg => msg.id === currentMessageId);
+            const message = systemData.problems.find(msg => msg.id == currentMessageId);
             if (!message) return;
             
             const replyText = document.getElementById('replyText').value.trim();
@@ -3299,39 +3302,54 @@
         async function deleteMessage(messageId) {
             if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
             
-            // تحديث: تأكد أننا نحذف الرسالة الصحيحة فقط
-            const initialCount = systemData.problems.length;
-            const messageToDelete = systemData.problems.find(msg => msg.id === messageId);
-            
-            if (!messageToDelete) {
-                showNotification('الرسالة غير موجودة!', 'error');
-                return;
-            }
-            
-            console.log(`حذف الرسالة ${messageId}: ${messageToDelete.user} - ${messageToDelete.problem.substring(0, 30)}...`);
-            console.log(`قبل الحذف: ${initialCount} رسائل`);
-            
-            // تصفية الرسائل - التأكد من حذف الرسالة الصحيحة فقط
-            systemData.problems = systemData.problems.filter(msg => {
-                if (msg.id === messageId) {
-                    console.log(`تم العثور على الرسالة للحذف: ${msg.id} - ${msg.user}`);
-                    return false; // حذف هذه الرسالة
+            try {
+                console.log('🎯 بدء عملية الحذف لـ ID:', messageId);
+                
+                // عرض جميع الرسائل قبل الحذف
+                console.log('📋 الرسائل الموجودة قبل الحذف:');
+                systemData.problems.forEach((msg, index) => {
+                    console.log(`   ${index}: ID=${msg.id} (نوع: ${typeof msg.id}), المستخدم: ${msg.user}`);
+                });
+                
+                // البحث عن الرسالة
+                const messageIndex = systemData.problems.findIndex(msg => msg.id == messageId);
+                
+                if (messageIndex === -1) {
+                    console.error('❌ لم يتم العثور على الرسالة!');
+                    showNotification('لم يتم العثور على الرسالة', 'error');
+                    return;
                 }
-                return true; // الاحتفاظ بالرسائل الأخرى
-            });
-            
-            console.log(`بعد الحذف: ${systemData.problems.length} رسائل`);
-            
-            if (initialCount === systemData.problems.length) {
-                showNotification('لم يتم العثور على الرسالة للحذف', 'error');
-                return;
+                
+                const messageToDelete = systemData.problems[messageIndex];
+                console.log('✅ وجدت الرسالة للحذف:', messageToDelete.user);
+                
+                // طريقة آمنة للحذف باستخدام splice
+                systemData.problems.splice(messageIndex, 1);
+                console.log('🗑️ تم حذف الرسالة، عدد الرسائل المتبقية:', systemData.problems.length);
+                
+                // التحقق من الحذف
+                const stillExists = systemData.problems.some(msg => msg.id == messageId);
+                if (stillExists) {
+                    console.error('❌ الرسالة مازالت موجودة!');
+                    showNotification('حدث خطأ في الحذف', 'error');
+                    return;
+                }
+                
+                // حفظ البيانات
+                await saveSystemData();
+                
+                // تحديث الواجهة
+                updateMessagesDisplay();
+                updateDashboard();
+                
+                console.log('✅ تمت العملية بنجاح');
+                showNotification(`تم حذف رسالة ${messageToDelete.user} بنجاح`, 'success');
+                addSystemLog(`تم حذف رسالة #${messageId}`, 'warning');
+                
+            } catch (error) {
+                console.error('💥 خطأ في عملية الحذف:', error);
+                showNotification('حدث خطأ أثناء الحذف', 'error');
             }
-            
-            await saveSystemData();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم حذف الرسالة بنجاح', 'success');
-            addSystemLog(`تم حذف رسالة #${messageId} من ${messageToDelete.user}`, 'warning');
         }
         
         function closeModal() {
