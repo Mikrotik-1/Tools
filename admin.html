@@ -3311,7 +3311,7 @@
                     console.log(`   ${index}: ID=${msg.id} (نوع: ${typeof msg.id}), المستخدم: ${msg.user}`);
                 });
                 
-                // البحث عن الرسالة
+                // البحث عن الرسالة باستخدام == (للتأكد من مقارنة القيم)
                 const messageIndex = systemData.problems.findIndex(msg => msg.id == messageId);
                 
                 if (messageIndex === -1) {
@@ -3321,9 +3321,9 @@
                 }
                 
                 const messageToDelete = systemData.problems[messageIndex];
-                console.log('✅ وجدت الرسالة للحذف:', messageToDelete.user);
+                console.log('✅ وجدت الرسالة للحذف:', messageToDelete.user, 'مع ID:', messageToDelete.id);
                 
-                // طريقة آمنة للحذف باستخدام splice
+                // استخدم splice لحذف الرسالة من المصفوفة
                 systemData.problems.splice(messageIndex, 1);
                 console.log('🗑️ تم حذف الرسالة، عدد الرسائل المتبقية:', systemData.problems.length);
                 
