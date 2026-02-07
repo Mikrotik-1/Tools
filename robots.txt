@@ -4,7 +4,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 
-Sitemap: https://mikro-tools.com/sitemap.xml
+
 
 
 
