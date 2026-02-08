@@ -712,6 +712,14 @@
             animation-delay: 1s;
         }
 
+        .mikro-social-icon.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .mikro-social-icon.facebook {
+            background: linear-gradient(135deg, #1877F2, #0A5BC4);
+        }
+
         @keyframes mikro-float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-10px) rotate(5deg); }
@@ -1275,30 +1283,24 @@
         </div>
     </footer>
 
-    <!-- الأيقونات العائمة -->
-    <div class="floating-icons-container">
-        <div class="mikro-icons-wrapper">
-            <!-- التواصل -->
-            <div class="mikro-social-icons">
-                <a href="https://wa.me/201092503391" target="_blank" 
-                   class="mikro-social-icon mikro-whatsapp" 
-                   title="واتساب">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" 
-                   class="mikro-social-icon mikro-facebook" 
-                   title="فيسبوك">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-            </div>
-            
-            <!-- المساعدة -->
-            <button class="mikro-help-icon" onclick="showMikroHelp()">
-                ❓
-                <span class="mikro-help-text">مساعدة هذه الصفحة</span>
-            </button>
-        </div>
-    </div>
+     <!-- أيقونات التواصل العائمة -->
+    <iframe 
+        src="mikro-icons.html" 
+        style="
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 90px;
+            height: 280px;
+            border: none;
+            z-index: 99999;
+            background: transparent;
+            pointer-events: auto;
+        "
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true">
+    </iframe>
 
     <script>
         // إعدادات JSONBin
