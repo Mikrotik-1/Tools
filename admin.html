@@ -1248,6 +1248,49 @@
             word-break: break-all;
             color: #0088cc;
         }
+        
+        /* ===== تحسينات لعرض الردود ===== */
+        .replies-container {
+            margin: 20px 0;
+            border-top: 1px solid var(--light-border);
+            padding-top: 20px;
+        }
+        
+        .reply-item {
+            background: var(--light-card);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--light-border);
+        }
+        
+        .reply-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        .reply-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .reply-date {
+            color: var(--light-gray);
+            font-size: 12px;
+        }
+        
+        .reply-content {
+            color: var(--light-text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -2230,13 +2273,15 @@
                     <div class="message-content" id="modalMessage" style="line-height: 1.6; font-size: 15px; color: #334155;"></div>
                 </div>
                 
-                <!-- الحل الحالي -->
-                <div id="currentSolution" style="display: none;">
+                <!-- 🔧 تغيير: عرض جميع الردود -->
+                <div class="replies-container" id="repliesContainer">
                     <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                        الحل الحالي
+                        <i class="fas fa-reply-all"></i>
+                        جميع الردود
                     </h4>
-                    <div style="background: rgba(16, 185, 129, 0.05); padding: 18px; border-radius: 12px; color: #475569; line-height: 1.6; font-size: 14px; border: 1px solid rgba(16, 185, 129, 0.1);" id="solutionContent"></div>
+                    <div id="allReplies">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                    </div>
                 </div>
                 
                 <!-- إضافة رد -->
@@ -3199,6 +3244,7 @@
             }).join('');
         }
         
+        // 🔧 **الوظيفة المعدلة لعرض جميع الردود**
         async function viewMessage(messageId) {
             const message = systemData.problems.find(msg => msg.id == messageId);
             if (!message) {
@@ -3216,13 +3262,16 @@
             document.getElementById('modalDate').textContent = formatDate(message.date);
             document.getElementById('modalMessage').textContent = message.problem;
             
-            if (message.solution) {
-                document.getElementById('currentSolution').style.display = 'block';
-                document.getElementById('solutionContent').textContent = message.solution;
+            // 🔧 عرض جميع الردود
+            displayReplies(message.replies || []);
+            
+            // 🔧 تحديث حالة الزر
+            if (message.solved) {
                 document.getElementById('markSolvedBtn').style.display = 'none';
+                document.getElementById('markSolvedBtn').innerHTML = '<i class="fas fa-check-circle"></i> تم الحل';
             } else {
-                document.getElementById('currentSolution').style.display = 'none';
                 document.getElementById('markSolvedBtn').style.display = 'inline-block';
+                document.getElementById('markSolvedBtn').innerHTML = '<i class="fas fa-check-circle"></i> تم الحل';
             }
             
             document.getElementById('messageModal').classList.add('active');
@@ -3235,11 +3284,53 @@
             }
         }
         
+        // 🔧 **وظيفة جديدة لعرض جميع الردود**
+        function displayReplies(replies) {
+            const container = document.getElementById('allReplies');
+            
+            if (!replies || replies.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding: 20px;">
+                        <i class="fas fa-inbox" style="font-size: 32px;"></i>
+                        <h4>لا توجد ردود بعد</h4>
+                        <p>كن أول من يرد على هذه المشكلة</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // ترتيب الردود من الأحدث إلى الأقدم
+            const sortedReplies = [...replies].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = sortedReplies.map((reply, index) => {
+                const replyDate = formatDate(reply.date);
+                
+                return `
+                    <div class="reply-item">
+                        <div class="reply-header">
+                            <div class="reply-author">
+                                <i class="fas fa-user-shield" style="color: var(--primary);"></i>
+                                ${reply.author}
+                            </div>
+                            <div class="reply-date">
+                                <i class="fas fa-clock"></i>
+                                ${replyDate}
+                            </div>
+                        </div>
+                        <div class="reply-content">
+                            ${reply.content}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
         function replyToMessage(messageId) {
             viewMessage(messageId);
             document.getElementById('replyText').focus();
         }
         
+        // 🔧 **الوظيفة المعدلة لإضافة رد جديد**
         async function submitReply() {
             const replyText = document.getElementById('replyText').value.trim();
             if (!replyText) {
@@ -3250,19 +3341,25 @@
             const message = systemData.problems.find(msg => msg.id == currentMessageId);
             if (!message) return;
             
+            // 🔧 الإصلاح: إضافة رد جديد دون استبدال الردود القديمة
             if (!message.replies) message.replies = [];
+            
             message.replies.push({
                 author: "فريق الدعم",
                 date: new Date().toISOString(),
                 content: replyText
             });
             
+            // 🔧 الإصلاح: تحديث الحل فقط إذا كان أول رد
             if (!message.solution) {
                 message.solution = replyText;
                 message.solved = true;
                 message.solvedDate = new Date().toISOString();
                 message.status = 'resolved';
             }
+            
+            // 🔧 زيادة عداد ردود الإدارة
+            message.adminReplies = (message.adminReplies || 0) + 1;
             
             await saveSystemData();
             viewMessage(currentMessageId);
@@ -3273,6 +3370,7 @@
             addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
         }
         
+        // 🔧 **الوظيفة المعدلة لتحديد المشكلة كمحلولة**
         async function markAsSolved() {
             const message = systemData.problems.find(msg => msg.id == currentMessageId);
             if (!message) return;
@@ -3283,17 +3381,19 @@
                 return;
             }
             
-            message.solution = replyText;
-            message.solved = true;
-            message.solvedDate = new Date().toISOString();
-            message.status = 'resolved';
-            
+            // 🔧 الإصلاح: إضافة رد كمحلول دون حذف الردود القديمة
             if (!message.replies) message.replies = [];
             message.replies.push({
                 author: "فريق الدعم",
                 date: new Date().toISOString(),
                 content: replyText
             });
+            
+            message.solution = replyText;
+            message.solved = true;
+            message.solvedDate = new Date().toISOString();
+            message.status = 'resolved';
+            message.adminReplies = (message.adminReplies || 0) + 1;
             
             await saveSystemData();
             closeModal();
@@ -3303,14 +3403,12 @@
             addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
         }
         
-        // 🔧 **الإصلاح النهائي لدالة الحذف**
+        // 🔧 **وظيفة الحذف المعدلة**
         async function deleteMessage(messageId) {
             console.log('🎯 deleteMessage called with ID:', messageId);
-            console.log('📋 Type of messageId:', typeof messageId);
             
             // 1️⃣ التحقق من أن الرسالة ليست من الرسائل المحمية
             const parsedId = parseInt(messageId);
-            console.log('🔢 Parsed ID:', parsedId);
             
             if (PROTECTED_MESSAGE_IDS.includes(parsedId)) {
                 showNotification('⚠️ لا يمكن حذف الرسائل الأساسية (محمية)', 'error');
@@ -3322,80 +3420,33 @@
             try {
                 console.log('🎯 بدء عملية الحذف لـ ID:', messageId);
                 
-                // 2️⃣ عرض جميع الرسائل للتصحيح
-                console.log('📋 جميع الرسائل المتاحة:');
-                systemData.problems.forEach((msg, idx) => {
-                    console.log(`   ${idx}: ID=${msg.id} (Type: ${typeof msg.id}), User: "${msg.user}"`);
-                });
-                
-                // 3️⃣ البحث عن الرسالة بطريقة شاملة
-                let messageIndex = -1;
-                let messageToDelete = null;
-                
-                // البحث بجميع الطرق الممكنة
-                for (let i = 0; i < systemData.problems.length; i++) {
-                    const msg = systemData.problems[i];
-                    
-                    // الطريقة 1: التحويل إلى أرقام والمقارنة
-                    const msgIdNum = Number(msg.id);
-                    const searchIdNum = Number(messageId);
-                    
-                    // الطريقة 2: المقارنة كما هي
-                    const msgIdStr = String(msg.id);
-                    const searchIdStr = String(messageId);
-                    
-                    console.log(`🔍 Comparing: msg.id=${msg.id}, msgIdNum=${msgIdNum}, searchIdNum=${searchIdNum}`);
-                    console.log(`🔍 Strings: msgIdStr="${msgIdStr}", searchIdStr="${searchIdStr}"`);
-                    
-                    // تجربة جميع طرق المقارنة
-                    if (msg.id == messageId ||  // loose comparison
-                        msgIdNum === searchIdNum ||  // strict number comparison
-                        msgIdStr === searchIdStr) {  // strict string comparison
-                        
-                        messageIndex = i;
-                        messageToDelete = msg;
-                        console.log('✅ Found message at index:', i);
-                        break;
-                    }
-                }
+                // 2️⃣ البحث عن الرسالة
+                const messageIndex = systemData.problems.findIndex(msg => msg.id == messageId);
                 
                 if (messageIndex === -1) {
-                    console.error('❌ لم يتم العثور على الرسالة بأي طريقة!');
-                    console.log('🔍 محاولة البحث يدوياً...');
-                    
-                    // البحث يدوياً
-                    for (let i = 0; i < systemData.problems.length; i++) {
-                        const msg = systemData.problems[i];
-                        console.log(`   Checking index ${i}: ID=${msg.id}, Match? ${msg.id == messageId ? 'YES' : 'NO'}`);
-                    }
-                    
                     showNotification('لم يتم العثور على الرسالة', 'error');
                     return;
                 }
                 
-                const messageToDeleteObj = systemData.problems[messageIndex];
-                console.log('✅ وجدت الرسالة للحذف:', messageToDeleteObj.user, 'مع ID:', messageToDeleteObj.id);
+                const messageToDelete = systemData.problems[messageIndex];
+                console.log('✅ وجدت الرسالة للحذف:', messageToDelete.user, 'مع ID:', messageToDelete.id);
                 
-                // 4️⃣ حذف الرسالة
+                // 3️⃣ حذف الرسالة
                 const deletedMessage = systemData.problems.splice(messageIndex, 1)[0];
-                console.log('🗑️ تم حذف الرسالة:', deletedMessage.user);
-                console.log('📊 عدد الرسائل المتبقية:', systemData.problems.length);
                 
-                // 5️⃣ حفظ البيانات
+                // 4️⃣ حفظ البيانات
                 await saveSystemData();
                 
-                // 6️⃣ تحديث الواجهة
+                // 5️⃣ تحديث الواجهة
                 updateMessagesDisplay();
                 updateDashboard();
                 
                 console.log('✅ تمت عملية الحذف بنجاح');
-                showNotification(`تم حذف رسالة ${messageToDeleteObj.user} بنجاح`, 'success');
-                addSystemLog(`تم حذف رسالة #${messageId} من ${messageToDeleteObj.user}`, 'warning');
+                showNotification(`تم حذف رسالة ${messageToDelete.user} بنجاح`, 'success');
+                addSystemLog(`تم حذف رسالة #${messageId} من ${messageToDelete.user}`, 'warning');
                 
             } catch (error) {
                 console.error('💥 خطأ في عملية الحذف:', error);
-                console.error('💥 تفاصيل الخطأ:', error.message);
-                console.error('💥 مسار الخطأ:', error.stack);
                 showNotification('حدث خطأ أثناء الحذف', 'error');
             }
         }
