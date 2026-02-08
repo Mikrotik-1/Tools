@@ -1190,7 +1190,10 @@
                 script += `add chain=output connection-mark=WAN${i}_conn action=mark-routing new-routing-mark=to_WAN${i}\n`;
             });
             
-           
+            // Load balancing
+            for (let i = 0; i < lineCount; i++) {
+                script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${lan} per-connection-classifier=both-addresses-and-ports:${lineCount}/${i} action=mark-connection new-connection-mark=WAN${i+1}_conn passthrough=yes\n`;
+            }
             
             script += `\n`;
             lines.forEach((line, index) => {
@@ -1283,5 +1286,3 @@
     </script>
 </body>
 </html>
-
-
