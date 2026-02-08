@@ -723,14 +723,6 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
 
-        .mikro-whatsapp {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-        }
-
-        .mikro-facebook {
-            background: linear-gradient(135deg, #1877F2, #0A5BC4);
-        }
-
         .mikro-help-text {
             position: absolute;
             right: 75px;
@@ -828,6 +820,49 @@
             .container, .problems-section {
                 padding: 1.5rem;
             }
+        }
+        
+        /* 🔧 إضافة تنسيقات لعرض الردود */
+        .replies-container {
+            margin: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        
+        .reply-item {
+            background: #f0fdf4;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #10b981;
+        }
+        
+        .reply-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .reply-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .reply-date {
+            color: var(--gray);
+            font-size: 12px;
+        }
+        
+        .reply-content {
+            color: var(--dark);
+            line-height: 1.6;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -1273,6 +1308,29 @@
             ACCESS_KEY: "$2a$10$ZTGfn5/2vTAk0GRK2mYDQehjEvi51bDSV95m7FcmcV4YITrNKQNai"
         };
 
+        // 🔧 دالة جديدة لتنسيق التاريخ
+        function formatDate(dateString) {
+            const d = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - d;
+            const diffMins = Math.floor(diffMs / (1000 * 60));
+            
+            if (diffMins < 60) {
+                return `منذ ${diffMins} دقيقة`;
+            }
+            
+            const diffHours = Math.floor(diffMins / 60);
+            if (diffHours < 24) {
+                return `منذ ${diffHours} ساعة`;
+            }
+            
+            return d.toLocaleDateString('ar-EG', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+
         // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 الصفحة تعمل!');
@@ -1391,7 +1449,7 @@
             }
         }
 
-        // عرض المشاكل
+        // 🔧 **الوظيفة المعدلة لعرض المشاكل والردود**
         function displayProblems(problems) {
             const container = document.getElementById('problemsList');
             
@@ -1426,12 +1484,38 @@
                         </div>
                         <div class="problem-content">
                             <p>${problem.problem || 'لا يوجد وصف'}</p>
-                            ${problem.solution ? `
-                            <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-right: 4px solid #10b981;">
+                            
+                            <!-- 🔧 عرض جميع الردود -->
+                            ${problem.replies && problem.replies.length > 0 ? `
+                            <div class="replies-container">
+                                <strong style="color: #10b981; display: block; margin-bottom: 10px;">
+                                    <i class="fas fa-comments"></i> ردود فريق الدعم (${problem.replies.length})
+                                </strong>
+                                ${problem.replies.map(reply => `
+                                    <div class="reply-item">
+                                        <div class="reply-header">
+                                            <div class="reply-author">
+                                                <i class="fas fa-user-shield"></i>
+                                                ${reply.author || 'فريق الدعم'}
+                                            </div>
+                                            <div class="reply-date">
+                                                <i class="fas fa-clock"></i>
+                                                ${formatDate(reply.date)}
+                                            </div>
+                                        </div>
+                                        <div class="reply-content">
+                                            ${reply.content}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ` : (problem.solution ? `
+                            <!-- عرض الحل القديم للتوافق مع البيانات القديمة -->
+                            <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #10b981;">
                                 <strong><i class="fas fa-check-circle"></i> الحل:</strong>
                                 <p style="margin-top: 0.5rem;">${problem.solution}</p>
                             </div>
-                            ` : ''}
+                            ` : '')}
                         </div>
                         <div class="problem-footer">
                             <button class="like-btn" onclick="likeProblem(this)">
@@ -1458,7 +1542,19 @@
                     date: new Date().toISOString(),
                     likes: 8,
                     solved: true,
-                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً."
+                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.",
+                    replies: [
+                        {
+                            author: "فريق الدعم",
+                            date: new Date().toISOString(),
+                            content: "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل."
+                        },
+                        {
+                            author: "فريق الدعم",
+                            date: new Date(Date.now() + 3600000).toISOString(),
+                            content: "رد إضافي: يمكنك أيضاً التحقق من إعدادات الـ DHCP Lease Time إذا كانت المشكلة تتكرر."
+                        }
+                    ]
                 },
                 {
                     user: "خالد محمود",
@@ -1466,7 +1562,14 @@
                     problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
                     date: new Date(Date.now() - 86400000).toISOString(),
                     likes: 15,
-                    solved: false
+                    solved: false,
+                    replies: [
+                        {
+                            author: "فريق الدعم",
+                            date: new Date(Date.now() - 43200000).toISOString(),
+                            content: "نحتاج إلى مزيد من التفاصيل. ما نوع الراوتر الذي تستخدمه؟"
+                        }
+                    ]
                 },
                 {
                     user: "أحمد سعيد",
@@ -1475,7 +1578,19 @@
                     date: new Date(Date.now() - 2 * 86400000).toISOString(),
                     likes: 5,
                     solved: true,
-                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases."
+                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
+                    replies: [
+                        {
+                            author: "فريق الدعم",
+                            date: new Date(Date.now() - 86400000).toISOString(),
+                            content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
+                        },
+                        {
+                            author: "فريق الدعم",
+                            date: new Date(Date.now() - 43200000).toISOString(),
+                            content: "نصيحة إضافية: يمكنك تفعيل Option 82 لتحسين أمان DHCP."
+                        }
+                    ]
                 }
             ];
             
@@ -1635,6 +1750,3 @@
     </script>
 </body>
 </html>
-
-
-
