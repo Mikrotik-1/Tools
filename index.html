@@ -32,8 +32,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دمج خطوط، حجب مواقع، بروفايلات سرعة">
-    <meta name="keywords" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع">
+    <meta name="description" content="أدوات مجانية لإنشاء سكريبتات ميكروتيك - هوت سبوت، دمج خطوط، حجب مواقع، بروفايلات سرعة، تصميم هوت سبوت، المشكلات الشائعة">
+    <meta name="keywords" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, تصميم هوت سبوت, مشاكل ميكروتيك">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     
     <!-- Google Search Console Verification -->
@@ -41,7 +41,7 @@
     
     <!-- Open Graph -->
     <meta property="og:title" content="MikroTools | أدوات ميكروتيك مجانية">
-    <meta property="og:description" content="منصة مجانية لإنشاء سكريبتات ميكروتيك احترافية">
+    <meta property="og:description" content="منصة مجانية لإنشاء سكريبتات ميكروتيك احترافية - تصميم هوت سبوت وحلول المشكلات الشائعة">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mikro-tools.com/">
     <meta property="og:locale" content="ar_EG">
@@ -55,7 +55,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
-    <title>MikroTools | أدوات ميكروتيك مجانية - سكريبتات هوت سبوت، دمج خطوط، حجب مواقع</title>
+    <title>MikroTools | أدوات ميكروتيك مجانية - سكريبتات هوت سبوت، دمج خطوط، تصميم، مشاكل</title>
     
     <style>
         :root {
@@ -494,6 +494,8 @@
         .tool-3 .tool-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; }
         .tool-4 .tool-icon { background: linear-gradient(135deg, #ef4444, #f87171); color: white; }
         .tool-5 .tool-icon { background: linear-gradient(135deg, #8b5cf6, #c4b5fd); color: white; }
+        .tool-6 .tool-icon { background: linear-gradient(135deg, #ec4899, #f472b6); color: white; }
+        .tool-7 .tool-icon { background: linear-gradient(135deg, #14b8a6, #2dd4bf); color: white; }
 
         .tool-title {
             font-size: 1.3rem;
@@ -652,6 +654,10 @@
             .section-title {
                 font-size: 2rem;
             }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 640px) {
@@ -705,8 +711,8 @@
                     <i class="fas fa-wifi"></i>
                     اعدادات هوت اسبوت وبرود باند
                 </a>
-                <a href="Hotspot Editor.html" class="nav-link ">
-                    <i class="fas fa-link"></i>
+                <a href="Hotspot Editor.html" class="nav-link">
+                    <i class="fas fa-paint-brush"></i>
                     تصميم هوت اسبوت
                 </a>
                 <a href="merge-v6.html" class="nav-link">
@@ -725,18 +731,17 @@
                     <i class="fas fa-tachometer-alt"></i>
                     بروفايلات
                 </a>
-               <!-- رابط المشكلات الشائعة يضاف هنا -->
-               <a href="troubleshooting.html" class="nav-link">
-               <i class="fas fa-question-circle"></i>
-                   المشكلات الشائعة
+                <a href="troubleshooting.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    المشكلات الشائعة
                 </a>
                 <a href="about.html" class="nav-link">
                     <i class="fas fa-users"></i>
                     من نحن
                 </a>
-                 <a href="privacy-policy.html" class="nav-link ">
-                <i class="fas fa-user-shield"></i>
-                سياسة الخصوصية
+                <a href="privacy-policy.html" class="nav-link">
+                    <i class="fas fa-user-shield"></i>
+                    سياسة الخصوصية
                 </a>
                 <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                     <i class="fab fa-whatsapp"></i>
@@ -767,7 +772,7 @@
             
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="stat-number">5+</div>
+                    <div class="stat-number">7+</div>
                     <div class="stat-label">أدوات مجانية</div>
                 </div>
                 <div class="hero-stat">
@@ -851,7 +856,7 @@
         </div>
     </section>
 
-    <!-- قسم الأدوات -->
+    <!-- قسم الأدوات - تم إضافة المربعين الجدد -->
     <section class="tools" id="tools">
         <div class="section-header">
             <h2 class="section-title">أدواتنا المجانية</h2>
@@ -861,6 +866,7 @@
         </div>
         
         <div class="tools-grid">
+            <!-- إعدادات أساسية -->
             <a href="hotspot.html" class="tool-card tool-1">
                 <div class="tool-icon">
                     <i class="fas fa-wifi"></i>
@@ -876,6 +882,7 @@
                 </div>
             </a>
             
+            <!-- دمج خطوط v6 -->
             <a href="merge-v6.html" class="tool-card tool-2">
                 <div class="tool-icon">
                     <i class="fas fa-network-wired"></i>
@@ -891,6 +898,7 @@
                 </div>
             </a>
             
+            <!-- دمج خطوط v7 -->
             <a href="merge-v7.html" class="tool-card tool-3">
                 <div class="tool-icon">
                     <i class="fas fa-rocket"></i>
@@ -905,6 +913,41 @@
                 </div>
             </a>
             
+            <!-- تصميم هوت سبوت - مربع جديد -->
+            <a href="Hotspot%20Editor.html" class="tool-card tool-6">
+                <div class="tool-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="tool-title">تصميم هوت سبوت</h3>
+                <p class="tool-desc">
+                    صمم صفحة هوت سبوت احترافية بسهولة - اختر القالب المفضل وأضف شعارك وروابط التواصل
+                </p>
+                <div class="tool-tags">
+                    <span class="tag">تصميم</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">قوالب جاهزة</span>
+                </div>
+            </a>
+            
+            <!-- المشكلات الشائعة - مربع جديد -->
+            <a href="troubleshooting.html" class="tool-card tool-7">
+                <div class="tool-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="tool-title">المشكلات الشائعة</h3>
+                <p class="tool-desc">
+                    حلول لأشهر مشاكل ميكروتيك: مشاكل الدمج، الهوت سبوت، الراوتر، والتحكم في الباندويث
+                </p>
+                <div class="tool-tags">
+                    <span class="tag">حلول</span>
+                    <span class="tag">مشاكل</span>
+                    <span class="tag">ترقيات</span>
+                    <span class="tag">إصلاح</span>
+                </div>
+            </a>
+            
+            <!-- حجب المواقع -->
             <a href="block-sites.html" class="tool-card tool-4">
                 <div class="tool-icon">
                     <i class="fas fa-shield-alt"></i>
@@ -920,6 +963,7 @@
                 </div>
             </a>
             
+            <!-- بروفايلات السرعة -->
             <a href="speed-profiles.html" class="tool-card tool-5">
                 <div class="tool-icon">
                     <i class="fas fa-tachometer-alt"></i>
@@ -1043,7 +1087,7 @@
                 }, 500 + (index * 100));
             });
             
-            console.log('🚀 MikroTools - تصميم جديد مذهل!');
+            console.log('🚀 MikroTools - تم إضافة أدوات تصميم هوت سبوت والمشكلات الشائعة!');
         });
 
         // إضافة تأثير على الروابط
@@ -1066,6 +1110,3 @@
     </script>
 </body>
 </html>
-
-
-
