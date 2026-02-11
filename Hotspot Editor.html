@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تعديل صفحة Hotspot - كامل مع أنظمة الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background: var(--gradient-dark);
+            min-height: 100vh;
+            color: var(--light);
+            padding: 20px;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ===== قائمة التنقل العلوية ===== */
+        .navbar {
+            background: var(--dark);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            background: var(--gradient);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== الهيرو الرئيسي ===== */
+        .hero {
+            background: var(--gradient-dark);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 200px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-size: 28px;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            font-size: 14px;
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary);
+            animation: pulse 2s infinite;
+        }
+
+        /* ===== التبويبات ===== */
+        .control-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+            background: rgba(30, 41, 59, 0.7);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .control-tab {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-tab:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: white;
+            transform: translateY(-3px);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .control-tab.active {
+            background: rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .tab-icon {
+            font-size: 32px;
+            margin-bottom: 5px;
+            color: var(--primary-light);
+        }
+
+        .tab-content {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: white;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+        }
+
+        .section-title i {
+            color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .control-group {
+            background: var(--gradient-card);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            transform: translateX(100%);
+            transition: transform 0.3s;
+        }
+
+        .control-group:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .control-group:hover::before {
+            transform: translateX(0);
+        }
+
+        .control-group h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            color: var(--dark);
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .login-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .method-card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .method-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .method-card.active {
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            border: 2px solid var(--primary);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .method-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: white;
+            background: var(--gradient);
+        }
+
+        .method-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .method-desc {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .method-settings {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px dashed #e2e8f0;
+            display: none;
+        }
+
+        .method-card.active .method-settings {
+            display: block;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.3);
+        }
+
+        .preview-area {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 600px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-header {
+            background: rgba(30, 41, 59, 0.9);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        #livePreview {
+            width: 100%;
+            height: calc(100% - 60px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            overflow: auto;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: flex-end;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 20px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 2000;
+            animation: slideInRight 0.4s;
+            max-width: 350px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .file-upload {
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .file-upload i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #cbd5e0;
+            transition: .4s;
+            border-radius: 25px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: var(--secondary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .background-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .bg-item {
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .bg-item:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .bg-item.active {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .bg-preview {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .bg-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .image-preview {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .image-preview.show {
+            display: block;
+        }
+
+        .preview-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .logo-preview {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .logo-display {
+            width: 200px;
+            height: 100px;
+            background: linear-gradient(45deg, #4361ee, #3a0ca3);
+            border-radius: 10px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 1024px) {
+            .control-tabs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                background: var(--dark);
+                width: 100%;
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .control-tabs {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- قائمة التنقل العلوية -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="logo-text">MikroTools</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link ">
+                    <i class="fas fa-home"></i>
+                    الرئيسية
+                </a>
+                <a href="hotspot.html" class="nav-link">
+                    <i class="fas fa-wifi"></i>
+                    اعدادات هوت اسبوت وبرود باند
+                </a>
+                <a href="Hotspot Editor.html" class="nav-link active ">
+                    <i class="fas fa-link"></i>
+                    تصميم هوت اسبوت
+                </a>
+                <a href="merge-v6.html" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    دمج v6
+                </a>
+                <a href="merge-v7.html" class="nav-link">
+                    <i class="fas fa-rocket"></i>
+                    دمج v7
+                </a>
+                <a href="block-sites.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    حجب مواقع
+                </a>
+                <a href="speed-profiles.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    بروفايلات
+                </a>
+<!-- رابط المشكلات الشائعة يضاف هنا -->
+<a href="troubleshooting.html" class="nav-link">
+    <i class="fas fa-question-circle"></i>
+    المشكلات الشائعة
+</a>
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    من نحن
+                </a>
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    تواصل معنا
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- الهيرو -->
+    <div class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">
+                <i class="fas fa-crown"></i>
+                نظام متكامل - معاينة جميع أنظمة الدخول
+            </span>
+            <h1 class="hero-title">نظام تعديل صفحة Hotspot</h1>
+            <div class="hero-subtitle">نظام متكامل لتعديل وتخصيص صفحة الدخول</div>
+        </div>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span id="statusText">المعاينة مباشرة</span>
+        </div>
+    </div>
+    
+    <!-- تبويبات التحكم -->
+    <div class="control-tabs">
+        <button class="control-tab active" data-tab="design">
+            <i class="fas fa-palette tab-icon"></i>
+            التصميم والنصوص
+        </button>
+        <button class="control-tab" data-tab="login">
+            <i class="fas fa-sign-in-alt tab-icon"></i>
+            نظام الدخول
+        </button>
+        <button class="control-tab" data-tab="preview">
+            <i class="fas fa-eye tab-icon"></i>
+            المعاينة
+        </button>
+        <button class="control-tab" data-tab="save">
+            <i class="fas fa-save tab-icon"></i>
+            الحفظ والتحميل
+        </button>
+    </div>
+    
+    <!-- التصميم والنصوص -->
+    <div id="design" class="tab-content active">
+        <div class="section-title">
+            <i class="fas fa-palette"></i>
+            التصميم والنصوص
+        </div>
+        
+        <div class="control-grid">
+            <!-- الخلفية -->
+            <div class="control-group">
+                <h3><i class="fas fa-image"></i> إعدادات الخلفية</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-fill-drip"></i>
+                        نوع الخلفية
+                    </label>
+                    <select id="bgType" class="form-control">
+                        <option value="color">لون واحد</option>
+                        <option value="gradient" selected>تدرج لوني</option>
+                        <option value="image">صورة</option>
+                    </select>
+                </div>
+                
+                <div id="colorOptions" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-paint-brush"></i>
+                            لون الخلفية
+                        </label>
+                        <input type="color" id="bgColor" class="form-control" value="#1a1a2e">
+                    </div>
+                </div>
+                
+                <div id="gradientOptions">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-palette"></i>
+                            اللون الأول
+                        </label>
+                        <input type="color" id="gradientColor1" class="form-control" value="#667eea">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-palette"></i>
+                            اللون الثاني
+                        </label>
+                        <input type="color" id="gradientColor2" class="form-control" value="#764ba2">
+                    </div>
+                </div>
+                
+                <div id="imageOptions" style="display: none;">
+                    <div class="file-upload" onclick="document.getElementById('backgroundImageInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="upload-text">اضغط لرفع صورة خلفية</div>
+                        <div class="upload-subtext">JPG, PNG, GIF - حجم أقصى 5MB</div>
+                    </div>
+                    <input type="file" id="backgroundImageInput" accept="image/*" style="display: none;">
+                    <div class="image-preview" id="backgroundPreview">
+                        <img class="preview-image" id="backgroundPreviewImage" src="" alt="معاينة الخلفية">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 20px;">
+                    <label class="form-label">
+                        <i class="fas fa-images"></i>
+                        خلفيات جاهزة
+                    </label>
+                    <div class="background-grid">
+                        <div class="bg-item active" data-bg="gradient-blue">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></div>
+                            <div class="bg-name">تدرج أزرق</div>
+                        </div>
+                        <div class="bg-item" data-bg="gradient-pink">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></div>
+                            <div class="bg-name">تدرج وردي</div>
+                        </div>
+                        <div class="bg-item" data-bg="dark-blue">
+                            <div class="bg-preview" style="background: #1a1a2e"></div>
+                            <div class="bg-name">أزرق داكن</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الشعار -->
+            <div class="control-group">
+                <h3><i class="fas fa-camera"></i> إعدادات الشعار</h3>
+                
+                <div class="logo-preview">
+                    <div id="logoDisplay" class="logo-display">
+                        HOTSPOT LOGIN
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-upload"></i>
+                        رفع شعار جديد
+                    </label>
+                    <div class="file-upload" onclick="document.getElementById('logoImageInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="upload-text">اضغط لرفع شعار جديد</div>
+                        <div class="upload-subtext">JPG, PNG, SVG - حجم أقصى 2MB</div>
+                    </div>
+                    <input type="file" id="logoImageInput" accept="image/*" style="display: none;">
+                    <div class="image-preview" id="logoPreview">
+                        <img class="preview-image" id="logoPreviewImage" src="" alt="معاينة الشعار">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-text-height"></i>
+                        نص الشعار (إذا لم ترفع صورة)
+                    </label>
+                    <input type="text" id="logoText" class="form-control" value="HOTSPOT LOGIN">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-fill-drip"></i>
+                        لون الشعار (إذا لم ترفع صورة)
+                    </label>
+                    <input type="color" id="logoColor" class="form-control" value="#4361ee">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-expand-alt"></i>
+                        حجم الشعار
+                    </label>
+                    <select id="logoSize" class="form-control">
+                        <option value="small">صغير</option>
+                        <option value="medium" selected>وسط</option>
+                        <option value="large">كبير</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- النصوص -->
+            <div class="control-group">
+                <h3><i class="fas fa-text-height"></i> تعديل النصوص</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-heading"></i>
+                        عنوان الصفحة
+                    </label>
+                    <input type="text" id="pageTitle" class="form-control" value="نقطة اتصال WiFi">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-comment"></i>
+                        رسالة الترحيب
+                    </label>
+                    <textarea id="welcomeMessage" class="form-control" placeholder="اكتب رسالة الترحيب هنا...">مرحباً بك! يرجى تسجيل الدخول للوصول إلى الإنترنت</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-keyboard"></i>
+                        نص حقل اسم المستخدم
+                    </label>
+                    <input type="text" id="usernamePlaceholder" class="form-control" value="اسم المستخدم">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-keyboard"></i>
+                        نص حقل كلمة المرور
+                    </label>
+                    <input type="text" id="passwordPlaceholder" class="form-control" value="كلمة المرور">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-sign-in-alt"></i>
+                        نص زر الدخول
+                    </label>
+                    <input type="text" id="loginButtonText" class="form-control" value="تسجيل الدخول">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-info-circle"></i>
+                        نص التذييل
+                    </label>
+                    <input type="text" id="footerText" class="form-control" value="© 2024 جميع الحقوق محفوظة">
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-success" onclick="updatePreview(); showNotification('تم تحديث المعاينة', 'success')">
+                <i class="fas fa-eye"></i> تحديث المعاينة
+            </button>
+        </div>
+    </div>
+    
+    <!-- نظام الدخول -->
+    <div id="login" class="tab-content">
+        <div class="section-title">
+            <i class="fas fa-sign-in-alt"></i>
+            نظام الدخول
+        </div>
+        
+        <p style="color: #cbd5e1; margin-bottom: 20px; text-align: center;">
+            اختر نظام الدخول المناسب أو استخدم النظام المختلط الذي يجمع كل الأنظمة معاً
+        </p>
+        
+        <div class="login-methods">
+            <div class="method-card method-1" data-method="userpass">
+                <div class="method-icon">
+                    <i class="fas fa-user-lock"></i>
+                </div>
+                <div class="method-title">اسم المستخدم وكلمة المرور</div>
+                <div class="method-desc">الطريقة التقليدية باستخدام اسم المستخدم وكلمة المرور</div>
+                
+                <div class="method-settings">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-eye"></i>
+                            إظهار/إخفاء كلمة المرور
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="showPassword" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-save"></i>
+                            تذكر الدخول
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="rememberLogin" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="method-card method-2" data-method="cards">
+                <div class="method-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="method-title">نظام الكروت</div>
+                <div class="method-desc">الدخول باستخدام بطاقات مسبقة الدفع - رقم الكارت فقط</div>
+                
+                <div class="method-settings">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i>
+                            تفعيل نظام الكروت
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="enableCards" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-credit-card"></i>
+                            رقم الكارت
+                        </label>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="CARD-XXXX-XXXX-XXXX">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="method-card method-3" data-method="barcode">
+                <div class="method-icon">
+                    <i class="fas fa-barcode"></i>
+                </div>
+                <div class="method-title">نظام الباركود</div>
+                <div class="method-desc">المسح الضوئي للباركود باستخدام الكاميرا أو الماسح الضوئي</div>
+                
+                <div class="method-settings">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-qrcode"></i>
+                            تفعيل نظام الباركود
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="enableBarcode" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-keyboard"></i>
+                            نص حقل الباركود
+                        </label>
+                        <input type="text" id="barcodePlaceholder" class="form-control" value="أدخل رمز الباركود">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="method-card method-4 active" data-method="mixed">
+                <div class="method-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="method-title">نظام مختلط</div>
+                <div class="method-desc">دمج الأنظمة الثلاثة معاً في صفحة واحدة</div>
+                
+                <div class="method-settings" style="display: block;">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i>
+                            تفعيل اليوزر/باس
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="enableUserPassMixed" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i>
+                            تفعيل الكروت
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="enableCardsMixed" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i>
+                            تفعيل الباركود
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="enableBarcodeMixed" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-exchange-alt"></i>
+                            السماح بالتبديل
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="allowSwitchMethods" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="updatePreview(); showNotification('تم تحديث المعاينة', 'success')">
+                <i class="fas fa-eye"></i> تحديث المعاينة
+            </button>
+        </div>
+    </div>
+    
+    <!-- المعاينة -->
+    <div id="preview" class="tab-content">
+        <div class="section-title">
+            <i class="fas fa-eye"></i>
+            معاينة الصفحة
+        </div>
+        
+        <div class="preview-area">
+            <div class="preview-header">
+                <div>
+                    <strong>المعاينة الحية</strong>
+                    <div style="font-size: 12px; color: #94a3b8;">التعديلات تظهر مباشرة</div>
+                </div>
+                
+                <div class="preview-controls" style="display: flex; gap: 10px;">
+                    <select id="deviceType" class="form-control" style="width: 150px; background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2);" onchange="updatePreviewDevice(this.value)">
+                        <option value="desktop" style="background: #1e293b; color: white;">كمبيوتر</option>
+                        <option value="tablet" style="background: #1e293b; color: white;">تابلت</option>
+                        <option value="mobile" style="background: #1e293b; color: white;">موبايل</option>
+                    </select>
+                    <button class="btn btn-success" onclick="updatePreview()" style="padding: 10px 20px;">
+                        <i class="fas fa-sync-alt"></i> تحديث
+                    </button>
+                </div>
+            </div>
+            
+            <div id="livePreview" style="width: 100%; height: calc(100% - 60px); display: flex; align-items: center; justify-content: center; overflow: auto; transition: all 0.3s;">
+                <!-- هنا هتظهر المعاينة مباشرة بالـ JavaScript -->
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-warning" onclick="resetToDefault()">
+                <i class="fas fa-undo"></i> إعادة التعيين
+            </button>
+            <button class="btn btn-success" onclick="showNotification('تم حفظ الكل', 'success')">
+                <i class="fas fa-save"></i> حفظ الكل
+            </button>
+            <button class="btn btn-primary" onclick="generateFinalHTML()">
+                <i class="fas fa-download"></i> تحميل HTML نهائي
+            </button>
+        </div>
+    </div>
+    
+    <!-- الحفظ والتحميل -->
+    <div id="save" class="tab-content">
+        <div class="section-title">
+            <i class="fas fa-save"></i>
+            الحفظ والتحميل
+        </div>
+        
+        <div class="control-grid">
+            <div class="control-group">
+                <h3><i class="fas fa-database"></i> حفظ الإعدادات</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-save"></i>
+                        حفظ الإعدادات الحالية
+                    </label>
+                    <p style="color: var(--gray); margin-bottom: 15px;">
+                        تحميل ملف HTML نهائي بالتعديلات الحالية
+                    </p>
+                    <button class="btn btn-success" style="width: 100%;" onclick="generateFinalHTML()">
+                        <i class="fas fa-download"></i> تحميل ملف HTML
+                    </button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3><i class="fas fa-history"></i> استعادة النسخ</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-clock"></i>
+                        الإعدادات الافتراضية
+                    </label>
+                    <div id="lastSaveTime" style="color: var(--gray); padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i> يمكنك استعادة الإعدادات الافتراضية
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-undo"></i>
+                        استعادة الإعدادات الافتراضية
+                    </label>
+                    <button class="btn btn-warning" style="width: 100%;" onclick="resetToDefault()">
+                        <i class="fas fa-history"></i> استعادة الافتراضي
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- الإشعارات -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle" style="font-size: 24px;"></i>
+        <div>
+            <strong id="notification-title">تم!</strong>
+            <div id="notification-message">تم التحديث بنجاح</div>
+        </div>
+    </div>
+
+    <script>
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ النظام جاهز - تصميم MikroTools كامل');
+            
+            // قائمة الجوال
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    navLinks.classList.toggle('active');
+                    icon.className = navLinks.classList.contains('active') 
+                        ? 'fas fa-times' 
+                        : 'fas fa-bars';
+                });
+            }
+            
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('active');
+                    const icon = document.querySelector('#menuToggle i');
+                    if (icon) icon.className = 'fas fa-bars';
+                });
+            });
+            
+            // إضافة المستمعات للتبويبات
+            const tabs = document.querySelectorAll('.control-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    if (tabId === 'preview') {
+                        updatePreview();
+                    }
+                });
+            });
+            
+            // مستمعات الخلفيات الجاهزة
+            const bgItems = document.querySelectorAll('.bg-item');
+            bgItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    bgItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const bgId = this.getAttribute('data-bg');
+                    if (bgId === 'gradient-blue') {
+                        document.getElementById('bgType').value = 'gradient';
+                        document.getElementById('gradientColor1').value = '#667eea';
+                        document.getElementById('gradientColor2').value = '#764ba2';
+                        showBackgroundOptions('gradient');
+                    } else if (bgId === 'gradient-pink') {
+                        document.getElementById('bgType').value = 'gradient';
+                        document.getElementById('gradientColor1').value = '#f093fb';
+                        document.getElementById('gradientColor2').value = '#f5576c';
+                        showBackgroundOptions('gradient');
+                    } else if (bgId === 'dark-blue') {
+                        document.getElementById('bgType').value = 'color';
+                        document.getElementById('bgColor').value = '#1a1a2e';
+                        showBackgroundOptions('color');
+                    }
+                    
+                    updatePreview();
+                });
+            });
+            
+            // مستمعات أنظمة الدخول
+            const methodCards = document.querySelectorAll('.method-card');
+            methodCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.method-settings')) return;
+                    
+                    methodCards.forEach(c => {
+                        c.classList.remove('active');
+                        if (c.querySelector('.method-settings')) {
+                            c.querySelector('.method-settings').style.display = 'none';
+                        }
+                    });
+                    
+                    this.classList.add('active');
+                    if (this.querySelector('.method-settings')) {
+                        this.querySelector('.method-settings').style.display = 'block';
+                    }
+                    updatePreview();
+                });
+            });
+            
+            // مستمعات تغيير الخلفية
+            document.getElementById('bgType').addEventListener('change', function() {
+                showBackgroundOptions(this.value);
+                updatePreview();
+            });
+            
+            document.getElementById('bgColor').addEventListener('input', updatePreview);
+            document.getElementById('gradientColor1').addEventListener('input', updatePreview);
+            document.getElementById('gradientColor2').addEventListener('input', updatePreview);
+            
+            // مستمعات الشعار
+            document.getElementById('logoText').addEventListener('input', function() {
+                updateLogoDisplay();
+                updatePreview();
+            });
+            
+            document.getElementById('logoColor').addEventListener('input', function() {
+                updateLogoDisplay();
+                updatePreview();
+            });
+            
+            document.getElementById('logoSize').addEventListener('change', function() {
+                updateLogoDisplay();
+                updatePreview();
+            });
+            
+            // مستمعات النصوص
+            document.getElementById('pageTitle').addEventListener('input', updatePreview);
+            document.getElementById('welcomeMessage').addEventListener('input', updatePreview);
+            document.getElementById('usernamePlaceholder').addEventListener('input', updatePreview);
+            document.getElementById('passwordPlaceholder').addEventListener('input', updatePreview);
+            document.getElementById('loginButtonText').addEventListener('input', updatePreview);
+            document.getElementById('footerText').addEventListener('input', updatePreview);
+            
+            // مستمعات إعدادات الدخول
+            const loginInputs = [
+                'showPassword', 'rememberLogin', 'enableCards', 'enableBarcode',
+                'enableUserPassMixed', 'enableCardsMixed', 'enableBarcodeMixed', 'allowSwitchMethods',
+                'cardNumber', 'barcodePlaceholder'
+            ];
+            
+            loginInputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('change', updatePreview);
+                    if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'number')) {
+                        el.addEventListener('input', updatePreview);
+                    }
+                }
+            });
+            
+            // مستمعات رفع الصور
+            document.getElementById('backgroundImageInput').addEventListener('change', handleBackgroundUpload);
+            document.getElementById('logoImageInput').addEventListener('change', handleLogoUpload);
+            
+            updateLogoDisplay();
+            updatePreview();
+        });
+        
+        // دوال الخلفية
+        function showBackgroundOptions(type) {
+            document.getElementById('colorOptions').style.display = type === 'color' ? 'block' : 'none';
+            document.getElementById('gradientOptions').style.display = type === 'gradient' ? 'block' : 'none';
+            document.getElementById('imageOptions').style.display = type === 'image' ? 'block' : 'none';
+        }
+        
+        // دوال الشعار
+        function updateLogoDisplay() {
+            const logoDisplay = document.getElementById('logoDisplay');
+            const logoText = document.getElementById('logoText').value;
+            const logoColor = document.getElementById('logoColor').value;
+            
+            if (document.getElementById('logoPreview').classList.contains('show')) {
+                // الصورة موجودة
+            } else {
+                logoDisplay.textContent = logoText;
+                logoDisplay.style.background = `linear-gradient(45deg, ${logoColor}, ${darkenColor(logoColor, 20)})`;
+            }
+            
+            const size = document.getElementById('logoSize').value;
+            if (size === 'small') logoDisplay.style.fontSize = '24px';
+            else if (size === 'large') logoDisplay.style.fontSize = '32px';
+            else logoDisplay.style.fontSize = '28px';
+        }
+        
+        // رفع صورة الخلفية
+        function handleBackgroundUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('backgroundPreviewImage').src = e.target.result;
+                document.getElementById('backgroundPreview').classList.add('show');
+                document.getElementById('bgType').value = 'image';
+                showBackgroundOptions('image');
+                updatePreview();
+                showNotification('تم رفع صورة الخلفية', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // رفع الشعار
+        function handleLogoUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('logoPreviewImage').src = e.target.result;
+                document.getElementById('logoPreview').classList.add('show');
+                
+                const logoDisplay = document.getElementById('logoDisplay');
+                logoDisplay.style.background = `url('${e.target.result}') center/contain no-repeat`;
+                logoDisplay.textContent = '';
+                
+                updatePreview();
+                showNotification('تم رفع الشعار', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // تحديث المعاينة
+        function updatePreview() {
+            const previewDiv = document.getElementById('livePreview');
+            
+            const bgType = document.getElementById('bgType').value;
+            let bgStyle = '';
+            
+            if (bgType === 'color') {
+                bgStyle = `background: ${document.getElementById('bgColor').value};`;
+            } else if (bgType === 'gradient') {
+                bgStyle = `background: linear-gradient(135deg, ${document.getElementById('gradientColor1').value} 0%, ${document.getElementById('gradientColor2').value} 100%);`;
+            } else if (bgType === 'image') {
+                const bgImage = document.getElementById('backgroundPreviewImage').src;
+                if (bgImage) {
+                    bgStyle = `background: url('${bgImage}') center/cover no-repeat;`;
+                } else {
+                    bgStyle = `background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);`;
+                }
+            }
+            
+            let logoSrc = '';
+            let logoStyle = '';
+            const logoText = document.getElementById('logoText').value;
+            const logoColor = document.getElementById('logoColor').value;
+            const logoSize = document.getElementById('logoSize').value;
+            let logoFontSize = '28px';
+            
+            if (logoSize === 'small') logoFontSize = '24px';
+            else if (logoSize === 'large') logoFontSize = '32px';
+            
+            if (document.getElementById('logoPreview').classList.contains('show')) {
+                const logoImage = document.getElementById('logoPreviewImage').src;
+                logoStyle = `background: url('${logoImage}') center/contain no-repeat;`;
+                logoSrc = '';
+            } else {
+                logoStyle = `background: linear-gradient(45deg, ${logoColor}, ${darkenColor(logoColor, 20)});`;
+                logoSrc = logoText;
+            }
+            
+            const welcomeMessage = document.getElementById('welcomeMessage').value;
+            const usernamePlaceholder = document.getElementById('usernamePlaceholder').value;
+            const passwordPlaceholder = document.getElementById('passwordPlaceholder').value;
+            const loginButtonText = document.getElementById('loginButtonText').value;
+            const footerText = document.getElementById('footerText').value;
+            
+            const activeMethod = document.querySelector('.method-card.active')?.getAttribute('data-method') || 'mixed';
+            
+            const enableUserPass = document.getElementById('enableUserPassMixed')?.checked || true;
+            const enableCards = document.getElementById('enableCardsMixed')?.checked || true;
+            const enableBarcode = document.getElementById('enableBarcodeMixed')?.checked || true;
+            const allowSwitch = document.getElementById('allowSwitchMethods')?.checked || true;
+            
+            const barcodePlaceholder = document.getElementById('barcodePlaceholder')?.value || 'أدخل رمز الباركود';
+            const cardNumber = document.getElementById('cardNumber')?.value || '';
+            
+            let loginContent = '';
+            
+            if (activeMethod === 'userpass') {
+                loginContent = `
+                    <div style="margin-bottom: 25px;">
+                        <div style="margin-bottom: 20px;">
+                            <input type="text" placeholder="${usernamePlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <input type="password" placeholder="${passwordPlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
+                            ${loginButtonText}
+                        </button>
+                    </div>
+                `;
+            } else if (activeMethod === 'cards') {
+                loginContent = `
+                    <div style="margin-bottom: 25px;">
+                        <div style="margin-bottom: 20px;">
+                            <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: center; color: rgba(255,255,255,0.9);">
+                                <i class="fas fa-credit-card" style="font-size: 32px; margin-bottom: 10px;"></i>
+                                <div style="font-size: 14px;">نظام الكروت مسبقة الدفع</div>
+                            </div>
+                            <input type="text" placeholder="رقم الكارت" value="${cardNumber || 'CARD-XXXX-XXXX-XXXX'}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #10b981, #34d399); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
+                            تفعيل الكارت
+                        </button>
+                    </div>
+                `;
+            } else if (activeMethod === 'barcode') {
+                loginContent = `
+                    <div style="margin-bottom: 25px;">
+                        <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 30px; margin-bottom: 20px; text-align: center;">
+                            <i class="fas fa-qrcode" style="font-size: 64px; margin-bottom: 15px; color: white;"></i>
+                            <div style="background: white; width: 150px; height: 150px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                                <i class="fas fa-qrcode" style="font-size: 80px; color: black;"></i>
+                            </div>
+                            <div style="color: rgba(255,255,255,0.9); margin-bottom: 10px;">امسح رمز QR للدخول</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">أو أدخل الرمز يدوياً</div>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <input type="text" placeholder="${barcodePlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
+                            مسح الباركود
+                        </button>
+                    </div>
+                `;
+            } else if (activeMethod === 'mixed') {
+                let tabsButtons = '';
+                
+                if (allowSwitch) {
+                    tabsButtons = `
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
+                            ${enableUserPass ? '<button class="login-tab-btn active" style="padding: 10px 20px; background: rgba(99,102,241,0.5); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'userpass-tab\')"><i class="fas fa-user"></i> يوزر/باس</button>' : ''}
+                            ${enableCards ? '<button class="login-tab-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'cards-tab\')"><i class="fas fa-credit-card"></i> كروت</button>' : ''}
+                            ${enableBarcode ? '<button class="login-tab-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'barcode-tab\')"><i class="fas fa-qrcode"></i> باركود</button>' : ''}
+                        </div>
+                    `;
+                }
+                
+                let userpassContent = enableUserPass ? `
+                    <div id="userpass-tab" class="login-tab-content" style="display: block;">
+                        <div style="margin-bottom: 20px;">
+                            <input type="text" placeholder="${usernamePlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px; margin-bottom: 15px;" disabled>
+                            <input type="password" placeholder="${passwordPlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
+                            ${loginButtonText}
+                        </button>
+                    </div>
+                ` : '';
+                
+                let cardsContent = enableCards ? `
+                    <div id="cards-tab" class="login-tab-content" style="display: none;">
+                        <div style="margin-bottom: 20px;">
+                            <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: center;">
+                                <i class="fas fa-credit-card" style="font-size: 32px; margin-bottom: 10px;"></i>
+                                <div>نظام الكروت</div>
+                            </div>
+                            <input type="text" placeholder="رقم الكارت" value="${cardNumber || 'CARD-XXXX-XXXX-XXXX'}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #10b981, #34d399); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
+                            تفعيل الكارت
+                        </button>
+                    </div>
+                ` : '';
+                
+                let barcodeContent = enableBarcode ? `
+                    <div id="barcode-tab" class="login-tab-content" style="display: none;">
+                        <div style="margin-bottom: 20px;">
+                            <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 20px; margin-bottom: 15px; text-align: center;">
+                                <i class="fas fa-qrcode" style="font-size: 48px; margin-bottom: 10px;"></i>
+                                <div style="font-size: 14px;">امسح رمز QR</div>
+                            </div>
+                            <input type="text" placeholder="${barcodePlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                        </div>
+                        <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
+                            مسح الباركود
+                        </button>
+                    </div>
+                ` : '';
+                
+                loginContent = `
+                    <div style="margin-bottom: 25px;">
+                        ${tabsButtons}
+                        ${userpassContent}
+                        ${cardsContent}
+                        ${barcodeContent}
+                    </div>
+                `;
+            }
+            
+            const previewHTML = `
+                <div style="width: 100%; min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; ${bgStyle} color: white; font-family: 'Tajawal', sans-serif;">
+                    <div style="background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 16px; padding: 40px; width: 100%; max-width: 500px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="width: 200px; height: 100px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: ${logoFontSize}; font-weight: bold; color: white; border-radius: 10px; ${logoStyle}">
+                                ${logoSrc}
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-bottom: 30px; color: rgba(255,255,255,0.9); line-height: 1.6; font-size: 16px;">
+                            ${welcomeMessage}
+                        </div>
+                        
+                        ${loginContent}
+                        
+                        <div style="text-align: center; margin-top: 25px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
+                            <p>${footerText}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            previewDiv.innerHTML = previewHTML;
+            
+            window.switchLoginTab = function(event, tabId) {
+                const tabs = document.querySelectorAll('#livePreview .login-tab-btn');
+                const contents = document.querySelectorAll('#livePreview .login-tab-content');
+                
+                tabs.forEach(t => {
+                    t.style.background = 'rgba(255,255,255,0.1)';
+                    t.classList.remove('active');
+                });
+                contents.forEach(c => c.style.display = 'none');
+                
+                event.currentTarget.style.background = 'rgba(99,102,241,0.5)';
+                event.currentTarget.classList.add('active');
+                const targetTab = document.querySelector(`#livePreview #${tabId}`);
+                if (targetTab) targetTab.style.display = 'block';
+            };
+            
+            document.getElementById('statusText').innerHTML = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-EG');
+        }
+        
+        // تحديث جهاز المعاينة
+        function updatePreviewDevice(device) {
+            const previewDiv = document.getElementById('livePreview');
+            if (!previewDiv) return;
+            
+            if (device === 'desktop') {
+                previewDiv.style.width = '100%';
+                previewDiv.style.margin = '0';
+            } else if (device === 'tablet') {
+                previewDiv.style.width = '768px';
+                previewDiv.style.margin = '0 auto';
+            } else {
+                previewDiv.style.width = '375px';
+                previewDiv.style.margin = '0 auto';
+            }
+        }
+        
+        // دالة التحميل
+        function generateFinalHTML() {
+            try {
+                // جمع الإعدادات
+                const pageTitle = document.getElementById('pageTitle')?.value || 'نقطة اتصال WiFi';
+                const welcomeMessage = document.getElementById('welcomeMessage')?.value || 'مرحباً بك! يرجى تسجيل الدخول للوصول إلى الإنترنت';
+                const usernamePlaceholder = document.getElementById('usernamePlaceholder')?.value || 'اسم المستخدم';
+                const passwordPlaceholder = document.getElementById('passwordPlaceholder')?.value || 'كلمة المرور';
+                const loginButtonText = document.getElementById('loginButtonText')?.value || 'تسجيل الدخول';
+                const footerText = document.getElementById('footerText')?.value || '© 2024 جميع الحقوق محفوظة';
+                
+                const bgType = document.getElementById('bgType')?.value || 'gradient';
+                let bgStyle = '';
+                
+                if (bgType === 'color') {
+                    bgStyle = `background: ${document.getElementById('bgColor')?.value || '#1a1a2e'};`;
+                } else if (bgType === 'gradient') {
+                    bgStyle = `background: linear-gradient(135deg, ${document.getElementById('gradientColor1')?.value || '#667eea'} 0%, ${document.getElementById('gradientColor2')?.value || '#764ba2'} 100%);`;
+                } else if (bgType === 'image') {
+                    const bgImage = document.getElementById('backgroundPreviewImage')?.src;
+                    if (bgImage) {
+                        bgStyle = `background: url('${bgImage}') center/cover no-repeat;`;
+                    } else {
+                        bgStyle = `background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);`;
+                    }
+                }
+                
+                const logoText = document.getElementById('logoText')?.value || 'HOTSPOT LOGIN';
+                const logoColor = document.getElementById('logoColor')?.value || '#4361ee';
+                const logoSize = document.getElementById('logoSize')?.value || 'medium';
+                let logoFontSize = '28px';
+                
+                if (logoSize === 'small') logoFontSize = '24px';
+                else if (logoSize === 'large') logoFontSize = '32px';
+                
+                let logoStyle = '';
+                let logoContent = '';
+                
+                if (document.getElementById('logoPreview')?.classList.contains('show')) {
+                    const logoImage = document.getElementById('logoPreviewImage')?.src;
+                    logoStyle = `background: url('${logoImage}') center/contain no-repeat;`;
+                    logoContent = '';
+                } else {
+                    logoStyle = `background: linear-gradient(45deg, ${logoColor}, ${darkenColor(logoColor, 20)});`;
+                    logoContent = logoText;
+                }
+                
+                const activeMethod = document.querySelector('.method-card.active')?.getAttribute('data-method') || 'mixed';
+                
+                // بناء HTML كامل
+                const html = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${pageTitle}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+            ${bgStyle}
+        }
+        .login-container {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+        }
+        .logo-area { text-align: center; margin-bottom: 30px; }
+        .logo-display {
+            width: 200px;
+            height: 100px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: ${logoFontSize};
+            font-weight: bold;
+            color: white;
+            border-radius: 10px;
+            ${logoStyle}
+        }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .login-form { margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .form-input::placeholder { color: rgba(255, 255, 255, 0.7); }
+        .form-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        .login-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+        .login-tab-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .login-tab-btn.active {
+            background: rgba(99,102,241,0.5);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .login-tab-content { display: none; }
+        .login-tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-area">
+            <div class="logo-display">${logoContent}</div>
+            <div class="welcome-message">${welcomeMessage}</div>
+        </div>
+        
+        ${activeMethod === 'userpass' ? `
+        <div class="login-form">
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="${usernamePlaceholder}">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="${passwordPlaceholder}">
+            </div>
+            <button class="login-btn">${loginButtonText}</button>
+        </div>
+        ` : ''}
+        
+        ${activeMethod === 'cards' ? `
+        <div class="login-form">
+            <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: center;">
+                <i class="fas fa-credit-card" style="font-size: 48px; margin-bottom: 15px;"></i>
+                <div>نظام الكروت مسبقة الدفع</div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="رقم الكارت">
+            </div>
+            <button class="login-btn" style="background: linear-gradient(135deg, #10b981, #34d399);">تفعيل الكارت</button>
+        </div>
+        ` : ''}
+        
+        ${activeMethod === 'barcode' ? `
+        <div class="login-form">
+            <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 30px; margin-bottom: 20px; text-align: center;">
+                <i class="fas fa-qrcode" style="font-size: 64px; margin-bottom: 15px;"></i>
+                <div style="background: white; width: 150px; height: 150px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                    <i class="fas fa-qrcode" style="font-size: 80px; color: black;"></i>
+                </div>
+                <div>امسح رمز QR للدخول</div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="أدخل رمز الباركود">
+            </div>
+            <button class="login-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">مسح الباركود</button>
+        </div>
+        ` : ''}
+        
+        ${activeMethod === 'mixed' ? `
+        <div class="login-form">
+            <div class="login-tabs">
+                <button class="login-tab-btn active" onclick="this.parentElement.parentElement.querySelectorAll('.login-tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); this.parentElement.parentElement.querySelectorAll('.login-tab-content').forEach(c=>c.classList.remove('active')); this.parentElement.parentElement.querySelector('#tab-userpass').classList.add('active');">
+                    <i class="fas fa-user"></i> يوزر/باس
+                </button>
+                <button class="login-tab-btn" onclick="this.parentElement.parentElement.querySelectorAll('.login-tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); this.parentElement.parentElement.querySelectorAll('.login-tab-content').forEach(c=>c.classList.remove('active')); this.parentElement.parentElement.querySelector('#tab-cards').classList.add('active');">
+                    <i class="fas fa-credit-card"></i> كروت
+                </button>
+                <button class="login-tab-btn" onclick="this.parentElement.parentElement.querySelectorAll('.login-tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); this.parentElement.parentElement.querySelectorAll('.login-tab-content').forEach(c=>c.classList.remove('active')); this.parentElement.parentElement.querySelector('#tab-barcode').classList.add('active');">
+                    <i class="fas fa-qrcode"></i> باركود
+                </button>
+            </div>
+            
+            <div id="tab-userpass" class="login-tab-content active">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="${usernamePlaceholder}">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="${passwordPlaceholder}">
+                </div>
+                <button class="login-btn">${loginButtonText}</button>
+            </div>
+            
+            <div id="tab-cards" class="login-tab-content">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="رقم الكارت">
+                </div>
+                <button class="login-btn" style="background: linear-gradient(135deg, #10b981, #34d399);">تفعيل الكارت</button>
+            </div>
+            
+            <div id="tab-barcode" class="login-tab-content">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: center;">
+                    <i class="fas fa-qrcode" style="font-size: 48px; margin-bottom: 10px;"></i>
+                    <div>امسح رمز QR</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="أدخل رمز الباركود">
+                </div>
+                <button class="login-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">مسح الباركود</button>
+            </div>
+        </div>
+        ` : ''}
+        
+        <div class="footer">
+            <p>${footerText}</p>
+        </div>
+    </div>
+</body>
+</html>`;
+                
+                // تحميل الملف
+                const blob = new Blob([html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `login.html`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                showNotification('✅ تم تحميل ملف login.html\n\nالآن: اذهب إلى مجلد hotspot واستبدل الملف القديم بهذا الملف الجديد', 'success');
+                setTimeout(() => {
+                    alert('✅ تم تحميل ملف login.html\n\nالآن: اذهب إلى مجلد hotspot واستبدل الملف القديم بهذا الملف الجديد بنجاح');
+                }, 100);
+                
+            } catch (error) {
+                console.error('خطأ في التحميل:', error);
+                showNotification('❌ حدث خطأ أثناء التحميل', 'error');
+                alert('حدث خطأ أثناء تحميل الملف، حاول مرة أخرى');
+            }
+        }
+        
+        // استعادة الإعدادات الافتراضية
+        function resetToDefault() {
+            if (confirm('⚠️ هل أنت متأكد من استعادة الإعدادات الافتراضية؟')) {
+                document.getElementById('bgType').value = 'gradient';
+                document.getElementById('bgColor').value = '#1a1a2e';
+                document.getElementById('gradientColor1').value = '#667eea';
+                document.getElementById('gradientColor2').value = '#764ba2';
+                showBackgroundOptions('gradient');
+                
+                document.querySelectorAll('.bg-item').forEach(i => i.classList.remove('active'));
+                document.querySelector('.bg-item[data-bg="gradient-blue"]').classList.add('active');
+                
+                document.getElementById('logoText').value = 'HOTSPOT LOGIN';
+                document.getElementById('logoColor').value = '#4361ee';
+                document.getElementById('logoSize').value = 'medium';
+                
+                document.getElementById('pageTitle').value = 'نقطة اتصال WiFi';
+                document.getElementById('welcomeMessage').value = 'مرحباً بك! يرجى تسجيل الدخول للوصول إلى الإنترنت';
+                document.getElementById('usernamePlaceholder').value = 'اسم المستخدم';
+                document.getElementById('passwordPlaceholder').value = 'كلمة المرور';
+                document.getElementById('loginButtonText').value = 'تسجيل الدخول';
+                document.getElementById('footerText').value = '© 2024 جميع الحقوق محفوظة';
+                
+                document.querySelectorAll('.method-card').forEach(c => {
+                    c.classList.remove('active');
+                    if (c.querySelector('.method-settings')) {
+                        c.querySelector('.method-settings').style.display = 'none';
+                    }
+                });
+                
+                const mixedCard = document.querySelector('.method-card[data-method="mixed"]');
+                if (mixedCard) {
+                    mixedCard.classList.add('active');
+                    if (mixedCard.querySelector('.method-settings')) {
+                        mixedCard.querySelector('.method-settings').style.display = 'block';
+                    }
+                }
+                
+                document.getElementById('enableUserPassMixed').checked = true;
+                document.getElementById('enableCardsMixed').checked = true;
+                document.getElementById('enableBarcodeMixed').checked = true;
+                document.getElementById('allowSwitchMethods').checked = true;
+                
+                document.getElementById('backgroundPreview')?.classList.remove('show');
+                document.getElementById('logoPreview')?.classList.remove('show');
+                
+                updateLogoDisplay();
+                updatePreview();
+                showNotification('✅ تم استعادة الإعدادات الافتراضية', 'success');
+            }
+        }
+        
+        // دوال مساعدة
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) - amt;
+            const G = (num >> 8 & 0x00FF) - amt;
+            const B = (num & 0x0000FF) - amt;
+            return '#' + (0x1000000 + (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                (B < 255 ? (B < 1 ? 0 : B) : 255)).toString(16).slice(1);
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const title = document.getElementById('notification-title');
+            const msg = document.getElementById('notification-message');
+            
+            if (!notification) return;
+            
+            let bgColor = type === 'success' ? '#10b981' : 
+                         type === 'error' ? '#ef4444' : '#6366f1';
+            
+            notification.style.background = `linear-gradient(135deg, ${bgColor}, ${darkenColor(bgColor, 20)})`;
+            notification.style.display = 'flex';
+            title.textContent = 'تم!';
+            msg.textContent = message;
+            
+            const statusEl = document.getElementById('statusText');
+            if (statusEl) statusEl.textContent = message;
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
