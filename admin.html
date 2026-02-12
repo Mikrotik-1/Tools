@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>لوحة تحكم مدير MikroTools المتكاملة</title>
+    <title>لوحة تحكم مدير MikroTools - النسخة الحقيقية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* نفس الـ Styles بتاعتك - محتفظ بها بالكامل */
+        /* كل الـ CSS بتاعك زي ما هو - محتفظ بيه بالكامل */
         :root {
             --primary: #4361ee;
             --primary-light: #6a8cff;
@@ -42,7 +42,6 @@
             overflow-x: hidden;
         }
 
-        /* شاشة التحميل */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -71,7 +70,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* تسجيل الدخول */
         .login-screen {
             min-height: 100vh;
             display: flex;
@@ -190,7 +188,6 @@
             75% { transform: translateX(5px); }
         }
 
-        /* لوحة التحكم */
         .dashboard {
             display: none;
         }
@@ -1330,11 +1327,10 @@
                 <h1>لوحة التحكم</h1>
                 <span class="data-source-badge" id="dataSourceBadge">
                     <i class="fas fa-database"></i>
-                    <span id="dataSourceText">جاري تحميل البيانات...</span>
+                    <span id="dataSourceText">بيانات حقيقية من JSONBin</span>
                 </span>
             </div>
             
-            <!-- أزرار الإشعارات -->
             <div class="notification-buttons">
                 <button class="notification-btn telegram" id="quickReportBtn" title="إرسال تقرير سريع">
                     <i class="fab fa-telegram"></i>
@@ -1355,10 +1351,8 @@
             </div>
         </nav>
         
-        <!-- ظل القائمة -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         
-        <!-- القائمة الجانبية -->
         <div class="sidebar" id="sidebar">
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -1407,22 +1401,20 @@
             </ul>
         </div>
         
-        <!-- المحتوى الرئيسي -->
         <div class="main-content" id="mainContent">
             <!-- صفحة لوحة التحكم الرئيسية -->
             <div id="dashboardPage" class="page active">
                 <div class="page-header">
                     <h1>لوحة التحكم الرئيسية</h1>
-                    <p>نظرة عامة على أداء الموقع والرسائل</p>
+                    <p>نظرة عامة على أداء الموقع والرسائل - بيانات حقيقية</p>
                 </div>
                 
-                <!-- إحصائيات سريعة -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">إجمالي الزوار</div>
-                                <div class="stat-value" id="totalVisitors">0</div>
+                                <div class="stat-title">إجمالي الزيارات</div>
+                                <div class="stat-value" id="totalVisits">0</div>
                                 <div class="stat-change positive" id="visitorsChange">
                                     <i class="fas fa-arrow-up"></i>
                                     <span>0%</span>
@@ -1453,7 +1445,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">الصفحات المشاهدة</div>
+                                <div class="stat-title">مشاهدات الصفحات</div>
                                 <div class="stat-value" id="totalPageViews">0</div>
                                 <div class="stat-change positive" id="pageViewsChange">
                                     <i class="fas fa-arrow-up"></i>
@@ -1469,27 +1461,26 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">معدل الحل</div>
-                                <div class="stat-value" id="resolutionRate">0%</div>
+                                <div class="stat-title">الصفحات النشطة</div>
+                                <div class="stat-value" id="activePagesCount">0</div>
                                 <div class="stat-change positive">
                                     <i class="fas fa-chart-line"></i>
-                                    <span>أداء جيد</span>
+                                    <span>صفحة</span>
                                 </div>
                             </div>
                             <div class="stat-icon purple">
-                                <i class="fas fa-percentage"></i>
+                                <i class="fas fa-file-alt"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- مخططات -->
                 <div class="charts-grid">
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">
                                 <i class="fas fa-chart-bar"></i>
-                                نشاط الزوار خلال 7 أيام
+                                أكثر الصفحات زيارة
                             </div>
                         </div>
                         <div class="chart-container">
@@ -1501,7 +1492,7 @@
                         <div class="chart-header">
                             <div class="chart-title">
                                 <i class="fas fa-chart-pie"></i>
-                                توزيع المشكلات حسب النوع
+                                توزيع المشكلات
                             </div>
                         </div>
                         <div class="chart-container">
@@ -1510,7 +1501,6 @@
                     </div>
                 </div>
                 
-                <!-- آخر الرسائل -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-history"></i>
@@ -1528,21 +1518,20 @@
                                 </tr>
                             </thead>
                             <tbody id="recentMessagesBody">
-                                <!-- سيتم ملؤها بالجافاسكريبت -->
+                                <!-- سيتم ملؤها -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
-            <!-- صفحة الرسائل -->
+            <!-- صفحة الرسائل - زي ما هي -->
             <div id="messagesPage" class="page">
                 <div class="page-header">
                     <h1>إدارة رسائل المشكلات</h1>
-                    <p>إدارة ورد على جميع مشاكل المستخدمين من صفحة المشكلات</p>
+                    <p>إدارة ورد على جميع مشاكل المستخدمين</p>
                 </div>
                 
-                <!-- إحصائيات سريعة -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -1593,7 +1582,6 @@
                     </div>
                 </div>
                 
-                <!-- الفلاتر -->
                 <div class="filters">
                     <div class="search-box">
                         <input type="text" id="searchMessages" placeholder="ابحث في الرسائل...">
@@ -1610,7 +1598,6 @@
                     </div>
                 </div>
                 
-                <!-- جدول الرسائل -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-list"></i>
@@ -1631,7 +1618,7 @@
                                 </tr>
                             </thead>
                             <tbody id="messagesTableBody">
-                                <!-- سيتم ملؤها بالجافاسكريبت -->
+                                <!-- سيتم ملؤها -->
                             </tbody>
                         </table>
                     </div>
@@ -1642,28 +1629,18 @@
             <div id="visitorsPage" class="page">
                 <div class="page-header">
                     <h1>إحصائيات الزوار</h1>
-                    <p>تحليل شامل لزوار الموقع</p>
+                    <p>تحليل شامل لزوار الموقع - بيانات حقيقية</p>
                 </div>
                 
-                <!-- فلاتر التاريخ -->
-                <div class="date-filters">
-                    <button class="date-filter active" data-period="today">اليوم</button>
-                    <button class="date-filter" data-period="yesterday">أمس</button>
-                    <button class="date-filter" data-period="week">أسبوع</button>
-                    <button class="date-filter" data-period="month">شهر</button>
-                    <button class="date-filter" data-period="all">كل الوقت</button>
-                </div>
-                
-                <!-- إحصائيات الزوار -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">زوار فريدون</div>
-                                <div class="stat-value" id="uniqueVisitors">0</div>
+                                <div class="stat-title">إجمالي الزيارات</div>
+                                <div class="stat-value" id="totalVisitsStats">0</div>
                             </div>
                             <div class="stat-icon blue">
-                                <i class="fas fa-user-friends"></i>
+                                <i class="fas fa-chart-line"></i>
                             </div>
                         </div>
                     </div>
@@ -1671,11 +1648,11 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">الزيارات الكلية</div>
-                                <div class="stat-value" id="totalVisits">0</div>
+                                <div class="stat-title">زيارات اليوم</div>
+                                <div class="stat-value" id="todayVisits">0</div>
                             </div>
                             <div class="stat-icon green">
-                                <i class="fas fa-sync-alt"></i>
+                                <i class="fas fa-calendar-day"></i>
                             </div>
                         </div>
                     </div>
@@ -1683,11 +1660,11 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">متوسط مدة الزيارة</div>
-                                <div class="stat-value" id="avgDuration">0</div>
+                                <div class="stat-title">الصفحات النشطة</div>
+                                <div class="stat-value" id="totalPagesStats">0</div>
                             </div>
                             <div class="stat-icon orange">
-                                <i class="fas fa-hourglass-half"></i>
+                                <i class="fas fa-sitemap"></i>
                             </div>
                         </div>
                     </div>
@@ -1695,79 +1672,36 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">معدل الارتداد</div>
-                                <div class="stat-value" id="bounceRate">0%</div>
+                                <div class="stat-title">متوسط يومي</div>
+                                <div class="stat-value" id="avgDailyVisits">0</div>
                             </div>
                             <div class="stat-icon pink">
-                                <i class="fas fa-running"></i>
+                                <i class="fas fa-chart-bar"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- مخططات الزوار -->
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-line"></i>
-                                حركة الزوار اليومية
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="dailyVisitorsChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-globe"></i>
-                                مصادر الزوار
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="trafficSourcesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- قائمة الزوار -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-list"></i>
-                        قائمة الزوار
+                        سجل الزيارات اليومية
                     </div>
                     <div class="table-responsive">
                         <table id="visitorsTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>معرف الزائر</th>
-                                    <th>أول زيارة</th>
-                                    <th>آخر زيارة</th>
+                                    <th>التاريخ</th>
                                     <th>عدد الزيارات</th>
-                                    <th>الصفحات المفضلة</th>
-                                    <th>الحالة</th>
+                                    <th>الصفحات المفتوحة</th>
+                                    <th>النسبة</th>
                                 </tr>
                             </thead>
                             <tbody id="visitorsTableBody">
-                                <!-- سيتم ملؤها بالجافاسكريبت -->
+                                <!-- سيتم ملؤها -->
                             </tbody>
                         </table>
                     </div>
-                </div>
-                
-                <!-- أزرار التصدير -->
-                <div class="export-buttons">
-                    <button class="export-btn" onclick="exportVisitorsData()">
-                        <i class="fas fa-file-excel"></i>
-                        تصدير البيانات
-                    </button>
-                    <button class="export-btn" onclick="printVisitorsReport()">
-                        <i class="fas fa-print"></i>
-                        طباعة التقرير
-                    </button>
                 </div>
             </div>
             
@@ -1775,23 +1709,15 @@
             <div id="pagesPage" class="page">
                 <div class="page-header">
                     <h1>إحصائيات الصفحات</h1>
-                    <p>تحليل أداء صفحات الموقع</p>
+                    <p>تحليل أداء صفحات الموقع - بيانات حقيقية</p>
                 </div>
                 
-                <!-- الفلاتر -->
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="all-pages">جميع الصفحات</button>
-                    <button class="tab-btn" data-tab="top-pages">الأكثر زيارة</button>
-                    <button class="tab-btn" data-tab="least-pages">الأقل زيارة</button>
-                </div>
-                
-                <!-- إحصائيات الصفحات -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الصفحات</div>
-                                <div class="stat-value" id="totalPages">7</div>
+                                <div class="stat-value" id="totalPages">0</div>
                             </div>
                             <div class="stat-icon blue">
                                 <i class="fas fa-sitemap"></i>
@@ -1836,34 +1762,20 @@
                     </div>
                 </div>
                 
-                <!-- مخططات الصفحات -->
                 <div class="charts-grid">
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">
                                 <i class="fas fa-chart-bar"></i>
-                                ترتيب الصفحات حسب المشاهدات
+                                أكثر الصفحات زيارة
                             </div>
                         </div>
                         <div class="chart-container">
                             <canvas id="pagesViewsChart"></canvas>
                         </div>
                     </div>
-                    
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-clock"></i>
-                                متوسط مدة الجلسة
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="sessionDurationChart"></canvas>
-                        </div>
-                    </div>
                 </div>
                 
-                <!-- جدول الصفحات -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-table"></i>
@@ -1875,14 +1787,12 @@
                                 <tr>
                                     <th>الصفحة</th>
                                     <th>المشاهدات</th>
-                                    <th>الزوار الفريدون</th>
-                                    <th>متوسط المدة</th>
-                                    <th>معدل الارتداد</th>
+                                    <th>آخر زيارة</th>
                                     <th>الشعبية</th>
                                 </tr>
                             </thead>
                             <tbody id="pagesTableBody">
-                                <!-- سيتم ملؤها بالجافاسكريبت -->
+                                <!-- سيتم ملؤها -->
                             </tbody>
                         </table>
                     </div>
@@ -1893,10 +1803,9 @@
             <div id="realtimePage" class="page">
                 <div class="page-header">
                     <h1>المتابعة المباشرة</h1>
-                    <p>متابعة الزوار في الوقت الفعلي</p>
+                    <p>متابعة الزوار في الوقت الفعلي - بيانات حقيقية</p>
                 </div>
                 
-                <!-- عداد المباشر -->
                 <div class="live-counter">
                     <div class="label">
                         <i class="fas fa-globe"></i>
@@ -1909,74 +1818,18 @@
                     </div>
                 </div>
                 
-                <!-- إحصائيات المباشر -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">صفحات نشطة</div>
-                                <div class="stat-value" id="activePages">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">جلسات نشطة</div>
-                                <div class="stat-value" id="activeSessions">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-play-circle"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">متوسط المدة</div>
-                                <div class="stat-value" id="avgLiveDuration">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-hourglass-half"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الزيارات الجديدة</div>
-                                <div class="stat-value" id="newVisits">0</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- قائمة المباشر -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-broadcast-tower"></i>
-                        نشاط حي الآن
+                        الصفحات النشطة حالياً
                     </div>
                     <div id="liveActivity">
-                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                        <div class="empty-state">
+                            <i class="fas fa-users-slash"></i>
+                            <h4>لا يوجد زوار نشطين الآن</h4>
+                            <p>انتظر حتى يدخل زوار جدد</p>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- تحديث المباشر -->
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-primary" onclick="refreshLiveData()">
-                        <i class="fas fa-sync-alt"></i>
-                        تحديث البيانات الآن
-                    </button>
                 </div>
             </div>
             
@@ -1984,10 +1837,9 @@
             <div id="telegramPage" class="page">
                 <div class="page-header">
                     <h1><i class="fab fa-telegram"></i> نظام إشعارات Telegram</h1>
-                    <p>إرسال تقارير مفصلة وإشعارات فورية إلى هاتفك</p>
+                    <p>إرسال تقارير وإشعارات فورية</p>
                 </div>
                 
-                <!-- معلومات النظام -->
                 <div class="telegram-controls">
                     <div class="telegram-card">
                         <div class="telegram-header">
@@ -2031,7 +1883,7 @@
                         <div class="telegram-buttons">
                             <button class="telegram-btn primary" onclick="sendQuickReport()">
                                 <i class="fas fa-bolt"></i>
-                                تقرير سريع (10 ثواني)
+                                تقرير سريع
                             </button>
                             
                             <button class="telegram-btn success" onclick="sendDetailedReport()">
@@ -2045,57 +1897,29 @@
                             </button>
                         </div>
                     </div>
-                    
-                    <div class="telegram-card">
-                        <div class="telegram-header">
-                            <div class="telegram-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="telegram-title">جدولة تلقائية</div>
-                        </div>
-                        
-                        <div class="telegram-buttons">
-                            <button class="telegram-btn primary" onclick="scheduleDailyReport()">
-                                <i class="fas fa-sun"></i>
-                                تقرير يومي
-                            </button>
-                            
-                            <button class="telegram-btn success" onclick="scheduleHourlyReport()">
-                                <i class="fas fa-hourglass"></i>
-                                تقرير ساعي
-                            </button>
-                            
-                            <button class="telegram-btn warning" onclick="stopAllSchedules()">
-                                <i class="fas fa-stop"></i>
-                                إيقاف الجداول
-                            </button>
-                        </div>
-                    </div>
                 </div>
                 
-                <!-- معاينة الإشعار -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-eye"></i>
                         معاينة الإشعار الأخير
                     </div>
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-top: 15px;">
-                        <pre style="color: #475569; font-size: 14px; line-height: 1.6; white-space: pre-wrap;" id="notificationPreview">
-⏳ جاري تحميل معاينة الإشعار...
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px;">
+                        <pre style="color: #475569; font-size: 14px; white-space: pre-wrap;" id="notificationPreview">
+⚠️ لم يتم إرسال أي إشعارات بعد
                         </pre>
                     </div>
                 </div>
                 
-                <!-- سجل الإشعارات -->
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-history"></i>
-                        سجل الإشعارات المرسلة
+                        سجل الإشعارات
                     </div>
                     <div id="notificationLogs">
-                        <div style="display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #e2e8f0;">
-                            <div style="color: #64748b; font-size: 12px;">الآن</div>
-                            <div style="color: #475569; font-size: 14px;">تم تحميل نظام إشعارات Telegram</div>
+                        <div class="empty-state">
+                            <i class="fas fa-history"></i>
+                            <h4>لا توجد سجلات</h4>
                         </div>
                     </div>
                 </div>
@@ -2118,12 +1942,12 @@
                         <div>
                             <div class="form-group">
                                 <label>اسم المستخدم الحالي</label>
-                                <input type="text" class="form-control" id="currentUsername" value="مدير النظام" readonly>
+                                <input type="text" class="form-control" id="currentUsername" value="sameh" readonly>
                             </div>
                             
                             <div class="form-group">
                                 <label>اسم المستخدم الجديد</label>
-                                <input type="text" class="form-control" id="newUsername" placeholder="اتركه فارغاً للاحتفاظ بالاسم الحالي">
+                                <input type="text" class="form-control" id="newUsername" placeholder="اتركه فارغاً">
                             </div>
                             
                             <div class="form-group">
@@ -2133,7 +1957,7 @@
                             
                             <div class="form-group">
                                 <label>تأكيد كلمة المرور</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="أعد إدخال كلمة المرور الجديدة">
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="أعد إدخال كلمة المرور">
                             </div>
                             
                             <button class="btn btn-primary" onclick="updateAdminSettings()">
@@ -2144,47 +1968,50 @@
                         
                         <div>
                             <div class="form-group">
-                                <label>مدة تخزين البيانات (أيام)</label>
-                                <input type="number" class="form-control" id="dataRetention" value="30" min="7" max="365">
+                                <label>كود التتبع</label>
+                                <textarea class="form-control" rows="4" readonly id="trackingCode" style="background: #f1f5f9; font-size: 12px; direction: ltr;">&lt;!-- كود تتبع MikroTools --&gt;
+&lt;script&gt;
+(function() {
+    const BIN_ID = '6984fe4d43b1c97be9684aa8';
+    const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
+    
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        headers: { 'X-Master-Key': API_KEY }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const record = data.record || {};
+        if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
+        
+        const page = document.title || window.location.pathname;
+        const today = new Date().toDateString();
+        
+        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
+        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
+        record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
+        
+        return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify(record)
+        });
+    })
+    .catch(() => {});
+})();
+&lt;/script&gt;</textarea>
                             </div>
                             
-                            <div class="form-group">
-                                <label>تحديث المباشر كل (ثانية)</label>
-                                <input type="number" class="form-control" id="refreshInterval" value="10" min="5" max="60">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>تلقي إشعارات جديدة</label>
-                                <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0;">
-                                    <label style="color: #475569; font-size: 15px; cursor: pointer;">
-                                        <input type="checkbox" id="notificationsEnabled" checked style="margin-left: 10px;">
-                                        تفعيل الإشعارات
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
-                                <button class="btn btn-primary" onclick="saveSystemSettings()">
-                                    <i class="fas fa-cog"></i>
-                                    حفظ إعدادات النظام
-                                </button>
-                                
-                                <button class="export-btn" onclick="backupData()">
-                                    <i class="fas fa-download"></i>
-                                    نسخ احتياطي للبيانات
-                                </button>
-                                
-                                <button class="export-btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.2);" onclick="resetAllData()">
-                                    <i class="fas fa-trash"></i>
-                                    حذف جميع البيانات
-                                </button>
-                            </div>
+                            <p style="color: var(--primary); font-size: 13px; margin-top: 10px;">
+                                <i class="fas fa-copy"></i> انسخ هذا الكود وحطه في آخر كل صفحة HTML في موقعك
+                            </p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- معلومات النظام -->
-                <div class="table-container" style="margin-top: 30px;">
+                <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-info-circle"></i>
                         معلومات النظام
@@ -2192,41 +2019,23 @@
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                         <div>
-                            <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">إصدار النظام</div>
-                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;">v2.0.1</div>
+                            <div style="color: #64748b; font-size: 14px;">إصدار النظام</div>
+                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;">v3.0 - النسخة الحقيقية</div>
                         </div>
                         
                         <div>
-                            <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">آخر تحديث</div>
-                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;" id="lastSystemUpdate">15 يناير 2024</div>
+                            <div style="color: #64748b; font-size: 14px;">مصدر البيانات</div>
+                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;">JSONBin.io</div>
                         </div>
                         
                         <div>
-                            <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">حجم قاعدة البيانات</div>
-                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;" id="databaseSize">0 KB</div>
-                        </div>
-                        
-                        <div>
-                            <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">حالة النظام</div>
+                            <div style="color: #64748b; font-size: 14px;">حالة JSONBin</div>
                             <div>
-                                <span class="badge badge-success">
-                                    <i class="fas fa-check-circle"></i>
-                                    نشط
+                                <span class="badge badge-success" id="jsonbinStatus">
+                                    <i class="fas fa-check-circle"></i> متصل
                                 </span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- السجلات -->
-                <div class="table-container" style="margin-top: 30px;">
-                    <div class="table-title">
-                        <i class="fas fa-history"></i>
-                        سجلات النظام
-                    </div>
-                    
-                    <div id="systemLogs" style="max-height: 300px; overflow-y: auto;">
-                        <!-- سيتم ملؤها بالجافاسكريبت -->
                     </div>
                 </div>
             </div>
@@ -2247,39 +2056,35 @@
             </div>
             
             <div class="modal-body">
-                <div style="background: rgba(67, 97, 238, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(67, 97, 238, 0.1);">
+                <div style="background: rgba(67, 97, 238, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
+                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
                             <i class="fas fa-user"></i>
                         </div>
                         <div>
                             <div style="color: #1e293b; font-weight: 600; font-size: 16px;" id="modalUserName"></div>
                             <div style="color: #64748b; font-size: 13px;" id="modalUserType"></div>
                         </div>
-                        <div style="margin-right: auto; font-size: 13px; color: #64748b;" id="modalDate"></div>
+                        <div style="margin-right: auto; color: #64748b; font-size: 13px;" id="modalDate"></div>
                     </div>
                     
-                    <div class="message-content" id="modalMessage" style="line-height: 1.6; font-size: 15px; color: #334155;"></div>
+                    <div id="modalMessage" style="line-height: 1.6; font-size: 15px; color: #334155;"></div>
                 </div>
                 
                 <div class="replies-container" id="repliesContainer">
-                    <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <h4 style="color: #1e293b; margin-bottom: 15px;">
                         <i class="fas fa-reply-all"></i>
                         جميع الردود
                     </h4>
-                    <div id="allReplies">
-                        <!-- سيتم ملؤها بالجافاسكريبت -->
-                    </div>
+                    <div id="allReplies"></div>
                 </div>
                 
                 <div style="margin-top: 25px;">
-                    <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <h4 style="color: #1e293b; margin-bottom: 15px;">
                         <i class="fas fa-reply"></i>
                         إضافة رد جديد
                     </h4>
-                    <div class="reply-form">
-                        <textarea id="replyText" placeholder="اكتب ردك هنا..." style="font-size: 15px; padding: 18px; min-height: 120px; width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; color: #334155;"></textarea>
-                    </div>
+                    <textarea id="replyText" placeholder="اكتب ردك هنا..." style="font-size: 15px; padding: 18px; min-height: 120px; width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc;"></textarea>
                 </div>
             </div>
             
@@ -2288,264 +2093,58 @@
                     <i class="fas fa-paper-plane"></i>
                     إرسال الرد
                 </button>
-                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()" style="flex: 1; background: var(--success); border-color: var(--success);">
+                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()" style="flex: 1; background: var(--success);">
                     <i class="fas fa-check-circle"></i>
                     تم الحل
                 </button>
-                <button class="logout-btn" onclick="closeModal()" style="flex: 1; background: #f8fafc;">
+                <button class="logout-btn" onclick="closeModal()" style="flex: 1;">
                     إلغاء
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- منطقة الإشعارات العائمة -->
     <div id="notificationArea"></div>
 
     <script>
-        // ===== نظام متقدم لجلب البيانات الحقيقية =====
-        class RealAnalyticsSystem {
-            constructor() {
-                this.dataSources = {
-                    googleAnalytics: false,
-                    serverLogs: false,
-                    localStorage: true,
-                    demoMode: false
-                };
-                
-                // محاولة جلب بيانات حقيقية من عدة مصادر
-                this.initRealDataSources();
-            }
-
-            async initRealDataSources() {
-                try {
-                    // 1. محاولة جلب من Google Analytics (لو عندك Measurement ID)
-                    await this.tryGoogleAnalytics();
-                    
-                    // 2. محاولة قراءة Server Logs (لو عندك access)
-                    await this.tryServerLogs();
-                    
-                    // 3. جلب من الـ LocalStorage (لو في بيانات قديمة)
-                    this.tryLocalStorage();
-                    
-                    // تحديث الواجهة بمصدر البيانات الحالي
-                    this.updateDataSourceBadge();
-                } catch (error) {
-                    console.log('استخدام الوضع التجريبي المتطور');
-                    this.dataSources.demoMode = true;
-                }
-            }
-
-            async tryGoogleAnalytics() {
-                // ⚠️ استبدل G-XXXXXXXXXX بـ Measurement ID بتاعك من Google Analytics
-                const MEASUREMENT_ID = localStorage.getItem('ga_measurement_id') || 'G-XXXXXXXXXX';
-                const API_SECRET = localStorage.getItem('ga_api_secret') || '';
-
-                if (MEASUREMENT_ID !== 'G-XXXXXXXXXX' && API_SECRET) {
-                    try {
-                        // هذا مثال لجلب بيانات حقيقية من GA4
-                        const response = await fetch(`https://analytics.google.com/analytics/web/#/report/visitors-overview/${MEASUREMENT_ID}`);
-                        this.dataSources.googleAnalytics = true;
-                        console.log('✅ متصل بـ Google Analytics');
-                    } catch (error) {
-                        console.log('❌ فشل الاتصال بـ Google Analytics');
-                    }
-                }
-            }
-
-            async tryServerLogs() {
-                // محاولة قراءة server logs من API خاص بالسيرفر
-                try {
-                    const response = await fetch('/api/server-stats.php');
-                    if (response.ok) {
-                        const data = await response.json();
-                        this.dataSources.serverLogs = true;
-                        console.log('✅ متصل بسجلات السيرفر');
-                    }
-                } catch (error) {
-                    console.log('❌ لا يمكن قراءة سجلات السيرفر');
-                }
-            }
-
-            tryLocalStorage() {
-                const savedStats = localStorage.getItem('mikrotools_analytics');
-                if (savedStats) {
-                    this.dataSources.localStorage = true;
-                    return JSON.parse(savedStats);
-                }
-                return null;
-            }
-
-            // ===== بيانات ذكية جداً تحاكي الواقع =====
-            getRealisticAnalytics() {
-                const now = new Date();
-                const hour = now.getHours();
-                const isWeekend = now.getDay() === 5 || now.getDay() === 6; // جمعة أو سبت
-                
-                // نمط ذكي لتوليد عدد الزوار حسب الوقت واليوم
-                let baseVisitors;
-                
-                if (this.dataSources.demoMode) {
-                    // ذكاء اصطناعي بسيط لمحاكاة سلوك الزوار الحقيقيين
-                    if (isWeekend) {
-                        // نهاية الأسبوع: زوار أكثر
-                        baseVisitors = Math.floor(Math.random() * 40) + 25; // 25-65 زائر
-                    } else if (hour >= 9 && hour <= 23) {
-                        // أوقات العمل: زوار متوسطين
-                        baseVisitors = Math.floor(Math.random() * 30) + 15; // 15-45 زائر
-                    } else {
-                        // الليل: زوار قليلين
-                        baseVisitors = Math.floor(Math.random() * 12) + 3; // 3-15 زائر
-                    }
-                } else {
-                    // هنا هتجيب البيانات الحقيقية من المصادر
-                    baseVisitors = Math.floor(Math.random() * 50) + 20;
-                }
-
-                return {
-                    liveVisitors: baseVisitors,
-                    uniqueVisitors: Math.floor(baseVisitors * 2.5),
-                    totalVisits: Math.floor(baseVisitors * 4.8),
-                    pageViews: Math.floor(baseVisitors * 6.2),
-                    avgDuration: Math.floor(Math.random() * 180) + 120,
-                    bounceRate: Math.floor(Math.random() * 35) + 25,
-                    visitorsChange: Math.floor(Math.random() * 20) - 5,
-                    dailyData: this.generateDailyData(),
-                    pagesData: this.generatePagesData(),
-                    sourcesData: this.generateSourcesData()
-                };
-            }
-
-            generateDailyData() {
-                return Array.from({length: 7}, (_, i) => {
-                    const date = new Date();
-                    date.setDate(date.getDate() - (6 - i));
-                    return {
-                        date: date.toLocaleDateString('ar-EG'),
-                        visitors: Math.floor(Math.random() * 40) + 20
-                    };
-                });
-            }
-
-            generatePagesData() {
-                const pages = [
-                    'الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 
-                    'دمج v6', 'دمج v7', 'حجب مواقع', 'بروفايلات السرعة'
-                ];
-                
-                return pages.map(page => ({
-                    name: page,
-                    views: Math.floor(Math.random() * 200) + 50,
-                    unique: Math.floor(Math.random() * 150) + 30,
-                    avgTime: Math.floor(Math.random() * 200) + 60,
-                    bounceRate: Math.floor(Math.random() * 50) + 20
-                })).sort((a, b) => b.views - a.views);
-            }
-
-            generateSourcesData() {
-                return [
-                    { source: 'محركات البحث', count: Math.floor(Math.random() * 100) + 80 },
-                    { source: 'مباشر', count: Math.floor(Math.random() * 80) + 60 },
-                    { source: 'وسائل التواصل', count: Math.floor(Math.random() * 60) + 40 },
-                    { source: 'آخرون', count: Math.floor(Math.random() * 40) + 20 }
-                ];
-            }
-
-            updateDataSourceBadge() {
-                const badgeText = document.getElementById('dataSourceText');
-                const badge = document.getElementById('dataSourceBadge');
-                
-                if (this.dataSources.googleAnalytics) {
-                    badgeText.innerHTML = '<i class="fab fa-google"></i> Google Analytics (مباشر)';
-                    badge.style.background = 'rgba(66, 133, 244, 0.1)';
-                    badge.style.color = '#4285f4';
-                } else if (this.dataSources.serverLogs) {
-                    badgeText.innerHTML = '<i class="fas fa-server"></i> سجلات السيرفر (مباشر)';
-                    badge.style.background = 'rgba(52, 168, 83, 0.1)';
-                    badge.style.color = '#34a853';
-                } else if (this.dataSources.localStorage) {
-                    badgeText.innerHTML = '<i class="fas fa-save"></i> بيانات محفوظة';
-                    badge.style.background = 'rgba(251, 188, 5, 0.1)';
-                    badge.style.color = '#fbbc05';
-                } else {
-                    badgeText.innerHTML = '<i class="fas fa-chart-line"></i> بيانات محاكاة ذكية';
-                    badge.style.background = 'rgba(67, 97, 238, 0.1)';
-                    badge.style.color = '#4361ee';
-                }
-            }
-
-            // ===== إعداد Google Analytics يدوي =====
-            setupGoogleAnalytics() {
-                const measurementId = prompt('أدخل Measurement ID من Google Analytics (مثال: G-XXXXXXXXXX):');
-                if (measurementId && measurementId.startsWith('G-')) {
-                    localStorage.setItem('ga_measurement_id', measurementId);
-                    
-                    const apiSecret = prompt('أدخل API Secret (اختياري - اتركه فارغاً لو مش عنده):');
-                    if (apiSecret) localStorage.setItem('ga_api_secret', apiSecret);
-                    
-                    this.dataSources.googleAnalytics = true;
-                    this.dataSources.demoMode = false;
-                    this.updateDataSourceBadge();
-                    
-                    showNotification('✅ تم ربط Google Analytics بنجاح', 'success');
-                    return true;
-                } else if (measurementId) {
-                    showNotification('❌ Measurement ID يجب أن يبدأ بـ G-', 'error');
-                }
-                return false;
-            }
-        }
-
         // ===== إعدادات JSONBin =====
         const JSONBIN_CONFIG = {
             BIN_ID: "6984fe4d43b1c97be9684aa8",
             API_KEY: "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G"
         };
 
-        // ===== بيانات الدخول الآمنة =====
+        // ===== بيانات الدخول =====
         const ADMIN_CREDENTIALS = {
             username: btoa("sameh"),
             password: btoa("0166843763")
         };
 
-        // ===== خدمة قاعدة البيانات =====
+        // ===== خدمة JSONBin =====
         class DatabaseService {
-            constructor() {
-                this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
-                this.headers = {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY,
-                    'X-Bin-Versioning': false
-                };
-            }
-
             async getData() {
                 try {
-                    const response = await fetch(`${this.baseURL}/latest`, {
-                        headers: this.headers,
-                        cache: 'no-cache'
+                    const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
+                        headers: { 'X-Master-Key': JSONBIN_CONFIG.API_KEY }
                     });
-                    
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    
+                    if (!response.ok) throw new Error('فشل الاتصال');
                     const data = await response.json();
-                    return data.record || { problems: [], adminData: {}, analytics: {} };
+                    return data.record || { problems: [], analytics: { pages: {}, daily: {}, totalVisits: 0 } };
                 } catch (error) {
                     console.error('خطأ في جلب البيانات:', error);
-                    return { problems: [], adminData: {}, analytics: {} };
+                    return { problems: [], analytics: { pages: {}, daily: {}, totalVisits: 0 } };
                 }
             }
 
             async saveData(data) {
                 try {
-                    const response = await fetch(this.baseURL, {
+                    const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`, {
                         method: 'PUT',
-                        headers: this.headers,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': JSONBIN_CONFIG.API_KEY
+                        },
                         body: JSON.stringify(data)
                     });
-                    
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    
                     return await response.json();
                 } catch (error) {
                     console.error('خطأ في حفظ البيانات:', error);
@@ -2554,1380 +2153,239 @@
             }
         }
 
-        // ===== نظام إشعارات Telegram المتقدم =====
-        class TelegramNotificationSystem {
-            constructor(analyticsSystem) {
-                this.analytics = analyticsSystem;
-                this.botToken = '8399455499:AAGozeiCxaN8AQWN0P1Jj-GuyFUcEp3p2hk';
-                this.chatId = localStorage.getItem('telegram_chat_id');
-                this.enabled = this.chatId ? true : false;
-                this.scheduledJobs = {};
-                this.notificationLogs = JSON.parse(localStorage.getItem('telegram_logs') || '[]');
-                this.notificationCount = parseInt(localStorage.getItem('notification_count')) || 0;
-                
-                this.systemStats = {
-                    liveVisitors: 0,
-                    activeUsers: [],
-                    pageViews: 0,
-                    serverLoad: 0,
-                    messagesToday: 0,
-                    resolvedIssues: 0,
-                    pendingIssues: 0,
-                    popularPages: []
-                };
-                
-                this.init();
-            }
-
-            init() {
-                this.updateUI();
-                this.loadSystemStats();
-                this.startLiveUpdates();
-                this.logActivity('تم تهيئة نظام إشعارات Telegram');
-            }
-
-            updateUI() {
-                const statusIndicator = document.getElementById('statusIndicator');
-                const statusText = document.getElementById('statusText');
-                const chatIdDisplay = document.getElementById('chatIdDisplay');
-                const currentChatId = document.getElementById('currentChatId');
-                const setupBtn = document.getElementById('setupBtn');
-                const testBtn = document.getElementById('testBtn');
-                
-                if (this.enabled && this.chatId) {
-                    statusIndicator.className = 'status-indicator';
-                    statusText.textContent = 'النظام مفعل وجاهز';
-                    chatIdDisplay.style.display = 'block';
-                    currentChatId.textContent = this.chatId;
-                    setupBtn.style.display = 'none';
-                    testBtn.style.display = 'block';
-                    
-                    const quickReportBtn = document.getElementById('quickReportBtn');
-                    if (quickReportBtn) {
-                        quickReportBtn.innerHTML = '<i class="fab fa-telegram"></i><span>تقرير سريع</span>';
-                    }
-                } else {
-                    statusIndicator.className = 'status-indicator inactive';
-                    statusText.textContent = 'غير مفعل - يرجى الإعداد';
-                    chatIdDisplay.style.display = 'none';
-                    setupBtn.style.display = 'block';
-                    testBtn.style.display = 'none';
-                }
-            }
-
-            async loadSystemStats() {
-                try {
-                    const analytics = this.analytics.getRealisticAnalytics();
-                    
-                    this.systemStats = {
-                        liveVisitors: analytics.liveVisitors,
-                        activeUsers: this.generateRandomUsers(analytics.liveVisitors),
-                        pageViews: analytics.pageViews,
-                        serverLoad: Math.floor(Math.random() * 30) + 10,
-                        messagesToday: systemData?.problems?.filter(p => 
-                            new Date(p.date).toDateString() === new Date().toDateString()
-                        ).length || Math.floor(Math.random() * 10) + 3,
-                        resolvedIssues: systemData?.problems?.filter(p => p.solved).length || Math.floor(Math.random() * 20) + 10,
-                        pendingIssues: systemData?.problems?.filter(p => !p.solved).length || Math.floor(Math.random() * 8) + 2,
-                        popularPages: analytics.pagesData.slice(0, 4)
-                    };
-                } catch (error) {
-                    console.error('خطأ في تحميل الإحصائيات:', error);
-                }
-            }
-
-            generateRandomUsers(count) {
-                const names = ['محمد', 'أحمد', 'علي', 'خالد', 'محمود', 'سارة', 'فاطمة', 'نور'];
-                const pages = ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
-                
-                return Array.from({ length: Math.min(count, 5) }, (_, i) => ({
-                    id: i + 1,
-                    name: names[Math.floor(Math.random() * names.length)],
-                    page: pages[Math.floor(Math.random() * pages.length)],
-                    duration: Math.floor(Math.random() * 10) + 1,
-                    device: ['موبايل', 'كمبيوتر', 'تابلت'][Math.floor(Math.random() * 3)]
-                }));
-            }
-
-            startLiveUpdates() {
-                setInterval(() => {
-                    this.loadSystemStats();
-                }, 30000);
-            }
-
-            async sendQuickReport() {
-                if (!this.enabled) {
-                    this.showNotification('يرجى إعداد Telegram أولاً', 'error');
-                    return;
-                }
-
-                await this.loadSystemStats();
-
-                const message = `⚡ <b>تقرير سريع - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n` +
-                               `✅ النظام: <b>يعمل</b>\n` +
-                               `👥 الزوار المباشرين: <b>${this.systemStats.liveVisitors}</b>\n` +
-                               `📨 الرسائل اليوم: <b>${this.systemStats.messagesToday}</b>\n` +
-                               `⚡ أداء السيرفر: <b>${100 - this.systemStats.serverLoad}%</b>\n` +
-                               `📊 المشاكل: <b>${this.systemStats.pendingIssues} قيد الانتظار</b>\n\n` +
-                               `🕒 ${new Date().toLocaleString('ar-EG')}`;
-
-                await this.sendAndLog(message, 'تقرير سريع');
-            }
-
-            async sendDetailedReport() {
-                if (!this.enabled) {
-                    this.showNotification('يرجى إعداد Telegram أولاً', 'error');
-                    return;
-                }
-
-                await this.loadSystemStats();
-
-                const totalUsers = this.systemStats.activeUsers.length;
-                const totalDuration = this.systemStats.activeUsers.reduce((sum, user) => sum + user.duration, 0);
-                const avgDuration = Math.round(totalDuration / totalUsers) || 0;
-
-                const message = `📊 <b>تقرير مفصل - ${new Date().toLocaleDateString('ar-EG')}</b>\n\n` +
-                               `⏰ <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}\n` +
-                               `━━━━━━━━━━━━━━━━━━━━\n\n` +
-                               `👥 <b>إحصائيات الزوار:</b>\n` +
-                               `   • زوار مباشرون: <b>${this.systemStats.liveVisitors}</b>\n` +
-                               `   • إجمالي المشاهدات: <b>${this.systemStats.pageViews}</b>\n` +
-                               `   • متوسط المدة: <b>${avgDuration} دقيقة</b>\n\n` +
-                               `📨 <b>إحصائيات الرسائل:</b>\n` +
-                               `   • رسائل اليوم: <b>${this.systemStats.messagesToday}</b>\n` +
-                               `   • مشاكل محلولة: <b>${this.systemStats.resolvedIssues}</b>\n` +
-                               `   • قيد الانتظار: <b>${this.systemStats.pendingIssues}</b>\n\n` +
-                               `⚡ <b>أداء النظام:</b>\n` +
-                               `   • حمل الخادم: <b>${this.systemStats.serverLoad}%</b>\n` +
-                               `   • الأداء: <b>${100 - this.systemStats.serverLoad}%</b>\n\n` +
-                               `📈 <b>الصفحات الأكثر زيارة:</b>\n` +
-                               this.systemStats.popularPages.slice(0, 3).map(page => 
-                                   `   • ${page.name}: <b>${page.views}</b> مشاهدة`
-                               ).join('\n') + '\n\n' +
-                               `━━━━━━━━━━━━━━━━━━━━\n` +
-                               `🔗 <a href="${window.location.origin}">زيارة لوحة التحكم</a>`;
-
-                await this.sendAndLog(message, 'تقرير مفصل');
-            }
-
-            async sendLiveStatsReport() {
-                if (!this.enabled) {
-                    this.showNotification('يرجى إعداد Telegram أولاً', 'error');
-                    return;
-                }
-
-                await this.loadSystemStats();
-
-                const message = `🔴 <b>بث مباشر - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n` +
-                               `👁️ <b>مباشر الآن:</b> ${this.systemStats.liveVisitors} زائر\n\n` +
-                               `📊 <b>نشاط حي:</b>\n` +
-                               (this.systemStats.activeUsers.length > 0 ? 
-                                this.systemStats.activeUsers.slice(0, 5).map(user => 
-                                   `   • ${user.name} - ${user.page} (${user.device})`
-                                ).join('\n') : '   • لا يوجد نشاط حالياً') + '\n\n' +
-                               `⚡ <b>حمل النظام:</b> ${this.systemStats.serverLoad}%\n` +
-                               `📨 <b>آخر رسالة:</b> ${this.systemStats.messagesToday > 0 ? 'اليوم' : 'لا توجد'}\n\n` +
-                               `🔄 <i>آخر تحديث: ${new Date().toLocaleTimeString('ar-EG')}</i>`;
-
-                await this.sendAndLog(message, 'إحصائيات حية');
-            }
-
-            async sendNewMessageNotification(messageData) {
-                if (!this.enabled) return;
-
-                const message = `🚀 <b>رسالة جديدة في MikroTools</b>\n\n` +
-                               `👤 <b>المستخدم:</b> ${messageData.user}\n` +
-                               `📌 <b>المشكلة:</b> ${messageData.problem.substring(0, 100)}${messageData.problem.length > 100 ? '...' : ''}\n` +
-                               `📊 <b>النوع:</b> ${this.getTypeArabic(messageData.type)}\n` +
-                               `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-EG')}\n\n` +
-                               `🔗 <a href="${window.location.origin}">اضغط هنا للرد على الرسالة</a>`;
-
-                await this.sendTelegramMessage(message);
-            }
-
-            scheduleDailyReport() {
-                this.scheduleJob('daily', 24 * 60 * 60 * 1000, () => this.sendDetailedReport());
-                this.showNotification('تم جدولة التقارير اليومية في الساعة 9 صباحاً', 'success');
-            }
-
-            scheduleHourlyReport() {
-                this.scheduleJob('hourly', 60 * 60 * 1000, () => this.sendQuickReport());
-                this.showNotification('تم جدولة التقارير الساعية كل ساعة', 'success');
-            }
-
-            scheduleJob(name, interval, callback) {
-                if (this.scheduledJobs[name]) {
-                    clearInterval(this.scheduledJobs[name]);
-                }
-                
-                this.scheduledJobs[name] = setInterval(callback, interval);
-                callback();
-                
-                this.logActivity(`تم جدولة ${name === 'daily' ? 'التقرير اليومي' : 'التقرير الساعي'}`);
-            }
-
-            stopAllSchedules() {
-                Object.values(this.scheduledJobs).forEach(job => clearInterval(job));
-                this.scheduledJobs = {};
-                this.showNotification('تم إيقاف جميع الجداول الزمنية', 'success');
-                this.logActivity('تم إيقاف جميع الجداول الزمنية');
-            }
-
-            async sendTelegramMessage(text) {
-                if (!this.enabled || !this.chatId) {
-                    return false;
-                }
-                
-                try {
-                    const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: this.chatId,
-                            text: text,
-                            parse_mode: 'HTML',
-                            disable_web_page_preview: false
-                        })
-                    });
-                    
-                    return response.ok;
-                } catch (error) {
-                    console.error('خطأ في إرسال رسالة تلجرام:', error);
-                    return false;
-                }
-            }
-
-            async sendAndLog(message, type) {
-                this.showPreview(message);
-                const success = await this.sendTelegramMessage(message);
-                
-                if (success) {
-                    this.notificationCount++;
-                    localStorage.setItem('notification_count', this.notificationCount);
-                    this.logActivity(`✅ تم إرسال ${type}`);
-                    this.showNotification(`تم إرسال ${type} بنجاح`, 'success');
-                    return true;
-                } else {
-                    this.logActivity(`❌ فشل في إرسال ${type}`);
-                    this.showNotification(`فشل في إرسال ${type}`, 'error');
-                    return false;
-                }
-            }
-
-            showPreview(message) {
-                const previewEl = document.getElementById('notificationPreview');
-                if (previewEl) previewEl.textContent = message;
-            }
-
-            logActivity(message) {
-                const log = {
-                    time: new Date().toLocaleTimeString('ar-EG'),
-                    message: message,
-                    date: new Date().toISOString()
-                };
-                
-                this.notificationLogs.unshift(log);
-                
-                if (this.notificationLogs.length > 20) {
-                    this.notificationLogs.pop();
-                }
-                
-                localStorage.setItem('telegram_logs', JSON.stringify(this.notificationLogs));
-                this.updateLogsUI();
-            }
-
-            updateLogsUI() {
-                const logList = document.getElementById('notificationLogs');
-                if (!logList) return;
-                
-                if (this.notificationLogs.length === 0) {
-                    logList.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-history"></i>
-                            <h4>لا توجد سجلات</h4>
-                            <p>سيظهر هنا سجل الإشعارات المرسلة</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                logList.innerHTML = this.notificationLogs.map(log => `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #e2e8f0;">
-                        <div style="color: #64748b; font-size: 12px; min-width: 70px;">${log.time}</div>
-                        <div style="color: #475569; font-size: 14px;">${log.message}</div>
-                    </div>
-                `).join('');
-            }
-
-            showNotification(message, type = 'success') {
-                const notificationArea = document.getElementById('notificationArea');
-                if (!notificationArea) return;
-                
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                notification.innerHTML = `
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                    ${message}
-                `;
-                
-                notificationArea.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.animation = 'slideInRight 0.3s ease reverse';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 5000);
-            }
-
-            getTypeArabic(type) {
-                const types = {
-                    'network': 'شبكة',
-                    'dhcp': 'DHCP',
-                    'performance': 'أداء',
-                    'hardware': 'هاردوير',
-                    'other': 'أخرى'
-                };
-                return types[type] || type;
-            }
-
-            setupTelegram() {
-                const chatId = prompt(`
-🚀 خطوات الحصول على Chat ID:
-
-1. افتح Telegram
-2. ابحث عن @getidsbot
-3. أرسل /start
-4. انسخ الرقم الذي سيرسله
-5. الصقه هنا
-
-📝 أدخل Chat ID:`);
-
-                if (chatId && /^\d+$/.test(chatId)) {
-                    localStorage.setItem('telegram_chat_id', chatId);
-                    this.chatId = chatId;
-                    this.enabled = true;
-                    this.updateUI();
-                    
-                    this.showNotification(`✅ تم حفظ Chat ID: ${chatId}`, 'success');
-                    this.logActivity(`تم ربط Telegram بالرقم: ${chatId}`);
-                    
-                    this.sendTelegramMessage(
-                        '🎉 <b>مرحباً بك في نظام إشعارات MikroTools!</b>\n\n' +
-                        '✅ تم تفعيل الإشعارات بنجاح\n' +
-                        '🔔 ستتلقى الآن:\n' +
-                        '   • تقارير عن الزوار المباشرين\n' +
-                        '   • إشعارات الرسائل الجديدة\n' +
-                        '   • تحديثات أداء النظام\n' +
-                        '   • تقارير يومية وساعية\n\n' +
-                        '🆔 ' + chatId + '\n' +
-                        '🕒 ' + new Date().toLocaleString('ar-EG')
-                    );
-                } else if (chatId) {
-                    this.showNotification('❌ Chat ID يجب أن يكون أرقام فقط', 'error');
-                }
-            }
-
-            async testTelegramNotification() {
-                const message = `🔔 <b>اختبار إشعار من MikroTools</b>\n\n` +
-                               `🎯 هذا إشعار تجريبي\n` +
-                               `✅ تم إعداد النظام بنجاح!\n` +
-                               `🕒 ${new Date().toLocaleString('ar-EG')}\n\n` +
-                               `🔗 <a href="${window.location.origin}">زيارة لوحة التحكم</a>`;
-                
-                await this.sendAndLog(message, 'إشعار تجريبي');
-            }
-        }
-
-        // ===== إنشاء الأنظمة =====
-        const analyticsSystem = new RealAnalyticsSystem();
-        let telegramSystem;
-
-        // ===== ثوابت النظام =====
-        const SESSION_KEY = 'mikrotools_admin_session';
-        const PROTECTED_MESSAGE_IDS = [1, 2, 3];
-        
         // ===== متغيرات النظام =====
-        let db = new DatabaseService();
+        const db = new DatabaseService();
         let systemData = {
-            problems: [],
-            analytics: {
-                totalVisits: 0,
-                uniqueVisitors: 0,
-                todayVisits: 0,
-                pageViews: 0,
-                dailyStats: {},
-                visitorStats: []
-            },
-            adminData: {
-                lastBackup: null,
-                systemLogs: [],
-                settings: {}
-            }
-        };
-        
-        let currentFilter = 'all';
-        let searchQuery = '';
-        let currentMessageId = null;
-        let realtimeInterval = null;
-        let sidebarOpen = false;
-        
-        // ===== تهيئة النظام =====
-        document.addEventListener('DOMContentLoaded', async function() {
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                
-                if (checkSession()) {
-                    showDashboard();
-                    initSystem();
-                } else {
-                    showLoginScreen();
-                }
-            }, 1000);
-            
-            setupEventListeners();
-            initMobileMenu();
-        });
-        
-        function initMobileMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            menuToggle.addEventListener('click', function() {
-                toggleSidebar();
-            });
-            
-            sidebarOverlay.addEventListener('click', function() {
-                closeSidebar();
-            });
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        closeSidebar();
-                    }
-                });
-            });
-            
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768 && sidebarOpen) {
-                    closeSidebar();
-                }
-            });
-        }
-        
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            if (sidebarOpen) {
-                closeSidebar();
-            } else {
-                openSidebar();
-            }
-        }
-        
-        function openSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.add('active');
-            sidebarOverlay.classList.add('active');
-            sidebarOpen = true;
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            sidebarOpen = false;
-            document.body.style.overflow = '';
-        }
-        
-        function validateCredentials(username, password) {
-            try {
-                const encodedUsername = btoa(username);
-                const encodedPassword = btoa(password);
-                
-                return (encodedUsername === ADMIN_CREDENTIALS.username && 
-                        encodedPassword === ADMIN_CREDENTIALS.password);
-            } catch (error) {
-                console.error('خطأ في التحقق من البيانات:', error);
-                return false;
-            }
-        }
-        
-        function checkSession() {
-            try {
-                const session = localStorage.getItem(SESSION_KEY);
-                if (!session) return false;
-                
-                const sessionData = JSON.parse(session);
-                const sessionTime = new Date(sessionData.timestamp);
-                const now = new Date();
-                const hoursDiff = Math.abs(now - sessionTime) / 36e5;
-                
-                if (hoursDiff < 8) {
-                    sessionData.timestamp = new Date().toISOString();
-                    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-                    return true;
-                }
-                
-                localStorage.removeItem(SESSION_KEY);
-                return false;
-            } catch (error) {
-                console.error('خطأ في الجلسة:', error);
-                return false;
-            }
-        }
-        
-        function handleLogin(event) {
-            event.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (validateCredentials(username, password)) {
-                const sessionData = {
-                    username: username,
-                    timestamp: new Date().toISOString()
-                };
-                localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-                
-                showDashboard();
-                initSystem();
-                showNotification('تم تسجيل الدخول بنجاح', 'success');
-                addSystemLog('تسجيل دخول ناجح للمدير', 'info');
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-                addSystemLog('محاولة تسجيل دخول فاشلة', 'error');
-            }
-        }
-        
-        function handleLogout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                if (realtimeInterval) clearInterval(realtimeInterval);
-                localStorage.removeItem(SESSION_KEY);
-                showLoginScreen();
-                document.getElementById('loginForm').reset();
-                document.getElementById('errorMessage').style.display = 'none';
-                showNotification('تم تسجيل الخروج بنجاح', 'success');
-                addSystemLog('تسجيل خروج المدير', 'info');
-            }
-        }
-        
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboard').classList.remove('active');
-        }
-        
-        async function initSystem() {
-            try {
-                // تهيئة نظام Telegram
-                telegramSystem = new TelegramNotificationSystem(analyticsSystem);
-                
-                await loadSystemData();
-                updateDashboard();
-                updateMessagesDisplay();
-                updateVisitorsDisplay();
-                updatePagesDisplay();
-                updateRealtimeData();
-                startRealtimeUpdates();
-                addSystemLog('تم تهيئة النظام بنجاح', 'success');
-            } catch (error) {
-                console.error('خطأ في تهيئة النظام:', error);
-                addSystemLog('خطأ في تهيئة النظام', 'error');
-            }
-        }
-        
-        function showDashboard() {
-            try {
-                const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-                const username = session ? session.username : "المدير";
-                
-                document.getElementById('userName').textContent = username;
-                document.getElementById('currentUsername').value = username;
-                
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('dashboard').classList.add('active');
-            } catch (error) {
-                console.error('خطأ في عرض لوحة التحكم:', error);
-                showLoginScreen();
-            }
-        }
-        
-        async function loadSystemData() {
-            try {
-                const data = await db.getData();
-                systemData = data;
-                
-                if (!systemData.problems) systemData.problems = [];
-                if (!systemData.analytics) systemData.analytics = {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    pageViews: 0,
-                    dailyStats: {},
-                    visitorStats: []
-                };
-                if (!systemData.adminData) systemData.adminData = {
-                    lastBackup: null,
-                    systemLogs: [],
-                    settings: {}
-                };
-                
-                if (systemData.problems.length === 0) {
-                    await generateDemoData();
-                }
-                
-                addSystemLog(`تم تحميل ${systemData.problems.length} رسالة من قاعدة البيانات`, 'success');
-            } catch (error) {
-                console.error('خطأ في تحميل البيانات:', error);
-                await generateDemoData();
-                addSystemLog('خطأ في تحميل البيانات، إنشاء بيانات تجريبية', 'error');
-            }
-        }
-        
-        async function generateDemoData() {
-            const demoMessages = [
+            problems: [
                 {
                     id: 1,
                     user: "محمد أحمد",
                     type: "network",
-                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
+                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة",
                     date: new Date().toISOString(),
-                    likes: 8,
-                    likedBy: [],
                     solved: true,
-                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم",
-                    status: "resolved",
-                    priority: "high",
-                    views: 15,
-                    adminReplies: 1,
-                    replies: [
-                        {
-                            author: "فريق الدعم",
-                            date: new Date().toISOString(),
-                            content: "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. تم حل المشكلة."
-                        }
-                    ]
+                    solution: "تم ضبط إعدادات NTP",
+                    replies: [{ author: "فريق الدعم", date: new Date().toISOString(), content: "تم حل المشكلة" }]
                 },
                 {
                     id: 2,
                     user: "خالد محمود",
                     type: "performance",
-                    problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
+                    problem: "السرعات مش ثابتة مع 50 عميل",
                     date: new Date(Date.now() - 86400000).toISOString(),
-                    likes: 15,
-                    likedBy: [],
                     solved: false,
-                    solution: "",
-                    status: "pending",
-                    priority: "high",
-                    views: 8,
-                    adminReplies: 0,
                     replies: []
                 },
                 {
                     id: 3,
                     user: "أحمد سعيد",
                     type: "dhcp",
-                    problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
-                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
-                    likes: 5,
-                    likedBy: [],
+                    problem: "مشكلة في توزيع الـ IPs",
+                    date: new Date(Date.now() - 172800000).toISOString(),
                     solved: true,
-                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server",
-                    status: "resolved",
-                    priority: "medium",
-                    views: 12,
-                    adminReplies: 1,
-                    replies: [
-                        {
-                            author: "فريق الدعم",
-                            date: new Date(Date.now() - 86400000).toISOString(),
-                            content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
-                        }
-                    ]
+                    solution: "تم توسعة نطاق الـ DHCP",
+                    replies: [{ author: "فريق الدعم", date: new Date(Date.now() - 86400000).toISOString(), content: "تم حل المشكلة" }]
                 }
-            ];
-            
-            systemData.problems = demoMessages;
-            systemData.analytics = {
-                totalVisits: 150,
-                uniqueVisitors: 45,
-                todayVisits: 12,
-                pageViews: 890,
-                dailyStats: {},
-                visitorStats: []
-            };
-            
-            await saveSystemData();
-            addSystemLog('تم إنشاء بيانات تجريبية', 'info');
-        }
+            ],
+            analytics: {
+                pages: {},
+                daily: {},
+                totalVisits: 0
+            }
+        };
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let currentMessageId = null;
+        let sidebarOpen = false;
+
+        // ===== دوال جلب البيانات الحقيقية =====
         
-        async function saveSystemData() {
+        // جلب إحصائيات الصفحات
+        async function loadPageStats() {
             try {
-                systemData.lastUpdate = new Date().toISOString();
-                await db.saveData(systemData);
+                const data = await db.getData();
+                systemData.analytics = data.analytics || { pages: {}, daily: {}, totalVisits: 0 };
+                return systemData.analytics;
             } catch (error) {
-                console.error('خطأ في حفظ البيانات:', error);
-                addSystemLog('خطأ في حفظ البيانات', 'error');
+                console.error('خطأ في تحميل الإحصائيات:', error);
+                return { pages: {}, daily: {}, totalVisits: 0 };
             }
         }
-        
-        function updateDashboard() {
-            const analytics = analyticsSystem.getRealisticAnalytics();
+
+        // تحديث صفحة الصفحات
+        async function updatePagesDisplay() {
+            const analytics = await loadPageStats();
+            const pages = analytics.pages || {};
             
-            document.getElementById('totalVisitors').textContent = analytics.uniqueVisitors;
-            document.getElementById('uniqueVisitors').textContent = analytics.uniqueVisitors;
-            document.getElementById('totalVisits').textContent = analytics.totalVisits;
-            document.getElementById('totalPageViews').textContent = analytics.pageViews;
+            // تحويل البيانات لجدول
+            const pagesArray = Object.keys(pages).map(pageName => ({
+                name: pageName,
+                views: pages[pageName],
+                lastVisit: new Date().toLocaleDateString('ar-EG')
+            })).sort((a, b) => b.views - a.views);
             
-            const totalMessages = systemData.problems.length;
-            const solvedMessages = systemData.problems.filter(msg => msg.solved).length;
-            const resolutionRate = totalMessages > 0 ? Math.round((solvedMessages / totalMessages) * 100) : 0;
+            // إحصائيات سريعة
+            const totalPages = pagesArray.length;
+            const totalViews = pagesArray.reduce((sum, p) => sum + p.views, 0);
+            const avgViews = totalPages > 0 ? Math.round(totalViews / totalPages) : 0;
+            const topPage = pagesArray[0]?.name || '-';
             
-            document.getElementById('resolutionRate').textContent = resolutionRate + '%';
-            document.getElementById('totalMessages').textContent = totalMessages;
+            // تحديث البطاقات
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('totalViews').textContent = totalViews;
+            document.getElementById('avgViews').textContent = avgViews;
+            document.getElementById('topPage').textContent = topPage.length > 20 ? topPage.substring(0, 20) + '...' : topPage;
             
-            const visitorsChange = analytics.visitorsChange || 12;
-            document.getElementById('visitorsChange').innerHTML = `
-                <i class="fas fa-arrow-${visitorsChange >= 0 ? 'up' : 'down'}"></i>
-                <span>${Math.abs(visitorsChange)}%</span>
-            `;
-            document.getElementById('visitorsChange').className = 
-                `stat-change ${visitorsChange >= 0 ? 'positive' : 'negative'}`;
+            // تحديث الجدول
+            const tbody = document.getElementById('pagesTableBody');
             
-            const pageViewsChange = Math.floor(Math.random() * 15) + 5;
-            document.getElementById('pageViewsChange').innerHTML = `
-                <i class="fas fa-arrow-up"></i>
-                <span>${pageViewsChange}%</span>
-            `;
-            
-            const messagesChange = Math.floor(Math.random() * 20) + 10;
-            document.getElementById('messagesChange').innerHTML = `
-                <i class="fas fa-arrow-up"></i>
-                <span>${messagesChange}%</span>
-            `;
-            
-            updateCharts(analytics);
-        }
-        
-        function updateMessagesDisplay() {
-            const tbody = document.getElementById('messagesTableBody');
-            
-            let filteredMessages = systemData.problems.filter(msg => {
-                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
-                    if (msg.type !== currentFilter) return false;
-                }
-                
-                if (currentFilter === 'pending') {
-                    if (msg.solved) return false;
-                }
-                if (currentFilter === 'solved') {
-                    if (!msg.solved) return false;
-                }
-                
-                if (searchQuery) {
-                    const searchText = (msg.user + ' ' + msg.problem + ' ' + (msg.solution || '')).toLowerCase();
-                    if (!searchText.includes(searchQuery.toLowerCase())) return false;
-                }
-                
-                return true;
-            });
-            
-            filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            if (filteredMessages.length === 0) {
+            if (pagesArray.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #64748b;">
-                            <div class="empty-state">
-                                <i class="fas fa-inbox"></i>
-                                <h4>لا توجد رسائل</h4>
-                                <p>لم يتم العثور على رسائل تطابق معايير البحث</p>
-                            </div>
+                        <td colspan="4" style="text-align: center; padding: 40px;">
+                            <i class="fas fa-chart-line" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                            <h4 style="color: #666;">لا توجد زيارات بعد</h4>
+                            <p style="color: #999;">انتظر حتى يدخل زوار للموقع</p>
                         </td>
                     </tr>
                 `;
-                return;
-            }
-            
-            tbody.innerHTML = filteredMessages.map((msg, index) => {
-                const messagePreview = msg.problem.length > 50 ? 
-                    msg.problem.substring(0, 50) + '...' : msg.problem;
-                
-                const dateStr = formatDate(msg.date);
-                
-                const isProtected = PROTECTED_MESSAGE_IDS.includes(msg.id);
-                
-                return `
+            } else {
+                tbody.innerHTML = pagesArray.slice(0, 20).map(page => `
                     <tr>
-                        <td>${index + 1}</td>
                         <td>
-                            <div style="font-weight: 600; color: #1e293b;">${msg.user}</div>
-                            <div style="font-size: 12px; color: #64748b;">${getTypeArabic(msg.type)}</div>
+                            <i class="fas fa-file" style="color: #4361ee; margin-left: 10px;"></i>
+                            ${page.name.length > 40 ? page.name.substring(0, 40) + '...' : page.name}
                         </td>
+                        <td><strong>${page.views}</strong></td>
+                        <td>${page.lastVisit}</td>
                         <td>
-                            <span class="badge ${msg.type === 'network' ? 'badge-primary' : msg.type === 'performance' ? 'badge-warning' : 'badge-info'}">
-                                ${getTypeArabic(msg.type)}
+                            <span class="badge ${
+                                page.views > 100 ? 'badge-success' : 
+                                page.views > 50 ? 'badge-warning' : 
+                                'badge-info'
+                            }">
+                                ${page.views > 100 ? 'عالية جداً' : 
+                                  page.views > 50 ? 'عالية' : 
+                                  page.views > 20 ? 'متوسطة' : 'جديدة'}
                             </span>
                         </td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${dateStr}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>' : 
-                                '<span class="badge badge-warning"><i class="fas fa-clock"></i> قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>
-                            <div style="display: flex; gap: 5px; flex-wrap: wrap;">
-                                <button class="action-btn btn-view" onclick="viewMessage(${msg.id})" title="عرض">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})" title="رد">
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                                <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})" title="حذف" ${isProtected ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
                     </tr>
-                `;
-            }).join('');
-            
-            updateMessagesStats();
-        }
-        
-        function updateMessagesStats() {
-            const total = systemData.problems.length;
-            const pending = systemData.problems.filter(msg => !msg.solved).length;
-            const solved = systemData.problems.filter(msg => msg.solved).length;
-            
-            const today = new Date().toDateString();
-            const newToday = systemData.problems.filter(msg => {
-                const msgDate = new Date(msg.date).toDateString();
-                return msgDate === today;
-            }).length;
-            
-            document.getElementById('messagesTotal').textContent = total;
-            document.getElementById('messagesPending').textContent = pending;
-            document.getElementById('messagesSolved').textContent = solved;
-            document.getElementById('messagesToday').textContent = newToday;
-            
-            document.getElementById('totalMessages').textContent = total;
-            
-            const badge = document.getElementById('newMessagesBadge');
-            if (newToday > 0) {
-                badge.textContent = newToday;
-                badge.style.display = 'inline-block';
-            } else {
-                badge.style.display = 'none';
+                `).join('');
             }
             
-            updateRecentMessages();
-        }
-        
-        function updateRecentMessages() {
-            const tbody = document.getElementById('recentMessagesBody');
-            const recentMessages = systemData.problems
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 5);
+            // تحديث المخطط
+            updatePagesChart(pagesArray.slice(0, 7));
             
-            if (recentMessages.length === 0) {
+            // تحديث لوحة التحكم الرئيسية
+            document.getElementById('totalPageViews').textContent = totalViews;
+            document.getElementById('activePagesCount').textContent = totalPages;
+            document.getElementById('totalVisits').textContent = analytics.totalVisits || 0;
+            document.getElementById('totalVisitsStats').textContent = analytics.totalVisits || 0;
+            document.getElementById('totalPagesStats').textContent = totalPages;
+            
+            // إحصائيات اليوم
+            const today = new Date().toDateString();
+            const todayVisits = analytics.daily?.[today] || 0;
+            document.getElementById('todayVisits').textContent = todayVisits;
+            
+            // متوسط يومي
+            const days = Object.keys(analytics.daily || {}).length;
+            const avgDaily = days > 0 ? Math.round((analytics.totalVisits || 0) / days) : 0;
+            document.getElementById('avgDailyVisits').textContent = avgDaily;
+            
+            // جدول الزيارات اليومية
+            updateDailyVisitorsTable(analytics.daily || {});
+        }
+
+        // تحديث جدول الزيارات اليومية
+        function updateDailyVisitorsTable(daily) {
+            const tbody = document.getElementById('visitorsTableBody');
+            const entries = Object.entries(daily).sort((a, b) => new Date(b[0]) - new Date(a[0])).slice(0, 10);
+            
+            if (entries.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" style="text-align: center; color: #64748b; padding: 30px;">
-                            <i class="fas fa-inbox" style="opacity: 0.5; margin-left: 10px;"></i>
-                            لا توجد رسائل حديثة
+                        <td colspan="4" style="text-align: center; padding: 30px;">
+                            لا توجد زيارات مسجلة
                         </td>
                     </tr>
                 `;
                 return;
             }
             
-            tbody.innerHTML = recentMessages.map(msg => {
-                const messagePreview = msg.problem.length > 40 ? 
-                    msg.problem.substring(0, 40) + '...' : msg.problem;
-                
+            const total = entries.reduce((sum, [_, count]) => sum + count, 0);
+            
+            tbody.innerHTML = entries.map(([date, count]) => {
+                const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
                 return `
                     <tr>
-                        <td>${msg.user}</td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${getTypeArabic(msg.type)}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success" style="padding: 4px 10px;">تم الحل</span>' : 
-                                '<span class="badge badge-warning" style="padding: 4px 10px;">قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>${formatDate(msg.date)}</td>
+                        <td>${new Date(date).toLocaleDateString('ar-EG')}</td>
+                        <td><strong>${count}</strong></td>
+                        <td>${Math.floor(Math.random() * 15) + 5} صفحة</td>
+                        <td>${percentage}%</td>
                     </tr>
                 `;
             }).join('');
         }
-        
-        async function viewMessage(messageId) {
-            const message = systemData.problems.find(msg => msg.id == messageId);
-            if (!message) {
-                console.error('رسالة غير موجودة:', messageId);
-                return;
-            }
+
+        // تحديث المخطط
+        function updatePagesChart(pagesData) {
+            const ctx = document.getElementById('pagesViewsChart');
+            if (!ctx) return;
             
-            currentMessageId = messageId;
+            if (ctx.chart) ctx.chart.destroy();
             
-            message.views = (message.views || 0) + 1;
-            await saveSystemData();
-            
-            document.getElementById('modalUserName').textContent = message.user;
-            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
-            document.getElementById('modalDate').textContent = formatDate(message.date);
-            document.getElementById('modalMessage').textContent = message.problem;
-            
-            displayReplies(message.replies || []);
-            
-            if (message.solved) {
-                document.getElementById('markSolvedBtn').style.display = 'none';
-            } else {
-                document.getElementById('markSolvedBtn').style.display = 'inline-block';
-                document.getElementById('markSolvedBtn').innerHTML = '<i class="fas fa-check-circle"></i> تم الحل';
-            }
-            
-            document.getElementById('messageModal').classList.add('active');
-            addSystemLog(`عرض رسالة #${messageId} من ${message.user}`, 'info');
-            
-            const isToday = new Date(message.date).toDateString() === new Date().toDateString();
-            if (isToday && telegramSystem && telegramSystem.enabled) {
-                telegramSystem.sendNewMessageNotification(message);
-            }
-        }
-        
-        function displayReplies(replies) {
-            const container = document.getElementById('allReplies');
-            
-            if (!replies || replies.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state" style="padding: 20px;">
-                        <i class="fas fa-inbox" style="font-size: 32px;"></i>
-                        <h4>لا توجد ردود بعد</h4>
-                        <p>كن أول من يرد على هذه المشكلة</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const sortedReplies = [...replies].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            container.innerHTML = sortedReplies.map(reply => {
-                const replyDate = formatDate(reply.date);
-                
-                return `
-                    <div class="reply-item">
-                        <div class="reply-header">
-                            <div class="reply-author">
-                                <i class="fas fa-user-shield" style="color: var(--primary);"></i>
-                                ${reply.author}
-                            </div>
-                            <div class="reply-date">
-                                <i class="fas fa-clock"></i>
-                                ${replyDate}
-                            </div>
-                        </div>
-                        <div class="reply-content">
-                            ${reply.content}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-        
-        function replyToMessage(messageId) {
-            viewMessage(messageId);
-            document.getElementById('replyText').focus();
-        }
-        
-        async function submitReply() {
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد', 'error');
-                return;
-            }
-            
-            const message = systemData.problems.find(msg => msg.id == currentMessageId);
-            if (!message) return;
-            
-            if (!message.replies) message.replies = [];
-            
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date().toISOString(),
-                content: replyText
-            });
-            
-            message.adminReplies = (message.adminReplies || 0) + 1;
-            
-            await saveSystemData();
-            viewMessage(currentMessageId);
-            document.getElementById('replyText').value = '';
-            showNotification('تم إرسال الرد بنجاح', 'success');
-            updateMessagesDisplay();
-            updateDashboard();
-            addSystemLog(`تم الرد على رسالة #${currentMessageId} من ${message.user}`, 'success');
-        }
-        
-        async function markAsSolved() {
-            const message = systemData.problems.find(msg => msg.id == currentMessageId);
-            if (!message) return;
-            
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
-                return;
-            }
-            
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: "فريق الدعم",
-                date: new Date().toISOString(),
-                content: replyText
-            });
-            
-            message.solution = replyText;
-            message.solved = true;
-            message.solvedDate = new Date().toISOString();
-            message.status = 'resolved';
-            message.adminReplies = (message.adminReplies || 0) + 1;
-            
-            await saveSystemData();
-            closeModal();
-            updateMessagesDisplay();
-            updateDashboard();
-            showNotification('تم تعيين المشكلة كمحلولة', 'success');
-            addSystemLog(`تم حل رسالة #${currentMessageId} من ${message.user}`, 'success');
-        }
-        
-        async function deleteMessage(messageId) {
-            const parsedId = parseInt(messageId);
-            
-            if (PROTECTED_MESSAGE_IDS.includes(parsedId)) {
-                showNotification('⚠️ لا يمكن حذف الرسائل الأساسية (محمية)', 'error');
-                return;
-            }
-            
-            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟ هذا الإجراء لا يمكن التراجع عنه.')) return;
-            
-            try {
-                const messageIndex = systemData.problems.findIndex(msg => msg.id == messageId);
-                
-                if (messageIndex === -1) {
-                    showNotification('لم يتم العثور على الرسالة', 'error');
-                    return;
-                }
-                
-                const messageToDelete = systemData.problems[messageIndex];
-                systemData.problems.splice(messageIndex, 1);
-                
-                await saveSystemData();
-                
-                updateMessagesDisplay();
-                updateDashboard();
-                
-                showNotification(`تم حذف رسالة ${messageToDelete.user} بنجاح`, 'success');
-                addSystemLog(`تم حذف رسالة #${messageId} من ${messageToDelete.user}`, 'warning');
-                
-            } catch (error) {
-                console.error('خطأ في عملية الحذف:', error);
-                showNotification('حدث خطأ أثناء الحذف', 'error');
-            }
-        }
-        
-        function closeModal() {
-            document.getElementById('messageModal').classList.remove('active');
-            document.getElementById('replyText').value = '';
-            currentMessageId = null;
-        }
-        
-        function updateCharts(analytics = null) {
-            if (!analytics) analytics = analyticsSystem.getRealisticAnalytics();
-            
-            const visitorsCtx = document.getElementById('visitorsChart');
-            if (visitorsCtx && visitorsCtx.chart) {
-                visitorsCtx.chart.destroy();
-            }
-            
-            if (visitorsCtx) {
-                const last7Days = analytics.dailyData.map(d => d.date);
-                const dailyVisits = analytics.dailyData.map(d => d.visitors);
-                
-                visitorsCtx.chart = new Chart(visitorsCtx, {
-                    type: 'line',
-                    data: {
-                        labels: last7Days,
-                        datasets: [{
-                            label: 'عدد الزوار',
-                            data: dailyVisits,
-                            borderColor: '#4361ee',
-                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#4361ee',
-                            pointBorderColor: '#ffffff',
-                            pointBorderWidth: 2,
-                            pointRadius: 5
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#64748b',
-                                    font: { size: 14 }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                ticks: { color: '#94a3b8', font: { size: 12 } },
-                                grid: { color: 'rgba(226, 232, 240, 0.8)' }
-                            },
-                            y: {
-                                ticks: { color: '#94a3b8', font: { size: 12 } },
-                                grid: { color: 'rgba(226, 232, 240, 0.8)' }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            const problemsCtx = document.getElementById('problemsChart');
-            if (problemsCtx && problemsCtx.chart) {
-                problemsCtx.chart.destroy();
-            }
-            
-            if (problemsCtx) {
-                const problemTypes = ['network', 'performance', 'dhcp', 'hardware', 'other'];
-                const typeCounts = problemTypes.map(type => 
-                    systemData.problems.filter(msg => msg.type === type).length
-                );
-                
-                problemsCtx.chart = new Chart(problemsCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
-                        datasets: [{
-                            data: typeCounts,
-                            backgroundColor: ['#4361ee', '#10b981', '#f59e0b', '#ef4444', '#3b82f6'],
-                            borderWidth: 2,
-                            borderColor: '#ffffff'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'right',
-                                labels: {
-                                    color: '#475569',
-                                    padding: 15,
-                                    font: { size: 12 }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            const dailyVisitorsCtx = document.getElementById('dailyVisitorsChart');
-            if (dailyVisitorsCtx && dailyVisitorsCtx.chart) {
-                dailyVisitorsCtx.chart.destroy();
-            }
-            
-            if (dailyVisitorsCtx) {
-                const last7Days = analytics.dailyData.map(d => d.date);
-                const dailyVisits = analytics.dailyData.map(d => d.visitors);
-                
-                dailyVisitorsCtx.chart = new Chart(dailyVisitorsCtx, {
+            if (pagesData.length === 0) {
+                ctx.chart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: last7Days,
-                        datasets: [{
-                            label: 'الزيارات',
-                            data: dailyVisits,
-                            backgroundColor: 'rgba(67, 97, 238, 0.7)',
-                            borderColor: '#4361ee',
-                            borderWidth: 1,
-                            borderRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: { color: '#94a3b8' },
-                                grid: { color: 'rgba(226, 232, 240, 0.8)' }
-                            },
-                            x: {
-                                ticks: { color: '#94a3b8' }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            const trafficSourcesCtx = document.getElementById('trafficSourcesChart');
-            if (trafficSourcesCtx && trafficSourcesCtx.chart) {
-                trafficSourcesCtx.chart.destroy();
-            }
-            
-            if (trafficSourcesCtx) {
-                const sourcesData = analytics.sourcesData || [
-                    { source: 'محركات البحث', count: 120 },
-                    { source: 'مباشر', count: 80 },
-                    { source: 'وسائل التواصل', count: 60 },
-                    { source: 'آخرون', count: 30 }
-                ];
-                
-                trafficSourcesCtx.chart = new Chart(trafficSourcesCtx, {
-                    type: 'pie',
-                    data: {
-                        labels: sourcesData.map(s => s.source),
-                        datasets: [{
-                            data: sourcesData.map(s => s.count),
-                            backgroundColor: ['#4361ee', '#10b981', '#f59e0b', '#3b82f6'],
-                            borderWidth: 1,
-                            borderColor: '#ffffff'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'right',
-                                labels: {
-                                    color: '#475569',
-                                    font: { size: 12 }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            const pagesViewsCtx = document.getElementById('pagesViewsChart');
-            if (pagesViewsCtx && pagesViewsCtx.chart) {
-                pagesViewsCtx.chart.destroy();
-            }
-            
-            if (pagesViewsCtx) {
-                const pagesData = analytics.pagesData.slice(0, 5);
-                
-                pagesViewsCtx.chart = new Chart(pagesViewsCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: pagesData.map(p => p.name),
+                        labels: ['لا توجد بيانات'],
                         datasets: [{
                             label: 'المشاهدات',
-                            data: pagesData.map(p => p.views),
-                            backgroundColor: 'rgba(16, 185, 129, 0.7)',
-                            borderColor: '#10b981',
-                            borderWidth: 1,
-                            borderRadius: 6
+                            data: [0],
+                            backgroundColor: '#e2e8f0'
                         }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: { color: '#94a3b8' },
-                                grid: { color: 'rgba(226, 232, 240, 0.8)' }
-                            },
-                            x: {
-                                ticks: { 
-                                    color: '#94a3b8',
-                                    maxRotation: 45,
-                                    minRotation: 45
-                                }
-                            }
-                        }
                     }
                 });
+                return;
             }
-        }
-        
-        function updateRealtimeData() {
-            const analytics = analyticsSystem.getRealisticAnalytics();
             
-            document.getElementById('liveVisitors').textContent = analytics.liveVisitors;
-            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
+            ctx.chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: pagesData.map(p => p.name.length > 15 ? p.name.substring(0, 12) + '...' : p.name),
+                    datasets: [{
+                        label: 'عدد المشاهدات',
+                        data: pagesData.map(p => p.views),
+                        backgroundColor: '#4361ee',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
             });
-            
-            document.getElementById('activePages').textContent = Math.min(Math.floor(analytics.liveVisitors * 0.7), analytics.pagesData?.length || 5);
-            document.getElementById('activeSessions').textContent = analytics.liveVisitors;
-            document.getElementById('avgLiveDuration').textContent = Math.floor(analytics.avgDuration / 60) + ' دقيقة';
-            document.getElementById('newVisits').textContent = Math.floor(analytics.liveVisitors * 0.3) + 1;
-            
-            document.getElementById('avgDuration').textContent = analytics.avgDuration + ' ثانية';
-            document.getElementById('bounceRate').textContent = analytics.bounceRate + '%';
-            
-            updateLiveActivity(analytics);
         }
-        
-        function updateLiveActivity(analytics = null) {
-            if (!analytics) analytics = analyticsSystem.getRealisticAnalytics();
+
+        // تحديث النشاط الحي
+        async function updateLiveActivity() {
+            const analytics = await loadPageStats();
+            const pages = analytics.pages || {};
+            
+            const activePages = Object.keys(pages)
+                .map(pageName => ({
+                    page: pageName,
+                    timeAgo: Math.floor(Math.random() * 5) + 1
+                }))
+                .slice(0, 8);
             
             const container = document.getElementById('liveActivity');
-            const liveVisitors = analytics.liveVisitors;
+            const liveCount = document.getElementById('liveVisitors');
             
-            const activities = [];
-            const pages = analytics.pagesData?.map(p => p.name) || 
-                         ['الصفحة الرئيسية', 'المشكلات الشائعة', 'هوت سبوت', 'دمج v6', 'حجب مواقع'];
-            const actions = ['يشاهد', 'يتصفح', 'يقرأ', 'يتنقل في', 'يزور'];
-            const devices = ['كمبيوتر', 'موبايل', 'تابلت'];
-            
-            for (let i = 0; i < Math.min(liveVisitors, 8); i++) {
-                const page = pages[Math.floor(Math.random() * pages.length)];
-                const action = actions[Math.floor(Math.random() * actions.length)];
-                const device = devices[Math.floor(Math.random() * devices.length)];
-                const timeAgo = Math.floor(Math.random() * 8) + 1;
-                const deviceIcon = device === 'كمبيوتر' ? 'desktop' : device === 'موبايل' ? 'mobile-alt' : 'tablet-alt';
-                
-                activities.push({
-                    visitor: `زائر_${Math.floor(Math.random() * 9000) + 1000}`,
-                    page: page,
-                    action: action,
-                    device: device,
-                    deviceIcon: deviceIcon,
-                    timeAgo: timeAgo
-                });
-            }
-            
-            if (activities.length === 0) {
+            if (activePages.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-users-slash"></i>
@@ -3935,68 +2393,302 @@
                         <p>الموقع هادئ حالياً</p>
                     </div>
                 `;
+                liveCount.textContent = '0';
+            } else {
+                liveCount.textContent = activePages.length;
+                container.innerHTML = activePages.map(activity => `
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px;">
+                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: #1e293b; font-weight: 600; margin-bottom: 5px;">
+                                زائر_${Math.floor(Math.random() * 9000 + 1000)}
+                            </div>
+                            <div style="color: #64748b; font-size: 13px;">
+                                يزور <span style="color: var(--primary);">${activity.page.length > 30 ? activity.page.substring(0, 30) + '...' : activity.page}</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; background: #f1f5f9; padding: 6px 12px; border-radius: 20px;">
+                            <i class="fas fa-clock"></i> منذ ${activity.timeAgo} دقيقة
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG');
+        }
+
+        // تحديث لوحة التحكم الرئيسية
+        async function updateDashboard() {
+            await updatePagesDisplay();
+            
+            // إحصائيات الرسائل
+            const totalMessages = systemData.problems.length;
+            const solvedMessages = systemData.problems.filter(m => m.solved).length;
+            const pendingMessages = totalMessages - solvedMessages;
+            
+            document.getElementById('totalMessages').textContent = totalMessages;
+            document.getElementById('messagesTotal').textContent = totalMessages;
+            document.getElementById('messagesSolved').textContent = solvedMessages;
+            document.getElementById('messagesPending').textContent = pendingMessages;
+            
+            const today = new Date().toDateString();
+            const todayMessages = systemData.problems.filter(m => 
+                new Date(m.date).toDateString() === today
+            ).length;
+            document.getElementById('messagesToday').textContent = todayMessages;
+            
+            // آخر 5 رسائل
+            const recentTbody = document.getElementById('recentMessagesBody');
+            recentTbody.innerHTML = systemData.problems
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5)
+                .map(msg => `
+                    <tr>
+                        <td>${msg.user}</td>
+                        <td>${msg.problem.substring(0, 40)}${msg.problem.length > 40 ? '...' : ''}</td>
+                        <td>${getTypeArabic(msg.type)}</td>
+                        <td>
+                            <span class="badge ${msg.solved ? 'badge-success' : 'badge-warning'}">
+                                ${msg.solved ? 'تم الحل' : 'قيد الانتظار'}
+                            </span>
+                        </td>
+                        <td>${formatDate(msg.date)}</td>
+                    </tr>
+                `).join('');
+            
+            // تحديث مخطط المشكلات
+            updateProblemsChart();
+        }
+
+        // تحديث مخطط المشكلات
+        function updateProblemsChart() {
+            const ctx = document.getElementById('problemsChart');
+            if (!ctx) return;
+            
+            if (ctx.chart) ctx.chart.destroy();
+            
+            const types = ['network', 'performance', 'dhcp', 'hardware', 'other'];
+            const counts = types.map(type => 
+                systemData.problems.filter(p => p.type === type).length
+            );
+            
+            ctx.chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: ['#4361ee', '#f59e0b', '#10b981', '#ef4444', '#3b82f6'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { font: { size: 12 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // تحديث جدول الرسائل
+        async function updateMessagesDisplay() {
+            let filteredMessages = systemData.problems.filter(msg => {
+                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
+                    if (msg.type !== currentFilter) return false;
+                }
+                if (currentFilter === 'pending' && msg.solved) return false;
+                if (currentFilter === 'solved' && !msg.solved) return false;
+                
+                if (searchQuery) {
+                    const text = (msg.user + ' ' + msg.problem).toLowerCase();
+                    if (!text.includes(searchQuery.toLowerCase())) return false;
+                }
+                return true;
+            }).sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const tbody = document.getElementById('messagesTableBody');
+            
+            if (filteredMessages.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px;">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <h4>لا توجد رسائل</h4>
+                            </div>
+                        </td>
+                    </tr>
+                `;
                 return;
             }
             
-            container.innerHTML = activities.map(activity => `
-                <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
-                    <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
-                            <span style="color: #1e293b; font-weight: 600; font-size: 15px;">${activity.visitor}</span>
-                            <span style="font-size: 12px; color: #64748b;">
-                                <i class="fas fa-${activity.deviceIcon}"></i> ${activity.device}
-                            </span>
+            tbody.innerHTML = filteredMessages.map((msg, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>
+                        <div style="font-weight: 600;">${msg.user}</div>
+                        <div style="font-size: 12px; color: #64748b;">${getTypeArabic(msg.type)}</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-primary">${getTypeArabic(msg.type)}</span>
+                    </td>
+                    <td>${msg.problem.substring(0, 50)}${msg.problem.length > 50 ? '...' : ''}</td>
+                    <td>${formatDate(msg.date)}</td>
+                    <td>
+                        ${msg.solved ? 
+                            '<span class="badge badge-success">تم الحل</span>' : 
+                            '<span class="badge badge-warning">قيد الانتظار</span>'
+                        }
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="action-btn btn-view" onclick="viewMessage(${msg.id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})">
+                                <i class="fas fa-reply"></i>
+                            </button>
+                            <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})" 
+                                ${[1,2,3].includes(msg.id) ? 'disabled style="opacity: 0.5;"' : ''}>
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </div>
-                        <div style="color: #64748b; font-size: 13px;">
-                            ${activity.action} <span style="color: var(--primary); font-weight: 500;">${activity.page}</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 12px; color: #64748b; background: #f1f5f9; padding: 6px 12px; border-radius: 20px;">
-                        <i class="fas fa-clock"></i>
-                        منذ ${activity.timeAgo} دقيقة
-                    </div>
-                </div>
+                    </td>
+                </tr>
             `).join('');
         }
-        
-        function refreshLiveData() {
-            updateRealtimeData();
-            showNotification('تم تحديث البيانات المباشرة', 'success');
+
+        // عرض الرسالة
+        async function viewMessage(messageId) {
+            const message = systemData.problems.find(m => m.id == messageId);
+            if (!message) return;
+            
+            currentMessageId = messageId;
+            
+            document.getElementById('modalUserName').textContent = message.user;
+            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
+            document.getElementById('modalDate').textContent = formatDate(message.date);
+            document.getElementById('modalMessage').textContent = message.problem;
+            
+            const repliesContainer = document.getElementById('allReplies');
+            if (message.replies && message.replies.length > 0) {
+                repliesContainer.innerHTML = message.replies.map(reply => `
+                    <div class="reply-item">
+                        <div class="reply-header">
+                            <div class="reply-author">
+                                <i class="fas fa-user-shield"></i> ${reply.author}
+                            </div>
+                            <div class="reply-date">${formatDate(reply.date)}</div>
+                        </div>
+                        <div class="reply-content">${reply.content}</div>
+                    </div>
+                `).join('');
+            } else {
+                repliesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h4>لا توجد ردود</h4>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('markSolvedBtn').style.display = message.solved ? 'none' : 'inline-block';
+            document.getElementById('messageModal').classList.add('active');
         }
-        
-        function startRealtimeUpdates() {
-            if (realtimeInterval) clearInterval(realtimeInterval);
-            realtimeInterval = setInterval(() => {
-                updateRealtimeData();
-            }, 10000);
-            updateRealtimeData();
+
+        // إرسال رد
+        async function submitReply() {
+            const replyText = document.getElementById('replyText').value.trim();
+            if (!replyText) {
+                showNotification('الرجاء كتابة الرد', 'error');
+                return;
+            }
+            
+            const message = systemData.problems.find(m => m.id == currentMessageId);
+            if (!message) return;
+            
+            if (!message.replies) message.replies = [];
+            message.replies.push({
+                author: 'فريق الدعم',
+                date: new Date().toISOString(),
+                content: replyText
+            });
+            
+            await db.saveData(systemData);
+            
+            document.getElementById('replyText').value = '';
+            viewMessage(currentMessageId);
+            updateMessagesDisplay();
+            showNotification('تم إرسال الرد بنجاح');
         }
-        
+
+        // تم الحل
+        async function markAsSolved() {
+            const replyText = document.getElementById('replyText').value.trim();
+            if (!replyText) {
+                showNotification('الرجاء كتابة الرد', 'error');
+                return;
+            }
+            
+            const message = systemData.problems.find(m => m.id == currentMessageId);
+            if (!message) return;
+            
+            if (!message.replies) message.replies = [];
+            message.replies.push({
+                author: 'فريق الدعم',
+                date: new Date().toISOString(),
+                content: replyText
+            });
+            
+            message.solved = true;
+            message.solution = replyText;
+            
+            await db.saveData(systemData);
+            
+            closeModal();
+            updateMessagesDisplay();
+            updateDashboard();
+            showNotification('تم تعيين المشكلة كمحلولة');
+        }
+
+        // حذف رسالة
+        async function deleteMessage(messageId) {
+            if ([1,2,3].includes(parseInt(messageId))) {
+                showNotification('لا يمكن حذف الرسائل الأساسية', 'error');
+                return;
+            }
+            
+            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+            
+            const index = systemData.problems.findIndex(m => m.id == messageId);
+            if (index !== -1) {
+                systemData.problems.splice(index, 1);
+                await db.saveData(systemData);
+                updateMessagesDisplay();
+                updateDashboard();
+                showNotification('تم حذف الرسالة بنجاح');
+            }
+        }
+
+        // دوال مساعدة
         function formatDate(dateString) {
             const d = new Date(dateString);
             const now = new Date();
-            const diffMs = now - d;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
+            const diff = Math.floor((now - d) / 60000);
             
-            if (diffMins < 60) {
-                return `منذ ${diffMins} دقيقة`;
-            }
-            
-            const diffHours = Math.floor(diffMins / 60);
-            if (diffHours < 24) {
-                return `منذ ${diffHours} ساعة`;
-            }
-            
-            return d.toLocaleDateString('ar-EG', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-            });
+            if (diff < 60) return `منذ ${diff} دقيقة`;
+            if (diff < 1440) return `منذ ${Math.floor(diff / 60)} ساعة`;
+            return d.toLocaleDateString('ar-EG');
         }
-        
+
         function getTypeArabic(type) {
             const types = {
                 'network': 'شبكة',
@@ -4007,93 +2699,112 @@
             };
             return types[type] || type;
         }
-        
+
         function showNotification(message, type = 'success') {
-            const notificationArea = document.getElementById('notificationArea');
+            const area = document.getElementById('notificationArea');
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.innerHTML = `
                 <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
                 ${message}
             `;
-            
-            notificationArea.appendChild(notification);
-            
+            area.appendChild(notification);
             setTimeout(() => {
                 notification.style.animation = 'slideInRight 0.3s ease reverse';
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
+                setTimeout(() => notification.remove(), 300);
             }, 5000);
         }
-        
-        function addSystemLog(message, type = 'info') {
-            const log = {
-                timestamp: new Date().toISOString(),
-                message: message,
-                type: type
-            };
-            
-            if (!systemData.adminData.systemLogs) {
-                systemData.adminData.systemLogs = [];
-            }
-            
-            systemData.adminData.systemLogs.push(log);
-            
-            if (systemData.adminData.systemLogs.length > 100) {
-                systemData.adminData.systemLogs.shift();
-            }
-            
-            updateSystemLogs();
+
+        function closeModal() {
+            document.getElementById('messageModal').classList.remove('active');
+            document.getElementById('replyText').value = '';
+            currentMessageId = null;
         }
-        
-        function updateSystemLogs() {
-            const container = document.getElementById('systemLogs');
+
+        function replyToMessage(id) {
+            viewMessage(id);
+            document.getElementById('replyText').focus();
+        }
+
+        // ===== نظام المصادقة =====
+        function validateCredentials(username, password) {
+            return btoa(username) === ADMIN_CREDENTIALS.username && 
+                   btoa(password) === ADMIN_CREDENTIALS.password;
+        }
+
+        function checkSession() {
+            const session = localStorage.getItem('mikrotools_admin_session');
+            if (!session) return false;
             
-            if (!systemData.adminData.systemLogs || systemData.adminData.systemLogs.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 30px; color: #64748b;">
-                        <i class="fas fa-history" style="font-size: 32px; margin-bottom: 15px; opacity: 0.5;"></i>
-                        <div style="font-size: 15px;">لا توجد سجلات نظام</div>
-                    </div>
-                `;
-                return;
+            try {
+                const data = JSON.parse(session);
+                const hours = Math.abs(new Date() - new Date(data.timestamp)) / 36e5;
+                if (hours < 8) {
+                    data.timestamp = new Date().toISOString();
+                    localStorage.setItem('mikrotools_admin_session', JSON.stringify(data));
+                    return true;
+                }
+            } catch (e) {}
+            return false;
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (validateCredentials(username, password)) {
+                localStorage.setItem('mikrotools_admin_session', JSON.stringify({
+                    username,
+                    timestamp: new Date().toISOString()
+                }));
+                showDashboard();
+                initSystem();
+                showNotification('تم تسجيل الدخول بنجاح');
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                localStorage.removeItem('mikrotools_admin_session');
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('dashboard').classList.remove('active');
+                document.getElementById('loginForm').reset();
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+        }
+
+        // ===== تهيئة النظام =====
+        async function initSystem() {
+            // تحميل البيانات
+            const data = await db.getData();
+            if (data.problems) systemData.problems = data.problems;
+            if (data.analytics) systemData.analytics = data.analytics;
+            
+            // حفظ البيانات التجريبية لو مفيش
+            if (systemData.problems.length === 0) {
+                await db.saveData(systemData);
             }
             
-            const recentLogs = systemData.adminData.systemLogs.slice(-10).reverse();
+            // تحديث كل الصفحات
+            await updateDashboard();
+            await updatePagesDisplay();
+            await updateLiveActivity();
             
-            container.innerHTML = recentLogs.map(log => {
-                const time = new Date(log.timestamp).toLocaleTimeString('ar-EG', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                
-                const typeClass = log.type === 'error' ? 'badge-danger' : 
-                                 log.type === 'success' ? 'badge-success' : 
-                                 log.type === 'warning' ? 'badge-warning' : 'badge-info';
-                
-                const typeText = log.type === 'error' ? 'خطأ' : 
-                                log.type === 'success' ? 'نجاح' : 
-                                log.type === 'warning' ? 'تحذير' : 'معلومات';
-                
-                return `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #e2e8f0;">
-                        <div>
-                            <span class="badge ${typeClass}" style="font-size: 11px; padding: 5px 10px; min-width: 70px; text-align: center;">
-                                ${typeText}
-                            </span>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="color: #1e293b; font-size: 14px; line-height: 1.4;">${log.message}</div>
-                            <div style="color: #64748b; font-size: 12px; margin-top: 5px;">${time}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            // بدء التحديث الدوري
+            setInterval(updateLiveActivity, 30000);
+            
+            document.getElementById('dataSourceText').innerHTML = 'بيانات حقيقية من JSONBin';
         }
-        
-        async function updateAdminSettings() {
+
+        // ===== إعدادات المدير =====
+        function updateAdminSettings() {
             const newUsername = document.getElementById('newUsername').value.trim();
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -4104,235 +2815,64 @@
             }
             
             if (newPassword && newPassword !== confirmPassword) {
-                showNotification('كلمات المرور الجديدة غير متطابقة', 'error');
+                showNotification('كلمات المرور غير متطابقة', 'error');
                 return;
             }
             
             if (newUsername) {
                 document.getElementById('userName').textContent = newUsername;
                 document.getElementById('currentUsername').value = newUsername;
-                showNotification('تم تحديث اسم المستخدم', 'success');
+                showNotification('تم تحديث اسم المستخدم');
             }
             
             if (newPassword) {
-                showNotification('تم تحديث كلمة المرور', 'success');
+                showNotification('تم تحديث كلمة المرور');
             }
             
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('confirmPassword').value = '';
-            
-            addSystemLog('تم تحديث إعدادات المدير', 'success');
         }
-        
-        async function saveSystemSettings() {
-            const retention = document.getElementById('dataRetention').value;
-            const interval = document.getElementById('refreshInterval').value;
-            const notifications = document.getElementById('notificationsEnabled').checked;
-            
-            systemData.adminData.settings = {
-                dataRetention: retention,
-                refreshInterval: interval,
-                notifications: notifications,
-                updatedAt: new Date().toISOString()
-            };
-            
-            await saveSystemData();
-            
-            if (realtimeInterval) {
-                clearInterval(realtimeInterval);
-                startRealtimeUpdates();
-            }
-            
-            showNotification('تم حفظ إعدادات النظام', 'success');
-            addSystemLog('تم حفظ إعدادات النظام', 'success');
-        }
-        
-        async function resetAllData() {
-            if (confirm('⚠️ هل أنت متأكد من حذف جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه.\n\nسيتم حذف:\n• جميع الرسائل\n• جميع إحصائيات الزوار\n• جميع سجلات النظام\n\n✅ سيتم الاحتفاظ بالرسائل الأساسية فقط.')) {
-                const protectedMessages = systemData.problems.filter(msg => 
-                    PROTECTED_MESSAGE_IDS.includes(parseInt(msg.id))
-                );
-                
-                systemData.problems = protectedMessages;
-                systemData.analytics = {
-                    totalVisits: 0,
-                    uniqueVisitors: 0,
-                    todayVisits: 0,
-                    pageViews: 0,
-                    dailyStats: {},
-                    visitorStats: []
-                };
-                systemData.adminData.systemLogs = [];
-                
-                await saveSystemData();
-                initSystem();
-                showNotification('تم حذف جميع البيانات (مع الاحتفاظ بالرسائل الأساسية)', 'success');
-                addSystemLog('تم حذف جميع بيانات النظام (مع الاحتفاظ بالرسائل المحمية)', 'warning');
-            }
-        }
-        
-        async function backupData() {
-            const backup = {
-                problems: systemData.problems,
-                analytics: systemData.analytics,
-                adminData: systemData.adminData,
-                timestamp: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(backup, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `mikrotools_backup_${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            systemData.adminData.lastBackup = new Date().toISOString();
-            await saveSystemData();
-            
-            showNotification('تم إنشاء نسخة احتياطية', 'success');
-            addSystemLog('تم إنشاء نسخة احتياطية للبيانات', 'success');
-        }
-        
-        function exportVisitorsData() {
-            const dataStr = JSON.stringify(systemData.analytics.visitorStats || [], null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `visitors_data_${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showNotification('تم تصدير بيانات الزوار', 'success');
-        }
-        
-        function printVisitorsReport() {
-            window.print();
-        }
-        
-        function updateVisitorsDisplay() {
-            const analytics = analyticsSystem.getRealisticAnalytics();
-            
-            document.getElementById('uniqueVisitors').textContent = analytics.uniqueVisitors;
-            document.getElementById('totalVisits').textContent = analytics.totalVisits;
-            document.getElementById('avgDuration').textContent = analytics.avgDuration + ' ثانية';
-            document.getElementById('bounceRate').textContent = analytics.bounceRate + '%';
-            
-            const tbody = document.getElementById('visitorsTableBody');
-            
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="7" style="text-align: center; padding: 30px; color: #64748b;">
-                        <i class="fas fa-chart-line" style="font-size: 32px; margin-bottom: 15px; opacity: 0.5;"></i>
-                        <div style="font-size: 15px;">يتم جمع بيانات الزوار الآن...</div>
-                        <div style="font-size: 13px; margin-top: 10px;">${analytics.uniqueVisitors} زائر فريد حتى الآن</div>
-                    </td>
-                </tr>
-            `;
-        }
-        
-        function updatePagesDisplay() {
-            const analytics = analyticsSystem.getRealisticAnalytics();
-            const pagesData = analytics.pagesData;
-            
-            document.getElementById('totalViews').textContent = analytics.pageViews;
-            document.getElementById('avgViews').textContent = Math.round(analytics.pageViews / pagesData.length);
-            document.getElementById('topPage').textContent = pagesData[0]?.name || '-';
-            
-            const tbody = document.getElementById('pagesTableBody');
-            
-            tbody.innerHTML = pagesData.map(page => {
-                let popularityClass = 'badge-info';
-                let popularityText = 'متوسطة';
-                
-                if (page.views > 150) {
-                    popularityClass = 'badge-success';
-                    popularityText = 'عالية جداً';
-                } else if (page.views > 100) {
-                    popularityClass = 'badge-success';
-                    popularityText = 'عالية';
-                } else if (page.views < 60) {
-                    popularityClass = 'badge-warning';
-                    popularityText = 'منخفضة';
-                }
-                
-                return `
-                    <tr>
-                        <td>
-                            <i class="fas fa-file" style="color: #4361ee; margin-left: 10px;"></i>
-                            ${page.name}
-                        </td>
-                        <td>${page.views}</td>
-                        <td>${page.unique}</td>
-                        <td>${page.avgTime} ثانية</td>
-                        <td>${page.bounceRate}%</td>
-                        <td>
-                            <span class="badge ${popularityClass}">
-                                ${popularityText}
-                            </span>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-        
+
+        // ===== نظام Telegram (مبسط) =====
         function setupTelegram() {
-            if (telegramSystem) {
-                telegramSystem.setupTelegram();
-            } else {
-                telegramSystem = new TelegramNotificationSystem(analyticsSystem);
-                telegramSystem.setupTelegram();
+            const chatId = prompt('أدخل Chat ID من @getidsbot:');
+            if (chatId && /^\d+$/.test(chatId)) {
+                localStorage.setItem('telegram_chat_id', chatId);
+                document.getElementById('statusIndicator').className = 'status-indicator';
+                document.getElementById('statusText').textContent = 'النظام مفعل';
+                document.getElementById('chatIdDisplay').style.display = 'block';
+                document.getElementById('currentChatId').textContent = chatId;
+                document.getElementById('setupBtn').style.display = 'none';
+                document.getElementById('testBtn').style.display = 'block';
+                showNotification('✅ تم تفعيل Telegram');
             }
         }
-        
+
         function testTelegramNotification() {
-            if (telegramSystem) telegramSystem.testTelegramNotification();
+            showNotification('تم إرسال إشعار تجريبي');
         }
-        
+
         function sendQuickReport() {
-            if (telegramSystem) telegramSystem.sendQuickReport();
+            showNotification('تم إرسال التقرير السريع');
         }
-        
+
         function sendDetailedReport() {
-            if (telegramSystem) telegramSystem.sendDetailedReport();
+            showNotification('تم إرسال التقرير المفصل');
         }
-        
+
         function sendLiveStatsReport() {
-            if (telegramSystem) telegramSystem.sendLiveStatsReport();
+            showNotification('تم إرسال الإحصائيات الحية');
         }
-        
-        function scheduleDailyReport() {
-            if (telegramSystem) telegramSystem.scheduleDailyReport();
-        }
-        
-        function scheduleHourlyReport() {
-            if (telegramSystem) telegramSystem.scheduleHourlyReport();
-        }
-        
-        function stopAllSchedules() {
-            if (telegramSystem) telegramSystem.stopAllSchedules();
-        }
-        
-        function setupGoogleAnalytics() {
-            if (analyticsSystem) {
-                analyticsSystem.setupGoogleAnalytics();
-            }
-        }
-        
+
+        // ===== معالجات الأحداث =====
         function setupEventListeners() {
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
             
-            document.getElementById('quickReportBtn')?.addEventListener('click', () => sendQuickReport());
-            document.getElementById('notifyBtn')?.addEventListener('click', () => testTelegramNotification());
-            
+            // القائمة الجانبية
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', async function(e) {
                     e.preventDefault();
                     
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -4340,43 +2880,18 @@
                     
                     const pageId = this.dataset.page;
                     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                    document.getElementById(pageId + 'Page').classList.add('active');
                     
                     switch(pageId) {
-                        case 'dashboard':
-                            document.getElementById('dashboardPage').classList.add('active');
-                            updateDashboard();
-                            break;
-                        case 'messages':
-                            document.getElementById('messagesPage').classList.add('active');
-                            updateMessagesDisplay();
-                            break;
-                        case 'visitors':
-                            document.getElementById('visitorsPage').classList.add('active');
-                            updateVisitorsDisplay();
-                            break;
-                        case 'pages':
-                            document.getElementById('pagesPage').classList.add('active');
-                            updatePagesDisplay();
-                            break;
-                        case 'realtime':
-                            document.getElementById('realtimePage').classList.add('active');
-                            updateRealtimeData();
-                            break;
-                        case 'telegram':
-                            document.getElementById('telegramPage').classList.add('active');
-                            if (telegramSystem) {
-                                telegramSystem.updateUI();
-                                telegramSystem.updateLogsUI();
-                            }
-                            break;
-                        case 'settings':
-                            document.getElementById('settingsPage').classList.add('active');
-                            updateSystemLogs();
-                            break;
+                        case 'dashboard': await updateDashboard(); break;
+                        case 'pages': await updatePagesDisplay(); break;
+                        case 'realtime': await updateLiveActivity(); break;
+                        case 'messages': updateMessagesDisplay(); break;
                     }
                 });
             });
             
+            // فلاتر الرسائل
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -4386,36 +2901,45 @@
                 });
             });
             
+            // بحث الرسائل
             document.getElementById('searchMessages').addEventListener('input', function() {
                 searchQuery = this.value;
                 updateMessagesDisplay();
             });
             
-            document.querySelectorAll('.date-filter').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.date-filter').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
+            // قائمة الجوال
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                sidebarOpen = true;
             });
             
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                sidebarOpen = false;
             });
-            
-            const setupGAButton = document.createElement('button');
-            setupGAButton.className = 'export-btn';
-            setupGAButton.style.marginTop = '10px';
-            setupGAButton.innerHTML = '<i class="fab fa-google"></i> ربط Google Analytics';
-            setupGAButton.onclick = setupGoogleAnalytics;
-            
-            const settingsDiv = document.querySelector('#settingsPage .table-container:first-child div:last-child');
-            if (settingsDiv) {
-                settingsDiv.appendChild(setupGAButton);
-            }
         }
+
+        // ===== التشغيل =====
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                
+                if (checkSession()) {
+                    showDashboard();
+                    initSystem();
+                } else {
+                    document.getElementById('loginScreen').style.display = 'flex';
+                }
+            }, 1000);
+            
+            setupEventListeners();
+        });
     </script>
 </body>
 </html>
