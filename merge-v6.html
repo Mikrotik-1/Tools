@@ -1288,8 +1288,42 @@
             });
         });
     </script>
+      <!-- كود تتبع MikroTools Analytics -->
+<script>
+  (function() {
+    const BIN_ID = '6984fe4d43b1c97be9684aa8';
+    const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
+    
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      headers: { 'X-Master-Key': API_KEY }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const record = data.record || {};
+      if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
+      
+      const page = document.title || window.location.pathname;
+      const today = new Date().toDateString();
+      
+      record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
+      record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
+      record.analytics.totalVisits++;
+      
+      return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': API_KEY
+        },
+        body: JSON.stringify(record)
+      });
+    })
+    .catch(() => {});
+  })();
+</script>
 </body>
 </html>
+
 
 
 
