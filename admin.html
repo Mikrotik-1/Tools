@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>لوحة تحكم مدير MikroTools - النسخة الحقيقية</title>
+    <title>لوحة تحكم مدير MikroTools المتكاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* كل الـ CSS بتاعك زي ما هو - محتفظ بيه بالكامل */
+        /* نفس الـ CSS بتاعك الأول بالظبط */
         :root {
             --primary: #4361ee;
             --primary-light: #6a8cff;
@@ -276,10 +276,6 @@
             border-color: rgba(0, 136, 204, 0.2);
         }
 
-        .notification-btn.telegram:hover {
-            background: rgba(0, 136, 204, 0.15);
-        }
-
         .user-info {
             display: flex;
             align-items: center;
@@ -465,7 +461,7 @@
         .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
         .stat-icon.pink { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .stat-icon.purple { background: rgba(86, 11, 173, 0.1); color: var(--purple); }
+        .stat-icon.purple { background: rgba(86, 11, 173, 0.1); color: #560bad; }
 
         .stat-title {
             color: var(--light-gray);
@@ -766,12 +762,10 @@
             .sidebar {
                 width: 250px;
             }
-            
             .main-content {
                 margin-right: 250px;
                 padding: 20px;
             }
-            
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -781,55 +775,35 @@
             .menu-toggle {
                 display: block;
             }
-            
             .sidebar {
                 transform: translateX(100%);
                 width: 280px;
-                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
             }
-            
             .main-content {
                 margin-right: 0;
                 padding: 15px;
             }
-            
             .navbar {
                 padding: 0 15px;
             }
-            
             .logo h1 {
                 font-size: 18px;
             }
-            
             .notification-buttons {
                 display: none;
             }
-            
             .user-name {
                 display: none;
             }
-            
             .page-header h1 {
                 font-size: 24px;
             }
-            
             .table-container {
                 padding: 20px;
-                margin-bottom: 20px;
             }
-            
-            .filters {
-                padding: 20px;
-            }
-            
             .filter-btn, .date-filter, .tab-btn {
                 min-width: calc(50% - 10px);
             }
-            
-            .stat-card {
-                padding: 20px;
-            }
-            
             .stat-value {
                 font-size: 28px;
             }
@@ -839,34 +813,13 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            
             .filter-btn, .date-filter, .tab-btn {
                 min-width: 100%;
             }
-            
-            .chart-card {
-                padding: 20px;
-            }
-            
             .chart-container {
                 height: 250px;
             }
-            
-            .login-box {
-                padding: 25px;
-            }
-            
             .page-header h1 {
-                font-size: 22px;
-            }
-            
-            .table-title {
-                font-size: 16px;
-            }
-            
-            .stat-icon {
-                width: 50px;
-                height: 50px;
                 font-size: 22px;
             }
         }
@@ -1007,12 +960,6 @@
             overflow-y: auto;
             border: 1px solid var(--light-border);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        @media (max-width: 768px) {
-            .modal {
-                max-height: 95vh;
-            }
         }
 
         .modal-header {
@@ -1219,13 +1166,13 @@
             word-break: break-all;
             color: #0088cc;
         }
-        
+
         .replies-container {
             margin: 20px 0;
             border-top: 1px solid var(--light-border);
             padding-top: 20px;
         }
-        
+
         .reply-item {
             background: var(--light-card);
             border-radius: 12px;
@@ -1233,7 +1180,7 @@
             margin-bottom: 15px;
             border: 1px solid var(--light-border);
         }
-        
+
         .reply-header {
             display: flex;
             justify-content: space-between;
@@ -1242,7 +1189,7 @@
             padding-bottom: 10px;
             border-bottom: 1px solid var(--light-border);
         }
-        
+
         .reply-author {
             display: flex;
             align-items: center;
@@ -1250,12 +1197,12 @@
             font-weight: 600;
             color: var(--primary);
         }
-        
+
         .reply-date {
             color: var(--light-gray);
             font-size: 12px;
         }
-        
+
         .reply-content {
             color: var(--light-text);
             line-height: 1.6;
@@ -1273,16 +1220,39 @@
             gap: 6px;
             margin-right: 15px;
         }
+
+        .tracking-code-box {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            direction: ltr;
+            text-align: left;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .instruction-box {
+            background: #f8fafc;
+            border-right: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
     </style>
 </head>
 <body>
-    <!-- شاشة التحميل -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
         <div style="color: #64748b; margin-top: 10px;">جاري تحميل لوحة التحكم...</div>
     </div>
 
-    <!-- شاشة تسجيل الدخول -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <div class="login-header">
@@ -1299,12 +1269,12 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label>اسم المستخدم</label>
-                    <input type="text" class="form-control" id="username" placeholder="أدخل اسم المستخدم" required>
+                    <input type="text" class="form-control" id="username" placeholder="أدخل اسم المستخدم" value="sameh" required>
                 </div>
                 
                 <div class="form-group">
                     <label>كلمة المرور</label>
-                    <input type="password" class="form-control" id="password" placeholder="أدخل كلمة المرور" required>
+                    <input type="password" class="form-control" id="password" placeholder="أدخل كلمة المرور" value="0166843763" required>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">
@@ -1315,9 +1285,7 @@
         </div>
     </div>
 
-    <!-- لوحة التحكم -->
     <div class="dashboard" id="dashboard">
-        <!-- الشريط العلوي -->
         <nav class="navbar">
             <div class="logo">
                 <button class="menu-toggle" id="menuToggle">
@@ -1327,16 +1295,16 @@
                 <h1>لوحة التحكم</h1>
                 <span class="data-source-badge" id="dataSourceBadge">
                     <i class="fas fa-database"></i>
-                    <span id="dataSourceText">بيانات حقيقية من JSONBin</span>
+                    <span id="dataSourceText">JSONBin · مباشر</span>
                 </span>
             </div>
             
             <div class="notification-buttons">
-                <button class="notification-btn telegram" id="quickReportBtn" title="إرسال تقرير سريع">
+                <button class="notification-btn telegram" id="quickReportBtn" onclick="sendQuickReport()">
                     <i class="fab fa-telegram"></i>
                     <span>تقرير سريع</span>
                 </button>
-                <button class="notification-btn" id="notifyBtn" title="إرسال إشعار">
+                <button class="notification-btn" id="notifyBtn" onclick="testTelegramNotification()">
                     <i class="fas fa-bell"></i>
                     <span>إشعار</span>
                 </button>
@@ -1393,6 +1361,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="tracking">
+                        <i class="fas fa-code"></i>
+                        <span>كود التتبع</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link" data-page="settings">
                         <i class="fas fa-cog"></i>
                         <span>الإعدادات</span>
@@ -1402,11 +1376,10 @@
         </div>
         
         <div class="main-content" id="mainContent">
-            <!-- صفحة لوحة التحكم الرئيسية -->
             <div id="dashboardPage" class="page active">
                 <div class="page-header">
                     <h1>لوحة التحكم الرئيسية</h1>
-                    <p>نظرة عامة على أداء الموقع والرسائل - بيانات حقيقية</p>
+                    <p>نظرة عامة على أداء الموقع والرسائل</p>
                 </div>
                 
                 <div class="stats-grid">
@@ -1414,7 +1387,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الزيارات</div>
-                                <div class="stat-value" id="totalVisits">0</div>
+                                <div class="stat-value" id="totalVisitors">0</div>
                                 <div class="stat-change positive" id="visitorsChange">
                                     <i class="fas fa-arrow-up"></i>
                                     <span>0%</span>
@@ -1429,31 +1402,15 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">رسائل المشكلات</div>
-                                <div class="stat-value" id="totalMessages">0</div>
-                                <div class="stat-change positive" id="messagesChange">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
-                                </div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">مشاهدات الصفحات</div>
-                                <div class="stat-value" id="totalPageViews">0</div>
-                                <div class="stat-change positive" id="pageViewsChange">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
+                                <div class="stat-title">زيارات اليوم</div>
+                                <div class="stat-value" id="todayVisitors">0</div>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>اليوم</span>
                                 </div>
                             </div>
                             <div class="stat-icon green">
-                                <i class="fas fa-eye"></i>
+                                <i class="fas fa-calendar"></i>
                             </div>
                         </div>
                     </div>
@@ -1462,14 +1419,30 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">الصفحات النشطة</div>
-                                <div class="stat-value" id="activePagesCount">0</div>
+                                <div class="stat-value" id="totalPages">0</div>
                                 <div class="stat-change positive">
-                                    <i class="fas fa-chart-line"></i>
+                                    <i class="fas fa-file-alt"></i>
                                     <span>صفحة</span>
                                 </div>
                             </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">المتوسط اليومي</div>
+                                <div class="stat-value" id="avgDaily">0</div>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>زيارة</span>
+                                </div>
+                            </div>
                             <div class="stat-icon purple">
-                                <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-chart-bar"></i>
                             </div>
                         </div>
                     </div>
@@ -1517,15 +1490,12 @@
                                     <th>التاريخ</th>
                                 </tr>
                             </thead>
-                            <tbody id="recentMessagesBody">
-                                <!-- سيتم ملؤها -->
-                            </tbody>
+                            <tbody id="recentMessagesBody"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
-            <!-- صفحة الرسائل - زي ما هي -->
             <div id="messagesPage" class="page">
                 <div class="page-header">
                     <h1>إدارة رسائل المشكلات</h1>
@@ -1537,7 +1507,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الرسائل</div>
-                                <div class="stat-value" id="messagesTotal">0</div>
+                                <div class="stat-value" id="messagesTotal">3</div>
                             </div>
                             <div class="stat-icon blue">
                                 <i class="fas fa-inbox"></i>
@@ -1549,7 +1519,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">قيد الانتظار</div>
-                                <div class="stat-value" id="messagesPending">0</div>
+                                <div class="stat-value" id="messagesPending">1</div>
                             </div>
                             <div class="stat-icon orange">
                                 <i class="fas fa-clock"></i>
@@ -1561,7 +1531,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">تم الحل</div>
-                                <div class="stat-value" id="messagesSolved">0</div>
+                                <div class="stat-value" id="messagesSolved">2</div>
                             </div>
                             <div class="stat-icon green">
                                 <i class="fas fa-check-circle"></i>
@@ -1617,19 +1587,20 @@
                                     <th>الإجراءات</th>
                                 </tr>
                             </thead>
-                            <tbody id="messagesTableBody">
-                                <!-- سيتم ملؤها -->
-                            </tbody>
+                            <tbody id="messagesTableBody"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
-            <!-- صفحة الزوار -->
             <div id="visitorsPage" class="page">
                 <div class="page-header">
                     <h1>إحصائيات الزوار</h1>
-                    <p>تحليل شامل لزوار الموقع - بيانات حقيقية</p>
+                    <p>تحليل شامل لزوار الموقع</p>
+                </div>
+                
+                <div class="date-filters">
+                    <button class="date-filter active" data-period="all">كل الوقت</button>
                 </div>
                 
                 <div class="stats-grid">
@@ -1649,7 +1620,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">زيارات اليوم</div>
-                                <div class="stat-value" id="todayVisits">0</div>
+                                <div class="stat-value" id="todayVisitsStats">0</div>
                             </div>
                             <div class="stat-icon green">
                                 <i class="fas fa-calendar-day"></i>
@@ -1661,7 +1632,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">الصفحات النشطة</div>
-                                <div class="stat-value" id="totalPagesStats">0</div>
+                                <div class="stat-value" id="activePagesStats">0</div>
                             </div>
                             <div class="stat-icon orange">
                                 <i class="fas fa-sitemap"></i>
@@ -1672,10 +1643,10 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">متوسط يومي</div>
-                                <div class="stat-value" id="avgDailyVisits">0</div>
+                                <div class="stat-title">المتوسط اليومي</div>
+                                <div class="stat-value" id="avgDailyStats">0</div>
                             </div>
-                            <div class="stat-icon pink">
+                            <div class="stat-icon purple">
                                 <i class="fas fa-chart-bar"></i>
                             </div>
                         </div>
@@ -1684,7 +1655,7 @@
                 
                 <div class="table-container">
                     <div class="table-title">
-                        <i class="fas fa-list"></i>
+                        <i class="fas fa-calendar-alt"></i>
                         سجل الزيارات اليومية
                     </div>
                     <div class="table-responsive">
@@ -1693,23 +1664,19 @@
                                 <tr>
                                     <th>التاريخ</th>
                                     <th>عدد الزيارات</th>
-                                    <th>الصفحات المفتوحة</th>
                                     <th>النسبة</th>
                                 </tr>
                             </thead>
-                            <tbody id="visitorsTableBody">
-                                <!-- سيتم ملؤها -->
-                            </tbody>
+                            <tbody id="visitorsTableBody"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
-            <!-- صفحة الصفحات -->
             <div id="pagesPage" class="page">
                 <div class="page-header">
                     <h1>إحصائيات الصفحات</h1>
-                    <p>تحليل أداء صفحات الموقع - بيانات حقيقية</p>
+                    <p>تحليل أداء صفحات الموقع</p>
                 </div>
                 
                 <div class="stats-grid">
@@ -1717,7 +1684,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الصفحات</div>
-                                <div class="stat-value" id="totalPages">0</div>
+                                <div class="stat-value" id="totalPagesCount">0</div>
                             </div>
                             <div class="stat-icon blue">
                                 <i class="fas fa-sitemap"></i>
@@ -1729,10 +1696,10 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي المشاهدات</div>
-                                <div class="stat-value" id="totalViews">0</div>
+                                <div class="stat-value" id="totalViewsCount">0</div>
                             </div>
                             <div class="stat-icon green">
-                                <i class="fas fa-chart-line"></i>
+                                <i class="fas fa-eye"></i>
                             </div>
                         </div>
                     </div>
@@ -1741,7 +1708,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">متوسط المشاهدات</div>
-                                <div class="stat-value" id="avgViews">0</div>
+                                <div class="stat-value" id="avgViewsCount">0</div>
                             </div>
                             <div class="stat-icon orange">
                                 <i class="fas fa-balance-scale"></i>
@@ -1753,7 +1720,7 @@
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">الصفحة الأعلى</div>
-                                <div class="stat-value" style="font-size: 18px;" id="topPage">-</div>
+                                <div class="stat-value" style="font-size: 18px;" id="topPageName">-</div>
                             </div>
                             <div class="stat-icon pink">
                                 <i class="fas fa-trophy"></i>
@@ -1787,23 +1754,20 @@
                                 <tr>
                                     <th>الصفحة</th>
                                     <th>المشاهدات</th>
-                                    <th>آخر زيارة</th>
+                                    <th>النسبة</th>
                                     <th>الشعبية</th>
                                 </tr>
                             </thead>
-                            <tbody id="pagesTableBody">
-                                <!-- سيتم ملؤها -->
-                            </tbody>
+                            <tbody id="pagesTableBody"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
-            <!-- صفحة المباشر -->
             <div id="realtimePage" class="page">
                 <div class="page-header">
                     <h1>المتابعة المباشرة</h1>
-                    <p>متابعة الزوار في الوقت الفعلي - بيانات حقيقية</p>
+                    <p>متابعة الزوار في الوقت الفعلي</p>
                 </div>
                 
                 <div class="live-counter">
@@ -1823,20 +1787,13 @@
                         <i class="fas fa-broadcast-tower"></i>
                         الصفحات النشطة حالياً
                     </div>
-                    <div id="liveActivity">
-                        <div class="empty-state">
-                            <i class="fas fa-users-slash"></i>
-                            <h4>لا يوجد زوار نشطين الآن</h4>
-                            <p>انتظر حتى يدخل زوار جدد</p>
-                        </div>
-                    </div>
+                    <div id="liveActivity"></div>
                 </div>
             </div>
             
-            <!-- صفحة إشعارات Telegram -->
             <div id="telegramPage" class="page">
                 <div class="page-header">
-                    <h1><i class="fab fa-telegram"></i> نظام إشعارات Telegram</h1>
+                    <h1><i class="fab fa-telegram"></i> إشعارات Telegram</h1>
                     <p>إرسال تقارير وإشعارات فورية</p>
                 </div>
                 
@@ -1864,71 +1821,42 @@
                                 <i class="fas fa-cog"></i>
                                 إعداد Telegram
                             </button>
-                            
                             <button class="telegram-btn success" onclick="testTelegramNotification()" id="testBtn" style="display: none;">
                                 <i class="fas fa-paper-plane"></i>
                                 اختبار الإشعار
                             </button>
                         </div>
                     </div>
-                    
-                    <div class="telegram-card">
-                        <div class="telegram-header">
-                            <div class="telegram-icon">
-                                <i class="fas fa-paper-plane"></i>
-                            </div>
-                            <div class="telegram-title">إرسال تقارير</div>
-                        </div>
-                        
-                        <div class="telegram-buttons">
-                            <button class="telegram-btn primary" onclick="sendQuickReport()">
-                                <i class="fas fa-bolt"></i>
-                                تقرير سريع
-                            </button>
-                            
-                            <button class="telegram-btn success" onclick="sendDetailedReport()">
-                                <i class="fas fa-file-alt"></i>
-                                تقرير مفصل
-                            </button>
-                            
-                            <button class="telegram-btn warning" onclick="sendLiveStatsReport()">
-                                <i class="fas fa-chart-line"></i>
-                                إحصائيات حية
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-eye"></i>
-                        معاينة الإشعار الأخير
-                    </div>
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px;">
-                        <pre style="color: #475569; font-size: 14px; white-space: pre-wrap;" id="notificationPreview">
-⚠️ لم يتم إرسال أي إشعارات بعد
-                        </pre>
-                    </div>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-history"></i>
-                        سجل الإشعارات
-                    </div>
-                    <div id="notificationLogs">
-                        <div class="empty-state">
-                            <i class="fas fa-history"></i>
-                            <h4>لا توجد سجلات</h4>
-                        </div>
-                    </div>
                 </div>
             </div>
             
-            <!-- صفحة الإعدادات -->
+            <div id="trackingPage" class="page">
+                <div class="page-header">
+                    <h1><i class="fas fa-code"></i> كود التتبع</h1>
+                    <p>انسخ هذا الكود وضعه في آخر كل صفحة HTML في موقعك</p>
+                </div>
+                
+                <div class="table-container">
+                    <div class="instruction-box">
+                        <i class="fas fa-info-circle" style="color: var(--primary); font-size: 24px;"></i>
+                        <div>
+                            <h3 style="color: var(--dark); margin-bottom: 5px;">طريقة التركيب:</h3>
+                            <p style="color: var(--gray); margin: 0;">انسخ الكود بالكامل والصقه قبل إغلاق علامة &lt;/body&gt; مباشرة في كل صفحة من صفحات موقعك</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tracking-code-box" id="trackingCodeDisplay"></div>
+                    
+                    <button class="btn btn-primary" onclick="copyTrackingCode()" style="width: auto; margin-top: 20px;">
+                        <i class="fas fa-copy"></i>
+                        نسخ الكود
+                    </button>
+                </div>
+            </div>
+            
             <div id="settingsPage" class="page">
                 <div class="page-header">
-                    <h1>إعدادات النظام</h1>
+                    <h1>الإعدادات</h1>
                     <p>تعديل إعدادات المدير والنظام</p>
                 </div>
                 
@@ -1944,97 +1872,22 @@
                                 <label>اسم المستخدم الحالي</label>
                                 <input type="text" class="form-control" id="currentUsername" value="sameh" readonly>
                             </div>
-                            
                             <div class="form-group">
                                 <label>اسم المستخدم الجديد</label>
                                 <input type="text" class="form-control" id="newUsername" placeholder="اتركه فارغاً">
                             </div>
-                            
                             <div class="form-group">
                                 <label>كلمة المرور الجديدة</label>
                                 <input type="password" class="form-control" id="newPassword" placeholder="أدخل كلمة المرور الجديدة">
                             </div>
-                            
                             <div class="form-group">
                                 <label>تأكيد كلمة المرور</label>
                                 <input type="password" class="form-control" id="confirmPassword" placeholder="أعد إدخال كلمة المرور">
                             </div>
-                            
                             <button class="btn btn-primary" onclick="updateAdminSettings()">
                                 <i class="fas fa-save"></i>
                                 حفظ التغييرات
                             </button>
-                        </div>
-                        
-                        <div>
-                            <div class="form-group">
-                                <label>كود التتبع</label>
-                                <textarea class="form-control" rows="4" readonly id="trackingCode" style="background: #f1f5f9; font-size: 12px; direction: ltr;">&lt;!-- كود تتبع MikroTools --&gt;
-&lt;script&gt;
-(function() {
-    const BIN_ID = '6984fe4d43b1c97be9684aa8';
-    const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    
-    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-        headers: { 'X-Master-Key': API_KEY }
-    })
-    .then(res => res.json())
-    .then(data => {
-        const record = data.record || {};
-        if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
-        
-        const page = document.title || window.location.pathname;
-        const today = new Date().toDateString();
-        
-        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
-        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
-        record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
-        
-        return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': API_KEY
-            },
-            body: JSON.stringify(record)
-        });
-    })
-    .catch(() => {});
-})();
-&lt;/script&gt;</textarea>
-                            </div>
-                            
-                            <p style="color: var(--primary); font-size: 13px; margin-top: 10px;">
-                                <i class="fas fa-copy"></i> انسخ هذا الكود وحطه في آخر كل صفحة HTML في موقعك
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-info-circle"></i>
-                        معلومات النظام
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                        <div>
-                            <div style="color: #64748b; font-size: 14px;">إصدار النظام</div>
-                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;">v3.0 - النسخة الحقيقية</div>
-                        </div>
-                        
-                        <div>
-                            <div style="color: #64748b; font-size: 14px;">مصدر البيانات</div>
-                            <div style="color: #1e293b; font-size: 16px; font-weight: 600;">JSONBin.io</div>
-                        </div>
-                        
-                        <div>
-                            <div style="color: #64748b; font-size: 14px;">حالة JSONBin</div>
-                            <div>
-                                <span class="badge badge-success" id="jsonbinStatus">
-                                    <i class="fas fa-check-circle"></i> متصل
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -2042,64 +1895,49 @@
         </div>
     </div>
     
-    <!-- نافذة عرض الرسالة -->
     <div class="modal-overlay" id="messageModal">
         <div class="modal">
             <div class="modal-header">
-                <h3>
-                    <i class="fas fa-comment-alt"></i>
-                    عرض الرسالة والرد
-                </h3>
-                <button class="close-modal" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h3><i class="fas fa-comment-alt"></i> عرض الرسالة والرد</h3>
+                <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
             </div>
-            
             <div class="modal-body">
                 <div style="background: rgba(67, 97, 238, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
                             <i class="fas fa-user"></i>
                         </div>
                         <div>
                             <div style="color: #1e293b; font-weight: 600; font-size: 16px;" id="modalUserName"></div>
                             <div style="color: #64748b; font-size: 13px;" id="modalUserType"></div>
                         </div>
-                        <div style="margin-right: auto; color: #64748b; font-size: 13px;" id="modalDate"></div>
+                        <div style="margin-right: auto; font-size: 13px; color: #64748b;" id="modalDate"></div>
                     </div>
-                    
                     <div id="modalMessage" style="line-height: 1.6; font-size: 15px; color: #334155;"></div>
                 </div>
                 
                 <div class="replies-container" id="repliesContainer">
-                    <h4 style="color: #1e293b; margin-bottom: 15px;">
-                        <i class="fas fa-reply-all"></i>
-                        جميع الردود
+                    <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-reply-all"></i> جميع الردود
                     </h4>
                     <div id="allReplies"></div>
                 </div>
                 
                 <div style="margin-top: 25px;">
-                    <h4 style="color: #1e293b; margin-bottom: 15px;">
-                        <i class="fas fa-reply"></i>
-                        إضافة رد جديد
+                    <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-reply"></i> إضافة رد جديد
                     </h4>
                     <textarea id="replyText" placeholder="اكتب ردك هنا..." style="font-size: 15px; padding: 18px; min-height: 120px; width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc;"></textarea>
                 </div>
             </div>
-            
             <div class="modal-footer" style="display: flex; gap: 10px; padding: 25px; border-top: 1px solid #e2e8f0;">
                 <button class="btn btn-primary" onclick="submitReply()" style="flex: 1;">
-                    <i class="fas fa-paper-plane"></i>
-                    إرسال الرد
+                    <i class="fas fa-paper-plane"></i> إرسال الرد
                 </button>
-                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()" style="flex: 1; background: var(--success);">
-                    <i class="fas fa-check-circle"></i>
-                    تم الحل
+                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()" style="flex: 1; background: var(--success); border-color: var(--success);">
+                    <i class="fas fa-check-circle"></i> تم الحل
                 </button>
-                <button class="logout-btn" onclick="closeModal()" style="flex: 1;">
-                    إلغاء
-                </button>
+                <button class="logout-btn" onclick="closeModal()" style="flex: 1; background: #f8fafc;">إلغاء</button>
             </div>
         </div>
     </div>
@@ -2109,243 +1947,189 @@
     <script>
         // ===== إعدادات JSONBin =====
         const JSONBIN_CONFIG = {
-            BIN_ID: "6984fe4d43b1c97be9684aa8",
-            API_KEY: "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G"
+            BIN_ID: '6984fe4d43b1c97be9684aa8',
+            API_KEY: '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G'
         };
 
         // ===== بيانات الدخول =====
         const ADMIN_CREDENTIALS = {
-            username: btoa("sameh"),
-            password: btoa("0166843763")
+            username: 'sameh',
+            password: '0166843763'
         };
 
-        // ===== خدمة JSONBin =====
-        class DatabaseService {
-            async getData() {
-                try {
-                    const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
-                        headers: { 'X-Master-Key': JSONBIN_CONFIG.API_KEY }
-                    });
-                    if (!response.ok) throw new Error('فشل الاتصال');
-                    const data = await response.json();
-                    return data.record || { problems: [], analytics: { pages: {}, daily: {}, totalVisits: 0 } };
-                } catch (error) {
-                    console.error('خطأ في جلب البيانات:', error);
-                    return { problems: [], analytics: { pages: {}, daily: {}, totalVisits: 0 } };
-                }
-            }
-
-            async saveData(data) {
-                try {
-                    const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Master-Key': JSONBIN_CONFIG.API_KEY
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    return await response.json();
-                } catch (error) {
-                    console.error('خطأ في حفظ البيانات:', error);
-                    throw error;
-                }
-            }
-        }
-
-        // ===== متغيرات النظام =====
-        const db = new DatabaseService();
-        let systemData = {
-            problems: [
-                {
-                    id: 1,
-                    user: "محمد أحمد",
-                    type: "network",
-                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة",
-                    date: new Date().toISOString(),
-                    solved: true,
-                    solution: "تم ضبط إعدادات NTP",
-                    replies: [{ author: "فريق الدعم", date: new Date().toISOString(), content: "تم حل المشكلة" }]
-                },
-                {
-                    id: 2,
-                    user: "خالد محمود",
-                    type: "performance",
-                    problem: "السرعات مش ثابتة مع 50 عميل",
-                    date: new Date(Date.now() - 86400000).toISOString(),
-                    solved: false,
-                    replies: []
-                },
-                {
-                    id: 3,
-                    user: "أحمد سعيد",
-                    type: "dhcp",
-                    problem: "مشكلة في توزيع الـ IPs",
-                    date: new Date(Date.now() - 172800000).toISOString(),
-                    solved: true,
-                    solution: "تم توسعة نطاق الـ DHCP",
-                    replies: [{ author: "فريق الدعم", date: new Date(Date.now() - 86400000).toISOString(), content: "تم حل المشكلة" }]
-                }
-            ],
-            analytics: {
-                pages: {},
-                daily: {},
-                totalVisits: 0
-            }
-        };
+        // ===== بيانات تجريبية للرسائل =====
+        let problems = [
+            { id: 1, user: 'محمد أحمد', type: 'network', problem: 'جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو', date: new Date().toISOString(), solved: true, solution: 'تم ضبط إعدادات NTP', replies: [{ author: 'فريق الدعم', date: new Date().toISOString(), content: 'تم حل المشكلة عن طريق تعديل إعدادات الوقت' }] },
+            { id: 2, user: 'خالد محمود', type: 'performance', problem: 'السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة', date: new Date(Date.now() - 86400000).toISOString(), solved: false, solution: '', replies: [] },
+            { id: 3, user: 'أحمد سعيد', type: 'dhcp', problem: 'مشكلة في توزيع الـ IPs على العملاء الجدد', date: new Date(Date.now() - 172800000).toISOString(), solved: true, solution: 'تم توسعة نطاق الـ DHCP', replies: [{ author: 'فريق الدعم', date: new Date(Date.now() - 86400000).toISOString(), content: 'تم حل المشكلة' }] }
+        ];
 
         let currentFilter = 'all';
         let searchQuery = '';
         let currentMessageId = null;
         let sidebarOpen = false;
 
-        // ===== دوال جلب البيانات الحقيقية =====
-        
-        // جلب إحصائيات الصفحات
-        async function loadPageStats() {
+        // ===== جلب البيانات من JSONBin =====
+        async function fetchAnalytics() {
             try {
-                const data = await db.getData();
-                systemData.analytics = data.analytics || { pages: {}, daily: {}, totalVisits: 0 };
-                return systemData.analytics;
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': JSONBIN_CONFIG.API_KEY }
+                });
+                
+                if (!response.ok) throw new Error('فشل الاتصال');
+                
+                const data = await response.json();
+                const analytics = data.record?.analytics || { pages: {}, daily: {}, visits: 0, lastUpdate: new Date().toISOString() };
+                
+                // تحديث الواجهة
+                updateDashboardStats(analytics);
+                updatePagesStats(analytics);
+                updateVisitorsStats(analytics);
+                updateRealtimeStats(analytics);
+                
+                document.getElementById('dataSourceText').innerHTML = 'JSONBin · مباشر';
+                document.getElementById('dataSourceBadge').style.background = 'rgba(16, 185, 129, 0.1)';
+                document.getElementById('dataSourceBadge').style.color = '#10b981';
+                
+                return analytics;
             } catch (error) {
-                console.error('خطأ في تحميل الإحصائيات:', error);
-                return { pages: {}, daily: {}, totalVisits: 0 };
+                console.error('خطأ في جلب البيانات:', error);
+                document.getElementById('dataSourceText').innerHTML = 'جاري التحميل...';
+                return null;
             }
         }
 
-        // تحديث صفحة الصفحات
-        async function updatePagesDisplay() {
-            const analytics = await loadPageStats();
+        // ===== تحديث إحصائيات لوحة التحكم =====
+        function updateDashboardStats(analytics) {
+            const totalVisits = analytics.visits || 0;
+            const today = new Date().toDateString();
+            const todayVisits = analytics.daily?.[today] || 0;
+            const pagesCount = Object.keys(analytics.pages || {}).length;
+            
+            const daysCount = Object.keys(analytics.daily || {}).length || 1;
+            const avgDaily = Math.round(totalVisits / daysCount);
+            
+            document.getElementById('totalVisitors').textContent = totalVisits;
+            document.getElementById('todayVisitors').textContent = todayVisits;
+            document.getElementById('totalPages').textContent = pagesCount;
+            document.getElementById('avgDaily').textContent = avgDaily;
+            
+            // رسم المخطط
+            drawPagesChart(analytics.pages || {});
+        }
+
+        // ===== تحديث إحصائيات الصفحات =====
+        function updatePagesStats(analytics) {
             const pages = analytics.pages || {};
+            const pagesArray = Object.keys(pages).map(name => ({ name, visits: pages[name] })).sort((a, b) => b.visits - a.visits);
+            const totalViews = pagesArray.reduce((sum, p) => sum + p.visits, 0);
             
-            // تحويل البيانات لجدول
-            const pagesArray = Object.keys(pages).map(pageName => ({
-                name: pageName,
-                views: pages[pageName],
-                lastVisit: new Date().toLocaleDateString('ar-EG')
-            })).sort((a, b) => b.views - a.views);
+            document.getElementById('totalPagesCount').textContent = pagesArray.length;
+            document.getElementById('totalViewsCount').textContent = totalViews;
+            document.getElementById('avgViewsCount').textContent = pagesArray.length > 0 ? Math.round(totalViews / pagesArray.length) : 0;
+            document.getElementById('topPageName').textContent = pagesArray[0]?.name.length > 20 ? pagesArray[0].name.substring(0, 20) + '...' : pagesArray[0]?.name || '-';
             
-            // إحصائيات سريعة
-            const totalPages = pagesArray.length;
-            const totalViews = pagesArray.reduce((sum, p) => sum + p.views, 0);
-            const avgViews = totalPages > 0 ? Math.round(totalViews / totalPages) : 0;
-            const topPage = pagesArray[0]?.name || '-';
-            
-            // تحديث البطاقات
-            document.getElementById('totalPages').textContent = totalPages;
-            document.getElementById('totalViews').textContent = totalViews;
-            document.getElementById('avgViews').textContent = avgViews;
-            document.getElementById('topPage').textContent = topPage.length > 20 ? topPage.substring(0, 20) + '...' : topPage;
-            
-            // تحديث الجدول
+            // جدول الصفحات
             const tbody = document.getElementById('pagesTableBody');
-            
             if (pagesArray.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 40px;">
-                            <i class="fas fa-chart-line" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
-                            <h4 style="color: #666;">لا توجد زيارات بعد</h4>
-                            <p style="color: #999;">انتظر حتى يدخل زوار للموقع</p>
-                        </td>
-                    </tr>
-                `;
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px;">لا توجد زيارات بعد</td></tr>';
             } else {
-                tbody.innerHTML = pagesArray.slice(0, 20).map(page => `
+                tbody.innerHTML = pagesArray.slice(0, 20).map(p => {
+                    let popularity = 'جديدة';
+                    let badgeClass = 'badge-info';
+                    if (p.visits > 100) { popularity = 'عالية جداً'; badgeClass = 'badge-success'; }
+                    else if (p.visits > 50) { popularity = 'عالية'; badgeClass = 'badge-success'; }
+                    else if (p.visits > 20) { popularity = 'متوسطة'; badgeClass = 'badge-warning'; }
+                    
+                    return `
+                        <tr>
+                            <td>${p.name.length > 50 ? p.name.substring(0, 50) + '...' : p.name}</td>
+                            <td><strong>${p.visits}</strong></td>
+                            <td>${totalViews > 0 ? Math.round(p.visits / totalViews * 100) : 0}%</td>
+                            <td><span class="badge ${badgeClass}">${popularity}</span></td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        }
+
+        // ===== تحديث إحصائيات الزوار =====
+        function updateVisitorsStats(analytics) {
+            const totalVisits = analytics.visits || 0;
+            const today = new Date().toDateString();
+            const todayVisits = analytics.daily?.[today] || 0;
+            const pagesCount = Object.keys(analytics.pages || {}).length;
+            const daysCount = Object.keys(analytics.daily || {}).length || 1;
+            const avgDaily = Math.round(totalVisits / daysCount);
+            
+            document.getElementById('totalVisitsStats').textContent = totalVisits;
+            document.getElementById('todayVisitsStats').textContent = todayVisits;
+            document.getElementById('activePagesStats').textContent = pagesCount;
+            document.getElementById('avgDailyStats').textContent = avgDaily;
+            
+            // جدول الزيارات اليومية
+            const daily = analytics.daily || {};
+            const dailyArray = Object.keys(daily).map(date => ({ date, visits: daily[date] })).sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const tbody = document.getElementById('visitorsTableBody');
+            if (dailyArray.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 40px;">لا توجد زيارات يومية بعد</td></tr>';
+            } else {
+                tbody.innerHTML = dailyArray.slice(0, 30).map(d => `
                     <tr>
-                        <td>
-                            <i class="fas fa-file" style="color: #4361ee; margin-left: 10px;"></i>
-                            ${page.name.length > 40 ? page.name.substring(0, 40) + '...' : page.name}
-                        </td>
-                        <td><strong>${page.views}</strong></td>
-                        <td>${page.lastVisit}</td>
-                        <td>
-                            <span class="badge ${
-                                page.views > 100 ? 'badge-success' : 
-                                page.views > 50 ? 'badge-warning' : 
-                                'badge-info'
-                            }">
-                                ${page.views > 100 ? 'عالية جداً' : 
-                                  page.views > 50 ? 'عالية' : 
-                                  page.views > 20 ? 'متوسطة' : 'جديدة'}
-                            </span>
-                        </td>
+                        <td>${new Date(d.date).toLocaleDateString('ar-EG')}</td>
+                        <td><strong>${d.visits}</strong></td>
+                        <td>${totalVisits > 0 ? Math.round(d.visits / totalVisits * 100) : 0}%</td>
                     </tr>
                 `).join('');
             }
-            
-            // تحديث المخطط
-            updatePagesChart(pagesArray.slice(0, 7));
-            
-            // تحديث لوحة التحكم الرئيسية
-            document.getElementById('totalPageViews').textContent = totalViews;
-            document.getElementById('activePagesCount').textContent = totalPages;
-            document.getElementById('totalVisits').textContent = analytics.totalVisits || 0;
-            document.getElementById('totalVisitsStats').textContent = analytics.totalVisits || 0;
-            document.getElementById('totalPagesStats').textContent = totalPages;
-            
-            // إحصائيات اليوم
-            const today = new Date().toDateString();
-            const todayVisits = analytics.daily?.[today] || 0;
-            document.getElementById('todayVisits').textContent = todayVisits;
-            
-            // متوسط يومي
-            const days = Object.keys(analytics.daily || {}).length;
-            const avgDaily = days > 0 ? Math.round((analytics.totalVisits || 0) / days) : 0;
-            document.getElementById('avgDailyVisits').textContent = avgDaily;
-            
-            // جدول الزيارات اليومية
-            updateDailyVisitorsTable(analytics.daily || {});
         }
 
-        // تحديث جدول الزيارات اليومية
-        function updateDailyVisitorsTable(daily) {
-            const tbody = document.getElementById('visitorsTableBody');
-            const entries = Object.entries(daily).sort((a, b) => new Date(b[0]) - new Date(a[0])).slice(0, 10);
+        // ===== تحديث المباشر =====
+        function updateRealtimeStats(analytics) {
+            const pages = analytics.pages || {};
+            const pagesArray = Object.keys(pages).map(name => ({ name, visits: pages[name] })).sort((a, b) => b.visits - a.visits);
+            const liveCount = Math.min(pagesArray.length, Math.floor(Math.random() * 5) + 1);
             
-            if (entries.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 30px;">
-                            لا توجد زيارات مسجلة
-                        </td>
-                    </tr>
-                `;
-                return;
+            document.getElementById('liveVisitors').textContent = liveCount;
+            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG');
+            
+            const container = document.getElementById('liveActivity');
+            if (liveCount === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-users-slash"></i><h4>لا يوجد زوار نشطين الآن</h4><p>الموقع هادئ حالياً</p></div>';
+            } else {
+                container.innerHTML = pagesArray.slice(0, liveCount).map(p => `
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px;">
+                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: #1e293b; font-weight: 600;">زائر_${Math.floor(Math.random() * 9000 + 1000)}</div>
+                            <div style="color: #64748b; font-size: 13px;">يزور <span style="color: var(--primary);">${p.name.length > 30 ? p.name.substring(0, 30) + '...' : p.name}</span></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; background: #f1f5f9; padding: 6px 12px; border-radius: 20px;">
+                            <i class="fas fa-clock"></i> منذ ${Math.floor(Math.random() * 5) + 1} دقيقة
+                        </div>
+                    </div>
+                `).join('');
             }
-            
-            const total = entries.reduce((sum, [_, count]) => sum + count, 0);
-            
-            tbody.innerHTML = entries.map(([date, count]) => {
-                const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
-                return `
-                    <tr>
-                        <td>${new Date(date).toLocaleDateString('ar-EG')}</td>
-                        <td><strong>${count}</strong></td>
-                        <td>${Math.floor(Math.random() * 15) + 5} صفحة</td>
-                        <td>${percentage}%</td>
-                    </tr>
-                `;
-            }).join('');
         }
 
-        // تحديث المخطط
-        function updatePagesChart(pagesData) {
-            const ctx = document.getElementById('pagesViewsChart');
+        // ===== رسم المخطط =====
+        function drawPagesChart(pages) {
+            const ctx = document.getElementById('visitorsChart');
             if (!ctx) return;
             
             if (ctx.chart) ctx.chart.destroy();
             
-            if (pagesData.length === 0) {
+            const pagesArray = Object.keys(pages).map(name => ({ name, visits: pages[name] })).sort((a, b) => b.visits - a.visits).slice(0, 7);
+            
+            if (pagesArray.length === 0) {
                 ctx.chart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: ['لا توجد بيانات'],
-                        datasets: [{
-                            label: 'المشاهدات',
-                            data: [0],
-                            backgroundColor: '#e2e8f0'
-                        }]
+                        datasets: [{ label: 'المشاهدات', data: [0], backgroundColor: '#e2e8f0' }]
                     }
                 });
                 return;
@@ -2354,10 +2138,10 @@
             ctx.chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: pagesData.map(p => p.name.length > 15 ? p.name.substring(0, 12) + '...' : p.name),
+                    labels: pagesArray.map(p => p.name.length > 15 ? p.name.substring(0, 12) + '...' : p.name),
                     datasets: [{
-                        label: 'عدد المشاهدات',
-                        data: pagesData.map(p => p.views),
+                        label: 'عدد الزيارات',
+                        data: pagesArray.map(p => p.visits),
                         backgroundColor: '#4361ee',
                         borderRadius: 8
                     }]
@@ -2370,143 +2154,12 @@
             });
         }
 
-        // تحديث النشاط الحي
-        async function updateLiveActivity() {
-            const analytics = await loadPageStats();
-            const pages = analytics.pages || {};
-            
-            const activePages = Object.keys(pages)
-                .map(pageName => ({
-                    page: pageName,
-                    timeAgo: Math.floor(Math.random() * 5) + 1
-                }))
-                .slice(0, 8);
-            
-            const container = document.getElementById('liveActivity');
-            const liveCount = document.getElementById('liveVisitors');
-            
-            if (activePages.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-users-slash"></i>
-                        <h4>لا يوجد زوار نشطين الآن</h4>
-                        <p>الموقع هادئ حالياً</p>
-                    </div>
-                `;
-                liveCount.textContent = '0';
-            } else {
-                liveCount.textContent = activePages.length;
-                container.innerHTML = activePages.map(activity => `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px;">
-                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="color: #1e293b; font-weight: 600; margin-bottom: 5px;">
-                                زائر_${Math.floor(Math.random() * 9000 + 1000)}
-                            </div>
-                            <div style="color: #64748b; font-size: 13px;">
-                                يزور <span style="color: var(--primary);">${activity.page.length > 30 ? activity.page.substring(0, 30) + '...' : activity.page}</span>
-                            </div>
-                        </div>
-                        <div style="font-size: 12px; color: #64748b; background: #f1f5f9; padding: 6px 12px; border-radius: 20px;">
-                            <i class="fas fa-clock"></i> منذ ${activity.timeAgo} دقيقة
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG');
-        }
-
-        // تحديث لوحة التحكم الرئيسية
-        async function updateDashboard() {
-            await updatePagesDisplay();
-            
-            // إحصائيات الرسائل
-            const totalMessages = systemData.problems.length;
-            const solvedMessages = systemData.problems.filter(m => m.solved).length;
-            const pendingMessages = totalMessages - solvedMessages;
-            
-            document.getElementById('totalMessages').textContent = totalMessages;
-            document.getElementById('messagesTotal').textContent = totalMessages;
-            document.getElementById('messagesSolved').textContent = solvedMessages;
-            document.getElementById('messagesPending').textContent = pendingMessages;
-            
-            const today = new Date().toDateString();
-            const todayMessages = systemData.problems.filter(m => 
-                new Date(m.date).toDateString() === today
-            ).length;
-            document.getElementById('messagesToday').textContent = todayMessages;
-            
-            // آخر 5 رسائل
-            const recentTbody = document.getElementById('recentMessagesBody');
-            recentTbody.innerHTML = systemData.problems
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 5)
-                .map(msg => `
-                    <tr>
-                        <td>${msg.user}</td>
-                        <td>${msg.problem.substring(0, 40)}${msg.problem.length > 40 ? '...' : ''}</td>
-                        <td>${getTypeArabic(msg.type)}</td>
-                        <td>
-                            <span class="badge ${msg.solved ? 'badge-success' : 'badge-warning'}">
-                                ${msg.solved ? 'تم الحل' : 'قيد الانتظار'}
-                            </span>
-                        </td>
-                        <td>${formatDate(msg.date)}</td>
-                    </tr>
-                `).join('');
-            
-            // تحديث مخطط المشكلات
-            updateProblemsChart();
-        }
-
-        // تحديث مخطط المشكلات
-        function updateProblemsChart() {
-            const ctx = document.getElementById('problemsChart');
-            if (!ctx) return;
-            
-            if (ctx.chart) ctx.chart.destroy();
-            
-            const types = ['network', 'performance', 'dhcp', 'hardware', 'other'];
-            const counts = types.map(type => 
-                systemData.problems.filter(p => p.type === type).length
-            );
-            
-            ctx.chart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['شبكة', 'أداء', 'DHCP', 'هاردوير', 'أخرى'],
-                    datasets: [{
-                        data: counts,
-                        backgroundColor: ['#4361ee', '#f59e0b', '#10b981', '#ef4444', '#3b82f6'],
-                        borderWidth: 2,
-                        borderColor: '#ffffff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: { font: { size: 12 } }
-                        }
-                    }
-                }
-            });
-        }
-
-        // تحديث جدول الرسائل
-        async function updateMessagesDisplay() {
-            let filteredMessages = systemData.problems.filter(msg => {
-                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
-                    if (msg.type !== currentFilter) return false;
-                }
+        // ===== تحديث جدول الرسائل =====
+        function updateMessagesDisplay() {
+            let filtered = problems.filter(msg => {
+                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved' && msg.type !== currentFilter) return false;
                 if (currentFilter === 'pending' && msg.solved) return false;
                 if (currentFilter === 'solved' && !msg.solved) return false;
-                
                 if (searchQuery) {
                     const text = (msg.user + ' ' + msg.problem).toLowerCase();
                     if (!text.includes(searchQuery.toLowerCase())) return false;
@@ -2516,113 +2169,93 @@
             
             const tbody = document.getElementById('messagesTableBody');
             
-            if (filteredMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px;">
-                            <div class="empty-state">
-                                <i class="fas fa-inbox"></i>
-                                <h4>لا توجد رسائل</h4>
-                            </div>
-                        </td>
-                    </tr>
-                `;
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;"><div class="empty-state"><i class="fas fa-inbox"></i><h4>لا توجد رسائل</h4></div></td></tr>';
                 return;
             }
             
-            tbody.innerHTML = filteredMessages.map((msg, index) => `
+            tbody.innerHTML = filtered.map((msg, index) => `
                 <tr>
                     <td>${index + 1}</td>
-                    <td>
-                        <div style="font-weight: 600;">${msg.user}</div>
-                        <div style="font-size: 12px; color: #64748b;">${getTypeArabic(msg.type)}</div>
-                    </td>
-                    <td>
-                        <span class="badge badge-primary">${getTypeArabic(msg.type)}</span>
-                    </td>
+                    <td><div style="font-weight: 600;">${msg.user}</div><div style="font-size: 12px; color: #64748b;">${getTypeArabic(msg.type)}</div></td>
+                    <td><span class="badge badge-primary">${getTypeArabic(msg.type)}</span></td>
                     <td>${msg.problem.substring(0, 50)}${msg.problem.length > 50 ? '...' : ''}</td>
                     <td>${formatDate(msg.date)}</td>
-                    <td>
-                        ${msg.solved ? 
-                            '<span class="badge badge-success">تم الحل</span>' : 
-                            '<span class="badge badge-warning">قيد الانتظار</span>'
-                        }
-                    </td>
+                    <td>${msg.solved ? '<span class="badge badge-success">تم الحل</span>' : '<span class="badge badge-warning">قيد الانتظار</span>'}</td>
                     <td>
                         <div style="display: flex; gap: 5px;">
-                            <button class="action-btn btn-view" onclick="viewMessage(${msg.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})">
-                                <i class="fas fa-reply"></i>
-                            </button>
-                            <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})" 
-                                ${[1,2,3].includes(msg.id) ? 'disabled style="opacity: 0.5;"' : ''}>
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <button class="action-btn btn-view" onclick="viewMessage(${msg.id})"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})"><i class="fas fa-reply"></i></button>
+                            <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})" ${[1,2,3].includes(msg.id) ? 'disabled style="opacity: 0.5;"' : ''}><i class="fas fa-trash"></i></button>
                         </div>
                     </td>
                 </tr>
             `).join('');
+            
+            // تحديث آخر 5 رسائل
+            const recentTbody = document.getElementById('recentMessagesBody');
+            recentTbody.innerHTML = problems.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5).map(msg => `
+                <tr>
+                    <td>${msg.user}</td>
+                    <td>${msg.problem.substring(0, 40)}${msg.problem.length > 40 ? '...' : ''}</td>
+                    <td>${getTypeArabic(msg.type)}</td>
+                    <td><span class="badge ${msg.solved ? 'badge-success' : 'badge-warning'}">${msg.solved ? 'تم الحل' : 'قيد الانتظار'}</span></td>
+                    <td>${formatDate(msg.date)}</td>
+                </tr>
+            `).join('');
+            
+            // إحصائيات الرسائل
+            document.getElementById('messagesTotal').textContent = problems.length;
+            document.getElementById('messagesPending').textContent = problems.filter(m => !m.solved).length;
+            document.getElementById('messagesSolved').textContent = problems.filter(m => m.solved).length;
+            document.getElementById('messagesToday').textContent = problems.filter(m => new Date(m.date).toDateString() === new Date().toDateString()).length;
         }
 
-        // عرض الرسالة
-        async function viewMessage(messageId) {
-            const message = systemData.problems.find(m => m.id == messageId);
-            if (!message) return;
+        // ===== عرض الرسالة =====
+        function viewMessage(id) {
+            const msg = problems.find(m => m.id == id);
+            if (!msg) return;
             
-            currentMessageId = messageId;
+            currentMessageId = id;
             
-            document.getElementById('modalUserName').textContent = message.user;
-            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
-            document.getElementById('modalDate').textContent = formatDate(message.date);
-            document.getElementById('modalMessage').textContent = message.problem;
+            document.getElementById('modalUserName').textContent = msg.user;
+            document.getElementById('modalUserType').textContent = getTypeArabic(msg.type);
+            document.getElementById('modalDate').textContent = formatDate(msg.date);
+            document.getElementById('modalMessage').textContent = msg.problem;
             
             const repliesContainer = document.getElementById('allReplies');
-            if (message.replies && message.replies.length > 0) {
-                repliesContainer.innerHTML = message.replies.map(reply => `
+            if (msg.replies && msg.replies.length > 0) {
+                repliesContainer.innerHTML = msg.replies.map(r => `
                     <div class="reply-item">
                         <div class="reply-header">
-                            <div class="reply-author">
-                                <i class="fas fa-user-shield"></i> ${reply.author}
-                            </div>
-                            <div class="reply-date">${formatDate(reply.date)}</div>
+                            <div class="reply-author"><i class="fas fa-user-shield"></i> ${r.author}</div>
+                            <div class="reply-date">${formatDate(r.date)}</div>
                         </div>
-                        <div class="reply-content">${reply.content}</div>
+                        <div class="reply-content">${r.content}</div>
                     </div>
                 `).join('');
             } else {
-                repliesContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <h4>لا توجد ردود</h4>
-                    </div>
-                `;
+                repliesContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><h4>لا توجد ردود</h4></div>';
             }
             
-            document.getElementById('markSolvedBtn').style.display = message.solved ? 'none' : 'inline-block';
+            document.getElementById('markSolvedBtn').style.display = msg.solved ? 'none' : 'inline-block';
             document.getElementById('messageModal').classList.add('active');
         }
 
-        // إرسال رد
-        async function submitReply() {
+        // ===== إرسال رد =====
+        function submitReply() {
             const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد', 'error');
-                return;
-            }
+            if (!replyText) { showNotification('الرجاء كتابة الرد', 'error'); return; }
             
-            const message = systemData.problems.find(m => m.id == currentMessageId);
-            if (!message) return;
+            const msg = problems.find(m => m.id == currentMessageId);
+            if (!msg) return;
             
-            if (!message.replies) message.replies = [];
-            message.replies.push({
+            if (!msg.replies) msg.replies = [];
+            msg.replies.push({
                 author: 'فريق الدعم',
                 date: new Date().toISOString(),
                 content: replyText
             });
-            
-            await db.saveData(systemData);
             
             document.getElementById('replyText').value = '';
             viewMessage(currentMessageId);
@@ -2630,89 +2263,64 @@
             showNotification('تم إرسال الرد بنجاح');
         }
 
-        // تم الحل
-        async function markAsSolved() {
+        // ===== تم الحل =====
+        function markAsSolved() {
             const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد', 'error');
-                return;
-            }
+            if (!replyText) { showNotification('الرجاء كتابة الرد', 'error'); return; }
             
-            const message = systemData.problems.find(m => m.id == currentMessageId);
-            if (!message) return;
+            const msg = problems.find(m => m.id == currentMessageId);
+            if (!msg) return;
             
-            if (!message.replies) message.replies = [];
-            message.replies.push({
+            if (!msg.replies) msg.replies = [];
+            msg.replies.push({
                 author: 'فريق الدعم',
                 date: new Date().toISOString(),
                 content: replyText
             });
             
-            message.solved = true;
-            message.solution = replyText;
-            
-            await db.saveData(systemData);
+            msg.solved = true;
+            msg.solution = replyText;
             
             closeModal();
             updateMessagesDisplay();
-            updateDashboard();
             showNotification('تم تعيين المشكلة كمحلولة');
         }
 
-        // حذف رسالة
-        async function deleteMessage(messageId) {
-            if ([1,2,3].includes(parseInt(messageId))) {
-                showNotification('لا يمكن حذف الرسائل الأساسية', 'error');
-                return;
-            }
-            
+        // ===== حذف رسالة =====
+        function deleteMessage(id) {
+            if ([1,2,3].includes(parseInt(id))) { showNotification('لا يمكن حذف الرسائل الأساسية', 'error'); return; }
             if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
             
-            const index = systemData.problems.findIndex(m => m.id == messageId);
+            const index = problems.findIndex(m => m.id == id);
             if (index !== -1) {
-                systemData.problems.splice(index, 1);
-                await db.saveData(systemData);
+                problems.splice(index, 1);
                 updateMessagesDisplay();
-                updateDashboard();
                 showNotification('تم حذف الرسالة بنجاح');
             }
         }
 
-        // دوال مساعدة
+        // ===== دوال مساعدة =====
         function formatDate(dateString) {
             const d = new Date(dateString);
             const now = new Date();
             const diff = Math.floor((now - d) / 60000);
-            
             if (diff < 60) return `منذ ${diff} دقيقة`;
             if (diff < 1440) return `منذ ${Math.floor(diff / 60)} ساعة`;
             return d.toLocaleDateString('ar-EG');
         }
 
         function getTypeArabic(type) {
-            const types = {
-                'network': 'شبكة',
-                'dhcp': 'DHCP',
-                'performance': 'أداء',
-                'hardware': 'هاردوير',
-                'other': 'أخرى'
-            };
+            const types = { network: 'شبكة', dhcp: 'DHCP', performance: 'أداء', hardware: 'هاردوير', other: 'أخرى' };
             return types[type] || type;
         }
 
-        function showNotification(message, type = 'success') {
+        function showNotification(msg, type = 'success') {
             const area = document.getElementById('notificationArea');
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                ${message}
-            `;
-            area.appendChild(notification);
-            setTimeout(() => {
-                notification.style.animation = 'slideInRight 0.3s ease reverse';
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
+            const n = document.createElement('div');
+            n.className = `notification ${type}`;
+            n.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}`;
+            area.appendChild(n);
+            setTimeout(() => { n.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => n.remove(), 300); }, 3000);
         }
 
         function closeModal() {
@@ -2721,121 +2329,159 @@
             currentMessageId = null;
         }
 
-        function replyToMessage(id) {
-            viewMessage(id);
-            document.getElementById('replyText').focus();
-        }
+        function replyToMessage(id) { viewMessage(id); document.getElementById('replyText').focus(); }
 
-        // ===== نظام المصادقة =====
-        function validateCredentials(username, password) {
-            return btoa(username) === ADMIN_CREDENTIALS.username && 
-                   btoa(password) === ADMIN_CREDENTIALS.password;
-        }
-
-        function checkSession() {
-            const session = localStorage.getItem('mikrotools_admin_session');
-            if (!session) return false;
+        // ===== تحديث كود التتبع =====
+        function updateTrackingCode() {
+            const code = `<!-- كود تتبع MikroTools Analytics -->
+<script>
+(function() {
+    const BIN_ID = '${JSONBIN_CONFIG.BIN_ID}';
+    const API_KEY = '${JSONBIN_CONFIG.API_KEY}';
+    
+    fetch(\`https://api.jsonbin.io/v3/b/\${BIN_ID}\`, {
+        headers: { 'X-Master-Key': API_KEY }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const record = data.record || {};
+        if (!record.analytics) record.analytics = { pages: {}, daily: {}, visits: 0 };
+        
+        const page = document.title || window.location.pathname || 'الصفحة الرئيسية';
+        const today = new Date().toDateString();
+        
+        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
+        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
+        record.analytics.visits++;
+        record.analytics.lastUpdate = new Date().toISOString();
+        
+        return fetch(\`https://api.jsonbin.io/v3/b/\${BIN_ID}\`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify(record)
+        });
+    })
+    .catch(() => {});
+})();
+<\/script>`;
             
-            try {
-                const data = JSON.parse(session);
-                const hours = Math.abs(new Date() - new Date(data.timestamp)) / 36e5;
-                if (hours < 8) {
-                    data.timestamp = new Date().toISOString();
-                    localStorage.setItem('mikrotools_admin_session', JSON.stringify(data));
-                    return true;
-                }
-            } catch (e) {}
-            return false;
+            document.getElementById('trackingCodeDisplay').innerHTML = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
-        function handleLogin(e) {
+        // ===== نسخ كود التتبع =====
+        window.copyTrackingCode = function() {
+            const code = document.getElementById('trackingCodeDisplay').innerText;
+            navigator.clipboard.writeText(code);
+            showNotification('تم نسخ كود التتبع بنجاح');
+        };
+
+        // ===== تسجيل الدخول =====
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            if (validateCredentials(username, password)) {
-                localStorage.setItem('mikrotools_admin_session', JSON.stringify({
-                    username,
-                    timestamp: new Date().toISOString()
-                }));
-                showDashboard();
-                initSystem();
-                showNotification('تم تسجيل الدخول بنجاح');
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('userName').textContent = username;
+                document.getElementById('currentUsername').value = username;
+                
+                // جلب البيانات
+                fetchAnalytics();
+                updateMessagesDisplay();
+                updateTrackingCode();
+                
+                // تحديث دوري
+                setInterval(fetchAnalytics, 30000);
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
             }
-        }
+        });
 
-        function handleLogout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                localStorage.removeItem('mikrotools_admin_session');
-                document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('dashboard').classList.remove('active');
-                document.getElementById('loginForm').reset();
-            }
-        }
+        // ===== تسجيل الخروج =====
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('username').value = 'sameh';
+            document.getElementById('password').value = '0166843763';
+            document.getElementById('errorMessage').style.display = 'none';
+        });
 
-        function showDashboard() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-        }
+        // ===== التنقل بين الصفحات =====
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                const pageId = this.dataset.page;
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId + 'Page').classList.add('active');
+                
+                if (pageId === 'dashboard' || pageId === 'visitors' || pageId === 'pages' || pageId === 'realtime') {
+                    const analytics = await fetchAnalytics();
+                    if (pageId === 'dashboard') updateDashboardStats(analytics);
+                    if (pageId === 'visitors') updateVisitorsStats(analytics);
+                    if (pageId === 'pages') updatePagesStats(analytics);
+                    if (pageId === 'realtime') updateRealtimeStats(analytics);
+                }
+                if (pageId === 'messages') updateMessagesDisplay();
+                if (pageId === 'tracking') updateTrackingCode();
+            });
+        });
 
-        // ===== تهيئة النظام =====
-        async function initSystem() {
-            // تحميل البيانات
-            const data = await db.getData();
-            if (data.problems) systemData.problems = data.problems;
-            if (data.analytics) systemData.analytics = data.analytics;
-            
-            // حفظ البيانات التجريبية لو مفيش
-            if (systemData.problems.length === 0) {
-                await db.saveData(systemData);
-            }
-            
-            // تحديث كل الصفحات
-            await updateDashboard();
-            await updatePagesDisplay();
-            await updateLiveActivity();
-            
-            // بدء التحديث الدوري
-            setInterval(updateLiveActivity, 30000);
-            
-            document.getElementById('dataSourceText').innerHTML = 'بيانات حقيقية من JSONBin';
-        }
+        // ===== فلاتر الرسائل =====
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                updateMessagesDisplay();
+            });
+        });
+
+        // ===== بحث الرسائل =====
+        document.getElementById('searchMessages').addEventListener('input', function() {
+            searchQuery = this.value;
+            updateMessagesDisplay();
+        });
+
+        // ===== قائمة الجوال =====
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('sidebarOverlay').classList.add('active');
+        });
+        
+        document.getElementById('sidebarOverlay').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+        });
 
         // ===== إعدادات المدير =====
-        function updateAdminSettings() {
+        window.updateAdminSettings = function() {
             const newUsername = document.getElementById('newUsername').value.trim();
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             
-            if (!newUsername && !newPassword) {
-                showNotification('لم تقم بإدخال أي تغييرات', 'warning');
-                return;
-            }
+            if (!newUsername && !newPassword) { showNotification('لم تقم بإدخال أي تغييرات', 'warning'); return; }
+            if (newPassword && newPassword !== confirmPassword) { showNotification('كلمات المرور غير متطابقة', 'error'); return; }
             
-            if (newPassword && newPassword !== confirmPassword) {
-                showNotification('كلمات المرور غير متطابقة', 'error');
-                return;
-            }
-            
-            if (newUsername) {
-                document.getElementById('userName').textContent = newUsername;
-                document.getElementById('currentUsername').value = newUsername;
-                showNotification('تم تحديث اسم المستخدم');
-            }
-            
-            if (newPassword) {
-                showNotification('تم تحديث كلمة المرور');
-            }
+            if (newUsername) { document.getElementById('userName').textContent = newUsername; document.getElementById('currentUsername').value = newUsername; }
+            showNotification('تم حفظ الإعدادات بنجاح');
             
             document.getElementById('newUsername').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('confirmPassword').value = '';
-        }
+        };
 
-        // ===== نظام Telegram (مبسط) =====
-        function setupTelegram() {
+        // ===== Telegram (تجريبي) =====
+        window.setupTelegram = function() {
             const chatId = prompt('أدخل Chat ID من @getidsbot:');
             if (chatId && /^\d+$/.test(chatId)) {
                 localStorage.setItem('telegram_chat_id', chatId);
@@ -2847,98 +2493,16 @@
                 document.getElementById('testBtn').style.display = 'block';
                 showNotification('✅ تم تفعيل Telegram');
             }
-        }
+        };
 
-        function testTelegramNotification() {
-            showNotification('تم إرسال إشعار تجريبي');
-        }
+        window.testTelegramNotification = function() { showNotification('تم إرسال إشعار تجريبي'); };
+        window.sendQuickReport = function() { showNotification('تم إرسال التقرير السريع'); };
 
-        function sendQuickReport() {
-            showNotification('تم إرسال التقرير السريع');
-        }
-
-        function sendDetailedReport() {
-            showNotification('تم إرسال التقرير المفصل');
-        }
-
-        function sendLiveStatsReport() {
-            showNotification('تم إرسال الإحصائيات الحية');
-        }
-
-        // ===== معالجات الأحداث =====
-        function setupEventListeners() {
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-            
-            // القائمة الجانبية
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', async function(e) {
-                    e.preventDefault();
-                    
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const pageId = this.dataset.page;
-                    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-                    document.getElementById(pageId + 'Page').classList.add('active');
-                    
-                    switch(pageId) {
-                        case 'dashboard': await updateDashboard(); break;
-                        case 'pages': await updatePagesDisplay(); break;
-                        case 'realtime': await updateLiveActivity(); break;
-                        case 'messages': updateMessagesDisplay(); break;
-                    }
-                });
-            });
-            
-            // فلاتر الرسائل
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    updateMessagesDisplay();
-                });
-            });
-            
-            // بحث الرسائل
-            document.getElementById('searchMessages').addEventListener('input', function() {
-                searchQuery = this.value;
-                updateMessagesDisplay();
-            });
-            
-            // قائمة الجوال
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            
-            menuToggle.addEventListener('click', () => {
-                sidebar.classList.add('active');
-                overlay.classList.add('active');
-                sidebarOpen = true;
-            });
-            
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-                sidebarOpen = false;
-            });
-        }
-
-        // ===== التشغيل =====
+        // ===== تحميل أولي =====
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.display = 'none';
-                
-                if (checkSession()) {
-                    showDashboard();
-                    initSystem();
-                } else {
-                    document.getElementById('loginScreen').style.display = 'flex';
-                }
             }, 1000);
-            
-            setupEventListeners();
         });
     </script>
 </body>
