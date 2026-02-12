@@ -2,32 +2,23 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>لوحة تحكم مدير MikroTools المتكاملة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم MikroTools - النسخة النهائية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* -----------------------------------------------
-           نفس الـ CSS بتاعك الأول بالظبط - مفيش أي تغيير
-        ----------------------------------------------- */
         :root {
             --primary: #4361ee;
-            --primary-light: #6a8cff;
-            --secondary: #3f37c9;
+            --primary-dark: #3f37c9;
             --success: #10b981;
-            --danger: #ef4444;
             --warning: #f59e0b;
-            --info: #3b82f6;
-            --light-bg: #ffffff;
-            --light-card: #f8fafc;
-            --light-border: #e2e8f0;
-            --light-text: #1e293b;
-            --light-gray: #64748b;
-            --light-hover: #f1f5f9;
-            --sidebar-bg: #1e293b;
-            --gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --border: #e2e8f0;
         }
 
         * {
@@ -38,178 +29,118 @@
         }
 
         body {
-            background: var(--light-bg);
-            color: var(--light-text);
-            min-height: 100vh;
-            overflow-x: hidden;
+            background: #f1f5f9;
+            color: var(--dark);
         }
 
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--light-bg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(67, 97, 238, 0.1);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        /* شاشة الدخول */
         .login-screen {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             padding: 20px;
         }
 
         .login-box {
-            background: var(--light-bg);
+            background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px;
             width: 100%;
             max-width: 400px;
-            border: 1px solid var(--light-border);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             animation: fadeIn 0.5s ease;
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .login-header i {
-            font-size: 50px;
+            font-size: 60px;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .login-header h1 {
-            color: var(--light-text);
+            color: var(--dark);
             font-size: 24px;
-            margin-bottom: 8px;
             font-weight: 700;
-        }
-
-        .login-header p {
-            color: var(--light-gray);
-            font-size: 14px;
-            line-height: 1.5;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            color: var(--light-text);
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .form-control {
+        .form-group input {
             width: 100%;
-            padding: 14px 15px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
+            padding: 15px;
+            border: 2px solid var(--border);
             border-radius: 12px;
-            color: var(--light-text);
             font-size: 16px;
             transition: all 0.3s;
         }
 
-        .form-control:focus {
-            outline: none;
+        .form-group input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
-            background: var(--light-bg);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
         }
 
         .btn {
-            padding: 14px 25px;
-            border-radius: 12px;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
             border: none;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
+            transition: all 0.3s;
         }
 
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
-        }
-
-        .btn-primary:hover {
+        .btn:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
         }
 
         .error-message {
             background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            padding: 12px 15px;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 12px;
             border-radius: 10px;
             margin-bottom: 20px;
-            font-size: 14px;
             display: none;
-            animation: shake 0.5s ease;
+            text-align: center;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
+        /* لوحة التحكم */
         .dashboard {
             display: none;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .dashboard.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
 
-        .navbar {
-            background: var(--light-bg);
-            padding: 0 20px;
-            height: 70px;
+        .header {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--light-border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .logo {
@@ -219,479 +150,139 @@
         }
 
         .logo i {
-            font-size: 24px;
+            font-size: 32px;
             color: var(--primary);
         }
 
         .logo h1 {
-            color: var(--light-text);
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: 1px solid var(--light-border);
-            color: var(--primary);
             font-size: 24px;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 8px;
-            transition: all 0.3s;
+            color: var(--dark);
         }
 
-        .menu-toggle:hover {
-            background: var(--light-hover);
-        }
-
-        .notification-buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .notification-btn {
-            background: var(--light-card);
+        .badge {
+            background: rgba(67, 97, 238, 0.1);
             color: var(--primary);
-            border: 1px solid var(--light-border);
             padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 50px;
             font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .notification-btn:hover {
-            background: var(--light-hover);
-            transform: translateY(-1px);
-            border-color: var(--primary);
-        }
-
-        .notification-btn.telegram {
-            background: rgba(0, 136, 204, 0.1);
-            color: #0088cc;
-            border-color: rgba(0, 136, 204, 0.2);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-name {
-            color: var(--light-text);
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .logout-btn {
-            background: var(--light-card);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .sidebar {
-            width: 280px;
-            background: var(--light-bg);
-            height: calc(100vh - 70px);
-            position: fixed;
-            right: 0;
-            top: 70px;
-            border-left: 1px solid var(--light-border);
-            padding: 20px 0;
-            overflow-y: auto;
-            transition: transform 0.3s ease;
-            z-index: 99;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .sidebar.active {
-            transform: translateX(0);
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 5px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 25px;
-            color: var(--light-gray);
-            text-decoration: none;
-            transition: all 0.3s;
-            border-right: 4px solid transparent;
-            font-weight: 500;
-            font-size: 15px;
-        }
-
-        .nav-link:hover {
-            background: var(--light-hover);
-            color: var(--primary);
-            border-right-color: rgba(67, 97, 238, 0.2);
-        }
-
-        .nav-link.active {
-            background: rgba(67, 97, 238, 0.1);
-            color: var(--primary);
-            border-right-color: var(--primary);
-            font-weight: 600;
-        }
-
-        .nav-link i {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .main-content {
-            margin-right: 280px;
-            padding: 30px;
-            min-height: calc(100vh - 70px);
-            transition: margin 0.3s ease;
-            background: var(--light-card);
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .page-header {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--light-border);
-        }
-
-        .page-header h1 {
-            color: var(--light-text);
-            margin-bottom: 10px;
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .page-header p {
-            color: var(--light-gray);
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
 
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .stat-card {
-            background: var(--light-bg);
-            border: 1px solid var(--light-border);
-            border-radius: 16px;
+            background: white;
             padding: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-            border-color: var(--primary-light);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
         .stat-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: 15px;
         }
 
         .stat-icon {
             width: 60px;
             height: 60px;
-            border-radius: 14px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
         }
 
         .stat-icon.blue { background: rgba(67, 97, 238, 0.1); color: var(--primary); }
         .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .stat-icon.pink { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .stat-icon.purple { background: rgba(86, 11, 173, 0.1); color: #560bad; }
+        .stat-icon.purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
 
         .stat-title {
-            color: var(--light-gray);
+            color: var(--gray);
             font-size: 14px;
             margin-bottom: 8px;
-            font-weight: 500;
         }
 
         .stat-value {
-            color: var(--light-text);
-            font-size: 32px;
+            color: var(--dark);
+            font-size: 36px;
             font-weight: 800;
-            margin-bottom: 10px;
             line-height: 1;
         }
 
-        .stat-change {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .stat-change.positive { color: var(--success); }
-        .stat-change.negative { color: var(--danger); }
-
         .table-container {
-            background: var(--light-bg);
-            border: 1px solid var(--light-border);
-            border-radius: 16px;
+            background: white;
+            border-radius: 20px;
             padding: 25px;
             margin-bottom: 30px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .table-title {
-            color: var(--light-text);
-            font-size: 18px;
-            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 600;
+            color: var(--dark);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
 
         .table-responsive {
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
         }
 
         th {
-            background: var(--light-card);
-            color: var(--light-gray);
-            padding: 18px 15px;
-            text-align: right;
+            background: var(--light);
+            color: var(--gray);
+            padding: 15px;
             font-weight: 600;
-            border-bottom: 2px solid var(--light-border);
-            font-size: 14px;
-            white-space: nowrap;
+            border-bottom: 2px solid var(--border);
+            text-align: right;
         }
 
         td {
-            padding: 18px 15px;
-            border-bottom: 1px solid var(--light-border);
-            color: var(--light-text);
-            font-size: 14px;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--dark);
         }
 
         tr:hover {
-            background: var(--light-hover);
-        }
-
-        .badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .badge-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .badge-info { background: rgba(59, 130, 246, 0.1); color: var(--info); }
-        .badge-primary { background: rgba(67, 97, 238, 0.1); color: var(--primary); }
-
-        .action-btn {
-            padding: 8px 14px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            margin: 0 3px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
-        }
-
-        .btn-view { color: var(--primary); }
-        .btn-reply { color: var(--success); }
-        .btn-delete { color: var(--danger); }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-color: currentColor;
-        }
-
-        .filters {
-            background: var(--light-bg);
-            padding: 25px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            border: 1px solid var(--light-border);
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .filter-btn {
-            padding: 10px 18px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
-            border-radius: 10px;
-            color: var(--light-gray);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-            font-weight: 500;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .filter-btn:hover {
-            background: var(--light-hover);
-            transform: translateY(-2px);
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.15);
-        }
-
-        .search-box {
-            position: relative;
-            margin-bottom: 0;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 16px 50px 16px 20px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
-            border-radius: 12px;
-            color: var(--light-text);
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .search-box input:focus {
-            background: var(--light-bg);
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--light-gray);
-            font-size: 16px;
+            background: var(--light);
         }
 
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
 
-        @media (max-width: 768px) {
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .chart-card {
-            background: var(--light-bg);
-            border: 1px solid var(--light-border);
-            border-radius: 16px;
+            background: white;
+            border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .chart-title {
-            color: var(--light-text);
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .chart-container {
@@ -699,531 +290,7 @@
             position: relative;
         }
 
-        .date-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .date-filter {
-            padding: 10px 18px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
-            border-radius: 10px;
-            color: var(--light-gray);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-            flex: 1;
-            min-width: 100px;
-        }
-
-        .date-filter:hover {
-            background: var(--light-hover);
-        }
-
-        .date-filter.active {
-            background: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 12px 22px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
-            border-radius: 10px;
-            color: var(--light-gray);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-            font-weight: 500;
-            flex: 1;
-            min-width: 140px;
-        }
-
-        .tab-btn:hover {
-            background: var(--light-hover);
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 250px;
-            }
-            .main-content {
-                margin-right: 250px;
-                padding: 20px;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            .sidebar {
-                transform: translateX(100%);
-                width: 280px;
-            }
-            .main-content {
-                margin-right: 0;
-                padding: 15px;
-            }
-            .navbar {
-                padding: 0 15px;
-            }
-            .logo h1 {
-                font-size: 18px;
-            }
-            .notification-buttons {
-                display: none;
-            }
-            .user-name {
-                display: none;
-            }
-            .page-header h1 {
-                font-size: 24px;
-            }
-            .table-container {
-                padding: 20px;
-            }
-            .filter-btn, .date-filter, .tab-btn {
-                min-width: calc(50% - 10px);
-            }
-            .stat-value {
-                font-size: 28px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .filter-btn, .date-filter, .tab-btn {
-                min-width: 100%;
-            }
-            .chart-container {
-                height: 250px;
-            }
-            .page-header h1 {
-                font-size: 22px;
-            }
-        }
-
-        .notification {
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            padding: 18px 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            max-width: 350px;
-            background: white;
-            border-left: 4px solid;
-        }
-
-        @media (max-width: 768px) {
-            .notification {
-                right: 10px;
-                left: 10px;
-                max-width: none;
-                top: 80px;
-            }
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .notification.success {
-            background: white;
-            color: var(--success);
-            border-left-color: var(--success);
-        }
-
-        .notification.error {
-            background: white;
-            color: var(--danger);
-            border-left-color: var(--danger);
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .export-btn {
-            padding: 12px 22px;
-            background: var(--light-card);
-            border: 1px solid var(--light-border);
-            border-radius: 10px;
-            color: var(--light-text);
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            flex: 1;
-            min-width: 180px;
-        }
-
-        .export-btn:hover {
-            background: var(--light-hover);
-            transform: translateY(-2px);
-        }
-
-        .live-counter {
-            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(63, 55, 201, 0.1));
-            border: 2px solid var(--primary);
-            border-radius: 18px;
-            padding: 35px 30px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .live-counter .label {
-            font-size: 15px;
-            color: var(--light-gray);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .live-counter .count {
-            font-size: 56px;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 15px 0;
-        }
-
-        .live-counter .update-time {
-            color: var(--light-gray);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal {
-            background: var(--light-bg);
-            border-radius: 18px;
-            width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid var(--light-border);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .modal-header {
-            padding: 25px;
-            border-bottom: 1px solid var(--light-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--light-card);
-        }
-
-        .modal-header h3 {
-            color: var(--light-text);
-            font-size: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .modal-body {
-            padding: 25px;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--light-gray);
-            font-size: 24px;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .close-modal:hover {
-            background: var(--light-hover);
-            color: var(--light-text);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--light-gray);
-        }
-
-        .empty-state i {
-            font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-
-        .empty-state h4 {
-            color: var(--light-text);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 70px;
-            right: 0;
-            width: 100%;
-            height: calc(100vh - 70px);
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(3px);
-            z-index: 98;
-        }
-
-        .sidebar-overlay.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .telegram-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .telegram-card {
-            background: var(--light-bg);
-            border: 1px solid rgba(0, 136, 204, 0.2);
-            border-radius: 16px;
-            padding: 25px;
-            position: relative;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-        }
-
-        .telegram-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #0088cc, #4361ee);
-            border-radius: 16px 16px 0 0;
-        }
-
-        .telegram-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .telegram-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #0088cc, #4361ee);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-        }
-
-        .telegram-title {
-            color: var(--light-text);
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .telegram-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            background: var(--light-card);
-            border-radius: 10px;
-        }
-
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--success);
-        }
-
-        .status-indicator.inactive {
-            background: var(--danger);
-        }
-
-        .telegram-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .telegram-btn {
-            padding: 12px 20px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .telegram-btn.primary {
-            background: linear-gradient(135deg, #0088cc, #4361ee);
-            color: white;
-        }
-
-        .telegram-btn.success {
-            background: linear-gradient(135deg, var(--success), #0d9465);
-            color: white;
-        }
-
-        .telegram-btn.warning {
-            background: linear-gradient(135deg, var(--warning), #d97706);
-            color: white;
-        }
-
-        .telegram-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.2);
-        }
-
-        .telegram-chat-id {
-            background: var(--light-card);
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            font-family: monospace;
-            word-break: break-all;
-            color: #0088cc;
-        }
-
-        .replies-container {
-            margin: 20px 0;
-            border-top: 1px solid var(--light-border);
-            padding-top: 20px;
-        }
-
-        .reply-item {
-            background: var(--light-card);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid var(--light-border);
-        }
-
-        .reply-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--light-border);
-        }
-
-        .reply-author {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .reply-date {
-            color: var(--light-gray);
-            font-size: 12px;
-        }
-
-        .reply-content {
-            color: var(--light-text);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .data-source-badge {
-            background: rgba(67, 97, 238, 0.1);
-            color: var(--primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-right: 15px;
-        }
-
-        .tracking-code-box {
+        .code-box {
             background: #1e293b;
             color: #e2e8f0;
             padding: 20px;
@@ -1237,1471 +304,539 @@
             margin: 20px 0;
         }
 
-        .instruction-box {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard { padding: 15px; }
+            .header { flex-direction: column; gap: 15px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .stat-value { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- شاشة التحميل -->
+    <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <div style="text-align: center;">
+            <div style="width: 50px; height: 50px; border: 3px solid #f1f5f9; border-top-color: #4361ee; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
+            <div style="color: #64748b;">جاري تحميل لوحة التحكم...</div>
+        </div>
+    </div>
+
+    <!-- شاشة الدخول -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-user-shield"></i>
+                <h1>لوحة تحكم MikroTools</h1>
+                <p style="color: #64748b; margin-top: 10px;">النسخة النهائية - بيانات حقيقية</p>
+            </div>
+            
+            <div id="loginError" class="error-message">
+                <i class="fas fa-exclamation-circle"></i> اسم المستخدم أو كلمة المرور غير صحيحة
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="username" placeholder="اسم المستخدم" value="sameh">
+            </div>
+            
+            <div class="form-group">
+                <input type="password" id="password" placeholder="كلمة المرور" value="0166843763">
+            </div>
+            
+            <button class="btn" onclick="handleLogin()">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </button>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم -->
+    <div id="dashboard" class="dashboard">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-chart-pie"></i>
+                <h1>لوحة تحكم MikroTools</h1>
+                <span class="badge">
+                    <i class="fas fa-database"></i>
+                    <span id="dataSource">JSONBin · مباشر</span>
+                </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <span id="adminName" style="font-weight: 600;">sameh</span>
+                <button onclick="handleLogout()" style="background: none; border: 1px solid var(--border); padding: 8px 20px; border-radius: 10px; cursor: pointer; color: var(--danger);">
+                    <i class="fas fa-sign-out-alt"></i>
+                    خروج
+                </button>
+            </div>
+        </div>
+
+        <!-- تبويبات التنقل -->
+        <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+            <button class="tab-btn active" onclick="switchTab('dashboard')" id="tab-dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                لوحة التحكم
+            </button>
+            <button class="tab-btn" onclick="switchTab('pages')" id="tab-pages">
+                <i class="fas fa-file-alt"></i>
+                الصفحات
+            </button>
+            <button class="tab-btn" onclick="switchTab('visitors')" id="tab-visitors">
+                <i class="fas fa-calendar"></i>
+                الزيارات اليومية
+            </button>
+            <button class="tab-btn" onclick="switchTab('tracking')" id="tab-tracking">
+                <i class="fas fa-code"></i>
+                كود التتبع
+            </button>
+        </div>
+
+        <!-- محتوى الصفحات -->
+        <div id="dashboard-content"></div>
+    </div>
+
+    <style>
+        .tab-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 12px 25px;
+            border-radius: 12px;
+            color: var(--gray);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tab-btn:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tracking-instruction {
             background: #f8fafc;
             border-right: 4px solid var(--primary);
             padding: 20px;
             border-radius: 12px;
             margin: 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
         }
     </style>
-</head>
-<body>
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
-        <div style="color: #64748b; margin-top: 10px;">جاري تحميل لوحة التحكم...</div>
-    </div>
 
-    <div class="login-screen" id="loginScreen">
-        <div class="login-box">
-            <div class="login-header">
-                <i class="fas fa-user-shield"></i>
-                <h1>لوحة تحكم المدير</h1>
-                <p>تسجيل الدخول إلى نظام إدارة MikroTools المتكامل</p>
-            </div>
-            
-            <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-circle"></i>
-                اسم المستخدم أو كلمة المرور غير صحيحة
-            </div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>اسم المستخدم</label>
-                    <input type="text" class="form-control" id="username" placeholder="أدخل اسم المستخدم" value="sameh" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>كلمة المرور</label>
-                    <input type="password" class="form-control" id="password" placeholder="أدخل كلمة المرور" value="0166843763" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i>
-                    تسجيل الدخول
-                </button>
-            </form>
-        </div>
-    </div>
+    <script>
+        // ===== إعدادات JSONBin =====
+        const CONFIG = {
+            BIN_ID: '6984fe4d43b1c97be9684aa8',
+            API_KEY: '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G'
+        };
 
-    <div class="dashboard" id="dashboard">
-        <nav class="navbar">
-            <div class="logo">
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <i class="fas fa-chart-pie"></i>
-                <h1>لوحة التحكم</h1>
-                <span class="data-source-badge" id="dataSourceBadge">
-                    <i class="fas fa-database"></i>
-                    <span id="dataSourceText">بيانات حقيقية من JSONBin</span>
-                </span>
-            </div>
-            
-            <div class="notification-buttons">
-                <button class="notification-btn telegram" id="quickReportBtn" onclick="sendQuickReport()">
-                    <i class="fab fa-telegram"></i>
-                    <span>تقرير سريع</span>
-                </button>
-                <button class="notification-btn" id="notifyBtn" onclick="testTelegramNotification()">
-                    <i class="fas fa-bell"></i>
-                    <span>إشعار</span>
-                </button>
-            </div>
-            
-            <div class="user-info">
-                <span class="user-name" id="userName">المدير</span>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span class="logout-text">خروج</span>
-                </button>
-            </div>
-        </nav>
-        
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        
-        <div class="sidebar" id="sidebar">
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" data-page="dashboard">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>لوحة التحكم</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="messages">
-                        <i class="fas fa-comments"></i>
-                        <span>رسائل المشكلات</span>
-                        <span class="badge badge-danger" id="newMessagesBadge" style="margin-right: auto; display: none;">0</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="visitors">
-                        <i class="fas fa-users"></i>
-                        <span>الزوار</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="pages">
-                        <i class="fas fa-file-alt"></i>
-                        <span>الصفحات</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="realtime">
-                        <i class="fas fa-clock"></i>
-                        <span>مباشر</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="telegram">
-                        <i class="fab fa-telegram"></i>
-                        <span>إشعارات Telegram</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="tracking">
-                        <i class="fas fa-code"></i>
-                        <span>كود التتبع</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="settings">
-                        <i class="fas fa-cog"></i>
-                        <span>الإعدادات</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="main-content" id="mainContent">
-            <!-- صفحة لوحة التحكم الرئيسية -->
-            <div id="dashboardPage" class="page active">
-                <div class="page-header">
-                    <h1>لوحة التحكم الرئيسية</h1>
-                    <p>نظرة عامة على أداء الموقع والرسائل</p>
-                </div>
+        // ===== بيانات الدخول =====
+        const ADMIN = {
+            username: 'sameh',
+            password: '0166843763'
+        };
+
+        // ===== متغيرات عامة =====
+        let analyticsData = {
+            pages: {},
+            daily: {},
+            visits: 0,
+            lastUpdate: new Date().toISOString()
+        };
+
+        // ===== جلب البيانات من JSONBin =====
+        async function fetchAnalytics() {
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${CONFIG.BIN_ID}/latest`, {
+                    headers: {
+                        'X-Master-Key': CONFIG.API_KEY
+                    }
+                });
                 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الزيارات</div>
-                                <div class="stat-value" id="totalVisitors">0</div>
-                                <div class="stat-change positive" id="visitorsChange">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>0%</span>
+                if (!response.ok) throw new Error('فشل الاتصال');
+                
+                const data = await response.json();
+                analyticsData = data.record?.analytics || {
+                    pages: {},
+                    daily: {},
+                    visits: 0,
+                    lastUpdate: new Date().toISOString()
+                };
+                
+                document.getElementById('dataSource').innerHTML = '<i class="fas fa-check-circle"></i> JSONBin · متصل';
+                return analyticsData;
+            } catch (error) {
+                console.error('خطأ في جلب البيانات:', error);
+                document.getElementById('dataSource').innerHTML = '<i class="fas fa-exclamation-triangle"></i> محلي · مؤقت';
+                return analyticsData;
+            }
+        }
+
+        // ===== عرض لوحة التحكم الرئيسية =====
+        async function renderDashboard() {
+            const data = await fetchAnalytics();
+            const pages = data.pages || {};
+            const daily = data.daily || {};
+            const totalVisits = data.visits || 0;
+            
+            // ترتيب الصفحات
+            const pagesArray = Object.keys(pages)
+                .map(name => ({ name, visits: pages[name] }))
+                .sort((a, b) => b.visits - a.visits)
+                .slice(0, 10);
+            
+            // إحصائيات اليوم
+            const today = new Date().toDateString();
+            const todayVisits = daily[today] || 0;
+            
+            // متوسط الزيارات
+            const daysCount = Object.keys(daily).length || 1;
+            const avgVisits = Math.round(totalVisits / daysCount);
+            
+            const html = `
+                <div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">إجمالي الزيارات</div>
+                                    <div class="stat-value">${totalVisits}</div>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <i class="fas fa-users"></i>
                                 </div>
                             </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-users"></i>
-                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">زيارات اليوم</div>
-                                <div class="stat-value" id="todayVisitors">0</div>
-                                <div class="stat-change positive">
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">زيارات اليوم</div>
+                                    <div class="stat-value">${todayVisits}</div>
+                                </div>
+                                <div class="stat-icon green">
                                     <i class="fas fa-calendar-day"></i>
-                                    <span>اليوم</span>
                                 </div>
                             </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-calendar"></i>
-                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الصفحات النشطة</div>
-                                <div class="stat-value" id="totalPages">0</div>
-                                <div class="stat-change positive">
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">الصفحات النشطة</div>
+                                    <div class="stat-value">${Object.keys(pages).length}</div>
+                                </div>
+                                <div class="stat-icon orange">
                                     <i class="fas fa-file-alt"></i>
-                                    <span>صفحة</span>
                                 </div>
                             </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-sitemap"></i>
-                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">المتوسط اليومي</div>
-                                <div class="stat-value" id="avgDaily">0</div>
-                                <div class="stat-change positive">
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">المتوسط اليومي</div>
+                                    <div class="stat-value">${avgVisits}</div>
+                                </div>
+                                <div class="stat-icon purple">
                                     <i class="fas fa-chart-line"></i>
-                                    <span>زيارة</span>
                                 </div>
                             </div>
-                            <div class="stat-icon purple">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-bar"></i>
-                                أكثر الصفحات زيارة
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="visitorsChart"></canvas>
                         </div>
                     </div>
                     
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-pie"></i>
-                                توزيع المشكلات
-                            </div>
+                    <div class="table-container">
+                        <div class="table-title">
+                            <i class="fas fa-crown" style="color: #f59e0b;"></i>
+                            أكثر 10 صفحات زيارة
                         </div>
-                        <div class="chart-container">
-                            <canvas id="problemsChart"></canvas>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>الصفحة</th>
+                                        <th>عدد الزيارات</th>
+                                        <th>النسبة</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${pagesArray.map((page, index) => `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${page.name.length > 50 ? page.name.substring(0, 50) + '...' : page.name}</td>
+                                            <td><strong>${page.visits}</strong></td>
+                                            <td>${totalVisits > 0 ? Math.round(page.visits / totalVisits * 100) : 0}%</td>
+                                        </tr>
+                                    `).join('')}
+                                    ${pagesArray.length === 0 ? `
+                                        <tr>
+                                            <td colspan="4" style="text-align: center; padding: 50px;">
+                                                <i class="fas fa-chart-line" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                                                <h3 style="color: #666;">لا توجد زيارات بعد</h3>
+                                                <p style="color: #999;">انقر على تبويب "كود التتبع" لتركيب الكود في صفحاتك</p>
+                                            </td>
+                                        </tr>
+                                    ` : ''}
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-title">
+                            <i class="fas fa-clock"></i>
+                            آخر تحديث
+                        </div>
+                        <p style="color: var(--gray); margin: 0;">
+                            ${new Date(data.lastUpdate).toLocaleString('ar-EG')}
+                        </p>
                     </div>
                 </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-history"></i>
-                        آخر 5 رسائل
-                    </div>
-                    <div class="table-responsive">
-                        <table id="recentMessagesTable">
-                            <thead>
-                                <tr>
-                                    <th>المستخدم</th>
-                                    <th>المشكلة</th>
-                                    <th>النوع</th>
-                                    <th>الحالة</th>
-                                    <th>التاريخ</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentMessagesBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            `;
             
-            <!-- صفحة الرسائل -->
-            <div id="messagesPage" class="page">
-                <div class="page-header">
-                    <h1>إدارة رسائل المشكلات</h1>
-                    <p>إدارة ورد على جميع مشاكل المستخدمين</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الرسائل</div>
-                                <div class="stat-value" id="messagesTotal">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-inbox"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">قيد الانتظار</div>
-                                <div class="stat-value" id="messagesPending">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">تم الحل</div>
-                                <div class="stat-value" id="messagesSolved">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">جديدة اليوم</div>
-                                <div class="stat-value" id="messagesToday">0</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="filters">
-                    <div class="search-box">
-                        <input type="text" id="searchMessages" placeholder="ابحث في الرسائل...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <button class="filter-btn active" data-filter="all">الكل</button>
-                        <button class="filter-btn" data-filter="network">شبكة</button>
-                        <button class="filter-btn" data-filter="performance">أداء</button>
-                        <button class="filter-btn" data-filter="dhcp">DHCP</button>
-                        <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
-                        <button class="filter-btn" data-filter="solved">تم الحل</button>
-                    </div>
-                </div>
-                
+            document.getElementById('dashboard-content').innerHTML = html;
+        }
+
+        // ===== عرض إحصائيات الصفحات كاملة =====
+        async function renderPages() {
+            const data = await fetchAnalytics();
+            const pages = data.pages || {};
+            const totalVisits = data.visits || 0;
+            
+            const pagesArray = Object.keys(pages)
+                .map(name => ({ name, visits: pages[name] }))
+                .sort((a, b) => b.visits - a.visits);
+            
+            const html = `
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-list"></i>
-                        قائمة الرسائل
+                        جميع الصفحات (${pagesArray.length} صفحة)
                     </div>
-                    
                     <div class="table-responsive">
-                        <table id="messagesTable">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>المستخدم</th>
-                                    <th>نوع المشكلة</th>
-                                    <th>الرسالة</th>
-                                    <th>التاريخ</th>
-                                    <th>الحالة</th>
-                                    <th>الإجراءات</th>
+                                    <th>الصفحة</th>
+                                    <th>عدد الزيارات</th>
+                                    <th>النسبة</th>
+                                    <th>آخر زيارة</th>
                                 </tr>
                             </thead>
-                            <tbody id="messagesTableBody"></tbody>
+                            <tbody>
+                                ${pagesArray.map((page, index) => `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${page.name}</td>
+                                        <td><strong>${page.visits}</strong></td>
+                                        <td>${totalVisits > 0 ? Math.round(page.visits / totalVisits * 100) : 0}%</td>
+                                        <td>${new Date(data.lastUpdate).toLocaleDateString('ar-EG')}</td>
+                                    </tr>
+                                `).join('')}
+                                ${pagesArray.length === 0 ? `
+                                    <tr>
+                                        <td colspan="5" style="text-align: center; padding: 50px;">
+                                            <i class="fas fa-file-alt" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                                            <h3 style="color: #666;">لا توجد صفحات مسجلة بعد</h3>
+                                        </td>
+                                    </tr>
+                                ` : ''}
+                            </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
+            `;
             
-            <!-- صفحة الزوار -->
-            <div id="visitorsPage" class="page">
-                <div class="page-header">
-                    <h1>إحصائيات الزوار</h1>
-                    <p>تحليل شامل لزوار الموقع</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الزيارات</div>
-                                <div class="stat-value" id="totalVisitsStats">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">زيارات اليوم</div>
-                                <div class="stat-value" id="todayVisitsStats">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-calendar-day"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الصفحات النشطة</div>
-                                <div class="stat-value" id="activePagesStats">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-sitemap"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">المتوسط اليومي</div>
-                                <div class="stat-value" id="avgDailyStats">0</div>
-                            </div>
-                            <div class="stat-icon purple">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+            document.getElementById('dashboard-content').innerHTML = html;
+        }
+
+        // ===== عرض الزيارات اليومية =====
+        async function renderVisitors() {
+            const data = await fetchAnalytics();
+            const daily = data.daily || {};
+            
+            const dailyArray = Object.keys(daily)
+                .map(date => ({ date, visits: daily[date] }))
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const html = `
                 <div class="table-container">
                     <div class="table-title">
                         <i class="fas fa-calendar-alt"></i>
                         سجل الزيارات اليومية
                     </div>
                     <div class="table-responsive">
-                        <table id="visitorsTable">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>التاريخ</th>
                                     <th>عدد الزيارات</th>
-                                    <th>النسبة</th>
+                                    <th>المجموع التراكمي</th>
                                 </tr>
                             </thead>
-                            <tbody id="visitorsTableBody"></tbody>
+                            <tbody>
+                                ${dailyArray.map((day, index) => {
+                                    let cumulative = 0;
+                                    for (let i = 0; i <= index; i++) {
+                                        cumulative += dailyArray[i]?.visits || 0;
+                                    }
+                                    return `
+                                        <tr>
+                                            <td>${new Date(day.date).toLocaleDateString('ar-EG')}</td>
+                                            <td><strong>${day.visits}</strong></td>
+                                            <td>${cumulative}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                                ${dailyArray.length === 0 ? `
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; padding: 50px;">
+                                            <i class="fas fa-calendar" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                                            <h3 style="color: #666;">لا توجد زيارات يومية بعد</h3>
+                                        </td>
+                                    </tr>
+                                ` : ''}
+                            </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-            
-            <!-- صفحة الصفحات -->
-            <div id="pagesPage" class="page">
-                <div class="page-header">
-                    <h1>إحصائيات الصفحات</h1>
-                    <p>تحليل أداء صفحات الموقع</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي الصفحات</div>
-                                <div class="stat-value" id="totalPagesCount">0</div>
-                            </div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-sitemap"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">إجمالي المشاهدات</div>
-                                <div class="stat-value" id="totalViewsCount">0</div>
-                            </div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">متوسط المشاهدات</div>
-                                <div class="stat-value" id="avgViewsCount">0</div>
-                            </div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الصفحة الأعلى</div>
-                                <div class="stat-value" style="font-size: 18px;" id="topPageName">-</div>
-                            </div>
-                            <div class="stat-icon pink">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <i class="fas fa-chart-bar"></i>
-                                أكثر الصفحات زيارة
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="pagesViewsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-table"></i>
-                        تفاصيل الصفحات
-                    </div>
-                    <div class="table-responsive">
-                        <table id="pagesTable">
-                            <thead>
-                                <tr>
-                                    <th>الصفحة</th>
-                                    <th>المشاهدات</th>
-                                    <th>النسبة</th>
-                                    <th>الشعبية</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pagesTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- صفحة المباشر -->
-            <div id="realtimePage" class="page">
-                <div class="page-header">
-                    <h1>المتابعة المباشرة</h1>
-                    <p>متابعة الزوار في الوقت الفعلي</p>
-                </div>
-                
-                <div class="live-counter">
-                    <div class="label">
-                        <i class="fas fa-globe"></i>
-                        زوار مباشرون الآن
-                    </div>
-                    <div class="count" id="liveVisitors">0</div>
-                    <div class="update-time">
-                        <i class="fas fa-user-clock"></i>
-                        آخر تحديث: <span id="lastUpdateTime">الآن</span>
-                    </div>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-broadcast-tower"></i>
-                        الصفحات النشطة حالياً
-                    </div>
-                    <div id="liveActivity"></div>
-                </div>
-            </div>
-            
-            <!-- صفحة إشعارات Telegram -->
-            <div id="telegramPage" class="page">
-                <div class="page-header">
-                    <h1><i class="fab fa-telegram"></i> إشعارات Telegram</h1>
-                    <p>إرسال تقارير وإشعارات فورية</p>
-                </div>
-                
-                <div class="telegram-controls">
-                    <div class="telegram-card">
-                        <div class="telegram-header">
-                            <div class="telegram-icon">
-                                <i class="fab fa-telegram"></i>
-                            </div>
-                            <div class="telegram-title">حالة النظام</div>
-                        </div>
-                        
-                        <div class="telegram-status">
-                            <div class="status-indicator" id="statusIndicator"></div>
-                            <span id="statusText">جاري التحقق...</span>
-                        </div>
-                        
-                        <div id="chatIdDisplay" style="display: none;">
-                            <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">معرف الدردشة:</div>
-                            <div class="telegram-chat-id" id="currentChatId"></div>
-                        </div>
-                        
-                        <div class="telegram-buttons">
-                            <button class="telegram-btn primary" onclick="setupTelegram()" id="setupBtn">
-                                <i class="fas fa-cog"></i>
-                                إعداد Telegram
-                            </button>
-                            <button class="telegram-btn success" onclick="testTelegramNotification()" id="testBtn" style="display: none;">
-                                <i class="fas fa-paper-plane"></i>
-                                اختبار الإشعار
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- صفحة كود التتبع -->
-            <div id="trackingPage" class="page">
-                <div class="page-header">
-                    <h1><i class="fas fa-code"></i> كود التتبع</h1>
-                    <p>انسخ هذا الكود وضعه في آخر كل صفحة HTML في موقعك</p>
-                </div>
-                
-                <div class="table-container">
-                    <div class="instruction-box">
-                        <i class="fas fa-info-circle" style="color: var(--primary); font-size: 24px;"></i>
-                        <div>
-                            <h3 style="color: var(--dark); margin-bottom: 5px;">طريقة التركيب:</h3>
-                            <p style="color: var(--gray); margin: 0;">انسخ الكود بالكامل والصقه قبل إغلاق علامة &lt;/body&gt; مباشرة في كل صفحة من صفحات موقعك</p>
-                        </div>
-                    </div>
-                    
-                    <div class="tracking-code-box" id="trackingCodeDisplay"></div>
-                    
-                    <button class="btn btn-primary" onclick="copyTrackingCode()" style="width: auto; margin-top: 20px;">
-                        <i class="fas fa-copy"></i>
-                        نسخ الكود
-                    </button>
-                </div>
-            </div>
-            
-            <!-- صفحة الإعدادات -->
-            <div id="settingsPage" class="page">
-                <div class="page-header">
-                    <h1>الإعدادات</h1>
-                    <p>تعديل إعدادات المدير والنظام</p>
-                </div>
-                
-                <div class="table-container">
-                    <div class="table-title">
-                        <i class="fas fa-user-cog"></i>
-                        إعدادات المدير
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                        <div>
-                            <div class="form-group">
-                                <label>اسم المستخدم الحالي</label>
-                                <input type="text" class="form-control" id="currentUsername" value="sameh" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>اسم المستخدم الجديد</label>
-                                <input type="text" class="form-control" id="newUsername" placeholder="اتركه فارغاً">
-                            </div>
-                            <div class="form-group">
-                                <label>كلمة المرور الجديدة</label>
-                                <input type="password" class="form-control" id="newPassword" placeholder="أدخل كلمة المرور الجديدة">
-                            </div>
-                            <div class="form-group">
-                                <label>تأكيد كلمة المرور</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="أعد إدخال كلمة المرور">
-                            </div>
-                            <button class="btn btn-primary" onclick="updateAdminSettings()">
-                                <i class="fas fa-save"></i>
-                                حفظ التغييرات
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- نافذة عرض الرسالة -->
-    <div class="modal-overlay" id="messageModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-comment-alt"></i> عرض الرسالة والرد</h3>
-                <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div style="background: rgba(67, 97, 238, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <div style="color: #1e293b; font-weight: 600; font-size: 16px;" id="modalUserName"></div>
-                            <div style="color: #64748b; font-size: 13px;" id="modalUserType"></div>
-                        </div>
-                        <div style="margin-right: auto; font-size: 13px; color: #64748b;" id="modalDate"></div>
-                    </div>
-                    <div id="modalMessage" style="line-height: 1.6; font-size: 15px; color: #334155;"></div>
-                </div>
-                
-                <div class="replies-container" id="repliesContainer">
-                    <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-reply-all"></i> جميع الردود
-                    </h4>
-                    <div id="allReplies"></div>
-                </div>
-                
-                <div style="margin-top: 25px;">
-                    <h4 style="color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-reply"></i> إضافة رد جديد
-                    </h4>
-                    <textarea id="replyText" placeholder="اكتب ردك هنا..." style="font-size: 15px; padding: 18px; min-height: 120px; width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc;"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer" style="display: flex; gap: 10px; padding: 25px; border-top: 1px solid #e2e8f0;">
-                <button class="btn btn-primary" onclick="submitReply()" style="flex: 1;">
-                    <i class="fas fa-paper-plane"></i> إرسال الرد
-                </button>
-                <button class="btn btn-primary" id="markSolvedBtn" onclick="markAsSolved()" style="flex: 1; background: var(--success); border-color: var(--success);">
-                    <i class="fas fa-check-circle"></i> تم الحل
-                </button>
-                <button class="logout-btn" onclick="closeModal()" style="flex: 1; background: #f8fafc;">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="notificationArea"></div>
-
-    <script>
-        // ===============================================
-        //  JSONBin Config - نفس اللي شغال عليه
-        // ===============================================
-        const JSONBIN_CONFIG = {
-            BIN_ID: '6984fe4d43b1c97be9684aa8',
-            API_KEY: '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G'
-        };
-
-        // ===============================================
-        //  بيانات الدخول - نفس الأول
-        // ===============================================
-        const ADMIN_CREDENTIALS = {
-            username: 'sameh',
-            password: '0166843763'
-        };
-
-        // ===============================================
-        //  نظام الرسائل - زي الأول بالظبط (مفيش أي تغيير)
-        // ===============================================
-        let problems = [
-            { 
-                id: 1, 
-                user: 'محمد أحمد', 
-                type: 'network', 
-                problem: 'جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو', 
-                date: new Date().toISOString(), 
-                solved: true, 
-                solution: 'تم ضبط إعدادات NTP', 
-                replies: [
-                    { 
-                        author: 'فريق الدعم', 
-                        date: new Date().toISOString(), 
-                        content: 'شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل.'
-                    }
-                ],
-                adminReplies: 1,
-                views: 15
-            },
-            { 
-                id: 2, 
-                user: 'خالد محمود', 
-                type: 'performance', 
-                problem: 'السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة', 
-                date: new Date(Date.now() - 86400000).toISOString(), 
-                solved: false, 
-                solution: '', 
-                replies: [],
-                adminReplies: 0,
-                views: 8
-            },
-            { 
-                id: 3, 
-                user: 'أحمد سعيد', 
-                type: 'dhcp', 
-                problem: 'مشكلة في توزيع الـ IPs على العملاء الجدد', 
-                date: new Date(Date.now() - 172800000).toISOString(), 
-                solved: true, 
-                solution: 'تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.', 
-                replies: [
-                    { 
-                        author: 'فريق الدعم', 
-                        date: new Date(Date.now() - 86400000).toISOString(), 
-                        content: 'تم حل المشكلة عن طريق توسعة نطاق الـ DHCP.'
-                    }
-                ],
-                adminReplies: 1,
-                views: 12
-            }
-        ];
-
-        // ===============================================
-        //  متغيرات النظام - زي الأول
-        // ===============================================
-        let currentFilter = 'all';
-        let searchQuery = '';
-        let currentMessageId = null;
-        let sidebarOpen = false;
-
-        // ===============================================
-        //  ✅ فقط دوال الأرقام هي اللي اتغيرت (بتجيب حقيقية من JSONBin)
-        // ===============================================
-
-        // جلب إحصائيات حقيقية من JSONBin
-        async function fetchRealAnalytics() {
-            try {
-                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': JSONBIN_CONFIG.API_KEY }
-                });
-                
-                if (!response.ok) throw new Error('فشل الاتصال');
-                
-                const data = await response.json();
-                const analytics = data.record?.analytics || { pages: {}, daily: {}, visits: 0, lastUpdate: new Date().toISOString() };
-                
-                // تحديث كل الإحصائيات بالأرقام الحقيقية
-                updateDashboardWithRealData(analytics);
-                updatePagesWithRealData(analytics);
-                updateVisitorsWithRealData(analytics);
-                updateRealtimeWithRealData(analytics);
-                
-                return analytics;
-            } catch (error) {
-                console.error('خطأ في جلب البيانات الحقيقية:', error);
-                return null;
-            }
-        }
-
-        // تحديث لوحة التحكم بأرقام حقيقية
-        function updateDashboardWithRealData(analytics) {
-            const totalVisits = analytics.visits || 0;
-            const today = new Date().toDateString();
-            const todayVisits = analytics.daily?.[today] || 0;
-            const pagesCount = Object.keys(analytics.pages || {}).length;
-            
-            const daysCount = Object.keys(analytics.daily || {}).length || 1;
-            const avgDaily = daysCount > 0 ? Math.round(totalVisits / daysCount) : 0;
-            
-            document.getElementById('totalVisitors').textContent = totalVisits;
-            document.getElementById('todayVisitors').textContent = todayVisits;
-            document.getElementById('totalPages').textContent = pagesCount;
-            document.getElementById('avgDaily').textContent = avgDaily;
-            
-            // رسم المخططات بأرقام حقيقية
-            drawRealPagesChart(analytics.pages || {});
-        }
-
-        // تحديث صفحة الصفحات بأرقام حقيقية
-        function updatePagesWithRealData(analytics) {
-            const pages = analytics.pages || {};
-            const pagesArray = Object.keys(pages).map(name => ({ name, visits: pages[name] })).sort((a, b) => b.visits - a.visits);
-            const totalViews = pagesArray.reduce((sum, p) => sum + p.visits, 0);
-            
-            document.getElementById('totalPagesCount').textContent = pagesArray.length;
-            document.getElementById('totalViewsCount').textContent = totalViews;
-            document.getElementById('avgViewsCount').textContent = pagesArray.length > 0 ? Math.round(totalViews / pagesArray.length) : 0;
-            document.getElementById('topPageName').textContent = pagesArray[0]?.name.length > 20 ? pagesArray[0].name.substring(0, 20) + '...' : pagesArray[0]?.name || '-';
-            
-            const tbody = document.getElementById('pagesTableBody');
-            if (pagesArray.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px;">لا توجد زيارات بعد</td></tr>';
-            } else {
-                tbody.innerHTML = pagesArray.slice(0, 20).map(p => {
-                    let popularity = 'جديدة';
-                    let badgeClass = 'badge-info';
-                    if (p.visits > 100) { popularity = 'عالية جداً'; badgeClass = 'badge-success'; }
-                    else if (p.visits > 50) { popularity = 'عالية'; badgeClass = 'badge-success'; }
-                    else if (p.visits > 20) { popularity = 'متوسطة'; badgeClass = 'badge-warning'; }
-                    
-                    return `
-                        <tr>
-                            <td>${p.name.length > 50 ? p.name.substring(0, 50) + '...' : p.name}</td>
-                            <td><strong>${p.visits}</strong></td>
-                            <td>${totalViews > 0 ? Math.round(p.visits / totalViews * 100) : 0}%</td>
-                            <td><span class="badge ${badgeClass}">${popularity}</span></td>
-                        </tr>
-                    `;
-                }).join('');
-            }
-            
-            drawRealPagesChart(pages);
-        }
-
-        // تحديث صفحة الزوار بأرقام حقيقية
-        function updateVisitorsWithRealData(analytics) {
-            const totalVisits = analytics.visits || 0;
-            const today = new Date().toDateString();
-            const todayVisits = analytics.daily?.[today] || 0;
-            const pagesCount = Object.keys(analytics.pages || {}).length;
-            const daysCount = Object.keys(analytics.daily || {}).length || 1;
-            const avgDaily = Math.round(totalVisits / daysCount);
-            
-            document.getElementById('totalVisitsStats').textContent = totalVisits;
-            document.getElementById('todayVisitsStats').textContent = todayVisits;
-            document.getElementById('activePagesStats').textContent = pagesCount;
-            document.getElementById('avgDailyStats').textContent = avgDaily;
-            
-            const daily = analytics.daily || {};
-            const dailyArray = Object.keys(daily).map(date => ({ date, visits: daily[date] })).sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            const tbody = document.getElementById('visitorsTableBody');
-            if (dailyArray.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 40px;">لا توجد زيارات يومية بعد</td></tr>';
-            } else {
-                tbody.innerHTML = dailyArray.slice(0, 30).map(d => `
-                    <tr>
-                        <td>${new Date(d.date).toLocaleDateString('ar-EG')}</td>
-                        <td><strong>${d.visits}</strong></td>
-                        <td>${totalVisits > 0 ? Math.round(d.visits / totalVisits * 100) : 0}%</td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        // تحديث المباشر بأرقام حقيقية
-        function updateRealtimeWithRealData(analytics) {
-            const pages = analytics.pages || {};
-            const pagesArray = Object.keys(pages).map(name => ({ name, visits: pages[name] })).sort((a, b) => b.visits - a.visits);
-            const liveCount = Math.min(pagesArray.length, 5);
-            
-            document.getElementById('liveVisitors').textContent = liveCount;
-            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG');
-            
-            const container = document.getElementById('liveActivity');
-            if (liveCount === 0) {
-                container.innerHTML = '<div class="empty-state"><i class="fas fa-users-slash"></i><h4>لا يوجد زوار نشطين الآن</h4><p>الموقع هادئ حالياً</p></div>';
-            } else {
-                container.innerHTML = pagesArray.slice(0, liveCount).map(p => `
-                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px;">
-                        <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="color: #1e293b; font-weight: 600;">زائر_${Math.floor(Math.random() * 9000 + 1000)}</div>
-                            <div style="color: #64748b; font-size: 13px;">يزور <span style="color: var(--primary);">${p.name.length > 30 ? p.name.substring(0, 30) + '...' : p.name}</span></div>
-                        </div>
-                        <div style="font-size: 12px; color: #64748b; background: #f1f5f9; padding: 6px 12px; border-radius: 20px;">
-                            <i class="fas fa-clock"></i> منذ ${Math.floor(Math.random() * 5) + 1} دقيقة
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // رسم المخططات بأرقام حقيقية
-        function drawRealPagesChart(pages) {
-            const ctx = document.getElementById('visitorsChart');
-            if (!ctx) return;
-            
-            if (ctx.chart) ctx.chart.destroy();
-            
-            const pagesArray = Object.keys(pages).map(name => ({ name, visits: pages[name] })).sort((a, b) => b.visits - a.visits).slice(0, 7);
-            
-            if (pagesArray.length === 0) {
-                ctx.chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['لا توجد بيانات'],
-                        datasets: [{ label: 'المشاهدات', data: [0], backgroundColor: '#e2e8f0' }]
-                    }
-                });
-                return;
-            }
-            
-            ctx.chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: pagesArray.map(p => p.name.length > 15 ? p.name.substring(0, 12) + '...' : p.name),
-                    datasets: [{
-                        label: 'عدد الزيارات',
-                        data: pagesArray.map(p => p.visits),
-                        backgroundColor: '#4361ee',
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
-                }
-            });
-            
-            const pagesCtx = document.getElementById('pagesViewsChart');
-            if (pagesCtx) {
-                if (pagesCtx.chart) pagesCtx.chart.destroy();
-                pagesCtx.chart = new Chart(pagesCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: pagesArray.map(p => p.name.length > 15 ? p.name.substring(0, 12) + '...' : p.name),
-                        datasets: [{
-                            label: 'المشاهدات',
-                            data: pagesArray.map(p => p.visits),
-                            backgroundColor: '#10b981',
-                            borderRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } }
-                    }
-                });
-            }
-        }
-
-        // ===============================================
-        //  ✅ كل دوال الرسائل - زي الأول بالظبط (مفيش أي تغيير)
-        // ===============================================
-
-        // تحديث عرض الرسائل
-        function updateMessagesDisplay() {
-            const tbody = document.getElementById('messagesTableBody');
-            
-            let filteredMessages = problems.filter(msg => {
-                if (currentFilter !== 'all' && currentFilter !== 'pending' && currentFilter !== 'solved') {
-                    if (msg.type !== currentFilter) return false;
-                }
-                
-                if (currentFilter === 'pending') {
-                    if (msg.solved) return false;
-                }
-                if (currentFilter === 'solved') {
-                    if (!msg.solved) return false;
-                }
-                
-                if (searchQuery) {
-                    const searchText = (msg.user + ' ' + msg.problem + ' ' + (msg.solution || '')).toLowerCase();
-                    if (!searchText.includes(searchQuery.toLowerCase())) return false;
-                }
-                
-                return true;
-            });
-            
-            filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            if (filteredMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: #64748b;">
-                            <div class="empty-state">
-                                <i class="fas fa-inbox"></i>
-                                <h4>لا توجد رسائل</h4>
-                                <p>لم يتم العثور على رسائل تطابق معايير البحث</p>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            tbody.innerHTML = filteredMessages.map((msg, index) => {
-                const messagePreview = msg.problem.length > 50 ? 
-                    msg.problem.substring(0, 50) + '...' : msg.problem;
-                
-                const dateStr = formatDate(msg.date);
-                const isProtected = [1, 2, 3].includes(msg.id);
-                
-                return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>
-                            <div style="font-weight: 600; color: #1e293b;">${msg.user}</div>
-                            <div style="font-size: 12px; color: #64748b;">${getTypeArabic(msg.type)}</div>
-                        </td>
-                        <td>
-                            <span class="badge ${msg.type === 'network' ? 'badge-primary' : msg.type === 'performance' ? 'badge-warning' : 'badge-info'}">
-                                ${getTypeArabic(msg.type)}
-                            </span>
-                        </td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${dateStr}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success"><i class="fas fa-check-circle"></i> تم الحل</span>' : 
-                                '<span class="badge badge-warning"><i class="fas fa-clock"></i> قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>
-                            <div style="display: flex; gap: 5px; flex-wrap: wrap;">
-                                <button class="action-btn btn-view" onclick="viewMessage(${msg.id})" title="عرض">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn btn-reply" onclick="replyToMessage(${msg.id})" title="رد">
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                                <button class="action-btn btn-delete" onclick="deleteMessage(${msg.id})" title="حذف" ${isProtected ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            updateMessagesStats();
-        }
-
-        // تحديث إحصائيات الرسائل
-        function updateMessagesStats() {
-            const total = problems.length;
-            const pending = problems.filter(msg => !msg.solved).length;
-            const solved = problems.filter(msg => msg.solved).length;
-            
-            const today = new Date().toDateString();
-            const newToday = problems.filter(msg => {
-                const msgDate = new Date(msg.date).toDateString();
-                return msgDate === today;
-            }).length;
-            
-            document.getElementById('messagesTotal').textContent = total;
-            document.getElementById('messagesPending').textContent = pending;
-            document.getElementById('messagesSolved').textContent = solved;
-            document.getElementById('messagesToday').textContent = newToday;
-            
-            const badge = document.getElementById('newMessagesBadge');
-            if (newToday > 0) {
-                badge.textContent = newToday;
-                badge.style.display = 'inline-block';
-            } else {
-                badge.style.display = 'none';
-            }
-            
-            updateRecentMessages();
-        }
-
-        // تحديث آخر 5 رسائل
-        function updateRecentMessages() {
-            const tbody = document.getElementById('recentMessagesBody');
-            const recentMessages = problems
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 5);
-            
-            if (recentMessages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #64748b; padding: 30px;">
-                            <i class="fas fa-inbox" style="opacity: 0.5; margin-left: 10px;"></i>
-                            لا توجد رسائل حديثة
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            tbody.innerHTML = recentMessages.map(msg => {
-                const messagePreview = msg.problem.length > 40 ? 
-                    msg.problem.substring(0, 40) + '...' : msg.problem;
-                
-                return `
-                    <tr>
-                        <td>${msg.user}</td>
-                        <td title="${msg.problem}">${messagePreview}</td>
-                        <td>${getTypeArabic(msg.type)}</td>
-                        <td>
-                            ${msg.solved ? 
-                                '<span class="badge badge-success" style="padding: 4px 10px;">تم الحل</span>' : 
-                                '<span class="badge badge-warning" style="padding: 4px 10px;">قيد الانتظار</span>'
-                            }
-                        </td>
-                        <td>${formatDate(msg.date)}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // عرض الرسالة
-        function viewMessage(messageId) {
-            const message = problems.find(msg => msg.id == messageId);
-            if (!message) return;
-            
-            currentMessageId = messageId;
-            message.views = (message.views || 0) + 1;
-            
-            document.getElementById('modalUserName').textContent = message.user;
-            document.getElementById('modalUserType').textContent = getTypeArabic(message.type);
-            document.getElementById('modalDate').textContent = formatDate(message.date);
-            document.getElementById('modalMessage').textContent = message.problem;
-            
-            displayReplies(message.replies || []);
-            
-            if (message.solved) {
-                document.getElementById('markSolvedBtn').style.display = 'none';
-            } else {
-                document.getElementById('markSolvedBtn').style.display = 'inline-block';
-                document.getElementById('markSolvedBtn').innerHTML = '<i class="fas fa-check-circle"></i> تم الحل';
-            }
-            
-            document.getElementById('messageModal').classList.add('active');
-        }
-
-        // عرض الردود
-        function displayReplies(replies) {
-            const container = document.getElementById('allReplies');
-            
-            if (!replies || replies.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state" style="padding: 20px;">
-                        <i class="fas fa-inbox" style="font-size: 32px;"></i>
-                        <h4>لا توجد ردود بعد</h4>
-                        <p>كن أول من يرد على هذه المشكلة</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const sortedReplies = [...replies].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            container.innerHTML = sortedReplies.map(reply => {
-                const replyDate = formatDate(reply.date);
-                
-                return `
-                    <div class="reply-item">
-                        <div class="reply-header">
-                            <div class="reply-author">
-                                <i class="fas fa-user-shield" style="color: var(--primary);"></i>
-                                ${reply.author}
-                            </div>
-                            <div class="reply-date">
-                                <i class="fas fa-clock"></i>
-                                ${replyDate}
-                            </div>
-                        </div>
-                        <div class="reply-content">
-                            ${reply.content}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // الرد على رسالة
-        function replyToMessage(messageId) {
-            viewMessage(messageId);
-            document.getElementById('replyText').focus();
-        }
-
-        // إرسال الرد
-        async function submitReply() {
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد', 'error');
-                return;
-            }
-            
-            const message = problems.find(msg => msg.id == currentMessageId);
-            if (!message) return;
-            
-            if (!message.replies) message.replies = [];
-            
-            message.replies.push({
-                author: 'فريق الدعم',
-                date: new Date().toISOString(),
-                content: replyText
-            });
-            
-            message.adminReplies = (message.adminReplies || 0) + 1;
-            
-            viewMessage(currentMessageId);
-            document.getElementById('replyText').value = '';
-            showNotification('تم إرسال الرد بنجاح', 'success');
-            updateMessagesDisplay();
-        }
-
-        // تم الحل
-        async function markAsSolved() {
-            const message = problems.find(msg => msg.id == currentMessageId);
-            if (!message) return;
-            
-            const replyText = document.getElementById('replyText').value.trim();
-            if (!replyText) {
-                showNotification('الرجاء كتابة الرد قبل تعيين المشكلة كمحلولة', 'error');
-                return;
-            }
-            
-            if (!message.replies) message.replies = [];
-            message.replies.push({
-                author: 'فريق الدعم',
-                date: new Date().toISOString(),
-                content: replyText
-            });
-            
-            message.solution = replyText;
-            message.solved = true;
-            message.solvedDate = new Date().toISOString();
-            message.status = 'resolved';
-            message.adminReplies = (message.adminReplies || 0) + 1;
-            
-            closeModal();
-            updateMessagesDisplay();
-            showNotification('تم تعيين المشكلة كمحلولة', 'success');
-        }
-
-        // حذف رسالة
-        async function deleteMessage(messageId) {
-            const parsedId = parseInt(messageId);
-            
-            if ([1, 2, 3].includes(parsedId)) {
-                showNotification('⚠️ لا يمكن حذف الرسائل الأساسية (محمية)', 'error');
-                return;
-            }
-            
-            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟ هذا الإجراء لا يمكن التراجع عنه.')) return;
-            
-            const messageIndex = problems.findIndex(msg => msg.id == messageId);
-            
-            if (messageIndex === -1) {
-                showNotification('لم يتم العثور على الرسالة', 'error');
-                return;
-            }
-            
-            const messageToDelete = problems[messageIndex];
-            problems.splice(messageIndex, 1);
-            
-            updateMessagesDisplay();
-            showNotification(`تم حذف رسالة ${messageToDelete.user} بنجاح`, 'success');
-        }
-
-        // إغلاق النافذة
-        function closeModal() {
-            document.getElementById('messageModal').classList.remove('active');
-            document.getElementById('replyText').value = '';
-            currentMessageId = null;
-        }
-
-        // ===============================================
-        //  دوال مساعدة - زي الأول
-        // ===============================================
-        function formatDate(dateString) {
-            const d = new Date(dateString);
-            const now = new Date();
-            const diffMs = now - d;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
-            
-            if (diffMins < 60) {
-                return `منذ ${diffMins} دقيقة`;
-            }
-            
-            const diffHours = Math.floor(diffMins / 60);
-            if (diffHours < 24) {
-                return `منذ ${diffHours} ساعة`;
-            }
-            
-            return d.toLocaleDateString('ar-EG', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-            });
-        }
-
-        function getTypeArabic(type) {
-            const types = {
-                'network': 'شبكة',
-                'dhcp': 'DHCP',
-                'performance': 'أداء',
-                'hardware': 'هاردوير',
-                'other': 'أخرى'
-            };
-            return types[type] || type;
-        }
-
-        function showNotification(message, type = 'success') {
-            const notificationArea = document.getElementById('notificationArea');
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                ${message}
             `;
             
-            notificationArea.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideInRight 0.3s ease reverse';
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 5000);
+            document.getElementById('dashboard-content').innerHTML = html;
         }
 
-        // ===============================================
-        //  دوال الإعدادات و Telegram - زي الأول
-        // ===============================================
-        function updateAdminSettings() {
-            const newUsername = document.getElementById('newUsername').value.trim();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+        // ===== عرض كود التتبع =====
+        function renderTrackingCode() {
+            const trackingCode = `<!-- كود تتبع MikroTools Analytics - انسخ هذا الكود في آخر كل صفحة -->
+<script>
+(function() {
+    const BIN_ID = '${CONFIG.BIN_ID}';
+    const API_KEY = '${CONFIG.API_KEY}';
+    
+    const visitData = {
+        page: document.title || window.location.pathname || 'الصفحة الرئيسية',
+        url: window.location.href,
+        time: new Date().toISOString(),
+        date: new Date().toDateString()
+    };
+
+    fetch(\`https://api.jsonbin.io/v3/b/\${BIN_ID}\`, {
+        method: 'GET',
+        headers: { 'X-Master-Key': API_KEY }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const record = data.record || {};
+        if (!record.analytics) record.analytics = {};
+        if (!record.analytics.pages) record.analytics.pages = {};
+        if (!record.analytics.daily) record.analytics.daily = {};
+        if (!record.analytics.visits) record.analytics.visits = 0;
+        
+        record.analytics.pages[visitData.page] = (record.analytics.pages[visitData.page] || 0) + 1;
+        record.analytics.daily[visitData.date] = (record.analytics.daily[visitData.date] || 0) + 1;
+        record.analytics.visits++;
+        record.analytics.lastUpdate = visitData.time;
+        
+        return fetch(\`https://api.jsonbin.io/v3/b/\${BIN_ID}\`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify(record)
+        });
+    })
+    .catch(() => {});
+})();
+<\/script>`;
+
+            const html = `
+                <div class="table-container">
+                    <div class="table-title">
+                        <i class="fas fa-code"></i>
+                        كود تتبع الزوار
+                    </div>
+                    
+                    <div class="tracking-instruction">
+                        <i class="fas fa-info-circle" style="color: var(--primary); font-size: 20px;"></i>
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--dark); margin-bottom: 10px;">طريقة التركيب:</h3>
+                            <ol style="color: var(--gray); line-height: 1.8; margin-right: 20px;">
+                                <li>انسخ الكود بالكامل من المربع الأسفل</li>
+                                <li>افتح كل صفحة HTML في موقعك</li>
+                                <li>الصق الكود قبل علامة <code>&lt;/body&gt;</code> مباشرة</li>
+                                <li>احفظ الصفحة وارفعها على الاستضافة</li>
+                                <li>كل زيارة جديدة هتتسجل تلقائياً</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="code-box" id="trackingCodeBox">
+                        ${trackingCode.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <button onclick="copyTrackingCode()" class="btn" style="width: auto;">
+                            <i class="fas fa-copy"></i>
+                            نسخ الكود
+                        </button>
+                        <button onclick="testTracking()" class="btn" style="width: auto; background: var(--success);">
+                            <i class="fas fa-flask"></i>
+                            اختبار التتبع
+                        </button>
+                    </div>
+                    
+                    <div id="testResult" style="margin-top: 20px; display: none;"></div>
+                </div>
+            `;
             
-            if (!newUsername && !newPassword) {
-                showNotification('لم تقم بإدخال أي تغييرات', 'warning');
-                return;
-            }
-            
-            if (newPassword && newPassword !== confirmPassword) {
-                showNotification('كلمات المرور الجديدة غير متطابقة', 'error');
-                return;
-            }
-            
-            if (newUsername) {
-                document.getElementById('userName').textContent = newUsername;
-                document.getElementById('currentUsername').value = newUsername;
-                showNotification('تم تحديث اسم المستخدم', 'success');
-            }
-            
-            if (newPassword) {
-                showNotification('تم تحديث كلمة المرور', 'success');
-            }
-            
-            document.getElementById('newUsername').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
+            document.getElementById('dashboard-content').innerHTML = html;
         }
 
-        function setupTelegram() {
-            const chatId = prompt(`
-🚀 خطوات الحصول على Chat ID:
-
-1. افتح Telegram
-2. ابحث عن @getidsbot
-3. أرسل /start
-4. انسخ الرقم الذي سيرسله
-5. الصقه هنا
-
-📝 أدخل Chat ID:`);
-
-            if (chatId && /^\d+$/.test(chatId)) {
-                localStorage.setItem('telegram_chat_id', chatId);
-                document.getElementById('statusIndicator').className = 'status-indicator';
-                document.getElementById('statusText').textContent = 'النظام مفعل وجاهز';
-                document.getElementById('chatIdDisplay').style.display = 'block';
-                document.getElementById('currentChatId').textContent = chatId;
-                document.getElementById('setupBtn').style.display = 'none';
-                document.getElementById('testBtn').style.display = 'block';
-                showNotification('✅ تم حفظ Chat ID بنجاح', 'success');
-            } else if (chatId) {
-                showNotification('❌ Chat ID يجب أن يكون أرقام فقط', 'error');
-            }
-        }
-
-        function testTelegramNotification() {
-            showNotification('✅ تم إرسال إشعار تجريبي', 'success');
-        }
-
-        function sendQuickReport() {
-            showNotification('✅ تم إرسال التقرير السريع', 'success');
-        }
-
-        // ===============================================
-        //  كود التتبع - زي الأول
-        // ===============================================
-        function updateTrackingCode() {
+        // ===== نسخ كود التتبع =====
+        window.copyTrackingCode = function() {
             const code = `<!-- كود تتبع MikroTools Analytics -->
 <script>
 (function() {
-    const BIN_ID = '${JSONBIN_CONFIG.BIN_ID}';
-    const API_KEY = '${JSONBIN_CONFIG.API_KEY}';
+    const BIN_ID = '${CONFIG.BIN_ID}';
+    const API_KEY = '${CONFIG.API_KEY}';
     
+    const visitData = {
+        page: document.title || window.location.pathname || 'الصفحة الرئيسية',
+        url: window.location.href,
+        time: new Date().toISOString(),
+        date: new Date().toDateString()
+    };
+
     fetch(\`https://api.jsonbin.io/v3/b/\${BIN_ID}\`, {
         headers: { 'X-Master-Key': API_KEY }
     })
     .then(res => res.json())
     .then(data => {
         const record = data.record || {};
-        if (!record.analytics) record.analytics = { pages: {}, daily: {}, visits: 0 };
+        if (!record.analytics) record.analytics = {};
+        if (!record.analytics.pages) record.analytics.pages = {};
+        if (!record.analytics.daily) record.analytics.daily = {};
+        if (!record.analytics.visits) record.analytics.visits = 0;
         
-        const page = document.title || window.location.pathname || 'الصفحة الرئيسية';
-        const today = new Date().toDateString();
-        
-        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
-        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
+        record.analytics.pages[visitData.page] = (record.analytics.pages[visitData.page] || 0) + 1;
+        record.analytics.daily[visitData.date] = (record.analytics.daily[visitData.date] || 0) + 1;
         record.analytics.visits++;
-        record.analytics.lastUpdate = new Date().toISOString();
+        record.analytics.lastUpdate = visitData.time;
         
         return fetch(\`https://api.jsonbin.io/v3/b/\${BIN_ID}\`, {
             method: 'PUT',
@@ -2716,181 +851,112 @@
 })();
 <\/script>`;
             
-            const display = document.getElementById('trackingCodeDisplay');
-            if (display) {
-                display.innerHTML = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            }
-        }
+            navigator.clipboard.writeText(code);
+            
+            const result = document.getElementById('testResult');
+            result.style.display = 'block';
+            result.innerHTML = '<div style="background: #d1fae5; color: #065f46; padding: 15px; border-radius: 10px;">✅ تم نسخ الكود بنجاح</div>';
+            setTimeout(() => result.style.display = 'none', 3000);
+        };
 
-        function copyTrackingCode() {
-            const code = document.getElementById('trackingCodeDisplay')?.innerText;
-            if (code) {
-                navigator.clipboard.writeText(code);
-                showNotification('✅ تم نسخ كود التتبع بنجاح', 'success');
+        // ===== اختبار التتبع =====
+        window.testTracking = async function() {
+            const result = document.getElementById('testResult');
+            result.style.display = 'block';
+            result.innerHTML = '<div style="background: #fef3c7; color: #92400e; padding: 15px; border-radius: 10px;">⏳ جاري اختبار التتبع...</div>';
+            
+            try {
+                const testData = {
+                    page: 'اختبار التتبع',
+                    date: new Date().toDateString()
+                };
+                
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${CONFIG.BIN_ID}`, {
+                    headers: { 'X-Master-Key': CONFIG.API_KEY }
+                });
+                const data = await response.json();
+                const record = data.record || {};
+                
+                if (!record.analytics) record.analytics = {};
+                if (!record.analytics.pages) record.analytics.pages = {};
+                if (!record.analytics.daily) record.analytics.daily = {};
+                
+                record.analytics.pages[testData.page] = (record.analytics.pages[testData.page] || 0) + 1;
+                record.analytics.daily[testData.date] = (record.analytics.daily[testData.date] || 0) + 1;
+                
+                const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${CONFIG.BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': CONFIG.API_KEY
+                    },
+                    body: JSON.stringify(record)
+                });
+                
+                if (saveResponse.ok) {
+                    result.innerHTML = '<div style="background: #d1fae5; color: #065f46; padding: 15px; border-radius: 10px;">✅ التتبع يعمل بكفاءة - تم تسجيل زيارة اختبارية</div>';
+                    setTimeout(() => {
+                        result.style.display = 'none';
+                        switchTab('dashboard');
+                    }, 2000);
+                }
+            } catch (error) {
+                result.innerHTML = '<div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 10px;">❌ فشل الاتصال - تأكد من رفع الملفات على استضافة حقيقية</div>';
             }
-        }
+        };
 
-        // ===============================================
-        //  Event Listeners - زي الأول
-        // ===============================================
+        // ===== تغيير التبويبات =====
+        window.switchTab = async function(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            
+            switch(tab) {
+                case 'dashboard':
+                    await renderDashboard();
+                    break;
+                case 'pages':
+                    await renderPages();
+                    break;
+                case 'visitors':
+                    await renderVisitors();
+                    break;
+                case 'tracking':
+                    renderTrackingCode();
+                    break;
+            }
+        };
+
+        // ===== تسجيل الدخول =====
+        window.handleLogin = function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN.username && password === ADMIN.password) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('adminName').textContent = username;
+                switchTab('dashboard');
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        };
+
+        // ===== تسجيل الخروج =====
+        window.handleLogout = function() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('username').value = 'sameh';
+            document.getElementById('password').value = '0166843763';
+            document.getElementById('loginError').style.display = 'none';
+        };
+
+        // ===== تحميل أولي =====
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.display = 'none';
             }, 1000);
-            
-            setupEventListeners();
-            initMobileMenu();
         });
-
-        function initMobileMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            menuToggle.addEventListener('click', function() {
-                toggleSidebar();
-            });
-            
-            sidebarOverlay.addEventListener('click', function() {
-                closeSidebar();
-            });
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        closeSidebar();
-                    }
-                });
-            });
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            if (sidebarOpen) {
-                closeSidebar();
-            } else {
-                openSidebar();
-            }
-        }
-
-        function openSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.add('active');
-            sidebarOverlay.classList.add('active');
-            sidebarOpen = true;
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            sidebarOpen = false;
-            document.body.style.overflow = '';
-        }
-
-        function setupEventListeners() {
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const pageId = this.dataset.page;
-                    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-                    
-                    switch(pageId) {
-                        case 'dashboard':
-                            document.getElementById('dashboardPage').classList.add('active');
-                            fetchRealAnalytics();
-                            updateMessagesDisplay();
-                            break;
-                        case 'messages':
-                            document.getElementById('messagesPage').classList.add('active');
-                            updateMessagesDisplay();
-                            break;
-                        case 'visitors':
-                            document.getElementById('visitorsPage').classList.add('active');
-                            fetchRealAnalytics();
-                            break;
-                        case 'pages':
-                            document.getElementById('pagesPage').classList.add('active');
-                            fetchRealAnalytics();
-                            break;
-                        case 'realtime':
-                            document.getElementById('realtimePage').classList.add('active');
-                            fetchRealAnalytics();
-                            break;
-                        case 'tracking':
-                            document.getElementById('trackingPage').classList.add('active');
-                            updateTrackingCode();
-                            break;
-                        case 'settings':
-                            document.getElementById('settingsPage').classList.add('active');
-                            break;
-                        case 'telegram':
-                            document.getElementById('telegramPage').classList.add('active');
-                            break;
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    updateMessagesDisplay();
-                });
-            });
-            
-            document.getElementById('searchMessages').addEventListener('input', function() {
-                searchQuery = this.value;
-                updateMessagesDisplay();
-            });
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('dashboard').classList.add('active');
-                document.getElementById('userName').textContent = username;
-                document.getElementById('currentUsername').value = username;
-                
-                fetchRealAnalytics();
-                updateMessagesDisplay();
-                updateTrackingCode();
-                
-                setInterval(fetchRealAnalytics, 30000);
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        }
-
-        function handleLogout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                localStorage.removeItem(SESSION_KEY);
-                document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('dashboard').classList.remove('active');
-                document.getElementById('loginForm').reset();
-                document.getElementById('errorMessage').style.display = 'none';
-            }
-        }
     </script>
 </body>
 </html>
