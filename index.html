@@ -1107,42 +1107,48 @@
                 }
             });
         });
-    </script>
-    <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
-<script>
+   <script>
 (function() {
-    const BIN_ID = '6984fe4d43b1c97be9684aa8';
-    const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
+    const VISITOR_API = 'https://api.jsonbin.io/v3/b/6984fe4d43b1c97be9684aa8';
+    const MASTER_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
     
-    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-        headers: { 'X-Master-Key': API_KEY }
+    fetch(`${VISITOR_API}/latest`, {
+        headers: { 'X-Master-Key': MASTER_KEY }
     })
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
-        const record = data.record || {};
-        if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
+        let systemData = data.record || { analytics: {} };
+        if (!systemData.analytics) systemData.analytics = {};
         
-        const page = document.title || window.location.pathname;
-        const today = new Date().toDateString();
+        // تسجيل الزيارة
+        systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
+        systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
         
-        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
-        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
-        record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
+        if (!localStorage.getItem('site_visitor_id')) {
+            localStorage.setItem('site_visitor_id', 'v' + Date.now());
+            systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
+        }
         
-        return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        if (!sessionStorage.getItem('site_active')) {
+            sessionStorage.setItem('site_active', '1');
+            systemData.analytics.activeSessions = (systemData.analytics.activeSessions || 0) + 1;
+        }
+        
+        return fetch(VISITOR_API, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Master-Key': API_KEY
+                'X-Master-Key': MASTER_KEY
             },
-            body: JSON.stringify(record)
+            body: JSON.stringify(systemData)
         });
     })
-    .catch(() => {});
+    .catch(err => console.log('خطأ:', err));
 })();
 </script>
 </body>
 </html>
+
 
 
 
