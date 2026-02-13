@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VV99LZRKBJ');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام تعديل صفحة Hotspot - كامل مع أنظمة الدخول</title>
@@ -810,11 +803,11 @@
                 </a>
                 <a href="hotspot.html" class="nav-link">
                     <i class="fas fa-wifi"></i>
-                    اعدادات hotspot+ppp
+                    اعدادات هوت اسبوت وبرود باند
                 </a>
                 <a href="Hotspot Editor.html" class="nav-link active ">
                     <i class="fas fa-link"></i>
-                    تصميم hotspot
+                    تصميم هوت اسبوت
                 </a>
                 <a href="merge-v6.html" class="nav-link">
                     <i class="fas fa-link"></i>
@@ -976,7 +969,7 @@
                 
                 <div class="logo-preview">
                     <div id="logoDisplay" class="logo-display">
-                        Mikro-tools
+                        mikro-tools
                     </div>
                 </div>
                 
@@ -1001,7 +994,7 @@
                         <i class="fas fa-text-height"></i>
                         نص الشعار (إذا لم ترفع صورة)
                     </label>
-                    <input type="text" id="logoText" class="form-control" value="Mikro-tools">
+                    <input type="text" id="logoText" class="form-control" value="mikro-tools">
                 </div>
                 
                 <div class="form-group">
@@ -1074,7 +1067,7 @@
                         <i class="fas fa-info-circle"></i>
                         نص التذييل
                     </label>
-                    <input type="text" id="footerText" class="form-control" value="© mikro-tools.com جميع الحقوق محفوظة">
+                    <input type="text" id="footerText" class="form-control" value="© 2024 جميع الحقوق محفوظة">
                 </div>
             </div>
         </div>
@@ -1820,7 +1813,7 @@
                     }
                 }
                 
-                const logoText = document.getElementById('logoText')?.value || 'HOTSPOT LOGIN';
+                const logoText = document.getElementById('logoText')?.value || 'mikro-tools';
                 const logoColor = document.getElementById('logoColor')?.value || '#4361ee';
                 const logoSize = document.getElementById('logoSize')?.value || 'medium';
                 let logoFontSize = '28px';
@@ -2092,7 +2085,7 @@
                 document.querySelectorAll('.bg-item').forEach(i => i.classList.remove('active'));
                 document.querySelector('.bg-item[data-bg="gradient-blue"]').classList.add('active');
                 
-                document.getElementById('logoText').value = 'HOTSPOT LOGIN';
+                document.getElementById('logoText').value = 'mikro-tools';
                 document.getElementById('logoColor').value = '#4361ee';
                 document.getElementById('logoSize').value = 'medium';
                 
@@ -2101,7 +2094,7 @@
                 document.getElementById('usernamePlaceholder').value = 'اسم المستخدم';
                 document.getElementById('passwordPlaceholder').value = 'كلمة المرور';
                 document.getElementById('loginButtonText').value = 'تسجيل الدخول';
-                document.getElementById('footerText').value = '© 2024 جميع الحقوق محفوظة';
+                document.getElementById('footerText').value = '© mikro-tools.com جميع الحقوق محفوظة';
                 
                 document.querySelectorAll('.method-card').forEach(c => {
                     c.classList.remove('active');
@@ -2166,52 +2159,6 @@
                 notification.style.display = 'none';
             }, 3000);
         }
-    <script>
-(function() {
-    const VISITOR_API = 'https://api.jsonbin.io/v3/b/6984fe4d43b1c97be9684aa8';
-    const MASTER_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    
-    fetch(`${VISITOR_API}/latest`, {
-        headers: { 'X-Master-Key': MASTER_KEY }
-    })
-    .then(r => r.json())
-    .then(data => {
-        let systemData = data.record || { analytics: {} };
-        if (!systemData.analytics) systemData.analytics = {};
-        
-        // تسجيل الزيارة
-        systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
-        systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
-        
-        if (!localStorage.getItem('site_visitor_id')) {
-            localStorage.setItem('site_visitor_id', 'v' + Date.now());
-            systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
-        }
-        
-        if (!sessionStorage.getItem('site_active')) {
-            sessionStorage.setItem('site_active', '1');
-            systemData.analytics.activeSessions = (systemData.analytics.activeSessions || 0) + 1;
-        }
-        
-        return fetch(VISITOR_API, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': MASTER_KEY
-            },
-            body: JSON.stringify(systemData)
-        });
-    })
-    .catch(err => console.log('خطأ:', err));
-})();
-</script>
+    </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
