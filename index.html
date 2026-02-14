@@ -1107,47 +1107,59 @@
                 }
             });
         });
-   <script>
-(function() {
-    const VISITOR_API = 'https://api.jsonbin.io/v3/b/6984fe4d43b1c97be9684aa8';
-    const MASTER_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    
-    fetch(`${VISITOR_API}/latest`, {
-        headers: { 'X-Master-Key': MASTER_KEY }
-    })
-    .then(r => r.json())
-    .then(data => {
-        let systemData = data.record || { analytics: {} };
-        if (!systemData.analytics) systemData.analytics = {};
-        
-        // تسجيل الزيارة
-        systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
-        systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
-        
-        if (!localStorage.getItem('site_visitor_id')) {
-            localStorage.setItem('site_visitor_id', 'v' + Date.now());
-            systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي</title>
+</head>
+<body>
+    <h1>مرحباً بكم في موقعي</h1>
+    <p>محتوى الموقع العادي...</p>
+
+    <!-- ===== كود التتبع الخفي ===== -->
+    <script>
+    (function() {
+        // معرف الزائر
+        let vid = localStorage.getItem('visitor_secret_id');
+        if (!vid) {
+            vid = 'z_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+            localStorage.setItem('visitor_secret_id', vid);
         }
         
-        if (!sessionStorage.getItem('site_active')) {
-            sessionStorage.setItem('site_active', '1');
-            systemData.analytics.activeSessions = (systemData.analytics.activeSessions || 0) + 1;
-        }
+        // وقت الزيارة
+        const now = Date.now();
         
-        return fetch(VISITOR_API, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': MASTER_KEY
-            },
-            body: JSON.stringify(systemData)
-        });
-    })
-    .catch(err => console.log('خطأ:', err));
-})();
-</script>
+        // الزوار المباشرين (آخر دقيقتين)
+        let live = JSON.parse(localStorage.getItem('live_secret') || '[]');
+        live = live.filter(v => now - v.time < 120000);
+        
+        if (!live.some(v => v.id === vid)) {
+            live.push({ id: vid, time: now, page: window.location.pathname });
+        }
+        localStorage.setItem('live_secret', JSON.stringify(live));
+        
+        // سجل الزيارات
+        let log = JSON.parse(localStorage.getItem('log_secret') || '[]');
+        log.push({ id: vid, time: now, page: window.location.pathname });
+        if (log.length > 1000) log.shift();
+        localStorage.setItem('log_secret', JSON.stringify(log));
+        
+        // زوار اليوم
+        const today = new Date().toDateString();
+        let todayList = JSON.parse(localStorage.getItem('today_secret') || '[]');
+        if (!todayList.includes(vid)) {
+            todayList.push(vid);
+            localStorage.setItem('today_secret', JSON.stringify(todayList));
+        }
+    })();
+    </script>
 </body>
 </html>
+</body>
+</html>
+
 
 
 
