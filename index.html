@@ -1107,58 +1107,87 @@
                 }
             });
         });
- <!DOCTYPE html>
+ 
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقعي</title>
 </head>
 <body>
-    <h1>مرحباً بكم في موقعي</h1>
-    <p>محتوى الموقع العادي...</p>
+    <h1>مرحباً بكم</h1>
 
-    <!-- ===== كود التتبع الخفي ===== -->
+    <!-- ===== كود التتبع السحابي ===== -->
     <script>
-    (function() {
-        // معرف الزائر
-        let vid = localStorage.getItem('visitor_secret_id');
-        if (!vid) {
-            vid = 'z_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
-            localStorage.setItem('visitor_secret_id', vid);
-        }
+    (async function() {
+        // بيانات JSONBin بتاعتك
+        const BIN_ID = "6984fe4d43b1c97be9684aa8";  // حط الـ Bin ID بتاعك
+        const API_KEY = "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G"; // API Key بتاعتك
         
-        // وقت الزيارة
+        const visitorId = localStorage.getItem('visitor_cloud') || 
+                         'z_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+        localStorage.setItem('visitor_cloud', visitorId);
+        
         const now = Date.now();
+        const page = window.location.pathname;
         
-        // الزوار المباشرين (آخر دقيقتين)
-        let live = JSON.parse(localStorage.getItem('live_secret') || '[]');
-        live = live.filter(v => now - v.time < 120000);
-        
-        if (!live.some(v => v.id === vid)) {
-            live.push({ id: vid, time: now, page: window.location.pathname });
+        // جلب البيانات القديمة
+        let data = { visitors: [], today: [], total: 0 };
+        try {
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                headers: { 'X-Master-Key': API_KEY }
+            });
+            const json = await res.json();
+            data = json.record || data;
+        } catch(e) {
+            console.log('لا يوجد بيانات قديمة');
         }
-        localStorage.setItem('live_secret', JSON.stringify(live));
         
-        // سجل الزيارات
-        let log = JSON.parse(localStorage.getItem('log_secret') || '[]');
-        log.push({ id: vid, time: now, page: window.location.pathname });
-        if (log.length > 1000) log.shift();
-        localStorage.setItem('log_secret', JSON.stringify(log));
+        // تنظيف الزوار القدماء (أكثر من دقيقتين)
+        const now_time = Date.now();
+        data.visitors = (data.visitors || []).filter(v => now_time - v.time < 120000);
+        
+        // إضافة الزائر الحالي
+        if (!data.visitors.some(v => v.id === visitorId)) {
+            data.visitors.push({ id: visitorId, time: now, page: page });
+        }
         
         // زوار اليوم
         const today = new Date().toDateString();
-        let todayList = JSON.parse(localStorage.getItem('today_secret') || '[]');
-        if (!todayList.includes(vid)) {
-            todayList.push(vid);
-            localStorage.setItem('today_secret', JSON.stringify(todayList));
+        if (!data.today) data.today = [];
+        if (!data.today.includes(visitorId)) {
+            data.today.push(visitorId);
         }
+        
+        // إجمالي الزوار
+        if (!data.total) data.total = 0;
+        if (!data.all) data.all = [];
+        if (!data.all.includes(visitorId)) {
+            data.all.push(visitorId);
+            data.total = data.all.length;
+        }
+        
+        // سجل الزيارات
+        if (!data.log) data.log = [];
+        data.log.push({ id: visitorId, time: now, page: page });
+        if (data.log.length > 100) data.log = data.log.slice(-100);
+        
+        // حفظ البيانات في JSONBin
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify(data)
+        });
+        
+        console.log('✅ تم تسجيل الزيارة في السحابة');
     })();
     </script>
+
 </body>
 </html>
-</body>
-</html>
+
 
 
 
