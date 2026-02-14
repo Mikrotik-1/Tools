@@ -1108,112 +1108,11 @@
             });
         });
  
- <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي - الصفحة الرئيسية</title>
-    <style>
-        body { font-family: 'Tahoma', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .counter-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 20px 0; }
-        h1 { color: #333; }
-        .visitor-count { font-size: 48px; color: #4361ee; font-weight: bold; text-align: center; margin: 30px 0; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>مرحباً بك في موقعي</h1>
-        
-        <!-- ✅ كود عداد الزوار - يقرأ من JSONBin مباشرة -->
-        <div class="counter-card">
-            <h2 style="text-align: center;">عدد زوار الموقع</h2>
-            <div class="visitor-count" id="visitorCounter">جاري التحميل...</div>
-            <p style="text-align: center; color: #666;" id="lastUpdate">آخر تحديث: جاري...</p>
-        </div>
-        
-        <div class="counter-card">
-            <h3>محتوى الموقع العادي</h3>
-            <p>هذا محتوى عادي لموقعك، والعداد أعلاه يقرأ البيانات من JSONBin مباشرة</p>
-        </div>
-    </div>
 
-    <script>
-    // ✅ إعدادات JSONBin (نفس البيانات بتاعت اللوحة)
-    const JSONBIN_CONFIG = {
-        BIN_ID: "6984fe4d43b1c97be9684aa8",
-        API_KEY: "$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G"
-    };
-
-    // ✅ دالة جلب عدد الزوار من JSONBin
-    async function fetchVisitorCount() {
-        try {
-            const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
-                headers: {
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY
-                }
-            });
-            
-            if (!response.ok) throw new Error('فشل الاتصال');
-            
-            const data = await response.json();
-            const visitors = data.record?.analytics?.liveNow || 0;
-            
-            // تحديث الواجهة
-            document.getElementById('visitorCounter').textContent = visitors;
-            document.getElementById('lastUpdate').textContent = `آخر تحديث: ${new Date().toLocaleTimeString('ar-EG')}`;
-            
-            // ✅ تسجيل زيارة جديدة للموقع الخارجي
-            recordExternalVisit();
-            
-        } catch (error) {
-            console.error('خطأ:', error);
-            document.getElementById('visitorCounter').textContent = 'غير متاح';
-        }
-    }
-
-    // ✅ دالة تسجيل الزيارة (تزيد العداد)
-    async function recordExternalVisit() {
-        try {
-            // 1️⃣ جلب البيانات الحالية
-            const getResponse = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}/latest`, {
-                headers: { 'X-Master-Key': JSONBIN_CONFIG.API_KEY }
-            });
-            
-            const currentData = await getResponse.json();
-            const record = currentData.record;
-            
-            // 2️⃣ زيادة العدادات
-            if (!record.analytics) record.analytics = {};
-            record.analytics.liveNow = (record.analytics.liveNow || 50) + 1;
-            record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
-            record.analytics.todayVisits = (record.analytics.todayVisits || 0) + 1;
-            record.analytics.pageViews = (record.analytics.pageViews || 0) + 1;
-            
-            // 3️⃣ حفظ التحديث
-            await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY
-                },
-                body: JSON.stringify(record)
-            });
-            
-            console.log('✅ تم تسجيل الزيارة');
-            
-        } catch (error) {
-            console.error('خطأ في تسجيل الزيارة:', error);
-        }
-    }
-
-    // ✅ تشغيل العداد عند تحميل الصفحة
-    fetchVisitorCount();
-
-    // ✅ تحديث العداد كل 30 ثانية
-    setInterval(fetchVisitorCount, 30000);
-    </script>
 
 </body>
 </html>
+
 
 
 
