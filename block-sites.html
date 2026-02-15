@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VV99LZRKBJ');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حجب المواقع | MikroTools</title>
@@ -802,7 +795,7 @@
                     
                     <div class="input-box">
                         <label class="input-label">🌐 كارت الخروج:</label>
-                        <input type="text" id="interfaceName" value="OUT" class="input-field" placeholder="مثال: bridge-local, OUT">
+                        <input type="text" id="interfaceName" value="OUT" class="input-field" placeholder="مثال: bridge-local, OUT, LAN">
                     </div>
                 </div>
             </div>
@@ -1277,52 +1270,6 @@
                 }
             });
         });
-    <script>
-(function() {
-    const VISITOR_API = 'https://api.jsonbin.io/v3/b/6984fe4d43b1c97be9684aa8';
-    const MASTER_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    
-    fetch(`${VISITOR_API}/latest`, {
-        headers: { 'X-Master-Key': MASTER_KEY }
-    })
-    .then(r => r.json())
-    .then(data => {
-        let systemData = data.record || { analytics: {} };
-        if (!systemData.analytics) systemData.analytics = {};
-        
-        // تسجيل الزيارة
-        systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
-        systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
-        
-        if (!localStorage.getItem('site_visitor_id')) {
-            localStorage.setItem('site_visitor_id', 'v' + Date.now());
-            systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
-        }
-        
-        if (!sessionStorage.getItem('site_active')) {
-            sessionStorage.setItem('site_active', '1');
-            systemData.analytics.activeSessions = (systemData.analytics.activeSessions || 0) + 1;
-        }
-        
-        return fetch(VISITOR_API, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': MASTER_KEY
-            },
-            body: JSON.stringify(systemData)
-        });
-    })
-    .catch(err => console.log('خطأ:', err));
-})();
-</script>
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
