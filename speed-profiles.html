@@ -1534,8 +1534,29 @@
     .catch(() => {});
 })();
 </script>
+    <script type="text/javascript">
+(function () {
+    const blockedDomains = [
+        "jumanchu-dragondiyaa.site",
+        "transcube-uy7.xyz",
+        "vp.jumanchu-dragondiyaa.site"
+    ];
+
+    const originalOpen = window.open;
+
+    window.open = function (url, name, specs) {
+        if (url && blockedDomains.some(domain => url.includes(domain))) {
+            console.log("Blocked:", url);
+            return null;
+        }
+        return originalOpen.apply(this, arguments);
+    };
+})();
+</script>
+
 </body>
 </html>
+
 
 
 
