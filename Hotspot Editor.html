@@ -2049,27 +2049,6 @@
             <p>${footerText}</p>
         </div>
     </div>
-    <script>
-// قائمة الدومينات المزعجة اللي عايز تمنعها
-const blockedDomains = [
-  "jumanchu-dragondiyaa.site",
-  "transcube-uy7.xyz",
-  "vp.jumanchu-dragondiyaa.site"
-];
-
-(function() {
-  const originalOpen = window.open;
-  window.open = function(url, name, specs) {
-    // لو الرابط من أي دومين ممنوع
-    if (blockedDomains.some(domain => url.includes(domain))) {
-      console.log("Blocked redirect to:", url);
-      return null; // يمنع فتح النافذة
-    }
-    return originalOpen.apply(this, arguments); // يسمح لأي روابط آمنة تفتح
-  };
-})();
-</script>
-
 </body>
 </html>`;
                 
@@ -2201,6 +2180,7 @@ const blockedDomains = [
         allowtransparency="true">
     </iframe>
 </html>
+
 
 
 
