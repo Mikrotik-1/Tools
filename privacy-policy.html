@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
@@ -33,13 +33,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="سياسة الخصوصية لـ MikroTools - حماية بياناتك واستخدام أدوات ميكروتيك مجانية بشكل آمن">
-    <meta name="keywords" content="سياسة الخصوصية, ميكروتيك, MikroTools, حماية البيانات, خصوصية, أدوات مجانية">
+    <meta name="description" content="Privacy Policy for MikroTools - Protecting your data and using free MikroTik tools safely">
+    <meta name="keywords" content="Privacy Policy, MikroTik, MikroTools, Data Protection, Privacy, Free Tools">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="سياسة الخصوصية - MikroTools">
-    <meta property="og:description" content="سياسة خصوصية شاملة لاستخدام أدوات ميكروتيك المجانية">
+    <meta property="og:title" content="Privacy Policy - MikroTools">
+    <meta property="og:description" content="Comprehensive privacy policy for using free MikroTik tools">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mikro-tools.com/privacy.html">
     
@@ -50,9 +50,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
-    <title>سياسة الخصوصية - MikroTools | أدوات ميكروتيك مجانية</title>
+    <title>Privacy Policy - MikroTools | Free MikroTik Tools</title>
     
     <style>
         :root {
@@ -76,16 +77,19 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background: var(--light);
             color: var(--dark);
-            direction: rtl;
             line-height: 1.8;
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
         }
 
         /* ===== قائمة التنقل العلوية ===== */
@@ -141,7 +145,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
@@ -153,6 +157,9 @@
             padding: 8px 16px;
             border-radius: 10px;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-link:hover {
@@ -169,8 +176,8 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            right: 50%;
-            transform: translateX(50%);
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--primary);
@@ -189,6 +196,10 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-cta:hover {
@@ -203,6 +214,146 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
+        }
+
+        /* ===== أزرار تبديل اللغة ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn i {
+            font-size: 12px;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== القوائم المنسدلة للـ navbar ===== */
+        .navbar-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .navbar-dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .navbar-dropdown:hover .navbar-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .navbar-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1e293b;
+            min-width: 250px;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .navbar-dropdown:hover .navbar-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .navbar-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #f1f5f9;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            margin: 2px 0;
+        }
+
+        .navbar-dropdown-item i {
+            width: 20px;
+            font-size: 16px;
+            color: var(--primary-light);
+        }
+
+        .navbar-dropdown-item:hover {
+            background: rgba(99, 102, 241, 0.25);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .navbar-dropdown-item:hover i {
+            color: white;
+        }
+
+        .navbar-dropdown-item.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .navbar-dropdown-item.active i {
+            color: white;
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-link::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body.rtl .navbar-dropdown-item:hover {
+            transform: translateX(5px);
         }
 
         /* ===== الهيرو الرئيسي ===== */
@@ -486,6 +637,12 @@
             top: -2px;
         }
 
+        /* RTL adjustments for lists */
+        body.rtl ul li:before {
+            right: -15px;
+            left: auto;
+        }
+
         /* قسم الإعلانات المميز */
         .ad-section {
             background: linear-gradient(135deg, #f5f3ff, #ede9fe);
@@ -717,11 +874,14 @@
                 position: absolute;
                 top: 100%;
                 right: 0;
+                left: 0;
                 background: var(--dark);
                 width: 100%;
                 padding: 1rem;
                 flex-direction: column;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                max-height: 80vh;
+                overflow-y: auto;
             }
             
             .nav-links.active {
@@ -730,6 +890,69 @@
             
             .menu-toggle {
                 display: block;
+            }
+            
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0 20px;
+                order: -1;
+            }
+            
+            .lang-btn {
+                flex: 1;
+                justify-content: center;
+                padding: 8px;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .navbar-dropdown {
+                width: 100%;
+            }
+            
+            .navbar-dropdown-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .navbar-dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.08);
+                margin-top: 5px;
+                margin-bottom: 10px;
+                display: none;
+                width: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .navbar-dropdown.active .navbar-dropdown-menu {
+                display: block;
+            }
+            
+            .navbar-dropdown-toggle {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .navbar-dropdown-item {
+                justify-content: center;
+                color: #e2e8f0;
+            }
+            
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
             }
             
             .hero-title {
@@ -796,7 +1019,7 @@
         <div class="progress" id="progress"></div>
     </div>
 
-    <!-- قائمة التنقل العلوية -->
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -811,49 +1034,108 @@
             </button>
             
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">
+                <!-- أزرار تبديل اللغة -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langEn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <button class="lang-btn" id="langAr">
+                        <i class="fas fa-globe"></i>
+                        AR
+                    </button>
+                </div>
+                
+                <!-- الرئيسية -->
+                <a href="index.html" class="nav-link" data-i18n="home">
                     <i class="fas fa-home"></i>
-                    الرئيسية
-              </a>
-                <a href="hotspot.html" class="nav-link">
-                    <i class="fas fa-wifi"></i>
-                    اعدادات hotspot+ppp
+                    <span>Home</span>
                 </a>
-                <a href="Hotspot Editor.html" class="nav-link ">
-                    <i class="fas fa-link"></i>
-                    تصميم hotspot
-                </a>
-                <a href="merge-v6.html" class="nav-link">
-                    <i class="fas fa-link"></i>
-                    دمج v6
-                </a>
-                <a href="merge-v7.html" class="nav-link">
-                    <i class="fas fa-rocket"></i>
-                    دمج v7
-                </a>
-                <a href="block-sites.html" class="nav-link">
-                    <i class="fas fa-shield-alt"></i>
-                    حجب مواقع
-                </a>
-                <a href="speed-profiles.html" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i>
-                    بروفايلات
-                </a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    من نحن
-                </a>
-                <a href="troubleshooting.html" class="nav-link">
-                    <i class="fas fa-question-circle"></i>
-                    المشكلات الشائعة
-                </a>
-                <a href="privacy.html" class="nav-link active">
-                    <i class="fas fa-user-shield"></i>
-                    سياسة الخصوصية
-                </a>
+                
+                <!-- قائمة الدمج المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-code-branch"></i>
+                        <span data-i18n="merge">Merge</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="merge-v6.html" class="navbar-dropdown-item">
+                            <i class="fas fa-network-wired"></i>
+                            <span data-i18n="merge_v6">Load Balancing v6</span>
+                        </a>
+                        <a href="merge-v7.html" class="navbar-dropdown-item">
+                            <i class="fas fa-rocket"></i>
+                            <span data-i18n="merge_v7">Load Balancing v7</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة الهوت سبوت المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-wifi"></i>
+                        <span data-i18n="hotspot">Hotspot</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="hotspot.html" class="navbar-dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
+                        </a>
+                        <a href="speed-profiles.html" class="navbar-dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="speed_profiles">Speed Profiles</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة التصميم والحجب المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-paint-brush"></i>
+                        <span data-i18n="design_block">Design & Block</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="Hotspot Editor.html" class="navbar-dropdown-item">
+                            <i class="fas fa-paint-brush"></i>
+                            <span data-i18n="hotspot_design">Hotspot Design</span>
+                        </a>
+                        <a href="block-sites.html" class="navbar-dropdown-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-i18n="block_sites">Block Sites</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة المساعدة المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-question-circle"></i>
+                        <span data-i18n="help">Help</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="troubleshooting.html" class="navbar-dropdown-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-i18n="troubleshooting">Troubleshooting</span>
+                        </a>
+                        <a href="about.html" class="navbar-dropdown-item">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="about">About Us</span>
+                        </a>
+                        <a href="privacy-policy.html" class="navbar-dropdown-item active">
+                            <i class="fas fa-user-shield"></i>
+                            <span data-i18n="privacy">Privacy Policy</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- واتساب -->
                 <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                     <i class="fab fa-whatsapp"></i>
-                    تواصل معنا
+                    <span data-i18n="contact_us">Contact Us</span>
                 </a>
             </div>
         </div>
@@ -864,20 +1146,20 @@
         <div class="hero-content">
             <span class="hero-badge">
                 <i class="fas fa-user-shield"></i>
-                حماية خصوصيتك أولويتنا
+                <span data-i18n="hero_badge">Your Privacy is Our Priority</span>
             </span>
             
-            <h1 class="hero-title">
-                سياسة الخصوصية
+            <h1 class="hero-title" data-i18n="hero_title">
+                Privacy Policy
             </h1>
             
-            <p class="hero-subtitle">
-                نحن نحرص على حماية خصوصيتك وبياناتك الشخصية. اقرأ سياسة الخصوصية الشاملة لمعرفة كيفية تعاملنا مع معلوماتك
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                We are committed to protecting your privacy and personal data. Read our comprehensive privacy policy to learn how we handle your information
             </p>
             
             <a href="#toc" class="btn btn-primary">
                 <i class="fas fa-list"></i>
-                ابدأ القراءة
+                <span data-i18n="start_reading">Start Reading</span>
             </a>
         </div>
     </section>
@@ -888,7 +1170,7 @@
         <section class="toc-section" id="toc">
             <h2 class="toc-title">
                 <i class="fas fa-bookmark"></i>
-                فهرس المحتويات
+                <span data-i18n="toc_title">Table of Contents</span>
             </h2>
             
             <div class="toc-grid" id="tocGrid">
@@ -902,27 +1184,27 @@
                 <div class="section-number">1</div>
                 <h3 class="section-title">
                     <i class="fas fa-info-circle"></i>
-                    مقدمة
+                    <span data-i18n="intro_title">Introduction</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>مرحباً بك في <strong>MikroTools</strong>. نحن نعتبر خصوصيتك أمراً بالغ الأهمية. تشرح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية معلوماتك الشخصية عندما تستخدم موقعنا الإلكتروني.</p>
+                <p data-i18n="intro_text">Welcome to <strong>MikroTools</strong>. We consider your privacy extremely important. This privacy policy explains how we collect, use, and protect your personal information when you use our website.</p>
                 
                 <div class="highlight-box">
                     <div class="highlight-title">
                         <i class="fas fa-exclamation-circle"></i>
-                        الملاحظة الأهم
+                        <span data-i18n="note_title">Important Note</span>
                     </div>
-                    <p><strong>جميع أدواتنا تعمل محلياً على متصفحك!</strong> لا يتم إرسال أي بيانات إلى خوادمنا. سكربتات ميكروتيك يتم توليدها وتنزيلها مباشرة من جهازك.</p>
+                    <p data-i18n="note_text"><strong>All our tools run locally in your browser!</strong> No data is sent to our servers. MikroTik scripts are generated and downloaded directly from your device.</p>
                 </div>
                 
                 <div class="info-box">
                     <div class="info-title">
                         <i class="fas fa-check-circle"></i>
-                        الموافقة والاستخدام
+                        <span data-i18n="consent_title">Consent and Usage</span>
                     </div>
-                    <p>باستخدامك لموقعنا، فإنك توافق على شروط وسياسة الخصوصية المذكورة هنا. إذا كنت لا توافق على هذه السياسة، يرجى عدم استخدام موقعنا.</p>
+                    <p data-i18n="consent_text">By using our site, you agree to the terms and privacy policy mentioned here. If you do not agree with this policy, please do not use our site.</p>
                 </div>
             </div>
         </section>
@@ -933,27 +1215,27 @@
                 <div class="section-number">2</div>
                 <h3 class="section-title">
                     <i class="fas fa-database"></i>
-                    البيانات المجمعة
+                    <span data-i18n="collection_title">Collected Data</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>نتعهد بجمع الحد الأدنى من البيانات الضرورية فقط لتشغيل أدواتنا:</p>
+                <p data-i18n="collection_text">We commit to collecting only the minimum data necessary to operate our tools:</p>
                 
                 <ul>
-                    <li><strong>المعلومات التي تقدمها طوعاً:</strong> مثل الاسم والبريد الإلكتروني عند التواصل معنا فقط.</li>
-                    <li><strong>معلومات الاستخدام التقنية:</strong> مثل نوع المتصفح ونظام التشغيل لأغراض التحسين فقط.</li>
-                    <li><strong>ملفات تعريف الارتباط (Cookies):</strong> لتحسين تجربة المستخدم وتذكر التفضيلات الأساسية.</li>
-                    <li><strong>بيانات النماذج:</strong> المعلومات التي تدخلها في أدوات توليد السكربتات <strong>تظل على جهازك فقط</strong>.</li>
+                    <li><span data-i18n="collection_item1"><strong>Information you voluntarily provide:</strong> Such as name and email when contacting us only.</span></li>
+                    <li><span data-i18n="collection_item2"><strong>Technical usage information:</strong> Such as browser type and operating system for improvement purposes only.</span></li>
+                    <li><span data-i18n="collection_item3"><strong>Cookies:</strong> To improve user experience and remember basic preferences.</span></li>
+                    <li><span data-i18n="collection_item4"><strong>Form data:</strong> Information you enter in script generation tools <strong>remains on your device only</strong>.</span></li>
                 </ul>
                 
                 <div class="info-box">
                     <div class="info-title">
                         <i class="fas fa-project-diagram"></i>
-                        تدفق البيانات في MikroTools
+                        <span data-i18n="flow_title">Data Flow in MikroTools</span>
                     </div>
-                    <p>المستخدم → المتصفح → التنزيل المباشر</p>
-                    <p style="margin-top: 10px; color: var(--primary);"><i class="fas fa-check-circle"></i> <strong>لا توجد خوادم وسيطة - العملية كلها محلية</strong></p>
+                    <p data-i18n="flow_text">User → Browser → Direct Download</p>
+                    <p style="margin-top: 10px; color: var(--primary);"><i class="fas fa-check-circle"></i> <strong data-i18n="flow_note">No intermediary servers - All processing is local</strong></p>
                 </div>
             </div>
         </section>
@@ -964,7 +1246,7 @@
                 <div class="section-number">3</div>
                 <h3 class="section-title">
                     <i class="fas fa-ad"></i>
-                    الإعلانات والشركاء الخارجيون
+                    <span data-i18n="ads_title">Advertising and Third Parties</span>
                 </h3>
             </div>
             
@@ -972,32 +1254,32 @@
                 <div class="ad-notice">
                     <div class="ad-notice-title">
                         <i class="fas fa-bullhorn"></i>
-                        بيان الإعلانات
+                        <span data-i18n="ads_statement">Advertising Statement</span>
                     </div>
-                    <p><strong>نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا. قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع (لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني) من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.</strong></p>
+                    <p data-i18n="ads_text"><strong>We use third-party advertising companies (such as Google AdSense) to serve ads when you visit our website. These companies may use information about your visits to this site (not including your name, address, or email) to provide advertisements about goods and services that interest you.</strong></p>
                 </div>
                 
-                <p>توضيحات إضافية حول ممارسات الإعلان:</p>
+                <p data-i18n="ads_clarify">Additional clarifications about advertising practices:</p>
                 
                 <ul>
-                    <li><span class="ad-badge">خصوصية محمية</span> المعلومات المستخدمة للإعلانات <strong>مجهولة تماماً</strong> ولا تتضمن أي بيانات شخصية تعريفية</li>
-                    <li><span class="ad-badge">تتبع محدود</span> قد تستخدم ملفات تعريف ارتباط (cookies) خاصة بالإعلانات لتذكر اهتماماتك العامة</li>
-                    <li><span class="ad-badge">أمان مضمون</span> نتعامل فقط مع شركات إعلانات ملتزمة بمعايير الخصوصية العالية</li>
-                    <li><span class="ad-badge">تحكم كامل</span> يمكنك إدارة أو تعطيل الإعلانات الموجهة في أي وقت</li>
+                    <li><span class="ad-badge" data-i18n="ads_badge1">Privacy Protected</span> <span data-i18n="ads_item1">Information used for ads is <strong>completely anonymous</strong> and does not include any personally identifiable data</span></li>
+                    <li><span class="ad-badge" data-i18n="ads_badge2">Limited Tracking</span> <span data-i18n="ads_item2">May use advertising cookies to remember your general interests</span></li>
+                    <li><span class="ad-badge" data-i18n="ads_badge3">Guaranteed Security</span> <span data-i18n="ads_item3">We only work with advertising companies committed to high privacy standards</span></li>
+                    <li><span class="ad-badge" data-i18n="ads_badge4">Full Control</span> <span data-i18n="ads_item4">You can manage or disable targeted ads at any time</span></li>
                 </ul>
                 
                 <div class="highlight-box">
                     <div class="highlight-title">
                         <i class="fas fa-cogs"></i>
-                        كيفية التحكم في الإعلانات الموجهة لك
+                        <span data-i18n="ads_control">How to Control Targeted Ads</span>
                     </div>
                     <ul>
-                        <li><strong>لإدارة إعلانات Google:</strong> زر <a href="https://adssettings.google.com" target="_blank" style="color: #8b5cf6; font-weight: 600;">إعدادات إعلانات Google</a></li>
-                        <li><strong>في متصفحك:</strong> استخدام وضع التصفح الخاص أو إضافة مانع الإعلانات</li>
-                        <li><strong>خيارات أخرى:</strong> زيارة <a href="https://www.aboutads.info/choices/" target="_blank" style="color: #8b5cf6; font-weight: 600;">Your Online Choices</a> للمزيد من الخيارات</li>
+                        <li><strong><span data-i18n="ads_control1">To manage Google Ads:</span></strong> <a href="https://adssettings.google.com" target="_blank" style="color: #8b5cf6; font-weight: 600;"><span data-i18n="ads_control_link1">Google Ad Settings</span></a></li>
+                        <li><strong><span data-i18n="ads_control2">In your browser:</span></strong> <span data-i18n="ads_control_text2">Use private browsing mode or ad blocker extensions</span></li>
+                        <li><strong><span data-i18n="ads_control3">Other options:</span></strong> <span data-i18n="ads_control_text3">Visit <a href="https://www.aboutads.info/choices/" target="_blank" style="color: #8b5cf6; font-weight: 600;">Your Online Choices</a> for more options</span></li>
                     </ul>
                     <p style="margin-top: 10px; color: var(--gray);">
-                        <i class="fas fa-info-circle"></i> الإعلانات تساعدنا في الحفاظ على خدماتنا مجانية للجميع ودعم تطوير أدوات جديدة.
+                        <i class="fas fa-info-circle"></i> <span data-i18n="ads_note">Ads help us keep our services free for everyone and support the development of new tools.</span>
                     </p>
                 </div>
             </div>
@@ -1009,31 +1291,31 @@
                 <div class="section-number">4</div>
                 <h3 class="section-title">
                     <i class="fas fa-cogs"></i>
-                    كيفية استخدام المعلومات
+                    <span data-i18n="usage_title">How We Use Information</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>نستخدم المعلومات التي نجمعها <strong>حصرياً</strong> للأغراض التالية:</p>
+                <p data-i18n="usage_text">We use the information we collect <strong>exclusively</strong> for the following purposes:</p>
                 
                 <ul>
-                    <li>توفير وتحسين خدمات وأدوات موقعنا</li>
-                    <li>تحليل استخدام الموقع لتحسين تجربة المستخدم</li>
-                    <li>الرد على استفساراتك وطلباتك</li>
-                    <li>تطوير أدوات جديدة وتحديث الأدوات الحالية</li>
-                    <li>ضمان أمان واستقرار الموقع</li>
+                    <li data-i18n="usage_item1">Providing and improving our site's services and tools</li>
+                    <li data-i18n="usage_item2">Analyzing site usage to improve user experience</li>
+                    <li data-i18n="usage_item3">Responding to your inquiries and requests</li>
+                    <li data-i18n="usage_item4">Developing new tools and updating existing ones</li>
+                    <li data-i18n="usage_item5">Ensuring site security and stability</li>
                 </ul>
                 
                 <div class="info-box">
                     <div class="info-title">
                         <i class="fas fa-ban"></i>
-                        ما لن نفعله ببياناتك
+                        <span data-i18n="not_do_title">What We Won't Do With Your Data</span>
                     </div>
                     <ul>
-                        <li>لا نبيع أو نؤجر أو نشارك معلوماتك الشخصية مع أطراف ثالثة</li>
-                        <li>لا نستخدم بياناتك لأغراض تسويقية دون موافقتك الصريحة</li>
-                        <li>لا نخزن بيانات أدواتك بعد إغلاق الصفحة</li>
-                        <li>لا نرسل إشعارات مزعجة</li>
+                        <li data-i18n="not_do_item1">We do not sell, rent, or share your personal information with third parties</li>
+                        <li data-i18n="not_do_item2">We do not use your data for marketing purposes without your explicit consent</li>
+                        <li data-i18n="not_do_item3">We do not store your tool data after page closure</li>
+                        <li data-i18n="not_do_item4">We do not send spam notifications</li>
                     </ul>
                 </div>
             </div>
@@ -1045,32 +1327,32 @@
                 <div class="section-number">5</div>
                 <h3 class="section-title">
                     <i class="fas fa-cookie"></i>
-                    ملفات تعريف الارتباط
+                    <span data-i18n="cookies_title">Cookies</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>نستخدم ملفات تعريف الارتباط <strong>الضرورية فقط</strong> لتحسين تجربة استخدام موقعنا:</p>
+                <p data-i18n="cookies_text">We use <strong>only necessary</strong> cookies to improve your experience on our site:</p>
                 
                 <ul>
-                    <li><strong>جلسة العمل:</strong> لتذكر إعداداتك أثناء استخدام الموقع</li>
-                    <li><strong>الأداء:</strong> لتحسين سرعة وأداء الموقع</li>
-                    <li><strong>الوظائف:</strong> لتمكين عمل الأدوات بشكل صحيح</li>
-                    <li><strong>الإعلانات:</strong> ملفات تعريف ارتباط خاصة بالإعلانات (اختيارية)</li>
+                    <li data-i18n="cookies_item1"><strong>Session:</strong> To remember your settings while using the site</li>
+                    <li data-i18n="cookies_item2"><strong>Performance:</strong> To improve site speed and performance</li>
+                    <li data-i18n="cookies_item3"><strong>Functionality:</strong> To enable tools to work properly</li>
+                    <li data-i18n="cookies_item4"><strong>Advertising:</strong> Advertising-specific cookies (optional)</li>
                 </ul>
                 
                 <div class="info-box">
                     <div class="info-title">
                         <i class="fas fa-sliders-h"></i>
-                        إدارة ملفات تعريف الارتباط
+                        <span data-i18n="cookies_manage">Managing Cookies</span>
                     </div>
-                    <p>يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات متصفحك:</p>
+                    <p data-i18n="cookies_manage_text">You can manage cookies through your browser settings:</p>
                     <ul>
-                        <li><strong>Chrome:</strong> الإعدادات → الخصوصية والأمان → ملفات تعريف الارتباط</li>
-                        <li><strong>Firefox:</strong> الخيارات → الخصوصية والأمان → ملفات تعريف الارتباط</li>
-                        <li><strong>Safari:</strong> التفضيلات → الخصوصية → إدارة بيانات الموقع</li>
+                        <li data-i18n="cookies_chrome"><strong>Chrome:</strong> Settings → Privacy and Security → Cookies</li>
+                        <li data-i18n="cookies_firefox"><strong>Firefox:</strong> Options → Privacy & Security → Cookies</li>
+                        <li data-i18n="cookies_safari"><strong>Safari:</strong> Preferences → Privacy → Manage Website Data</li>
                     </ul>
-                    <p style="margin-top: 10px; color: var(--accent);"><i class="fas fa-exclamation-triangle"></i> تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الموقع.</p>
+                    <p style="margin-top: 10px; color: var(--accent);"><i class="fas fa-exclamation-triangle"></i> <span data-i18n="cookies_warning">Disabling cookies may affect the functionality of some parts of the site.</span></p>
                 </div>
             </div>
         </section>
@@ -1081,41 +1363,41 @@
                 <div class="section-number">6</div>
                 <h3 class="section-title">
                     <i class="fas fa-lock"></i>
-                    أمان البيانات
+                    <span data-i18n="security_title">Data Security</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>نحن نلتزم بحماية معلوماتك الشخصية ونستخدم إجراءات أمنية تقنية وإدارية مناسبة:</p>
+                <p data-i18n="security_text">We are committed to protecting your personal information and use appropriate technical and administrative security measures:</p>
                 
                 <ul>
-                    <li>جميع السكربتات تتم معالجتها محلياً في متصفحك</li>
-                    <li>اتصال آمن عبر بروتوكول HTTPS المشفر</li>
-                    <li>حماية ضد هجمات الويب الشائعة</li>
-                    <li>تحديثات أمنية منتظمة للموقع</li>
-                    <li>مراقبة مستمرة لسلامة النظام</li>
+                    <li data-i18n="security_item1">All scripts are processed locally in your browser</li>
+                    <li data-i18n="security_item2">Secure connection via encrypted HTTPS protocol</li>
+                    <li data-i18n="security_item3">Protection against common web attacks</li>
+                    <li data-i18n="security_item4">Regular security updates to the site</li>
+                    <li data-i18n="security_item5">Continuous system integrity monitoring</li>
                 </ul>
                 
                 <div class="highlight-box">
                     <div class="highlight-title">
                         <i class="fas fa-shield-alt"></i>
-                        ميزات الأمان الفريدة
+                        <span data-i18n="security_features">Unique Security Features</span>
                     </div>
                     
                     <div class="info-box">
                         <div class="info-title">
                             <i class="fas fa-desktop"></i>
-                            المعالجة المحلية
+                            <span data-i18n="local_processing">Local Processing</span>
                         </div>
-                        <p>جميع أدواتنا تعمل 100% في متصفحك. البيانات التي تدخلها لا تخرج من جهازك.</p>
+                        <p data-i18n="local_processing_text">All our tools run 100% in your browser. The data you enter never leaves your device.</p>
                     </div>
                     
                     <div class="info-box">
                         <div class="info-title">
                             <i class="fas fa-history"></i>
-                            لا يوجد تخزين
+                            <span data-i18n="no_storage">No Storage</span>
                         </div>
-                        <p>بمجرد إغلاق الصفحة، يتم مسح جميع بيانات الإدخال تلقائياً.</p>
+                        <p data-i18n="no_storage_text">Once you close the page, all input data is automatically erased.</p>
                     </div>
                 </div>
             </div>
@@ -1127,34 +1409,34 @@
                 <div class="section-number">7</div>
                 <h3 class="section-title">
                     <i class="fas fa-user-check"></i>
-                    حقوق المستخدم
+                    <span data-i18n="rights_title">User Rights</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>كمستخدم لموقع MikroTools، لديك الحق في:</p>
+                <p data-i18n="rights_text">As a user of MikroTools, you have the right to:</p>
                 
                 <ul>
-                    <li><strong>حق المعرفة:</strong> معرفة أي بيانات نجمعها ولماذا</li>
-                    <li><strong>حق الوصول:</strong> طلب نسخة من بياناتك الشخصية</li>
-                    <li><strong>حق التصحيح:</strong> طلب تصحيح المعلومات غير الدقيقة</li>
-                    <li><strong>حق الحذف:</strong> طلب حذف معلوماتك الشخصية</li>
-                    <li><strong>حق الاعتراض:</strong> رفض معالجة بياناتك</li>
-                    <li><strong>حق إدارة الإعلانات:</strong> التحكم في تفضيلات الإعلانات الموجهة</li>
+                    <li data-i18n="rights_item1"><strong>Right to know:</strong> Know what data we collect and why</li>
+                    <li data-i18n="rights_item2"><strong>Right to access:</strong> Request a copy of your personal data</li>
+                    <li data-i18n="rights_item3"><strong>Right to rectify:</strong> Request correction of inaccurate information</li>
+                    <li data-i18n="rights_item4"><strong>Right to erasure:</strong> Request deletion of your personal information</li>
+                    <li data-i18n="rights_item5"><strong>Right to object:</strong> Refuse processing of your data</li>
+                    <li data-i18n="rights_item6"><strong>Right to manage ads:</strong> Control targeted advertising preferences</li>
                 </ul>
                 
                 <div class="info-box">
                     <div class="info-title">
                         <i class="fas fa-hand-paper"></i>
-                        كيفية ممارسة حقوقك
+                        <span data-i18n="how_to_exercise">How to Exercise Your Rights</span>
                     </div>
-                    <p>لممارسة أي من هذه الحقوق، يكفي أن تتواصل معنا عبر:</p>
+                    <p data-i18n="exercise_text">To exercise any of these rights, simply contact us via:</p>
                     <ul>
-                        <li>رقم الهاتف المباشر</li>
-                        <li>الواتساب</li>
-                        <li>صفحتنا على فيسبوك</li>
+                        <li data-i18n="exercise_phone">Direct phone number</li>
+                        <li data-i18n="exercise_whatsapp">WhatsApp</li>
+                        <li data-i18n="exercise_facebook">Our Facebook page</li>
                     </ul>
-                    <p style="margin-top: 10px;">نلتزم بالرد على جميع الطلبات خلال <strong>72 ساعة</strong> عمل كحد أقصى.</p>
+                    <p style="margin-top: 10px;" data-i18n="exercise_response">We commit to responding to all requests within a maximum of <strong>72 working hours</strong>.</p>
                 </div>
             </div>
         </section>
@@ -1165,23 +1447,23 @@
                 <div class="section-number">8</div>
                 <h3 class="section-title">
                     <i class="fas fa-sync-alt"></i>
-                    تحديثات السياسة
+                    <span data-i18n="updates_title">Policy Updates</span>
                 </h3>
             </div>
             
             <div class="section-content">
-                <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر لتعكس التغييرات في ممارساتنا أو لأسباب تشغيلية أو قانونية.</p>
+                <p data-i18n="updates_text">We may update this privacy policy from time to time to reflect changes in our practices or for operational, legal, or regulatory reasons.</p>
                 
                 <div class="info-box">
                     <div class="info-title">
                         <i class="fas fa-bell"></i>
-                        كيف نعلمك بالتحديثات
+                        <span data-i18n="how_notified">How We Notify You of Updates</span>
                     </div>
                     <ul>
-                        <li>تاريخ آخر تحديث يظهر في أسفل هذه الصفحة</li>
-                        <li>إشعار بارز على الصفحة الرئيسية للتغييرات المهمة</li>
-                        <li>تحديث رابط "آخر تحديث" تلقائياً</li>
-                        <li>الإبقاء على النسخ القديمة متاحة للمراجعة</li>
+                        <li data-i18n="notify_item1">Last update date appears at the bottom of this page</li>
+                        <li data-i18n="notify_item2">Prominent notice on the homepage for important changes</li>
+                        <li data-i18n="notify_item3">Automatic update of "Last Updated" link</li>
+                        <li data-i18n="notify_item4">Old versions kept available for review</li>
                     </ul>
                 </div>
             </div>
@@ -1191,28 +1473,28 @@
         <section class="contact-section" id="contact">
             <h3 class="contact-title">
                 <i class="fas fa-headset"></i>
-                للتواصل والاستفسارات
+                <span data-i18n="contact_title">Contact Us</span>
             </h3>
-            <p>إذا كان لديك أي استفسارات حول سياسة الخصوصية هذه أو ممارساتنا، يرجى التواصل معنا:</p>
+            <p data-i18n="contact_text">If you have any questions about this privacy policy or our practices, please contact us:</p>
             
             <div class="contact-info">
                 <div class="contact-item">
-                    <div style="color: #cbd5e1;">Sameh El-Sayed</div>
+                    <div style="color: #cbd5e1;" data-i18n="data_controller">Sameh El-Sayed</div>
                     <div class="phone-number">+20 109 250 3391</div>
-                    <small style="color: #94a3b8;">مدير الخصوصية وحماية البيانات</small>
+                    <small style="color: #94a3b8;" data-i18n="data_controller_title">Privacy and Data Protection Officer</small>
                 </div>
                 
                 <div class="contact-item">
-                    <div style="color: #cbd5e1;">الدعم الفني</div>
-                    <div style="color: #94a3b8;">متاح 24/7 للإجابة على استفسارات الخصوصية</div>
+                    <div style="color: #cbd5e1;" data-i18n="technical_support">Technical Support</div>
+                    <div style="color: #94a3b8;" data-i18n="support_hours">Available 24/7 to answer privacy inquiries</div>
                 </div>
             </div>
             
             <div class="social-icons">
-                <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon" title="تواصل عبر واتساب">
+                <a href="http://wa.me/201092503391" target="_blank" class="social-icon whatsapp-icon" title="Contact via WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon" title="تابعنا على فيسبوك">
+                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon facebook-icon" title="Follow us on Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
             </div>
@@ -1224,30 +1506,30 @@
         <div class="footer-content">
             <p class="footer-text">
                 <i class="fas fa-phone-alt"></i>
-                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+                <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
             </p>
             
             <div class="compliance-badges">
-                <span class="badge">100% معالجة محلية</span>
-                <span class="badge">لا تخزين بيانات</span>
-                <span class="badge">HTTPS آمن</span>
-                <span class="badge ad">متوافق مع AdSense</span>
+                <span class="badge" data-i18n="badge1">100% Local Processing</span>
+                <span class="badge" data-i18n="badge2">No Data Storage</span>
+                <span class="badge" data-i18n="badge3">Secure HTTPS</span>
+                <span class="badge ad" data-i18n="badge4">AdSense Compliant</span>
             </div>
             
             <p class="copyright">
-                © 2024 MikroTools. جميع الحقوق محفوظة.<br>
-                آخر تحديث: <span id="current-date"></span>
+                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span><br>
+                <span data-i18n="last_updated">Last updated: </span><span id="current-date"></span>
             </p>
             
             <a href="index.html" class="btn btn-primary" style="margin-top: 2rem;">
                 <i class="fas fa-arrow-right"></i>
-                العودة إلى الموقع الرئيسي
+                <span data-i18n="back_to_home">Back to Main Site</span>
             </a>
         </div>
     </footer>
 
     <!-- زر العودة العائم -->
-    <a href="index.html" class="sticky-back" id="stickyBack" title="العودة إلى الرئيسية">
+    <a href="index.html" class="sticky-back" id="stickyBack" title="Back to Home">
         <i class="fas fa-home"></i>
     </a>
 
@@ -1271,6 +1553,305 @@
     </iframe>
 
     <script>
+        // نظام الترجمة
+        const translations = {
+            en: {
+                home: "Home",
+                merge: "Merge",
+                hotspot: "Hotspot",
+                design_block: "Design & Block",
+                help: "Help",
+                merge_v6: "Load Balancing v6",
+                merge_v7: "Load Balancing v7",
+                hotspot_settings: "Hotspot+PPP Settings",
+                speed_profiles: "Speed Profiles",
+                hotspot_design: "Hotspot Design",
+                block_sites: "Block Sites",
+                troubleshooting: "Troubleshooting",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                contact_us: "Contact Us",
+                hero_badge: "Your Privacy is Our Priority",
+                hero_title: "Privacy Policy",
+                hero_subtitle: "We are committed to protecting your privacy and personal data. Read our comprehensive privacy policy to learn how we handle your information",
+                start_reading: "Start Reading",
+                toc_title: "Table of Contents",
+                intro_title: "Introduction",
+                intro_text: "Welcome to <strong>MikroTools</strong>. We consider your privacy extremely important. This privacy policy explains how we collect, use, and protect your personal information when you use our website.",
+                note_title: "Important Note",
+                note_text: "<strong>All our tools run locally in your browser!</strong> No data is sent to our servers. MikroTik scripts are generated and downloaded directly from your device.",
+                consent_title: "Consent and Usage",
+                consent_text: "By using our site, you agree to the terms and privacy policy mentioned here. If you do not agree with this policy, please do not use our site.",
+                collection_title: "Collected Data",
+                collection_text: "We commit to collecting only the minimum data necessary to operate our tools:",
+                collection_item1: "<strong>Information you voluntarily provide:</strong> Such as name and email when contacting us only.",
+                collection_item2: "<strong>Technical usage information:</strong> Such as browser type and operating system for improvement purposes only.",
+                collection_item3: "<strong>Cookies:</strong> To improve user experience and remember basic preferences.",
+                collection_item4: "<strong>Form data:</strong> Information you enter in script generation tools <strong>remains on your device only</strong>.",
+                flow_title: "Data Flow in MikroTools",
+                flow_text: "User → Browser → Direct Download",
+                flow_note: "No intermediary servers - All processing is local",
+                ads_title: "Advertising and Third Parties",
+                ads_statement: "Advertising Statement",
+                ads_text: "<strong>We use third-party advertising companies (such as Google AdSense) to serve ads when you visit our website. These companies may use information about your visits to this site (not including your name, address, or email) to provide advertisements about goods and services that interest you.</strong>",
+                ads_clarify: "Additional clarifications about advertising practices:",
+                ads_badge1: "Privacy Protected",
+                ads_item1: "Information used for ads is <strong>completely anonymous</strong> and does not include any personally identifiable data",
+                ads_badge2: "Limited Tracking",
+                ads_item2: "May use advertising cookies to remember your general interests",
+                ads_badge3: "Guaranteed Security",
+                ads_item3: "We only work with advertising companies committed to high privacy standards",
+                ads_badge4: "Full Control",
+                ads_item4: "You can manage or disable targeted ads at any time",
+                ads_control: "How to Control Targeted Ads",
+                ads_control1: "To manage Google Ads:",
+                ads_control_link1: "Google Ad Settings",
+                ads_control2: "In your browser:",
+                ads_control_text2: "Use private browsing mode or ad blocker extensions",
+                ads_control3: "Other options:",
+                ads_control_text3: "Visit <a href=\"https://www.aboutads.info/choices/\" target=\"_blank\" style=\"color: #8b5cf6; font-weight: 600;\">Your Online Choices</a> for more options",
+                ads_note: "Ads help us keep our services free for everyone and support the development of new tools.",
+                usage_title: "How We Use Information",
+                usage_text: "We use the information we collect <strong>exclusively</strong> for the following purposes:",
+                usage_item1: "Providing and improving our site's services and tools",
+                usage_item2: "Analyzing site usage to improve user experience",
+                usage_item3: "Responding to your inquiries and requests",
+                usage_item4: "Developing new tools and updating existing ones",
+                usage_item5: "Ensuring site security and stability",
+                not_do_title: "What We Won't Do With Your Data",
+                not_do_item1: "We do not sell, rent, or share your personal information with third parties",
+                not_do_item2: "We do not use your data for marketing purposes without your explicit consent",
+                not_do_item3: "We do not store your tool data after page closure",
+                not_do_item4: "We do not send spam notifications",
+                cookies_title: "Cookies",
+                cookies_text: "We use <strong>only necessary</strong> cookies to improve your experience on our site:",
+                cookies_item1: "<strong>Session:</strong> To remember your settings while using the site",
+                cookies_item2: "<strong>Performance:</strong> To improve site speed and performance",
+                cookies_item3: "<strong>Functionality:</strong> To enable tools to work properly",
+                cookies_item4: "<strong>Advertising:</strong> Advertising-specific cookies (optional)",
+                cookies_manage: "Managing Cookies",
+                cookies_manage_text: "You can manage cookies through your browser settings:",
+                cookies_chrome: "<strong>Chrome:</strong> Settings → Privacy and Security → Cookies",
+                cookies_firefox: "<strong>Firefox:</strong> Options → Privacy & Security → Cookies",
+                cookies_safari: "<strong>Safari:</strong> Preferences → Privacy → Manage Website Data",
+                cookies_warning: "Disabling cookies may affect the functionality of some parts of the site.",
+                security_title: "Data Security",
+                security_text: "We are committed to protecting your personal information and use appropriate technical and administrative security measures:",
+                security_item1: "All scripts are processed locally in your browser",
+                security_item2: "Secure connection via encrypted HTTPS protocol",
+                security_item3: "Protection against common web attacks",
+                security_item4: "Regular security updates to the site",
+                security_item5: "Continuous system integrity monitoring",
+                security_features: "Unique Security Features",
+                local_processing: "Local Processing",
+                local_processing_text: "All our tools run 100% in your browser. The data you enter never leaves your device.",
+                no_storage: "No Storage",
+                no_storage_text: "Once you close the page, all input data is automatically erased.",
+                rights_title: "User Rights",
+                rights_text: "As a user of MikroTools, you have the right to:",
+                rights_item1: "<strong>Right to know:</strong> Know what data we collect and why",
+                rights_item2: "<strong>Right to access:</strong> Request a copy of your personal data",
+                rights_item3: "<strong>Right to rectify:</strong> Request correction of inaccurate information",
+                rights_item4: "<strong>Right to erasure:</strong> Request deletion of your personal information",
+                rights_item5: "<strong>Right to object:</strong> Refuse processing of your data",
+                rights_item6: "<strong>Right to manage ads:</strong> Control targeted advertising preferences",
+                how_to_exercise: "How to Exercise Your Rights",
+                exercise_text: "To exercise any of these rights, simply contact us via:",
+                exercise_phone: "Direct phone number",
+                exercise_whatsapp: "WhatsApp",
+                exercise_facebook: "Our Facebook page",
+                exercise_response: "We commit to responding to all requests within a maximum of <strong>72 working hours</strong>.",
+                updates_title: "Policy Updates",
+                updates_text: "We may update this privacy policy from time to time to reflect changes in our practices or for operational, legal, or regulatory reasons.",
+                how_notified: "How We Notify You of Updates",
+                notify_item1: "Last update date appears at the bottom of this page",
+                notify_item2: "Prominent notice on the homepage for important changes",
+                notify_item3: "Automatic update of \"Last Updated\" link",
+                notify_item4: "Old versions kept available for review",
+                contact_title: "Contact Us",
+                contact_text: "If you have any questions about this privacy policy or our practices, please contact us:",
+                data_controller: "Sameh El-Sayed",
+                data_controller_title: "Privacy and Data Protection Officer",
+                technical_support: "Technical Support",
+                support_hours: "Available 24/7 to answer privacy inquiries",
+                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
+                badge1: "100% Local Processing",
+                badge2: "No Data Storage",
+                badge3: "Secure HTTPS",
+                badge4: "AdSense Compliant",
+                copyright: "All rights reserved.",
+                last_updated: "Last updated:",
+                back_to_home: "Back to Main Site"
+            },
+            ar: {
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                speed_profiles: "بروفايلات السرعة",
+                hotspot_design: "تصميم hotspot",
+                block_sites: "حجب مواقع",
+                troubleshooting: "المشكلات الشائعة",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                hero_badge: "حماية خصوصيتك أولويتنا",
+                hero_title: "سياسة الخصوصية",
+                hero_subtitle: "نحن نحرص على حماية خصوصيتك وبياناتك الشخصية. اقرأ سياسة الخصوصية الشاملة لمعرفة كيفية تعاملنا مع معلوماتك",
+                start_reading: "ابدأ القراءة",
+                toc_title: "فهرس المحتويات",
+                intro_title: "مقدمة",
+                intro_text: "مرحباً بك في <strong>MikroTools</strong>. نحن نعتبر خصوصيتك أمراً بالغ الأهمية. تشرح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية معلوماتك الشخصية عندما تستخدم موقعنا الإلكتروني.",
+                note_title: "الملاحظة الأهم",
+                note_text: "<strong>جميع أدواتنا تعمل محلياً على متصفحك!</strong> لا يتم إرسال أي بيانات إلى خوادمنا. سكربتات ميكروتيك يتم توليدها وتنزيلها مباشرة من جهازك.",
+                consent_title: "الموافقة والاستخدام",
+                consent_text: "باستخدامك لموقعنا، فإنك توافق على شروط وسياسة الخصوصية المذكورة هنا. إذا كنت لا توافق على هذه السياسة، يرجى عدم استخدام موقعنا.",
+                collection_title: "البيانات المجمعة",
+                collection_text: "نتعهد بجمع الحد الأدنى من البيانات الضرورية فقط لتشغيل أدواتنا:",
+                collection_item1: "<strong>المعلومات التي تقدمها طوعاً:</strong> مثل الاسم والبريد الإلكتروني عند التواصل معنا فقط.",
+                collection_item2: "<strong>معلومات الاستخدام التقنية:</strong> مثل نوع المتصفح ونظام التشغيل لأغراض التحسين فقط.",
+                collection_item3: "<strong>ملفات تعريف الارتباط (Cookies):</strong> لتحسين تجربة المستخدم وتذكر التفضيلات الأساسية.",
+                collection_item4: "<strong>بيانات النماذج:</strong> المعلومات التي تدخلها في أدوات توليد السكربتات <strong>تظل على جهازك فقط</strong>.",
+                flow_title: "تدفق البيانات في MikroTools",
+                flow_text: "المستخدم → المتصفح → التنزيل المباشر",
+                flow_note: "لا توجد خوادم وسيطة - العملية كلها محلية",
+                ads_title: "الإعلانات والشركاء الخارجيون",
+                ads_statement: "بيان الإعلانات",
+                ads_text: "<strong>نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا. قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع (لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني) من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.</strong>",
+                ads_clarify: "توضيحات إضافية حول ممارسات الإعلان:",
+                ads_badge1: "خصوصية محمية",
+                ads_item1: "المعلومات المستخدمة للإعلانات <strong>مجهولة تماماً</strong> ولا تتضمن أي بيانات شخصية تعريفية",
+                ads_badge2: "تتبع محدود",
+                ads_item2: "قد تستخدم ملفات تعريف ارتباط (cookies) خاصة بالإعلانات لتذكر اهتماماتك العامة",
+                ads_badge3: "أمان مضمون",
+                ads_item3: "نتعامل فقط مع شركات إعلانات ملتزمة بمعايير الخصوصية العالية",
+                ads_badge4: "تحكم كامل",
+                ads_item4: "يمكنك إدارة أو تعطيل الإعلانات الموجهة في أي وقت",
+                ads_control: "كيفية التحكم في الإعلانات الموجهة لك",
+                ads_control1: "لإدارة إعلانات Google:",
+                ads_control_link1: "إعدادات إعلانات Google",
+                ads_control2: "في متصفحك:",
+                ads_control_text2: "استخدام وضع التصفح الخاص أو إضافة مانع الإعلانات",
+                ads_control3: "خيارات أخرى:",
+                ads_control_text3: "زيارة <a href=\"https://www.aboutads.info/choices/\" target=\"_blank\" style=\"color: #8b5cf6; font-weight: 600;\">Your Online Choices</a> للمزيد من الخيارات",
+                ads_note: "الإعلانات تساعدنا في الحفاظ على خدماتنا مجانية للجميع ودعم تطوير أدوات جديدة.",
+                usage_title: "كيفية استخدام المعلومات",
+                usage_text: "نستخدم المعلومات التي نجمعها <strong>حصرياً</strong> للأغراض التالية:",
+                usage_item1: "توفير وتحسين خدمات وأدوات موقعنا",
+                usage_item2: "تحليل استخدام الموقع لتحسين تجربة المستخدم",
+                usage_item3: "الرد على استفساراتك وطلباتك",
+                usage_item4: "تطوير أدوات جديدة وتحديث الأدوات الحالية",
+                usage_item5: "ضمان أمان واستقرار الموقع",
+                not_do_title: "ما لن نفعله ببياناتك",
+                not_do_item1: "لا نبيع أو نؤجر أو نشارك معلوماتك الشخصية مع أطراف ثالثة",
+                not_do_item2: "لا نستخدم بياناتك لأغراض تسويقية دون موافقتك الصريحة",
+                not_do_item3: "لا نخزن بيانات أدواتك بعد إغلاق الصفحة",
+                not_do_item4: "لا نرسل إشعارات مزعجة",
+                cookies_title: "ملفات تعريف الارتباط",
+                cookies_text: "نستخدم ملفات تعريف الارتباط <strong>الضرورية فقط</strong> لتحسين تجربة استخدام موقعنا:",
+                cookies_item1: "<strong>جلسة العمل:</strong> لتذكر إعداداتك أثناء استخدام الموقع",
+                cookies_item2: "<strong>الأداء:</strong> لتحسين سرعة وأداء الموقع",
+                cookies_item3: "<strong>الوظائف:</strong> لتمكين عمل الأدوات بشكل صحيح",
+                cookies_item4: "<strong>الإعلانات:</strong> ملفات تعريف ارتباط خاصة بالإعلانات (اختيارية)",
+                cookies_manage: "إدارة ملفات تعريف الارتباط",
+                cookies_manage_text: "يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات متصفحك:",
+                cookies_chrome: "<strong>Chrome:</strong> الإعدادات → الخصوصية والأمان → ملفات تعريف الارتباط",
+                cookies_firefox: "<strong>Firefox:</strong> الخيارات → الخصوصية والأمان → ملفات تعريف الارتباط",
+                cookies_safari: "<strong>Safari:</strong> التفضيلات → الخصوصية → إدارة بيانات الموقع",
+                cookies_warning: "تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الموقع.",
+                security_title: "أمان البيانات",
+                security_text: "نحن نلتزم بحماية معلوماتك الشخصية ونستخدم إجراءات أمنية تقنية وإدارية مناسبة:",
+                security_item1: "جميع السكربتات تتم معالجتها محلياً في متصفحك",
+                security_item2: "اتصال آمن عبر بروتوكول HTTPS المشفر",
+                security_item3: "حماية ضد هجمات الويب الشائعة",
+                security_item4: "تحديثات أمنية منتظمة للموقع",
+                security_item5: "مراقبة مستمرة لسلامة النظام",
+                security_features: "ميزات الأمان الفريدة",
+                local_processing: "المعالجة المحلية",
+                local_processing_text: "جميع أدواتنا تعمل 100% في متصفحك. البيانات التي تدخلها لا تخرج من جهازك.",
+                no_storage: "لا يوجد تخزين",
+                no_storage_text: "بمجرد إغلاق الصفحة، يتم مسح جميع بيانات الإدخال تلقائياً.",
+                rights_title: "حقوق المستخدم",
+                rights_text: "كمستخدم لموقع MikroTools، لديك الحق في:",
+                rights_item1: "<strong>حق المعرفة:</strong> معرفة أي بيانات نجمعها ولماذا",
+                rights_item2: "<strong>حق الوصول:</strong> طلب نسخة من بياناتك الشخصية",
+                rights_item3: "<strong>حق التصحيح:</strong> طلب تصحيح المعلومات غير الدقيقة",
+                rights_item4: "<strong>حق الحذف:</strong> طلب حذف معلوماتك الشخصية",
+                rights_item5: "<strong>حق الاعتراض:</strong> رفض معالجة بياناتك",
+                rights_item6: "<strong>حق إدارة الإعلانات:</strong> التحكم في تفضيلات الإعلانات الموجهة",
+                how_to_exercise: "كيفية ممارسة حقوقك",
+                exercise_text: "لممارسة أي من هذه الحقوق، يكفي أن تتواصل معنا عبر:",
+                exercise_phone: "رقم الهاتف المباشر",
+                exercise_whatsapp: "الواتساب",
+                exercise_facebook: "صفحتنا على فيسبوك",
+                exercise_response: "نلتزم بالرد على جميع الطلبات خلال <strong>72 ساعة</strong> عمل كحد أقصى.",
+                updates_title: "تحديثات السياسة",
+                updates_text: "قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر لتعكس التغييرات في ممارساتنا أو لأسباب تشغيلية أو قانونية.",
+                how_notified: "كيف نعلمك بالتحديثات",
+                notify_item1: "تاريخ آخر تحديث يظهر في أسفل هذه الصفحة",
+                notify_item2: "إشعار بارز على الصفحة الرئيسية للتغييرات المهمة",
+                notify_item3: "تحديث رابط \"آخر تحديث\" تلقائياً",
+                notify_item4: "الإبقاء على النسخ القديمة متاحة للمراجعة",
+                contact_title: "للتواصل والاستفسارات",
+                contact_text: "إذا كان لديك أي استفسارات حول سياسة الخصوصية هذه أو ممارساتنا، يرجى التواصل معنا:",
+                data_controller: "Sameh El-Sayed",
+                data_controller_title: "مدير الخصوصية وحماية البيانات",
+                technical_support: "الدعم الفني",
+                support_hours: "متاح 24/7 للإجابة على استفسارات الخصوصية",
+                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
+                badge1: "100% معالجة محلية",
+                badge2: "لا تخزين بيانات",
+                badge3: "HTTPS آمن",
+                badge4: "متوافق مع AdSense",
+                copyright: "جميع الحقوق محفوظة.",
+                last_updated: "آخر تحديث:",
+                back_to_home: "العودة إلى الموقع الرئيسي"
+            }
+        };
+
+        // تبديل اللغة
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
+            
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (lang === 'ar') {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.add('ar', 'rtl');
+                body.classList.remove('en');
+            } else {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('en');
+                body.classList.remove('ar', 'rtl');
+            }
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+            
+            // إعادة إنشاء فهرس المحتويات لتحديث النصوص
+            createTOC();
+        }
+
         // تبديل قائمة الجوال
         document.getElementById('menuToggle').addEventListener('click', function() {
             const navLinks = document.getElementById('navLinks');
@@ -1283,17 +1864,45 @@
         });
 
         // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.nav-link, .navbar-dropdown-item').forEach(link => {
             link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('active');
-                document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                if (!link.classList.contains('navbar-dropdown-toggle')) {
+                    document.getElementById('navLinks').classList.remove('active');
+                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                }
             });
         });
 
+        // تفعيل القوائم المنسدلة في الجوال
+        document.querySelectorAll('.navbar-dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropdown = this.closest('.navbar-dropdown');
+                    dropdown.classList.toggle('active');
+                    
+                    const arrow = this.querySelector('.navbar-dropdown-arrow');
+                    if (dropdown.classList.contains('active')) {
+                        arrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        arrow.style.transform = 'rotate(0)';
+                    }
+                }
+            });
+        });
+
+        // أحداث أزرار اللغة
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
+
+        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
+        const savedLanguage = localStorage.getItem('language') || 'en';
+        
         // إنشاء فهرس المحتويات
-        document.addEventListener('DOMContentLoaded', function() {
+        function createTOC() {
             const sections = document.querySelectorAll('.privacy-section, .contact-section');
             const tocGrid = document.getElementById('tocGrid');
+            tocGrid.innerHTML = '';
             
             // بيانات الأيقونات لكل قسم
             const icons = {
@@ -1308,12 +1917,15 @@
                 'contact': 'headset'
             };
             
+            const lang = document.documentElement.lang;
+            
             // إضافة عناصر الفهرس
             sections.forEach((section, index) => {
                 const id = section.id;
                 const titleElement = section.querySelector('.section-title');
                 if (titleElement && id !== 'contact') {
-                    const title = titleElement.textContent.trim();
+                    const titleSpan = titleElement.querySelector('span[data-i18n]');
+                    const title = titleSpan ? titleSpan.textContent : titleElement.textContent.trim();
                     const iconName = icons[id] || 'file-alt';
                     
                     const tocItem = document.createElement('a');
@@ -1325,7 +1937,7 @@
                         </div>
                         <div>
                             <div style="font-weight: 600; color: var(--dark);">${title}</div>
-                            <div style="font-size: 0.9rem; color: var(--gray);">القسم ${index + 1}</div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">${lang === 'ar' ? 'القسم' : 'Section'} ${index + 1}</div>
                         </div>
                     `;
                     
@@ -1337,6 +1949,11 @@
                     tocGrid.appendChild(tocItem);
                 }
             });
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(savedLanguage);
             
             // تاريخ التحديث التلقائي
             const updateDate = document.getElementById('current-date');
@@ -1348,6 +1965,7 @@
             }
             
             // تأثيرات عند التمرير للأقسام
+            const sections = document.querySelectorAll('.privacy-section, .contact-section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1362,6 +1980,15 @@
                 section.style.transform = 'translateY(20px)';
                 section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 observer.observe(section);
+            });
+            
+            // التأكد من إظهار الأقسام المرئية حالياً
+            sections.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
             });
         });
 
@@ -1402,15 +2029,6 @@
                     });
                 }
             });
-        });
-        
-        // التأكد من إظهار الأقسام المرئية حالياً
-        document.querySelectorAll('.privacy-section, .contact-section').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }
         });
     </script>
    <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
@@ -1468,9 +2086,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
