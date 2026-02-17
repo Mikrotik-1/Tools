@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
       <script>(function(s){s.dataset.zone='10620331',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -11,8 +11,9 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المشكلات الشائعة وحلولها | MikroTools</title>
+    <title>Troubleshooting & Solutions | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -35,23 +36,26 @@
             --border-radius: 16px;
         }
 
-        /* ===== إعادة الضبط ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background: var(--light);
             color: var(--dark);
-            direction: rtl;
             line-height: 1.8;
             min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* ===== القائمة العلوية ===== */
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* ===== قائمة التنقل العلوية ===== */
         .navbar {
             background: var(--dark);
             padding: 1rem 2rem;
@@ -61,6 +65,7 @@
             left: 0;
             z-index: 1000;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
@@ -88,6 +93,12 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .logo-text {
@@ -97,7 +108,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
@@ -105,9 +116,13 @@
             color: #cbd5e1;
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.3s;
             padding: 8px 16px;
             border-radius: 10px;
-            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-link:hover {
@@ -120,20 +135,188 @@
             background: var(--primary);
         }
 
-        /* ===== زر القائمة المتنقلة للموبايل ===== */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
         .menu-toggle {
             display: none;
-            background: var(--gradient);
+            background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 24px;
             cursor: pointer;
-            z-index: 1001;
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+        }
+
+        /* ===== أزرار تبديل اللغة ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+        }
+
+        .lang-btn i {
+            font-size: 12px;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== القوائم المنسدلة للـ navbar ===== */
+        .navbar-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .navbar-dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .navbar-dropdown:hover .navbar-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .navbar-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1e293b;
+            min-width: 250px;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .navbar-dropdown:hover .navbar-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .navbar-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #f1f5f9;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            margin: 2px 0;
+        }
+
+        .navbar-dropdown-item i {
+            width: 20px;
+            font-size: 16px;
+            color: var(--primary-light);
+        }
+
+        .navbar-dropdown-item:hover {
+            background: rgba(99, 102, 241, 0.25);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .navbar-dropdown-item:hover i {
+            color: white;
+        }
+
+        .navbar-dropdown-item.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .navbar-dropdown-item.active i {
+            color: white;
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-link::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body.rtl .navbar-dropdown-item:hover {
+            transform: translateX(5px);
         }
 
         /* ===== القائمة الجانبية للموبايل ===== */
@@ -159,6 +342,73 @@
             display: flex;
             flex-direction: column;
             padding: 1rem;
+        }
+
+        .mobile-nav-dropdown {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-nav-dropdown-toggle {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            border-right: 4px solid transparent;
+            font-weight: 500;
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        .mobile-nav-dropdown-toggle:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border-right-color: var(--primary);
+        }
+
+        .mobile-nav-dropdown-menu {
+            display: none;
+            padding-right: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-nav-dropdown.active .mobile-nav-dropdown-menu {
+            display: block;
+        }
+
+        .mobile-nav-dropdown-item {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .mobile-nav-dropdown-item:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .mobile-nav-dropdown-item.active {
+            color: white;
+            background: var(--gradient);
+        }
+
+        .mobile-nav-dropdown-item i {
+            width: 20px;
+            color: var(--primary-light);
         }
 
         .mobile-nav-link {
@@ -213,6 +463,7 @@
             justify-content: center;
             padding: 120px 2rem 4rem;
             text-align: center;
+            margin-top: 80px;
         }
 
         .hero-content {
@@ -359,6 +610,14 @@
             color: var(--dark);
         }
 
+        body.rtl .faq-question {
+            text-align: right;
+        }
+
+        body:not(.rtl) .faq-question {
+            text-align: left;
+        }
+
         .faq-question:hover {
             background: #f8fafc;
         }
@@ -401,6 +660,11 @@
             border-right: 4px solid var(--secondary);
         }
 
+        body:not(.rtl) .solution-step {
+            border-right: none;
+            border-left: 4px solid var(--secondary);
+        }
+
         .solution-step strong {
             color: var(--secondary);
         }
@@ -411,6 +675,11 @@
             padding: 1.5rem;
             border-radius: 8px;
             margin: 1.5rem 0;
+        }
+
+        body:not(.rtl) .note-box {
+            border-right: none;
+            border-left: 4px solid var(--primary);
         }
 
         .note-box strong {
@@ -425,6 +694,7 @@
             height: 40px;
             border-radius: 10px;
             margin-left: 10px;
+            margin-right: 10px;
         }
 
         .problem-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
@@ -758,6 +1028,13 @@
             border-left: 4px solid var(--primary);
         }
 
+        body.rtl .mikro-help-text {
+            right: auto;
+            left: 75px;
+            border-left: none;
+            border-right: 4px solid var(--primary);
+        }
+
         .mikro-help-icon:hover .mikro-help-text {
             opacity: 1;
         }
@@ -770,6 +1047,8 @@
             
             .menu-toggle {
                 display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .hero {
@@ -813,6 +1092,11 @@
                 font-size: 12px;
                 right: 65px;
                 padding: 8px 14px;
+            }
+
+            body.rtl .mikro-help-text {
+                right: auto;
+                left: 65px;
             }
         }
 
@@ -883,7 +1167,7 @@
     </style>
 </head>
 <body>
-    <!-- القائمة العلوية -->
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -900,37 +1184,108 @@
             
             <!-- القائمة الأصلية للشاشات الكبيرة -->
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">
-                    <i class="fas fa-home"></i> الرئيسية
+                <!-- أزرار تبديل اللغة -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langEn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <button class="lang-btn" id="langAr">
+                        <i class="fas fa-globe"></i>
+                        AR
+                    </button>
+                </div>
+                
+                <!-- الرئيسية -->
+                <a href="index.html" class="nav-link" data-i18n="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
                 </a>
-                <a href="hotspot.html" class="nav-link">
-                    <i class="fas fa-wifi"></i> اعدادات hotspot+ppp
-                </a>
-                <a href="Hotspot Editor.html" class="nav-link">
-                    <i class="fas fa-wifi"></i> تصميم hotspot
-                </a>
-                <a href="merge-v6.html" class="nav-link">
-                    <i class="fas fa-link"></i> دمج v6
-                </a>
-                <a href="merge-v7.html" class="nav-link">
-                    <i class="fas fa-rocket"></i> دمج v7
-                </a>
-                <a href="block-sites.html" class="nav-link">
-                    <i class="fas fa-shield-alt"></i> حجب مواقع
-                </a>
-                <a href="speed-profiles.html" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i> بروفايلات
-                </a>
-                <a href="troubleshooting.html" class="nav-link active">
-                    <i class="fas fa-question-circle"></i> المشكلات الشائعة
-                </a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    من نحن
-                </a>
-                 <a href="privacy-policy.html" class="nav-link ">
-                <i class="fas fa-user-shield"></i>
-                سياسة الخصوصية
+                
+                <!-- قائمة الدمج المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-code-branch"></i>
+                        <span data-i18n="merge">Merge</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="merge-v6.html" class="navbar-dropdown-item">
+                            <i class="fas fa-network-wired"></i>
+                            <span data-i18n="merge_v6">Load Balancing v6</span>
+                        </a>
+                        <a href="merge-v7.html" class="navbar-dropdown-item">
+                            <i class="fas fa-rocket"></i>
+                            <span data-i18n="merge_v7">Load Balancing v7</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة الهوت سبوت المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-wifi"></i>
+                        <span data-i18n="hotspot">Hotspot</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="hotspot.html" class="navbar-dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
+                        </a>
+                        <a href="speed-profiles.html" class="navbar-dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="speed_profiles">Speed Profiles</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة التصميم والحجب المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-paint-brush"></i>
+                        <span data-i18n="design_block">Design & Block</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="Hotspot Editor.html" class="navbar-dropdown-item">
+                            <i class="fas fa-paint-brush"></i>
+                            <span data-i18n="hotspot_design">Hotspot Design</span>
+                        </a>
+                        <a href="block-sites.html" class="navbar-dropdown-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-i18n="block_sites">Block Sites</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة المساعدة المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle active">
+                        <i class="fas fa-question-circle"></i>
+                        <span data-i18n="help">Help</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="troubleshooting.html" class="navbar-dropdown-item active">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-i18n="troubleshooting">Troubleshooting</span>
+                        </a>
+                        <a href="about.html" class="navbar-dropdown-item">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="about">About Us</span>
+                        </a>
+                        <a href="privacy-policy.html" class="navbar-dropdown-item">
+                            <i class="fas fa-user-shield"></i>
+                            <span data-i18n="privacy">Privacy Policy</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- واتساب -->
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    <span data-i18n="contact_us">Contact Us</span>
                 </a>
             </div>
         </div>
@@ -939,42 +1294,89 @@
     <!-- القائمة الجانبية للموبايل -->
     <div class="mobile-sidebar" id="mobileSidebar">
         <div class="mobile-nav-links">
-            <a href="index.html" class="mobile-nav-link">
-                <i class="fas fa-home"></i> الرئيسية
+            <!-- الرئيسية للموبايل -->
+            <a href="index.html" class="mobile-nav-link" data-i18n="home">
+                <i class="fas fa-home"></i> Home
             </a>
-            <a href="hotspot.html" class="mobile-nav-link">
-                <i class="fas fa-wifi"></i> اعدادات hotspot+ppp
-            </a>
-             <a href="Hotspot Editor.html" class="mobile-nav-link">
-                <i class="fas fa-wifi"></i>تصميم hotspot
-            </a>
-            <a href="merge-v6.html" class="mobile-nav-link">
-                <i class="fas fa-link"></i> دمج v6
-            </a>
-            <a href="merge-v7.html" class="mobile-nav-link">
-                <i class="fas fa-rocket"></i> دمج v7
-            </a>
-            <a href="block-sites.html" class="mobile-nav-link">
-                <i class="fas fa-shield-alt"></i> حجب مواقع
-            </a>
-            <a href="speed-profiles.html" class="mobile-nav-link">
-                <i class="fas fa-tachometer-alt"></i> بروفايلات
-            </a>
-            <a href="about.html" class="mobile-nav-link">
-                <i class="fas fa-users"></i> من نحن
-            </a>
-            <a href="troubleshooting.html" class="mobile-nav-link active">
-                <i class="fas fa-question-circle"></i> المشكلات الشائعة
-            </a>
+            
+            <!-- قائمة الدمج للموبايل -->
+            <div class="mobile-nav-dropdown" id="mobileMergeDropdown">
+                <button class="mobile-nav-dropdown-toggle" onclick="toggleMobileDropdown('merge')">
+                    <i class="fas fa-code-branch"></i> <span data-i18n="merge">Merge</span>
+                    <i class="fas fa-chevron-down" style="margin-right: auto;"></i>
+                </button>
+                <div class="mobile-nav-dropdown-menu" id="mobileMergeMenu">
+                    <a href="merge-v6.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-network-wired"></i> <span data-i18n="merge_v6">Load Balancing v6</span>
+                    </a>
+                    <a href="merge-v7.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-rocket"></i> <span data-i18n="merge_v7">Load Balancing v7</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- قائمة الهوت سبوت للموبايل -->
+            <div class="mobile-nav-dropdown" id="mobileHotspotDropdown">
+                <button class="mobile-nav-dropdown-toggle" onclick="toggleMobileDropdown('hotspot')">
+                    <i class="fas fa-wifi"></i> <span data-i18n="hotspot">Hotspot</span>
+                    <i class="fas fa-chevron-down" style="margin-right: auto;"></i>
+                </button>
+                <div class="mobile-nav-dropdown-menu" id="mobileHotspotMenu">
+                    <a href="hotspot.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-cog"></i> <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
+                    </a>
+                    <a href="speed-profiles.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-tachometer-alt"></i> <span data-i18n="speed_profiles">Speed Profiles</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- قائمة التصميم والحجب للموبايل -->
+            <div class="mobile-nav-dropdown" id="mobileDesignDropdown">
+                <button class="mobile-nav-dropdown-toggle" onclick="toggleMobileDropdown('design')">
+                    <i class="fas fa-paint-brush"></i> <span data-i18n="design_block">Design & Block</span>
+                    <i class="fas fa-chevron-down" style="margin-right: auto;"></i>
+                </button>
+                <div class="mobile-nav-dropdown-menu" id="mobileDesignMenu">
+                    <a href="Hotspot Editor.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-paint-brush"></i> <span data-i18n="hotspot_design">Hotspot Design</span>
+                    </a>
+                    <a href="block-sites.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-shield-alt"></i> <span data-i18n="block_sites">Block Sites</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- قائمة المساعدة للموبايل (نشطة) -->
+            <div class="mobile-nav-dropdown active" id="mobileHelpDropdown">
+                <button class="mobile-nav-dropdown-toggle" onclick="toggleMobileDropdown('help')">
+                    <i class="fas fa-question-circle"></i> <span data-i18n="help">Help</span>
+                    <i class="fas fa-chevron-down" style="margin-right: auto;"></i>
+                </button>
+                <div class="mobile-nav-dropdown-menu" id="mobileHelpMenu" style="display: block;">
+                    <a href="troubleshooting.html" class="mobile-nav-dropdown-item active">
+                        <i class="fas fa-exclamation-triangle"></i> <span data-i18n="troubleshooting">Troubleshooting</span>
+                    </a>
+                    <a href="about.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-users"></i> <span data-i18n="about">About Us</span>
+                    </a>
+                    <a href="privacy-policy.html" class="mobile-nav-dropdown-item">
+                        <i class="fas fa-user-shield"></i> <span data-i18n="privacy">Privacy Policy</span>
+                    </a>
+                </div>
+            </div>
+            
             <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 1rem 0;"></div>
+            
+            <!-- روابط التواصل للموبايل -->
             <a href="https://wa.me/201092503391" target="_blank" class="mobile-nav-link">
-                <i class="fab fa-whatsapp"></i> واتساب
+                <i class="fab fa-whatsapp"></i> WhatsApp
             </a>
             <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="mobile-nav-link">
-                <i class="fab fa-facebook"></i> فيسبوك
+                <i class="fab fa-facebook"></i> Facebook
             </a>
             <a href="javascript:void(0)" class="mobile-nav-link" onclick="showMikroHelp()">
-                <i class="fas fa-life-ring"></i> المساعدة
+                <i class="fas fa-life-ring"></i> Help
             </a>
         </div>
     </div>
@@ -986,11 +1388,11 @@
     <section class="hero">
         <div class="hero-content">
             <span class="hero-badge">
-                <i class="fas fa-life-ring"></i> دعم فني متكامل
+                <i class="fas fa-life-ring"></i> <span data-i18n="hero_badge">Complete Technical Support</span>
             </span>
-            <h1 class="hero-title">المشكلات الشائعة وحلولها</h1>
-            <p class="hero-subtitle">
-                دليل شامل لأهم المشاكل التقنية التي تواجه مستخدمي MikroTik مع حلول عملية ومضمونة
+            <h1 class="hero-title" data-i18n="hero_title">Troubleshooting & Solutions</h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                A comprehensive guide to the most common technical problems facing MikroTik users with practical and guaranteed solutions
             </p>
         </div>
     </section>
@@ -998,9 +1400,9 @@
     <!-- شريط البحث -->
     <section class="search-section">
         <div class="search-box">
-            <input type="text" class="search-input" placeholder="ابحث عن مشكلة معينة...">
-            <button class="search-btn">
-                <i class="fas fa-search"></i> بحث
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for a specific problem...">
+            <button class="search-btn" onclick="searchProblems()">
+                <i class="fas fa-search"></i> <span data-i18n="search">Search</span>
             </button>
         </div>
     </section>
@@ -1008,7 +1410,7 @@
     <!-- المحتوى الرئيسي -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-tools"></i> حلول المشكلات الأكثر شيوعاً</h2>
+            <h2 class="section-title"><i class="fas fa-tools"></i> <span data-i18n="common_solutions">Most Common Problems Solutions</span></h2>
             
             <div class="faq-accordion">
                 <!-- المشكلة 1 -->
@@ -1018,35 +1420,35 @@
                             <span class="problem-icon problem-danger">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </span>
-                            IP خفي داخل الشبكة (DHCP Rouge)
+                            <span data-i18n="problem1_title">Rogue DHCP Server (DHCP Rouge)</span>
                         </span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="faq-answer">
                         <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
-                            <strong>المشكلة:</strong> وجود IP يرسل رسائل داخل الشبكة - هذه الرسائل عندما تكون كثيرة تعمل loop في الشبكة ويحصل أشياء غير طبيعية:
+                            <strong data-i18n="problem">Problem:</strong> <span data-i18n="problem1_desc">There is an IP sending messages inside the network - when these messages are many, they create a loop in the network and cause abnormal things:</span>
                         </p>
                         
                         <ul style="color: var(--dark); margin-bottom: 1.5rem; padding-right: 1.5rem;">
-                            <li style="margin-bottom: 0.5rem;">بعض العملاء ظاهرين عندك ومفيش عندهم نت</li>
-                            <li style="margin-bottom: 0.5rem;">الخدمة عندهم بطيئة جداً</li>
-                            <li style="margin-bottom: 0.5rem;">عدم استقرار الخدمة بشكل عام</li>
+                            <li style="margin-bottom: 0.5rem;" data-i18n="problem1_symptom1">Some clients appear online but have no internet</li>
+                            <li style="margin-bottom: 0.5rem;" data-i18n="problem1_symptom2">Service is very slow for them</li>
+                            <li style="margin-bottom: 0.5rem;" data-i18n="problem1_symptom3">General service instability</li>
                         </ul>
                         
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">كيف أعرف أن هناك IP داخل شبكتي؟</h4>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;" data-i18n="problem1_detect">How do I know if there's an IP inside my network?</h4>
                         
                         <div style="background: #f8fafc; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
-                            <h5 style="color: var(--secondary); margin-bottom: 1rem;">ثلاث طرق للكشف:</h5>
+                            <h5 style="color: var(--secondary); margin-bottom: 1rem;" data-i18n="three_methods">Three detection methods:</h5>
                             
                             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem;">
                                 <div style="flex: 1; min-width: 200px;">
                                     <div style="background: white; padding: 1.5rem; border-radius: 10px; border-right: 4px solid var(--primary);">
                                         <h6 style="color: var(--primary); margin-bottom: 0.5rem;">
                                             <i class="fas fa-network-wired"></i>
-                                            الطريقة الأولى
+                                            <span data-i18n="method1">First Method</span>
                                         </h6>
                                         <p style="color: var(--gray); font-size: 0.9rem;">
-                                            عن طريق <strong>DHCP Client</strong>
+                                            <strong>DHCP Client</strong>
                                         </p>
                                     </div>
                                 </div>
@@ -1055,10 +1457,10 @@
                                     <div style="background: white; padding: 1.5rem; border-radius: 10px; border-right: 4px solid var(--secondary);">
                                         <h6 style="color: var(--secondary); margin-bottom: 0.5rem;">
                                             <i class="fas fa-sitemap"></i>
-                                            الطريقة الثانية
+                                            <span data-i18n="method2">Second Method</span>
                                         </h6>
                                         <p style="color: var(--gray); font-size: 0.9rem;">
-                                            عن طريق <strong>ARP</strong>
+                                            <strong>ARP</strong>
                                         </p>
                                     </div>
                                 </div>
@@ -1067,31 +1469,31 @@
                                     <div style="background: white; padding: 1.5rem; border-radius: 10px; border-right: 4px solid var(--accent);">
                                         <h6 style="color: var(--accent); margin-bottom: 0.5rem;">
                                             <i class="fas fa-search"></i>
-                                            الطريقة الثالثة
+                                            <span data-i18n="method3">Third Method</span>
                                         </h6>
                                         <p style="color: var(--gray); font-size: 0.9rem;">
-                                            عن طريق <strong>Tools → IP Scan</strong>
+                                            <strong>Tools → IP Scan</strong>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">الحل:</h4>
+                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;" data-i18n="solution">Solution:</h4>
                         
                         <ol class="solution-steps">
                             <li class="solution-step">
-                                <strong>الخطوة الأولى:</strong> محاولة الدخول على هذا الجهاز وإغلاق الـ DHCP الخاص به.
-                                <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;">في حالة عدم الاتصال به:</p>
+                                <strong data-i18n="step1">Step One:</strong> <span data-i18n="problem1_step1">Try to access this device and disable its DHCP server.</span>
+                                <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;" data-i18n="problem1_step1_note">If unable to connect:</p>
                             </li>
                             <li class="solution-step">
-                                <strong>الخطوة الثانية:</strong> محاولة معرفة مكان الجهاز عن طريق تقسيم الشبكة لمناطق وفصل كل منطقة.
-                                <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;">في حالة عدم ظهور الـ IP، سيكون سهل الوصول إلى الجهاز وفصله من شبكتك.</p>
+                                <strong data-i18n="step2">Step Two:</strong> <span data-i18n="problem1_step2">Try to locate the device by dividing the network into areas and disconnecting each area.</span>
+                                <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.9rem;" data-i18n="problem1_step2_note">If the IP disappears, it will be easy to reach the device and disconnect it from your network.</p>
                             </li>
                         </ol>
                         
                         <div class="note-box">
-                            <strong>تحذير:</strong> ترك الجهاز في الشبكة سيكون هناك عدم استقرار في الخدمة.
+                            <strong data-i18n="warning">Warning:</strong> <span data-i18n="problem1_warning">Leaving the device in the network will cause service instability.</span>
                         </div>
                     </div>
                 </div>
@@ -1103,33 +1505,33 @@
                             <span class="problem-icon problem-warning">
                                 <i class="fas fa-exclamation-circle"></i>
                             </span>
-                            عدد الـIPs الخروج الخاص بك قليل
+                            <span data-i18n="problem2_title">Low number of public IPs</span>
                         </span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="faq-answer">
                         <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
-                            <strong>المشكلة:</strong> هذا يحدث بسبب اختيار Subnet غير مناسب مع عدد IPs شبكتك. (مثال: /24)
+                            <strong data-i18n="problem">Problem:</strong> <span data-i18n="problem2_desc">This happens due to choosing an inappropriate Subnet for your network's IP count. (Example: /24)</span>
                         </p>
                         
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">الحل:</h4>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;" data-i18n="solution">Solution:</h4>
                         
-                        <p style="color: var(--dark); margin-bottom: 1rem;">
-                            يقدمه الموقع الخاص بنا في الإعدادات:
+                        <p style="color: var(--dark); margin-bottom: 1rem;" data-i18n="problem2_solution">
+                            Provided by our site in the settings:
                         </p>
                         
                         <div style="background: white; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0;">
                             <h5 style="color: var(--secondary); margin-bottom: 1rem;">
                                 <i class="fas fa-cog"></i>
-                                اختر Subnet أكبر:
+                                <span data-i18n="choose_subnet">Choose a larger Subnet:</span>
                             </h5>
                             <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
                                 <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 8px;">/16</span>
                                 <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 8px;">/8</span>
                                 <span style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 8px;">/4</span>
                             </div>
-                            <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">
-                                سيكون هناك وفرة في IPs الخروج.
+                            <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;" data-i18n="problem2_result">
+                                There will be plenty of public IPs.
                             </p>
                         </div>
                     </div>
@@ -1142,44 +1544,44 @@
                             <span class="problem-icon problem-info">
                                 <i class="fas fa-microchip"></i>
                             </span>
-                            استهلاك المعالج عالي
+                            <span data-i18n="problem3_title">High CPU Usage</span>
                         </span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="faq-answer">
                         <p style="color: var(--dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
-                            <strong>المشكلة:</strong> مشكلة شائعة مع مستخدمين النسخ 5 أو أجهزة الرواتر بورد الضعيفة.
+                            <strong data-i18n="problem">Problem:</strong> <span data-i18n="problem3_desc">Common problem with users of version 5 or weak router board devices.</span>
                         </p>
                         
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">كيف أعرف قوة استخدام جهازي؟</h4>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;" data-i18n="problem3_how">How do I know my device's usage strength?</h4>
                         
                         <p style="color: var(--dark); margin-bottom: 1.5rem;">
-                            عن طريق <strong>Tools → Profile</strong>
+                            <strong>Tools → Profile</strong>
                         </p>
                         
-                        <p style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--accent); margin: 1.5rem 0;">
-                            <strong>تحليل النتيجة:</strong> في حالة وجود استهلاك قوي أو بجانب كلمة "IDE" أكثر من 50%، هذا معناه أن الجهاز غير قادر على معالجة البيانات بشكل سريع، وخصوصاً مع تطور المواقع مثل AI.
+                        <p style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; border-right: 4px solid var(--accent); margin: 1.5rem 0;" data-i18n="problem3_analysis">
+                            <strong>Result analysis:</strong> If there is high usage or "IDE" keyword exceeds 50%, this means the device cannot process data quickly, especially with the evolution of websites like AI.
                         </p>
                         
-                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">الحلول المقترحة:</h4>
+                        <h4 style="color: var(--secondary); margin: 2rem 0 1rem;" data-i18n="solutions">Suggested Solutions:</h4>
                         
                         <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
                             <h5 style="color: var(--primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-sync-alt"></i>
-                                الحل الأول: تحديث النسخة
+                                <span data-i18n="solution1">First Solution: Update the version</span>
                             </h5>
-                            <p style="color: var(--dark);">
-                                لو أنت بستخدم CPU عليه نسخة 5، الحل عمل تحديث إلى نسخة 6.
+                            <p style="color: var(--dark);" data-i18n="problem3_solution1">
+                                If you're using a CPU with version 5, update to version 6.
                             </p>
                         </div>
                         
                         <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 10px;">
                             <h5 style="color: var(--secondary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-server"></i>
-                                الحل الثاني: تغيير الهاردوير
+                                <span data-i18n="solution2">Second Solution: Change hardware</span>
                             </h5>
-                            <p style="color: var(--dark);">
-                                أما في حالة الراوتر بورد الخاص بك ضعيف، الحل هو تغييره إلى راوتر أفضل يتناسب مع شبكتك.
+                            <p style="color: var(--dark);" data-i18n="problem3_solution2">
+                                If your router board is weak, change it to a better router that suits your network.
                             </p>
                         </div>
                     </div>
@@ -1190,7 +1592,7 @@
             <div class="tools-section">
                 <h3 class="section-title" style="margin-bottom: 3rem;">
                     <i class="fas fa-toolbox"></i>
-                    أدوات مقترحة للتحليل
+                    <span data-i18n="suggested_tools">Suggested Analysis Tools</span>
                 </h3>
                 
                 <div class="tools-grid">
@@ -1198,9 +1600,9 @@
                         <div class="tool-icon">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">IP Scanner</h4>
-                        <p style="color: var(--gray);">
-                            للكشف عن الأجهزة المتصلة بالشبكة
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;" data-i18n="tool1">IP Scanner</h4>
+                        <p style="color: var(--gray);" data-i18n="tool1_desc">
+                            Detect connected devices on the network
                         </p>
                     </div>
                     
@@ -1208,9 +1610,9 @@
                         <div class="tool-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">System Profile</h4>
-                        <p style="color: var(--gray);">
-                            لمراقبة أداء المعالج والذاكرة
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;" data-i18n="tool2">System Profile</h4>
+                        <p style="color: var(--gray);" data-i18n="tool2_desc">
+                            Monitor CPU and memory performance
                         </p>
                     </div>
                     
@@ -1218,9 +1620,9 @@
                         <div class="tool-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">Firewall Analyzer</h4>
-                        <p style="color: var(--gray);">
-                            لتحليل حركة البيانات والأمان
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;" data-i18n="tool3">Firewall Analyzer</h4>
+                        <p style="color: var(--gray);" data-i18n="tool3_desc">
+                            Analyze data traffic and security
                         </p>
                     </div>
                     
@@ -1228,9 +1630,9 @@
                         <div class="tool-icon">
                             <i class="fas fa-network-wired"></i>
                         </div>
-                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;">Bandwidth Monitor</h4>
-                        <p style="color: var(--gray);">
-                            لمراقبة استهلاك النطاق الترددي
+                        <h4 style="color: var(--dark); margin-bottom: 0.5rem;" data-i18n="tool4">Bandwidth Monitor</h4>
+                        <p style="color: var(--gray);" data-i18n="tool4_desc">
+                            Monitor bandwidth consumption
                         </p>
                     </div>
                 </div>
@@ -1241,47 +1643,47 @@
     <!-- قسم مشاكل المستخدمين -->
     <section class="content-section">
         <div class="problems-section">
-            <h2 class="section-title"><i class="fas fa-comments"></i> منتدى مشاكل المستخدمين</h2>
+            <h2 class="section-title"><i class="fas fa-comments"></i> <span data-i18n="forum_title">User Problems Forum</span></h2>
             
             <div class="status-bar">
                 <div class="status connected" id="jsonbinStatus">
-                    <i class="fas fa-database"></i> متصل | 0 مشكلة
+                    <i class="fas fa-database"></i> <span data-i18n="connected">Connected</span> | <span id="problemCount">0</span> <span data-i18n="problems">problems</span>
                 </div>
                 <button id="refreshBtn" class="submit-btn" style="margin-top: 10px; width: auto; background: var(--accent);">
-                    <i class="fas fa-sync-alt"></i> تحديث القائمة
+                    <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh List</span>
                 </button>
             </div>
             
-            <p style="text-align: center; color: var(--gray); margin-bottom: 2rem;">
-                شارك مشكلتك مع مجتمع MikroTools، وساعد الآخرين بحلول مشاكلهم
+            <p style="text-align: center; color: var(--gray); margin-bottom: 2rem;" data-i18n="forum_desc">
+                Share your problem with the MikroTools community, and help others with their solutions
             </p>
             
             <!-- قائمة المشاكل -->
             <div class="problems-list" id="problemsList">
                 <div style="text-align: center; padding: 2rem; color: var(--gray);">
                     <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <div>جاري تحميل المشاكل...</div>
+                    <div data-i18n="loading">Loading problems...</div>
                 </div>
             </div>
             
             <!-- نموذج الإضافة -->
             <div class="add-form">
-                <h3 class="form-title"><i class="fas fa-plus-circle"></i> أضف مشكلتك</h3>
+                <h3 class="form-title"><i class="fas fa-plus-circle"></i> <span data-i18n="add_problem">Add Your Problem</span></h3>
                 <form id="addProblemForm">
-                    <textarea class="form-textarea" id="problemText" placeholder="اكتب مشكلتك بالتفصيل..."></textarea>
+                    <textarea class="form-textarea" id="problemText" placeholder="Write your problem in detail..."></textarea>
                     <div class="form-row">
-                        <input type="text" class="form-input" id="userName" placeholder="اسمك (اختياري)">
+                        <input type="text" class="form-input" id="userName" placeholder="Your name (optional)">
                         <select class="form-select" id="problemType">
-                            <option value="network">شبكة واتصال</option>
-                            <option value="dhcp">مشاكل DHCP</option>
-                            <option value="performance">أداء وبطء</option>
-                            <option value="hardware">مشاكل هاردوير</option>
-                            <option value="other">مشاكل أخرى</option>
+                            <option value="network" data-i18n="type_network">Network & Connection</option>
+                            <option value="dhcp" data-i18n="type_dhcp">DHCP Problems</option>
+                            <option value="performance" data-i18n="type_performance">Performance & Slowness</option>
+                            <option value="hardware" data-i18n="type_hardware">Hardware Problems</option>
+                            <option value="other" data-i18n="type_other">Other Problems</option>
                         </select>
                     </div>
                     <button type="submit" class="submit-btn">
-    <i class="fas fa-paper-plane"></i> نشر المشكلة
-</button>
+                        <i class="fas fa-paper-plane"></i> <span data-i18n="publish">Publish Problem</span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -1291,9 +1693,9 @@
     <footer class="footer">
         <div class="footer-content">
             <p class="footer-text">
-                <i class="fas fa-phone-alt"></i> للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+                <i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
             </p>
-            <p>© 2024 MikroTools. جميع الحقوق محفوظة.</p>
+            <p>© 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
         </div>
     </footer>
 
@@ -1317,6 +1719,166 @@
     </iframe>
 
     <script>
+        // نظام الترجمة
+        const translations = {
+            en: {
+                home: "Home",
+                merge: "Merge",
+                hotspot: "Hotspot",
+                design_block: "Design & Block",
+                help: "Help",
+                merge_v6: "Load Balancing v6",
+                merge_v7: "Load Balancing v7",
+                hotspot_settings: "Hotspot+PPP Settings",
+                speed_profiles: "Speed Profiles",
+                hotspot_design: "Hotspot Design",
+                block_sites: "Block Sites",
+                troubleshooting: "Troubleshooting",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                contact_us: "Contact Us",
+                hero_badge: "Complete Technical Support",
+                hero_title: "Troubleshooting & Solutions",
+                hero_subtitle: "A comprehensive guide to the most common technical problems facing MikroTik users with practical and guaranteed solutions",
+                search: "Search",
+                common_solutions: "Most Common Problems Solutions",
+                problem: "Problem",
+                solution: "Solution",
+                solutions: "Solutions",
+                step1: "Step One:",
+                step2: "Step Two:",
+                warning: "Warning:",
+                three_methods: "Three detection methods:",
+                method1: "First Method",
+                method2: "Second Method",
+                method3: "Third Method",
+                problem1_title: "Rogue DHCP Server (DHCP Rouge)",
+                problem1_desc: "There is an IP sending messages inside the network - when these messages are many, they create a loop in the network and cause abnormal things:",
+                problem1_symptom1: "Some clients appear online but have no internet",
+                problem1_symptom2: "Service is very slow for them",
+                problem1_symptom3: "General service instability",
+                problem1_detect: "How do I know if there's an IP inside my network?",
+                problem1_step1: "Try to access this device and disable its DHCP server.",
+                problem1_step1_note: "If unable to connect:",
+                problem1_step2: "Try to locate the device by dividing the network into areas and disconnecting each area.",
+                problem1_step2_note: "If the IP disappears, it will be easy to reach the device and disconnect it from your network.",
+                problem1_warning: "Leaving the device in the network will cause service instability.",
+                problem2_title: "Low number of public IPs",
+                problem2_desc: "This happens due to choosing an inappropriate Subnet for your network's IP count. (Example: /24)",
+                problem2_solution: "Provided by our site in the settings:",
+                choose_subnet: "Choose a larger Subnet:",
+                problem2_result: "There will be plenty of public IPs.",
+                problem3_title: "High CPU Usage",
+                problem3_desc: "Common problem with users of version 5 or weak router board devices.",
+                problem3_how: "How do I know my device's usage strength?",
+                problem3_analysis: "Result analysis: If there is high usage or \"IDE\" keyword exceeds 50%, this means the device cannot process data quickly, especially with the evolution of websites like AI.",
+                problem3_solution1: "If you're using a CPU with version 5, update to version 6.",
+                problem3_solution2: "If your router board is weak, change it to a better router that suits your network.",
+                suggested_tools: "Suggested Analysis Tools",
+                tool1: "IP Scanner",
+                tool1_desc: "Detect connected devices on the network",
+                tool2: "System Profile",
+                tool2_desc: "Monitor CPU and memory performance",
+                tool3: "Firewall Analyzer",
+                tool3_desc: "Analyze data traffic and security",
+                tool4: "Bandwidth Monitor",
+                tool4_desc: "Monitor bandwidth consumption",
+                forum_title: "User Problems Forum",
+                connected: "Connected",
+                problems: "problems",
+                refresh: "Refresh List",
+                forum_desc: "Share your problem with the MikroTools community, and help others with their solutions",
+                loading: "Loading problems...",
+                add_problem: "Add Your Problem",
+                type_network: "Network & Connection",
+                type_dhcp: "DHCP Problems",
+                type_performance: "Performance & Slowness",
+                type_hardware: "Hardware Problems",
+                type_other: "Other Problems",
+                publish: "Publish Problem",
+                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
+                copyright: "All rights reserved."
+            },
+            ar: {
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                speed_profiles: "بروفايلات السرعة",
+                hotspot_design: "تصميم hotspot",
+                block_sites: "حجب مواقع",
+                troubleshooting: "المشكلات الشائعة",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                hero_badge: "دعم فني متكامل",
+                hero_title: "المشكلات الشائعة وحلولها",
+                hero_subtitle: "دليل شامل لأهم المشاكل التقنية التي تواجه مستخدمي MikroTik مع حلول عملية ومضمونة",
+                search: "بحث",
+                common_solutions: "حلول المشكلات الأكثر شيوعاً",
+                problem: "المشكلة:",
+                solution: "الحل:",
+                solutions: "الحلول:",
+                step1: "الخطوة الأولى:",
+                step2: "الخطوة الثانية:",
+                warning: "تحذير:",
+                three_methods: "ثلاث طرق للكشف:",
+                method1: "الطريقة الأولى",
+                method2: "الطريقة الثانية",
+                method3: "الطريقة الثالثة",
+                problem1_title: "IP خفي داخل الشبكة (DHCP Rouge)",
+                problem1_desc: "وجود IP يرسل رسائل داخل الشبكة - هذه الرسائل عندما تكون كثيرة تعمل loop في الشبكة ويحصل أشياء غير طبيعية:",
+                problem1_symptom1: "بعض العملاء ظاهرين عندك ومفيش عندهم نت",
+                problem1_symptom2: "الخدمة عندهم بطيئة جداً",
+                problem1_symptom3: "عدم استقرار الخدمة بشكل عام",
+                problem1_detect: "كيف أعرف أن هناك IP داخل شبكتي؟",
+                problem1_step1: "محاولة الدخول على هذا الجهاز وإغلاق الـ DHCP الخاص به.",
+                problem1_step1_note: "في حالة عدم الاتصال به:",
+                problem1_step2: "محاولة معرفة مكان الجهاز عن طريق تقسيم الشبكة لمناطق وفصل كل منطقة.",
+                problem1_step2_note: "في حالة عدم ظهور الـ IP، سيكون سهل الوصول إلى الجهاز وفصله من شبكتك.",
+                problem1_warning: "ترك الجهاز في الشبكة سيكون هناك عدم استقرار في الخدمة.",
+                problem2_title: "عدد الـIPs الخروج الخاص بك قليل",
+                problem2_desc: "هذا يحدث بسبب اختيار Subnet غير مناسب مع عدد IPs شبكتك. (مثال: /24)",
+                problem2_solution: "يقدمه الموقع الخاص بنا في الإعدادات:",
+                choose_subnet: "اختر Subnet أكبر:",
+                problem2_result: "سيكون هناك وفرة في IPs الخروج.",
+                problem3_title: "استهلاك المعالج عالي",
+                problem3_desc: "مشكلة شائعة مع مستخدمين النسخ 5 أو أجهزة الرواتر بورد الضعيفة.",
+                problem3_how: "كيف أعرف قوة استخدام جهازي؟",
+                problem3_analysis: "تحليل النتيجة: في حالة وجود استهلاك قوي أو بجانب كلمة \"IDE\" أكثر من 50%، هذا معناه أن الجهاز غير قادر على معالجة البيانات بشكل سريع، وخصوصاً مع تطور المواقع مثل AI.",
+                problem3_solution1: "لو أنت بستخدم CPU عليه نسخة 5، الحل عمل تحديث إلى نسخة 6.",
+                problem3_solution2: "أما في حالة الراوتر بورد الخاص بك ضعيف، الحل هو تغييره إلى راوتر أفضل يتناسب مع شبكتك.",
+                suggested_tools: "أدوات مقترحة للتحليل",
+                tool1: "IP Scanner",
+                tool1_desc: "للكشف عن الأجهزة المتصلة بالشبكة",
+                tool2: "System Profile",
+                tool2_desc: "لمراقبة أداء المعالج والذاكرة",
+                tool3: "Firewall Analyzer",
+                tool3_desc: "لتحليل حركة البيانات والأمان",
+                tool4: "Bandwidth Monitor",
+                tool4_desc: "لمراقبة استهلاك النطاق الترددي",
+                forum_title: "منتدى مشاكل المستخدمين",
+                connected: "متصل",
+                problems: "مشكلة",
+                refresh: "تحديث القائمة",
+                forum_desc: "شارك مشكلتك مع مجتمع MikroTools، وساعد الآخرين بحلول مشاكلهم",
+                loading: "جاري تحميل المشاكل...",
+                add_problem: "أضف مشكلتك",
+                type_network: "شبكة واتصال",
+                type_dhcp: "مشاكل DHCP",
+                type_performance: "أداء وبطء",
+                type_hardware: "مشاكل هاردوير",
+                type_other: "مشاكل أخرى",
+                publish: "نشر المشكلة",
+                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
+                copyright: "جميع الحقوق محفوظة."
+            }
+        };
+
         // إعدادات JSONBin
         const JSONBIN_CONFIG = {
             BIN_ID: "6984fe4d43b1c97be9684aa8",
@@ -1324,32 +1886,57 @@
             ACCESS_KEY: "$2a$10$ZTGfn5/2vTAk0GRK2mYDQehjEvi51bDSV95m7FcmcV4YITrNKQNai"
         };
 
-        // 🔧 دالة جديدة لتنسيق التاريخ
-        function formatDate(dateString) {
-            const d = new Date(dateString);
-            const now = new Date();
-            const diffMs = now - d;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
+        // تبديل اللغة
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
             
-            if (diffMins < 60) {
-                return `منذ ${diffMins} دقيقة`;
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (lang === 'ar') {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.add('ar', 'rtl');
+                body.classList.remove('en');
+            } else {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('en');
+                body.classList.remove('ar', 'rtl');
             }
             
-            const diffHours = Math.floor(diffMins / 60);
-            if (diffHours < 24) {
-                return `منذ ${diffHours} ساعة`;
-            }
-            
-            return d.toLocaleDateString('ar-EG', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.id === 'searchInput') {
+                            element.placeholder = translations[lang][key];
+                        } else if (element.id === 'userName') {
+                            element.placeholder = translations[lang][key];
+                        } else if (element.id === 'problemText') {
+                            element.placeholder = translations[lang][key];
+                        } else {
+                            element.placeholder = translations[lang][key];
+                        }
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
             });
+            
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
         }
 
         // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 الصفحة تعمل!');
+            
+            // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
+            const savedLanguage = localStorage.getItem('language') || 'en';
+            setLanguage(savedLanguage);
             
             // إعداد القائمة المتنقلة للموبايل
             const menuToggle = document.getElementById('menuToggle');
@@ -1407,15 +1994,61 @@
             
             // إعداد زر التحديث
             document.getElementById('refreshBtn').addEventListener('click', loadProblems);
-            
-            // إعداد البحث
-            document.querySelector('.search-btn').addEventListener('click', function() {
-                const searchTerm = document.querySelector('.search-input').value;
-                if (searchTerm) {
-                    searchProblems(searchTerm);
-                }
-            });
         });
+
+        // أحداث أزرار اللغة
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
+
+        // وظيفة البحث
+        function searchProblems() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm) {
+                const faqItems = document.querySelectorAll('.faq-item');
+                let found = false;
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    const searchTermLower = searchTerm.toLowerCase();
+                    
+                    if (question.includes(searchTermLower) || answer.includes(searchTermLower)) {
+                        item.classList.add('active');
+                        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                if (!found) {
+                    alert('No results found for "' + searchTerm + '"');
+                }
+            }
+        }
+
+        // 🔧 دالة جديدة لتنسيق التاريخ
+        function formatDate(dateString) {
+            const d = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - d;
+            const diffMins = Math.floor(diffMs / (1000 * 60));
+            
+            if (diffMins < 60) {
+                return `منذ ${diffMins} دقيقة`;
+            }
+            
+            const diffHours = Math.floor(diffMins / 60);
+            if (diffHours < 24) {
+                return `منذ ${diffHours} ساعة`;
+            }
+            
+            return d.toLocaleDateString('ar-EG', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
 
         // جلب المشاكل من JSONBin
         async function loadProblems() {
@@ -1441,40 +2074,17 @@
             }
         }
 
-        // بحث المشاكل
-        function searchProblems(searchTerm) {
-            const faqItems = document.querySelectorAll('.faq-item');
-            let found = false;
-            
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question').textContent.toLowerCase();
-                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
-                const searchTermLower = searchTerm.toLowerCase();
-                
-                if (question.includes(searchTermLower) || answer.includes(searchTermLower)) {
-                    item.classList.add('active');
-                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    found = true;
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-            
-            if (!found) {
-                alert('لم يتم العثور على نتائج تطابق "' + searchTerm + '"');
-            }
-        }
-
-        // 🔧 **الوظيفة المعدلة لعرض المشاكل والردود**
+        // عرض المشاكل
         function displayProblems(problems) {
             const container = document.getElementById('problemsList');
+            const lang = document.documentElement.lang;
             
             if (!problems || problems.length === 0) {
                 container.innerHTML = `
                     <div style="text-align: center; padding: 2rem; color: var(--gray);">
                         <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                        <div>لا توجد مشاكل بعد</div>
-                        <p style="margin-top: 1rem;">كن أول من يشارك مشكلته!</p>
+                        <div>${lang === 'ar' ? 'لا توجد مشاكل بعد' : 'No problems yet'}</div>
+                        <p style="margin-top: 1rem;">${lang === 'ar' ? 'كن أول من يشارك مشكلته!' : 'Be the first to share your problem!'}</p>
                     </div>
                 `;
                 return;
@@ -1482,37 +2092,38 @@
             
             let html = '';
             problems.forEach(problem => {
-                const date = problem.date ? new Date(problem.date).toLocaleDateString('ar-EG') : 'اليوم';
-                const type = problem.type === 'network' ? 'شبكة' : 
+                const date = problem.date ? new Date(problem.date).toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US') : (lang === 'ar' ? 'اليوم' : 'Today');
+                const type = problem.type === 'network' ? (lang === 'ar' ? 'شبكة' : 'Network') : 
                             problem.type === 'dhcp' ? 'DHCP' : 
-                            problem.type === 'performance' ? 'أداء' : 
-                            problem.type === 'hardware' ? 'هاردوير' : 'أخرى';
+                            problem.type === 'performance' ? (lang === 'ar' ? 'أداء' : 'Performance') : 
+                            problem.type === 'hardware' ? (lang === 'ar' ? 'هاردوير' : 'Hardware') : 
+                            (lang === 'ar' ? 'أخرى' : 'Other');
                 
                 html += `
                     <div class="problem-card">
                         <div class="problem-header">
                             <div class="user-name">
-                                <i class="fas fa-user"></i> ${problem.user || 'مستخدم مجهول'}
+                                <i class="fas fa-user"></i> ${problem.user || (lang === 'ar' ? 'مستخدم مجهول' : 'Anonymous')}
                             </div>
                             <div class="problem-date">
                                 <i class="fas fa-calendar-alt"></i> ${date}
                             </div>
                         </div>
                         <div class="problem-content">
-                            <p>${problem.problem || 'لا يوجد وصف'}</p>
+                            <p>${problem.problem || (lang === 'ar' ? 'لا يوجد وصف' : 'No description')}</p>
                             
-                            <!-- 🔧 عرض جميع الردود -->
+                            <!-- عرض جميع الردود -->
                             ${problem.replies && problem.replies.length > 0 ? `
                             <div class="replies-container">
                                 <strong style="color: #10b981; display: block; margin-bottom: 10px;">
-                                    <i class="fas fa-comments"></i> ردود فريق الدعم (${problem.replies.length})
+                                    <i class="fas fa-comments"></i> ${lang === 'ar' ? 'ردود فريق الدعم' : 'Support Team Replies'} (${problem.replies.length})
                                 </strong>
                                 ${problem.replies.map(reply => `
                                     <div class="reply-item">
                                         <div class="reply-header">
                                             <div class="reply-author">
                                                 <i class="fas fa-user-shield"></i>
-                                                ${reply.author || 'فريق الدعم'}
+                                                ${reply.author || (lang === 'ar' ? 'فريق الدعم' : 'Support Team')}
                                             </div>
                                             <div class="reply-date">
                                                 <i class="fas fa-clock"></i>
@@ -1526,19 +2137,18 @@
                                 `).join('')}
                             </div>
                             ` : (problem.solution ? `
-                            <!-- عرض الحل القديم للتوافق مع البيانات القديمة -->
                             <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #10b981;">
-                                <strong><i class="fas fa-check-circle"></i> الحل:</strong>
+                                <strong><i class="fas fa-check-circle"></i> ${lang === 'ar' ? 'الحل:' : 'Solution:'}</strong>
                                 <p style="margin-top: 0.5rem;">${problem.solution}</p>
                             </div>
                             ` : '')}
                         </div>
                         <div class="problem-footer">
                             <button class="like-btn" onclick="likeProblem(this)">
-                                <i class="fas fa-thumbs-up"></i> أعجبني (${problem.likes || 0})
+                                <i class="fas fa-thumbs-up"></i> ${lang === 'ar' ? 'أعجبني' : 'Like'} (${problem.likes || 0})
                             </button>
                             <span class="status-badge ${problem.solved ? 'status-solved' : 'status-pending'}">
-                                ${problem.solved ? 'تم الحل' : 'قيد الانتظار'}
+                                ${problem.solved ? (lang === 'ar' ? 'تم الحل' : 'Solved') : (lang === 'ar' ? 'قيد الانتظار' : 'Pending')}
                             </span>
                         </div>
                     </div>
@@ -1546,65 +2156,67 @@
             });
             
             container.innerHTML = html;
+            document.getElementById('problemCount').textContent = problems.length;
         }
 
         // عرض بيانات تجريبية
         function displayDemoProblems() {
+            const lang = document.documentElement.lang;
             const demo = [
                 {
-                    user: "محمد أحمد",
+                    user: lang === 'ar' ? "محمد أحمد" : "Mohamed Ahmed",
                     type: "network",
-                    problem: "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو",
+                    problem: lang === 'ar' ? "جهاز MikroTik بيقطع الاتصال كل ساعة بالضبط، وبيرجع تاني لوحدو" : "MikroTik device disconnects every hour exactly, then reconnects by itself",
                     date: new Date().toISOString(),
                     likes: 8,
                     solved: true,
-                    solution: "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً.",
+                    solution: lang === 'ar' ? "هذه مشكلة في إعدادات الـ Timeout، اذهب إلى System → NTP وعدل إعدادات الخادم، أو جرب تعطيل NTP Client مؤقتاً." : "This is a Timeout settings issue, go to System → NTP and adjust server settings, or try temporarily disabling NTP Client.",
                     replies: [
                         {
-                            author: "فريق الدعم",
+                            author: lang === 'ar' ? "فريق الدعم" : "Support Team",
                             date: new Date().toISOString(),
-                            content: "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل."
+                            content: lang === 'ar' ? "شكراً لتواصلك. المشكلة غالباً في إعدادات الـ NTP. يمكنك تجربة الخطوات المذكورة في الحل." : "Thank you for contacting us. The problem is often in NTP settings. You can try the steps mentioned in the solution."
                         },
                         {
-                            author: "فريق الدعم",
+                            author: lang === 'ar' ? "فريق الدعم" : "Support Team",
                             date: new Date(Date.now() + 3600000).toISOString(),
-                            content: "رد إضافي: يمكنك أيضاً التحقق من إعدادات الـ DHCP Lease Time إذا كانت المشكلة تتكرر."
+                            content: lang === 'ar' ? "رد إضافي: يمكنك أيضاً التحقق من إعدادات الـ DHCP Lease Time إذا كانت المشكلة تتكرر." : "Additional reply: You can also check DHCP Lease Time settings if the problem recurs."
                         }
                     ]
                 },
                 {
-                    user: "خالد محمود",
+                    user: lang === 'ar' ? "خالد محمود" : "Khaled Mahmoud",
                     type: "performance",
-                    problem: "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة",
+                    problem: lang === 'ar' ? "السرعات مش ثابتة مع وجود أكثر من 50 عميل على الشبكة" : "Speeds are unstable with more than 50 clients on the network",
                     date: new Date(Date.now() - 86400000).toISOString(),
                     likes: 15,
                     solved: false,
                     replies: [
                         {
-                            author: "فريق الدعم",
+                            author: lang === 'ar' ? "فريق الدعم" : "Support Team",
                             date: new Date(Date.now() - 43200000).toISOString(),
-                            content: "نحتاج إلى مزيد من التفاصيل. ما نوع الراوتر الذي تستخدمه؟"
+                            content: lang === 'ar' ? "نحتاج إلى مزيد من التفاصيل. ما نوع الراوتر الذي تستخدمه؟" : "We need more details. What router model are you using?"
                         }
                     ]
                 },
                 {
-                    user: "أحمد سعيد",
+                    user: lang === 'ar' ? "أحمد سعيد" : "Ahmed Said",
                     type: "dhcp",
-                    problem: "مشكلة في توزيع الـ IPs على العملاء الجدد",
+                    problem: lang === 'ar' ? "مشكلة في توزيع الـ IPs على العملاء الجدد" : "Problem distributing IPs to new clients",
                     date: new Date(Date.now() - 2 * 86400000).toISOString(),
                     likes: 5,
                     solved: true,
-                    solution: "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases.",
+                    solution: lang === 'ar' ? "تحقق من نطاق الـ DHCP Pool في IP → DHCP Server، قد تحتاج إلى توسعة النطاق أو تنظيف الـ DHCP Leases." : "Check the DHCP Pool range in IP → DHCP Server, you may need to expand the range or clean up DHCP Leases.",
                     replies: [
                         {
-                            author: "فريق الدعم",
+                            author: lang === 'ar' ? "فريق الدعم" : "Support Team",
                             date: new Date(Date.now() - 86400000).toISOString(),
-                            content: "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP."
+                            content: lang === 'ar' ? "تم حل المشكلة عن طريق توسعة نطاق الـ DHCP." : "Problem solved by expanding the DHCP range."
                         },
                         {
-                            author: "فريق الدعم",
+                            author: lang === 'ar' ? "فريق الدعم" : "Support Team",
                             date: new Date(Date.now() - 43200000).toISOString(),
-                            content: "نصيحة إضافية: يمكنك تفعيل Option 82 لتحسين أمان DHCP."
+                            content: lang === 'ar' ? "نصيحة إضافية: يمكنك تفعيل Option 82 لتحسين أمان DHCP." : "Additional tip: You can enable Option 82 to improve DHCP security."
                         }
                     ]
                 }
@@ -1616,12 +2228,13 @@
         // تحديث حالة الاتصال
         function updateStatus(count, connected) {
             const status = document.getElementById('jsonbinStatus');
+            const lang = document.documentElement.lang;
             if (status) {
                 if (connected) {
-                    status.innerHTML = `<i class="fas fa-database"></i> متصل | ${count} مشكلة`;
+                    status.innerHTML = `<i class="fas fa-database"></i> ${lang === 'ar' ? 'متصل' : 'Connected'} | ${count} ${lang === 'ar' ? 'مشكلة' : 'problems'}`;
                     status.className = 'status connected';
                 } else {
-                    status.innerHTML = `<i class="fas fa-exclamation-triangle"></i> محلي | ${count} مشكلة`;
+                    status.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${lang === 'ar' ? 'محلي' : 'Local'} | ${count} ${lang === 'ar' ? 'مشكلة' : 'problems'}`;
                     status.className = 'status';
                 }
             }
@@ -1630,15 +2243,17 @@
         // إعداد النموذج
         function setupForm() {
             const form = document.getElementById('addProblemForm');
+            const lang = document.documentElement.lang;
+            
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
                 const problemText = document.getElementById('problemText').value.trim();
-                const userName = document.getElementById('userName').value.trim() || 'مستخدم مجهول';
+                const userName = document.getElementById('userName').value.trim() || (lang === 'ar' ? 'مستخدم مجهول' : 'Anonymous');
                 const problemType = document.getElementById('problemType').value;
                 
                 if (!problemText) {
-                    alert('الرجاء كتابة وصف المشكلة');
+                    alert(lang === 'ar' ? 'الرجاء كتابة وصف المشكلة' : 'Please write the problem description');
                     return;
                 }
                 
@@ -1658,9 +2273,9 @@
                 // محاولة الحفظ في JSONBin
                 try {
                     await saveProblemToJSONBin(newProblem);
-                    alert('✅  شكرا...سيقوم الدعم الفنى بالرد عليكم قريبا!');
+                    alert(lang === 'ar' ? '✅ شكرا...سيقوم الدعم الفنى بالرد عليكم قريبا!' : '✅ Thank you... Support team will reply to you soon!');
                 } catch (error) {
-                    alert('⚠️ تم الحفظ محلياً فقط');
+                    alert(lang === 'ar' ? '⚠️ تم الحفظ محلياً فقط' : '⚠️ Saved locally only');
                 }
                 
                 // إعادة تعيين النموذج
@@ -1671,11 +2286,13 @@
         // عرض المشكلة الجديدة
         function displayNewProblem(problem) {
             const container = document.getElementById('problemsList');
-            const date = new Date().toLocaleDateString('ar-EG');
-            const type = problem.type === 'network' ? 'شبكة' : 
+            const lang = document.documentElement.lang;
+            const date = new Date().toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US');
+            const type = problem.type === 'network' ? (lang === 'ar' ? 'شبكة' : 'Network') : 
                         problem.type === 'dhcp' ? 'DHCP' : 
-                        problem.type === 'performance' ? 'أداء' : 
-                        problem.type === 'hardware' ? 'هاردوير' : 'أخرى';
+                        problem.type === 'performance' ? (lang === 'ar' ? 'أداء' : 'Performance') : 
+                        problem.type === 'hardware' ? (lang === 'ar' ? 'هاردوير' : 'Hardware') : 
+                        (lang === 'ar' ? 'أخرى' : 'Other');
             
             const problemCard = `
                 <div class="problem-card">
@@ -1692,10 +2309,10 @@
                     </div>
                     <div class="problem-footer">
                         <button class="like-btn" onclick="likeProblem(this)">
-                            <i class="fas fa-thumbs-up"></i> أعجبني (0)
+                            <i class="fas fa-thumbs-up"></i> ${lang === 'ar' ? 'أعجبني' : 'Like'} (0)
                         </button>
                         <span class="status-badge status-pending">
-                            قيد الانتظار
+                            ${lang === 'ar' ? 'قيد الانتظار' : 'Pending'}
                         </span>
                     </div>
                 </div>
@@ -1749,7 +2366,8 @@
         function likeProblem(button) {
             const currentLikes = parseInt(button.textContent.match(/\((\d+)\)/)[1]);
             const newLikes = currentLikes + 1;
-            button.innerHTML = `<i class="fas fa-thumbs-up"></i> أعجبني (${newLikes})`;
+            const lang = document.documentElement.lang;
+            button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${lang === 'ar' ? 'أعجبني' : 'Like'} (${newLikes})`;
             button.style.background = 'var(--primary-light)';
             button.style.color = 'white';
             
@@ -1761,7 +2379,16 @@
 
         // وظيفة المساعدة للأيقونات العائمة
         function showMikroHelp() {
-            alert('🎯 MikroTools - أدوات ميكروتيك مجانية\n\n📞 للتواصل والدعم:\n01092503391\n\nSameh El-Sayed\n\n💡 تذكر: يمكنك إضافة مشكلتك في قسم "منتدى مشاكل المستخدمين" وسنحاول حلها معاً!');
+            const lang = document.documentElement.lang;
+            alert(lang === 'ar' ? 
+                '🎯 MikroTools - أدوات ميكروتيك مجانية\n\n📞 للتواصل والدعم:\n01092503391\n\nSameh El-Sayed\n\n💡 تذكر: يمكنك إضافة مشكلتك في قسم "منتدى مشاكل المستخدمين" وسنحاول حلها معاً!' : 
+                '🎯 MikroTools - Free MikroTik Tools\n\n📞 Contact & Support:\n01092503391\n\nSameh El-Sayed\n\n💡 Remember: You can add your problem in the "User Problems Forum" section and we will try to solve it together!');
+        }
+
+        // وظيفة للقوائم المنسدلة في الموبايل
+        function toggleMobileDropdown(type) {
+            const dropdown = document.getElementById(`mobile${type.charAt(0).toUpperCase() + type.slice(1)}Dropdown`);
+            dropdown.classList.toggle('active');
         }
     </script>
       <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
@@ -1819,13 +2446,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
