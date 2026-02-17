@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
@@ -11,20 +11,12 @@
       gtag('config', 'G-VV99LZRKBJ');
     </script>
     
-    <!-- Adsterra Banner Ad Code -->
-    <script src="https://pl28619829.effectivegatecpm.com/19/45/77/1945771f4f7acfc4e2d9ebfa1cb8d71c.js"></script>
+    
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
      crossorigin="anonymous"></script>
     
-    <!-- Adsterra Pop-under Code -->
-    <script type="text/javascript">
-        atOptions = {
-            'key' : 'YOUR_POPUNDER_KEY_HERE',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
+    
         };
     </script>
     <script type="text/javascript" src="//www.highperformanceformat.com/YOUR_SCRIPT_ID.js"></script>
@@ -33,27 +25,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="أداة مجانية لإنشاء بروفايلات سرعة احترافية لميكروتيك - هوت سبوت وبرودباند">
-    <meta name="keywords" content="ميكروتيك, بروفايلات سرعة, هوت سبوت, برودباند, تسعير, سرعات">
+    <meta name="description" content="Free tool to create professional MikroTik speed profiles - Hotspot and Broadband">
+    <meta name="keywords" content="MikroTik, Speed Profiles, Hotspot, Broadband, Pricing, Speeds">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://mikro-tools.com/speed-profiles.html">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="مولد بروفايلات السرعة | MikroTools">
-    <meta property="og:description" content="أداة مجانية لإنشاء بروفايلات سرعة احترافية لميكروتيك">
+    <meta property="og:title" content="Speed Profile Generator | MikroTools">
+    <meta property="og:description" content="Free tool to create professional MikroTik speed profiles">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mikro-tools.com/speed-profiles.html">
-    <meta property="og:locale" content="ar_EG">
+    <meta property="og:locale" content="en_US">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
-    <title>مولد بروفايلات السرعة | MikroTools - أدوات ميكروتيك مجانية</title>
+    <title>Speed Profile Generator | MikroTools - Free MikroTik Tools</title>
     
     <style>
         :root {
@@ -78,16 +71,19 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background: var(--light);
             color: var(--dark);
-            direction: rtl;
             line-height: 1.8;
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
         }
 
         /* ===== قائمة التنقل العلوية ===== */
@@ -143,7 +139,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
@@ -155,6 +151,9 @@
             padding: 8px 16px;
             border-radius: 10px;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-link:hover {
@@ -171,8 +170,8 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            right: 50%;
-            transform: translateX(50%);
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--primary);
@@ -191,6 +190,10 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-cta:hover {
@@ -207,6 +210,146 @@
             cursor: pointer;
         }
 
+        /* ===== أزرار تبديل اللغة ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn i {
+            font-size: 12px;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== القوائم المنسدلة للـ navbar ===== */
+        .navbar-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .navbar-dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .navbar-dropdown:hover .navbar-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .navbar-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1e293b;
+            min-width: 250px;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .navbar-dropdown:hover .navbar-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .navbar-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #f1f5f9;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            margin: 2px 0;
+        }
+
+        .navbar-dropdown-item i {
+            width: 20px;
+            font-size: 16px;
+            color: var(--primary-light);
+        }
+
+        .navbar-dropdown-item:hover {
+            background: rgba(99, 102, 241, 0.25);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .navbar-dropdown-item:hover i {
+            color: white;
+        }
+
+        .navbar-dropdown-item.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .navbar-dropdown-item.active i {
+            color: white;
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-link::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body.rtl .navbar-dropdown-item:hover {
+            transform: translateX(5px);
+        }
+
         /* ===== الهيرو المختصر ===== */
         .page-hero {
             background: var(--gradient-dark);
@@ -218,6 +361,7 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 3rem;
+            margin-top: 80px;
         }
 
         .page-hero::before {
@@ -735,11 +879,14 @@
                 position: absolute;
                 top: 100%;
                 right: 0;
+                left: 0;
                 background: var(--dark);
                 width: 100%;
                 padding: 1rem;
                 flex-direction: column;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                max-height: 80vh;
+                overflow-y: auto;
             }
             
             .nav-links.active {
@@ -748,6 +895,69 @@
             
             .menu-toggle {
                 display: block;
+            }
+            
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0 20px;
+                order: -1;
+            }
+            
+            .lang-btn {
+                flex: 1;
+                justify-content: center;
+                padding: 8px;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .navbar-dropdown {
+                width: 100%;
+            }
+            
+            .navbar-dropdown-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .navbar-dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.08);
+                margin-top: 5px;
+                margin-bottom: 10px;
+                display: none;
+                width: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .navbar-dropdown.active .navbar-dropdown-menu {
+                display: block;
+            }
+            
+            .navbar-dropdown-toggle {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .navbar-dropdown-item {
+                justify-content: center;
+                color: #e2e8f0;
+            }
+            
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
             }
             
             .page-hero-title {
@@ -824,7 +1034,7 @@
     </style>
 </head>
 <body>
-    <!-- قائمة التنقل العلوية -->
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -839,50 +1049,108 @@
             </button>
             
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">
+                <!-- أزرار تبديل اللغة -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langEn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <button class="lang-btn" id="langAr">
+                        <i class="fas fa-globe"></i>
+                        AR
+                    </button>
+                </div>
+                
+                <!-- الرئيسية -->
+                <a href="index.html" class="nav-link" data-i18n="home">
                     <i class="fas fa-home"></i>
-                    الرئيسية
+                    <span>Home</span>
                 </a>
-                <a href="hotspot.html" class="nav-link">
-                    <i class="fas fa-wifi"></i>
-                    اعدادات hotspot+ppp
-                </a>
-                <a href="Hotspot Editor.html" class="nav-link ">
-                    <i class="fas fa-link"></i>
-                    تصميم hotspot
-                </a>
-                <a href="merge-v6.html" class="nav-link">
-                    <i class="fas fa-link"></i>
-                    دمج v6
-                </a>
-                <a href="merge-v7.html" class="nav-link">
-                    <i class="fas fa-rocket"></i>
-                    دمج v7
-                </a>
-                <a href="block-sites.html" class="nav-link">
-                    <i class="fas fa-shield-alt"></i>
-                    حجب مواقع
-                </a>
-                <a href="speed-profiles.html" class="nav-link active">
-                    <i class="fas fa-tachometer-alt"></i>
-                    بروفايلات
-                </a>
-               <!-- رابط المشكلات الشائعة يضاف هنا -->
-               <a href="troubleshooting.html" class="nav-link">
-               <i class="fas fa-question-circle"></i>
-                   المشكلات الشائعة
-                </a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    من نحن
-                </a>
-                 <a href="privacy-policy.html" class="nav-link ">
-                <i class="fas fa-user-shield"></i>
-                سياسة الخصوصية
-                </a>
+                
+                <!-- قائمة الدمج المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-code-branch"></i>
+                        <span data-i18n="merge">Merge</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="merge-v6.html" class="navbar-dropdown-item">
+                            <i class="fas fa-network-wired"></i>
+                            <span data-i18n="merge_v6">Load Balancing v6</span>
+                        </a>
+                        <a href="merge-v7.html" class="navbar-dropdown-item">
+                            <i class="fas fa-rocket"></i>
+                            <span data-i18n="merge_v7">Load Balancing v7</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة الهوت سبوت المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle active">
+                        <i class="fas fa-wifi"></i>
+                        <span data-i18n="hotspot">Hotspot</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="hotspot.html" class="navbar-dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
+                        </a>
+                        <a href="speed-profiles.html" class="navbar-dropdown-item active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="speed_profiles">Speed Profiles</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة التصميم والحجب المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-paint-brush"></i>
+                        <span data-i18n="design_block">Design & Block</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="Hotspot Editor.html" class="navbar-dropdown-item">
+                            <i class="fas fa-paint-brush"></i>
+                            <span data-i18n="hotspot_design">Hotspot Design</span>
+                        </a>
+                        <a href="block-sites.html" class="navbar-dropdown-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-i18n="block_sites">Block Sites</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة المساعدة المنسدلة -->
+                <div class="navbar-dropdown">
+                    <a href="#" class="nav-link navbar-dropdown-toggle">
+                        <i class="fas fa-question-circle"></i>
+                        <span data-i18n="help">Help</span>
+                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
+                    </a>
+                    <div class="navbar-dropdown-menu">
+                        <a href="troubleshooting.html" class="navbar-dropdown-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-i18n="troubleshooting">Troubleshooting</span>
+                        </a>
+                        <a href="about.html" class="navbar-dropdown-item">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="about">About Us</span>
+                        </a>
+                        <a href="privacy-policy.html" class="navbar-dropdown-item">
+                            <i class="fas fa-user-shield"></i>
+                            <span data-i18n="privacy">Privacy Policy</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- واتساب -->
                 <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                     <i class="fab fa-whatsapp"></i>
-                    تواصل معنا
+                    <span data-i18n="contact_us">Contact Us</span>
                 </a>
             </div>
         </div>
@@ -893,10 +1161,10 @@
         <div class="page-hero-content">
             <h1 class="page-hero-title">
                 <i class="fas fa-tachometer-alt"></i>
-                مولد بروفايلات السرعة
+                <span data-i18n="hero_title">Speed Profile Generator</span>
             </h1>
-            <p class="page-hero-subtitle">
-                أنشئ بروفايلات سرعة احترافية للهوتسبوت والبرودباند بضغطة زر
+            <p class="page-hero-subtitle" data-i18n="hero_subtitle">
+                Create professional speed profiles for Hotspot and Broadband with one click
             </p>
         </div>
     </section>
@@ -906,9 +1174,9 @@
         <div class="tool-container">
             <!-- رأس الأداة -->
             <div class="tool-header">
-                <h2 class="tool-title">⚡ إعدادات بروفايلات السرعة</h2>
-                <p class="tool-description">
-                    قم بتخصيص بروفايلات السرعة حسب احتياجاتك، اختر النظام المناسب وعدد البروفايلات المطلوبة
+                <h2 class="tool-title" data-i18n="tool_title">⚡ Speed Profile Settings</h2>
+                <p class="tool-description" data-i18n="tool_description">
+                    Customize speed profiles according to your needs, choose the appropriate system and number of profiles
                 </p>
             </div>
 
@@ -916,40 +1184,40 @@
             <div class="system-settings">
                 <h3 style="color: var(--dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-cog"></i>
-                    إعدادات النظام الأساسية
+                    <span data-i18n="system_settings">Basic System Settings</span>
                 </h3>
                 
                 <div class="settings-grid">
                     <div class="input-group">
                         <label class="input-label">
                             <i class="fas fa-tag"></i>
-                            اسم البروفايل الأساسي
+                            <span data-i18n="profile_name">Base Profile Name</span>
                         </label>
                         <input type="text" 
                                class="input-field" 
                                id="profileName" 
                                value="speed"
-                               placeholder="مثال: MySpeedProfile">
+                               placeholder="Example: MySpeedProfile">
                     </div>
                     
                     <div class="input-group">
                         <label class="input-label">
                             <i class="fas fa-list-ol"></i>
-                            عدد البروفايلات
+                            <span data-i18n="profile_count">Number of Profiles</span>
                         </label>
                         <select class="input-field" id="profileCount" onchange="updateProfiles()">
-                            <option value="4" selected>4 بروفايلات</option>
-                            <option value="5">5 بروفايلات</option>
-                            <option value="6">6 بروفايلات</option>
-                            <option value="7">7 بروفايلات</option>
-                            <option value="8">8 بروفايلات</option>
+                            <option value="4" selected data-i18n="profiles_4">4 Profiles</option>
+                            <option value="5" data-i18n="profiles_5">5 Profiles</option>
+                            <option value="6" data-i18n="profiles_6">6 Profiles</option>
+                            <option value="7" data-i18n="profiles_7">7 Profiles</option>
+                            <option value="8" data-i18n="profiles_8">8 Profiles</option>
                         </select>
                     </div>
                 </div>
 
                 <h4 style="color: var(--dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-laptop"></i>
-                    اختر النظام المطلوب
+                    <span data-i18n="choose_system">Choose Required System</span>
                 </h4>
                 
                 <div class="system-options">
@@ -959,7 +1227,7 @@
                             <div class="option-icon">
                                 <i class="fas fa-wifi"></i>
                             </div>
-                            <div class="option-text">هوتسبوت</div>
+                            <div class="option-text" data-i18n="hotspot">Hotspot</div>
                         </label>
                     </div>
                     
@@ -969,7 +1237,7 @@
                             <div class="option-icon">
                                 <i class="fas fa-network-wired"></i>
                             </div>
-                            <div class="option-text">برودباند</div>
+                            <div class="option-text" data-i18n="broadband">Broadband</div>
                         </label>
                     </div>
                 </div>
@@ -979,28 +1247,28 @@
             <div class="speed-presets-section">
                 <h3 style="color: var(--dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-bolt"></i>
-                    اختيار باقة السرعات
+                    <span data-i18n="choose_preset">Choose Speed Preset</span>
                 </h3>
                 
                 <div class="presets-grid">
                     <button class="preset-btn active" onclick="loadPreset('economic')" data-preset="economic">
-                        <div class="preset-name" style="color: #10b981;">اقتصادية</div>
-                        <div class="preset-speeds">2ميجا - 4ميجا - 8ميجا - 16ميجا</div>
+                        <div class="preset-name" style="color: #10b981;" data-i18n="economic">Economic</div>
+                        <div class="preset-speeds" data-i18n="economic_speeds">2M - 4M - 8M - 16M</div>
                     </button>
                     
                     <button class="preset-btn" onclick="loadPreset('standard')" data-preset="standard">
-                        <div class="preset-name" style="color: #3b82f6;">أساسية</div>
-                        <div class="preset-speeds">4ميجا - 8ميجا - 16ميجا - 32ميجا</div>
+                        <div class="preset-name" style="color: #3b82f6;" data-i18n="standard">Standard</div>
+                        <div class="preset-speeds" data-i18n="standard_speeds">4M - 8M - 16M - 32M</div>
                     </button>
                     
                     <button class="preset-btn" onclick="loadPreset('premium')" data-preset="premium">
-                        <div class="preset-name" style="color: #8b5cf6;">متميزة</div>
-                        <div class="preset-speeds">8ميجا - 16ميجا - 32ميجا - 64ميجا</div>
+                        <div class="preset-name" style="color: #8b5cf6;" data-i18n="premium">Premium</div>
+                        <div class="preset-speeds" data-i18n="premium_speeds">8M - 16M - 32M - 64M</div>
                     </button>
                     
                     <button class="preset-btn" onclick="loadPreset('gaming')" data-preset="gaming">
-                        <div class="preset-name" style="color: #ef4444;">ألعاب</div>
-                        <div class="preset-speeds">سرعات متماثلة 1:1</div>
+                        <div class="preset-name" style="color: #ef4444;" data-i18n="gaming">Gaming</div>
+                        <div class="preset-speeds" data-i18n="gaming_speeds">Symmetric speeds 1:1</div>
                     </button>
                 </div>
             </div>
@@ -1009,7 +1277,7 @@
             <div class="profiles-section">
                 <h3 style="color: var(--dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-tachometer-alt"></i>
-                    إعدادات البروفايلات
+                    <span data-i18n="profile_settings">Profile Settings</span>
                 </h3>
                 
                 <div id="profilesContainer" class="profiles-grid">
@@ -1020,17 +1288,17 @@
             <!-- أزرار التحكم -->
             <div class="controls-section">
                 <button class="btn btn-primary" onclick="generateScript();">
-    <i class="fas fa-magic"></i>
-    توليد السكربت
-</button>
+                    <i class="fas fa-magic"></i>
+                    <span data-i18n="generate_script">Generate Script</span>
+                </button>
                <button class="btn btn-secondary" onclick="copyScript();" id="copyBtn">
-    <i class="fas fa-copy"></i>
-    نسخ السكربت
-</button>
+                    <i class="fas fa-copy"></i>
+                    <span data-i18n="copy_script">Copy Script</span>
+                </button>
                 <button class="btn btn-danger" onclick="resetAll();">
-    <i class="fas fa-redo"></i>
-    إعادة تعيين
-</button>
+                    <i class="fas fa-redo"></i>
+                    <span data-i18n="reset">Reset</span>
+                </button>
             </div>
 
             <!-- منطقة النتائج -->
@@ -1038,34 +1306,34 @@
                 <div class="results-header">
                     <h3 class="results-title">
                         <i class="fas fa-code"></i>
-                        السكربت النهائي
+                        <span data-i18n="final_script">Final Script</span>
                     </h3>
-                    <p style="color: var(--gray);">انسخ السكربت والصقه في ميكروتيك</p>
+                    <p style="color: var(--gray);" data-i18n="copy_instruction">Copy and paste the script into MikroTik</p>
                 </div>
                 
-                <textarea id="scriptOutput" class="result-box" readonly placeholder="سكربت بروفايلات السرعة سيظهر هنا..."></textarea>
+                <textarea id="scriptOutput" class="result-box" readonly placeholder="Speed profile script will appear here..."></textarea>
             </div>
         </div>
     </main>
 
     <!-- قسم الاتصال -->
     <section class="contact">
-        <h2 class="contact-title">هل تحتاج مساعدة؟</h2>
-        <p class="contact-subtitle">
-            نحن هنا لمساعدتك في أي وقت، تواصل معنا للحصول على الدعم الفني
+        <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
+        <p class="contact-subtitle" data-i18n="contact_subtitle">
+            We are here to help you anytime, contact us for technical support
         </p>
         
         <div class="contact-info">
             <h3 style="color: #94a3b8; margin-bottom: 1rem;">
                 <i class="fas fa-headset"></i>
-                للتواصل والدعم الفني
+                <span data-i18n="contact_support">Contact Support</span>
             </h3>
             <div class="contact-phone">01092503391</div>
             <p class="contact-name">Sameh El-Sayed</p>
             <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
-    <i class="fab fa-whatsapp"></i>
-    تواصل عبر واتساب
-</a>
+                <i class="fab fa-whatsapp"></i>
+                <span data-i18n="contact_whatsapp">Contact via WhatsApp</span>
+            </a>
         </div>
     </section>
 
@@ -1074,10 +1342,10 @@
         <div class="footer-content">
             <p class="footer-text">
                 <i class="fas fa-phone-alt"></i>
-                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+                <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
             </p>
             <p class="copyright">
-                © 2024 MikroTools. جميع الحقوق محفوظة.
+                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span>
             </p>
         </div>
     </footer>
@@ -1102,6 +1370,138 @@
     </iframe>
 
     <script>
+        // نظام الترجمة
+        const translations = {
+            en: {
+                home: "Home",
+                merge: "Merge",
+                hotspot: "Hotspot",
+                design_block: "Design & Block",
+                help: "Help",
+                merge_v6: "Load Balancing v6",
+                merge_v7: "Load Balancing v7",
+                hotspot_settings: "Hotspot+PPP Settings",
+                speed_profiles: "Speed Profiles",
+                hotspot_design: "Hotspot Design",
+                block_sites: "Block Sites",
+                troubleshooting: "Troubleshooting",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                contact_us: "Contact Us",
+                hero_title: "Speed Profile Generator",
+                hero_subtitle: "Create professional speed profiles for Hotspot and Broadband with one click",
+                tool_title: "⚡ Speed Profile Settings",
+                tool_description: "Customize speed profiles according to your needs, choose the appropriate system and number of profiles",
+                system_settings: "Basic System Settings",
+                profile_name: "Base Profile Name",
+                profile_count: "Number of Profiles",
+                profiles_4: "4 Profiles",
+                profiles_5: "5 Profiles",
+                profiles_6: "6 Profiles",
+                profiles_7: "7 Profiles",
+                profiles_8: "8 Profiles",
+                choose_system: "Choose Required System",
+                broadband: "Broadband",
+                choose_preset: "Choose Speed Preset",
+                economic: "Economic",
+                economic_speeds: "2M - 4M - 8M - 16M",
+                standard: "Standard",
+                standard_speeds: "4M - 8M - 16M - 32M",
+                premium: "Premium",
+                premium_speeds: "8M - 16M - 32M - 64M",
+                gaming: "Gaming",
+                gaming_speeds: "Symmetric speeds 1:1",
+                profile_settings: "Profile Settings",
+                generate_script: "Generate Script",
+                copy_script: "Copy Script",
+                reset: "Reset",
+                final_script: "Final Script",
+                copy_instruction: "Copy and paste the script into MikroTik",
+                need_help: "Need Help?",
+                contact_subtitle: "We are here to help you anytime, contact us for technical support",
+                contact_support: "Contact Support",
+                contact_whatsapp: "Contact via WhatsApp",
+                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
+                copyright: "All rights reserved.",
+                tier_economic: "Economic",
+                tier_standard: "Standard",
+                tier_medium: "Medium",
+                tier_advanced: "Advanced",
+                tier_gold: "Gold",
+                tier_premium: "Premium",
+                tier_platinum: "Platinum",
+                tier_business: "Business",
+                download_speed: "Download Speed",
+                upload_speed: "Upload Speed",
+                monthly_price: "Monthly Price (optional)",
+                hotspot: "Hotspot"
+            },
+            ar: {
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                speed_profiles: "بروفايلات السرعة",
+                hotspot_design: "تصميم hotspot",
+                block_sites: "حجب مواقع",
+                troubleshooting: "المشكلات الشائعة",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                hero_title: "مولد بروفايلات السرعة",
+                hero_subtitle: "أنشئ بروفايلات سرعة احترافية للهوتسبوت والبرودباند بضغطة زر",
+                tool_title: "⚡ إعدادات بروفايلات السرعة",
+                tool_description: "قم بتخصيص بروفايلات السرعة حسب احتياجاتك، اختر النظام المناسب وعدد البروفايلات المطلوبة",
+                system_settings: "إعدادات النظام الأساسية",
+                profile_name: "اسم البروفايل الأساسي",
+                profile_count: "عدد البروفايلات",
+                profiles_4: "4 بروفايلات",
+                profiles_5: "5 بروفايلات",
+                profiles_6: "6 بروفايلات",
+                profiles_7: "7 بروفايلات",
+                profiles_8: "8 بروفايلات",
+                choose_system: "اختر النظام المطلوب",
+                broadband: "برودباند",
+                choose_preset: "اختيار باقة السرعات",
+                economic: "اقتصادية",
+                economic_speeds: "2ميجا - 4ميجا - 8ميجا - 16ميجا",
+                standard: "أساسية",
+                standard_speeds: "4ميجا - 8ميجا - 16ميجا - 32ميجا",
+                premium: "متميزة",
+                premium_speeds: "8ميجا - 16ميجا - 32ميجا - 64ميجا",
+                gaming: "ألعاب",
+                gaming_speeds: "سرعات متماثلة 1:1",
+                profile_settings: "إعدادات البروفايلات",
+                generate_script: "توليد السكربت",
+                copy_script: "نسخ السكربت",
+                reset: "إعادة تعيين",
+                final_script: "السكربت النهائي",
+                copy_instruction: "انسخ السكربت والصقه في ميكروتيك",
+                need_help: "هل تحتاج مساعدة؟",
+                contact_subtitle: "نحن هنا لمساعدتك في أي وقت، تواصل معنا للحصول على الدعم الفني",
+                contact_support: "للتواصل والدعم الفني",
+                contact_whatsapp: "تواصل عبر واتساب",
+                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
+                copyright: "جميع الحقوق محفوظة.",
+                tier_economic: "اقتصادية",
+                tier_standard: "أساسية",
+                tier_medium: "متوسطة",
+                tier_advanced: "متقدمة",
+                tier_gold: "ذهبية",
+                tier_premium: "ممتازة",
+                tier_platinum: "بلاتينية",
+                tier_business: "أعمال",
+                download_speed: "سرعة التنزيل",
+                upload_speed: "سرعة الرفع",
+                monthly_price: "السعر الشهري (اختياري)",
+                hotspot: "هوتسبوت"
+            }
+        };
+
         // ========== المتغيرات العامة ==========
         const SIGNATURE = "By Same7_01092503391";
         let currentSystem = {
@@ -1109,6 +1509,42 @@
             broadband: false
         };
         let currentPreset = 'economic';
+
+        // تبديل اللغة
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
+            
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (lang === 'ar') {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.add('ar', 'rtl');
+                body.classList.remove('en');
+            } else {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('en');
+                body.classList.remove('ar', 'rtl');
+            }
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+        }
 
         // ========== دوال القائمة العلوية ==========
         document.getElementById('menuToggle').addEventListener('click', function() {
@@ -1122,12 +1558,40 @@
         });
 
         // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.nav-link, .navbar-dropdown-item').forEach(link => {
             link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('active');
-                document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                if (!link.classList.contains('navbar-dropdown-toggle')) {
+                    document.getElementById('navLinks').classList.remove('active');
+                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                }
             });
         });
+
+        // تفعيل القوائم المنسدلة في الجوال
+        document.querySelectorAll('.navbar-dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropdown = this.closest('.navbar-dropdown');
+                    dropdown.classList.toggle('active');
+                    
+                    const arrow = this.querySelector('.navbar-dropdown-arrow');
+                    if (dropdown.classList.contains('active')) {
+                        arrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        arrow.style.transform = 'rotate(0)';
+                    }
+                }
+            });
+        });
+
+        // أحداث أزرار اللغة
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
+
+        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
+        const savedLanguage = localStorage.getItem('language') || 'en';
+        setLanguage(savedLanguage);
 
         // ========== دوال بروفايلات السرعة ==========
         function toggleSystem(type) {
@@ -1146,17 +1610,23 @@
             const container = document.getElementById('profilesContainer');
             const count = parseInt(document.getElementById('profileCount').value);
             const baseName = document.getElementById('profileName').value;
+            const lang = document.documentElement.lang;
             
             container.innerHTML = '';
             
             // تحديد السرعات حسب الباقة المختارة
             const downloadSpeeds = getDownloadSpeedsByPreset(currentPreset, count);
             
+            const tierNames = lang === 'ar' 
+                ? ['اقتصادية', 'أساسية', 'متوسطة', 'متقدمة', 'ذهبية', 'ممتازة', 'بلاتينية', 'أعمال']
+                : ['Economic', 'Standard', 'Medium', 'Advanced', 'Gold', 'Premium', 'Platinum', 'Business'];
+            
             for (let i = 1; i <= count; i++) {
                 const downloadSpeed = downloadSpeeds[i - 1];
-                const uploadSpeed = Math.max(1, Math.floor(downloadSpeed / 4));
+                const uploadSpeed = currentPreset === 'gaming' 
+                    ? downloadSpeed 
+                    : Math.max(1, Math.floor(downloadSpeed / 4));
                 
-                const tierNames = ['اقتصادية', 'أساسية', 'متوسطة', 'متقدمة', 'ذهبية', 'ممتازة', 'بلاتينية', 'أعمال'];
                 const tierName = tierNames[Math.min(i - 1, tierNames.length - 1)];
                 
                 const profileCard = document.createElement('div');
@@ -1172,7 +1642,7 @@
                     
                     <div class="profile-inputs">
                         <div class="speed-input">
-                            <label><i class="fas fa-download"></i> سرعة التنزيل</label>
+                            <label><i class="fas fa-download"></i> <span data-i18n="download_speed">Download Speed</span></label>
                             <input type="number" 
                                    class="input-field speed-download" 
                                    id="dl${i}"
@@ -1184,7 +1654,7 @@
                         </div>
                         
                         <div class="speed-input">
-                            <label><i class="fas fa-upload"></i> سرعة الرفع</label>
+                            <label><i class="fas fa-upload"></i> <span data-i18n="upload_speed">Upload Speed</span></label>
                             <input type="number" 
                                    class="input-field speed-upload" 
                                    id="ul${i}"
@@ -1199,13 +1669,13 @@
                     <div style="margin-top: 1rem;">
                         <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #475569;">
                             <i class="fas fa-money-bill-wave"></i>
-                            السعر الشهري (اختياري)
+                            <span data-i18n="monthly_price">Monthly Price (optional)</span>
                         </label>
                         <input type="text" 
                                class="input-field"
                                id="price${i}"
-                               placeholder="مثال: 150 جنيه"
-                               value="${getPriceForSpeed(downloadSpeed)}">
+                               placeholder="${lang === 'ar' ? 'مثال: 150 جنيه' : 'Example: 150 EGP'}"
+                               value="${getPriceForSpeed(downloadSpeed, lang)}">
                     </div>
                     
                     <div class="profile-checkboxes">
@@ -1214,7 +1684,7 @@
                                    id="hs${i}" 
                                    ${currentSystem.hotspot ? 'checked' : ''}
                                    ${!currentSystem.hotspot ? 'disabled' : ''}>
-                            <label for="hs${i}"><i class="fas fa-wifi"></i> هوتسبوت</label>
+                            <label for="hs${i}"><i class="fas fa-wifi"></i> <span data-i18n="hotspot">Hotspot</span></label>
                         </div>
                         
                         <div class="checkbox-group">
@@ -1222,7 +1692,7 @@
                                    id="bb${i}" 
                                    ${currentSystem.broadband ? 'checked' : ''}
                                    ${!currentSystem.broadband ? 'disabled' : ''}>
-                            <label for="bb${i}"><i class="fas fa-network-wired"></i> برودباند</label>
+                            <label for="bb${i}"><i class="fas fa-network-wired"></i> <span data-i18n="broadband">Broadband</span></label>
                         </div>
                         
                         <div class="checkbox-group">
@@ -1233,6 +1703,20 @@
                 `;
                 
                 container.appendChild(profileCard);
+            }
+            
+            // تحديث النصوص للغة الجديدة
+            if (lang) {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = translations[lang][key];
+                        } else {
+                            element.innerHTML = translations[lang][key];
+                        }
+                    }
+                });
             }
         }
 
@@ -1269,15 +1753,26 @@
             return speeds.slice(0, count);
         }
 
-        function getPriceForSpeed(speed) {
-            if (speed <= 2) return "50-80 جنيه";
-            if (speed <= 4) return "80-120 جنيه";
-            if (speed <= 8) return "120-180 جنيه";
-            if (speed <= 16) return "180-250 جنيه";
-            if (speed <= 32) return "250-350 جنيه";
-            if (speed <= 64) return "350-500 جنيه";
-            if (speed <= 100) return "500-750 جنيه";
-            return "750+ جنيه";
+        function getPriceForSpeed(speed, lang) {
+            if (lang === 'ar') {
+                if (speed <= 2) return "50-80 جنيه";
+                if (speed <= 4) return "80-120 جنيه";
+                if (speed <= 8) return "120-180 جنيه";
+                if (speed <= 16) return "180-250 جنيه";
+                if (speed <= 32) return "250-350 جنيه";
+                if (speed <= 64) return "350-500 جنيه";
+                if (speed <= 100) return "500-750 جنيه";
+                return "750+ جنيه";
+            } else {
+                if (speed <= 2) return "50-80 EGP";
+                if (speed <= 4) return "80-120 EGP";
+                if (speed <= 8) return "120-180 EGP";
+                if (speed <= 16) return "180-250 EGP";
+                if (speed <= 32) return "250-350 EGP";
+                if (speed <= 64) return "350-500 EGP";
+                if (speed <= 100) return "500-750 EGP";
+                return "750+ EGP";
+            }
         }
 
         function updateUploadSpeed(profileIndex) {
@@ -1304,25 +1799,26 @@
             
             if (ul > 500) {
                 ulInput.value = 500;
-                alert('⚠️ الحد الأقصى لسرعة الرفع هو 500 Mbps');
+                alert('⚠️ Maximum upload speed is 500 Mbps');
             }
         }
 
         function generateScript() {
             const profileCount = parseInt(document.getElementById('profileCount').value);
             const baseName = document.getElementById('profileName').value;
+            const lang = document.documentElement.lang;
             
             let script = `##############################################\n`;
-            script += `# سكربت بروفايلات السرعة - ${SIGNATURE}\n`;
-            script += `# التاريخ: ${new Date().toLocaleDateString('ar-EG')}\n`;
-            script += `# عدد البروفايلات: ${profileCount}\n`;
-            script += `# الأنظمة: ${currentSystem.hotspot ? 'هوتسبوت ' : ''}${currentSystem.broadband ? 'برودباند' : ''}\n`;
+            script += `# Speed Profiles Script - ${SIGNATURE}\n`;
+            script += `# Date: ${new Date().toLocaleDateString()}\n`;
+            script += `# Number of Profiles: ${profileCount}\n`;
+            script += `# Systems: ${currentSystem.hotspot ? 'Hotspot ' : ''}${currentSystem.broadband ? 'Broadband' : ''}\n`;
             script += `##############################################\n\n`;
             
             // Hotspot Profiles
             if (currentSystem.hotspot) {
                 script += `# ======================\n`;
-                script += `# 📡 بروفايلات الهوتسبوت\n`;
+                script += `# 📡 Hotspot Profiles\n`;
                 script += `# ======================\n\n`;
                 
                 script += `/ip hotspot user profile\n`;
@@ -1359,7 +1855,7 @@
             // Broadband Profiles (PPP Profile)
             if (currentSystem.broadband) {
                 script += `# ========================\n`;
-                script += `# 🌐 بروفايلات البرودباند\n`;
+                script += `# 🌐 Broadband Profiles\n`;
                 script += `# ========================\n\n`;
                 
                 script += `/ppp profile\n`;
@@ -1393,7 +1889,7 @@
             }
             
             script += `# ${SIGNATURE}\n`;
-            script += `# تم إنشاء ${profileCount} بروفايلات سرعة بنجاح ✓\n`;
+            script += `# ${lang === 'ar' ? 'تم إنشاء' : 'Created'} ${profileCount} ${lang === 'ar' ? 'بروفايلات سرعة بنجاح' : 'speed profiles successfully'} ✓\n`;
             
             document.getElementById('scriptOutput').value = script;
             document.getElementById('resultsSection').style.display = 'block';
@@ -1406,9 +1902,10 @@
 
         function copyScript() {
             const textarea = document.getElementById('scriptOutput');
+            const lang = document.documentElement.lang;
             
             if (!textarea || !textarea.value) {
-                alert('⚠️ يرجى توليد السكربت أولاً');
+                alert(lang === 'ar' ? '⚠️ يرجى توليد السكربت أولاً' : '⚠️ Please generate the script first');
                 return;
             }
             
@@ -1419,7 +1916,7 @@
                 navigator.clipboard.writeText(textarea.value).then(() => {
                     const copyBtn = document.getElementById('copyBtn');
                     const originalText = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> ' + (lang === 'ar' ? 'تم النسخ!' : 'Copied!');
                     copyBtn.style.background = '#10b981';
                     
                     setTimeout(() => {
@@ -1429,12 +1926,13 @@
                 });
             } catch (err) {
                 document.execCommand('copy');
-                alert('✅ تم نسخ السكربت بنجاح!');
+                alert(lang === 'ar' ? '✅ تم نسخ السكربت بنجاح!' : '✅ Script copied successfully!');
             }
         }
 
         function resetAll() {
-            if (confirm('هل تريد إعادة تعيين جميع الإعدادات إلى القيم الافتراضية؟')) {
+            const lang = document.documentElement.lang;
+            if (confirm(lang === 'ar' ? 'هل تريد إعادة تعيين جميع الإعدادات إلى القيم الافتراضية؟' : 'Do you want to reset all settings to default values?')) {
                 document.getElementById('profileName').value = 'speed';
                 document.getElementById('profileCount').value = '4';
                 
@@ -1455,7 +1953,7 @@
                 updateProfiles();
                 document.getElementById('resultsSection').style.display = 'none';
                 
-                alert('✅ تمت إعادة التعيين بنجاح');
+                alert(lang === 'ar' ? '✅ تمت إعادة التعيين بنجاح' : '✅ Reset completed successfully');
             }
         }
 
@@ -1482,7 +1980,7 @@
                 observer.observe(card);
             });
             
-            console.log('🚀 MikroTools - صفحة بروفايلات السرعة جاهزة!');
+            console.log('🚀 MikroTools - Speed Profiles page ready!');
         });
 
         // ========== إضافة تأثير على الروابط ==========
@@ -1557,12 +2055,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
