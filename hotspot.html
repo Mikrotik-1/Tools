@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
       <script>(function(s){s.dataset.zone='10620389',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -11,8 +11,9 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إعدادات هوت سبوت | MikroTools</title>
+    <title>Hotspot Settings | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -37,16 +38,19 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background: var(--light);
             color: var(--dark);
-            direction: rtl;
             line-height: 1.8;
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
         }
 
         /* ===== قائمة التنقل العلوية ===== */
@@ -102,7 +106,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
@@ -114,6 +118,9 @@
             padding: 8px 16px;
             border-radius: 10px;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-link:hover {
@@ -130,8 +137,8 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            right: 50%;
-            transform: translateX(50%);
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--primary);
@@ -150,6 +157,10 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-cta:hover {
@@ -164,6 +175,140 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
+        }
+
+        /* ===== أزرار تبديل اللغة ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn i {
+            font-size: 12px;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== القوائم المنسدلة ===== */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark);
+            min-width: 250px;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .dropdown-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .dropdown-item.active i {
+            color: white;
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-link::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body.rtl .dropdown-item:hover {
+            transform: translateX(5px);
         }
 
         /* ===== الهيرو المعدل ===== */
@@ -670,11 +815,14 @@
                 position: absolute;
                 top: 100%;
                 right: 0;
+                left: 0;
                 background: var(--dark);
                 width: 100%;
                 padding: 1rem;
                 flex-direction: column;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                max-height: 80vh;
+                overflow-y: auto;
             }
             
             .nav-links.active {
@@ -683,6 +831,67 @@
             
             .menu-toggle {
                 display: block;
+            }
+            
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0 20px;
+                order: -1;
+            }
+            
+            .lang-btn {
+                flex: 1;
+                justify-content: center;
+                padding: 8px;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.05);
+                margin-top: 5px;
+                margin-bottom: 10px;
+                display: none;
+                width: 100%;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .dropdown-item {
+                justify-content: center;
+            }
+            
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
             }
             
             .hero-title-hotspot {
@@ -732,7 +941,7 @@
     </style>
 </head>
 <body>
-    <!-- قائمة التنقل العلوية -->
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -747,50 +956,108 @@
             </button>
             
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">
+                <!-- أزرار تبديل اللغة -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langEn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <button class="lang-btn" id="langAr">
+                        <i class="fas fa-globe"></i>
+                        AR
+                    </button>
+                </div>
+                
+                <!-- الرئيسية -->
+                <a href="index.html" class="nav-link" data-i18n="home">
                     <i class="fas fa-home"></i>
-                    الرئيسية
+                    <span>Home</span>
                 </a>
-                <a href="hotspot.html" class="nav-link active">
-                    <i class="fas fa-wifi"></i>
-                    اعدادات hotspot+ppp
-                </a>
-                <a href="Hotspot Editor.html" class="nav-link ">
-                    <i class="fas fa-link"></i>
-                    تصميم hotspot
-                </a>
-                <a href="merge-v6.html" class="nav-link">
-                    <i class="fas fa-link"></i>
-                    دمج v6
-                </a>
-                <a href="merge-v7.html" class="nav-link">
-                    <i class="fas fa-rocket"></i>
-                    دمج v7
-                </a>
-                <a href="block-sites.html" class="nav-link">
-                    <i class="fas fa-shield-alt"></i>
-                    حجب مواقع
-                </a>
-                <a href="speed-profiles.html" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i>
-                    بروفايلات
-                </a>
-               <!-- رابط المشكلات الشائعة يضاف هنا -->
-                <a href="troubleshooting.html" class="nav-link">
-                   <i class="fas fa-question-circle"></i>
-                  المشكلات الشائعة
-               </a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    من نحن
-                </a>
-                 <a href="privacy-policy.html" class="nav-link ">
-                <i class="fas fa-user-shield"></i>
-                سياسة الخصوصية
-                </a>
+                
+                <!-- قائمة الدمج المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-code-branch"></i>
+                        <span data-i18n="merge">Merge</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="merge-v6.html" class="dropdown-item">
+                            <i class="fas fa-network-wired"></i>
+                            <span data-i18n="merge_v6">Load Balancing v6</span>
+                        </a>
+                        <a href="merge-v7.html" class="dropdown-item">
+                            <i class="fas fa-rocket"></i>
+                            <span data-i18n="merge_v7">Load Balancing v7</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة الهوت سبوت المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">
+                        <i class="fas fa-wifi"></i>
+                        <span data-i18n="hotspot">Hotspot</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="hotspot.html" class="dropdown-item active">
+                            <i class="fas fa-cog"></i>
+                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
+                        </a>
+                        <a href="speed-profiles.html" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="speed_profiles">Speed Profiles</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة التصميم والحجب المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-paint-brush"></i>
+                        <span data-i18n="design_block">Design & Block</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="Hotspot Editor.html" class="dropdown-item">
+                            <i class="fas fa-paint-brush"></i>
+                            <span data-i18n="hotspot_design">Hotspot Design</span>
+                        </a>
+                        <a href="block-sites.html" class="dropdown-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-i18n="block_sites">Block Sites</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة المساعدة المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-question-circle"></i>
+                        <span data-i18n="help">Help</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="troubleshooting.html" class="dropdown-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-i18n="troubleshooting">Troubleshooting</span>
+                        </a>
+                        <a href="about.html" class="dropdown-item">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="about">About Us</span>
+                        </a>
+                        <a href="privacy-policy.html" class="dropdown-item">
+                            <i class="fas fa-user-shield"></i>
+                            <span data-i18n="privacy">Privacy Policy</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- واتساب -->
                 <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                     <i class="fab fa-whatsapp"></i>
-                    تواصل معنا
+                    <span data-i18n="contact_us">Contact Us</span>
                 </a>
             </div>
         </div>
@@ -801,16 +1068,16 @@
         <div class="hero-content-hotspot">
             <span class="hero-badge-hotspot">
                 <i class="fas fa-magic"></i>
-                توليد سكربت تلقائي
+                <span data-i18n="hero_badge">Automatic Script Generator</span>
             </span>
             
-            <h1 class="hero-title-hotspot">
-                 مولد سكربت هوت سبوت وبرودباند
+            <h1 class="hero-title-hotspot" data-i18n="hero_title">
+                Hotspot & Broadband Script Generator
             </h1>
             
-            <p class="hero-subtitle-hotspot">
-                أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة
-                مع إعدادات DHCP، PPPoE، و NAT تلقائية
+            <p class="hero-subtitle-hotspot" data-i18n="hero_subtitle">
+                Create a professional full-featured hotspot script in seconds
+                with automatic DHCP, PPPoE, and NAT settings
             </p>
         </div>
     </section>
@@ -820,28 +1087,28 @@
         <div class="generator-card">
             <h2 class="tool-title">
                 <i class="fas fa-cogs"></i>
-                إعدادات السكربت
+                <span data-i18n="tool_title">Script Settings</span>
             </h2>
             
             <!-- الشبكة أولاً -->
             <div class="network-section">
                 <h3 class="section-title">
                     <i class="fas fa-expand-arrows-alt"></i>
-                    اختر حجم الشبكة المناسب
+                    <span data-i18n="network_title">Choose the appropriate network size</span>
                 </h3>
                 
                 <div class="subnet-grid" id="subnetSelector">
                     <!-- /24 = 254 IP -->
                     <div class="subnet-box active" 
                          data-subnet="24" 
-                         data-title="شبكة صغيرة مثالية للمنازل والمقاهي"
-                         data-description="مثالية للمنازل، المقاهي، المحلات التجارية الصغيرة. تدعم حتى 254 جهاز متصل في نفس الوقت. مثالية للاستخدام اليومي."
+                         data-title="Small network - ideal for homes and cafes"
+                         data-description="Perfect for homes, cafes, small shops. Supports up to 254 connected devices simultaneously. Ideal for daily use."
                          onmouseenter="showDescription(this)" 
                          onmouseleave="hideDescription()"
                          onclick="selectSubnet(24)">
                         <div class="subnet-header">
                             <div class="subnet-mask">/24</div>
-                            <div class="subnet-title">شبكة صغيرة</div>
+                            <div class="subnet-title" data-i18n="subnet_small">Small Network</div>
                         </div>
                         <div class="subnet-info">
                             <div class="ip-count">254 IP</div>
@@ -852,14 +1119,14 @@
                     <!-- /16 = 65,534 IP -->
                     <div class="subnet-box" 
                          data-subnet="16" 
-                         data-title="شبكة متوسطة للشركات والمؤسسات"
-                         data-description="مناسبة للشركات الصغيرة والمتوسطة، الفنادق، المدارس. تدعم حتى 65,534 جهاز متصل. توفر مرونة كبيرة للنمو."
+                         data-title="Medium network for companies and institutions"
+                         data-description="Suitable for small and medium companies, hotels, schools. Supports up to 65,534 connected devices. Provides great flexibility for growth."
                          onmouseenter="showDescription(this)" 
                          onmouseleave="hideDescription()"
                          onclick="selectSubnet(16)">
                         <div class="subnet-header">
                             <div class="subnet-mask">/16</div>
-                            <div class="subnet-title">شبكة متوسطة</div>
+                            <div class="subnet-title" data-i18n="subnet_medium">Medium Network</div>
                         </div>
                         <div class="subnet-info">
                             <div class="ip-count">65,534 IP</div>
@@ -870,17 +1137,17 @@
                     <!-- /8 = 16,777,214 IP -->
                     <div class="subnet-box" 
                          data-subnet="8" 
-                         data-title="شبكة كبيرة للمؤسسات والجامعات"
-                         data-description="مثالية للجامعات، المستشفيات الكبيرة، مراكز التسوق. تدعم 16.7 مليون جهاز متصل. مناسبة للمشاريع الكبيرة."
+                         data-title="Large network for universities and institutions"
+                         data-description="Ideal for universities, large hospitals, shopping centers. Supports 16.7 million connected devices. Suitable for large projects."
                          onmouseenter="showDescription(this)" 
                          onmouseleave="hideDescription()"
                          onclick="selectSubnet(8)">
                         <div class="subnet-header">
                             <div class="subnet-mask">/8</div>
-                            <div class="subnet-title">شبكة كبيرة</div>
+                            <div class="subnet-title" data-i18n="subnet_large">Large Network</div>
                         </div>
                         <div class="subnet-info">
-                            <div class="ip-count">16.7 مليون IP</div>
+                            <div class="ip-count">16.7M IP</div>
                             <div class="ip-range">x.0.0.1 - x.255.255.254</div>
                         </div>
                     </div>
@@ -888,17 +1155,17 @@
                     <!-- /4 = 268,435,454 IP -->
                     <div class="subnet-box" 
                          data-subnet="4" 
-                         data-title="شبكة عملاقة لمزودي الخدمة"
-                         data-description="مصممة لمزودي خدمات الإنترنت (ISPs)، الشركات الكبرى. تدعم 268 مليون جهاز متصل. مثالية للبنية التحتية الضخمة."
+                         data-title="Giant network for service providers"
+                         data-description="Designed for Internet Service Providers (ISPs), large corporations. Supports 268 million connected devices. Ideal for massive infrastructure."
                          onmouseenter="showDescription(this)" 
                          onmouseleave="hideDescription()"
                          onclick="selectSubnet(4)">
                         <div class="subnet-header">
                             <div class="subnet-mask">/4</div>
-                            <div class="subnet-title">شبكة عملاقة</div>
+                            <div class="subnet-title" data-i18n="subnet_giant">Giant Network</div>
                         </div>
                         <div class="subnet-info">
-                            <div class="ip-count">268 مليون IP</div>
+                            <div class="ip-count">268M IP</div>
                             <div class="ip-range">0-15.x.x.x</div>
                         </div>
                     </div>
@@ -911,17 +1178,17 @@
                 <div class="setting-group">
                     <h3 class="setting-title">
                         <i class="fas fa-network-wired"></i>
-                        إعدادات الشبكة
+                        <span data-i18n="network_settings">Network Settings</span>
                     </h3>
                     
                     <div class="input-box">
-                        <label class="input-label">عنوان IP الميكروتك:</label>
-                        <input type="text" id="newIp" value="10.0.0.1/24" class="input-field" placeholder="مثال: 10.0.0.1/24">
+                        <label class="input-label" data-i18n="ip_address">MikroTik IP Address:</label>
+                        <input type="text" id="newIp" value="10.0.0.1/24" class="input-field" placeholder="Example: 10.0.0.1/24">
                     </div>
                     
                     <div class="input-box">
-                        <label class="input-label">اسم كارت الخروج:</label>
-                        <input type="text" id="newInterface" value="OUT" class="input-field" placeholder="مثال: bridge-local, ether2">
+                        <label class="input-label" data-i18n="out_interface">Out Interface:</label>
+                        <input type="text" id="newInterface" value="OUT" class="input-field" placeholder="Example: bridge-local, ether2">
                     </div>
                 </div>
 
@@ -929,12 +1196,12 @@
                 <div class="setting-group">
                     <h3 class="setting-title">
                         <i class="fas fa-plug"></i>
-                        إعدادات الإنترنت
+                        <span data-i18n="internet_settings">Internet Settings</span>
                     </h3>
                     
                     <div class="input-box">
-                        <label class="input-label">كارت الدخول (WAN):</label>
-                        <input type="text" id="dhcpInterface" value="WAN" class="input-field" placeholder="مثال: ether1, wan-port">
+                        <label class="input-label" data-i18n="wan_interface">WAN Interface:</label>
+                        <input type="text" id="dhcpInterface" value="WAN" class="input-field" placeholder="Example: ether1, wan-port">
                     </div>
                 </div>
             </div>
@@ -942,12 +1209,12 @@
             <!-- أزرار التوليد -->
             <div class="btn-group">
                 <button class="btn btn-primary" onclick="generateHotspotScript(); ">
-    <i class="fas fa-play"></i>
-    توليد السكربت
-</button>
+                    <i class="fas fa-play"></i>
+                    <span data-i18n="generate_btn">Generate Script</span>
+                </button>
                 <button class="btn btn-secondary" onclick="resetForm()">
                     <i class="fas fa-redo"></i>
-                    إعادة تعيين
+                    <span data-i18n="reset_btn">Reset</span>
                 </button>
             </div>
 
@@ -956,12 +1223,12 @@
                 <div class="result-header">
                     <h3 class="result-title">
                         <i class="fas fa-code"></i>
-                        السكربت الناتج
+                        <span data-i18n="result_title">Generated Script</span>
                     </h3>
                     <button class="btn btn-secondary" onclick="copyScript(); ">
-    <i class="fas fa-copy"></i>
-    نسخ السكربت
-</button>
+                        <i class="fas fa-copy"></i>
+                        <span data-i18n="copy_btn">Copy Script</span>
+                    </button>
                 </div>
                 <textarea id="outputScript" class="script-output" readonly></textarea>
             </div>
@@ -972,30 +1239,30 @@
     <div class="subnet-description" id="subnetDescription">
         <h3 class="description-title" id="descTitle">
             <i class="fas fa-info-circle"></i>
-            عنوان الشرح
+            <span data-i18n="desc_title">Description</span>
         </h3>
         <p class="description-text" id="descText">
-            نص الشرح سوف يظهر هنا عند الوقوف على أي مربع من مربعات الشبكة
+            Description will appear here when hovering over any network box
         </p>
     </div>
 
     <!-- قسم الاتصال -->
     <section class="contact">
-        <h2 class="contact-title">هل تحتاج مساعدة؟</h2>
-        <p class="contact-subtitle">
-            فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك
+        <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
+        <p class="contact-subtitle" data-i18n="contact_desc">
+            Technical support team is available 24/7 to answer your inquiries
         </p>
         
         <div class="contact-info">
             <h3 style="color: #94a3b8; margin-bottom: 1rem;">
                 <i class="fas fa-headset"></i>
-                للتواصل والدعم الفني
+                <span data-i18n="contact_support">Contact Support</span>
             </h3>
             <div class="contact-phone">01092503391</div>
             <p class="contact-name">Sameh El-Sayed</p>
             <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
                 <i class="fab fa-whatsapp"></i>
-                تواصل عبر واتساب
+                <span data-i18n="contact_whatsapp">Contact via WhatsApp</span>
             </a>
         </div>
     </section>
@@ -1005,10 +1272,10 @@
         <div class="footer-content">
             <p class="footer-text">
                 <i class="fas fa-phone-alt"></i>
-                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+                <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
             </p>
             <p class="copyright">
-                © 2024 MikroTools. جميع الحقوق محفوظة.
+                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span>
             </p>
         </div>
     </footer>
@@ -1033,10 +1300,134 @@
     </iframe>
 
     <script>
+        // نظام الترجمة
+        const translations = {
+            en: {
+                home: "Home",
+                merge: "Merge",
+                hotspot: "Hotspot",
+                design_block: "Design & Block",
+                help: "Help",
+                merge_v6: "Load Balancing v6",
+                merge_v7: "Load Balancing v7",
+                hotspot_settings: "Hotspot+PPP Settings",
+                speed_profiles: "Speed Profiles",
+                hotspot_design: "Hotspot Design",
+                block_sites: "Block Sites",
+                troubleshooting: "Troubleshooting",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                contact_us: "Contact Us",
+                hero_badge: "Automatic Script Generator",
+                hero_title: "Hotspot & Broadband Script Generator",
+                hero_subtitle: "Create a professional full-featured hotspot script in seconds with automatic DHCP, PPPoE, and NAT settings",
+                tool_title: "Script Settings",
+                network_title: "Choose the appropriate network size",
+                subnet_small: "Small Network",
+                subnet_medium: "Medium Network",
+                subnet_large: "Large Network",
+                subnet_giant: "Giant Network",
+                network_settings: "Network Settings",
+                ip_address: "MikroTik IP Address:",
+                out_interface: "Out Interface:",
+                internet_settings: "Internet Settings",
+                wan_interface: "WAN Interface:",
+                generate_btn: "Generate Script",
+                reset_btn: "Reset",
+                result_title: "Generated Script",
+                copy_btn: "Copy Script",
+                desc_title: "Description",
+                need_help: "Need Help?",
+                contact_desc: "Technical support team is available 24/7 to answer your inquiries",
+                contact_support: "Contact Support",
+                contact_whatsapp: "Contact via WhatsApp",
+                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
+                copyright: "All rights reserved."
+            },
+            ar: {
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                speed_profiles: "بروفايلات السرعة",
+                hotspot_design: "تصميم hotspot",
+                block_sites: "حجب مواقع",
+                troubleshooting: "المشكلات الشائعة",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                hero_badge: "توليد سكربت تلقائي",
+                hero_title: "مولد سكربت هوت سبوت وبرودباند",
+                hero_subtitle: "أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة مع إعدادات DHCP، PPPoE، و NAT تلقائية",
+                tool_title: "إعدادات السكربت",
+                network_title: "اختر حجم الشبكة المناسب",
+                subnet_small: "شبكة صغيرة",
+                subnet_medium: "شبكة متوسطة",
+                subnet_large: "شبكة كبيرة",
+                subnet_giant: "شبكة عملاقة",
+                network_settings: "إعدادات الشبكة",
+                ip_address: "عنوان IP الميكروتك:",
+                out_interface: "اسم كارت الخروج:",
+                internet_settings: "إعدادات الإنترنت",
+                wan_interface: "كارت الدخول (WAN):",
+                generate_btn: "توليد السكربت",
+                reset_btn: "إعادة تعيين",
+                result_title: "السكربت الناتج",
+                copy_btn: "نسخ السكربت",
+                desc_title: "الشرح",
+                need_help: "هل تحتاج مساعدة؟",
+                contact_desc: "فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",
+                contact_support: "للتواصل والدعم الفني",
+                contact_whatsapp: "تواصل عبر واتساب",
+                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
+                copyright: "جميع الحقوق محفوظة."
+            }
+        };
+
         // دوال JavaScript مع إضافة نافذة الشرح
         const SIGNATURE = "By Same7_01092503391";
         let currentSubnet = 24;
         let descriptionTimeout;
+
+        // تبديل اللغة
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
+            
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (lang === 'ar') {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.add('ar', 'rtl');
+                body.classList.remove('en');
+            } else {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('en');
+                body.classList.remove('ar', 'rtl');
+            }
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+        }
 
         // تبديل القائمة في الجوال
         document.getElementById('menuToggle').addEventListener('click', function() {
@@ -1048,6 +1439,42 @@
                 ? 'fas fa-times' 
                 : 'fas fa-bars';
         });
+
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!link.classList.contains('dropdown-toggle')) {
+                    document.getElementById('navLinks').classList.remove('active');
+                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // تفعيل القوائم المنسدلة في الجوال
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropdown = this.closest('.dropdown');
+                    dropdown.classList.toggle('active');
+                    
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    if (dropdown.classList.contains('active')) {
+                        arrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        arrow.style.transform = 'rotate(0)';
+                    }
+                }
+            });
+        });
+
+        // أحداث أزرار اللغة
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
+
+        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
+        const savedLanguage = localStorage.getItem('language') || 'en';
+        setLanguage(savedLanguage);
 
         // اختيار الشبكة
         function selectSubnet(subnetMask) {
@@ -1165,13 +1592,13 @@
             const dhcpIface = document.getElementById('dhcpInterface').value.trim();
             
             if (!ipInput || !iface || !dhcpIface) {
-                alert('يرجى ملء جميع الحقول المطلوبة');
+                alert('Please fill in all required fields');
                 return;
             }
 
             const ipParts = ipInput.split('/')[0];
             if (!validateIP(ipParts)) {
-                alert("⚠️ عنوان IP غير صحيح");
+                alert("⚠️ Invalid IP address");
                 return;
             }
             
@@ -1180,11 +1607,11 @@
             const dhcpRange = calculateDHCPRange(ipParts, mask);
             
             const script = `# ${SIGNATURE}:
-# شبكة: ${network}/${mask}
+# Network: ${network}/${mask}
 
 /ip address add address=${ipInput} interface=${iface}
 
-# إعدادات DHCP Client للإنترنت
+# DHCP Client for internet
 /ip dhcp-client add interface=${dhcpIface} use-peer-dns=yes use-peer-ntp=yes add-default-route=yes disabled=no
 
 /ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes 
@@ -1213,7 +1640,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 /system sntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
 /system clock set time-zone-name=Africa/Cairo 
 
-# تم إنشاء سكربت لشبكة /${mask}
+# Script created for /${mask} network
             `.trim();
 
             document.getElementById('outputScript').value = script;
@@ -1230,7 +1657,7 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
         function copyScript() {
             const scriptOutput = document.getElementById('outputScript');
             if (!scriptOutput.value) {
-                alert('لا يوجد سكربت لنسخه');
+                alert('No script to copy');
                 return;
             }
             
@@ -1239,10 +1666,10 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             
             try {
                 navigator.clipboard.writeText(scriptOutput.value);
-                alert('تم نسخ السكربت بنجاح! ✅');
+                alert('Script copied successfully! ✅');
             } catch (err) {
                 document.execCommand('copy');
-                alert('تم نسخ السكربت بنجاح! ✅');
+                alert('Script copied successfully! ✅');
             }
         }
 
@@ -1256,14 +1683,6 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
             document.getElementById('resultSection').style.display = 'none';
             hideDescription();
         }
-
-        // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('active');
-                document.querySelector('#menuToggle i').className = 'fas fa-bars';
-            });
-        });
 
         // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
@@ -1333,13 +1752,3 @@ set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
