@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(s){s.dataset.zone='10620389',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    <title>نظام تعديل صفحة Hotspot - كامل مع أنظمة الدخول</title>
+    <title>Hotspot Page Editor - MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,7 +30,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
         
         body {
@@ -39,6 +39,11 @@
             padding: 20px;
             line-height: 1.8;
             overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
         }
 
         /* ===== قائمة التنقل العلوية ===== */
@@ -94,7 +99,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
@@ -106,6 +111,9 @@
             padding: 8px 16px;
             border-radius: 10px;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-link:hover {
@@ -122,8 +130,8 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            right: 50%;
-            transform: translateX(50%);
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--primary);
@@ -142,11 +150,56 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-cta:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== أزرار تبديل اللغة ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn i {
+            font-size: 12px;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
         }
 
         .menu-toggle {
@@ -156,6 +209,90 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
+        }
+
+        /* ===== القوائم المنسدلة ===== */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark);
+            min-width: 250px;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-link::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body.rtl .dropdown-item:hover {
+            transform: translateX(5px);
         }
 
         /* ===== الهيرو الرئيسي ===== */
@@ -749,8 +886,10 @@
                 width: 100%;
                 padding: 1rem;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.5rem;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                max-height: 80vh;
+                overflow-y: auto;
             }
             
             .nav-links.active {
@@ -759,6 +898,67 @@
             
             .menu-toggle {
                 display: block;
+            }
+            
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0 20px;
+                order: -1;
+            }
+            
+            .lang-btn {
+                flex: 1;
+                justify-content: center;
+                padding: 8px;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.05);
+                margin-top: 5px;
+                margin-bottom: 10px;
+                display: none;
+                width: 100%;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .dropdown-item {
+                justify-content: center;
+            }
+            
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
             }
             
             .control-tabs {
@@ -783,7 +983,7 @@
     </style>
 </head>
 <body>
-    <!-- قائمة التنقل العلوية -->
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -798,46 +998,108 @@
             </button>
             
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link ">
+                <!-- أزرار تبديل اللغة -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langEn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <button class="lang-btn" id="langAr">
+                        <i class="fas fa-globe"></i>
+                        AR
+                    </button>
+                </div>
+                
+                <!-- الرئيسية -->
+                <a href="index.html" class="nav-link" data-i18n="home">
                     <i class="fas fa-home"></i>
-                    الرئيسية
+                    <span>Home</span>
                 </a>
-                <a href="hotspot.html" class="nav-link">
-                    <i class="fas fa-wifi"></i>
-                    اعدادات hotspot+ppp
-                </a>
-                <a href="Hotspot Editor.html" class="nav-link active ">
-                    <i class="fas fa-link"></i>
-                    تصميم hotspot
-                </a>
-                <a href="merge-v6.html" class="nav-link">
-                    <i class="fas fa-link"></i>
-                    دمج v6
-                </a>
-                <a href="merge-v7.html" class="nav-link">
-                    <i class="fas fa-rocket"></i>
-                    دمج v7
-                </a>
-                <a href="block-sites.html" class="nav-link">
-                    <i class="fas fa-shield-alt"></i>
-                    حجب مواقع
-                </a>
-                <a href="speed-profiles.html" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i>
-                    بروفايلات
-                </a>
-<!-- رابط المشكلات الشائعة يضاف هنا -->
-<a href="troubleshooting.html" class="nav-link">
-    <i class="fas fa-question-circle"></i>
-    المشكلات الشائعة
-</a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    من نحن
-                </a>
+                
+                <!-- قائمة الدمج المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-code-branch"></i>
+                        <span data-i18n="merge">Merge</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="merge-v6.html" class="dropdown-item">
+                            <i class="fas fa-network-wired"></i>
+                            <span data-i18n="merge_v6">Load Balancing v6</span>
+                        </a>
+                        <a href="merge-v7.html" class="dropdown-item">
+                            <i class="fas fa-rocket"></i>
+                            <span data-i18n="merge_v7">Load Balancing v7</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة الهوت سبوت المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-wifi"></i>
+                        <span data-i18n="hotspot">Hotspot</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="hotspot.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
+                        </a>
+                        <a href="speed-profiles.html" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="speed_profiles">Speed Profiles</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة التصميم والحجب المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">
+                        <i class="fas fa-paint-brush"></i>
+                        <span data-i18n="design_block">Design & Block</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="Hotspot Editor.html" class="dropdown-item active">
+                            <i class="fas fa-paint-brush"></i>
+                            <span data-i18n="hotspot_design">Hotspot Design</span>
+                        </a>
+                        <a href="block-sites.html" class="dropdown-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-i18n="block_sites">Block Sites</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- قائمة المساعدة المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-question-circle"></i>
+                        <span data-i18n="help">Help</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="troubleshooting.html" class="dropdown-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-i18n="troubleshooting">Troubleshooting</span>
+                        </a>
+                        <a href="about.html" class="dropdown-item">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="about">About Us</span>
+                        </a>
+                        <a href="privacy-policy.html" class="dropdown-item">
+                            <i class="fas fa-user-shield"></i>
+                            <span data-i18n="privacy">Privacy Policy</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- واتساب -->
                 <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                     <i class="fab fa-whatsapp"></i>
-                    تواصل معنا
+                    <span data-i18n="contact_us">Contact Us</span>
                 </a>
             </div>
         </div>
@@ -848,14 +1110,14 @@
         <div class="hero-content">
             <span class="hero-badge">
                 <i class="fas fa-crown"></i>
-                نظام متكامل - معاينة جميع أنظمة الدخول
+                <span data-i18n="hotspot_badge">Complete System - Preview All Login Methods</span>
             </span>
-            <h1 class="hero-title">نظام تعديل صفحة Hotspot</h1>
-            <div class="hero-subtitle">نظام متكامل لتعديل وتخصيص صفحة الدخول</div>
+            <h1 class="hero-title" data-i18n="hotspot_title">Hotspot Page Editor</h1>
+            <div class="hero-subtitle" data-i18n="hotspot_subtitle">Complete system to edit and customize the login page</div>
         </div>
         <div class="status-indicator">
             <div class="status-dot"></div>
-            <span id="statusText">المعاينة مباشرة</span>
+            <span id="statusText" data-i18n="live_preview">Live Preview</span>
         </div>
     </div>
     
@@ -863,43 +1125,44 @@
     <div class="control-tabs">
         <button class="control-tab active" data-tab="design">
             <i class="fas fa-palette tab-icon"></i>
-            التصميم والنصوص
+            <span data-i18n="tab_design">Design & Text</span>
         </button>
         <button class="control-tab" data-tab="login">
             <i class="fas fa-sign-in-alt tab-icon"></i>
-            نظام الدخول
+            <span data-i18n="tab_login">Login System</span>
         </button>
         <button class="control-tab" data-tab="preview">
             <i class="fas fa-eye tab-icon"></i>
-            المعاينة
+            <span data-i18n="tab_preview">Preview</span>
         </button>
         <button class="control-tab" data-tab="save">
             <i class="fas fa-save tab-icon"></i>
-            الحفظ والتحميل
+            <span data-i18n="tab_save">Save & Download</span>
         </button>
     </div>
     
+    <!-- باقي المحتوى (نفس الكود الأصلي) -->
     <!-- التصميم والنصوص -->
     <div id="design" class="tab-content active">
         <div class="section-title">
             <i class="fas fa-palette"></i>
-            التصميم والنصوص
+            <span data-i18n="design_title">Design & Text</span>
         </div>
         
         <div class="control-grid">
             <!-- الخلفية -->
             <div class="control-group">
-                <h3><i class="fas fa-image"></i> إعدادات الخلفية</h3>
+                <h3><i class="fas fa-image"></i> <span data-i18n="bg_settings">Background Settings</span></h3>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-fill-drip"></i>
-                        نوع الخلفية
+                        <span data-i18n="bg_type">Background Type</span>
                     </label>
                     <select id="bgType" class="form-control">
-                        <option value="color">لون واحد</option>
-                        <option value="gradient" selected>تدرج لوني</option>
-                        <option value="image">صورة</option>
+                        <option value="color" data-i18n="bg_color">Solid Color</option>
+                        <option value="gradient" selected data-i18n="bg_gradient">Gradient</option>
+                        <option value="image" data-i18n="bg_image">Image</option>
                     </select>
                 </div>
                 
@@ -907,7 +1170,7 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-paint-brush"></i>
-                            لون الخلفية
+                            <span data-i18n="bg_color_label">Background Color</span>
                         </label>
                         <input type="color" id="bgColor" class="form-control" value="#1a1a2e">
                     </div>
@@ -917,14 +1180,14 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-palette"></i>
-                            اللون الأول
+                            <span data-i18n="gradient_color1">First Color</span>
                         </label>
                         <input type="color" id="gradientColor1" class="form-control" value="#667eea">
                     </div>
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-palette"></i>
-                            اللون الثاني
+                            <span data-i18n="gradient_color2">Second Color</span>
                         </label>
                         <input type="color" id="gradientColor2" class="form-control" value="#764ba2">
                     </div>
@@ -933,32 +1196,32 @@
                 <div id="imageOptions" style="display: none;">
                     <div class="file-upload" onclick="document.getElementById('backgroundImageInput').click()">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <div class="upload-text">اضغط لرفع صورة خلفية</div>
-                        <div class="upload-subtext">JPG, PNG, GIF - حجم أقصى 5MB</div>
+                        <div class="upload-text" data-i18n="upload_bg">Click to upload background image</div>
+                        <div class="upload-subtext">JPG, PNG, GIF - Max 5MB</div>
                     </div>
                     <input type="file" id="backgroundImageInput" accept="image/*" style="display: none;">
                     <div class="image-preview" id="backgroundPreview">
-                        <img class="preview-image" id="backgroundPreviewImage" src="" alt="معاينة الخلفية">
+                        <img class="preview-image" id="backgroundPreviewImage" src="" alt="Background Preview">
                     </div>
                 </div>
                 
                 <div class="form-group" style="margin-top: 20px;">
                     <label class="form-label">
                         <i class="fas fa-images"></i>
-                        خلفيات جاهزة
+                        <span data-i18n="ready_bg">Ready Backgrounds</span>
                     </label>
                     <div class="background-grid">
                         <div class="bg-item active" data-bg="gradient-blue">
                             <div class="bg-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></div>
-                            <div class="bg-name">تدرج أزرق</div>
+                            <div class="bg-name" data-i18n="bg_blue">Blue Gradient</div>
                         </div>
                         <div class="bg-item" data-bg="gradient-pink">
                             <div class="bg-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></div>
-                            <div class="bg-name">تدرج وردي</div>
+                            <div class="bg-name" data-i18n="bg_pink">Pink Gradient</div>
                         </div>
                         <div class="bg-item" data-bg="dark-blue">
                             <div class="bg-preview" style="background: #1a1a2e"></div>
-                            <div class="bg-name">أزرق داكن</div>
+                            <div class="bg-name" data-i18n="bg_dark_blue">Dark Blue</div>
                         </div>
                     </div>
                 </div>
@@ -966,7 +1229,7 @@
             
             <!-- الشعار -->
             <div class="control-group">
-                <h3><i class="fas fa-camera"></i> إعدادات الشعار</h3>
+                <h3><i class="fas fa-camera"></i> <span data-i18n="logo_settings">Logo Settings</span></h3>
                 
                 <div class="logo-preview">
                     <div id="logoDisplay" class="logo-display">
@@ -977,23 +1240,23 @@
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-upload"></i>
-                        رفع شعار جديد
+                        <span data-i18n="upload_logo">Upload New Logo</span>
                     </label>
                     <div class="file-upload" onclick="document.getElementById('logoImageInput').click()">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <div class="upload-text">اضغط لرفع شعار جديد</div>
-                        <div class="upload-subtext">JPG, PNG, SVG - حجم أقصى 2MB</div>
+                        <div class="upload-text" data-i18n="click_upload_logo">Click to upload new logo</div>
+                        <div class="upload-subtext">JPG, PNG, SVG - Max 2MB</div>
                     </div>
                     <input type="file" id="logoImageInput" accept="image/*" style="display: none;">
                     <div class="image-preview" id="logoPreview">
-                        <img class="preview-image" id="logoPreviewImage" src="" alt="معاينة الشعار">
+                        <img class="preview-image" id="logoPreviewImage" src="" alt="Logo Preview">
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-text-height"></i>
-                        نص الشعار (إذا لم ترفع صورة)
+                        <span data-i18n="logo_text">Logo Text (if no image)</span>
                     </label>
                     <input type="text" id="logoText" class="form-control" value="mikro-tools">
                 </div>
@@ -1001,7 +1264,7 @@
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-fill-drip"></i>
-                        لون الشعار (إذا لم ترفع صورة)
+                        <span data-i18n="logo_color">Logo Color (if no image)</span>
                     </label>
                     <input type="color" id="logoColor" class="form-control" value="#4361ee">
                 </div>
@@ -1009,24 +1272,24 @@
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-expand-alt"></i>
-                        حجم الشعار
+                        <span data-i18n="logo_size">Logo Size</span>
                     </label>
                     <select id="logoSize" class="form-control">
-                        <option value="small">صغير</option>
-                        <option value="medium" selected>وسط</option>
-                        <option value="large">كبير</option>
+                        <option value="small" data-i18n="small">Small</option>
+                        <option value="medium" selected data-i18n="medium">Medium</option>
+                        <option value="large" data-i18n="large">Large</option>
                     </select>
                 </div>
             </div>
             
             <!-- النصوص -->
             <div class="control-group">
-                <h3><i class="fas fa-text-height"></i> تعديل النصوص</h3>
+                <h3><i class="fas fa-text-height"></i> <span data-i18n="text_settings">Text Settings</span></h3>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-heading"></i>
-                        عنوان الصفحة
+                        <span data-i18n="page_title">Page Title</span>
                     </label>
                     <input type="text" id="pageTitle" class="form-control" value="by same7-01092503391">
                 </div>
@@ -1034,48 +1297,48 @@
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-comment"></i>
-                        رسالة الترحيب
+                        <span data-i18n="welcome_msg">Welcome Message</span>
                     </label>
-                    <textarea id="welcomeMessage" class="form-control" placeholder="اكتب رسالة الترحيب هنا...">مرحباً بك! يرجى تسجيل الدخول للوصول إلى الإنترنت</textarea>
+                    <textarea id="welcomeMessage" class="form-control" placeholder="Write your welcome message here...">Welcome! Please log in to access the internet</textarea>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-keyboard"></i>
-                        نص حقل اسم المستخدم
+                        <span data-i18n="username_placeholder">Username Field Text</span>
                     </label>
-                    <input type="text" id="usernamePlaceholder" class="form-control" value="اسم المستخدم">
+                    <input type="text" id="usernamePlaceholder" class="form-control" value="Username">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-keyboard"></i>
-                        نص حقل كلمة المرور
+                        <span data-i18n="password_placeholder">Password Field Text</span>
                     </label>
-                    <input type="text" id="passwordPlaceholder" class="form-control" value="كلمة المرور">
+                    <input type="text" id="passwordPlaceholder" class="form-control" value="Password">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-sign-in-alt"></i>
-                        نص زر الدخول
+                        <span data-i18n="login_button">Login Button Text</span>
                     </label>
-                    <input type="text" id="loginButtonText" class="form-control" value="تسجيل الدخول">
+                    <input type="text" id="loginButtonText" class="form-control" value="Login">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-info-circle"></i>
-                        نص التذييل
+                        <span data-i18n="footer_text">Footer Text</span>
                     </label>
-                    <input type="text" id="footerText" class="form-control" value="© mikro-tools.com جميع الحقوق محفوظة">
+                    <input type="text" id="footerText" class="form-control" value="© mikro-tools.com All rights reserved">
                 </div>
             </div>
         </div>
         
         <div class="action-buttons">
-            <button class="btn btn-success" onclick="updatePreview(); showNotification('تم تحديث المعاينة', 'success'); ">
-                <i class="fas fa-eye"></i> تحديث المعاينة
+            <button class="btn btn-success" onclick="updatePreview(); showNotification('Preview updated', 'success'); ">
+                <i class="fas fa-eye"></i> <span data-i18n="update_preview">Update Preview</span>
             </button>
         </div>
     </div>
@@ -1084,11 +1347,11 @@
     <div id="login" class="tab-content">
         <div class="section-title">
             <i class="fas fa-sign-in-alt"></i>
-            نظام الدخول
+            <span data-i18n="login_system">Login System</span>
         </div>
         
-        <p style="color: #cbd5e1; margin-bottom: 20px; text-align: center;">
-            اختر نظام الدخول المناسب أو استخدم النظام المختلط الذي يجمع كل الأنظمة معاً
+        <p style="color: #cbd5e1; margin-bottom: 20px; text-align: center;" data-i18n="login_desc">
+            Choose the appropriate login system or use the mixed system that combines all methods together
         </p>
         
         <div class="login-methods">
@@ -1096,14 +1359,14 @@
                 <div class="method-icon">
                     <i class="fas fa-user-lock"></i>
                 </div>
-                <div class="method-title">اسم المستخدم وكلمة المرور</div>
-                <div class="method-desc">الطريقة التقليدية باستخدام اسم المستخدم وكلمة المرور</div>
+                <div class="method-title" data-i18n="method_userpass">Username & Password</div>
+                <div class="method-desc" data-i18n="method_userpass_desc">Traditional method using username and password</div>
                 
                 <div class="method-settings">
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-eye"></i>
-                            إظهار/إخفاء كلمة المرور
+                            <span data-i18n="show_password">Show/Hide Password</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="showPassword" checked>
@@ -1113,7 +1376,7 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-save"></i>
-                            تذكر الدخول
+                            <span data-i18n="remember_login">Remember Login</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="rememberLogin" checked>
@@ -1127,14 +1390,14 @@
                 <div class="method-icon">
                     <i class="fas fa-credit-card"></i>
                 </div>
-                <div class="method-title">نظام الكروت</div>
-                <div class="method-desc">الدخول باستخدام بطاقات مسبقة الدفع - رقم الكارت فقط</div>
+                <div class="method-title" data-i18n="method_cards">Cards System</div>
+                <div class="method-desc" data-i18n="method_cards_desc">Login using prepaid cards - card number only</div>
                 
                 <div class="method-settings">
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-toggle-on"></i>
-                            تفعيل نظام الكروت
+                            <span data-i18n="enable_cards">Enable Cards System</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="enableCards" checked>
@@ -1144,7 +1407,7 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-credit-card"></i>
-                            رقم الكارت
+                            <span data-i18n="card_number">Card Number</span>
                         </label>
                         <input type="text" id="cardNumber" class="form-control" placeholder="CARD-XXXX-XXXX-XXXX">
                     </div>
@@ -1155,14 +1418,14 @@
                 <div class="method-icon">
                     <i class="fas fa-barcode"></i>
                 </div>
-                <div class="method-title">نظام الباركود</div>
-                <div class="method-desc">المسح الضوئي للباركود باستخدام الكاميرا أو الماسح الضوئي</div>
+                <div class="method-title" data-i18n="method_barcode">Barcode System</div>
+                <div class="method-desc" data-i18n="method_barcode_desc">Scan barcode using camera or scanner</div>
                 
                 <div class="method-settings">
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-qrcode"></i>
-                            تفعيل نظام الباركود
+                            <span data-i18n="enable_barcode">Enable Barcode System</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="enableBarcode" checked>
@@ -1172,9 +1435,9 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-keyboard"></i>
-                            نص حقل الباركود
+                            <span data-i18n="barcode_placeholder">Barcode Field Text</span>
                         </label>
-                        <input type="text" id="barcodePlaceholder" class="form-control" value="أدخل رمز الباركود">
+                        <input type="text" id="barcodePlaceholder" class="form-control" value="Enter barcode">
                     </div>
                 </div>
             </div>
@@ -1183,14 +1446,14 @@
                 <div class="method-icon">
                     <i class="fas fa-layer-group"></i>
                 </div>
-                <div class="method-title">نظام مختلط</div>
-                <div class="method-desc">دمج الأنظمة الثلاثة معاً في صفحة واحدة</div>
+                <div class="method-title" data-i18n="method_mixed">Mixed System</div>
+                <div class="method-desc" data-i18n="method_mixed_desc">Combine all three methods in one page</div>
                 
                 <div class="method-settings" style="display: block;">
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-toggle-on"></i>
-                            تفعيل اليوزر/باس
+                            <span data-i18n="enable_userpass">Enable User/Pass</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="enableUserPassMixed" checked>
@@ -1200,7 +1463,7 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-toggle-on"></i>
-                            تفعيل الكروت
+                            <span data-i18n="enable_cards">Enable Cards</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="enableCardsMixed" checked>
@@ -1210,7 +1473,7 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-toggle-on"></i>
-                            تفعيل الباركود
+                            <span data-i18n="enable_barcode">Enable Barcode</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="enableBarcodeMixed" checked>
@@ -1220,7 +1483,7 @@
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-exchange-alt"></i>
-                            السماح بالتبديل
+                            <span data-i18n="allow_switch">Allow Switching</span>
                         </label>
                         <label class="switch">
                             <input type="checkbox" id="allowSwitchMethods" checked>
@@ -1232,8 +1495,8 @@
         </div>
         
         <div class="action-buttons">
-            <button class="btn btn-primary" onclick="updatePreview(); showNotification('تم تحديث المعاينة', 'success'); ">
-                <i class="fas fa-eye"></i> تحديث المعاينة
+            <button class="btn btn-primary" onclick="updatePreview(); showNotification('Preview updated', 'success'); ">
+                <i class="fas fa-eye"></i> <span data-i18n="update_preview">Update Preview</span>
             </button>
         </div>
     </div>
@@ -1242,24 +1505,24 @@
     <div id="preview" class="tab-content">
         <div class="section-title">
             <i class="fas fa-eye"></i>
-            معاينة الصفحة
+            <span data-i18n="page_preview">Page Preview</span>
         </div>
         
         <div class="preview-area">
             <div class="preview-header">
                 <div>
-                    <strong>المعاينة الحية</strong>
-                    <div style="font-size: 12px; color: #94a3b8;">التعديلات تظهر مباشرة</div>
+                    <strong data-i18n="live_preview">Live Preview</strong>
+                    <div style="font-size: 12px; color: #94a3b8;" data-i18n="live_preview_desc">Changes appear instantly</div>
                 </div>
                 
                 <div class="preview-controls" style="display: flex; gap: 10px;">
                     <select id="deviceType" class="form-control" style="width: 150px; background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2);" onchange="updatePreviewDevice(this.value)">
-                        <option value="desktop" style="background: #1e293b; color: white;">كمبيوتر</option>
-                        <option value="tablet" style="background: #1e293b; color: white;">تابلت</option>
-                        <option value="mobile" style="background: #1e293b; color: white;">موبايل</option>
+                        <option value="desktop" style="background: #1e293b; color: white;" data-i18n="desktop">Desktop</option>
+                        <option value="tablet" style="background: #1e293b; color: white;" data-i18n="tablet">Tablet</option>
+                        <option value="mobile" style="background: #1e293b; color: white;" data-i18n="mobile">Mobile</option>
                     </select>
                     <button class="btn btn-success" onclick="updatePreview()" style="padding: 10px 20px;">
-                        <i class="fas fa-sync-alt"></i> تحديث
+                        <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
                     </button>
                 </div>
             </div>
@@ -1271,13 +1534,13 @@
         
         <div class="action-buttons">
             <button class="btn btn-warning" onclick="resetToDefault()">
-                <i class="fas fa-undo"></i> إعادة التعيين
+                <i class="fas fa-undo"></i> <span data-i18n="reset">Reset to Default</span>
             </button>
-            <button class="btn btn-success" onclick="showNotification('تم حفظ الكل', 'success')">
-                <i class="fas fa-save"></i> حفظ الكل
+            <button class="btn btn-success" onclick="showNotification('All saved', 'success')">
+                <i class="fas fa-save"></i> <span data-i18n="save_all">Save All</span>
             </button>
             <button class="btn btn-primary" onclick="generateFinalHTML(); ">
-                <i class="fas fa-download"></i> تحميل HTML نهائي
+                <i class="fas fa-download"></i> <span data-i18n="download_html">Download HTML File</span>
             </button>
         </div>
     </div>
@@ -1286,47 +1549,47 @@
     <div id="save" class="tab-content">
         <div class="section-title">
             <i class="fas fa-save"></i>
-            الحفظ والتحميل
+            <span data-i18n="save_download">Save & Download</span>
         </div>
         
         <div class="control-grid">
             <div class="control-group">
-                <h3><i class="fas fa-database"></i> حفظ الإعدادات</h3>
+                <h3><i class="fas fa-database"></i> <span data-i18n="save_settings">Save Settings</span></h3>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-save"></i>
-                        حفظ الإعدادات الحالية
+                        <span data-i18n="save_current">Save Current Settings</span>
                     </label>
-                    <p style="color: var(--gray); margin-bottom: 15px;">
-                        تحميل ملف HTML نهائي بالتعديلات الحالية
+                    <p style="color: var(--gray); margin-bottom: 15px;" data-i18n="save_desc">
+                        Download final HTML file with your current settings
                     </p>
                     <button class="btn btn-success" style="width: 100%;" onclick="generateFinalHTML(); ">
-                        <i class="fas fa-download"></i> تحميل ملف HTML
+                        <i class="fas fa-download"></i> <span data-i18n="download_html">Download HTML File</span>
                     </button>
                 </div>
             </div>
             
             <div class="control-group">
-                <h3><i class="fas fa-history"></i> استعادة النسخ</h3>
+                <h3><i class="fas fa-history"></i> <span data-i18n="restore">Restore Versions</span></h3>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-clock"></i>
-                        الإعدادات الافتراضية
+                        <span data-i18n="default_settings">Default Settings</span>
                     </label>
                     <div id="lastSaveTime" style="color: var(--gray); padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
-                        <i class="fas fa-check-circle" style="color: #10b981;"></i> يمكنك استعادة الإعدادات الافتراضية
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i> <span data-i18n="can_restore">You can restore default settings</span>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-undo"></i>
-                        استعادة الإعدادات الافتراضية
+                        <span data-i18n="restore_default">Restore Default Settings</span>
                     </label>
                     <button class="btn btn-warning" style="width: 100%;" onclick="resetToDefault()">
-                        <i class="fas fa-history"></i> استعادة الافتراضي
+                        <i class="fas fa-history"></i> <span data-i18n="restore">Restore Default</span>
                     </button>
                 </div>
             </div>
@@ -1337,12 +1600,253 @@
     <div id="notification" class="notification">
         <i class="fas fa-check-circle" style="font-size: 24px;"></i>
         <div>
-            <strong id="notification-title">تم!</strong>
-            <div id="notification-message">تم التحديث بنجاح</div>
+            <strong id="notification-title">Done!</strong>
+            <div id="notification-message">Updated successfully</div>
         </div>
     </div>
 
+    <!-- أيقونات التواصل العائمة -->
+    <iframe 
+        src="mikro-icons.html" 
+        style="
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 90px;
+            height: 280px;
+            border: none;
+            z-index: 99999;
+            background: transparent;
+            pointer-events: auto;
+        "
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true">
+    </iframe>
+
     <script>
+        // نظام الترجمة
+        const translations = {
+            en: {
+                home: "Home",
+                merge: "Merge",
+                hotspot: "Hotspot",
+                design_block: "Design & Block",
+                help: "Help",
+                merge_v6: "Load Balancing v6",
+                merge_v7: "Load Balancing v7",
+                hotspot_settings: "Hotspot+PPP Settings",
+                speed_profiles: "Speed Profiles",
+                hotspot_design: "Hotspot Design",
+                block_sites: "Block Sites",
+                troubleshooting: "Troubleshooting",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                contact_us: "Contact Us",
+                hotspot_badge: "Complete System - Preview All Login Methods",
+                hotspot_title: "Hotspot Page Editor",
+                hotspot_subtitle: "Complete system to edit and customize the login page",
+                live_preview: "Live Preview",
+                tab_design: "Design & Text",
+                tab_login: "Login System",
+                tab_preview: "Preview",
+                tab_save: "Save & Download",
+                design_title: "Design & Text",
+                bg_settings: "Background Settings",
+                bg_type: "Background Type",
+                bg_color: "Solid Color",
+                bg_gradient: "Gradient",
+                bg_image: "Image",
+                bg_color_label: "Background Color",
+                gradient_color1: "First Color",
+                gradient_color2: "Second Color",
+                upload_bg: "Click to upload background image",
+                ready_bg: "Ready Backgrounds",
+                bg_blue: "Blue Gradient",
+                bg_pink: "Pink Gradient",
+                bg_dark_blue: "Dark Blue",
+                logo_settings: "Logo Settings",
+                upload_logo: "Upload New Logo",
+                click_upload_logo: "Click to upload new logo",
+                logo_text: "Logo Text (if no image)",
+                logo_color: "Logo Color (if no image)",
+                logo_size: "Logo Size",
+                small: "Small",
+                medium: "Medium",
+                large: "Large",
+                text_settings: "Text Settings",
+                page_title: "Page Title",
+                welcome_msg: "Welcome Message",
+                username_placeholder: "Username Field Text",
+                password_placeholder: "Password Field Text",
+                login_button: "Login Button Text",
+                footer_text: "Footer Text",
+                update_preview: "Update Preview",
+                login_system: "Login System",
+                login_desc: "Choose the appropriate login system or use the mixed system that combines all methods together",
+                method_userpass: "Username & Password",
+                method_userpass_desc: "Traditional method using username and password",
+                method_cards: "Cards System",
+                method_cards_desc: "Login using prepaid cards - card number only",
+                method_barcode: "Barcode System",
+                method_barcode_desc: "Scan barcode using camera or scanner",
+                method_mixed: "Mixed System",
+                method_mixed_desc: "Combine all three methods in one page",
+                show_password: "Show/Hide Password",
+                remember_login: "Remember Login",
+                enable_cards: "Enable Cards System",
+                card_number: "Card Number",
+                enable_barcode: "Enable Barcode System",
+                barcode_placeholder: "Barcode Field Text",
+                enable_userpass: "Enable User/Pass",
+                allow_switch: "Allow Switching",
+                page_preview: "Page Preview",
+                live_preview_desc: "Changes appear instantly",
+                desktop: "Desktop",
+                tablet: "Tablet",
+                mobile: "Mobile",
+                refresh: "Refresh",
+                reset: "Reset to Default",
+                save_all: "Save All",
+                download_html: "Download HTML File",
+                save_download: "Save & Download",
+                save_settings: "Save Settings",
+                save_current: "Save Current Settings",
+                save_desc: "Download final HTML file with your current settings",
+                restore: "Restore Versions",
+                default_settings: "Default Settings",
+                can_restore: "You can restore default settings",
+                restore_default: "Restore Default Settings"
+            },
+            ar: {
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                speed_profiles: "بروفايلات السرعة",
+                hotspot_design: "تصميم hotspot",
+                block_sites: "حجب مواقع",
+                troubleshooting: "المشكلات الشائعة",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                hotspot_badge: "نظام متكامل - معاينة جميع أنظمة الدخول",
+                hotspot_title: "نظام تعديل صفحة Hotspot",
+                hotspot_subtitle: "نظام متكامل لتعديل وتخصيص صفحة الدخول",
+                live_preview: "المعاينة مباشرة",
+                tab_design: "التصميم والنصوص",
+                tab_login: "نظام الدخول",
+                tab_preview: "المعاينة",
+                tab_save: "الحفظ والتحميل",
+                design_title: "التصميم والنصوص",
+                bg_settings: "إعدادات الخلفية",
+                bg_type: "نوع الخلفية",
+                bg_color: "لون واحد",
+                bg_gradient: "تدرج لوني",
+                bg_image: "صورة",
+                bg_color_label: "لون الخلفية",
+                gradient_color1: "اللون الأول",
+                gradient_color2: "اللون الثاني",
+                upload_bg: "اضغط لرفع صورة خلفية",
+                ready_bg: "خلفيات جاهزة",
+                bg_blue: "تدرج أزرق",
+                bg_pink: "تدرج وردي",
+                bg_dark_blue: "أزرق داكن",
+                logo_settings: "إعدادات الشعار",
+                upload_logo: "رفع شعار جديد",
+                click_upload_logo: "اضغط لرفع شعار جديد",
+                logo_text: "نص الشعار (إذا لم ترفع صورة)",
+                logo_color: "لون الشعار (إذا لم ترفع صورة)",
+                logo_size: "حجم الشعار",
+                small: "صغير",
+                medium: "وسط",
+                large: "كبير",
+                text_settings: "تعديل النصوص",
+                page_title: "عنوان الصفحة",
+                welcome_msg: "رسالة الترحيب",
+                username_placeholder: "نص حقل اسم المستخدم",
+                password_placeholder: "نص حقل كلمة المرور",
+                login_button: "نص زر الدخول",
+                footer_text: "نص التذييل",
+                update_preview: "تحديث المعاينة",
+                login_system: "نظام الدخول",
+                login_desc: "اختر نظام الدخول المناسب أو استخدم النظام المختلط الذي يجمع كل الأنظمة معاً",
+                method_userpass: "اسم المستخدم وكلمة المرور",
+                method_userpass_desc: "الطريقة التقليدية باستخدام اسم المستخدم وكلمة المرور",
+                method_cards: "نظام الكروت",
+                method_cards_desc: "الدخول باستخدام بطاقات مسبقة الدفع - رقم الكارت فقط",
+                method_barcode: "نظام الباركود",
+                method_barcode_desc: "المسح الضوئي للباركود باستخدام الكاميرا أو الماسح الضوئي",
+                method_mixed: "نظام مختلط",
+                method_mixed_desc: "دمج الأنظمة الثلاثة معاً في صفحة واحدة",
+                show_password: "إظهار/إخفاء كلمة المرور",
+                remember_login: "تذكر الدخول",
+                enable_cards: "تفعيل نظام الكروت",
+                card_number: "رقم الكارت",
+                enable_barcode: "تفعيل نظام الباركود",
+                barcode_placeholder: "نص حقل الباركود",
+                enable_userpass: "تفعيل اليوزر/باس",
+                allow_switch: "السماح بالتبديل",
+                page_preview: "معاينة الصفحة",
+                live_preview_desc: "التعديلات تظهر مباشرة",
+                desktop: "كمبيوتر",
+                tablet: "تابلت",
+                mobile: "موبايل",
+                refresh: "تحديث",
+                reset: "إعادة التعيين",
+                save_all: "حفظ الكل",
+                download_html: "تحميل HTML نهائي",
+                save_download: "الحفظ والتحميل",
+                save_settings: "حفظ الإعدادات",
+                save_current: "حفظ الإعدادات الحالية",
+                save_desc: "تحميل ملف HTML نهائي بالتعديلات الحالية",
+                restore: "استعادة النسخ",
+                default_settings: "الإعدادات الافتراضية",
+                can_restore: "يمكنك استعادة الإعدادات الافتراضية",
+                restore_default: "استعادة الافتراضي"
+            }
+        };
+
+        // تبديل اللغة
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
+            
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (lang === 'ar') {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.add('ar', 'rtl');
+                body.classList.remove('en');
+            } else {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('en');
+                body.classList.remove('ar', 'rtl');
+            }
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+        }
+
         // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             console.log('✅ النظام جاهز - تصميم MikroTools كامل');
@@ -1362,13 +1866,40 @@
             }
             
             // إغلاق القائمة عند النقر على رابط
-            document.querySelectorAll('.nav-link').forEach(link => {
+            document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
                 link.addEventListener('click', () => {
-                    document.getElementById('navLinks').classList.remove('active');
-                    const icon = document.querySelector('#menuToggle i');
-                    if (icon) icon.className = 'fas fa-bars';
+                    if (!link.classList.contains('dropdown-toggle')) {
+                        document.getElementById('navLinks').classList.remove('active');
+                        document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                    }
                 });
             });
+
+            // تفعيل القوائم المنسدلة في الجوال
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const dropdown = this.closest('.dropdown');
+                        dropdown.classList.toggle('active');
+                        
+                        const arrow = this.querySelector('.dropdown-arrow');
+                        if (dropdown.classList.contains('active')) {
+                            arrow.style.transform = 'rotate(180deg)';
+                        } else {
+                            arrow.style.transform = 'rotate(0)';
+                        }
+                    }
+                });
+            });
+            
+            // أحداث أزرار اللغة
+            document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+            document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
+
+            // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
+            const savedLanguage = localStorage.getItem('language') || 'en';
+            setLanguage(savedLanguage);
             
             // إضافة المستمعات للتبويبات
             const tabs = document.querySelectorAll('.control-tab');
@@ -1610,7 +2141,7 @@
             const enableBarcode = document.getElementById('enableBarcodeMixed')?.checked || true;
             const allowSwitch = document.getElementById('allowSwitchMethods')?.checked || true;
             
-            const barcodePlaceholder = document.getElementById('barcodePlaceholder')?.value || 'أدخل رمز الباركود';
+            const barcodePlaceholder = document.getElementById('barcodePlaceholder')?.value || 'Enter barcode';
             const cardNumber = document.getElementById('cardNumber')?.value || '';
             
             let loginContent = '';
@@ -1635,12 +2166,12 @@
                         <div style="margin-bottom: 20px;">
                             <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: center; color: rgba(255,255,255,0.9);">
                                 <i class="fas fa-credit-card" style="font-size: 32px; margin-bottom: 10px;"></i>
-                                <div style="font-size: 14px;">نظام الكروت مسبقة الدفع</div>
+                                <div style="font-size: 14px;">Cards System</div>
                             </div>
-                            <input type="text" placeholder="رقم الكارت" value="${cardNumber || 'CARD-XXXX-XXXX-XXXX'}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                            <input type="text" placeholder="Card Number" value="${cardNumber || 'CARD-XXXX-XXXX-XXXX'}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
                         </div>
                         <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #10b981, #34d399); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
-                            تفعيل الكارت
+                            Activate Card
                         </button>
                     </div>
                 `;
@@ -1652,14 +2183,14 @@
                             <div style="background: white; width: 150px; height: 150px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
                                 <i class="fas fa-qrcode" style="font-size: 80px; color: black;"></i>
                             </div>
-                            <div style="color: rgba(255,255,255,0.9); margin-bottom: 10px;">امسح رمز QR للدخول</div>
-                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">أو أدخل الرمز يدوياً</div>
+                            <div style="color: rgba(255,255,255,0.9); margin-bottom: 10px;">Scan QR code to login</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Or enter code manually</div>
                         </div>
                         <div style="margin-bottom: 20px;">
                             <input type="text" placeholder="${barcodePlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
                         </div>
                         <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
-                            مسح الباركود
+                            Scan Barcode
                         </button>
                     </div>
                 `;
@@ -1669,9 +2200,9 @@
                 if (allowSwitch) {
                     tabsButtons = `
                         <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
-                            ${enableUserPass ? '<button class="login-tab-btn active" style="padding: 10px 20px; background: rgba(99,102,241,0.5); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'userpass-tab\')"><i class="fas fa-user"></i> يوزر/باس</button>' : ''}
-                            ${enableCards ? '<button class="login-tab-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'cards-tab\')"><i class="fas fa-credit-card"></i> كروت</button>' : ''}
-                            ${enableBarcode ? '<button class="login-tab-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'barcode-tab\')"><i class="fas fa-qrcode"></i> باركود</button>' : ''}
+                            ${enableUserPass ? '<button class="login-tab-btn active" style="padding: 10px 20px; background: rgba(99,102,241,0.5); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'userpass-tab\')"><i class="fas fa-user"></i> User/Pass</button>' : ''}
+                            ${enableCards ? '<button class="login-tab-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'cards-tab\')"><i class="fas fa-credit-card"></i> Cards</button>' : ''}
+                            ${enableBarcode ? '<button class="login-tab-btn" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;" onclick="switchLoginTab(event, \'barcode-tab\')"><i class="fas fa-qrcode"></i> Barcode</button>' : ''}
                         </div>
                     `;
                 }
@@ -1693,12 +2224,12 @@
                         <div style="margin-bottom: 20px;">
                             <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: center;">
                                 <i class="fas fa-credit-card" style="font-size: 32px; margin-bottom: 10px;"></i>
-                                <div>نظام الكروت</div>
+                                <div>Cards System</div>
                             </div>
-                            <input type="text" placeholder="رقم الكارت" value="${cardNumber || 'CARD-XXXX-XXXX-XXXX'}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
+                            <input type="text" placeholder="Card Number" value="${cardNumber || 'CARD-XXXX-XXXX-XXXX'}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
                         </div>
                         <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #10b981, #34d399); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
-                            تفعيل الكارت
+                            Activate Card
                         </button>
                     </div>
                 ` : '';
@@ -1708,12 +2239,12 @@
                         <div style="margin-bottom: 20px;">
                             <div style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 20px; margin-bottom: 15px; text-align: center;">
                                 <i class="fas fa-qrcode" style="font-size: 48px; margin-bottom: 10px;"></i>
-                                <div style="font-size: 14px;">امسح رمز QR</div>
+                                <div style="font-size: 14px;">Scan QR code</div>
                             </div>
                             <input type="text" placeholder="${barcodePlaceholder}" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; font-size: 16px;" disabled>
                         </div>
                         <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;">
-                            مسح الباركود
+                            Scan Barcode
                         </button>
                     </div>
                 ` : '';
@@ -1767,7 +2298,7 @@
                 if (targetTab) targetTab.style.display = 'block';
             };
             
-            document.getElementById('statusText').innerHTML = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-EG');
+            document.getElementById('statusText').innerHTML = 'Last Update: ' + new Date().toLocaleTimeString();
         }
         
         // تحديث جهاز المعاينة
@@ -1791,12 +2322,12 @@
         function generateFinalHTML() {
             try {
                 // جمع الإعدادات
-                const pageTitle = document.getElementById('pageTitle')?.value || 'نقطة اتصال WiFi';
-                const welcomeMessage = document.getElementById('welcomeMessage')?.value || 'مرحباً بك! يرجى تسجيل الدخول للوصول إلى الإنترنت';
-                const usernamePlaceholder = document.getElementById('usernamePlaceholder')?.value || 'اسم المستخدم';
-                const passwordPlaceholder = document.getElementById('passwordPlaceholder')?.value || 'كلمة المرور';
-                const loginButtonText = document.getElementById('loginButtonText')?.value || 'تسجيل الدخول';
-                const footerText = document.getElementById('footerText')?.value || '© 2024 جميع الحقوق محفوظة';
+                const pageTitle = document.getElementById('pageTitle')?.value || 'WiFi Hotspot';
+                const welcomeMessage = document.getElementById('welcomeMessage')?.value || 'Welcome! Please log in to access the internet';
+                const usernamePlaceholder = document.getElementById('usernamePlaceholder')?.value || 'Username';
+                const passwordPlaceholder = document.getElementById('passwordPlaceholder')?.value || 'Password';
+                const loginButtonText = document.getElementById('loginButtonText')?.value || 'Login';
+                const footerText = document.getElementById('footerText')?.value || '© 2024 All rights reserved';
                 
                 const bgType = document.getElementById('bgType')?.value || 'gradient';
                 let bgStyle = '';
@@ -1838,15 +2369,15 @@
                 
                 // بناء HTML كامل
                 const html = `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body {
             min-height: 100vh;
             display: flex;
@@ -1977,12 +2508,12 @@
         <div class="login-form">
             <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: center;">
                 <i class="fas fa-credit-card" style="font-size: 48px; margin-bottom: 15px;"></i>
-                <div>نظام الكروت مسبقة الدفع</div>
+                <div>Prepaid Cards System</div>
             </div>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="رقم الكارت">
+                <input type="text" class="form-input" placeholder="Card Number">
             </div>
-            <button class="login-btn" style="background: linear-gradient(135deg, #10b981, #34d399);">تفعيل الكارت</button>
+            <button class="login-btn" style="background: linear-gradient(135deg, #10b981, #34d399);">Activate Card</button>
         </div>
         ` : ''}
         
@@ -1993,12 +2524,12 @@
                 <div style="background: white; width: 150px; height: 150px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
                     <i class="fas fa-qrcode" style="font-size: 80px; color: black;"></i>
                 </div>
-                <div>امسح رمز QR للدخول</div>
+                <div>Scan QR code to login</div>
             </div>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="أدخل رمز الباركود">
+                <input type="text" class="form-input" placeholder="Enter barcode">
             </div>
-            <button class="login-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">مسح الباركود</button>
+            <button class="login-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">Scan Barcode</button>
         </div>
         ` : ''}
         
@@ -2006,13 +2537,13 @@
         <div class="login-form">
             <div class="login-tabs">
                 <button class="login-tab-btn active" onclick="this.parentElement.parentElement.querySelectorAll('.login-tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); this.parentElement.parentElement.querySelectorAll('.login-tab-content').forEach(c=>c.classList.remove('active')); this.parentElement.parentElement.querySelector('#tab-userpass').classList.add('active');">
-                    <i class="fas fa-user"></i> يوزر/باس
+                    <i class="fas fa-user"></i> User/Pass
                 </button>
                 <button class="login-tab-btn" onclick="this.parentElement.parentElement.querySelectorAll('.login-tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); this.parentElement.parentElement.querySelectorAll('.login-tab-content').forEach(c=>c.classList.remove('active')); this.parentElement.parentElement.querySelector('#tab-cards').classList.add('active');">
-                    <i class="fas fa-credit-card"></i> كروت
+                    <i class="fas fa-credit-card"></i> Cards
                 </button>
                 <button class="login-tab-btn" onclick="this.parentElement.parentElement.querySelectorAll('.login-tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); this.parentElement.parentElement.querySelectorAll('.login-tab-content').forEach(c=>c.classList.remove('active')); this.parentElement.parentElement.querySelector('#tab-barcode').classList.add('active');">
-                    <i class="fas fa-qrcode"></i> باركود
+                    <i class="fas fa-qrcode"></i> Barcode
                 </button>
             </div>
             
@@ -2028,20 +2559,20 @@
             
             <div id="tab-cards" class="login-tab-content">
                 <div class="form-group">
-                    <input type="text" class="form-input" placeholder="رقم الكارت">
+                    <input type="text" class="form-input" placeholder="Card Number">
                 </div>
-                <button class="login-btn" style="background: linear-gradient(135deg, #10b981, #34d399);">تفعيل الكارت</button>
+                <button class="login-btn" style="background: linear-gradient(135deg, #10b981, #34d399);">Activate Card</button>
             </div>
             
             <div id="tab-barcode" class="login-tab-content">
                 <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: center;">
                     <i class="fas fa-qrcode" style="font-size: 48px; margin-bottom: 10px;"></i>
-                    <div>امسح رمز QR</div>
+                    <div>Scan QR code</div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-input" placeholder="أدخل رمز الباركود">
+                    <input type="text" class="form-input" placeholder="Enter barcode">
                 </div>
-                <button class="login-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">مسح الباركود</button>
+                <button class="login-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">Scan Barcode</button>
             </div>
         </div>
         ` : ''}
@@ -2062,21 +2593,21 @@
                 a.click();
                 URL.revokeObjectURL(url);
                 
-                showNotification('✅ تم تحميل ملف login.html\n\nالآن: اذهب إلى مجلد hotspot واستبدل الملف القديم بهذا الملف الجديد', 'success');
+                showNotification('✅ File downloaded successfully', 'success');
                 setTimeout(() => {
-                    alert('✅ تم تحميل ملف login.html\n\nالآن: اذهب إلى مجلد hotspot واستبدل الملف القديم بهذا الملف الجديد بنجاح');
+                    alert('✅ File downloaded successfully!');
                 }, 100);
                 
             } catch (error) {
-                console.error('خطأ في التحميل:', error);
-                showNotification('❌ حدث خطأ أثناء التحميل', 'error');
-                alert('حدث خطأ أثناء تحميل الملف، حاول مرة أخرى');
+                console.error('Error downloading:', error);
+                showNotification('❌ Error downloading file', 'error');
+                alert('Error downloading file, try again');
             }
         }
         
         // استعادة الإعدادات الافتراضية
         function resetToDefault() {
-            if (confirm('⚠️ هل أنت متأكد من استعادة الإعدادات الافتراضية؟')) {
+            if (confirm('⚠️ Are you sure you want to restore default settings?')) {
                 document.getElementById('bgType').value = 'gradient';
                 document.getElementById('bgColor').value = '#1a1a2e';
                 document.getElementById('gradientColor1').value = '#667eea';
@@ -2090,12 +2621,12 @@
                 document.getElementById('logoColor').value = '#4361ee';
                 document.getElementById('logoSize').value = 'medium';
                 
-                document.getElementById('pageTitle').value = 'نقطة اتصال WiFi';
-                document.getElementById('welcomeMessage').value = 'مرحباً بك! يرجى تسجيل الدخول للوصول إلى الإنترنت';
-                document.getElementById('usernamePlaceholder').value = 'اسم المستخدم';
-                document.getElementById('passwordPlaceholder').value = 'كلمة المرور';
-                document.getElementById('loginButtonText').value = 'تسجيل الدخول';
-                document.getElementById('footerText').value = '© mikro-tools.com جميع الحقوق محفوظة';
+                document.getElementById('pageTitle').value = 'WiFi Hotspot';
+                document.getElementById('welcomeMessage').value = 'Welcome! Please log in to access the internet';
+                document.getElementById('usernamePlaceholder').value = 'Username';
+                document.getElementById('passwordPlaceholder').value = 'Password';
+                document.getElementById('loginButtonText').value = 'Login';
+                document.getElementById('footerText').value = '© mikro-tools.com All rights reserved';
                 
                 document.querySelectorAll('.method-card').forEach(c => {
                     c.classList.remove('active');
@@ -2122,7 +2653,7 @@
                 
                 updateLogoDisplay();
                 updatePreview();
-                showNotification('✅ تم استعادة الإعدادات الافتراضية', 'success');
+                showNotification('✅ Default settings restored', 'success');
             }
         }
         
@@ -2150,7 +2681,7 @@
             
             notification.style.background = `linear-gradient(135deg, ${bgColor}, ${darkenColor(bgColor, 20)})`;
             notification.style.display = 'flex';
-            title.textContent = 'تم!';
+            title.textContent = 'Done!';
             msg.textContent = message;
             
             const statusEl = document.getElementById('statusText');
@@ -2161,24 +2692,7 @@
             }, 3000);
         }
     </script>
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+    
     <script type="text/javascript">
 (function () {
     const blockedDomains = [
@@ -2199,17 +2713,5 @@
 })();
 </script>
 
-    </body>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
