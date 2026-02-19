@@ -3,20 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
     <title>Block Sites | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
             --secondary: #10b981;
             --danger: #ef4444;
-            --warning: #f59e0b;
             --dark: #1e293b;
             --light: #f8fafc;
             --gray: #64748b;
@@ -24,1710 +19,817 @@
             --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
             --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
-            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --shadow: 0 20px 40px rgba(99,102,241,.1);
             --border-radius: 16px;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.8;
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body.ar {
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        /* ===== قائمة التنقل العلوية ===== */
-        .navbar {
-            background: var(--dark);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .logo-icon {
-            background: var(--gradient);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link.active {
-            color: white;
-            background: var(--danger);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--danger);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 70%;
-        }
-
-        .nav-cta {
-            background: var(--gradient);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* ===== أزرار تبديل اللغة ===== */
-        .lang-switcher {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 0 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: #cbd5e1;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-btn i {
-            font-size: 12px;
-        }
-
-        .lang-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-        }
-
-        /* ===== القوائم المنسدلة ===== */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .dropdown-arrow {
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        .dropdown:hover .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--dark);
-            min-width: 250px;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: #cbd5e1;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        .dropdown-item i {
-            width: 20px;
-            font-size: 16px;
-            color: var(--danger);
-        }
-
-        .dropdown-item.active {
-            background: var(--danger);
-            color: white;
-        }
-
-        .dropdown-item.active i {
-            color: white;
-        }
-
-        /* RTL Support */
-        body.rtl {
-            direction: rtl;
-            text-align: right;
-        }
-
-        body.rtl .nav-link::after {
-            left: auto;
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        body.rtl .dropdown-item:hover {
-            transform: translateX(5px);
-        }
-
-        /* ===== الهيرو المعدل ===== */
-        .hero-block {
-            background: var(--gradient-dark);
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .hero-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: 200px;
-        }
-
-        .hero-content-block {
-            max-width: 1200px;
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge-block {
-            display: inline-block;
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-title-block {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #fca5a5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle-block {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        /* ===== قسم توليد السكربت ===== */
-        .generator-section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .generator-card {
-            background: var(--gradient-card);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(239, 68, 68, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .generator-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-danger);
-        }
-
-        .tool-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: var(--gradient-danger);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ===== إعدادات التوليد ===== */
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .setting-group {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        .setting-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .setting-title i {
-            color: var(--danger);
-        }
-
-        /* ===== إدخال البيانات ===== */
-        .input-box {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .input-field:focus {
-            border-color: var(--danger);
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-            outline: none;
-        }
-
-        /* ===== قسم المواقع الجاهزة ===== */
-        .sites-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin: 2rem 0;
-            border: 1px solid #e2e8f0;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--danger);
-        }
-
-        /* ===== شبكة المواقع ===== */
-        .sites-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .site-card {
-            background: white;
-            padding: 1.5rem 1rem;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .site-card:hover {
-            border-color: var(--danger);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.1);
-        }
-
-        .site-card.active {
-            border-color: var(--danger);
-            background: linear-gradient(135deg, #fef2f2, #fee2e2);
-            transform: translateY(-3px);
-        }
-
-        .site-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .site-name {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.9rem;
-        }
-
-        .site-url {
-            font-size: 0.8rem;
-            color: var(--gray);
-            direction: ltr;
-        }
-
-        /* ===== نوع الحجب ===== */
-        .block-types {
-            display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .type-btn {
-            flex: 1;
-            min-width: 120px;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .type-btn:hover {
-            border-color: var(--danger);
-            background: #fef2f2;
-        }
-
-        .type-btn.active {
-            border-color: var(--danger);
-            background: var(--danger);
-            color: white;
-        }
-
-        .type-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .type-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .type-desc {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        /* ===== الأزرار ===== */
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            min-width: 200px;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: var(--gradient-danger);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
-        }
-
-        /* ===== نتيجة السكربت ===== */
-        .result-section {
-            margin-top: 3rem;
-            display: none;
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .script-output {
-            width: 100%;
-            min-height: 300px;
-            padding: 1.5rem;
-            border-radius: 12px;
-            background: #1e293b;
-            color: #f87171;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            border: none;
-            resize: vertical;
-            white-space: pre-wrap;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* ===== قسم الاتصال ===== */
-        .contact {
-            padding: 6rem 2rem;
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .contact-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fca5a5, #f0abfc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-subtitle {
-            color: #94a3b8;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .contact-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-phone {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1rem 0;
-            direction: ltr;
-            background: var(--gradient-danger);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-name {
-            color: #94a3b8;
-            margin-bottom: 2rem;
-        }
-
-        /* ===== التذييل ===== */
-        .footer {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        /* ===== التجاوب ===== */
-        @media (max-width: 1024px) {
-            .hero-title-block {
-                font-size: 2.5rem;
-            }
-            
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .sites-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--light); color: var(--dark); line-height: 1.8; min-height: 100vh; overflow-x: hidden; font-family: 'Poppins', sans-serif; }
+        body.ar { font-family: 'Tajawal', sans-serif; }
+        body.rtl { direction: rtl; text-align: right; }
+        body.rtl .dropdown-item:hover { transform: translateX(5px); }
+
+        /* NAVBAR */
+        .navbar { background: var(--dark); padding: 1rem 2rem; position: fixed; top: 0; right: 0; left: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; color: white; }
+        .logo-icon { background: var(--gradient); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .logo-text { font-size: 24px; font-weight: 800; }
+        .nav-links { display: flex; gap: .5rem; align-items: center; }
+        .nav-link { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: all .3s; padding: 8px 16px; border-radius: 10px; position: relative; display: flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-size: inherit; font-family: inherit; }
+        .nav-link:hover { color: white; background: rgba(255,255,255,.1); }
+        .nav-link.active { color: white; background: var(--danger); }
+        .nav-cta { background: var(--gradient); color: white; padding: 10px 24px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all .3s; display: flex; align-items: center; gap: 8px; }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99,102,241,.3); }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        .lang-switcher { display: flex; gap: 5px; background: rgba(255,255,255,.05); padding: 4px; border-radius: 30px; border: 1px solid rgba(255,255,255,.1); margin: 0 10px; }
+        .lang-btn { background: transparent; border: none; color: #cbd5e1; padding: 6px 16px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .3s; display: flex; align-items: center; gap: 6px; }
+        .lang-btn:hover { color: white; background: rgba(255,255,255,.1); }
+        .lang-btn.active { background: var(--primary); color: white; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-toggle { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .dropdown-arrow { font-size: 12px; transition: transform .3s; }
+        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: 100%; right: 0; background: var(--dark); min-width: 250px; border-radius: 12px; padding: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.2); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all .3s; z-index: 1000; border: 1px solid rgba(255,255,255,.1); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: #cbd5e1; text-decoration: none; border-radius: 8px; transition: all .3s; }
+        .dropdown-item:hover { background: rgba(255,255,255,.1); color: white; transform: translateX(-5px); }
+        .dropdown-item i { width: 20px; font-size: 16px; color: var(--danger); }
+        .dropdown-item.active { background: var(--danger); color: white; }
+        .dropdown-item.active i { color: white; }
+
+        /* HERO */
+        .hero-block { background: var(--gradient-dark); min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 120px 2rem 4rem; position: relative; overflow: hidden; text-align: center; }
+        .hero-content-block { max-width: 1200px; color: white; position: relative; z-index: 1; }
+        .hero-badge-block { display: inline-block; background: rgba(239,68,68,.2); color: #fca5a5; padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 500; margin-bottom: 1.5rem; border: 1px solid rgba(239,68,68,.3); }
+        .hero-title-block { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to right, #ffffff, #fca5a5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+        .hero-subtitle-block { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem; max-width: 700px; margin-right: auto; margin-left: auto; }
+
+        /* VERSION TABS */
+        .version-tabs-wrapper { display: flex; justify-content: center; margin-bottom: 2rem; }
+        .version-tab { flex: 1; max-width: 280px; padding: 1.2rem 2rem; border: none; cursor: pointer; font-size: 1rem; font-weight: 700; font-family: inherit; transition: all .3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; }
+        .version-tab:first-child { border-radius: 12px 0 0 12px; }
+        .version-tab:last-child { border-radius: 0 12px 12px 0; }
+        .version-tab.v6 { background: #e2e8f0; color: #64748b; border: 2px solid #e2e8f0; }
+        .version-tab.v7 { background: #e2e8f0; color: #64748b; border: 2px solid #e2e8f0; border-left: none; }
+        .version-tab.v6.active { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-color: #2563eb; box-shadow: 0 8px 20px rgba(37,99,235,.3); z-index: 1; }
+        .version-tab.v7.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border-color: #7c3aed; box-shadow: 0 8px 20px rgba(124,58,237,.3); z-index: 1; }
+        .version-tab .tab-label { font-size: 1rem; }
+        .version-tab .tab-sub { font-size: 0.75rem; opacity: 0.85; display: block; margin-top: 2px; font-weight: 400; }
+        .version-badge { position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+        .version-panel { display: none; }
+        .version-panel.active { display: block; }
+
+        /* DIFF NOTICE */
+        .diff-notice { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #93c5fd; border-radius: 12px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; font-size: 0.92rem; }
+        .diff-notice.v7 { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: #c4b5fd; }
+        .diff-notice i { font-size: 1.2rem; margin-top: 2px; }
+        .diff-notice.v6 i { color: #2563eb; }
+        .diff-notice.v7 i { color: #7c3aed; }
+        .diff-notice strong { display: block; margin-bottom: 3px; }
+        .diff-notice ul { margin: 5px 0 0 18px; }
+        .diff-notice ul li { margin-bottom: 3px; }
+
+        /* GENERATOR */
+        .generator-section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .generator-card { background: var(--gradient-card); padding: 2.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); border: 1px solid rgba(239,68,68,.1); position: relative; overflow: hidden; }
+        .generator-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-danger); }
+        .tool-title { font-size: 2rem; font-weight: 800; margin-bottom: 2rem; text-align: center; background: var(--gradient-danger); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .setting-group { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.05); border: 1px solid #e2e8f0; }
+        .setting-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .setting-title i { color: var(--danger); }
+        .input-box { margin-bottom: 1.5rem; }
+        .input-label { display: block; font-weight: 600; margin-bottom: .5rem; color: var(--dark); font-size: .95rem; }
+        .input-field { width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; transition: all .3s; background: white; font-family: inherit; }
+        .input-field:focus { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,.1); outline: none; }
+        .sites-section { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.05); margin: 2rem 0; border: 1px solid #e2e8f0; }
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: var(--danger); }
+        .sites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .site-card { background: white; padding: 1.5rem 1rem; border-radius: 12px; border: 2px solid #e2e8f0; cursor: pointer; transition: all .3s ease; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .site-card:hover { border-color: var(--danger); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(239,68,68,.1); }
+        .site-card.active { border-color: var(--danger); background: linear-gradient(135deg,#fef2f2,#fee2e2); transform: translateY(-3px); }
+        .site-icon { font-size: 2rem; margin-bottom: .5rem; }
+        .site-name { font-weight: 600; color: var(--dark); font-size: .9rem; }
+        .site-url { font-size: .8rem; color: var(--gray); direction: ltr; }
+        .block-types { display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap; }
+        .type-btn { flex: 1; min-width: 120px; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 10px; background: white; cursor: pointer; transition: all .3s ease; text-align: center; }
+        .type-btn:hover { border-color: var(--danger); background: #fef2f2; }
+        .type-btn.active { border-color: var(--danger); background: var(--danger); color: white; }
+        .type-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+        .type-name { font-weight: 600; font-size: .9rem; margin-bottom: .25rem; }
+        .type-desc { font-size: .8rem; opacity: .8; }
+        .btn-group { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap; }
+        .btn { padding: 1rem 2.5rem; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all .3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; border: none; cursor: pointer; min-width: 200px; justify-content: center; font-family: inherit; }
+        .btn-primary { background: var(--gradient-danger); color: white; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(239,68,68,.3); }
+        .btn-secondary { background: var(--secondary); color: white; }
+        .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(16,185,129,.3); }
+        .result-section { margin-top: 3rem; display: none; }
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+        .result-title { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+        .script-output { width: 100%; min-height: 380px; padding: 1.5rem; border-radius: 12px; background: #1e293b; color: #86efac; font-family: 'Courier New', monospace; font-size: .92rem; line-height: 1.7; border: none; resize: vertical; white-space: pre; direction: ltr; text-align: left; }
+        .script-output:focus { outline: none; }
+        .alert-msg { padding: 12px 20px; border-radius: 10px; margin: 1rem 0; display: flex; align-items: center; gap: 10px; animation: fadeIn .3s ease; color: white; font-weight: 500; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CONTACT */
+        .contact { padding: 6rem 2rem; background: var(--dark); color: white; text-align: center; margin-top: 4rem; }
+        .contact-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to right, #fca5a5, #f0abfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .contact-subtitle { color: #94a3b8; margin-bottom: 3rem; max-width: 600px; margin: 0 auto 3rem; }
+        .contact-info { background: rgba(255,255,255,.05); padding: 3rem; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,.1); max-width: 600px; margin: 0 auto; }
+        .contact-phone { font-size: 2.5rem; font-weight: 800; margin: 1rem 0; direction: ltr; background: var(--gradient-danger); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .contact-name { color: #94a3b8; margin-bottom: 2rem; }
+        .footer { background: #0f172a; color: #94a3b8; padding: 3rem 2rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .footer-text { font-size: 1rem; margin-bottom: 1rem; }
+        .copyright { color: #64748b; font-size: .9rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .hero-title-block { font-size: 2.5rem; } .settings-grid { grid-template-columns: 1fr; } .sites-grid { grid-template-columns: repeat(3,1fr); } }
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: 0;
-                background: var(--dark);
-                width: 100%;
-                padding: 1rem;
-                flex-direction: column;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .lang-switcher {
-                width: 100%;
-                justify-content: center;
-                margin: 10px 0 20px;
-                order: -1;
-            }
-            
-            .lang-btn {
-                flex: 1;
-                justify-content: center;
-                padding: 8px;
-            }
-            
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .dropdown {
-                width: 100%;
-            }
-            
-            .dropdown-toggle {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                background: rgba(255, 255, 255, 0.05);
-                margin-top: 5px;
-                margin-bottom: 10px;
-                display: none;
-                width: 100%;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                display: block;
-            }
-            
-            .dropdown-toggle {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .dropdown-item {
-                justify-content: center;
-            }
-            
-            .nav-cta {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                margin-top: 10px;
-            }
-            
-            .hero-title-block {
-                font-size: 2rem;
-            }
-            
-            .generator-section {
-                padding: 2rem 1rem;
-            }
-            
-            .generator-card {
-                padding: 1.5rem;
-            }
-            
-            .btn {
-                min-width: 100%;
-            }
-            
-            .btn-group {
-                flex-direction: column;
-            }
-            
-            .sites-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .block-types {
-                flex-direction: column;
-            }
+            .nav-links { display: none; position: absolute; top: 100%; right: 0; left: 0; background: var(--dark); width: 100%; padding: 1rem; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-height: 80vh; overflow-y: auto; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .lang-switcher { width: 100%; justify-content: center; margin: 10px 0 20px; order: -1; }
+            .lang-btn { flex: 1; justify-content: center; padding: 8px; }
+            .nav-link { width: 100%; text-align: center; justify-content: center; }
+            .dropdown { width: 100%; }
+            .dropdown-toggle { width: 100%; justify-content: space-between; }
+            .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; background: rgba(255,255,255,.05); margin-top: 5px; margin-bottom: 10px; display: none; width: 100%; }
+            .dropdown.active .dropdown-menu { display: block; }
+            .dropdown-item { justify-content: center; }
+            .nav-cta { width: 100%; text-align: center; justify-content: center; margin-top: 10px; }
+            .hero-title-block { font-size: 2rem; }
+            .generator-section { padding: 2rem 1rem; }
+            .generator-card { padding: 1.5rem; }
+            .btn { min-width: 100%; }
+            .btn-group { flex-direction: column; }
+            .sites-grid { grid-template-columns: repeat(2,1fr); }
+            .block-types { flex-direction: column; }
+            .result-header { flex-direction: column; }
+            .version-tab { font-size: 0.85rem; padding: 1rem; }
         }
-
-        @media (max-width: 480px) {
-            .hero-block {
-                min-height: 60vh;
-                padding: 100px 1rem 2rem;
-            }
-            
-            .sites-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-phone {
-                font-size: 1.8rem;
-            }
-        }
+        @media (max-width: 480px) { .hero-block { min-height: 60vh; padding: 100px 1rem 2rem; } .sites-grid { grid-template-columns: 1fr; } .contact-phone { font-size: 1.8rem; } .version-tabs-wrapper { flex-direction: column; } .version-tab:first-child { border-radius: 12px 12px 0 0; } .version-tab:last-child { border-radius: 0 0 12px 12px; border-left: 2px solid #e2e8f0; border-top: none; } }
     </style>
 </head>
 <body>
-    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <span class="logo-text">MikroTools</span>
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <div class="nav-links" id="navLinks">
-                <!-- أزرار تبديل اللغة -->
-                <div class="lang-switcher">
-                    <button class="lang-btn active" id="langEn">
-                        <i class="fas fa-globe"></i>
-                        EN
-                    </button>
-                    <button class="lang-btn" id="langAr">
-                        <i class="fas fa-globe"></i>
-                        AR
-                    </button>
-                </div>
-                
-                <!-- الرئيسية -->
-                <a href="index.html" class="nav-link" data-i18n="home">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-                
-                <!-- قائمة الدمج المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-code-branch"></i>
-                        <span data-i18n="merge">Merge</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="merge-v6.html" class="dropdown-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span data-i18n="merge_v6">Load Balancing v6</span>
-                        </a>
-                        <a href="merge-v7.html" class="dropdown-item">
-                            <i class="fas fa-rocket"></i>
-                            <span data-i18n="merge_v7">Load Balancing v7</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- قائمة الهوت سبوت المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-wifi"></i>
-                        <span data-i18n="hotspot">Hotspot</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="hotspot.html" class="dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
-                        </a>
-                        <a href="speed-profiles.html" class="dropdown-item">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span data-i18n="speed_profiles">Speed Profiles</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- قائمة التصميم والحجب المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active">
-                        <i class="fas fa-paint-brush"></i>
-                        <span data-i18n="design_block">Design & Block</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="Hotspot Editor.html" class="dropdown-item">
-                            <i class="fas fa-paint-brush"></i>
-                            <span data-i18n="hotspot_design">Hotspot Design</span>
-                        </a>
-                        <a href="block-sites.html" class="dropdown-item active">
-                            <i class="fas fa-shield-alt"></i>
-                            <span data-i18n="block_sites">Block Sites</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- قائمة المساعدة المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-question-circle"></i>
-                        <span data-i18n="help">Help</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="troubleshooting.html" class="dropdown-item">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span data-i18n="troubleshooting">Troubleshooting</span>
-                        </a>
-                        <a href="about.html" class="dropdown-item">
-                            <i class="fas fa-users"></i>
-                            <span data-i18n="about">About Us</span>
-                        </a>
-                        <a href="privacy-policy.html" class="dropdown-item">
-                            <i class="fas fa-user-shield"></i>
-                            <span data-i18n="privacy">Privacy Policy</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- واتساب -->
-                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
-                    <i class="fab fa-whatsapp"></i>
-                    <span data-i18n="contact_us">Contact Us</span>
-                </a>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="logo">
+            <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+            <span class="logo-text">MikroTools</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <div class="lang-switcher">
+                <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
+                <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
             </div>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">Home</span></a>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">Merge</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i><span data-i18n="merge_v6">Load Balancing v6</span></a>
+                    <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">Load Balancing v7</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-wifi"></i><span data-i18n="hotspot">Hotspot</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="hotspot.html" class="dropdown-item"><i class="fas fa-cog"></i><span data-i18n="hotspot_settings">Hotspot+PPP Settings</span></a>
+                    <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle active"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="Hotspot Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">Hotspot Design</span></a>
+                    <a href="block-sites.html" class="dropdown-item active"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">Block Sites</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-exclamation-triangle"></i><span data-i18n="troubleshooting">Troubleshooting</span></a>
+                    <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i><span data-i18n="about">About Us</span></a>
+                    <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">Privacy Policy</span></a>
+                </div>
+            </div>
+            <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">Contact Us</span></a>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- الهيرو المعدل -->
-    <section class="hero-block">
-        <div class="hero-content-block">
-            <span class="hero-badge-block">
-                <i class="fas fa-shield-alt"></i>
-                <span data-i18n="hero_badge">Complete Protection System</span>
-            </span>
-            
-            <h1 class="hero-title-block" data-i18n="hero_title">
-                Block Websites & Applications
-            </h1>
-            
-            <p class="hero-subtitle-block" data-i18n="hero_subtitle">
-                Block any website using Layer7 and TLS/SSL with ready-made lists
-                to protect your network from unwanted content
-            </p>
+<section class="hero-block">
+    <div class="hero-content-block">
+        <span class="hero-badge-block"><i class="fas fa-shield-alt"></i> <span data-i18n="hero_badge">Complete Protection System</span></span>
+        <h1 class="hero-title-block" data-i18n="hero_title">Block Websites & Applications</h1>
+        <p class="hero-subtitle-block" data-i18n="hero_subtitle">Block any website using Layer7 and TLS/SSL with ready-made lists to protect your network from unwanted content</p>
+    </div>
+</section>
+
+<section class="generator-section">
+    <div class="generator-card">
+        <h2 class="tool-title"><i class="fas fa-shield-alt"></i> <span data-i18n="tool_title">Website Blocking Settings</span></h2>
+
+        <div class="version-tabs-wrapper">
+            <button class="version-tab v6 active" onclick="switchVersion('v6',this)">
+                <span>🔵</span>
+                <div><span class="tab-label">RouterOS v6</span><span class="tab-sub" data-i18n="tab_v6_sub">Stable / 6.x</span></div>
+            </button>
+            <button class="version-tab v7" onclick="switchVersion('v7',this)">
+                <span>🟣</span>
+                <div><span class="tab-label">RouterOS v7</span><span class="tab-sub" data-i18n="tab_v7_sub">Latest / 7.x</span></div>
+                <span class="version-badge">NEW</span>
+            </button>
         </div>
-    </section>
 
-    <!-- قسم توليد السكربت -->
-    <section class="generator-section">
-        <div class="generator-card">
-            <h2 class="tool-title">
-                <i class="fas fa-shield-alt"></i>
-                <span data-i18n="tool_title">Website Blocking Settings</span>
-            </h2>
-            
-            <!-- الإعدادات الأساسية -->
+        <!-- V6 PANEL -->
+        <div class="version-panel active" id="panel-v6">
+            <div class="diff-notice v6">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong data-i18n="v6_notice_title">RouterOS v6 Script Notes:</strong>
+                    <ul>
+                        <li data-i18n="v6_note1">Layer7 regexp: keyword only — NO backslash, NO ^, NO $, NO pipe |</li>
+                        <li data-i18n="v6_note2">Each CDN domain = separate add line</li>
+                        <li data-i18n="v6_note3">TLS uses tls-host in filter chain=forward (no dst-port)</li>
+                        <li data-i18n="v6_note4">Mangle uses chain=prerouting for IP tracking</li>
+                    </ul>
+                </div>
+            </div>
             <div class="settings-grid">
                 <div class="setting-group">
-                    <h3 class="setting-title">
-                        <i class="fas fa-cog"></i>
-                        <span data-i18n="block_settings">Block Settings</span>
-                    </h3>
-                    
+                    <h3 class="setting-title"><i class="fas fa-cog"></i> <span data-i18n="block_settings">Block Settings</span></h3>
                     <div class="input-box">
                         <label class="input-label" data-i18n="sites_input">🔗 Sites to block (comma separated):</label>
-                        <input type="text" id="sitesInput" class="input-field" placeholder="Example: youtube.com, facebook.com, instagram.com">
-                        <small style="color: var(--gray); margin-top: 5px; display: block;" data-i18n="sites_input_desc">
-                            You can enter multiple sites separated by commas
-                        </small>
+                        <input type="text" id="sitesInput-v6" class="input-field" placeholder="Example: youtube.com, facebook.com" oninput="updateSiteCards('v6')">
+                        <small style="color:var(--gray);margin-top:5px;display:block;" data-i18n="sites_input_desc">You can enter multiple sites separated by commas</small>
                     </div>
-                    
                     <div class="input-box">
                         <label class="input-label" data-i18n="group_name">🏷️ Group name (optional):</label>
-                        <input type="text" id="groupName" class="input-field" placeholder="Example: Social Media, Video Sites">
+                        <input type="text" id="groupName-v6" class="input-field" placeholder="Example: Social Media">
                     </div>
-                    
-                    <div class="input-box">
+                    <div class="input-box" style="margin-bottom:0;">
                         <label class="input-label" data-i18n="interface">🌐 Out Interface:</label>
-                        <input type="text" id="interfaceName" value="OUT" class="input-field" placeholder="Example: bridge-local, OUT, LAN">
+                        <input type="text" id="interfaceName-v6" value="OUT" class="input-field" placeholder="OUT">
                     </div>
                 </div>
             </div>
-
-            <!-- مواقع جاهزة -->
             <div class="sites-section">
-                <h3 class="section-title">
-                    <i class="fas fa-bolt"></i>
-                    <span data-i18n="ready_sites">Ready Sites for Quick Selection</span>
-                </h3>
-                
-                <div class="sites-grid" id="sitesGrid">
-                    <div class="site-card" onclick="selectSite('youtube.com', 'YouTube', '🎥')">
-                        <div class="site-icon">🎥</div>
-                        <div class="site-name" data-i18n="site_youtube">YouTube</div>
-                        <div class="site-url">youtube.com</div>
-                    </div>
-                    
-                    <div class="site-card" onclick="selectSite('facebook.com', 'Facebook', '👥')">
-                        <div class="site-icon">👥</div>
-                        <div class="site-name" data-i18n="site_facebook">Facebook</div>
-                        <div class="site-url">facebook.com</div>
-                    </div>
-                    
-                    <div class="site-card" onclick="selectSite('instagram.com', 'Instagram', '📷')">
-                        <div class="site-icon">📷</div>
-                        <div class="site-name" data-i18n="site_instagram">Instagram</div>
-                        <div class="site-url">instagram.com</div>
-                    </div>
-                    
-                    <div class="site-card" onclick="selectSite('tiktok.com', 'TikTok', '🎵')">
-                        <div class="site-icon">🎵</div>
-                        <div class="site-name" data-i18n="site_tiktok">TikTok</div>
-                        <div class="site-url">tiktok.com</div>
-                    </div>
-                    
-                    <div class="site-card" onclick="selectSite('twitter.com', 'Twitter', '🐦')">
-                        <div class="site-icon">🐦</div>
-                        <div class="site-name" data-i18n="site_twitter">Twitter</div>
-                        <div class="site-url">twitter.com</div>
-                    </div>
-                    
-                    <div class="site-card" onclick="selectSite('snapchat.com', 'Snapchat', '👻')">
-                        <div class="site-icon">👻</div>
-                        <div class="site-name" data-i18n="site_snapchat">Snapchat</div>
-                        <div class="site-url">snapchat.com</div>
-                    </div>
+                <h3 class="section-title"><i class="fas fa-bolt"></i> <span data-i18n="ready_sites">Ready Sites for Quick Selection</span></h3>
+                <div class="sites-grid" id="sitesGrid-v6">
+                    <div class="site-card" onclick="selectSite('youtube.com','YouTube','v6')"><div class="site-icon">🎥</div><div class="site-name" data-i18n="site_youtube">YouTube</div><div class="site-url">youtube.com</div></div>
+                    <div class="site-card" onclick="selectSite('facebook.com','Facebook','v6')"><div class="site-icon">👥</div><div class="site-name" data-i18n="site_facebook">Facebook</div><div class="site-url">facebook.com</div></div>
+                    <div class="site-card" onclick="selectSite('instagram.com','Instagram','v6')"><div class="site-icon">📷</div><div class="site-name" data-i18n="site_instagram">Instagram</div><div class="site-url">instagram.com</div></div>
+                    <div class="site-card" onclick="selectSite('tiktok.com','TikTok','v6')"><div class="site-icon">🎵</div><div class="site-name" data-i18n="site_tiktok">TikTok</div><div class="site-url">tiktok.com</div></div>
+                    <div class="site-card" onclick="selectSite('twitter.com','Twitter','v6')"><div class="site-icon">🐦</div><div class="site-name" data-i18n="site_twitter">Twitter</div><div class="site-url">twitter.com</div></div>
+                    <div class="site-card" onclick="selectSite('snapchat.com','Snapchat','v6')"><div class="site-icon">👻</div><div class="site-name" data-i18n="site_snapchat">Snapchat</div><div class="site-url">snapchat.com</div></div>
+                    <div class="site-card" onclick="selectSite('whatsapp.com','WhatsApp','v6')"><div class="site-icon">💬</div><div class="site-name" data-i18n="site_whatsapp">WhatsApp</div><div class="site-url">whatsapp.com</div></div>
+                    <div class="site-card" onclick="selectSite('telegram.org','Telegram','v6')"><div class="site-icon">✈️</div><div class="site-name" data-i18n="site_telegram">Telegram</div><div class="site-url">telegram.org</div></div>
                 </div>
+                <div id="siteAlert-v6"></div>
             </div>
-
-            <!-- نوع الحجب -->
             <div class="sites-section">
-                <h3 class="section-title">
-                    <i class="fas fa-filter"></i>
-                    <span data-i18n="block_type">Choose Blocking Method</span>
-                </h3>
-                
-                <div class="block-types">
-                    <div class="type-btn active" onclick="selectBlockType('layer7')">
-                        <div class="type-icon">🔍</div>
-                        <div class="type-name" data-i18n="type_layer7">Layer7</div>
-                        <div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div>
-                    </div>
-                    
-                    <div class="type-btn" onclick="selectBlockType('tls')">
-                        <div class="type-icon">🔐</div>
-                        <div class="type-name" data-i18n="type_tls">TLS/SSL</div>
-                        <div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div>
-                    </div>
-                    
-                    <div class="type-btn" onclick="selectBlockType('both')">
-                        <div class="type-icon">🛡️</div>
-                        <div class="type-name" data-i18n="type_both">Both</div>
-                        <div class="type-desc" data-i18n="type_both_desc">Maximum protection</div>
-                    </div>
+                <h3 class="section-title"><i class="fas fa-filter"></i> <span data-i18n="block_type">Choose Blocking Method</span></h3>
+                <div class="block-types" id="blockTypes-v6">
+                    <div class="type-btn active" onclick="selectBlockType('layer7','v6',this)"><div class="type-icon">🔍</div><div class="type-name" data-i18n="type_layer7">Layer7</div><div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('tls','v6',this)"><div class="type-icon">🔐</div><div class="type-name" data-i18n="type_tls">TLS/SSL</div><div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('both','v6',this)"><div class="type-icon">🛡️</div><div class="type-name" data-i18n="type_both">Both</div><div class="type-desc" data-i18n="type_both_desc">Maximum protection</div></div>
                 </div>
+                <div id="typeAlert-v6"></div>
             </div>
-
-            <!-- أزرار التوليد -->
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="generateBlockScript(); ">
-                    <i class="fas fa-shield-alt"></i>
-                    <span data-i18n="generate_btn">Generate Block Script</span>
-                </button>
-                <button class="btn btn-secondary" onclick="resetForm()">
-                    <i class="fas fa-redo"></i>
-                    <span data-i18n="reset_btn">Reset</span>
-                </button>
+                <button class="btn btn-primary" onclick="generateScript('v6')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
+                <button class="btn btn-secondary" onclick="resetForm('v6')"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
             </div>
-
-            <!-- نتيجة السكربت -->
-            <div id="resultSection" class="result-section">
+            <div id="resultSection-v6" class="result-section">
                 <div class="result-header">
-                    <h3 class="result-title">
-                        <i class="fas fa-code"></i>
-                        <span data-i18n="result_title">Generated Script</span>
-                    </h3>
-                    <button class="btn btn-secondary" onclick="copyScript();">
-                        <i class="fas fa-copy"></i>
-                        <span data-i18n="copy_btn">Copy Script</span>
-                    </button>
+                    <h3 class="result-title"><i class="fas fa-code"></i> 🔵 RouterOS v6 — <span data-i18n="result_title">Generated Script</span></h3>
+                    <button class="btn btn-secondary" onclick="copyScript('v6')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
                 </div>
-                <textarea id="outputScript" class="script-output" readonly></textarea>
+                <textarea id="outputScript-v6" class="script-output" readonly></textarea>
             </div>
         </div>
-    </section>
 
-    <!-- قسم الاتصال -->
-    <section class="contact">
-        <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
-        <p class="contact-subtitle" data-i18n="contact_desc">
-            Technical support team is available 24/7 to answer your inquiries
-        </p>
-        
-        <div class="contact-info">
-            <h3 style="color: #94a3b8; margin-bottom: 1rem;">
-                <i class="fas fa-headset"></i>
-                <span data-i18n="contact_support">Contact Support</span>
-            </h3>
-            <div class="contact-phone">01092503391</div>
-            <p class="contact-name">Sameh El-Sayed</p>
-            <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
-                <i class="fab fa-whatsapp"></i>
-                <span data-i18n="contact_whatsapp">Contact via WhatsApp</span>
-            </a>
+        <!-- V7 PANEL -->
+        <div class="version-panel" id="panel-v7">
+            <div class="diff-notice v7">
+                <i class="fas fa-star"></i>
+                <div>
+                    <strong data-i18n="v7_notice_title">RouterOS v7 Script Notes (Different from v6!):</strong>
+                    <ul>
+                        <li data-i18n="v7_note1">Uses new path syntax: /ip/firewall/ (with slashes)</li>
+                        <li data-i18n="v7_note2">TLS filter: add dst-port=443 (v7 requires it)</li>
+                        <li data-i18n="v7_note3">Mangle: chain=prerouting + dst-port=443</li>
+                        <li data-i18n="v7_note4">Layer7 regexp: keyword only — same as v6</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="settings-grid">
+                <div class="setting-group">
+                    <h3 class="setting-title"><i class="fas fa-cog"></i> <span data-i18n="block_settings">Block Settings</span></h3>
+                    <div class="input-box">
+                        <label class="input-label" data-i18n="sites_input">🔗 Sites to block (comma separated):</label>
+                        <input type="text" id="sitesInput-v7" class="input-field" placeholder="Example: youtube.com, facebook.com" oninput="updateSiteCards('v7')">
+                        <small style="color:var(--gray);margin-top:5px;display:block;" data-i18n="sites_input_desc">You can enter multiple sites separated by commas</small>
+                    </div>
+                    <div class="input-box">
+                        <label class="input-label" data-i18n="group_name">🏷️ Group name (optional):</label>
+                        <input type="text" id="groupName-v7" class="input-field" placeholder="Example: Social Media">
+                    </div>
+                    <div class="input-box" style="margin-bottom:0;">
+                        <label class="input-label" data-i18n="interface">🌐 Out Interface:</label>
+                        <input type="text" id="interfaceName-v7" value="OUT" class="input-field" placeholder="OUT">
+                    </div>
+                </div>
+            </div>
+            <div class="sites-section">
+                <h3 class="section-title"><i class="fas fa-bolt"></i> <span data-i18n="ready_sites">Ready Sites for Quick Selection</span></h3>
+                <div class="sites-grid" id="sitesGrid-v7">
+                    <div class="site-card" onclick="selectSite('youtube.com','YouTube','v7')"><div class="site-icon">🎥</div><div class="site-name" data-i18n="site_youtube">YouTube</div><div class="site-url">youtube.com</div></div>
+                    <div class="site-card" onclick="selectSite('facebook.com','Facebook','v7')"><div class="site-icon">👥</div><div class="site-name" data-i18n="site_facebook">Facebook</div><div class="site-url">facebook.com</div></div>
+                    <div class="site-card" onclick="selectSite('instagram.com','Instagram','v7')"><div class="site-icon">📷</div><div class="site-name" data-i18n="site_instagram">Instagram</div><div class="site-url">instagram.com</div></div>
+                    <div class="site-card" onclick="selectSite('tiktok.com','TikTok','v7')"><div class="site-icon">🎵</div><div class="site-name" data-i18n="site_tiktok">TikTok</div><div class="site-url">tiktok.com</div></div>
+                    <div class="site-card" onclick="selectSite('twitter.com','Twitter','v7')"><div class="site-icon">🐦</div><div class="site-name" data-i18n="site_twitter">Twitter</div><div class="site-url">twitter.com</div></div>
+                    <div class="site-card" onclick="selectSite('snapchat.com','Snapchat','v7')"><div class="site-icon">👻</div><div class="site-name" data-i18n="site_snapchat">Snapchat</div><div class="site-url">snapchat.com</div></div>
+                    <div class="site-card" onclick="selectSite('whatsapp.com','WhatsApp','v7')"><div class="site-icon">💬</div><div class="site-name" data-i18n="site_whatsapp">WhatsApp</div><div class="site-url">whatsapp.com</div></div>
+                    <div class="site-card" onclick="selectSite('telegram.org','Telegram','v7')"><div class="site-icon">✈️</div><div class="site-name" data-i18n="site_telegram">Telegram</div><div class="site-url">telegram.org</div></div>
+                </div>
+                <div id="siteAlert-v7"></div>
+            </div>
+            <div class="sites-section">
+                <h3 class="section-title"><i class="fas fa-filter"></i> <span data-i18n="block_type">Choose Blocking Method</span></h3>
+                <div class="block-types" id="blockTypes-v7">
+                    <div class="type-btn active" onclick="selectBlockType('layer7','v7',this)"><div class="type-icon">🔍</div><div class="type-name" data-i18n="type_layer7">Layer7</div><div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('tls','v7',this)"><div class="type-icon">🔐</div><div class="type-name" data-i18n="type_tls">TLS/SSL</div><div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('both','v7',this)"><div class="type-icon">🛡️</div><div class="type-name" data-i18n="type_both">Both</div><div class="type-desc" data-i18n="type_both_desc">Maximum protection</div></div>
+                </div>
+                <div id="typeAlert-v7"></div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="generateScript('v7')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
+                <button class="btn btn-secondary" onclick="resetForm('v7')"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
+            </div>
+            <div id="resultSection-v7" class="result-section">
+                <div class="result-header">
+                    <h3 class="result-title"><i class="fas fa-code"></i> 🟣 RouterOS v7 — <span data-i18n="result_title">Generated Script</span></h3>
+                    <button class="btn btn-secondary" onclick="copyScript('v7')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
+                </div>
+                <textarea id="outputScript-v7" class="script-output" readonly></textarea>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- التذييل -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                <i class="fas fa-phone-alt"></i>
-                <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
-            </p>
-            <p class="copyright">
-                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span>
-            </p>
-        </div>
-    </footer>
+<section class="contact">
+    <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
+    <p class="contact-subtitle" data-i18n="contact_desc">Technical support team is available 24/7 to answer your inquiries</p>
+    <div class="contact-info">
+        <h3 style="color:#94a3b8;margin-bottom:1rem;"><i class="fas fa-headset"></i> <span data-i18n="contact_support">Contact Support</span></h3>
+        <div class="contact-phone">01092503391</div>
+        <p class="contact-name">Sameh El-Sayed</p>
+        <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary" style="display:inline-flex;margin-top:1rem;"><i class="fab fa-whatsapp"></i> <span data-i18n="contact_whatsapp">Contact via WhatsApp</span></a>
+    </div>
+</section>
 
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-text"><i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span></p>
+        <p class="copyright">© 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
+    </div>
+</footer>
 
-    <script>
-        // نظام الترجمة
-        const translations = {
-            en: {
-                home: "Home",
-                merge: "Merge",
-                hotspot: "Hotspot",
-                design_block: "Design & Block",
-                help: "Help",
-                merge_v6: "Load Balancing v6",
-                merge_v7: "Load Balancing v7",
-                hotspot_settings: "Hotspot+PPP Settings",
-                speed_profiles: "Speed Profiles",
-                hotspot_design: "Hotspot Design",
-                block_sites: "Block Sites",
-                troubleshooting: "Troubleshooting",
-                about: "About Us",
-                privacy: "Privacy Policy",
-                contact_us: "Contact Us",
-                hero_badge: "Complete Protection System",
-                hero_title: "Block Websites & Applications",
-                hero_subtitle: "Block any website using Layer7 and TLS/SSL with ready-made lists to protect your network from unwanted content",
-                tool_title: "Website Blocking Settings",
-                block_settings: "Block Settings",
-                sites_input: "🔗 Sites to block (comma separated):",
-                sites_input_desc: "You can enter multiple sites separated by commas",
-                group_name: "🏷️ Group name (optional):",
-                interface: "🌐 Out Interface:",
-                ready_sites: "Ready Sites for Quick Selection",
-                site_youtube: "YouTube",
-                site_facebook: "Facebook",
-                site_instagram: "Instagram",
-                site_tiktok: "TikTok",
-                site_twitter: "Twitter",
-                site_snapchat: "Snapchat",
-                block_type: "Choose Blocking Method",
-                type_layer7: "Layer7",
-                type_layer7_desc: "For regular websites",
-                type_tls: "TLS/SSL",
-                type_tls_desc: "For encrypted sites",
-                type_both: "Both",
-                type_both_desc: "Maximum protection",
-                generate_btn: "Generate Block Script",
-                reset_btn: "Reset",
-                result_title: "Generated Script",
-                copy_btn: "Copy Script",
-                need_help: "Need Help?",
-                contact_desc: "Technical support team is available 24/7 to answer your inquiries",
-                contact_support: "Contact Support",
-                contact_whatsapp: "Contact via WhatsApp",
-                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
-                copyright: "All rights reserved."
-            },
-            ar: {
-                home: "الرئيسية",
-                merge: "الدمج",
-                hotspot: "الهوت سبوت",
-                design_block: "التصميم والحجب",
-                help: "المساعدة",
-                merge_v6: "دمج خطوط v6",
-                merge_v7: "دمج خطوط v7",
-                hotspot_settings: "اعدادات hotspot+ppp",
-                speed_profiles: "بروفايلات السرعة",
-                hotspot_design: "تصميم hotspot",
-                block_sites: "حجب مواقع",
-                troubleshooting: "المشكلات الشائعة",
-                about: "من نحن",
-                privacy: "سياسة الخصوصية",
-                contact_us: "تواصل معنا",
-                hero_badge: "نظام حماية متكامل",
-                hero_title: "حجب المواقع والبرامج",
-                hero_subtitle: "حجب أي موقع باستخدام Layer7 و TLS/SSL مع قوائم جاهزة لحماية شبكتك من المحتوى غير المرغوب فيه",
-                tool_title: "إعدادات حجب المواقع",
-                block_settings: "إعدادات الحجب",
-                sites_input: "🔗 مواقع للحجب (مفصولة بفاصلة):",
-                sites_input_desc: "يمكن إدخال أكثر من موقع بفاصلة بينهم",
-                group_name: "🏷️ اسم المجموعة (اختياري):",
-                interface: "🌐 كارت الخروج:",
-                ready_sites: "مواقع جاهزة للاختيار السريع",
-                site_youtube: "يوتيوب",
-                site_facebook: "فيسبوك",
-                site_instagram: "انستجرام",
-                site_tiktok: "تيك توك",
-                site_twitter: "تويتر",
-                site_snapchat: "سناب شات",
-                block_type: "اختر طريقة الحجب",
-                type_layer7: "Layer7",
-                type_layer7_desc: "للمواقع العادية",
-                type_tls: "TLS/SSL",
-                type_tls_desc: "للمواقع المشفرة",
-                type_both: "كلاهما",
-                type_both_desc: "أقصى حماية",
-                generate_btn: "توليد سكربت الحجب",
-                reset_btn: "إعادة تعيين",
-                result_title: "السكربت الناتج",
-                copy_btn: "نسخ السكربت",
-                need_help: "هل تحتاج مساعدة؟",
-                contact_desc: "فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",
-                contact_support: "للتواصل والدعم الفني",
-                contact_whatsapp: "تواصل عبر واتساب",
-                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
-                copyright: "جميع الحقوق محفوظة."
-            }
-        };
+<script>
+var translations = {
+    en: {
+        home:"Home", merge:"Merge", hotspot:"Hotspot", design_block:"Design & Block", help:"Help",
+        merge_v6:"Load Balancing v6", merge_v7:"Load Balancing v7",
+        hotspot_settings:"Hotspot+PPP Settings", speed_profiles:"Speed Profiles",
+        hotspot_design:"Hotspot Design", block_sites:"Block Sites",
+        troubleshooting:"Troubleshooting", about:"About Us", privacy:"Privacy Policy",
+        contact_us:"Contact Us", hero_badge:"Complete Protection System",
+        hero_title:"Block Websites & Applications",
+        hero_subtitle:"Block any website using Layer7 and TLS/SSL with ready-made lists to protect your network from unwanted content",
+        tool_title:"Website Blocking Settings", block_settings:"Block Settings",
+        sites_input:"Sites to block (comma separated):", sites_input_desc:"You can enter multiple sites separated by commas",
+        group_name:"Group name (optional):", interface:"Out Interface:",
+        ready_sites:"Ready Sites for Quick Selection",
+        site_youtube:"YouTube", site_facebook:"Facebook", site_instagram:"Instagram",
+        site_tiktok:"TikTok", site_twitter:"Twitter", site_snapchat:"Snapchat",
+        site_whatsapp:"WhatsApp", site_telegram:"Telegram",
+        block_type:"Choose Blocking Method",
+        type_layer7:"Layer7", type_layer7_desc:"For regular websites",
+        type_tls:"TLS/SSL", type_tls_desc:"For encrypted sites",
+        type_both:"Both", type_both_desc:"Maximum protection",
+        generate_btn:"Generate Block Script", reset_btn:"Reset",
+        result_title:"Generated Script", copy_btn:"Copy Script",
+        need_help:"Need Help?", contact_desc:"Technical support team is available 24/7 to answer your inquiries",
+        contact_support:"Contact Support", contact_whatsapp:"Contact via WhatsApp",
+        footer_contact:"Contact: 01092503391 - Sameh El-Sayed", copyright:"All rights reserved.",
+        tab_v6_sub:"Stable / 6.x", tab_v7_sub:"Latest / 7.x",
+        v6_notice_title:"RouterOS v6 Script Notes:",
+        v6_note1:"Layer7 regexp: keyword only — NO backslash, NO ^, NO $, NO pipe |",
+        v6_note2:"Each CDN domain = separate add line",
+        v6_note3:"TLS uses tls-host in filter chain=forward (no dst-port)",
+        v6_note4:"Mangle uses chain=prerouting for IP tracking",
+        v7_notice_title:"RouterOS v7 Script Notes (Different from v6!):",
+        v7_note1:"Uses new path syntax: /ip/firewall/ (with slashes)",
+        v7_note2:"TLS filter: add dst-port=443 (v7 requires it)",
+        v7_note3:"Mangle: chain=prerouting + dst-port=443",
+        v7_note4:"Layer7 regexp: keyword only — same as v6"
+    },
+    ar: {
+        home:"الرئيسية", merge:"الدمج", hotspot:"الهوت سبوت", design_block:"التصميم والحجب", help:"المساعدة",
+        merge_v6:"دمج خطوط v6", merge_v7:"دمج خطوط v7",
+        hotspot_settings:"اعدادات hotspot+ppp", speed_profiles:"بروفايلات السرعة",
+        hotspot_design:"تصميم hotspot", block_sites:"حجب مواقع",
+        troubleshooting:"المشكلات الشائعة", about:"من نحن", privacy:"سياسة الخصوصية",
+        contact_us:"تواصل معنا", hero_badge:"نظام حماية متكامل",
+        hero_title:"حجب المواقع والبرامج",
+        hero_subtitle:"حجب أي موقع باستخدام Layer7 و TLS/SSL مع قوائم جاهزة لحماية شبكتك من المحتوى غير المرغوب فيه",
+        tool_title:"إعدادات حجب المواقع", block_settings:"إعدادات الحجب",
+        sites_input:"مواقع للحجب (مفصولة بفاصلة):", sites_input_desc:"يمكن إدخال أكثر من موقع بفاصلة بينهم",
+        group_name:"اسم المجموعة (اختياري):", interface:"كارت الخروج:",
+        ready_sites:"مواقع جاهزة للاختيار السريع",
+        site_youtube:"يوتيوب", site_facebook:"فيسبوك", site_instagram:"انستجرام",
+        site_tiktok:"تيك توك", site_twitter:"تويتر", site_snapchat:"سناب شات",
+        site_whatsapp:"واتساب", site_telegram:"تيليجرام",
+        block_type:"اختر طريقة الحجب",
+        type_layer7:"Layer7", type_layer7_desc:"للمواقع العادية",
+        type_tls:"TLS/SSL", type_tls_desc:"للمواقع المشفرة",
+        type_both:"كلاهما", type_both_desc:"أقصى حماية",
+        generate_btn:"توليد سكربت الحجب", reset_btn:"إعادة تعيين",
+        result_title:"السكربت الناتج", copy_btn:"نسخ السكربت",
+        need_help:"هل تحتاج مساعدة؟", contact_desc:"فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",
+        contact_support:"للتواصل والدعم الفني", contact_whatsapp:"تواصل عبر واتساب",
+        footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed", copyright:"جميع الحقوق محفوظة.",
+        tab_v6_sub:"مستقر / 6.x", tab_v7_sub:"الأحدث / 7.x",
+        v6_notice_title:"ملاحظات سكريبت RouterOS v6:",
+        v6_note1:"Layer7 regexp: keyword فقط — بدون backslash أو ^ أو $ أو |",
+        v6_note2:"كل CDN في سطر add منفصل",
+        v6_note3:"TLS يستخدم tls-host في filter chain=forward (بدون dst-port)",
+        v6_note4:"Mangle يستخدم chain=prerouting لتتبع الـ IP",
+        v7_notice_title:"ملاحظات سكريبت RouterOS v7 (مختلف عن v6!):",
+        v7_note1:"يستخدم مسار جديد: /ip/firewall/ (بشرطات مائلة)",
+        v7_note2:"TLS فلتر: أضف dst-port=443 (v7 يتطلبه)",
+        v7_note3:"Mangle: chain=prerouting + dst-port=443",
+        v7_note4:"Layer7 regexp: keyword فقط — نفس v6"
+    }
+};
 
-        // دوال JavaScript لحجب المواقع
-        const SIGNATURE = "By Same7_01092503391";
-        let currentBlockType = 'layer7';
-        let selectedSites = [];
+var SIGNATURE = "By Same7_01092503391";
+var state = { v6: { blockType: 'layer7' }, v7: { blockType: 'layer7' } };
 
-        // تبديل اللغة
-        function setLanguage(lang) {
-            localStorage.setItem('language', lang);
-            
-            const html = document.documentElement;
-            const body = document.body;
-            
-            if (lang === 'ar') {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                body.classList.add('ar', 'rtl');
-                body.classList.remove('en');
+// =====================================================
+// ✅ Layer7 entries builder
+// قاعدة MikroTik Layer7:
+//   - regexp = keyword بسيط بدون أي escape
+//   - بدون ^ أو $ أو .* أو \. أو |
+//   - كل keyword في سطر add منفصل
+//   - MikroTik بيعمل string search في الـ packet
+// =====================================================
+var L7_CDN_MAP = {
+    'youtube.com':   [
+        { suffix: '',      kw: 'youtube'      },
+        { suffix: '_CDN1', kw: 'googlevideo'  },
+        { suffix: '_CDN2', kw: 'ytimg'        }
+    ],
+    'facebook.com':  [
+        { suffix: '',      kw: 'facebook'     },
+        { suffix: '_CDN1', kw: 'fbcdn'        }
+    ],
+    'instagram.com': [
+        { suffix: '',      kw: 'instagram'    },
+        { suffix: '_CDN1', kw: 'cdninstagram' }
+    ],
+    'tiktok.com':    [
+        { suffix: '',      kw: 'tiktok'       },
+        { suffix: '_CDN1', kw: 'tiktokcdn'    }
+    ],
+    'twitter.com':   [
+        { suffix: '',      kw: 'twitter'      },
+        { suffix: '_CDN1', kw: 'twimg'        }
+    ],
+    'snapchat.com':  [
+        { suffix: '',      kw: 'snapchat'     },
+        { suffix: '_CDN1', kw: 'sc-cdn'       }
+    ],
+    'whatsapp.com':  [
+        { suffix: '',      kw: 'whatsapp'     }
+    ],
+    'telegram.org':  [
+        { suffix: '',      kw: 'telegram'     }
+    ]
+};
+
+function buildL7Entries(site) {
+    var baseName = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
+    var list = L7_CDN_MAP[site];
+    if (list) {
+        return list.map(function(item) {
+            return { name: baseName + item.suffix, regexp: item.kw };
+        });
+    }
+    // موقع غير معروف: استخدم الجزء قبل النقطة الأولى
+    return [{ name: baseName, regexp: site.split('.')[0] }];
+}
+
+// =====================================================
+// RouterOS v6 Generator
+// /ip firewall layer7-protocol
+// /ip firewall filter
+// /ip firewall mangle
+// =====================================================
+function generateScriptV6(sites, group, iface, blockType) {
+    var out = [];
+    out.push('# ' + SIGNATURE);
+    out.push('# RouterOS v6 - Block Sites Script');
+    out.push('# Group: ' + group);
+    out.push('# Sites: ' + sites.join(', '));
+    out.push('# Block Type: ' + (blockType === 'layer7' ? 'Layer7 Protocol' : blockType === 'tls' ? 'TLS/SSL Host' : 'Layer7 + TLS/SSL'));
+    out.push('# Generated: ' + new Date().toLocaleString());
+    out.push('');
+
+    if (blockType === 'layer7' || blockType === 'both') {
+        out.push('/ip firewall layer7-protocol');
+        sites.forEach(function(site) {
+            buildL7Entries(site).forEach(function(e) {
+                // ✅ regexp = keyword بسيط — بدون أي escape أو prefix
+                out.push('add name=' + e.name + ' regexp="' + e.regexp + '" comment="Block ' + site + '"');
+            });
+        });
+        out.push('');
+    }
+
+    if (blockType === 'tls' || blockType === 'both') {
+        out.push('/ip firewall mangle');
+        sites.forEach(function(site) {
+            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
+            out.push('add action=add-dst-to-address-list address-list=' + vn + '_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*' + site + '*" comment="Track ' + site + ' [v6]"');
+        });
+        out.push('');
+    }
+
+    out.push('/ip firewall filter');
+    if (blockType === 'layer7' || blockType === 'both') {
+        sites.forEach(function(site) {
+            buildL7Entries(site).forEach(function(e) {
+                out.push('add action=drop chain=forward layer7-protocol=' + e.name + ' out-interface=' + iface + ' comment="Block ' + site + ' L7 [v6]"');
+            });
+        });
+    }
+    if (blockType === 'tls' || blockType === 'both') {
+        sites.forEach(function(site) {
+            out.push('add action=drop chain=forward protocol=tcp tls-host="*' + site + '*" out-interface=' + iface + ' comment="Block ' + site + ' TLS [v6]"');
+        });
+        sites.forEach(function(site) {
+            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
+            out.push('add action=drop chain=forward dst-address-list=' + vn + '_IPs out-interface=' + iface + ' comment="Block ' + site + ' IP [v6]"');
+        });
+    }
+
+    out.push('');
+    out.push('# Created by MikroTools - Contact: 01092503391 - Sameh El-Sayed');
+    out.push('# Total sites: ' + sites.length);
+    return out.join('\n');
+}
+
+// =====================================================
+// RouterOS v7 Generator
+// /ip/firewall/layer7-protocol
+// /ip/firewall/filter
+// /ip/firewall/mangle
+// =====================================================
+function generateScriptV7(sites, group, iface, blockType) {
+    var out = [];
+    out.push('# ' + SIGNATURE);
+    out.push('# RouterOS v7 - Block Sites Script');
+    out.push('# Group: ' + group);
+    out.push('# Sites: ' + sites.join(', '));
+    out.push('# Block Type: ' + (blockType === 'layer7' ? 'Layer7 Protocol' : blockType === 'tls' ? 'TLS/SSL Host' : 'Layer7 + TLS/SSL'));
+    out.push('# Generated: ' + new Date().toLocaleString());
+    out.push('');
+
+    if (blockType === 'layer7' || blockType === 'both') {
+        out.push('/ip/firewall/layer7-protocol');
+        sites.forEach(function(site) {
+            buildL7Entries(site).forEach(function(e) {
+                // ✅ regexp = keyword بسيط — بدون أي escape أو prefix
+                out.push('add name=' + e.name + ' regexp="' + e.regexp + '" comment="Block ' + site + '"');
+            });
+        });
+        out.push('');
+    }
+
+    if (blockType === 'tls' || blockType === 'both') {
+        out.push('/ip/firewall/mangle');
+        sites.forEach(function(site) {
+            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
+            out.push('add action=add-dst-to-address-list address-list=' + vn + '_IPs address-list-timeout=1d chain=prerouting dst-port=443 protocol=tcp tls-host="*' + site + '*" comment="Track ' + site + ' [v7]"');
+        });
+        out.push('');
+    }
+
+    out.push('/ip/firewall/filter');
+    if (blockType === 'layer7' || blockType === 'both') {
+        sites.forEach(function(site) {
+            buildL7Entries(site).forEach(function(e) {
+                out.push('add action=drop chain=forward layer7-protocol=' + e.name + ' out-interface=' + iface + ' comment="Block ' + site + ' L7 [v7]"');
+            });
+        });
+    }
+    if (blockType === 'tls' || blockType === 'both') {
+        sites.forEach(function(site) {
+            out.push('add action=drop chain=forward dst-port=443 protocol=tcp tls-host="*' + site + '*" out-interface=' + iface + ' comment="Block ' + site + ' TLS [v7]"');
+        });
+        sites.forEach(function(site) {
+            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
+            out.push('add action=drop chain=forward dst-address-list=' + vn + '_IPs out-interface=' + iface + ' comment="Block ' + site + ' IP [v7]"');
+        });
+    }
+
+    out.push('');
+    out.push('# Created by MikroTools - Contact: 01092503391 - Sameh El-Sayed');
+    out.push('# Total sites: ' + sites.length);
+    return out.join('\n');
+}
+
+// ===== Language =====
+function setLanguage(lang) {
+    localStorage.setItem('language', lang);
+    var html = document.documentElement;
+    var body = document.body;
+    if (lang === 'ar') {
+        html.setAttribute('lang','ar'); html.setAttribute('dir','rtl');
+        body.classList.add('ar','rtl'); body.classList.remove('en');
+    } else {
+        html.setAttribute('lang','en'); html.setAttribute('dir','ltr');
+        body.classList.remove('ar','rtl'); body.classList.add('en');
+    }
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = translations[lang][key];
             } else {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                body.classList.add('en');
-                body.classList.remove('ar', 'rtl');
-            }
-            
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else if (element.tagName === 'OPTION') {
-                        element.textContent = translations[lang][key];
-                    } else {
-                        element.innerHTML = translations[lang][key];
-                    }
-                }
-            });
-            
-            document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
-        }
-
-        // تبديل القائمة في الجوال
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            const icon = this.querySelector('i');
-            
-            navLinks.classList.toggle('active');
-            icon.className = navLinks.classList.contains('active') 
-                ? 'fas fa-times' 
-                : 'fas fa-bars';
-        });
-
-        // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!link.classList.contains('dropdown-toggle')) {
-                    document.getElementById('navLinks').classList.remove('active');
-                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
-                }
-            });
-        });
-
-        // تفعيل القوائم المنسدلة في الجوال
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const dropdown = this.closest('.dropdown');
-                    dropdown.classList.toggle('active');
-                    
-                    const arrow = this.querySelector('.dropdown-arrow');
-                    if (dropdown.classList.contains('active')) {
-                        arrow.style.transform = 'rotate(180deg)';
-                    } else {
-                        arrow.style.transform = 'rotate(0)';
-                    }
-                }
-            });
-        });
-
-        // أحداث أزرار اللغة
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
-
-        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
-        const savedLanguage = localStorage.getItem('language') || 'en';
-        setLanguage(savedLanguage);
-
-        // اختيار موقع
-        function selectSite(url, name, icon) {
-            const sitesInput = document.getElementById('sitesInput');
-            const currentValue = sitesInput.value.trim();
-            
-            // إضافة الموقع إذا لم يكن موجوداً
-            if (!currentValue.includes(url)) {
-                const newValue = currentValue ? `${currentValue}, ${url}` : url;
-                sitesInput.value = newValue;
-                
-                // إضافة الموقع للمصفوفة
-                selectedSites.push({ url, name, icon });
-                
-                // عرض رسالة تأكيد
-                showSiteMessage(name);
-                
-                // تحديث التحديد البصري
-                updateSiteSelection(url);
+                el.textContent = translations[lang][key];
             }
         }
+    });
+    document.getElementById('langEn').classList.toggle('active', lang === 'en');
+    document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+}
+document.getElementById('langEn').addEventListener('click', function() { setLanguage('en'); });
+document.getElementById('langAr').addEventListener('click', function() { setLanguage('ar'); });
+setLanguage(localStorage.getItem('language') || 'en');
 
-        // تحديث التحديد البصري للموقع
-        function updateSiteSelection(url) {
-            document.querySelectorAll('.site-card').forEach(card => {
-                card.classList.remove('active');
-                if (card.querySelector('.site-url').textContent === url) {
-                    card.classList.add('active');
-                }
-            });
+// ===== Mobile Menu =====
+document.getElementById('menuToggle').addEventListener('click', function() {
+    var navLinks = document.getElementById('navLinks');
+    var icon = this.querySelector('i');
+    navLinks.classList.toggle('active');
+    icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+});
+document.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item').forEach(function(link) {
+    link.addEventListener('click', function() {
+        document.getElementById('navLinks').classList.remove('active');
+        var icon = document.querySelector('#menuToggle i');
+        if (icon) icon.className = 'fas fa-bars';
+    });
+});
+document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            var dropdown = this.closest('.dropdown');
+            dropdown.classList.toggle('active');
+            var arrow = this.querySelector('.dropdown-arrow');
+            if (arrow) arrow.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
         }
+    });
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.getElementById('navLinks').classList.remove('active');
+        var icon = document.querySelector('#menuToggle i');
+        if (icon) icon.className = 'fas fa-bars';
+    }
+});
 
-        // اختيار نوع الحجب
-        function selectBlockType(type) {
-            currentBlockType = type;
-            
-            // تحديث الأزرار
-            document.querySelectorAll('.type-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            event.currentTarget.classList.add('active');
-            
-            // عرض رسالة نوع الحجب
-            showTypeMessage(type);
-        }
+// ===== Version Switch =====
+function switchVersion(ver, btn) {
+    document.querySelectorAll('.version-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.version-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('panel-' + ver).classList.add('active');
+    btn.classList.add('active');
+}
 
-        // رسالة تأكيد الموقع
-        function showSiteMessage(siteName) {
-            const alertDiv = document.createElement('div');
-            alertDiv.style.cssText = `
-                background: linear-gradient(135deg, var(--secondary), #059669);
-                color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
-                margin: 1rem 0;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: fadeIn 0.3s ease;
-            `;
-            
-            alertDiv.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <span>${siteName} added to list</span>
-            `;
-            
-            const oldAlert = document.querySelector('.site-alert');
-            if (oldAlert) oldAlert.remove();
-            
-            alertDiv.className = 'site-alert';
-            const container = document.querySelector('.block-types');
-            if (container && container.parentNode) {
-                container.parentNode.insertBefore(alertDiv, container);
-            }
-            
-            // إزالة الرسالة بعد 3 ثواني
-            setTimeout(() => {
-                if (alertDiv.parentNode) {
-                    alertDiv.style.opacity = '0';
-                    alertDiv.style.transition = 'opacity 0.5s ease';
-                    setTimeout(() => {
-                        if (alertDiv.parentNode) {
-                            alertDiv.remove();
-                        }
-                    }, 500);
-                }
-            }, 3000);
-        }
+// ===== Site Selection =====
+function selectSite(url, name, ver) {
+    var input = document.getElementById('sitesInput-' + ver);
+    var current = input.value.trim();
+    var existing = current ? current.split(',').map(function(s) { return s.trim(); }) : [];
+    if (!existing.includes(url)) {
+        input.value = current ? current + ', ' + url : url;
+        showAlert('siteAlert-' + ver, '\u2705 ' + name + ' added to list', 'linear-gradient(135deg,#10b981,#059669)');
+    }
+    updateSiteCards(ver);
+}
+function updateSiteCards(ver) {
+    var val = document.getElementById('sitesInput-' + ver).value;
+    var sites = val ? val.split(',').map(function(s) { return s.trim(); }) : [];
+    document.querySelectorAll('#sitesGrid-' + ver + ' .site-card').forEach(function(card) {
+        var url = card.querySelector('.site-url').textContent.trim();
+        card.classList.toggle('active', sites.includes(url));
+    });
+}
 
-        // رسالة نوع الحجب
-        function showTypeMessage(type) {
-            const typeNames = {
-                'layer7': 'Layer7 (For regular websites)',
-                'tls': 'TLS/SSL (For encrypted sites)',
-                'both': 'Layer7 + TLS/SSL (Maximum protection)'
-            };
-            
-            const alertDiv = document.createElement('div');
-            alertDiv.style.cssText = `
-                background: linear-gradient(135deg, var(--danger), #dc2626);
-                color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
-                margin: 1rem 0;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: fadeIn 0.3s ease;
-            `;
-            
-            alertDiv.innerHTML = `
-                <i class="fas fa-shield-alt"></i>
-                <span>Selected: ${typeNames[type]}</span>
-            `;
-            
-            const oldAlert = document.querySelector('.type-alert');
-            if (oldAlert) oldAlert.remove();
-            
-            alertDiv.className = 'type-alert';
-            const container = document.querySelector('.btn-group');
-            if (container && container.parentNode) {
-                container.parentNode.insertBefore(alertDiv, container);
-            }
-            
-            // إزالة الرسالة بعد 3 ثواني
-            setTimeout(() => {
-                if (alertDiv.parentNode) {
-                    alertDiv.style.opacity = '0';
-                    alertDiv.style.transition = 'opacity 0.5s ease';
-                    setTimeout(() => {
-                        if (alertDiv.parentNode) {
-                            alertDiv.remove();
-                        }
-                    }, 500);
-                }
-            }, 3000);
-        }
+// ===== Block Type =====
+function selectBlockType(type, ver, el) {
+    state[ver].blockType = type;
+    document.querySelectorAll('#blockTypes-' + ver + ' .type-btn').forEach(function(btn) { btn.classList.remove('active'); });
+    el.classList.add('active');
+    var names = { layer7:'Layer7 Protocol', tls:'TLS/SSL Host', both:'Layer7 + TLS/SSL' };
+    showAlert('typeAlert-' + ver, '\uD83D\uDEE1\uFE0F Selected: ' + names[type], 'linear-gradient(135deg,#ef4444,#dc2626)');
+}
 
-        // توليد سكربت الحجب
-        function generateBlockScript() {
-            const sitesInput = document.getElementById('sitesInput').value.trim();
-            const groupName = document.getElementById('groupName').value.trim();
-            const interfaceName = document.getElementById('interfaceName').value.trim();
-            
-            if (!sitesInput) {
-                alert('Please enter sites to block');
-                return;
-            }
-            
-            const sites = sitesInput.split(',').map(s => s.trim()).filter(s => s.length > 0);
-            const group = groupName || 'Blocked Sites';
-            
-            // بناء السكربت
-            let script = `# ${SIGNATURE}\n`;
-            script += `# Block Sites Script - ${group}\n`;
-            script += `# Sites: ${sites.join(', ')}\n`;
-            script += `# Block Type: ${getBlockTypeName(currentBlockType)}\n\n`;
-            
-            // Layer7 Protocol
-            if (currentBlockType === 'layer7' || currentBlockType === 'both') {
-                script += `/ip firewall layer7-protocol\n`;
-                sites.forEach((site, index) => {
-                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
-                    let regexPattern = `"^.+(www\\.)?${site.replace(/\./g, '\\.')}.*\\$"`;
-                    
-                    // تحسين regex لمواقع محددة
-                    if (site.includes('youtube.com')) {
-                        regexPattern = `"^.+(youtube\\.com|googlevideo\\.com|ytimg\\.com).*\\$"`;
-                    } else if (site.includes('facebook.com')) {
-                        regexPattern = `"^.+(facebook\\.com|fbcdn\\.net).*\\$"`;
-                    }
-                    
-                    script += `add name=${name} regexp=${regexPattern} comment="Block ${site}"\n`;
-                });
-                script += `\n`;
-            }
-            
-            // TLS Host rules
-            if (currentBlockType === 'tls' || currentBlockType === 'both') {
-                script += `/ip firewall mangle\n`;
-                sites.forEach((site, index) => {
-                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
-                    script += `add action=add-dst-to-address-list address-list=${name}_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*${site}*" comment="Track ${site} IPs"\n`;
-                });
-                script += `\n`;
-            }
-            
-            // قواعد الحجب في Filter
-            script += `/ip firewall filter\n`;
-            
-            // Layer7 Blocking
-            if (currentBlockType === 'layer7' || currentBlockType === 'both') {
-                sites.forEach((site, index) => {
-                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
-                    script += `add action=drop chain=forward layer7-protocol=${name} out-interface=${interfaceName} comment="Block ${site} - Layer7"\n`;
-                });
-            }
-            
-            // TLS Blocking
-            if (currentBlockType === 'tls' || currentBlockType === 'both') {
-                sites.forEach((site, index) => {
-                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
-                    script += `add action=drop chain=forward protocol=tcp tls-host="*${site}*" out-interface=${interfaceName} comment="Block ${site} - TLS"\n`;
-                });
-            }
-            
-            // Address List Blocking
-            if (currentBlockType === 'tls' || currentBlockType === 'both') {
-                sites.forEach((site, index) => {
-                    const name = `BLOCK_${site.replace(/\./g, '_').toUpperCase()}`;
-                    script += `add action=drop chain=forward dst-address-list=${name}_IPs out-interface=${interfaceName} comment="Block ${site} - IP List"\n`;
-                });
-            }
-            
-            script += `\n# Created by MikroTools\n`;
-            script += `# Contact: 01092503391 - Sameh El-Sayed\n`;
-            script += `# Number of blocked sites: ${sites.length}\n`;
-            
-            document.getElementById('outputScript').value = script;
-            document.getElementById('resultSection').style.display = 'block';
-            
-            // تمرير إلى النتيجة
-            window.scrollTo({
-                top: document.getElementById('resultSection').offsetTop - 100,
-                behavior: 'smooth'
-            });
-        }
+// ===== Alert =====
+function showAlert(id, msg, bg) {
+    var container = document.getElementById(id);
+    container.innerHTML = '';
+    var div = document.createElement('div');
+    div.className = 'alert-msg';
+    div.style.background = bg;
+    div.textContent = msg;
+    container.appendChild(div);
+    setTimeout(function() {
+        div.style.opacity = '0';
+        div.style.transition = 'opacity .5s';
+        setTimeout(function() { if (container.contains(div)) container.removeChild(div); }, 500);
+    }, 3000);
+}
 
-        // الحصول على اسم نوع الحجب
-        function getBlockTypeName(type) {
-            const names = {
-                'layer7': 'Layer7 Protocol',
-                'tls': 'TLS/SSL Host',
-                'both': 'Layer7 + TLS/SSL'
-            };
-            return names[type] || type;
-        }
+// ===== Generate =====
+function generateScript(ver) {
+    var sitesInput = document.getElementById('sitesInput-' + ver).value.trim();
+    var groupName  = document.getElementById('groupName-' + ver).value.trim();
+    var iface      = document.getElementById('interfaceName-' + ver).value.trim() || 'OUT';
+    if (!sitesInput) { alert('Please enter at least one site to block'); return; }
+    var sites = sitesInput.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+    var group = groupName || 'Blocked Sites';
+    var bt    = state[ver].blockType;
+    var script = (ver === 'v6') ? generateScriptV6(sites, group, iface, bt) : generateScriptV7(sites, group, iface, bt);
+    document.getElementById('outputScript-' + ver).value = script;
+    document.getElementById('resultSection-' + ver).style.display = 'block';
+    setTimeout(function() {
+        document.getElementById('resultSection-' + ver).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+}
 
-        // نسخ السكربت
-        function copyScript() {
-            const scriptOutput = document.getElementById('outputScript');
-            if (!scriptOutput.value) {
-                alert('No script to copy');
-                return;
-            }
-            
-            scriptOutput.select();
-            scriptOutput.setSelectionRange(0, 99999);
-            
-            try {
-                navigator.clipboard.writeText(scriptOutput.value);
-                alert('Script copied successfully! ✅');
-            } catch (err) {
-                document.execCommand('copy');
-                alert('Script copied successfully! ✅');
-            }
-        }
+// ===== Copy =====
+function copyScript(ver) {
+    var el = document.getElementById('outputScript-' + ver);
+    if (!el.value) { alert('No script to copy'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(el.value).then(function() {
+            alert('Script copied successfully! \u2705');
+        }).catch(function() { fallbackCopy(el); });
+    } else { fallbackCopy(el); }
+}
+function fallbackCopy(el) {
+    el.select(); el.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    alert('Script copied successfully! \u2705');
+}
 
-        // إعادة تعيين النموذج
-        function resetForm() {
-            document.getElementById('sitesInput').value = '';
-            document.getElementById('groupName').value = '';
-            document.getElementById('interfaceName').value = 'bridge-local';
-            document.querySelectorAll('.site-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            document.querySelectorAll('.type-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector('.type-btn').classList.add('active');
-            currentBlockType = 'layer7';
-            selectedSites = [];
-            document.getElementById('outputScript').value = '';
-            document.getElementById('resultSection').style.display = 'none';
-        }
+// ===== Reset =====
+function resetForm(ver) {
+    document.getElementById('sitesInput-' + ver).value = '';
+    document.getElementById('groupName-' + ver).value = '';
+    document.getElementById('interfaceName-' + ver).value = 'OUT';
+    document.getElementById('outputScript-' + ver).value = '';
+    document.getElementById('resultSection-' + ver).style.display = 'none';
+    document.getElementById('siteAlert-' + ver).innerHTML = '';
+    document.getElementById('typeAlert-' + ver).innerHTML = '';
+    document.querySelectorAll('#sitesGrid-' + ver + ' .site-card').forEach(function(c) { c.classList.remove('active'); });
+    document.querySelectorAll('#blockTypes-' + ver + ' .type-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelector('#blockTypes-' + ver + ' .type-btn').classList.add('active');
+    state[ver].blockType = 'layer7';
+}
 
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            // إغلاق القائمة عند الضغط على Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const navLinks = document.getElementById('navLinks');
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        document.querySelector('#menuToggle i').className = 'fas fa-bars';
-                    }
-                }
-            });
-        });
-    </script>
-    <script type="text/javascript">
-(function () {
-    const blockedDomains = [
-        "jumanchu-dragondiyaa.site",
-        "transcube-uy7.xyz",
-        "vp.jumanchu-dragondiyaa.site"
-    ];
-
-    const originalOpen = window.open;
-
-    window.open = function (url, name, specs) {
-        if (url && blockedDomains.some(domain => url.includes(domain))) {
-            console.log("Blocked:", url);
-            return null;
-        }
-        return originalOpen.apply(this, arguments);
+// ===== Block Popup Domains =====
+(function() {
+    var blocked = ["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"];
+    var orig = window.open;
+    window.open = function(url, name, specs) {
+        if (url && blocked.some(function(d) { return url.includes(d); })) { return null; }
+        return orig.apply(this, arguments);
     };
 })();
 </script>
-
 </body>
 </html>
-
-
