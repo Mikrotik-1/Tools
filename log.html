@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Chart.js -->
@@ -56,22 +57,30 @@
             --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
             --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
             --border-radius: 16px;
+            
+            /* لون علامة جديد */
+            --new-badge-start: #ff416c;
+            --new-badge-end: #ff4b2b;
+            --new-badge-glow: rgba(255, 65, 108, 0.5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background: var(--light);
             color: var(--dark);
-            direction: rtl;
             line-height: 1.8;
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
         }
 
         /* ===== قائمة التنقل العلوية ===== */
@@ -84,6 +93,7 @@
             left: 0;
             z-index: 1000;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
@@ -127,13 +137,8 @@
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 0.5rem;
             align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-item {
-            position: relative;
         }
 
         .nav-link {
@@ -143,10 +148,12 @@
             transition: all 0.3s;
             padding: 8px 16px;
             border-radius: 10px;
+            position: relative;
             display: flex;
             align-items: center;
             gap: 6px;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .nav-link:hover {
@@ -159,57 +166,85 @@
             background: var(--primary);
         }
 
-        .dropdown-menu {
+        .nav-link::after {
+            content: '';
             position: absolute;
-            top: 100%;
-            right: 0;
-            background: #2d3748;
-            min-width: 220px;
-            border-radius: 12px;
-            padding: 8px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: none;
-            z-index: 1001;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
         }
 
-        .nav-item:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 10px 20px;
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background: #4a5568;
-            color: white;
-        }
-
-        .dropdown-item i {
-            margin-left: 8px;
-            width: 18px;
-            color: #8b5cf6;
+        .nav-link:hover::after {
+            width: 70%;
         }
 
         .nav-cta {
             background: var(--gradient);
             color: white;
-            padding: 8px 20px;
+            padding: 5px 15px;
             border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+        }
+
+        .nav-cta i {
+            font-size: 14px;
         }
 
         .nav-cta:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== أزرار تبديل اللغة ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn i {
+            font-size: 12px;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
         }
 
         .menu-toggle {
@@ -219,6 +254,144 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
+        }
+
+        /* ===== القوائم المنسدلة ===== */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark);
+            min-width: 250px;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        /* ===== علامة جديد المميزة ===== */
+        .new-badge {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 30px;
+            margin-right: 5px;
+            display: inline-block;
+            animation: newGlow 1.5s ease-in-out infinite;
+            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            top: -2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes newGlow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                background: linear-gradient(135deg, #ff4b2b, #ff416c);
+                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            }
+        }
+
+        /* تنسيق خاص للغة الإنجليزية */
+        body.en .new-badge {
+            margin-left: 5px;
+            margin-right: 0;
+        }
+
+        body.en .nav-link .new-badge {
+            order: 2;
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-link::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body.rtl .feature-link i {
+            transform: rotate(180deg);
+        }
+
+        body.rtl .btn i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+
+        body.rtl .dropdown-item:hover {
+            transform: translateX(5px);
         }
 
         /* ===== الحاوية الرئيسية ===== */
@@ -288,7 +461,6 @@
         .section-title {
             font-size: 2rem;
             font-weight: 700;
-            color: #f0e9ff;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
@@ -321,63 +493,6 @@
             border: 1px solid var(--primary);
             z-index: 1000;
             box-shadow: var(--shadow);
-        }
-
-        /* ===== خطوات ===== */
-        .step-by-step {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .step-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 24px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .step-item:hover {
-            transform: translateX(-10px);
-            border-color: var(--primary);
-            background: white;
-            box-shadow: var(--shadow);
-        }
-
-        .step-marker {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.5rem;
-            color: white;
-            flex-shrink: 0;
-            box-shadow: 0 8px 15px -5px var(--primary);
-        }
-
-        .step-content {
-            flex: 1;
-        }
-
-        .step-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--primary-dark);
-        }
-
-        .step-desc {
-            color: var(--gray);
-            margin: 0;
         }
 
         /* ===== صندوق الأوامر ===== */
@@ -477,6 +592,7 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
 
         .terminal-dots {
@@ -497,6 +613,19 @@
         .terminal-title {
             color: var(--gray);
             font-size: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .bg-primary {
+            background: var(--primary);
+            color: white;
         }
 
         .command-input-pro {
@@ -526,6 +655,8 @@
             justify-content: space-between;
             align-items: center;
             margin: 15px 0 0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .stat-badge {
@@ -617,6 +748,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
+        .stat-item i {
+            margin-bottom: 10px;
+        }
+
         .stat-value {
             font-size: 2.2rem;
             font-weight: 900;
@@ -637,6 +772,11 @@
             border-radius: 24px;
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .chart-card h5 {
+            margin-bottom: 15px;
+            color: var(--dark);
         }
 
         .chart-container {
@@ -795,15 +935,39 @@
             }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
-            .nav-item { width: 100%; }
+            .dropdown { width: 100%; }
             .dropdown-menu { 
                 position: static; 
                 width: 100%; 
                 margin-right: 20px; 
                 display: none; 
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.05);
             }
-            .nav-item.active .dropdown-menu { display: block; }
-            .nav-cta { width: 100%; text-align: center; }
+            .dropdown.active .dropdown-menu { display: block; }
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .nav-cta { 
+                width: 100%; 
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 20px;
+                order: -1;
+            }
+            .lang-btn {
+                flex: 1;
+                justify-content: center;
+            }
         }
 
         @media (max-width: 768px) {
@@ -815,11 +979,14 @@
             .site-card { padding: 20px; }
             .step-detail { flex-direction: column; text-align: center; }
             .step-num { margin-bottom: 10px; }
+            .table-header { flex-direction: column; align-items: flex-start; }
+            .table-header div { width: 100%; }
+            .table-header input, .table-header select { width: 100% !important; margin-top: 5px; }
         }
     </style>
 </head>
-<body>
-    <!-- قائمة التنقل العلوية -->
+<body class="ar rtl">
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -834,129 +1001,138 @@
             </button>
             
             <div class="nav-links" id="navLinks">
-                <!-- الرئيسية -->
-                <div class="nav-item">
-                    <a href="index.html" class="nav-link">
-                        <i class="fas fa-home"></i>
-                        الرئيسية
-                    </a>
+                <!-- أزرار تبديل اللغة -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langEn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <button class="lang-btn" id="langAr">
+                        <i class="fas fa-globe"></i>
+                        AR
+                    </button>
                 </div>
                 
-                <!-- دمج -->
-                <div class="nav-item">
-                    <a class="nav-link" onclick="toggleDropdown(this)">
-                        <i class="fas fa-link"></i>
-                        دمج
-                        <i class="fas fa-chevron-down"></i>
+                <!-- الرئيسية -->
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span data-i18n="home">الرئيسية</span>
+                </a>
+                
+                <!-- قائمة الدمج المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-code-branch"></i>
+                        <span data-i18n="merge">الدمج</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <div class="dropdown-menu">
                         <a href="merge-v6.html" class="dropdown-item">
                             <i class="fas fa-network-wired"></i>
-                            دمج خطوط v6
+                            <span data-i18n="merge_v6">دمج خطوط v6</span>
                         </a>
                         <a href="merge-v7.html" class="dropdown-item">
                             <i class="fas fa-rocket"></i>
-                            دمج خطوط v7
+                            <span data-i18n="merge_v7">دمج خطوط v7</span>
                         </a>
                     </div>
                 </div>
                 
-                <!-- إعدادات -->
-                <div class="nav-item">
-                    <a class="nav-link" onclick="toggleDropdown(this)">
-                        <i class="fas fa-cog"></i>
-                        إعدادات
-                        <i class="fas fa-chevron-down"></i>
+                <!-- قائمة الهوت سبوت المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-wifi"></i>
+                        <span data-i18n="hotspot">الهوت سبوت</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <div class="dropdown-menu">
                         <a href="hotspot.html" class="dropdown-item">
-                            <i class="fas fa-wifi"></i>
-                            اعدادات hotspot
+                            <i class="fas fa-cog"></i>
+                            <span data-i18n="hotspot_settings">اعدادات hotspot+ppp</span>
                         </a>
                         <a href="speed-profiles.html" class="dropdown-item">
                             <i class="fas fa-tachometer-alt"></i>
-                            بروفايلات السرعة
+                            <span data-i18n="speed_profiles">بروفايلات السرعة</span>
                         </a>
                     </div>
                 </div>
                 
-                <!-- أدوات -->
-                <div class="nav-item">
-                    <a class="nav-link" onclick="toggleDropdown(this)">
-                        <i class="fas fa-tools"></i>
-                        أدوات
-                        <i class="fas fa-chevron-down"></i>
+                <!-- قائمة التصميم والحجب المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-paint-brush"></i>
+                        <span data-i18n="design_block">التصميم والحجب</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href="Hotspot Editor.html" class="dropdown-item">
+                        <a href="Hotspot%20Editor.html" class="dropdown-item">
                             <i class="fas fa-paint-brush"></i>
-                            تصميم hotspot
+                            <span data-i18n="hotspot_design">تصميم hotspot</span>
                         </a>
                         <a href="block-sites.html" class="dropdown-item">
                             <i class="fas fa-shield-alt"></i>
-                            حجب المواقع
+                            <span data-i18n="block_sites">حجب مواقع</span>
                         </a>
                     </div>
                 </div>
                 
-                <!-- مساعدة -->
-                <div class="nav-item">
-                    <a class="nav-link" onclick="toggleDropdown(this)">
+                <!-- محلل السجلات مع علامة جديد -->
+                <div class="dropdown">
+                    <a href="log.html" class="nav-link active">
+                        <i class="fas fa-chart-bar"></i>
+                        <span data-i18n="log_analyzer">محلل السجلات</span>
+                        <span class="new-badge" data-i18n="new">جديد</span>
+                    </a>
+                </div>
+                
+                <!-- قائمة المساعدة المنسدلة -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
                         <i class="fas fa-question-circle"></i>
-                        مساعدة
-                        <i class="fas fa-chevron-down"></i>
+                        <span data-i18n="help">المساعدة</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <div class="dropdown-menu">
                         <a href="troubleshooting.html" class="dropdown-item">
                             <i class="fas fa-exclamation-triangle"></i>
-                            المشكلات الشائعة
+                            <span data-i18n="troubleshooting">المشكلات الشائعة</span>
                         </a>
                         <a href="about.html" class="dropdown-item">
                             <i class="fas fa-users"></i>
-                            من نحن
+                            <span data-i18n="about">من نحن</span>
                         </a>
                         <a href="privacy-policy.html" class="dropdown-item">
                             <i class="fas fa-user-shield"></i>
-                            سياسة الخصوصية
+                            <span data-i18n="privacy">سياسة الخصوصية</span>
                         </a>
                     </div>
-                </div>
-                
-                <!-- محلل السجلات -->
-                <div class="nav-item">
-                    <a href="log-analyzer.html" class="nav-link active">
-                        <i class="fas fa-chart-bar"></i>
-                        محلل السجلات
-                    </a>
                 </div>
                 
                 <!-- واتساب -->
                 <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                     <i class="fab fa-whatsapp"></i>
-                    تواصل معنا
+                    <span data-i18n="contact_us">تواصل معنا</span>
                 </a>
             </div>
         </div>
     </nav>
 
     <div class="main-container">
-        <!-- العنوان المتحرك (ده اللي اتغير) -->
+        <!-- العنوان المتحرك -->
         <div class="title-wrapper">
             <i class="fas fa-microchip title-icon"></i>
-            <span class="animated-title">MikroTik Log Analyzer</span>
+            <span class="animated-title" data-i18n="log_analyzer_title">MikroTik Log Analyzer</span>
         </div>
 
-        <!-- الهيدر الرئيسي (نفس المحتوى القديم) -->
+        <!-- الهيدر الرئيسي -->
         <div class="site-card" data-aos="fade-down">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <p class="text-muted fs-5">
-                        <i class="fas fa-sparkles ms-2" style="color: var(--primary);"></i>
-                        <span class="tooltip-hint" data-tooltip="كل ما عليك فعله هو نسخ السجلات من جهازك ولصقها هنا">
-                            محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين
-                        </span>
-                    </p>
-                </div>
+            <div>
+                <p class="text-muted fs-5">
+                    <i class="fas fa-sparkles ms-2" style="color: var(--primary);"></i>
+                    <span class="tooltip-hint" data-tooltip="كل ما عليك فعله هو نسخ السجلات من جهازك ولصقها هنا" data-i18n="log_tooltip">
+                        محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين
+                    </span>
+                </p>
             </div>
         </div>
 
@@ -964,23 +1140,23 @@
         <div class="site-card" data-aos="fade-up">
             <div class="section-title">
                 <i class="fas fa-graduation-cap" style="color: var(--primary);"></i>
-                <span>ازاي تجيب السجلات من المايكروتيك؟</span>
+                <span data-i18n="how_to_get_logs">ازاي تجيب السجلات من المايكروتيك؟</span>
             </div>
             
             <div class="simple-guide">
-                <div class="guide-header">
-                    <div class="guide-icon">
+                <div class="guide-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    <div style="background: var(--primary); width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
                         <i class="fas fa-terminal"></i>
                     </div>
                     <div>
-                        <div class="guide-title">طريقة واحدة وبسيطة</div>
-                        <div class="guide-subtitle">استخدم Terminal - أسرع وأسهل طريقة</div>
+                        <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary-dark);" data-i18n="simple_method">طريقة واحدة وبسيطة</div>
+                        <div style="color: var(--gray);" data-i18n="use_terminal">استخدم Terminal - أسرع وأسهل طريقة</div>
                     </div>
                 </div>
 
                 <!-- الأمر المطلوب -->
                 <div class="command-box">
-                    <h5 style="color: var(--primary-dark); margin-bottom: 15px;">✍️ اكتب الأمر ده في التيرمينال:</h5>
+                    <h5 style="color: var(--primary-dark); margin-bottom: 15px;" data-i18n="write_command">✍️ اكتب الأمر ده في التيرمينال:</h5>
                     
                     <div class="command-text">
                         log print
@@ -989,7 +1165,7 @@
                     <div style="text-align: center; margin: 20px 0;">
                         <button class="copy-command-btn" onclick="copyCommand('log print')">
                             <i class="fas fa-copy"></i>
-                            نسخ الأمر
+                            <span data-i18n="copy_command">نسخ الأمر</span>
                         </button>
                     </div>
 
@@ -998,55 +1174,55 @@
                         <div class="step-detail">
                             <div class="step-num">①</div>
                             <div>
-                                <strong style="color: var(--primary-dark);">افتح Terminal:</strong>
-                                <p style="color: var(--gray); margin: 5px 0 0;">في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal</p>
+                                <strong style="color: var(--primary-dark);" data-i18n="step1_title">افتح Terminal:</strong>
+                                <p style="color: var(--gray); margin: 5px 0 0;" data-i18n="step1_desc">في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal</p>
                             </div>
                         </div>
 
                         <div class="step-detail">
                             <div class="step-num">②</div>
                             <div>
-                                <strong style="color: var(--primary-dark);">اكتب الأمر:</strong>
-                                <p style="color: var(--gray); margin: 5px 0 0;">اكتب log print واضغط Enter</p>
+                                <strong style="color: var(--primary-dark);" data-i18n="step2_title">اكتب الأمر:</strong>
+                                <p style="color: var(--gray); margin: 5px 0 0;" data-i18n="step2_desc">اكتب log print واضغط Enter</p>
                             </div>
                         </div>
 
                         <div class="step-detail">
                             <div class="step-num">③</div>
                             <div>
-                                <strong style="color: var(--primary-dark);">حدد كل السجلات:</strong>
-                                <p style="color: var(--gray); margin: 5px 0 0;">اضغط كليك يمين في التيرمينال واختار "Select All" أو "تحديد الكل"</p>
+                                <strong style="color: var(--primary-dark);" data-i18n="step3_title">حدد كل السجلات:</strong>
+                                <p style="color: var(--gray); margin: 5px 0 0;" data-i18n="step3_desc">اضغط كليك يمين في التيرمينال واختار "Select All" أو "تحديد الكل"</p>
                             </div>
                         </div>
 
                         <div class="step-detail">
                             <div class="step-num">④</div>
                             <div>
-                                <strong style="color: var(--primary-dark);">انسخ:</strong>
-                                <p style="color: var(--gray); margin: 5px 0 0;">اضغط كليك يمين تاني واختار "Copy" أو "نسخ"</p>
+                                <strong style="color: var(--primary-dark);" data-i18n="step4_title">انسخ:</strong>
+                                <p style="color: var(--gray); margin: 5px 0 0;" data-i18n="step4_desc">اضغط كليك يمين تاني واختار "Copy" أو "نسخ"</p>
                             </div>
                         </div>
 
                         <div class="step-detail">
                             <div class="step-num">⑤</div>
                             <div>
-                                <strong style="color: var(--primary-dark);">الصق هنا:</strong>
-                                <p style="color: var(--gray); margin: 5px 0 0;">ارجع للصفحة واضغط Ctrl+V في المربع الأسود</p>
+                                <strong style="color: var(--primary-dark);" data-i18n="step5_title">الصق هنا:</strong>
+                                <p style="color: var(--gray); margin: 5px 0 0;" data-i18n="step5_desc">ارجع للصفحة واضغط Ctrl+V في المربع الأسود</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- نصائح مهمة -->
-                <div class="note-box d-flex align-items-center mt-4">
-                    <i class="fas fa-star ms-2" style="color: #eab308; font-size: 1.5rem;"></i>
+                <div class="note-box" style="display: flex; align-items: flex-start; gap: 15px; margin-top: 20px;">
+                    <i class="fas fa-star" style="color: #eab308; font-size: 1.5rem;"></i>
                     <div>
-                        <strong style="color: #854d0e;">💡 ملاحظات مهمة:</strong>
-                        <ul class="mb-0 mt-3" style="color: var(--gray);">
-                            <li>🔹 الأمر <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 8px;">log print</code> بيظهر كل السجلات من الأحدث للأقدم</li>
-                            <li>🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 8px;">log print follow</code></li>
-                            <li>🔹 عشان توقف العرض المباشر اضغط Ctrl+C</li>
-                            <li>🔹 لو عايز تحفظ السجلات في ملف استخدم <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 8px;">log print file=logs.txt</code></li>
+                        <strong style="color: #854d0e;" data-i18n="important_notes">💡 ملاحظات مهمة:</strong>
+                        <ul style="color: var(--gray); margin-top: 10px; padding-right: 20px;">
+                            <li data-i18n="note1">🔹 الأمر <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 8px;">log print</code> بيظهر كل السجلات من الأحدث للأقدم</li>
+                            <li data-i18n="note2">🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 8px;">log print follow</code></li>
+                            <li data-i18n="note3">🔹 عشان توقف العرض المباشر اضغط Ctrl+C</li>
+                            <li data-i18n="note4">🔹 لو عايز تحفظ السجلات في ملف استخدم <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 8px;">log print file=logs.txt</code></li>
                         </ul>
                     </div>
                 </div>
@@ -1061,8 +1237,8 @@
                     <span class="terminal-dot dot-yellow"></span>
                     <span class="terminal-dot dot-green"></span>
                 </div>
-                <span class="terminal-title">الصق السجلات هنا</span>
-                <span class="badge bg-primary me-3">مهم: الصق السجلات اللي نسختها من التيرمينال</span>
+                <span class="terminal-title" data-i18n="paste_logs">الصق السجلات هنا</span>
+                <span class="badge bg-primary" data-i18n="important_paste">مهم: الصق السجلات اللي نسختها من التيرمينال</span>
             </div>
             
             <textarea class="command-input-pro" id="logInput" placeholder="الصق السجلات هنا...
@@ -1073,7 +1249,7 @@
             <div class="input-stats">
                 <span class="stat-badge">
                     <i class="fas fa-text-width ms-2"></i>
-                    عدد الأسطر: <span id="lineCount">0</span>
+                    <span data-i18n="lines_count">عدد الأسطر</span>: <span id="lineCount">0</span>
                     <span class="tooltip-hint" data-tooltip="كلما زاد عدد السطور زادت دقة التحليل">❓</span>
                 </span>
                 <div>
@@ -1090,25 +1266,28 @@
             </div>
 
             <!-- أمثلة جاهزة -->
-            <div class="mt-4">
-                <p class="mb-2"><i class="fas fa-flask ms-2" style="color:var(--primary)"></i> جرب الأمثلة الجاهزة (للتجربة فقط):</p>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;">
+                    <i class="fas fa-flask ms-2" style="color:var(--primary)"></i>
+                    <span data-i18n="try_examples">جرب الأمثلة الجاهزة (للتجربة فقط):</span>
+                </p>
                 <div class="example-buttons">
-                    <span class="example-btn" onclick="loadExample('basic')">📋 سجلات عادية</span>
-                    <span class="example-btn" onclick="loadExample('security')">🔒 هجمات أمنية</span>
-                    <span class="example-btn" onclick="loadExample('firewall')">🔥 مشاكل جدار ناري</span>
-                    <span class="example-btn" onclick="loadExample('wireless')">📡 شبكة لاسلكية</span>
-                    <span class="example-btn" onclick="loadExample('vpn')">🔐 اتصالات VPN</span>
+                    <span class="example-btn" onclick="loadExample('basic')">📋 <span data-i18n="basic_logs">سجلات عادية</span></span>
+                    <span class="example-btn" onclick="loadExample('security')">🔒 <span data-i18n="security_attacks">هجمات أمنية</span></span>
+                    <span class="example-btn" onclick="loadExample('firewall')">🔥 <span data-i18n="firewall_issues">مشاكل جدار ناري</span></span>
+                    <span class="example-btn" onclick="loadExample('wireless')">📡 <span data-i18n="wireless_network">شبكة لاسلكية</span></span>
+                    <span class="example-btn" onclick="loadExample('vpn')">🔐 <span data-i18n="vpn_connections">اتصالات VPN</span></span>
                 </div>
-                <small class="text-secondary mt-2 d-block">اضغط على أي مثال لملء المربع تلقائياً</small>
+                <small class="text-secondary" style="display: block; margin-top: 5px;" data-i18n="click_to_fill">اضغط على أي مثال لملء المربع تلقائياً</small>
             </div>
 
             <!-- زر التحليل -->
             <button class="analyze-btn" onclick="analyzeLogs()">
                 <i class="fas fa-chart-pie ms-2"></i>
-                اضغط هنا لتحليل السجلات
+                <span data-i18n="analyze_button">اضغط هنا لتحليل السجلات</span>
                 <i class="fas fa-arrow-left me-2"></i>
             </button>
-            <p class="text-center mt-2 text-secondary">بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل</p>
+            <p style="text-align: center; margin-top: 10px; color: var(--gray);" data-i18n="wait_message">بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل</p>
         </div>
 
         <!-- نتائج التحليل -->
@@ -1124,10 +1303,10 @@
         <div class="footer-content">
             <p class="footer-text">
                 <i class="fas fa-phone-alt"></i>
-                للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
+                <span data-i18n="footer_contact">للتواصل والاستفسار: 01092503391 - Sameh El-Sayed</span>
             </p>
             <p class="copyright">
-                © 2026 MikroTools. جميع الحقوق محفوظة.
+                © 2026 MikroTools. <span data-i18n="copyright">جميع الحقوق محفوظة.</span>
             </p>
         </div>
     </footer>
@@ -1151,13 +1330,51 @@
         let filteredLogs = [];
         let charts = {};
 
-        // ==================== دوال القائمة المنسدلة ====================
-        function toggleDropdown(element) {
-            if (window.innerWidth <= 992) {
-                const navItem = element.closest('.nav-item');
-                navItem.classList.toggle('active');
+        // ==================== دوال القائمة المنسدلة للجوال ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // تبديل قائمة الجوال
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    navLinks.classList.toggle('active');
+                    icon.className = navLinks.classList.contains('active') 
+                        ? 'fas fa-times' 
+                        : 'fas fa-bars';
+                });
             }
-        }
+
+            // تفعيل القوائم المنسدلة في الجوال
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 992) {
+                        e.preventDefault();
+                        const dropdown = this.closest('.dropdown');
+                        dropdown.classList.toggle('active');
+                        
+                        // تغيير شكل السهم
+                        const arrow = this.querySelector('.dropdown-arrow');
+                        if (dropdown.classList.contains('active')) {
+                            arrow.style.transform = 'rotate(180deg)';
+                        } else {
+                            arrow.style.transform = 'rotate(0)';
+                        }
+                    }
+                });
+            });
+
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!link.classList.contains('dropdown-toggle') && window.innerWidth <= 992) {
+                        document.getElementById('navLinks').classList.remove('active');
+                        document.querySelector('#menuToggle i').className = 'fas fa-bars';
+                    }
+                });
+            });
+        });
 
         // ==================== دوال مساعدة ====================
         function updateLineCount() {
@@ -1173,7 +1390,7 @@
         
         function copyInput() { 
             navigator.clipboard.writeText(document.getElementById('logInput').value); 
-            showToast('✅ تم نسخ النص بنجاح', '#10b981');
+            showToast('✅ ' + (document.documentElement.lang === 'ar' ? 'تم نسخ النص بنجاح' : 'Text copied successfully'), '#10b981');
         }
         
         async function pasteInput() { 
@@ -1181,15 +1398,15 @@
                 const text = await navigator.clipboard.readText();
                 document.getElementById('logInput').value = text; 
                 updateLineCount();
-                showToast('✅ تم لصق النص بنجاح', '#10b981');
+                showToast('✅ ' + (document.documentElement.lang === 'ar' ? 'تم لصق النص بنجاح' : 'Text pasted successfully'), '#10b981');
             } catch(e) {
-                showToast('❌ فشل اللصق. تأكد من السماح بالوصول للحافظة', '#ef4444');
+                showToast('❌ ' + (document.documentElement.lang === 'ar' ? 'فشل اللصق. تأكد من السماح بالوصول للحافظة' : 'Paste failed. Allow clipboard access'), '#ef4444');
             }
         }
 
         function copyCommand(command) {
             navigator.clipboard.writeText(command);
-            showToast('✅ تم نسخ الأمر بنجاح', '#10b981');
+            showToast('✅ ' + (document.documentElement.lang === 'ar' ? 'تم نسخ الأمر بنجاح' : 'Command copied successfully'), '#10b981');
         }
 
         function showToast(message, color) {
@@ -1252,7 +1469,7 @@
             
             document.getElementById('logInput').value = examples[type] || examples.basic;
             updateLineCount();
-            showToast('✅ تم تحميل المثال بنجاح', '#10b981');
+            showToast('✅ ' + (document.documentElement.lang === 'ar' ? 'تم تحميل المثال بنجاح' : 'Example loaded successfully'), '#10b981');
         }
 
         // ==================== تحليل السجلات ====================
@@ -1326,7 +1543,7 @@
             const input = document.getElementById('logInput').value;
             
             if (!input.trim()) {
-                showToast('⚠️ الرجاء لصق السجلات أولاً أو تجربة أحد الأمثلة الجاهزة', '#f59e0b');
+                showToast('⚠️ ' + (document.documentElement.lang === 'ar' ? 'الرجاء لصق السجلات أولاً أو تجربة أحد الأمثلة الجاهزة' : 'Please paste logs or try an example'), '#f59e0b');
                 return;
             }
             
@@ -1334,7 +1551,7 @@
             const enhancedLogs = addExplanations(logs);
             
             if (logs.length === 0) {
-                showToast('❌ لم نتمكن من قراءة السجلات. تأكد من نسخها بالشكل الصحيح', '#ef4444');
+                showToast('❌ ' + (document.documentElement.lang === 'ar' ? 'لم نتمكن من قراءة السجلات. تأكد من نسخها بالشكل الصحيح' : 'Could not read logs. Make sure they are copied correctly'), '#ef4444');
                 return;
             }
             
@@ -1344,8 +1561,11 @@
             const resultsContainer = document.getElementById('resultsContainer');
             const analysisDiv = document.getElementById('analysisResults');
             
+            const lang = document.documentElement.lang;
+            const resultsTitle = lang === 'ar' ? 'نتائج التحليل' : 'Analysis Results';
+            
             analysisDiv.innerHTML = `
-                <h3 class="mb-4"><i class="fas fa-check-circle" style="color:var(--primary)"></i> نتائج التحليل:</h3>
+                <h3 style="margin-bottom: 20px;"><i class="fas fa-check-circle" style="color:var(--primary)"></i> ${resultsTitle}:</h3>
             `;
             
             showAnalysisSummary(enhancedLogs, analysisDiv);
@@ -1359,28 +1579,29 @@
                 resultsContainer.scrollIntoView({ behavior: 'smooth' });
             }, 100);
             
-            showToast(`✅ تم تحليل ${logs.length} سجل بنجاح`, '#10b981');
+            showToast(`✅ ${lang === 'ar' ? 'تم تحليل' : 'Analyzed'} ${logs.length} ${lang === 'ar' ? 'سجل بنجاح' : 'logs successfully'}`, '#10b981');
         }
 
         function showAnalysisSummary(logs, container) {
             const criticalCount = logs.filter(l => l.severity === 'critical').length;
             const errorCount = logs.filter(l => l.severity === 'error').length;
             const warningCount = logs.filter(l => l.severity === 'warning').length;
+            const lang = document.documentElement.lang;
             
             let summary = '';
             let summaryColor = '';
             
             if (criticalCount > 0) {
-                summary = `🚨 فيه ${criticalCount} مشكلة حرجة محتاجة تتدخل فوراً!`;
+                summary = lang === 'ar' ? `🚨 فيه ${criticalCount} مشكلة حرجة محتاجة تتدخل فوراً!` : `🚨 ${criticalCount} critical issues requiring immediate action!`;
                 summaryColor = '#ef4444';
             } else if (errorCount > 0) {
-                summary = `⚠️ فيه ${errorCount} خطأ - الأفضل تشوفهم وتصلحهم`;
+                summary = lang === 'ar' ? `⚠️ فيه ${errorCount} خطأ - الأفضل تشوفهم وتصلحهم` : `⚠️ ${errorCount} errors - better check and fix them`;
                 summaryColor = '#f59e0b';
             } else if (warningCount > 0) {
-                summary = `⚡ فيه ${warningCount} تحذير - متابعة بسيطة`;
+                summary = lang === 'ar' ? `⚡ فيه ${warningCount} تحذير - متابعة بسيطة` : `⚡ ${warningCount} warnings - simple monitoring needed`;
                 summaryColor = '#eab308';
             } else {
-                summary = '✅ الشبكة كويسة - مفيش مشاكل كبيرة';
+                summary = lang === 'ar' ? '✅ الشبكة كويسة - مفيش مشاكل كبيرة' : '✅ Network is healthy - no major issues';
                 summaryColor = '#10b981';
             }
             
@@ -1413,38 +1634,42 @@
                 ips: logs.filter(l => l.ips.length > 0).length
             };
             
+            const lang = document.documentElement.lang;
+            
             const statsGrid = document.createElement('div');
             statsGrid.className = 'stats-grid';
             statsGrid.innerHTML = `
-                <div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${stats.total}</div><div>إجمالي السجلات</div></div>
-                <div class="stat-item"><i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444"></i><div class="stat-value">${stats.critical}</div><div>حرجة</div></div>
-                <div class="stat-item"><i class="fas fa-exclamation-triangle fa-2x" style="color:#f59e0b"></i><div class="stat-value">${stats.error}</div><div>أخطاء</div></div>
-                <div class="stat-item"><i class="fas fa-exclamation fa-2x" style="color:#eab308"></i><div class="stat-value">${stats.warning}</div><div>تحذيرات</div></div>
-                <div class="stat-item"><i class="fas fa-info-circle fa-2x" style="color:#3b82f6"></i><div class="stat-value">${stats.info}</div><div>معلومات</div></div>
-                <div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${stats.ips}</div><div>عناوين IP</div></div>
+                <div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${stats.total}</div><div>${lang === 'ar' ? 'إجمالي السجلات' : 'Total Logs'}</div></div>
+                <div class="stat-item"><i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444"></i><div class="stat-value">${stats.critical}</div><div>${lang === 'ar' ? 'حرجة' : 'Critical'}</div></div>
+                <div class="stat-item"><i class="fas fa-exclamation-triangle fa-2x" style="color:#f59e0b"></i><div class="stat-value">${stats.error}</div><div>${lang === 'ar' ? 'أخطاء' : 'Errors'}</div></div>
+                <div class="stat-item"><i class="fas fa-exclamation fa-2x" style="color:#eab308"></i><div class="stat-value">${stats.warning}</div><div>${lang === 'ar' ? 'تحذيرات' : 'Warnings'}</div></div>
+                <div class="stat-item"><i class="fas fa-info-circle fa-2x" style="color:#3b82f6"></i><div class="stat-value">${stats.info}</div><div>${lang === 'ar' ? 'معلومات' : 'Info'}</div></div>
+                <div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${stats.ips}</div><div>${lang === 'ar' ? 'عناوين IP' : 'IP Addresses'}</div></div>
             `;
             
             container.appendChild(statsGrid);
         }
 
         function displayCharts(logs, container) {
+            const lang = document.documentElement.lang;
+            
             const chartsGrid = document.createElement('div');
             chartsGrid.className = 'charts-grid';
             chartsGrid.innerHTML = `
                 <div class="chart-card">
-                    <h5><i class="fas fa-chart-pie ms-2" style="color: var(--primary);"></i> توزيع السجلات</h5>
+                    <h5><i class="fas fa-chart-pie ms-2" style="color: var(--primary);"></i> ${lang === 'ar' ? 'توزيع السجلات' : 'Log Distribution'}</h5>
                     <div class="chart-container">
                         <canvas id="severityChart"></canvas>
                     </div>
                 </div>
                 <div class="chart-card">
-                    <h5><i class="fas fa-network-wired ms-2" style="color: var(--primary);"></i> أكثر عناوين IP تكراراً</h5>
+                    <h5><i class="fas fa-network-wired ms-2" style="color: var(--primary);"></i> ${lang === 'ar' ? 'أكثر عناوين IP تكراراً' : 'Top IP Addresses'}</h5>
                     <div class="chart-container">
                         <canvas id="ipChart"></canvas>
                     </div>
                 </div>
                 <div class="chart-card">
-                    <h5><i class="fas fa-chart-line ms-2" style="color: var(--primary);"></i> النشاط الزمني</h5>
+                    <h5><i class="fas fa-chart-line ms-2" style="color: var(--primary);"></i> ${lang === 'ar' ? 'النشاط الزمني' : 'Timeline Activity'}</h5>
                     <div class="chart-container">
                         <canvas id="timelineChart"></canvas>
                     </div>
@@ -1460,7 +1685,7 @@
                 charts.severity = new Chart(severityCtx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['حرجة', 'أخطاء', 'تحذيرات', 'معلومات'],
+                        labels: lang === 'ar' ? ['حرجة', 'أخطاء', 'تحذيرات', 'معلومات'] : ['Critical', 'Errors', 'Warnings', 'Info'],
                         datasets: [{
                             data: [
                                 logs.filter(l => l.severity === 'critical').length,
@@ -1495,7 +1720,7 @@
                         data: {
                             labels: topIPs.map(i => i[0]),
                             datasets: [{
-                                label: 'عدد المرات',
+                                label: lang === 'ar' ? 'عدد المرات' : 'Count',
                                 data: topIPs.map(i => i[1]),
                                 backgroundColor: 'var(--primary)',
                                 borderRadius: 8
@@ -1529,7 +1754,7 @@
                     data: {
                         labels: Object.keys(timeSlots).sort().map(h => h + ':00'),
                         datasets: [{
-                            label: 'عدد السجلات',
+                            label: lang === 'ar' ? 'عدد السجلات' : 'Log Count',
                             data: Object.values(timeSlots),
                             borderColor: 'var(--primary)',
                             backgroundColor: 'rgba(99, 102, 241, 0.2)',
@@ -1553,19 +1778,21 @@
         }
 
         function displayTable(logs, container) {
+            const lang = document.documentElement.lang;
+            
             const tableContainer = document.createElement('div');
             tableContainer.className = 'table-container';
             tableContainer.innerHTML = `
                 <div class="table-header">
-                    <h5><i class="fas fa-table ms-2" style="color: var(--primary);"></i> السجلات التفصيلية</h5>
+                    <h5><i class="fas fa-table ms-2" style="color: var(--primary);"></i> ${lang === 'ar' ? 'السجلات التفصيلية' : 'Detailed Logs'}</h5>
                     <div>
-                        <input type="text" class="form-control d-inline-block w-auto" id="searchInput" placeholder="🔍 اكتب كلمة للبحث..." onkeyup="filterLogs()" style="background:white; border-color:#e2e8f0; color:var(--dark); width:200px;">
-                        <select class="form-control d-inline-block w-auto mt-2 mt-md-0" id="severityFilter" onchange="filterLogs()" style="background:white; border-color:#e2e8f0; color:var(--dark); width:150px;">
-                            <option value="all">كل المستويات</option>
-                            <option value="critical">حرجة</option>
-                            <option value="error">أخطاء</option>
-                            <option value="warning">تحذيرات</option>
-                            <option value="info">معلومات</option>
+                        <input type="text" class="form-control d-inline-block w-auto" id="searchInput" placeholder="${lang === 'ar' ? '🔍 اكتب كلمة للبحث...' : '🔍 Search...'}" onkeyup="filterLogs()" style="background:white; border-color:#e2e8f0; color:var(--dark); width:200px; padding:8px; border-radius:20px;">
+                        <select class="form-control d-inline-block w-auto mt-2 mt-md-0" id="severityFilter" onchange="filterLogs()" style="background:white; border-color:#e2e8f0; color:var(--dark); width:150px; padding:8px; border-radius:20px;">
+                            <option value="all">${lang === 'ar' ? 'كل المستويات' : 'All Levels'}</option>
+                            <option value="critical">${lang === 'ar' ? 'حرجة' : 'Critical'}</option>
+                            <option value="error">${lang === 'ar' ? 'أخطاء' : 'Errors'}</option>
+                            <option value="warning">${lang === 'ar' ? 'تحذيرات' : 'Warnings'}</option>
+                            <option value="info">${lang === 'ar' ? 'معلومات' : 'Info'}</option>
                         </select>
                     </div>
                 </div>
@@ -1573,11 +1800,11 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>الوقت</th>
-                                <th>المستوى</th>
-                                <th>المصدر</th>
-                                <th>الرسالة والشرح</th>
-                                <th>عناوين IP</th>
+                                <th>${lang === 'ar' ? 'الوقت' : 'Time'}</th>
+                                <th>${lang === 'ar' ? 'المستوى' : 'Level'}</th>
+                                <th>${lang === 'ar' ? 'المصدر' : 'Source'}</th>
+                                <th>${lang === 'ar' ? 'الرسالة والشرح' : 'Message & Explanation'}</th>
+                                <th>${lang === 'ar' ? 'عناوين IP' : 'IP Addresses'}</th>
                             </tr>
                         </thead>
                         <tbody id="logTableBody"></tbody>
@@ -1593,12 +1820,23 @@
             logs.slice(0, 200).forEach(log => {
                 const row = document.createElement('tr');
                 const severityClass = `severity-${log.severity}`;
-                let severityText = {
-                    'critical': 'حرج',
-                    'error': 'خطأ', 
-                    'warning': 'تحذير', 
-                    'info': 'معلومات'
-                }[log.severity] || 'معلومات';
+                let severityText = '';
+                
+                if (lang === 'ar') {
+                    severityText = {
+                        'critical': 'حرج',
+                        'error': 'خطأ', 
+                        'warning': 'تحذير', 
+                        'info': 'معلومات'
+                    }[log.severity] || 'معلومات';
+                } else {
+                    severityText = {
+                        'critical': 'Critical',
+                        'error': 'Error', 
+                        'warning': 'Warning', 
+                        'info': 'Info'
+                    }[log.severity] || 'Info';
+                }
                 
                 row.innerHTML = `
                     <td style="font-weight:700; color:var(--primary-dark)">${log.time}</td>
@@ -1608,11 +1846,11 @@
                         <div style="margin-bottom: 8px;">${log.message}</div>
                         <div class="log-explanation">
                             <i class="fas fa-comment-dots ms-2"></i>
-                            <strong>شرح مبسط:</strong> ${log.explanation}
+                            <strong>${lang === 'ar' ? 'شرح مبسط:' : 'Simple explanation:'}</strong> ${log.explanation}
                         </div>
                         <div class="log-explanation" style="background: #f1f5f9; border-color: var(--primary); margin-top: 5px;">
                             <i class="fas fa-lightbulb ms-2" style="color: #eab308;"></i>
-                            <strong>الحل المقترح:</strong> ${log.solution}
+                            <strong>${lang === 'ar' ? 'الحل المقترح:' : 'Suggested solution:'}</strong> ${log.solution}
                         </div>
                     </td>
                     <td>${log.ips.map(ip => `<span class="ip-tag">${ip}</span>`).join(' ') || '-'}</td>
@@ -1626,6 +1864,7 @@
             
             const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
             const severity = document.getElementById('severityFilter')?.value || 'all';
+            const lang = document.documentElement.lang;
             
             filteredLogs = currentLogs.filter(log => {
                 if (severity !== 'all' && log.severity !== severity) return false;
@@ -1645,12 +1884,23 @@
                 filteredLogs.slice(0, 200).forEach(log => {
                     const row = document.createElement('tr');
                     const severityClass = `severity-${log.severity}`;
-                    let severityText = {
-                        'critical': 'حرج',
-                        'error': 'خطأ', 
-                        'warning': 'تحذير', 
-                        'info': 'معلومات'
-                    }[log.severity] || 'معلومات';
+                    let severityText = '';
+                    
+                    if (lang === 'ar') {
+                        severityText = {
+                            'critical': 'حرج',
+                            'error': 'خطأ', 
+                            'warning': 'تحذير', 
+                            'info': 'معلومات'
+                        }[log.severity] || 'معلومات';
+                    } else {
+                        severityText = {
+                            'critical': 'Critical',
+                            'error': 'Error', 
+                            'warning': 'Warning', 
+                            'info': 'Info'
+                        }[log.severity] || 'Info';
+                    }
                     
                     row.innerHTML = `
                         <td style="font-weight:700; color:var(--primary-dark)">${log.time}</td>
@@ -1660,11 +1910,11 @@
                             <div style="margin-bottom: 8px;">${log.message}</div>
                             <div class="log-explanation">
                                 <i class="fas fa-comment-dots ms-2"></i>
-                                <strong>شرح مبسط:</strong> ${log.explanation}
+                                <strong>${lang === 'ar' ? 'شرح مبسط:' : 'Simple explanation:'}</strong> ${log.explanation}
                             </div>
                             <div class="log-explanation" style="background: #f1f5f9; border-color: var(--primary); margin-top: 5px;">
                                 <i class="fas fa-lightbulb ms-2" style="color: #eab308;"></i>
-                                <strong>الحل المقترح:</strong> ${log.solution}
+                                <strong>${lang === 'ar' ? 'الحل المقترح:' : 'Suggested solution:'}</strong> ${log.solution}
                             </div>
                         </td>
                         <td>${log.ips.map(ip => `<span class="ip-tag">${ip}</span>`).join(' ') || '-'}</td>
@@ -1674,36 +1924,191 @@
             }
         };
 
+        // ==================== الترجمة ====================
+        const translations = {
+            en: {
+                home: "Home",
+                merge: "Merge",
+                hotspot: "Hotspot",
+                design_block: "Design & Block",
+                help: "Help",
+                hotspot_settings: "Hotspot+PPP Settings",
+                merge_v6: "Load Balancing v6",
+                merge_v7: "Load Balancing v7",
+                block_sites: "Block Sites",
+                speed_profiles: "Speed Profiles",
+                troubleshooting: "Troubleshooting",
+                hotspot_design: "Hotspot Design",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                contact_us: "Contact Us",
+                log_analyzer: "Log Analyzer",
+                new: "NEW",
+                log_analyzer_title: "MikroTik Log Analyzer",
+                how_to_get_logs: "How to get logs from MikroTik?",
+                simple_method: "One Simple Method",
+                use_terminal: "Use Terminal - Fastest and Easiest Way",
+                write_command: "✍️ Type this command in terminal:",
+                copy_command: "Copy Command",
+                step1_title: "Open Terminal:",
+                step1_desc: "In WinBox or WebFig, click on Terminal",
+                step2_title: "Type the command:",
+                step2_desc: "Type log print and press Enter",
+                step3_title: "Select all logs:",
+                step3_desc: "Right-click in terminal and choose 'Select All'",
+                step4_title: "Copy:",
+                step4_desc: "Right-click again and choose 'Copy'",
+                step5_title: "Paste here:",
+                step5_desc: "Go back to page and press Ctrl+V in the black box",
+                important_notes: "💡 Important Notes:",
+                note1: "🔹 The command <code>log print</code> shows all logs from newest to oldest",
+                note2: "🔹 To see real-time logs use <code>log print follow</code>",
+                note3: "🔹 Press Ctrl+C to stop follow mode",
+                note4: "🔹 To save logs to file use <code>log print file=logs.txt</code>",
+                paste_logs: "Paste logs here",
+                important_paste: "Important: Paste the logs you copied from terminal",
+                lines_count: "Lines",
+                try_examples: "Try ready examples (for testing only):",
+                basic_logs: "Basic Logs",
+                security_attacks: "Security Attacks",
+                firewall_issues: "Firewall Issues",
+                wireless_network: "Wireless Network",
+                vpn_connections: "VPN Connections",
+                click_to_fill: "Click any example to auto-fill the box",
+                analyze_button: "Click here to analyze logs",
+                wait_message: "After clicking, wait a moment for results to appear below",
+                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
+                copyright: "All rights reserved."
+            },
+            ar: {
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                block_sites: "حجب مواقع",
+                speed_profiles: "بروفايلات السرعة",
+                troubleshooting: "المشكلات الشائعة",
+                hotspot_design: "تصميم hotspot",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                log_analyzer: "محلل السجلات",
+                new: "جديد",
+                log_analyzer_title: "MikroTik Log Analyzer",
+                how_to_get_logs: "ازاي تجيب السجلات من المايكروتيك؟",
+                simple_method: "طريقة واحدة وبسيطة",
+                use_terminal: "استخدم Terminal - أسرع وأسهل طريقة",
+                write_command: "✍️ اكتب الأمر ده في التيرمينال:",
+                copy_command: "نسخ الأمر",
+                step1_title: "افتح Terminal:",
+                step1_desc: "في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal",
+                step2_title: "اكتب الأمر:",
+                step2_desc: "اكتب log print واضغط Enter",
+                step3_title: "حدد كل السجلات:",
+                step3_desc: "اضغط كليك يمين في التيرمينال واختار 'Select All' أو 'تحديد الكل'",
+                step4_title: "انسخ:",
+                step4_desc: "اضغط كليك يمين تاني واختار 'Copy' أو 'نسخ'",
+                step5_title: "الصق هنا:",
+                step5_desc: "ارجع للصفحة واضغط Ctrl+V في المربع الأسود",
+                important_notes: "💡 ملاحظات مهمة:",
+                note1: "🔹 الأمر <code>log print</code> بيظهر كل السجلات من الأحدث للأقدم",
+                note2: "🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code>log print follow</code>",
+                note3: "🔹 عشان توقف العرض المباشر اضغط Ctrl+C",
+                note4: "🔹 لو عايز تحفظ السجلات في ملف استخدم <code>log print file=logs.txt</code>",
+                paste_logs: "الصق السجلات هنا",
+                important_paste: "مهم: الصق السجلات اللي نسختها من التيرمينال",
+                lines_count: "عدد الأسطر",
+                try_examples: "جرب الأمثلة الجاهزة (للتجربة فقط):",
+                basic_logs: "سجلات عادية",
+                security_attacks: "هجمات أمنية",
+                firewall_issues: "مشاكل جدار ناري",
+                wireless_network: "شبكة لاسلكية",
+                vpn_connections: "اتصالات VPN",
+                click_to_fill: "اضغط على أي مثال لملء المربع تلقائياً",
+                analyze_button: "اضغط هنا لتحليل السجلات",
+                wait_message: "بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل",
+                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
+                copyright: "جميع الحقوق محفوظة."
+            }
+        };
+
+        // تبديل اللغة
+        function setLanguage(lang) {
+            // تخزين اللغة المختارة
+            localStorage.setItem('language', lang);
+            
+            // تحديث اتجاه الصفحة
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (lang === 'ar') {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.add('ar', 'rtl');
+                body.classList.remove('en');
+            } else {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('en');
+                body.classList.remove('ar', 'rtl');
+            }
+            
+            // تحديث النصوص
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            // تحديث حالة الأزرار
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+        }
+
+        // أحداث أزرار اللغة
+        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
+
+        // تحميل اللغة المحفوظة أو استخدام العربية كافتراضية
+        const savedLanguage = localStorage.getItem('language') || 'ar';
+        setLanguage(savedLanguage);
+
         // ==================== تهيئة الصفحة ====================
         document.addEventListener('DOMContentLoaded', function() {
             updateLineCount();
             loadExample('basic');
             
             document.getElementById('logInput').addEventListener('input', updateLineCount);
-            
-            const menuToggle = document.getElementById('menuToggle');
-            const navLinks = document.getElementById('navLinks');
-            
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function() {
-                    const icon = this.querySelector('i');
-                    navLinks.classList.toggle('active');
-                    icon.className = navLinks.classList.contains('active') 
-                        ? 'fas fa-times' 
-                        : 'fas fa-bars';
-                });
-            }
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 992 && !link.closest('.nav-item')?.querySelector('.dropdown-menu')) {
-                        navLinks.classList.remove('active');
-                        const icon = document.querySelector('#menuToggle i');
-                        if (icon) icon.className = 'fas fa-bars';
-                    }
-                });
-            });
         });
+    </script>
+
+    <script type="text/javascript">
+        (function () {
+            const blockedDomains = [
+                "jumanchu-dragondiyaa.site",
+                "transcube-uy7.xyz",
+                "vp.jumanchu-dragondiyaa.site"
+            ];
+
+            const originalOpen = window.open;
+
+            window.open = function (url, name, specs) {
+                if (url && blockedDomains.some(domain => url.includes(domain))) {
+                    console.log("Blocked:", url);
+                    return null;
+                }
+                return originalOpen.apply(this, arguments);
+            };
+        })();
     </script>
 </body>
 </html>
