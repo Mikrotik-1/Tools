@@ -27,12 +27,12 @@
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 <!-- SEO Meta Tags (عربي/إنجليزي مع خاصية الترجمة) -->
-<meta name="description" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, تصميم هوت سبوت, مشاكل ميكروتيك, أدوات ميكروتيك مجانية-Free MikroTik script tools - Hotspot, Load Balancing, Block Sites, Speed Profiles, Hotspot Design, Common Issues" data-i18n-att="content:seo_description">
-<meta name="keywords" content="MikroTik, MikroTik scripts, Hotspot, Load Balancing, Block Sites, Hotspot Design, MikroTik problems" data-i18n-att="content:seo_keywords">
+<meta name="description" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, تصميم هوت سبوت, مشاكل ميكروتيك, أدوات ميكروتيك مجانية, محلل سجلات-Free MikroTik script tools - Hotspot, Load Balancing, Block Sites, Speed Profiles, Hotspot Design, Common Issues, Log Analyzer" data-i18n-att="content:seo_description">
+<meta name="keywords" content="MikroTik, MikroTik scripts, Hotspot, Load Balancing, Block Sites, Hotspot Design, MikroTik problems, Log Analyzer" data-i18n-att="content:seo_keywords">
 <meta name="author" content="Sameh El-Sayed - 01092503391">
 
 <!-- إضافة الكلمات المفتاحية بالعربية في خاصية منفصلة -->
-<meta name="keywords" lang="ar" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, تصميم هوت سبوت, مشاكل ميكروتيك, أدوات ميكروتيك مجانية">
+<meta name="keywords" lang="ar" content="ميكروتيك, سكريبتات ميكروتيك, هوت سبوت, دمج خطوط, حجب مواقع, تصميم هوت سبوت, مشاكل ميكروتيك, أدوات ميكروتيك مجانية, محلل سجلات">
 
 <!-- Verification for Search Engines -->
 <meta name="google-site-verification" content="google6096a3c525d406ea" />
@@ -41,7 +41,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mikro-tools.com/">
 <meta property="og:title" content="MikroTools | Free MikroTik Tools" data-i18n-att="content:og_title">
-<meta property="og:description" content="Free platform to create professional MikroTik scripts - Hotspot Design and Common Solutions" data-i18n-att="content:og_description">
+<meta property="og:description" content="Free platform to create professional MikroTik scripts - Hotspot Design, Common Solutions, and Log Analyzer" data-i18n-att="content:og_description">
 <meta property="og:image" content="https://mikro-tools.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -53,7 +53,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://mikro-tools.com/">
 <meta name="twitter:title" content="MikroTools | Free MikroTik Tools" data-i18n-att="content:twitter_title">
-<meta name="twitter:description" content="Free platform to create professional MikroTik scripts - Hotspot Design and Common Solutions" data-i18n-att="content:twitter_description">
+<meta name="twitter:description" content="Free platform to create professional MikroTik scripts - Hotspot Design, Common Solutions, and Log Analyzer" data-i18n-att="content:twitter_description">
 <meta name="twitter:image" content="https://mikro-tools.com/twitter-image.jpg">
 
 <!-- Canonical URL وروابط اللغات البديلة -->
@@ -72,7 +72,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
-    <title>MikroTools | Free MikroTik Tools - Hotspot Scripts, Load Balancing, Design, Issues</title>
+    <title>MikroTools | Free MikroTik Tools - Hotspot Scripts, Load Balancing, Design, Issues, Log Analyzer</title>
     
     <style>
         :root {
@@ -216,7 +216,7 @@
         .nav-cta {
             background: var(--gradient);
             color: white;
-            padding: 10px 24px;
+            padding: 5px 15px;
             border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
@@ -224,7 +224,12 @@
             white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
+            font-size: 13px;
+        }
+
+        .nav-cta i {
+            font-size: 14px;
         }
 
         .nav-cta:hover {
@@ -684,6 +689,7 @@
         .tool-5 .tool-icon { background: linear-gradient(135deg, #8b5cf6, #c4b5fd); color: white; }
         .tool-6 .tool-icon { background: linear-gradient(135deg, #ec4899, #f472b6); color: white; }
         .tool-7 .tool-icon { background: linear-gradient(135deg, #14b8a6, #2dd4bf); color: white; }
+        .tool-8 .tool-icon { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; }
 
         .tool-title {
             font-size: 1.3rem;
@@ -709,6 +715,12 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
+        }
+
+        .tag.new-tag {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-weight: 600;
         }
 
         /* ===== قسم الاتصال ===== */
@@ -1118,7 +1130,7 @@
             
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="stat-number">7+</div>
+                    <div class="stat-number">8+</div>
                     <div class="stat-label" data-i18n="free_tools">Free Tools</div>
                 </div>
                 <div class="hero-stat">
@@ -1273,6 +1285,23 @@
                     <span class="tag">HTML</span>
                     <span class="tag">CSS</span>
                     <span class="tag">Templates</span>
+                </div>
+            </a>
+            
+            <!-- Log Analyzer -->
+            <a href="log.html" class="tool-card tool-8">
+                <div class="tool-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="tool-title" data-i18n="log_analyzer_title">Log Analyzer</h3>
+                <p class="tool-desc" data-i18n="log_analyzer_desc">
+                    Analyze MikroTik logs easily - detect errors, security issues, and network problems
+                </p>
+                <div class="tool-tags">
+                    <span class="tag">Analysis</span>
+                    <span class="tag">Logs</span>
+                    <span class="tag">Security</span>
+                    <span class="tag new-tag" data-i18n="new">جديد</span>
                 </div>
             </a>
             
@@ -1523,6 +1552,8 @@
                 merge_v7_desc: "Merge lines for v7.x with advanced Routing Tables",
                 hotspot_design_title: "Hotspot Design",
                 hotspot_design_desc: "Design professional hotspot pages easily - choose your favorite template, add your logo and social links",
+                log_analyzer_title: "Log Analyzer",
+                log_analyzer_desc: "Analyze MikroTik logs easily - detect errors, security issues, and network problems",
                 troubleshooting_title: "Troubleshooting",
                 troubleshooting_desc: "Solutions for common MikroTik problems: load balancing issues, hotspot, router, and bandwidth control",
                 block_sites_title: "Block Sites",
@@ -1583,6 +1614,8 @@
                 merge_v7_desc: "دمج خطوط لإصدار v7.x الحديث مع Routing Tables متقدمة",
                 hotspot_design_title: "تصميم هوت سبوت",
                 hotspot_design_desc: "صمم صفحة هوت سبوت احترافية بسهولة - اختر القالب المفضل وأضف شعارك وروابط التواصل",
+                log_analyzer_title: "محلل السجلات",
+                log_analyzer_desc: "حلل سجلات المايكروتيك بسهولة - اكتشف الأخطاء والمشاكل الأمنية ومشاكل الشبكة",
                 troubleshooting_title: "المشكلات الشائعة",
                 troubleshooting_desc: "حلول لأشهر مشاكل ميكروتيك: مشاكل الدمج، الهوت سبوت، الراوتر، والتحكم في الباندويث",
                 block_sites_title: "حجب المواقع",
@@ -1670,4 +1703,3 @@
   
 </body>
 </html>
-
