@@ -21,6 +21,11 @@
             --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             --shadow: 0 20px 40px rgba(99,102,241,.1);
             --border-radius: 16px;
+            
+            /* لون علامة جديد */
+            --new-badge-start: #ff416c;
+            --new-badge-end: #ff4b2b;
+            --new-badge-glow: rgba(255, 65, 108, 0.5);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--light); color: var(--dark); line-height: 1.8; min-height: 100vh; overflow-x: hidden; font-family: 'Poppins', sans-serif; }
@@ -57,6 +62,47 @@
         .dropdown-item i { width: 20px; font-size: 16px; color: var(--danger); }
         .dropdown-item.active { background: var(--danger); color: white; }
         .dropdown-item.active i { color: white; }
+
+        /* ===== علامة جديد المميزة ===== */
+        .new-badge {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 30px;
+            margin-left: 5px;
+            display: inline-block;
+            animation: newGlow 1.5s ease-in-out infinite;
+            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            top: -2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes newGlow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                background: linear-gradient(135deg, #ff4b2b, #ff416c);
+                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            }
+        }
+
+        /* تنسيق خاص للغة العربية */
+        body.rtl .new-badge {
+            margin-right: 5px;
+            margin-left: 0;
+        }
 
         /* HERO */
         .hero-block { background: var(--gradient-dark); min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 120px 2rem 4rem; position: relative; overflow: hidden; text-align: center; }
@@ -178,7 +224,7 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
             <div class="logo-icon"><i class="fas fa-bolt"></i></div>
             <span class="logo-text">MikroTools</span>
         </a>
@@ -189,6 +235,7 @@
                 <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
             </div>
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">Home</span></a>
+            
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">Merge</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -196,6 +243,7 @@
                     <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">Load Balancing v7</span></a>
                 </div>
             </div>
+            
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-wifi"></i><span data-i18n="hotspot">Hotspot</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -203,6 +251,7 @@
                     <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
             </div>
+            
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle active"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -210,6 +259,16 @@
                     <a href="block-sites.html" class="dropdown-item active"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">Block Sites</span></a>
                 </div>
             </div>
+            
+            <!-- محلل السجلات مع علامة جديد -->
+            <div class="dropdown">
+                <a href="log.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span data-i18n="log_analyzer">Log Analyzer</span>
+                    <span class="new-badge" data-i18n="new">NEW</span>
+                </a>
+            </div>
+            
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -410,6 +469,7 @@ var translations = {
         merge_v6:"Load Balancing v6", merge_v7:"Load Balancing v7",
         hotspot_settings:"Hotspot+PPP Settings", speed_profiles:"Speed Profiles",
         hotspot_design:"Hotspot Design", block_sites:"Block Sites",
+        log_analyzer:"Log Analyzer", new:"NEW",
         troubleshooting:"Troubleshooting", about:"About Us", privacy:"Privacy Policy",
         contact_us:"Contact Us", hero_badge:"Complete Protection System",
         hero_title:"Block Websites & Applications",
@@ -447,6 +507,7 @@ var translations = {
         merge_v6:"دمج خطوط v6", merge_v7:"دمج خطوط v7",
         hotspot_settings:"اعدادات hotspot+ppp", speed_profiles:"بروفايلات السرعة",
         hotspot_design:"تصميم hotspot", block_sites:"حجب مواقع",
+        log_analyzer:"محلل السجلات", new:"جديد",
         troubleshooting:"المشكلات الشائعة", about:"من نحن", privacy:"سياسة الخصوصية",
         contact_us:"تواصل معنا", hero_badge:"نظام حماية متكامل",
         hero_title:"حجب المواقع والبرامج",
