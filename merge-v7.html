@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
-      
+     
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Load Balancing v6 | MikroTools</title>
+    <title>Load Balancing v7 | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -130,7 +130,7 @@
 
         .nav-link.active {
             color: white;
-            background: var(--primary);
+            background: #ef4444;
         }
 
         .nav-link::after {
@@ -141,7 +141,7 @@
             transform: translateX(-50%);
             width: 0;
             height: 2px;
-            background: var(--primary);
+            background: #ef4444;
             transition: width 0.3s;
         }
 
@@ -279,11 +279,11 @@
         .navbar-dropdown-item i {
             width: 20px;
             font-size: 16px;
-            color: var(--primary-light);
+            color: #f87171;
         }
 
         .navbar-dropdown-item:hover {
-            background: rgba(99, 102, 241, 0.25);
+            background: rgba(239, 68, 68, 0.25);
             color: white;
             transform: translateX(-5px);
         }
@@ -293,7 +293,7 @@
         }
 
         .navbar-dropdown-item.active {
-            background: var(--gradient);
+            background: linear-gradient(135deg, #ef4444, #f87171);
             color: white;
         }
 
@@ -351,14 +351,14 @@
 
         .hero-badge-merge {
             display: inline-block;
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
             padding: 8px 20px;
             border-radius: 50px;
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -366,7 +366,7 @@
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            background: linear-gradient(to right, #ffffff, #fca5a5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
@@ -393,7 +393,7 @@
             padding: 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            border: 1px solid rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.1);
             position: relative;
             overflow: hidden;
         }
@@ -405,7 +405,7 @@
             right: 0;
             width: 100%;
             height: 4px;
-            background: var(--gradient);
+            background: linear-gradient(135deg, #ef4444, #f87171);
         }
 
         .tool-title {
@@ -413,7 +413,7 @@
             font-weight: 800;
             margin-bottom: 2rem;
             text-align: center;
-            background: var(--gradient);
+            background: linear-gradient(135deg, #ef4444, #f87171);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -445,7 +445,7 @@
         }
 
         .setting-title i {
-            color: var(--primary);
+            color: #ef4444;
         }
 
         /* ===== إدخال البيانات ===== */
@@ -472,8 +472,8 @@
         }
 
         .input-field:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
             outline: none;
         }
 
@@ -498,7 +498,7 @@
         }
 
         .section-title i {
-            color: var(--primary);
+            color: #ef4444;
         }
 
         /* ===== القائمة المنسدلة الداخلية ===== */
@@ -523,12 +523,12 @@
         }
 
         .inner-dropdown-box:hover {
-            border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.1);
+            border-color: #ef4444;
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.1);
         }
 
         .inner-dropdown-box.active {
-            border-color: var(--primary);
+            border-color: #ef4444;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
@@ -550,7 +550,7 @@
 
         .inner-dropdown-box.active .inner-dropdown-arrow {
             transform: rotate(180deg);
-            color: var(--primary);
+            color: #ef4444;
         }
 
         .inner-dropdown-list {
@@ -559,7 +559,7 @@
             left: 0;
             right: 0;
             background: white;
-            border: 2px solid var(--primary);
+            border: 2px solid #ef4444;
             border-top: none;
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
@@ -602,13 +602,8 @@
         }
 
         .inner-dropdown-item:hover {
-            background: #f8fafc;
-            color: var(--primary);
-            padding-left: 25px;
-        }
-
-        body.rtl .inner-dropdown-item:hover {
-            padding-left: 20px;
+            background: #fef2f2;
+            color: #ef4444;
             padding-right: 25px;
         }
 
@@ -629,13 +624,13 @@
         }
 
         .line-box:hover {
-            border-color: var(--primary);
+            border-color: #ef4444;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.1);
         }
 
         .line-title {
-            color: var(--primary);
+            color: #ef4444;
             margin-bottom: 1rem;
             font-size: 1.1rem;
             font-weight: 700;
@@ -670,13 +665,13 @@
         }
 
         .btn-primary {
-            background: var(--gradient);
+            background: linear-gradient(135deg, #ef4444, #f87171);
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
         }
 
         .btn-secondary {
@@ -716,7 +711,7 @@
             padding: 1.5rem;
             border-radius: 12px;
             background: #1e293b;
-            color: #38bdf8;
+            color: #f87171;
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             line-height: 1.6;
@@ -740,7 +735,7 @@
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, #a5b4fc, #f0abfc);
+            background: linear-gradient(to right, #fca5a5, #f0abfc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -768,7 +763,7 @@
             font-weight: 800;
             margin: 1rem 0;
             direction: ltr;
-            background: var(--gradient);
+            background: linear-gradient(135deg, #ef4444, #f87171);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -982,11 +977,11 @@
                         <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
                     </a>
                     <div class="navbar-dropdown-menu">
-                        <a href="merge-v6.html" class="navbar-dropdown-item active">
+                        <a href="merge-v6.html" class="navbar-dropdown-item">
                             <i class="fas fa-network-wired"></i>
                             <span data-i18n="merge_v6">Load Balancing v6</span>
                         </a>
-                        <a href="merge-v7.html" class="navbar-dropdown-item">
+                        <a href="merge-v7.html" class="navbar-dropdown-item active">
                             <i class="fas fa-rocket"></i>
                             <span data-i18n="merge_v7">Load Balancing v7</span>
                         </a>
@@ -1031,15 +1026,6 @@
                     </div>
                 </div>
                 
-                <!-- محلل السجلات مع علامة جديد -->
-                <div class="navbar-dropdown">
-                    <a href="log.html" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span data-i18n="log_analyzer">Log Analyzer</span>
-                        <span class="new-badge">NEW</span>
-                    </a>
-                </div>
-                
                 <!-- قائمة المساعدة المنسدلة -->
                 <div class="navbar-dropdown">
                     <a href="#" class="nav-link navbar-dropdown-toggle">
@@ -1076,17 +1062,17 @@
     <section class="hero-merge">
         <div class="hero-content-merge">
             <span class="hero-badge-merge">
-                <i class="fas fa-network-wired"></i>
-                <span data-i18n="hero_badge">Multiple Internet Line Merging</span>
+                <i class="fas fa-rocket"></i>
+                <span data-i18n="hero_badge">Modern Version Line Merging</span>
             </span>
             
             <h1 class="hero-title-merge" data-i18n="hero_title">
-                MikroTik Load Balancing v6.x
+                MikroTik Load Balancing v7.x
             </h1>
             
             <p class="hero-subtitle-merge" data-i18n="hero_subtitle">
-                Merge up to 20 internet lines into a complete Load Balancing system
-                for MikroTik RouterOS v6.x
+                Merge internet lines for v7.x with advanced Routing Tables
+                and the latest Load Balancing systems
             </p>
         </div>
     </section>
@@ -1095,8 +1081,8 @@
     <section class="generator-section">
         <div class="generator-card">
             <h2 class="tool-title">
-                <i class="fas fa-cogs"></i>
-                <span data-i18n="tool_title">Load Balancing v6 Settings</span>
+                <i class="fas fa-rocket"></i>
+                <span data-i18n="tool_title">Load Balancing v7 Settings</span>
             </h2>
             
             <!-- الإعدادات الأساسية -->
@@ -1109,12 +1095,7 @@
                     
                     <div class="input-box">
                         <label class="input-label" data-i18n="lan_interface">LAN Interface:</label>
-                        <input type="text" id="lanName" value="OUT" class="input-field" placeholder="Example: bridge-local, ether2">
-                    </div>
-                    
-                    <div class="input-box">
-                        <label class="input-label" data-i18n="subnet_range">Subnet Range:</label>
-                        <input type="text" id="srcAddr" value="10.0.0.1/16" class="input-field" placeholder="Example: 10.0.0.1/16">
+                        <input type="text" id="lanName" value="OUT" class="input-field" placeholder="Example: LAN, ether2">
                     </div>
                 </div>
             </div>
@@ -1129,7 +1110,7 @@
                 <div class="inner-dropdown-selector">
                     <div class="inner-dropdown-box" onclick="toggleInnerDropdown()">
                         <div class="inner-dropdown-selected">
-                            <span>🔢</span>
+                            <span>🚀</span>
                             <span id="selectedCount" data-i18n="lines_2">2 Lines</span>
                         </div>
                         <div class="inner-dropdown-arrow">▼</div>
@@ -1137,7 +1118,7 @@
                     
                     <div class="inner-dropdown-list" id="innerDropdownList">
                         <div class="inner-dropdown-item" onclick="selectLineCount(2)">
-                            <i class="fas fa-network-wired"></i>
+                            <i class="fas fa-sync-alt"></i>
                             <span data-i18n="lines_2">2 Lines (Backup)</span>
                         </div>
                         <div class="inner-dropdown-item" onclick="selectLineCount(3)">
@@ -1177,15 +1158,15 @@
                     <input type="number" id="lineCount" value="2" min="2" max="20" style="display: none;">
                 </div>
                 
-                <div style="margin-top: 1.5rem; padding: 1rem; background: #f0f9ff; border-radius: 10px; border-left: 4px solid var(--primary);">
+                <div style="margin-top: 1.5rem; padding: 1rem; background: #fef2f2; border-radius: 10px; border-left: 4px solid #ef4444;">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <i class="fas fa-info-circle" style="color: var(--primary);"></i>
-                        <span style="font-weight: 600; color: var(--primary);" data-i18n="tips_title">Tips for choosing the number of lines</span>
+                        <i class="fas fa-info-circle" style="color: #ef4444;"></i>
+                        <span style="font-weight: 600; color: #ef4444;" data-i18n="v7_features">v7.x Features</span>
                     </div>
                     <div style="color: var(--gray); font-size: 0.9rem; line-height: 1.6;">
-                        <span data-i18n="tips_1">• <strong>2-4 lines:</strong> Ideal for small and medium businesses</span><br>
-                        <span data-i18n="tips_2">• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes</span><br>
-                        <span data-i18n="tips_3">• <strong>9-10+ lines:</strong> Ideal for cities and large institutions</span>
+                        <span data-i18n="v7_feature_1">• <strong>Advanced Routing Tables</strong> - Better performance</span><br>
+                        <span data-i18n="v7_feature_2">• <strong>Improved Load Balancing</strong> - Smart distribution</span><br>
+                        <span data-i18n="v7_feature_3">• <strong>Latest features support</strong> - Full compatibility</span>
                     </div>
                 </div>
             </div>
@@ -1197,11 +1178,11 @@
 
             <!-- أزرار التوليد -->
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="generateV6Script(); ">
+                <button class="btn btn-primary" onclick="generateV7Script();">
                     <i class="fas fa-play"></i>
-                    <span data-i18n="generate_btn">Generate v6 Script</span>
+                    <span data-i18n="generate_btn">Generate v7 Script</span>
                 </button>
-               <button class="btn btn-secondary" onclick="resetForm();">
+                <button class="btn btn-secondary" onclick="resetForm();">
                     <i class="fas fa-redo"></i>
                     <span data-i18n="reset_btn">Reset</span>
                 </button>
@@ -1214,7 +1195,7 @@
                         <i class="fas fa-code"></i>
                         <span data-i18n="result_title">Generated Script</span>
                     </h3>
-                   <button class="btn btn-secondary" onclick="copyScript();">
+                    <button class="btn btn-secondary" onclick="copyScript();">
                         <i class="fas fa-copy"></i>
                         <span data-i18n="copy_btn">Copy Script</span>
                     </button>
@@ -1238,7 +1219,7 @@
             </h3>
             <div class="contact-phone">01092503391</div>
             <p class="contact-name">Sameh El-Sayed</p>
-           <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
+         <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
                 <i class="fab fa-whatsapp"></i>
                 <span data-i18n="contact_whatsapp">Contact via WhatsApp</span>
             </a>
@@ -1277,49 +1258,6 @@
         allowtransparency="true">
     </iframe>
 
-    <style>
-        /* علامة جديد المميزة */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-left: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة العربية */
-        body.rtl .new-badge {
-            margin-right: 5px;
-            margin-left: 0;
-        }
-    </style>
-
     <script>
         // نظام الترجمة
         const translations = {
@@ -1335,18 +1273,16 @@
                 speed_profiles: "Speed Profiles",
                 hotspot_design: "Hotspot Design",
                 block_sites: "Block Sites",
-                log_analyzer: "Log Analyzer",
                 troubleshooting: "Troubleshooting",
                 about: "About Us",
                 privacy: "Privacy Policy",
                 contact_us: "Contact Us",
-                hero_badge: "Multiple Internet Line Merging",
-                hero_title: "MikroTik Load Balancing v6.x",
-                hero_subtitle: "Merge up to 20 internet lines into a complete Load Balancing system for MikroTik RouterOS v6.x",
-                tool_title: "Load Balancing v6 Settings",
+                hero_badge: "Modern Version Line Merging",
+                hero_title: "MikroTik Load Balancing v7.x",
+                hero_subtitle: "Merge internet lines for v7.x with advanced Routing Tables and the latest Load Balancing systems",
+                tool_title: "Load Balancing v7 Settings",
                 network_settings: "Network Settings",
                 lan_interface: "LAN Interface:",
-                subnet_range: "Subnet Range:",
                 select_lines: "Choose number of lines to merge",
                 lines_2: "2 Lines (Backup)",
                 lines_3: "3 Lines (Small Business)",
@@ -1357,11 +1293,11 @@
                 lines_8: "8 Lines (Providers)",
                 lines_9: "9 Lines (Large Networks)",
                 lines_10: "10 Lines (Giant Networks)",
-                tips_title: "Tips for choosing the number of lines",
-                tips_1: "• <strong>2-4 lines:</strong> Ideal for small and medium businesses",
-                tips_2: "• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes",
-                tips_3: "• <strong>9-10+ lines:</strong> Ideal for cities and large institutions",
-                generate_btn: "Generate v6 Script",
+                v7_features: "v7.x Features",
+                v7_feature_1: "• <strong>Advanced Routing Tables</strong> - Better performance",
+                v7_feature_2: "• <strong>Improved Load Balancing</strong> - Smart distribution",
+                v7_feature_3: "• <strong>Latest features support</strong> - Full compatibility",
+                generate_btn: "Generate v7 Script",
                 reset_btn: "Reset",
                 result_title: "Generated Script",
                 copy_btn: "Copy Script",
@@ -1384,18 +1320,16 @@
                 speed_profiles: "بروفايلات السرعة",
                 hotspot_design: "تصميم hotspot",
                 block_sites: "حجب مواقع",
-                log_analyzer: "محلل السجلات",
                 troubleshooting: "المشكلات الشائعة",
                 about: "من نحن",
                 privacy: "سياسة الخصوصية",
                 contact_us: "تواصل معنا",
-                hero_badge: "دمج خطوط إنترنت متعدد",
-                hero_title: "دمج خطوط ميكروتيك v6.x",
-                hero_subtitle: "دمج حتى 20 خط إنترنت في نظام Load Balancing متكامل لإصدار MikroTik RouterOS v6.x",
-                tool_title: "إعدادات دمج الخطوط v6",
+                hero_badge: "دمج خطوط الإصدار الحديث",
+                hero_title: "دمج خطوط ميكروتيك v7.x",
+                hero_subtitle: "دمج خطوط إنترنت لإصدار v7.x الحديث مع Routing Tables متقدمة وأحدث أنظمة Load Balancing",
+                tool_title: "إعدادات دمج الخطوط v7",
                 network_settings: "إعدادات الشبكة",
                 lan_interface: "اسم كارت الخروج (LAN):",
-                subnet_range: "رينج آيبي المشتركين:",
                 select_lines: "اختر عدد الخطوط للدمج",
                 lines_2: "2 خطوط (نسخ احتياطي)",
                 lines_3: "3 خطوط (شركات صغيرة)",
@@ -1406,11 +1340,11 @@
                 lines_8: "8 خطوط (مزودين)",
                 lines_9: "9 خطوط (شبكات كبيرة)",
                 lines_10: "10 خطوط (شبكات عملاقة)",
-                tips_title: "نصائح لاختيار عدد الخطوط",
-                tips_1: "• <strong>2-4 خطوط:</strong> مثالي للشركات الصغيرة والمتوسطة",
-                tips_2: "• <strong>5-8 خطوط:</strong> مناسب للفنادق والمجمعات التجارية",
-                tips_3: "• <strong>9-10+ خطوط:</strong> مثالي للمدن والمؤسسات الكبيرة",
-                generate_btn: "توليد سكربت v6",
+                v7_features: "مميزات الإصدار v7.x",
+                v7_feature_1: "• <strong>Routing Tables متقدمة</strong> - أداء أفضل",
+                v7_feature_2: "• <strong>تحسين Load Balancing</strong> - توزيع ذكي",
+                v7_feature_3: "• <strong>دعم أحدث الميزات</strong> - توافق كامل",
+                generate_btn: "توليد سكربت v7",
                 reset_btn: "إعادة تعيين",
                 result_title: "السكربت الناتج",
                 copy_btn: "نسخ السكربت",
@@ -1423,7 +1357,7 @@
             }
         };
 
-        // دوال JavaScript لدمج الخطوط v6
+        // دوال JavaScript لدمج الخطوط v7
         const SIGNATURE = "By Same7_01092503391";
         let lineCount = 2;
 
@@ -1555,7 +1489,7 @@
                 lineBox.className = 'line-box';
                 lineBox.innerHTML = `
                     <div class="line-title">
-                        <i class="fas fa-plug"></i>
+                        <i class="fas fa-bolt"></i>
                         WAN${i} Line
                     </div>
                     <div class="input-box">
@@ -1575,7 +1509,7 @@
         // رسالة تأكيد عدد الخطوط
         function showCountMessage(count) {
             let message = '';
-            let icon = '✅';
+            let icon = '🚀';
             const lang = document.documentElement.lang;
             
             if (lang === 'ar') {
@@ -1583,30 +1517,32 @@
                     message = `تم اختيار خطين - مثالي للنسخ الاحتياطي (Failover)`;
                 } else if (count >= 3 && count <= 5) {
                     message = `تم اختيار ${count} خطوط - مثالي للشركات الصغيرة والمتوسطة`;
+                    icon = '🏢';
                 } else if (count >= 6 && count <= 8) {
                     message = `تم اختيار ${count} خطوط - مناسب للفنادق والمجمعات التجارية`;
-                    icon = '🏢';
+                    icon = '🏨';
                 } else {
                     message = `تم اختيار ${count} خطوط - نظام دمج احترافي كبير`;
-                    icon = '🚀';
+                    icon = '🌍';
                 }
             } else {
                 if (count === 2) {
                     message = `Selected 2 lines - Perfect for backup (Failover)`;
                 } else if (count >= 3 && count <= 5) {
                     message = `Selected ${count} lines - Ideal for small and medium businesses`;
+                    icon = '🏢';
                 } else if (count >= 6 && count <= 8) {
                     message = `Selected ${count} lines - Suitable for hotels and commercial complexes`;
-                    icon = '🏢';
+                    icon = '🏨';
                 } else {
                     message = `Selected ${count} lines - Professional large merging system`;
-                    icon = '🚀';
+                    icon = '🌍';
                 }
             }
             
             const alertDiv = document.createElement('div');
             alertDiv.style.cssText = `
-                background: linear-gradient(135deg, #10b981, #059669);
+                background: linear-gradient(135deg, #ef4444, #f87171);
                 color: white;
                 padding: 12px 20px;
                 border-radius: 10px;
@@ -1657,13 +1593,12 @@
             });
         }
 
-        // توليد سكربت v6
-        function generateV6Script() {
+        // توليد سكربت v7
+        function generateV7Script() {
             const lan = document.getElementById('lanName').value.trim();
-            const src = document.getElementById('srcAddr').value.trim();
             
-            if (!lan || !src) {
-                alert('Please fill in all required fields');
+            if (!lan) {
+                alert('Please enter LAN interface');
                 return;
             }
 
@@ -1692,54 +1627,67 @@
             
             if (!isValid) return;
             
-            // بناء السكربت
+            // بناء السكربت v7
             let script = `# ${SIGNATURE}\n`;
-            script += `# Load Balancing v6.x - ${lineCount} Lines\n\n`;
+            script += `# Load Balancing v7.x - ${lineCount} Lines\n`;
+            script += `# Modern version with Routing Tables\n\n`;
             
             script += `/ip address\n`;
             lines.forEach((line, index) => {
                 const network = line.ip.split('/')[0].split('.').slice(0,3).join('.') + '.0';
-                script += `add address=${line.ip} network=${network} interface=WAN${index + 1} comment="${SIGNATURE}"\n`;
+                script += `add address=${line.ip} network=${network} interface=WAN${index + 1}\n`;
             });
             
-            script += `\n/ip firewall mangle\n`;
+            script += `\n/ip firewall nat\n`;
+            lines.forEach((line, index) => {
+                script += `add chain=srcnat out-interface=WAN${index + 1} action=masquerade\n`;
+            });
+            
+            script += `\n/ip firewall address-list\n`;
+            lines.forEach((line, index) => {
+                const network = line.ip.split('/')[0].split('.').slice(0,3).join('.') + '.0/24';
+                script += `add address=${network} list=ROUTERS\n`;
+            });
+            
+            script += `/routing table\n`;
+            lines.forEach((line, index) => {
+                script += `add fib name=to_WAN${index + 1}\n`;
+            });
+            
+            script += `/ip firewall mangle\n`;
+            script += `add chain=prerouting dst-address-list=ROUTERS in-interface=${lan} action=accept\n\n`;
             
             // Mark connections from each WAN
             lines.forEach((line, index) => {
                 const i = index + 1;
-                script += `add action=mark-connection chain=input comment="${SIGNATURE}" connection-mark=no-mark in-interface=WAN${i} new-connection-mark=cm_in_public${i} passthrough=yes\n`;
-                script += `add action=mark-routing chain=output connection-mark=cm_in_public${i} new-routing-mark=via_public${i} passthrough=no\n`;
+                script += `add chain=input in-interface=WAN${i} action=mark-connection new-connection-mark=WAN${i}_conn\n`;
             });
             
-            script += `\nadd action=jump chain=prerouting comment="JUMP -> LOADBALANCE" dst-address-type=!local hotspot=auth in-interface=${lan} jump-target=loadbalance src-address=${src}\n\n`;
+            script += `\n`;
+            lines.forEach((line, index) => {
+                const i = index + 1;
+                script += `add chain=output connection-mark=WAN${i}_conn action=mark-routing new-routing-mark=to_WAN${i}\n`;
+            });
             
-            // Load balancing classifier
+            // Load balancing
             for (let i = 0; i < lineCount; i++) {
-                script += `add action=mark-connection chain=loadbalance new-connection-mark=cm_lb_${i+1} per-connection-classifier=both-addresses-and-ports:${lineCount}/${i} passthrough=yes comment="${SIGNATURE}"\n`;
+                script += `add chain=prerouting dst-address-type=!local hotspot=auth in-interface=${lan} per-connection-classifier=both-addresses-and-ports:${lineCount}/${i} action=mark-connection new-connection-mark=WAN${i+1}_conn passthrough=yes\n`;
             }
             
-            // Routing marks
-            for (let i = 1; i <= lineCount; i++) {
-                script += `add action=mark-routing chain=prerouting connection-mark=cm_lb_${i} in-interface=${lan} new-routing-mark=via_public${i} passthrough=no\n`;
-            }
-            
-            script += `\n/ip firewall nat\n`;
+            script += `\n`;
             lines.forEach((line, index) => {
-                script += `add chain=srcnat out-interface=WAN${index + 1} action=masquerade comment="${SIGNATURE}"\n`;
+                const i = index + 1;
+                script += `add chain=prerouting connection-mark=WAN${i}_conn in-interface=${lan} action=mark-routing new-routing-mark=to_WAN${i}\n`;
             });
             
-            script += `\n/ip route\n`;
-            const gateways = lines.map(line => line.gateway);
+            script += `/ip route\n`;
             lines.forEach((line, index) => {
-                script += `add check-gateway=ping distance=1 gateway=${line.gateway} routing-mark=via_public${index + 1} comment="${SIGNATURE}"\n`;
+                const i = index + 1;
+                script += `add gateway=${line.gateway} routing-table=to_WAN${i} check-gateway=ping\n`;
+                script += `add gateway=${line.gateway} check-gateway=ping\n`;
             });
             
-            // Default route with all gateways
-            if (gateways.length > 0) {
-                script += `add check-gateway=ping distance=1 gateway=${gateways.join(',')} comment="Main-Gateways ${SIGNATURE}"\n`;
-            }
-            
-            script += `\n# Created by MikroTools\n`;
+            script += `\n# Created by MikroTools - v7.x version\n`;
             script += `# Contact: 01092503391 - Sameh El-Sayed\n`;
             
             document.getElementById('outputScript').value = script;
@@ -1775,7 +1723,6 @@
         // إعادة تعيين النموذج
         function resetForm() {
             document.getElementById('lanName').value = 'bridge-local';
-            document.getElementById('srcAddr').value = '10.0.0.1/16';
             selectLineCount(2);
             document.getElementById('outputScript').value = '';
             document.getElementById('resultSection').style.display = 'none';
@@ -1808,7 +1755,7 @@
             });
         });
     </script>
-      <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
+     <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
 <script>
 (function() {
     const BIN_ID = '6984fe4d43b1c97be9684aa8';
@@ -1863,3 +1810,4 @@
 
 </body>
 </html>
+
