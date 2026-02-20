@@ -363,6 +363,11 @@
             transform: translateX(5px);
         }
 
+        body.rtl .inner-dropdown-item:hover {
+            padding-right: 25px;
+            padding-left: 20px;
+        }
+
         /* ===== الهيرو المعدل ===== */
         .hero-merge {
             background: var(--gradient-dark);
@@ -650,11 +655,6 @@
         .inner-dropdown-item:hover {
             background: #fef2f2;
             color: #ef4444;
-            padding-right: 25px;
-        }
-
-        body.rtl .inner-dropdown-item:hover {
-            padding-right: 20px;
             padding-left: 25px;
         }
 
@@ -1318,49 +1318,6 @@
         allowtransparency="true">
     </iframe>
 
-    <style>
-        /* علامة جديد المميزة */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-left: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة العربية */
-        body.rtl .new-badge {
-            margin-right: 5px;
-            margin-left: 0;
-        }
-    </style>
-
     <script>
         // نظام الترجمة
         const translations = {
@@ -1788,8 +1745,10 @@
             script += `/ip route\n`;
             lines.forEach((line, index) => {
                 const i = index + 1;
-                script += `add gateway=${line.gateway} routing-table=to_WAN${i} check-gateway=ping\n`;
-                script += `add gateway=${line.gateway} check-gateway=ping\n`;
+                // الأمر الأول: مع routing-table
+                script += `add check-gateway=ping distance=1 gateway=${line.gateway} routing-table=via_public${i} comment="${SIGNATURE}"\n`;
+                // الأمر الثاني: كخط أساسي (بدون routing-table)
+                script += `add check-gateway=ping distance=1 gateway=${line.gateway} comment="Failover-Line-${i} ${SIGNATURE}"\n`;
             });
             
             script += `\n# Created by MikroTools - v7.x version\n`;
