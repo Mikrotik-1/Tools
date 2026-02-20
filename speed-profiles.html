@@ -65,6 +65,11 @@
             --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
             --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
             --border-radius: 16px;
+            
+            /* لون علامة جديد */
+            --new-badge-start: #ff416c;
+            --new-badge-end: #ff4b2b;
+            --new-badge-glow: rgba(255, 65, 108, 0.5);
         }
 
         * {
@@ -332,6 +337,47 @@
 
         .navbar-dropdown-item.active i {
             color: white;
+        }
+
+        /* ===== علامة جديد المميزة ===== */
+        .new-badge {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 30px;
+            margin-left: 5px;
+            display: inline-block;
+            animation: newGlow 1.5s ease-in-out infinite;
+            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            top: -2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes newGlow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                background: linear-gradient(135deg, #ff4b2b, #ff416c);
+                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
+            }
+        }
+
+        /* تنسيق خاص للغة العربية */
+        body.rtl .new-badge {
+            margin-right: 5px;
+            margin-left: 0;
         }
 
         /* RTL Support */
@@ -1124,6 +1170,15 @@
                     </div>
                 </div>
                 
+                <!-- محلل السجلات مع علامة جديد -->
+                <div class="navbar-dropdown">
+                    <a href="log.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span data-i18n="log_analyzer">Log Analyzer</span>
+                        <span class="new-badge" data-i18n="new">NEW</span>
+                    </a>
+                </div>
+                
                 <!-- قائمة المساعدة المنسدلة -->
                 <div class="navbar-dropdown">
                     <a href="#" class="nav-link navbar-dropdown-toggle">
@@ -1384,6 +1439,8 @@
                 speed_profiles: "Speed Profiles",
                 hotspot_design: "Hotspot Design",
                 block_sites: "Block Sites",
+                log_analyzer: "Log Analyzer",
+                new: "NEW",
                 troubleshooting: "Troubleshooting",
                 about: "About Us",
                 privacy: "Privacy Policy",
@@ -1433,8 +1490,7 @@
                 tier_business: "Business",
                 download_speed: "Download Speed",
                 upload_speed: "Upload Speed",
-                monthly_price: "Monthly Price (optional)",
-                hotspot: "Hotspot"
+                monthly_price: "Monthly Price (optional)"
             },
             ar: {
                 home: "الرئيسية",
@@ -1448,6 +1504,8 @@
                 speed_profiles: "بروفايلات السرعة",
                 hotspot_design: "تصميم hotspot",
                 block_sites: "حجب مواقع",
+                log_analyzer: "محلل السجلات",
+                new: "جديد",
                 troubleshooting: "المشكلات الشائعة",
                 about: "من نحن",
                 privacy: "سياسة الخصوصية",
@@ -1497,8 +1555,7 @@
                 tier_business: "أعمال",
                 download_speed: "سرعة التنزيل",
                 upload_speed: "سرعة الرفع",
-                monthly_price: "السعر الشهري (اختياري)",
-                hotspot: "هوتسبوت"
+                monthly_price: "السعر الشهري (اختياري)"
             }
         };
 
@@ -2055,5 +2112,3 @@
 
 </body>
 </html>
-
-
