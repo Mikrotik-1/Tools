@@ -1699,7 +1699,180 @@
             };
         })();
     </script>
+    <!-- ضع هذا الكود في أي مكان تريد ظهور البانر فيه -->
+<style>
+    .whatsapp-mini-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+        letter-spacing: 0.3px;
+    }
+
+    .whatsapp-mini-banner.closed {
+        display: none;
+    }
+
+    .whatsapp-mini-banner:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        transform: translateY(-1px);
+    }
+
+    .whatsapp-mini-banner i {
+        font-size: 26px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        animation: gentlePulse 3s infinite;
+    }
+
+    @keyframes gentlePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+    }
+
+    .banner-main-text {
+        font-weight: 700;
+        background: rgba(255,255,255,0.18);
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 16px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* زر الإغلاق */
+    .mini-banner-close {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid rgba(255,255,255,0.3);
+        z-index: 10;
+        backdrop-filter: blur(5px);
+    }
+
+    .mini-banner-close:hover {
+        background: #ef4444;
+        transform: translateY(-50%) rotate(90deg);
+        border-color: transparent;
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+
+    .mini-banner-close i {
+        font-size: 12px;
+        animation: none;
+    }
+
+    /* تأثير حريري */
+    .whatsapp-mini-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        transition: left 0.7s ease;
+    }
+
+    .whatsapp-mini-banner:hover::before {
+        left: 100%;
+    }
+
+    /* للشاشات الصغيرة */
+    @media (max-width: 768px) {
+        .whatsapp-mini-banner {
+            padding: 10px 35px 10px 40px;
+            gap: 10px;
+        }
+        
+        .banner-main-text {
+            font-size: 14px;
+            padding: 5px 16px;
+        }
+        
+        .whatsapp-mini-banner i {
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .whatsapp-mini-banner {
+            padding: 10px 35px;
+        }
+        
+        .mini-banner-close {
+            left: 10px;
+            width: 25px;
+            height: 25px;
+        }
+    }
+</style>
+
+<!-- البانر المصغر - يظهر في كل مرة -->
+<div id="miniWhatsappBanner" class="whatsapp-mini-banner" onclick="window.open('https://wa.me/201092503391?text=مرحباً%20أريد%20الاستفسار%20عن%20الإعلان', '_blank')">
+    <!-- زر الإغلاق (لو ضغط هنا ما يفتحش واتساب) -->
+    <div class="mini-banner-close" onclick="event.stopPropagation(); closeMiniBanner();">
+        <i class="fas fa-times"></i>
+    </div>
+
+    <!-- المحتوى -->
+    <i class="fab fa-whatsapp"></i>
+    <span class="banner-main-text">
+        <i class="fas fa-bullhorn"></i>
+        يمكنك وضع إعلانك هنا
+    </span>
+</div>
+
+<!-- Font Awesome للأيقونات -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script>
+// دالة إغلاق البانر (فقط للإغلاق المؤقت)
+function closeMiniBanner() {
+    const banner = document.getElementById('miniWhatsappBanner');
+    if (banner) {
+        banner.classList.add('closed');
+        // 🚫 تم حذف السطر اللي كان بيحفظ في localStorage
+        // localStorage.setItem('mini_banner_closed', 'true');
+    }
+}
+
+// 🚫 تم حذف الكود اللي كان بيستعيد الحالة
+// document.addEventListener('DOMContentLoaded', function() {
+//     if (localStorage.getItem('mini_banner_closed') === 'true') {
+//         const banner = document.getElementById('miniWhatsappBanner');
+//         if (banner) banner.classList.add('closed');
+//     }
+// });
+</script>
 
   
 </body>
 </html>
+
