@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Card Designer - MikroTools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary:#6366f1; --primary-dark:#4f46e5; --primary-light:#818cf8;
+            --secondary:#10b981; --accent:#f59e0b; --dark:#1e293b; --light:#f8fafc; --gray:#64748b;
+            --gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);
+            --gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);
+            --shadow:0 20px 40px rgba(99,102,241,0.1);
+            --shadow-lg:0 30px 60px rgba(0,0,0,0.15);
+            --border-radius:16px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--gradient-dark);min-height:100vh;color:var(--light);padding:20px;padding-top:100px;overflow-x:hidden;font-family:'Poppins',sans-serif;}
+        body.ar{font-family:'Tajawal',sans-serif;}
+        body.rtl{direction:rtl;text-align:right;}
+
+        /* NAVBAR */
+        .navbar{background:var(--dark);padding:1rem 2rem;position:fixed;top:0;right:0;left:0;z-index:1000;box-shadow:0 5px 20px rgba(0,0,0,0.1);backdrop-filter:blur(10px);}
+        .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+        .logo{display:flex;align-items:center;gap:15px;text-decoration:none;color:white;}
+        .logo-icon{background:var(--gradient);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;animation:pulse 2s infinite;}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        .logo-text{font-size:24px;font-weight:800;}
+        .nav-links{display:flex;gap:0.5rem;align-items:center;}
+        .nav-link{color:#cbd5e1;text-decoration:none;font-weight:500;transition:all 0.3s;padding:8px 16px;border-radius:10px;display:flex;align-items:center;gap:6px;}
+        .nav-link:hover{color:white;background:rgba(255,255,255,0.1);}
+        .nav-link.active{color:white;background:var(--primary);}
+        .lang-switcher{display:flex;gap:5px;background:rgba(255,255,255,0.05);padding:4px;border-radius:30px;border:1px solid rgba(255,255,255,0.1);margin:0 10px;}
+        .lang-btn{background:transparent;border:none;color:#cbd5e1;padding:6px 16px;border-radius:25px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px;}
+        .lang-btn:hover{color:white;background:rgba(255,255,255,0.1);}
+        .lang-btn.active{background:var(--primary);color:white;box-shadow:0 4px 10px rgba(99,102,241,0.3);}
+        .menu-toggle{display:none;background:none;border:none;color:white;font-size:24px;cursor:pointer;}
+        .dropdown{position:relative;display:inline-block;}
+        .dropdown-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;}
+        .dropdown-arrow{font-size:12px;transition:transform 0.3s;}
+        .dropdown:hover .dropdown-arrow{transform:rotate(180deg);}
+        .dropdown-menu{position:absolute;top:100%;left:0;background:var(--dark);min-width:250px;border-radius:12px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s;z-index:1000;border:1px solid rgba(255,255,255,0.1);}
+        body.rtl .dropdown-menu{left:auto;right:0;}
+        .dropdown:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+        .dropdown-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#cbd5e1;text-decoration:none;border-radius:8px;transition:all 0.3s;}
+        .dropdown-item:hover{background:rgba(255,255,255,0.1);color:white;}
+        .dropdown-item i{width:20px;font-size:16px;color:var(--primary);}
+        .nav-cta{background:var(--gradient);color:white;padding:10px 24px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
+        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-left:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
+        @keyframes newGlow{0%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5)}50%{transform:scale(1.1);box-shadow:0 4px 20px rgba(255,65,108,0.9)}100%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5)}}
+
+        /* HERO */
+        .hero{background:rgba(30,41,59,0.7);border-radius:var(--border-radius);padding:40px 30px;margin-bottom:30px;border:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;position:relative;overflow:hidden;}
+        .hero::before{content:'';position:absolute;top:0;right:0;width:100%;height:100%;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');background-size:200px;}
+        .hero-content{position:relative;z-index:1;}
+        .hero-badge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;margin-bottom:1rem;border:1px solid rgba(99,102,241,0.3);}
+        .hero-title{font-size:28px;background:linear-gradient(to right,#ffffff,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;margin-bottom:10px;}
+        .hero-subtitle{color:#cbd5e1;font-size:14px;}
+        .status-indicator{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;background:rgba(99,102,241,0.2);border-radius:20px;font-size:14px;color:#a5b4fc;border:1px solid rgba(99,102,241,0.3);}
+        .status-dot{width:8px;height:8px;border-radius:50%;background:var(--secondary);animation:pulse 2s infinite;}
+
+        /* TABS - 3 tabs */
+        .control-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:25px;background:rgba(30,41,59,0.7);padding:15px;border-radius:var(--border-radius);border:1px solid rgba(255,255,255,0.1);}
+        .control-tab{padding:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:#cbd5e1;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:15px;font-family:inherit;}
+        .control-tab:hover{background:rgba(99,102,241,0.2);color:white;transform:translateY(-3px);}
+        .control-tab.active{background:rgba(99,102,241,0.3);border-color:var(--primary);color:white;box-shadow:0 10px 20px rgba(99,102,241,0.15);}
+        .tab-icon{font-size:32px;color:var(--primary-light);}
+        .tab-content{display:none;}
+        .tab-content.active{display:block;animation:fadeIn 0.5s;}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+        /* CONTENT */
+        .content-panel{background:rgba(30,41,59,0.7);border-radius:var(--border-radius);padding:30px;border:1px solid rgba(255,255,255,0.1);margin-bottom:25px;}
+        .section-title{font-size:22px;color:white;margin-bottom:25px;padding-bottom:15px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:12px;font-weight:800;}
+        .section-title i{color:var(--primary-light);background:rgba(99,102,241,0.2);padding:10px;border-radius:10px;}
+        .card{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);padding:25px;border-radius:var(--border-radius);border:1px solid rgba(99,102,241,0.1);box-shadow:var(--shadow);transition:all 0.3s;position:relative;overflow:hidden;}
+        .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--gradient);transform:translateX(-100%);transition:transform 0.3s;}
+        .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+        .card:hover::before{transform:translateX(0);}
+        .card h3{color:var(--dark);margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:18px;padding-bottom:10px;border-bottom:1px solid rgba(99,102,241,0.1);font-weight:700;}
+        .form-group{margin-bottom:20px;}
+        .form-label{display:block;margin-bottom:10px;color:var(--dark);font-weight:600;display:flex;align-items:center;gap:8px;}
+        .form-control{width:100%;padding:14px;background:white;border:2px solid #e2e8f0;border-radius:10px;color:var(--dark);font-size:15px;transition:all 0.3s;font-family:inherit;}
+        .form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.1);}
+        textarea.form-control{min-height:80px;resize:vertical;}
+        .switch-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+        .switch-label{font-size:14px;color:var(--dark);font-weight:600;}
+        .switch{position:relative;display:inline-block;width:50px;height:25px;}
+        .switch input{opacity:0;width:0;height:0;}
+        .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#cbd5e0;transition:.4s;border-radius:25px;}
+        .slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background:white;transition:.4s;border-radius:50%;}
+        input:checked+.slider{background:var(--secondary);}
+        input:checked+.slider:before{transform:translateX(24px);}
+
+        /* WIFI CARD */
+        .wifi-card{width:340px;height:214px;border-radius:16px;position:relative;overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);transition:transform 0.4s;}
+        .wifi-card:hover{transform:perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(1.02);}
+        .wifi-card-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1e3a5f 0%,#0f2340 100%);transition:background 0.4s;}
+        .wifi-card-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 60%);pointer-events:none;}
+        .wifi-card-pattern{position:absolute;inset:0;opacity:0.07;background-image:radial-gradient(circle at 20% 80%,rgba(255,255,255,1) 1px,transparent 1px),radial-gradient(circle at 80% 20%,rgba(255,255,255,1) 1px,transparent 1px);background-size:30px 30px;}
+        .wifi-card-content{position:relative;z-index:2;height:100%;padding:18px 22px;display:flex;flex-direction:column;justify-content:space-between;color:white;}
+
+        .wc-top{display:flex;justify-content:space-between;align-items:flex-start;}
+        .wc-logo-area{font-size:15px;font-weight:800;letter-spacing:-0.5px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .wc-wifi-icon{font-size:22px;opacity:0.9;}
+        .wc-title{font-size:11px;opacity:0.7;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+        .wc-creds{display:flex;flex-direction:column;gap:5px;}
+        .wc-cred-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border-radius:8px;padding:6px 10px;}
+        .wc-cred-icon{font-size:13px;opacity:0.8;min-width:16px;}
+        .wc-cred-label{font-size:10px;opacity:0.65;min-width:55px;}
+        .wc-cred-val{font-size:12px;font-weight:700;font-family:'Courier New',monospace;letter-spacing:0.5px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .wc-bottom{display:flex;justify-content:space-between;align-items:flex-end;}
+        .wc-extras{display:flex;flex-direction:column;gap:3px;}
+        .wc-extra-tag{font-size:10px;background:rgba(255,255,255,0.12);padding:3px 8px;border-radius:20px;white-space:nowrap;}
+        .wc-qr{width:46px;height:46px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+        .wifi-card-back{width:340px;height:214px;border-radius:16px;position:relative;overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);}
+        .wc-back-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0f2340 0%,#1e3a5f 100%);}
+        .wc-back-stripe{position:absolute;top:35px;left:0;right:0;height:40px;background:rgba(0,0,0,0.5);}
+        .wc-back-content{position:relative;z-index:2;height:100%;padding:18px 22px;display:flex;flex-direction:column;justify-content:flex-end;color:white;gap:8px;}
+        .wc-back-text{font-size:10px;opacity:0.5;line-height:1.7;}
+        .wc-back-footer{display:flex;justify-content:space-between;align-items:center;font-size:10px;opacity:0.6;}
+
+        /* CARD DESIGNER LAYOUT */
+        .card-designer-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:start;}
+        @media(max-width:900px){.card-designer-wrapper{grid-template-columns:1fr;}}
+        .cd-controls{display:flex;flex-direction:column;gap:18px;}
+        .card-preview-wrap{position:sticky;top:120px;display:flex;flex-direction:column;align-items:center;gap:20px;}
+        .card-preview-label{color:#94a3b8;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+
+        .color-preset{width:36px;height:36px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;flex-shrink:0;}
+        .color-preset:hover,.color-preset.active{border-color:white;transform:scale(1.15);}
+        .card-color-presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+        .cards-grid{display:flex;flex-wrap:wrap;gap:15px;margin-top:20px;}
+
+        .cd-sub-tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+        .cd-sub-tab{padding:10px 20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#94a3b8;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.3s;font-family:inherit;}
+        .cd-sub-tab:hover{background:rgba(255,255,255,0.1);color:white;}
+        .cd-sub-tab.active{background:rgba(99,102,241,0.3);border-color:var(--primary);color:white;}
+        .cd-sub-content{display:none;}
+        .cd-sub-content.active{display:block;animation:fadeIn 0.3s;}
+
+        .btn{padding:14px 28px;border:none;border-radius:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s;font-size:15px;font-family:inherit;}
+        .btn-primary{background:var(--gradient);color:white;}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(99,102,241,0.3);}
+        .btn-success{background:linear-gradient(135deg,#10b981,#34d399);color:white;}
+        .btn-success:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(16,185,129,0.3);}
+        .btn-warning{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:white;}
+        .btn-warning:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(245,158,11,0.3);}
+
+        .notification{position:fixed;bottom:30px;right:30px;padding:20px;background:var(--gradient);color:white;border-radius:12px;box-shadow:var(--shadow-lg);z-index:2000;display:flex;align-items:center;gap:12px;transform:translateX(150%);transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);max-width:350px;border:1px solid rgba(255,255,255,0.2);}
+        .notification.show{transform:translateX(0);}
+
+        #print-only-area{display:none;}
+        @media print{
+            body>*{display:none!important;}
+            #print-only-area{display:block!important;position:fixed;top:0;left:0;right:0;bottom:0;background:white;padding:8mm;}
+            #print-only-area .wifi-card{border-radius:3mm!important;box-shadow:none!important;border:0.3px solid #ccc!important;transform:none!important;}
+        }
+        @media(max-width:768px){
+            .navbar{padding:1rem;}
+            .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;gap:0.5rem;max-height:80vh;overflow-y:auto;}
+            .nav-links.active{display:flex;}
+            .menu-toggle{display:block;}
+            .lang-switcher{width:100%;justify-content:center;margin:10px 0 20px;order:-1;}
+            .lang-btn{flex:1;justify-content:center;padding:8px;}
+            .nav-link{width:100%;text-align:center;justify-content:center;}
+            .dropdown{width:100%;}
+            .dropdown-toggle{width:100%;justify-content:center;}
+            .dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:rgba(255,255,255,0.05);margin-top:5px;display:none;width:100%;}
+            .dropdown.active .dropdown-menu{display:block;}
+            .nav-cta{width:100%;text-align:center;justify-content:center;margin-top:10px;}
+            .control-tabs{grid-template-columns:1fr;}
+            .hero{flex-direction:column;text-align:center;}
+            .wifi-card,.wifi-card-back{width:300px;height:188px;}
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+            <span class="logo-text">MikroTools</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <div class="lang-switcher">
+                <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
+                <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
+            </div>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">Merge</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i><span data-i18n="merge_v6">Load Balancing v6</span></a>
+                    <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">Load Balancing v7</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-wifi"></i><span data-i18n="hotspot">Hotspot</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="hotspot.html" class="dropdown-item"><i class="fas fa-cog"></i><span data-i18n="hotspot_settings">Hotspot+PPP Settings</span></a>
+                    <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle active"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="hotspot-editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">Hotspot Design</span></a>
+                    <a href="wifi-card-designer.html" class="dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">Card Designer</span></a>
+                    <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">Block Sites</span></a>
+                </div>
+            </div>
+            <a href="log.html" class="nav-link"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">Log Analyzer</span><span class="new-badge">NEW</span></a>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-exclamation-triangle"></i><span data-i18n="troubleshooting">Troubleshooting</span></a>
+                    <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i><span data-i18n="about">About Us</span></a>
+                    <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">Privacy Policy</span></a>
+                </div>
+            </div>
+            <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">Contact Us</span></a>
+        </div>
+    </div>
+</nav>
+
+<div style="max-width:1400px;margin:0 auto;">
+
+    <div class="hero">
+        <div class="hero-content">
+            <span class="hero-badge"><i class="fas fa-id-card"></i> <span data-i18n="hero_badge">Professional WiFi Card Designer</span></span>
+            <h1 class="hero-title" data-i18n="hero_title">WiFi Card Designer</h1>
+            <div class="hero-subtitle" data-i18n="hero_subtitle">Design, generate & print professional WiFi voucher cards</div>
+        </div>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span data-i18n="live_preview">Live Preview</span>
+        </div>
+    </div>
+
+    <!-- 2 TABS -->
+    <div class="control-tabs" style="grid-template-columns:repeat(2,1fr);">
+        <button class="control-tab active" data-tab="cd-design-tab">
+            <i class="fas fa-palette tab-icon"></i>
+            <span data-i18n="tab_design">Design</span>
+        </button>
+        <button class="control-tab" data-tab="cd-print-tab">
+            <i class="fas fa-print tab-icon"></i>
+            <span data-i18n="tab_print">Print</span>
+        </button>
+    </div>
+
+    <!-- TAB: DESIGN -->
+    <div id="cd-design-tab" class="tab-content active">
+        <div class="content-panel">
+            <div class="section-title"><i class="fas fa-palette"></i> <span data-i18n="design_title">Card Design</span></div>
+
+            <!-- Mode Selector -->
+            <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+                <div class="card-mode-btn active" data-mode="voucher" onclick="setCardMode('voucher')" style="flex:1;min-width:200px;background:rgba(99,102,241,0.2);border:2px solid var(--primary);border-radius:12px;padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.3s;">
+                    <span style="font-size:28px;">🎫</span>
+                    <div>
+                        <div style="color:white;font-weight:700;font-size:15px;" data-i18n="mode_voucher">Card Number (Voucher)</div>
+                        <div style="color:#94a3b8;font-size:12px;" data-i18n="mode_voucher_desc">Auto-generated random number</div>
+                    </div>
+                </div>
+                <div class="card-mode-btn" data-mode="userpass" onclick="setCardMode('userpass')" style="flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.3s;">
+                    <span style="font-size:28px;">👤</span>
+                    <div>
+                        <div style="color:white;font-weight:700;font-size:15px;" data-i18n="mode_userpass">Username / Password</div>
+                        <div style="color:#94a3b8;font-size:12px;" data-i18n="mode_userpass_desc">Show user & password on card</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-designer-wrapper">
+                <div class="cd-controls">
+                    <!-- Style -->
+                    <div class="card">
+                        <h3><i class="fas fa-palette"></i> <span data-i18n="card_style">Card Style</span></h3>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-fill-drip"></i> <span data-i18n="color_theme">Color Theme</span></label>
+                            <div class="card-color-presets" id="colorPresets">
+                                <div class="color-preset active" data-g1="#1e3a5f" data-g2="#0f2340" style="background:linear-gradient(135deg,#1e3a5f,#0f2340)" title="Navy Blue"></div>
+                                <div class="color-preset" data-g1="#1a1a2e" data-g2="#16213e" style="background:linear-gradient(135deg,#1a1a2e,#16213e)" title="Dark Night"></div>
+                                <div class="color-preset" data-g1="#134e5e" data-g2="#71b280" style="background:linear-gradient(135deg,#134e5e,#71b280)" title="Ocean Green"></div>
+                                <div class="color-preset" data-g1="#6366f1" data-g2="#4f46e5" style="background:linear-gradient(135deg,#6366f1,#4f46e5)" title="Indigo"></div>
+                                <div class="color-preset" data-g1="#7c3aed" data-g2="#5b21b6" style="background:linear-gradient(135deg,#7c3aed,#5b21b6)" title="Purple"></div>
+                                <div class="color-preset" data-g1="#dc2626" data-g2="#991b1b" style="background:linear-gradient(135deg,#dc2626,#991b1b)" title="Red"></div>
+                                <div class="color-preset" data-g1="#059669" data-g2="#065f46" style="background:linear-gradient(135deg,#059669,#065f46)" title="Emerald"></div>
+                                <div class="color-preset" data-g1="#d97706" data-g2="#92400e" style="background:linear-gradient(135deg,#d97706,#92400e)" title="Amber"></div>
+                                <div class="color-preset" data-g1="#0f172a" data-g2="#334155" style="background:linear-gradient(135deg,#0f172a,#334155)" title="Slate"></div>
+                            </div>
+                            <div style="display:flex;gap:10px;margin-top:12px;">
+                                <div style="flex:1;"><label class="form-label" style="font-size:12px;" data-i18n="color1">Color 1</label><input type="color" id="cd_color1" class="form-control" value="#1e3a5f"></div>
+                                <div style="flex:1;"><label class="form-label" style="font-size:12px;" data-i18n="color2">Color 2</label><input type="color" id="cd_color2" class="form-control" value="#0f2340"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-building"></i> <span data-i18n="brand">Brand / ISP Name</span></label>
+                            <input type="text" id="cd_brand" class="form-control" value="MikroTools WiFi" maxlength="22">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-tag"></i> <span data-i18n="card_title_lbl">Card Title</span></label>
+                            <input type="text" id="cd_card_title" class="form-control" value="Internet Access Card" maxlength="30">
+                        </div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="show_qr">Show QR Code</span><label class="switch"><input type="checkbox" id="cd_show_qr" checked onchange="updateCardPreview()"><span class="slider"></span></label></div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="show_speed">Show Speed</span><label class="switch"><input type="checkbox" id="cd_show_speed" checked onchange="updateCardPreview()"><span class="slider"></span></label></div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="show_expiry">Show Expiry</span><label class="switch"><input type="checkbox" id="cd_show_expiry" checked onchange="updateCardPreview()"><span class="slider"></span></label></div>
+                    </div>
+
+                    <!-- Sample Voucher -->
+                    <div class="card" id="sample_voucher_card">
+                        <h3><i class="fas fa-hashtag"></i> <span data-i18n="sample_voucher_title">Sample Voucher Data</span></h3>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-barcode"></i> <span data-i18n="card_number">Card Number</span></label>
+                            <input type="text" id="cd_sample_voucher" class="form-control" value="4821-7634-9102-5847" oninput="updateCardPreview()">
+                        </div>
+                        <div class="form-group" id="cd_speed_group">
+                            <label class="form-label"><i class="fas fa-tachometer-alt"></i> <span data-i18n="speed">Speed</span></label>
+                            <input type="text" id="cd_sample_speed" class="form-control" value="10 Mbps" oninput="updateCardPreview()">
+                        </div>
+                        <div class="form-group" id="cd_expiry_group">
+                            <label class="form-label"><i class="fas fa-calendar"></i> <span data-i18n="expiry">Expiry Date</span></label>
+                            <input type="text" id="cd_sample_expiry" class="form-control" value="31/12/2025" oninput="updateCardPreview()">
+                        </div>
+                    </div>
+
+                    <!-- Sample UserPass -->
+                    <div class="card" id="sample_userpass_card" style="display:none;">
+                        <h3><i class="fas fa-key"></i> <span data-i18n="sample_userpass_title">Sample Data (Preview)</span></h3>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-user"></i> <span data-i18n="username">Username</span></label><input type="text" id="cd_sample_user" class="form-control" value="user2024" oninput="updateCardPreview()"></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-lock"></i> <span data-i18n="password">Password</span></label><input type="text" id="cd_sample_pass" class="form-control" value="pass@1234" oninput="updateCardPreview()"></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-tachometer-alt"></i> <span data-i18n="speed">Speed</span></label><input type="text" id="cd_sample_speed2" class="form-control" value="10 Mbps" oninput="updateCardPreview()"></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-calendar"></i> <span data-i18n="expiry">Expiry Date</span></label><input type="text" id="cd_sample_expiry2" class="form-control" value="31/12/2025" oninput="updateCardPreview()"></div>
+                    </div>
+                </div>
+
+                <!-- Live Preview -->
+                <div class="card-preview-wrap">
+                    <div class="card-preview-label" data-i18n="front_side">Front Side</div>
+                    <div class="wifi-card" id="singleCardPreview">
+                        <div class="wifi-card-bg" id="previewCardBg"></div>
+                        <div class="wifi-card-shine"></div>
+                        <div class="wifi-card-pattern"></div>
+                        <div class="wifi-card-content" id="previewCardContent"></div>
+                    </div>
+                    <div class="card-preview-label" style="margin-top:10px;" data-i18n="back_side">Back Side</div>
+                    <div class="wifi-card-back">
+                        <div class="wc-back-bg" id="previewCardBgBack"></div>
+                        <div class="wc-back-stripe"></div>
+                        <div class="wc-back-content">
+                            <div class="wc-back-text" data-i18n="back_terms">This card grants internet access. Keep credentials safe. Contact support for issues. Non-transferable.</div>
+                            <div class="wc-back-footer"><span id="prev_back_brand">MikroTools WiFi</span><span>mikro-tools.com</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: PRINT -->
+    <div id="cd-print-tab" class="tab-content">
+        <div class="content-panel">
+            <div class="section-title"><i class="fas fa-print"></i> <span data-i18n="print_title">Print Cards</span></div>
+            <div class="card" style="margin-bottom:20px;">
+                <h3><i class="fas fa-cog"></i> <span data-i18n="print_settings">Print Settings</span></h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div class="form-group" style="margin:0;">
+                        <label class="form-label" data-i18n="cards_per_row">Cards per Row</label>
+                        <select id="cd_per_row" class="form-control" onchange="buildPrintPreview()">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label class="form-label" data-i18n="paper_size">Paper Size</label>
+                        <select id="cd_paper_size" class="form-control" onchange="buildPrintPreview()">
+                            <option value="a4">A4</option>
+                            <option value="a5">A5</option>
+                            <option value="letter">Letter</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="printCards()"><i class="fas fa-print"></i> <span data-i18n="print_now">Print Now</span></button>
+                    <button class="btn btn-success" onclick="downloadCardsHTML()"><i class="fas fa-download"></i> <span data-i18n="download_cards">Download Cards HTML</span></button>
+                </div>
+            </div>
+
+            <div style="background:#e5e7eb;border-radius:12px;padding:20px;">
+                <div style="color:#6b7280;font-size:13px;margin-bottom:12px;text-align:center;" data-i18n="print_preview_label">Print Preview</div>
+                <div id="printArea" style="background:white;border-radius:8px;padding:15mm;min-height:200px;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+                    <div id="printCardsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="notification" id="notification">
+    <i class="fas fa-check-circle" style="font-size:24px;"></i>
+    <span id="notifMsg">Done!</span>
+</div>
+<div id="print-only-area"></div>
+
+<script>
+const translations = {
+    en: {
+        home:"Home", merge:"Merge", hotspot:"Hotspot", design_block:"Design & Block", help:"Help",
+        merge_v6:"Load Balancing v6", merge_v7:"Load Balancing v7",
+        hotspot_settings:"Hotspot+PPP Settings", speed_profiles:"Speed Profiles",
+        hotspot_design:"Hotspot Design", card_designer:"Card Designer", block_sites:"Block Sites",
+        log_analyzer:"Log Analyzer", troubleshooting:"Troubleshooting", about:"About Us",
+        privacy:"Privacy Policy", contact_us:"Contact Us",
+        hero_badge:"Professional WiFi Card Designer",
+        hero_title:"WiFi Card Designer",
+        hero_subtitle:"Design, generate & print professional WiFi voucher cards",
+        live_preview:"Live Preview",
+        tab_design:"Design", tab_data:"Cards Data", tab_print:"Print",
+        design_title:"Card Design",
+        mode_voucher:"Card Number (Voucher)", mode_voucher_desc:"Auto-generated random number",
+        mode_userpass:"Username / Password", mode_userpass_desc:"Show user & password on card",
+        card_style:"Card Style", color_theme:"Color Theme",
+        color1:"Color 1", color2:"Color 2",
+        brand:"Brand / ISP Name", card_title_lbl:"Card Title",
+        show_qr:"Show QR Code", show_speed:"Show Speed", show_expiry:"Show Expiry",
+        sample_voucher_title:"Sample Voucher Data",
+        card_number:"Card Number", speed:"Speed", expiry:"Expiry Date",
+        sample_userpass_title:"Sample Data (Preview)",
+        username:"Username", password:"Password",
+        front_side:"Front Side", back_side:"Back Side",
+        back_terms:"This card grants internet access. Keep credentials safe. Contact support for issues. Non-transferable.",
+        data_title:"Generate Cards", bulk_title:"Bulk Card Generator",
+        num_cards:"Number of Cards", bulk_speed:"Speed", bulk_expiry:"Expiry Date", num_format:"Number Format",
+        generate:"Generate Cards", sample_data:"Load Sample Data",
+        bulk_desc_up:"Enter data (one per line): username,password,speed,expiry",
+        print_all:"Print All",
+        print_title:"Print Cards", print_settings:"Print Settings",
+        cards_per_row:"Cards per Row", paper_size:"Paper Size",
+        print_now:"Print Now", download_cards:"Download Cards HTML",
+        print_preview_label:"Print Preview"
+    },
+    ar: {
+        home:"الرئيسية", merge:"الدمج", hotspot:"الهوت سبوت", design_block:"التصميم والحجب", help:"المساعدة",
+        merge_v6:"دمج خطوط v6", merge_v7:"دمج خطوط v7",
+        hotspot_settings:"اعدادات hotspot+ppp", speed_profiles:"بروفايلات السرعة",
+        hotspot_design:"تصميم hotspot", card_designer:"مصمم الكروت", block_sites:"حجب مواقع",
+        log_analyzer:"محلل السجلات", troubleshooting:"المشكلات الشائعة", about:"من نحن",
+        privacy:"سياسة الخصوصية", contact_us:"تواصل معنا",
+        hero_badge:"مصمم كروت WiFi الاحترافي",
+        hero_title:"مصمم كروت WiFi",
+        hero_subtitle:"صمم، أنشئ واطبع كروت إنترنت احترافية",
+        live_preview:"معاينة مباشرة",
+        tab_design:"التصميم", tab_data:"بيانات الكروت", tab_print:"طباعة",
+        design_title:"تصميم الكارت",
+        mode_voucher:"رقم الكارت (فاوتشر)", mode_voucher_desc:"أرقام عشوائية تلقائية",
+        mode_userpass:"يوزر / باسورد", mode_userpass_desc:"عرض اليوزر والباسورد على الكارت",
+        card_style:"شكل الكارت", color_theme:"لون الكارت",
+        color1:"اللون الأول", color2:"اللون الثاني",
+        brand:"اسم الشركة / المزود", card_title_lbl:"عنوان الكارت",
+        show_qr:"إظهار QR Code", show_speed:"إظهار السرعة", show_expiry:"إظهار تاريخ الانتهاء",
+        sample_voucher_title:"بيانات فاوتشر تجريبية",
+        card_number:"رقم الكارت", speed:"السرعة", expiry:"تاريخ الانتهاء",
+        sample_userpass_title:"بيانات تجريبية (معاينة)",
+        username:"اسم المستخدم", password:"كلمة المرور",
+        front_side:"الوجه الأمامي", back_side:"الوجه الخلفي",
+        back_terms:"هذا الكارت يمنح صلاحية الوصول للإنترنت. احتفظ ببياناتك في مكان آمن. للدعم تواصل معنا. غير قابل للتحويل.",
+        data_title:"توليد الكروت", bulk_title:"مولد الكروت الجماعي",
+        num_cards:"عدد الكروت", bulk_speed:"السرعة", bulk_expiry:"تاريخ الانتهاء", num_format:"صيغة الرقم",
+        generate:"توليد الكروت", sample_data:"تحميل بيانات تجريبية",
+        bulk_desc_up:"أدخل البيانات (كل سطر كارت): يوزر,باسورد,سرعة,تاريخ",
+        print_all:"طباعة الكل",
+        print_title:"طباعة الكروت", print_settings:"إعدادات الطباعة",
+        cards_per_row:"عدد الكروت في الصف", paper_size:"حجم الورقة",
+        print_now:"طباعة الآن", download_cards:"تحميل الكروت HTML",
+        print_preview_label:"معاينة الطباعة"
+    }
+};
+
+let currentLang = localStorage.getItem('language') || 'en';
+let cardMode = 'voucher';
+let generatedCards = [];
+
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('language', lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.body.classList.toggle('ar', lang === 'ar');
+    document.body.classList.toggle('rtl', lang === 'ar');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+    });
+    document.getElementById('langEn').classList.toggle('active', lang === 'en');
+    document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+}
+
+function switchMainTab(id) {
+    document.querySelectorAll('.control-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.control-tab[data-tab="${id}"]`).classList.add('active');
+    document.getElementById(id).classList.add('active');
+    if (id === 'cd-print-tab') setTimeout(buildPrintPreview, 50);
+}
+document.querySelectorAll('.control-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchMainTab(tab.getAttribute('data-tab')));
+});
+
+document.getElementById('menuToggle').addEventListener('click', function() {
+    const nl = document.getElementById('navLinks');
+    nl.classList.toggle('active');
+    this.querySelector('i').className = nl.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+});
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) { e.preventDefault(); this.closest('.dropdown').classList.toggle('active'); }
+    });
+});
+
+function setCardMode(mode) {
+    cardMode = mode;
+    document.querySelectorAll('.card-mode-btn').forEach(b => {
+        const isActive = b.dataset.mode === mode;
+        b.style.background = isActive ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)';
+        b.style.borderColor = isActive ? 'var(--primary)' : 'rgba(255,255,255,0.1)';
+    });
+    const sv = document.getElementById('sample_voucher_card');
+    const su = document.getElementById('sample_userpass_card');
+    if (sv) sv.style.display = mode === 'voucher' ? '' : 'none';
+    if (su) su.style.display = mode === 'userpass' ? '' : 'none';
+    const vg = document.getElementById('voucher_gen_section');
+    const ug = document.getElementById('userpass_gen_section');
+    if (vg) vg.style.display = mode === 'voucher' ? '' : 'none';
+    if (ug) ug.style.display = mode === 'userpass' ? '' : 'none';
+    const mi = document.getElementById('data_mode_icon');
+    const mt = document.getElementById('data_mode_title');
+    const mh = document.getElementById('data_mode_hint');
+    if (mode === 'voucher') {
+        if (mi) mi.textContent = '🎫';
+        if (mt) mt.textContent = currentLang==='ar' ? 'نمط الفاوتشر - أرقام الكروت' : 'Voucher Mode - Card Numbers';
+        if (mh) mh.textContent = currentLang==='ar' ? 'سيتم توليد الأرقام تلقائياً' : 'Numbers will be auto-generated randomly';
+    } else {
+        if (mi) mi.textContent = '👤';
+        if (mt) mt.textContent = currentLang==='ar' ? 'نمط يوزر/باسورد' : 'Username / Password Mode';
+        if (mh) mh.textContent = currentLang==='ar' ? 'أدخل البيانات يدوياً' : 'Enter data manually';
+    }
+    updateCardPreview();
+}
+
+// Color presets
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.color-preset').forEach(p => {
+        p.addEventListener('click', function() {
+            document.querySelectorAll('.color-preset').forEach(x => x.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById('cd_color1').value = this.dataset.g1;
+            document.getElementById('cd_color2').value = this.dataset.g2;
+            updateCardPreview();
+        });
+    });
+    document.getElementById('cd_color1').addEventListener('input', updateCardPreview);
+    document.getElementById('cd_color2').addEventListener('input', updateCardPreview);
+    document.getElementById('cd_brand').addEventListener('input', updateCardPreview);
+    document.getElementById('cd_card_title').addEventListener('input', updateCardPreview);
+    setLang(currentLang);
+    document.getElementById('langEn').addEventListener('click', () => setLang('en'));
+    document.getElementById('langAr').addEventListener('click', () => setLang('ar'));
+    setTimeout(updateCardPreview, 100);
+});
+
+function generateVoucherNumber(format) {
+    const r = () => Math.floor(Math.random() * 10);
+    const r4 = () => `${r()}${r()}${r()}${r()}`;
+    const r3 = () => `${r()}${r()}${r()}`;
+    if (format === '4x4') return `${r4()}-${r4()}-${r4()}-${r4()}`;
+    if (format === '3x4') return `${r3()}-${r4()}-${r3()}-${r4()}`;
+    if (format === 'plain16') return Array.from({length:16},r).join('');
+    if (format === 'plain12') return Array.from({length:12},r).join('');
+    return `${r4()}-${r4()}-${r4()}-${r4()}`;
+}
+
+function drawSimpleQR(canvas, text, size) {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, size, size);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = '#000';
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) hash = (hash * 31 + text.charCodeAt(i)) | 0;
+    const cells = 11, cell = size / cells, margin = 0.7;
+    for (let r = 0; r < cells; r++) {
+        for (let c = 0; c < cells; c++) {
+            const seed = (hash * (r * cells + c + 1) * 1103515245 + 12345) & 0x7fffffff;
+            if (seed % 3 !== 0) ctx.fillRect(c*cell+margin, r*cell+margin, cell-margin*2, cell-margin*2);
+        }
+    }
+    function drawFinder(x, y) {
+        ctx.fillStyle='#000'; ctx.fillRect(x,y,cell*3,cell*3);
+        ctx.fillStyle='#fff'; ctx.fillRect(x+cell*0.5,y+cell*0.5,cell*2,cell*2);
+        ctx.fillStyle='#000'; ctx.fillRect(x+cell,y+cell,cell,cell);
+    }
+    drawFinder(0,0); drawFinder(size-cell*3,0); drawFinder(0,size-cell*3);
+}
+
+function updateCardPreview() {
+    const c1 = document.getElementById('cd_color1').value;
+    const c2 = document.getElementById('cd_color2').value;
+    const brand = document.getElementById('cd_brand').value;
+    const title = document.getElementById('cd_card_title').value;
+    const showQR = document.getElementById('cd_show_qr').checked;
+    const showSpeed = document.getElementById('cd_show_speed').checked;
+    const showExpiry = document.getElementById('cd_show_expiry').checked;
+    const bg = document.getElementById('previewCardBg');
+    const bgBack = document.getElementById('previewCardBgBack');
+    if (bg) bg.style.background = `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`;
+    if (bgBack) bgBack.style.background = `linear-gradient(135deg, ${c2} 0%, ${c1} 100%)`;
+    const prevBrand = document.getElementById('prev_back_brand');
+    if (prevBrand) prevBrand.textContent = brand;
+    const content = document.getElementById('previewCardContent');
+    if (!content) return;
+    const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    if (cardMode === 'voucher') {
+        const voucher = g('cd_sample_voucher') || '4821-7634-9102-5847';
+        const speed = g('cd_sample_speed');
+        const expiry = g('cd_sample_expiry');
+        const speedTag = showSpeed && speed ? `<span class="wc-extra-tag">⚡ ${speed}</span>` : '';
+        const expiryTag = showExpiry && expiry ? `<span class="wc-extra-tag">📅 ${expiry}</span>` : '';
+        const qrHTML = showQR ? `<div class="wc-qr"><canvas id="prev_qr_canvas" width="46" height="46"></canvas></div>` : '';
+        content.innerHTML = `
+            <div class="wc-top"><div class="wc-logo-area">${brand}</div><div class="wc-wifi-icon">📶</div></div>
+            <div style="text-align:center;">
+                <div class="wc-title" style="margin-bottom:6px;">${title}</div>
+                <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px;">
+                    <div style="font-size:9px;opacity:0.6;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;">Card Number</div>
+                    <div style="border-bottom:1.5px solid rgba(255,255,255,0.5);height:22px;width:100%;"></div>
+                </div>
+            </div>
+            <div class="wc-bottom"><div class="wc-extras">${speedTag}${expiryTag}</div>${qrHTML}</div>`;
+        if (showQR) { const canvas = content.querySelector('#prev_qr_canvas'); if (canvas) drawSimpleQR(canvas, voucher, 46); }
+    } else {
+        const user = g('cd_sample_user') || 'user2024';
+        const pass = g('cd_sample_pass') || 'pass@1234';
+        const speed = g('cd_sample_speed2');
+        const expiry = g('cd_sample_expiry2');
+        const speedTag = showSpeed && speed ? `<span class="wc-extra-tag">⚡ ${speed}</span>` : '';
+        const expiryTag = showExpiry && expiry ? `<span class="wc-extra-tag">📅 ${expiry}</span>` : '';
+        const qrHTML = showQR ? `<div class="wc-qr"><canvas id="prev_qr_canvas" width="46" height="46"></canvas></div>` : '';
+        content.innerHTML = `
+            <div class="wc-top"><div class="wc-logo-area">${brand}</div><div class="wc-wifi-icon">📶</div></div>
+            <div>
+                <div class="wc-title">${title}</div>
+                <div class="wc-creds">
+                    <div class="wc-cred-row"><span class="wc-cred-icon">👤</span><span class="wc-cred-label">Username:</span><span class="wc-cred-val">${user}</span></div>
+                    <div class="wc-cred-row"><span class="wc-cred-icon">🔑</span><span class="wc-cred-label">Password:</span><span class="wc-cred-val">${pass}</span></div>
+                </div>
+            </div>
+            <div class="wc-bottom"><div class="wc-extras">${speedTag}${expiryTag}</div>${qrHTML}</div>`;
+        if (showQR) { const canvas = content.querySelector('#prev_qr_canvas'); if (canvas) drawSimpleQR(canvas, user+':'+pass, 46); }
+    }
+}
+
+function buildCardHTML(cardData) {
+    const g = id => { const el = document.getElementById(id); return el ? el.value : null; };
+    const gb = id => { const el = document.getElementById(id); return el ? el.checked : true; };
+    const c1 = g('cd_color1') || '#1e3a5f';
+    const c2 = g('cd_color2') || '#0f2340';
+    const brand = g('cd_brand') || 'WiFi';
+    const title = g('cd_card_title') || 'Internet Access Card';
+    const showSpeed = gb('cd_show_speed');
+    const showExpiry = gb('cd_show_expiry');
+    const showQR = gb('cd_show_qr');
+    const speed = cardData.speed || '';
+    const expiry = cardData.expiry || '';
+    const speedTag = showSpeed && speed ? `<span class="wc-extra-tag">⚡ ${speed}</span>` : '';
+    const expiryTag = showExpiry && expiry ? `<span class="wc-extra-tag">📅 ${expiry}</span>` : '';
+    let middleHTML = '', qrText = '';
+    if (cardMode === 'voucher') {
+        const num = cardData.voucher || '';
+        qrText = num;
+        middleHTML = `<div style="text-align:center;"><div class="wc-title" style="margin-bottom:5px;">${title}</div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:9px 8px;"><div style="font-size:8px;opacity:0.6;margin-bottom:5px;letter-spacing:1px;text-transform:uppercase;">Card Number</div><div style="border-bottom:1.5px solid rgba(255,255,255,0.5);height:20px;width:100%;"></div></div></div>`;
+    } else {
+        const user = cardData.user || '';
+        const pass = cardData.pass || '';
+        qrText = user + ':' + pass;
+        middleHTML = `<div><div class="wc-title">${title}</div><div class="wc-creds"><div class="wc-cred-row"><span class="wc-cred-icon">👤</span><span class="wc-cred-label">Username:</span><span class="wc-cred-val">${user}</span></div><div class="wc-cred-row"><span class="wc-cred-icon">🔑</span><span class="wc-cred-label">Password:</span><span class="wc-cred-val">${pass}</span></div></div></div>`;
+    }
+    const qrHTML = showQR ? `<div class="wc-qr"><canvas class="qr-canvas" data-text="${qrText}" width="46" height="46"></canvas></div>` : '';
+    return `<div class="wifi-card"><div class="wifi-card-bg" style="background:linear-gradient(135deg,${c1},${c2})"></div><div class="wifi-card-shine"></div><div class="wifi-card-pattern"></div><div class="wifi-card-content"><div class="wc-top"><div class="wc-logo-area">${brand}</div><div class="wc-wifi-icon">📶</div></div>${middleHTML}<div class="wc-bottom"><div class="wc-extras">${speedTag}${expiryTag}</div>${qrHTML}</div></div></div>`;
+}
+
+function renderQRsInContainer(container) {
+    container.querySelectorAll('.qr-canvas').forEach(canvas => { drawSimpleQR(canvas, canvas.dataset.text || '', 46); });
+}
+
+function buildPrintPreview() {
+    const container = document.getElementById('printCardsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    const perRow = parseInt(document.getElementById('cd_per_row').value) || 2;
+    const CARD_W_MM = 85.6, CARD_H_MM = 54;
+    const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    let src = generatedCards.length > 0 ? generatedCards : (cardMode === 'voucher' ?
+        [{ voucher: g('cd_sample_voucher') || generateVoucherNumber('4x4'), speed: g('cd_sample_speed'), expiry: g('cd_sample_expiry') }] :
+        [{ user: g('cd_sample_user') || 'user2024', pass: g('cd_sample_pass') || 'pass@1234', speed: g('cd_sample_speed2'), expiry: g('cd_sample_expiry2') }]);
+    container.style.cssText = `display:grid;grid-template-columns:repeat(${perRow},${CARD_W_MM}mm);gap:4mm;`;
+    src.forEach(card => {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = `width:${CARD_W_MM}mm;height:${CARD_H_MM}mm;overflow:hidden;border-radius:3mm;`;
+        wrapper.innerHTML = buildCardHTML(card);
+        const wc = wrapper.querySelector('.wifi-card');
+        if (wc) { wc.style.cssText += `;width:${CARD_W_MM}mm;height:${CARD_H_MM}mm;min-width:${CARD_W_MM}mm;border-radius:3mm;box-shadow:none;border:0.5px solid #ccc;transform:none;`; }
+        container.appendChild(wrapper);
+    });
+    renderQRsInContainer(container);
+}
+
+function printCards() {
+    buildPrintPreview();
+    const perRow = parseInt(document.getElementById('cd_per_row').value) || 2;
+    const CARD_W_MM = 85.6, CARD_H_MM = 54;
+    const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    let src = generatedCards.length > 0 ? generatedCards : (cardMode === 'voucher' ?
+        [{ voucher: g('cd_sample_voucher') || generateVoucherNumber('4x4'), speed: g('cd_sample_speed'), expiry: g('cd_sample_expiry') }] :
+        [{ user: g('cd_sample_user') || 'user2024', pass: g('cd_sample_pass') || 'pass@1234', speed: g('cd_sample_speed2'), expiry: g('cd_sample_expiry2') }]);
+    const printDiv = document.getElementById('print-only-area');
+    const grid = document.createElement('div');
+    grid.style.cssText = `display:grid;grid-template-columns:repeat(${perRow},${CARD_W_MM}mm);gap:4mm;`;
+    src.forEach(card => {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = `width:${CARD_W_MM}mm;height:${CARD_H_MM}mm;overflow:hidden;`;
+        wrapper.innerHTML = buildCardHTML(card);
+        const wc = wrapper.querySelector('.wifi-card');
+        if (wc) { wc.style.cssText += `;width:${CARD_W_MM}mm;height:${CARD_H_MM}mm;transform:none;box-shadow:none;`; }
+        grid.appendChild(wrapper);
+    });
+    printDiv.innerHTML = '';
+    printDiv.appendChild(grid);
+    renderQRsInContainer(printDiv);
+    setTimeout(() => window.print(), 600);
+}
+
+function downloadCardsHTML() {
+    const c1 = document.getElementById('cd_color1').value;
+    const c2 = document.getElementById('cd_color2').value;
+    const brand = document.getElementById('cd_brand').value;
+    const title = document.getElementById('cd_card_title').value;
+    const showSpeed = document.getElementById('cd_show_speed').checked;
+    const showExpiry = document.getElementById('cd_show_expiry').checked;
+    const showQR = document.getElementById('cd_show_qr').checked;
+    const perRow = parseInt(document.getElementById('cd_per_row').value) || 2;
+    const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    const src = generatedCards.length > 0 ? generatedCards : (cardMode === 'voucher' ?
+        [{ voucher: g('cd_sample_voucher') || '0000-0000-0000-0000', speed: g('cd_sample_speed'), expiry: g('cd_sample_expiry') }] :
+        [{ user: g('cd_sample_user') || 'user2024', pass: g('cd_sample_pass') || 'pass@1234', speed: g('cd_sample_speed2'), expiry: g('cd_sample_expiry2') }]);
+    let cardsHTML = src.map(card => {
+        const speed = card.speed || '', expiry = card.expiry || '';
+        const speedTag = showSpeed && speed ? `<span class="extra-tag">⚡ ${speed}</span>` : '';
+        const expiryTag = showExpiry && expiry ? `<span class="extra-tag">📅 ${expiry}</span>` : '';
+        let midHTML = '', qrText = '';
+        if (cardMode === 'voucher') {
+            qrText = card.voucher || '';
+            midHTML = `<div style="text-align:center;"><div class="ctitle">${title}</div><div class="numbox"><div class="numlbl">CARD NUMBER</div><div class="numline"></div></div></div>`;
+        } else {
+            qrText = (card.user||'')+':'+(card.pass||'');
+            midHTML = `<div><div class="ctitle">${title}</div><div class="creds"><div class="row"><span class="icon">👤</span><span class="lbl">Username:</span><span class="val">${card.user}</span></div><div class="row"><span class="icon">🔑</span><span class="lbl">Password:</span><span class="val">${card.pass}</span></div></div></div>`;
+        }
+        const qrHTML = showQR ? `<div class="qr-box"><canvas class="qr-c" data-text="${qrText}" width="40" height="40"></canvas></div>` : '';
+        return `<div class="card"><div class="card-bg"></div><div class="card-shine"></div><div class="card-content"><div class="top"><div class="logo">${brand}</div><span>📶</span></div>${midHTML}<div class="bottom"><div class="extras">${speedTag}${expiryTag}</div>${qrHTML}</div></div></div>`;
+    }).join('');
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${brand} - WiFi Cards</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;}body{background:#e5e7eb;padding:15mm;font-family:'Poppins',sans-serif;}.cards-grid{display:grid;grid-template-columns:repeat(${perRow},85.6mm);gap:4mm;width:fit-content;}.card{width:85.6mm;height:54mm;border-radius:3mm;position:relative;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.3);}.card-bg{position:absolute;inset:0;background:linear-gradient(135deg,${c1},${c2});}.card-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);}.card-content{position:absolute;inset:0;z-index:2;padding:3mm 4mm;display:flex;flex-direction:column;justify-content:space-between;color:#fff;}.top{display:flex;justify-content:space-between;align-items:flex-start;}.logo{font-size:8pt;font-weight:800;max-width:55mm;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.ctitle{font-size:5.5pt;opacity:0.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:2mm;}.numbox{background:rgba(255,255,255,0.12);border-radius:2mm;padding:2mm 3mm;text-align:center;}.numlbl{font-size:5pt;opacity:0.65;letter-spacing:1px;margin-bottom:1mm;}.numval{font-family:'Courier New',monospace;font-size:11pt;font-weight:800;letter-spacing:2px;}.numline{border-bottom:1.5px solid rgba(255,255,255,0.5);height:18px;width:100%;}.creds{display:flex;flex-direction:column;gap:1.5mm;}.row{display:flex;align-items:center;gap:2mm;background:rgba(255,255,255,0.1);border-radius:1.5mm;padding:1mm 2mm;}.icon{font-size:8pt;}.lbl{font-size:5.5pt;opacity:0.65;min-width:12mm;}.val{font-size:6.5pt;font-weight:700;font-family:'Courier New',monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.bottom{display:flex;justify-content:space-between;align-items:flex-end;}.extras{display:flex;flex-direction:column;gap:1mm;}.extra-tag{font-size:5.5pt;background:rgba(255,255,255,0.12);padding:0.8mm 2mm;border-radius:20px;white-space:nowrap;}.qr-box{width:11mm;height:11mm;background:white;border-radius:1.5mm;overflow:hidden;flex-shrink:0;}.qr-c{width:100%;height:100%;}@media print{body{background:white;padding:8mm;}.card{box-shadow:none;border:0.3px solid #ccc;}}</style></head><body><div class="cards-grid">${cardsHTML}</div><script>function drawQR(c,t){var ctx=c.getContext('2d'),s=40;ctx.fillStyle='#fff';ctx.fillRect(0,0,s,s);ctx.fillStyle='#000';var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;var n=11,cl=s/n,m=0.7;for(var r=0;r<n;r++)for(var c2=0;c2<n;c2++){var sd=(h*(r*n+c2+1)*1103515245+12345)&0x7fffffff;if(sd%3!==0)ctx.fillRect(c2*cl+m,r*cl+m,cl-m*2,cl-m*2);}function f(x,y){ctx.fillStyle='#000';ctx.fillRect(x,y,cl*3,cl*3);ctx.fillStyle='#fff';ctx.fillRect(x+cl*.5,y+cl*.5,cl*2,cl*2);ctx.fillStyle='#000';ctx.fillRect(x+cl,y+cl,cl,cl);}f(0,0);f(s-cl*3,0);f(0,s-cl*3);}document.querySelectorAll('.qr-c').forEach(function(c){drawQR(c,c.dataset.text||'');});<\/script></body></html>`;
+    const blob = new Blob([html],{type:'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'wifi-cards.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    showNotif(currentLang==='ar'?'تم تحميل الكروت ✅':'Cards downloaded ✅');
+}
+
+let notifTimer = null;
+function showNotif(msg) {
+    const n = document.getElementById('notification');
+    document.getElementById('notifMsg').textContent = msg;
+    n.classList.add('show');
+    clearTimeout(notifTimer);
+    notifTimer = setTimeout(() => n.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
