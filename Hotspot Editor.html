@@ -9,597 +9,139 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --secondary: #10b981;
-            --accent: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
+            --primary: #6366f1; --primary-dark: #4f46e5; --primary-light: #818cf8;
+            --secondary: #10b981; --accent: #f59e0b; --dark: #1e293b; --light: #f8fafc; --gray: #64748b;
             --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
             --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
             --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
             --border-radius: 16px;
-            
-            /* لون علامة جديد */
-            --new-badge-start: #ff416c;
-            --new-badge-end: #ff4b2b;
-            --new-badge-glow: rgba(255, 65, 108, 0.5);
+            --new-badge-start: #ff416c; --new-badge-end: #ff4b2b; --new-badge-glow: rgba(255, 65, 108, 0.5);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: var(--gradient-dark);
-            min-height: 100vh;
-            color: var(--light);
-            padding: 20px;
-            padding-top: 100px;
-            overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
+        body { background: var(--gradient-dark); min-height: 100vh; color: var(--light); padding: 20px; padding-top: 100px; overflow-x: hidden; font-family: 'Poppins', sans-serif; }
         body.ar { font-family: 'Tajawal', sans-serif; }
         body.rtl { direction: rtl; text-align: right; }
 
-        /* ===== NAVBAR ===== */
-        .navbar {
-            background: var(--dark);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: white;
-        }
-        .logo-icon {
-            background: var(--gradient);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+        /* NAVBAR */
+        .navbar { background: var(--dark); padding: 1rem 2rem; position: fixed; top: 0; right: 0; left: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; color: white; }
+        .logo-icon { background: var(--gradient); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .logo-text { font-size: 24px; font-weight: 800; }
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        .nav-link {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.1); }
+        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+        .nav-link { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 8px 16px; border-radius: 10px; display: flex; align-items: center; gap: 6px; }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
         .nav-link.active { color: white; background: var(--primary); }
-        .lang-switcher {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 0 10px;
-        }
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: #cbd5e1;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .lang-switcher { display: flex; gap: 5px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); margin: 0 10px; }
+        .lang-btn { background: transparent; border: none; color: #cbd5e1; padding: 6px 16px; border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
         .lang-btn i { font-size: 12px; }
-        .lang-btn:hover { color: white; background: rgba(255, 255, 255, 0.1); }
-        .lang-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
+        .lang-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+        .lang-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(99,102,241,0.3); }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
         .dropdown { position: relative; display: inline-block; }
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
+        .dropdown-toggle { display: flex; align-items: center; gap: 5px; cursor: pointer; }
         .dropdown-arrow { font-size: 12px; transition: transform 0.3s; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--dark);
-            min-width: 250px;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: var(--dark); min-width: 250px; border-radius: 12px; padding: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; z-index: 1000; border: 1px solid rgba(255,255,255,0.1); }
         body.rtl .dropdown-menu { left: auto; right: 0; }
         .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: #cbd5e1;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .dropdown-item:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: #cbd5e1; text-decoration: none; border-radius: 8px; transition: all 0.3s; cursor: pointer; }
+        .dropdown-item:hover { background: rgba(255,255,255,0.1); color: white; }
         .dropdown-item i { width: 20px; font-size: 16px; color: var(--primary); }
-        .nav-cta {
-            background: var(--gradient);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3); }
+        .nav-cta { background: var(--gradient); color: white; padding: 10px 24px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.3s; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99,102,241,0.3); }
+        .new-badge { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 30px; margin-left: 5px; display: inline-block; animation: newGlow 1.5s ease-in-out infinite; box-shadow: 0 2px 10px rgba(255,65,108,0.5); border: 1px solid rgba(255,255,255,0.3); position: relative; top: -2px; text-transform: uppercase; letter-spacing: 0.5px; }
+        @keyframes newGlow { 0% { transform: scale(1); box-shadow: 0 2px 10px rgba(255,65,108,0.5); } 50% { transform: scale(1.1); background: linear-gradient(135deg,#ff4b2b,#ff416c); box-shadow: 0 4px 20px rgba(255,65,108,0.9); } 100% { transform: scale(1); box-shadow: 0 2px 10px rgba(255,65,108,0.5); } }
+        body.rtl .new-badge { margin-right: 5px; margin-left: 0; }
 
-        /* ===== علامة جديد المميزة ===== */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-left: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة العربية */
-        body.rtl .new-badge {
-            margin-right: 5px;
-            margin-left: 0;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            background: rgba(30,41,59,0.7);
-            border-radius: var(--border-radius);
-            padding: 40px 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: 200px;
-        }
+        /* HERO */
+        .hero { background: rgba(30,41,59,0.7); border-radius: var(--border-radius); padding: 40px 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>'); background-size: 200px; }
         .hero-content { position: relative; z-index: 1; }
-        .hero-badge {
-            display: inline-block;
-            background: rgba(99,102,241,0.2);
-            color: #a5b4fc;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(99,102,241,0.3);
-        }
-        .hero-title {
-            font-size: 28px;
-            background: linear-gradient(to right, #ffffff, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+        .hero-badge { display: inline-block; background: rgba(99,102,241,0.2); color: #a5b4fc; padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 500; margin-bottom: 1rem; border: 1px solid rgba(99,102,241,0.3); }
+        .hero-title { font-size: 28px; background: linear-gradient(to right, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; margin-bottom: 10px; }
         .hero-subtitle { color: #cbd5e1; font-size: 14px; }
-        .status-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            background: rgba(99,102,241,0.2);
-            border-radius: 20px;
-            font-size: 14px;
-            color: #a5b4fc;
-            border: 1px solid rgba(99,102,241,0.3);
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--secondary);
-            animation: pulse 2s infinite;
-        }
+        .status-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; background: rgba(99,102,241,0.2); border-radius: 20px; font-size: 14px; color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); animation: pulse 2s infinite; }
 
-        /* ===== TABS ===== */
-        .control-tabs {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-            background: rgba(30, 41, 59, 0.7);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .control-tab {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #cbd5e1;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            font-family: inherit;
-        }
+        /* TABS */
+        .control-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; background: rgba(30,41,59,0.7); padding: 15px; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.1); }
+        .control-tab { padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #cbd5e1; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 15px; font-family: inherit; }
         .control-tab:hover { background: rgba(99,102,241,0.2); color: white; transform: translateY(-3px); }
-        .control-tab.active {
-            background: rgba(99,102,241,0.3);
-            border-color: var(--primary);
-            color: white;
-            box-shadow: 0 10px 20px rgba(99,102,241,0.15);
-        }
+        .control-tab.active { background: rgba(99,102,241,0.3); border-color: var(--primary); color: white; box-shadow: 0 10px 20px rgba(99,102,241,0.15); }
         .tab-icon { font-size: 32px; color: var(--primary-light); }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.5s; }
         @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-        /* ===== CONTENT PANELS ===== */
-        .content-panel {
-            background: rgba(30,41,59,0.7);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 25px;
-        }
-        .section-title {
-            font-size: 22px;
-            color: white;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-        }
-        .section-title i {
-            color: var(--primary-light);
-            background: rgba(99,102,241,0.2);
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .control-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
-        .card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 25px;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(99,102,241,0.1);
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-            transform: translateX(-100%);
-            transition: transform 0.3s;
-        }
+        /* CONTENT PANELS */
+        .content-panel { background: rgba(30,41,59,0.7); border-radius: var(--border-radius); padding: 30px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; }
+        .section-title { font-size: 22px; color: white; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 12px; font-weight: 800; }
+        .section-title i { color: var(--primary-light); background: rgba(99,102,241,0.2); padding: 10px; border-radius: 10px; }
+        .control-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .card { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 25px; border-radius: var(--border-radius); border: 1px solid rgba(99,102,241,0.1); box-shadow: var(--shadow); transition: all 0.3s; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); transform: translateX(-100%); transition: transform 0.3s; }
         .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
         .card:hover::before { transform: translateX(0); }
-        .card h3 {
-            color: var(--dark);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(99,102,241,0.1);
-            font-weight: 700;
-        }
+        .card h3 { color: var(--dark); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(99,102,241,0.1); font-weight: 700; }
         .form-group { margin-bottom: 20px; }
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--dark);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .form-control {
-            width: 100%;
-            padding: 14px;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            color: var(--dark);
-            font-size: 15px;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
+        .form-label { display: block; margin-bottom: 10px; color: var(--dark); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .form-control { width: 100%; padding: 14px; background: white; border: 2px solid #e2e8f0; border-radius: 10px; color: var(--dark); font-size: 15px; transition: all 0.3s; font-family: inherit; }
         .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
         textarea.form-control { min-height: 80px; resize: vertical; }
         input[type="color"].form-control { height: 50px; padding: 4px; cursor: pointer; }
 
-        /* ===== SWITCH ===== */
-        .switch-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
+        /* SWITCH */
+        .switch-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .switch-label { font-size: 14px; color: var(--dark); font-weight: 600; }
         .switch { position: relative; display: inline-block; width: 50px; height: 25px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #cbd5e0;
-            transition: .4s;
-            border-radius: 25px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 4px;
-            background: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #cbd5e0; transition: .4s; border-radius: 25px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background: var(--secondary); }
         input:checked + .slider:before { transform: translateX(24px); }
 
-        /* ===== FILE UPLOAD ===== */
-        .file-upload {
-            border: 2px dashed rgba(99,102,241,0.3);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-            background: rgba(255,255,255,0.8);
-        }
+        /* FILE UPLOAD */
+        .file-upload { border: 2px dashed rgba(99,102,241,0.3); border-radius: 10px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s; margin-top: 10px; background: rgba(255,255,255,0.8); }
         .file-upload:hover { border-color: var(--primary); background: rgba(99,102,241,0.05); }
         .file-upload i { font-size: 40px; color: var(--primary); margin-bottom: 15px; display: block; }
 
-        /* ===== BG GRID ===== */
+        /* BG GRID */
         .bg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
-        .bg-item {
-            aspect-ratio: 16/9;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            border: 3px solid transparent;
-            transition: all 0.3s;
-        }
+        .bg-item { aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; border: 3px solid transparent; transition: all 0.3s; }
         .bg-item:hover { transform: scale(1.05); border-color: var(--primary); }
         .bg-item.active { border-color: var(--secondary); box-shadow: 0 0 20px rgba(16,185,129,0.3); }
         .bg-preview { width: 100%; height: 100%; background-size: cover; background-position: center; }
-        .bg-name {
-            position: absolute;
-            bottom: 0;
-            left: 0; right: 0;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            padding: 8px;
-            font-size: 12px;
-            text-align: center;
-        }
+        .bg-name { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: #fff; padding: 8px; font-size: 12px; text-align: center; }
 
-        /* ===== IMAGE PREVIEW ===== */
+        /* IMAGE PREVIEW */
         .img-preview { display: none; margin-top: 15px; }
         .img-preview.show { display: block; }
         .img-preview img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid #e2e8f0; }
 
-        /* ===== LOGO DISPLAY ===== */
-        .logo-display-box {
-            width: 200px;
-            height: 100px;
-            background: linear-gradient(45deg, #4361ee, #3a0ca3);
-            border-radius: 10px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+        /* LOGO DISPLAY */
+        .logo-display-box { width: 200px; height: 100px; background: linear-gradient(45deg, #4361ee, #3a0ca3); border-radius: 10px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        /* ===== LOGIN METHODS ===== */
-        .login-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .method-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: 1px solid rgba(99,102,241,0.1);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            box-shadow: var(--shadow);
-        }
+        /* LOGIN METHODS */
+        .login-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .method-card { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1px solid rgba(99,102,241,0.1); border-radius: var(--border-radius); padding: 25px; cursor: pointer; transition: all 0.3s; position: relative; box-shadow: var(--shadow); }
         .method-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
         .method-card.active { border: 2px solid var(--primary); box-shadow: 0 10px 25px rgba(99,102,241,0.2); }
-        .method-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: white;
-            background: var(--gradient);
-        }
+        .method-icon { width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 20px; color: white; background: var(--gradient); }
         .method-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--dark); }
         .method-desc { color: var(--gray); font-size: 14px; line-height: 1.5; }
-        .method-settings {
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px dashed #e2e8f0;
-            display: none;
-        }
+        .method-settings { margin-top: 25px; padding-top: 25px; border-top: 1px dashed #e2e8f0; display: none; }
         .method-card.active .method-settings { display: block; }
 
-        /* ===== PREVIEW AREA ===== */
-        .preview-area {
-            background: rgba(30,41,59,0.5);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            height: 600px;
-            margin-top: 20px;
-            box-shadow: var(--shadow);
-        }
-        .preview-header {
-            background: rgba(30,41,59,0.9);
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: white;
-        }
-        #livePreview {
-            width: 100%;
-            height: calc(100% - 60px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            overflow: auto;
-        }
+        /* PREVIEW */
+        .preview-area { background: rgba(30,41,59,0.5); border-radius: var(--border-radius); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); height: 600px; margin-top: 20px; box-shadow: var(--shadow); }
+        .preview-header { background: rgba(30,41,59,0.9); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); color: white; }
+        #livePreview { width: 100%; height: calc(100% - 60px); display: flex; align-items: center; justify-content: center; transition: all 0.3s; overflow: auto; }
 
-        /* ===== BUTTONS ===== */
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            font-size: 15px;
-            font-family: inherit;
-        }
+        /* BUTTONS */
+        .btn { padding: 14px 28px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; font-size: 15px; font-family: inherit; }
         .btn-primary { background: var(--gradient); color: white; }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(99,102,241,0.3); }
         .btn-success { background: linear-gradient(135deg, #10b981, #34d399); color: white; }
@@ -608,82 +150,24 @@
         .btn-warning:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(245,158,11,0.3); }
         .action-buttons { display: flex; gap: 15px; margin-top: 30px; justify-content: flex-end; flex-wrap: wrap; }
 
-        /* ===== NOTIFICATION ===== */
-        .notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 20px;
-            background: var(--gradient);
-            color: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateX(150%);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 350px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
+        /* NOTIFICATION */
+        .notification { position: fixed; bottom: 30px; right: 30px; padding: 20px; background: var(--gradient); color: white; border-radius: 12px; box-shadow: var(--shadow-lg); z-index: 2000; display: flex; align-items: center; gap: 12px; transform: translateX(150%); transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275); max-width: 350px; border: 1px solid rgba(255,255,255,0.2); }
         .notification.show { transform: translateX(0); }
 
-        /* ===== DEVICE SELECT ===== */
-        .device-select {
-            padding: 10px 15px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
-            font-family: inherit;
-        }
+        /* DEVICE SELECT */
+        .device-select { padding: 10px 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer; font-family: inherit; }
         .device-select option { background: #1e293b; color: white; }
 
-        /* ===== SAVE INFO ===== */
-        .save-info {
-            color: var(--gray);
-            padding: 10px 14px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 8px;
-            margin-bottom: 14px;
-            font-size: 14px;
-        }
+        /* SAVE INFO */
+        .save-info { color: var(--gray); padding: 10px 14px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-bottom: 14px; font-size: 14px; }
 
-        /* ===== REMOVE BTN ===== */
-        .remove-btn {
-            padding: 6px 12px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            font-family: inherit;
-        }
+        /* REMOVE BTN */
+        .remove-btn { padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-family: inherit; }
 
-        @media (max-width: 1024px) {
-            .control-tabs { grid-template-columns: repeat(2, 1fr); }
-        }
+        @media (max-width: 1024px) { .control-tabs { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) {
             .navbar { padding: 1rem; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: 0;
-                background: var(--dark);
-                width: 100%;
-                padding: 1rem;
-                flex-direction: column;
-                gap: 0.5rem;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                max-height: 80vh;
-                overflow-y: auto;
-            }
+            .nav-links { display: none; position: absolute; top: 100%; right: 0; left: 0; background: var(--dark); width: 100%; padding: 1rem; flex-direction: column; gap: 0.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 80vh; overflow-y: auto; }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
             .lang-switcher { width: 100%; justify-content: center; margin: 10px 0 20px; order: -1; }
@@ -691,18 +175,7 @@
             .nav-link { width: 100%; text-align: center; justify-content: center; }
             .dropdown { width: 100%; }
             .dropdown-toggle { width: 100%; justify-content: center; }
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                background: rgba(255,255,255,0.05);
-                margin-top: 5px;
-                margin-bottom: 10px;
-                display: none;
-                width: 100%;
-            }
+            .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; background: rgba(255,255,255,0.05); margin-top: 5px; margin-bottom: 10px; display: none; width: 100%; }
             .dropdown.active .dropdown-menu { display: block; }
             .dropdown-item { justify-content: center; }
             .nav-cta { width: 100%; text-align: center; justify-content: center; margin-top: 10px; }
@@ -724,14 +197,11 @@
         </a>
         <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
         <div class="nav-links" id="navLinks">
-            <!-- Language Switcher -->
             <div class="lang-switcher">
                 <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
                 <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
             </div>
-            <!-- Home -->
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
-            <!-- Merge Dropdown -->
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="fas fa-code-branch"></i>
@@ -743,7 +213,6 @@
                     <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i> <span data-i18n="merge_v7">Load Balancing v7</span></a>
                 </div>
             </div>
-            <!-- Hotspot Dropdown -->
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="fas fa-wifi"></i>
@@ -755,7 +224,7 @@
                     <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i> <span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
             </div>
-            <!-- Design & Block Dropdown -->
+            <!-- Design & Block -->
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle active">
                     <i class="fas fa-paint-brush"></i>
@@ -764,10 +233,11 @@
                 </a>
                 <div class="dropdown-menu">
                     <a href="Hotspot%20Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i> <span data-i18n="hotspot_design">Hotspot Design</span></a>
+                    <!-- ✅ CardEditor مضاف -->
+                    <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i> <span data-i18n="card_designer">Card Designer</span></a>
                     <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i> <span data-i18n="block_sites">Block Sites</span></a>
                 </div>
             </div>
-            <!-- Log Analyzer with NEW badge -->
             <div class="dropdown">
                 <a href="log.html" class="nav-link">
                     <i class="fas fa-chart-bar"></i>
@@ -775,7 +245,6 @@
                     <span class="new-badge" data-i18n="new">NEW</span>
                 </a>
             </div>
-            <!-- Help Dropdown -->
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="fas fa-question-circle"></i>
@@ -788,7 +257,6 @@
                     <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-user-shield"></i> <span data-i18n="privacy">Privacy Policy</span></a>
                 </div>
             </div>
-            <!-- WhatsApp -->
             <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
                 <i class="fab fa-whatsapp"></i>
                 <span data-i18n="contact_us">Contact Us</span>
@@ -797,10 +265,8 @@
     </div>
 </nav>
 
-<!-- MAIN WRAPPER -->
 <div style="max-width:1400px;margin:0 auto;">
 
-    <!-- HERO -->
     <div class="hero">
         <div class="hero-content">
             <span class="hero-badge"><i class="fas fa-crown"></i> <span data-i18n="hotspot_badge">Complete System - Preview All Login Methods</span></span>
@@ -813,24 +279,11 @@
         </div>
     </div>
 
-    <!-- CONTROL TABS -->
     <div class="control-tabs">
-        <button class="control-tab active" data-tab="design">
-            <i class="fas fa-palette tab-icon"></i>
-            <span data-i18n="tab_design">Design & Text</span>
-        </button>
-        <button class="control-tab" data-tab="login">
-            <i class="fas fa-sign-in-alt tab-icon"></i>
-            <span data-i18n="tab_login">Login System</span>
-        </button>
-        <button class="control-tab" data-tab="preview">
-            <i class="fas fa-eye tab-icon"></i>
-            <span data-i18n="tab_preview">Preview</span>
-        </button>
-        <button class="control-tab" data-tab="save">
-            <i class="fas fa-save tab-icon"></i>
-            <span data-i18n="tab_save">Save & Download</span>
-        </button>
+        <button class="control-tab active" data-tab="design"><i class="fas fa-palette tab-icon"></i><span data-i18n="tab_design">Design & Text</span></button>
+        <button class="control-tab" data-tab="login"><i class="fas fa-sign-in-alt tab-icon"></i><span data-i18n="tab_login">Login System</span></button>
+        <button class="control-tab" data-tab="preview"><i class="fas fa-eye tab-icon"></i><span data-i18n="tab_preview">Preview</span></button>
+        <button class="control-tab" data-tab="save"><i class="fas fa-save tab-icon"></i><span data-i18n="tab_save">Save & Download</span></button>
     </div>
 
     <!-- TAB: DESIGN -->
@@ -838,7 +291,6 @@
         <div class="content-panel">
             <div class="section-title"><i class="fas fa-palette"></i> <span data-i18n="design_title">Design & Text</span></div>
             <div class="control-grid">
-                <!-- Background -->
                 <div class="card">
                     <h3><i class="fas fa-image"></i> <span data-i18n="bg_settings">Background Settings</span></h3>
                     <div class="form-group">
@@ -850,20 +302,11 @@
                         </select>
                     </div>
                     <div id="colorOptions" style="display:none;">
-                        <div class="form-group">
-                            <label class="form-label"><i class="fas fa-paint-brush"></i> <span data-i18n="bg_color_label">Background Color</span></label>
-                            <input type="color" id="bgColor" class="form-control" value="#1a1a2e">
-                        </div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-paint-brush"></i> <span data-i18n="bg_color_label">Background Color</span></label><input type="color" id="bgColor" class="form-control" value="#1a1a2e"></div>
                     </div>
                     <div id="gradientOptions">
-                        <div class="form-group">
-                            <label class="form-label"><i class="fas fa-palette"></i> <span data-i18n="gradient_color1">First Color</span></label>
-                            <input type="color" id="gradientColor1" class="form-control" value="#667eea">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label"><i class="fas fa-palette"></i> <span data-i18n="gradient_color2">Second Color</span></label>
-                            <input type="color" id="gradientColor2" class="form-control" value="#764ba2">
-                        </div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-palette"></i> <span data-i18n="gradient_color1">First Color</span></label><input type="color" id="gradientColor1" class="form-control" value="#667eea"></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-palette"></i> <span data-i18n="gradient_color2">Second Color</span></label><input type="color" id="gradientColor2" class="form-control" value="#764ba2"></div>
                     </div>
                     <div id="imageOptions" style="display:none;">
                         <div class="file-upload" onclick="document.getElementById('bgImageInput').click()">
@@ -877,28 +320,15 @@
                     <div class="form-group" style="margin-top:20px;">
                         <label class="form-label"><i class="fas fa-images"></i> <span data-i18n="ready_bg">Ready Backgrounds</span></label>
                         <div class="bg-grid">
-                            <div class="bg-item active" data-bg="gradient-blue">
-                                <div class="bg-preview" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)"></div>
-                                <div class="bg-name" data-i18n="bg_blue">Blue Gradient</div>
-                            </div>
-                            <div class="bg-item" data-bg="gradient-pink">
-                                <div class="bg-preview" style="background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)"></div>
-                                <div class="bg-name" data-i18n="bg_pink">Pink Gradient</div>
-                            </div>
-                            <div class="bg-item" data-bg="dark-blue">
-                                <div class="bg-preview" style="background:#1a1a2e"></div>
-                                <div class="bg-name" data-i18n="bg_dark_blue">Dark Blue</div>
-                            </div>
+                            <div class="bg-item active" data-bg="gradient-blue"><div class="bg-preview" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)"></div><div class="bg-name" data-i18n="bg_blue">Blue Gradient</div></div>
+                            <div class="bg-item" data-bg="gradient-pink"><div class="bg-preview" style="background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)"></div><div class="bg-name" data-i18n="bg_pink">Pink Gradient</div></div>
+                            <div class="bg-item" data-bg="dark-blue"><div class="bg-preview" style="background:#1a1a2e"></div><div class="bg-name" data-i18n="bg_dark_blue">Dark Blue</div></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Logo -->
                 <div class="card">
                     <h3><i class="fas fa-camera"></i> <span data-i18n="logo_settings">Logo Settings</span></h3>
-                    <div style="text-align:center;margin-bottom:20px;">
-                        <div id="logoDisplayBox" class="logo-display-box">mikro-tools</div>
-                    </div>
+                    <div style="text-align:center;margin-bottom:20px;"><div id="logoDisplayBox" class="logo-display-box">mikro-tools</div></div>
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-upload"></i> <span data-i18n="upload_logo">Upload New Logo</span></label>
                         <div class="file-upload" onclick="document.getElementById('logoImageInput').click()">
@@ -914,16 +344,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-text-height"></i> <span data-i18n="logo_text">Logo Text (if no image)</span></label>
-                        <input type="text" id="logoText" class="form-control" value="mikro-tools">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-fill-drip"></i> <span data-i18n="logo_color">Logo Color (if no image)</span></label>
-                        <input type="color" id="logoColor" class="form-control" value="#4361ee">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-expand-alt"></i> <span data-i18n="logo_size">Logo Size</span></label>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-text-height"></i> <span data-i18n="logo_text">Logo Text (if no image)</span></label><input type="text" id="logoText" class="form-control" value="mikro-tools"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-fill-drip"></i> <span data-i18n="logo_color">Logo Color (if no image)</span></label><input type="color" id="logoColor" class="form-control" value="#4361ee"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-expand-alt"></i> <span data-i18n="logo_size">Logo Size</span></label>
                         <select id="logoSize" class="form-control">
                             <option value="small" data-i18n="small">Small</option>
                             <option value="medium" selected data-i18n="medium">Medium</option>
@@ -931,40 +354,18 @@
                         </select>
                     </div>
                 </div>
-
-                <!-- Texts -->
                 <div class="card">
                     <h3><i class="fas fa-text-height"></i> <span data-i18n="text_settings">Text Settings</span></h3>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-heading"></i> <span data-i18n="page_title">Page Title</span></label>
-                        <input type="text" id="pageTitle" class="form-control" value="by same7-01092503391">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-comment"></i> <span data-i18n="welcome_msg">Welcome Message</span></label>
-                        <textarea id="welcomeMessage" class="form-control">Welcome! Please log in to access the internet</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="username_placeholder">Username Field Text</span></label>
-                        <input type="text" id="usernamePlaceholder" class="form-control" value="Username">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="password_placeholder">Password Field Text</span></label>
-                        <input type="text" id="passwordPlaceholder" class="form-control" value="Password">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login_button">Login Button Text</span></label>
-                        <input type="text" id="loginButtonText" class="form-control" value="Login">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-info-circle"></i> <span data-i18n="footer_text">Footer Text</span></label>
-                        <input type="text" id="footerText" class="form-control" value="© mikro-tools.com All rights reserved">
-                    </div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-heading"></i> <span data-i18n="page_title">Page Title</span></label><input type="text" id="pageTitle" class="form-control" value="by same7-01092503391"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-comment"></i> <span data-i18n="welcome_msg">Welcome Message</span></label><textarea id="welcomeMessage" class="form-control">Welcome! Please log in to access the internet</textarea></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="username_placeholder">Username Field Text</span></label><input type="text" id="usernamePlaceholder" class="form-control" value="Username"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="password_placeholder">Password Field Text</span></label><input type="text" id="passwordPlaceholder" class="form-control" value="Password"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login_button">Login Button Text</span></label><input type="text" id="loginButtonText" class="form-control" value="Login"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-info-circle"></i> <span data-i18n="footer_text">Footer Text</span></label><input type="text" id="footerText" class="form-control" value="© mikro-tools.com All rights reserved"></div>
                 </div>
             </div>
             <div class="action-buttons">
-                <button class="btn btn-success" onclick="switchTab('preview'); showNotif('Preview updated ✅')">
-                    <i class="fas fa-eye"></i> <span data-i18n="update_preview">Update Preview</span>
-                </button>
+                <button class="btn btn-success" onclick="switchTab('preview'); showNotif('Preview updated ✅')"><i class="fas fa-eye"></i> <span data-i18n="update_preview">Update Preview</span></button>
             </div>
         </div>
     </div>
@@ -975,83 +376,47 @@
             <div class="section-title"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login_system">Login System</span></div>
             <p style="color:#cbd5e1;margin-bottom:20px;text-align:center;" data-i18n="login_desc">Choose the appropriate login system or use the mixed system that combines all methods together</p>
             <div class="login-methods">
-                <!-- User/Pass -->
                 <div class="method-card" data-method="userpass">
                     <div class="method-icon"><i class="fas fa-user-lock"></i></div>
                     <div class="method-title" data-i18n="method_userpass">Username & Password</div>
                     <div class="method-desc" data-i18n="method_userpass_desc">Traditional method using username and password</div>
                     <div class="method-settings">
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="show_password">Show/Hide Password</span>
-                            <label class="switch"><input type="checkbox" id="showPassword" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="remember_login">Remember Login</span>
-                            <label class="switch"><input type="checkbox" id="rememberLogin" checked><span class="slider"></span></label>
-                        </div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="show_password">Show/Hide Password</span><label class="switch"><input type="checkbox" id="showPassword" checked><span class="slider"></span></label></div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="remember_login">Remember Login</span><label class="switch"><input type="checkbox" id="rememberLogin" checked><span class="slider"></span></label></div>
                     </div>
                 </div>
-                <!-- Cards -->
                 <div class="method-card" data-method="cards">
                     <div class="method-icon"><i class="fas fa-credit-card"></i></div>
                     <div class="method-title" data-i18n="method_cards">Cards System</div>
                     <div class="method-desc" data-i18n="method_cards_desc">Login using prepaid cards - card number only</div>
                     <div class="method-settings">
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="enable_cards">Enable Cards System</span>
-                            <label class="switch"><input type="checkbox" id="enableCards" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label"><i class="fas fa-credit-card"></i> <span data-i18n="card_placeholder_label">Card Placeholder Text</span></label>
-                            <input type="text" id="cardPlaceholder" class="form-control" value="CARD-XXXX-XXXX-XXXX">
-                        </div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="enable_cards">Enable Cards System</span><label class="switch"><input type="checkbox" id="enableCards" checked><span class="slider"></span></label></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-credit-card"></i> <span data-i18n="card_placeholder_label">Card Placeholder Text</span></label><input type="text" id="cardPlaceholder" class="form-control" value="CARD-XXXX-XXXX-XXXX"></div>
                     </div>
                 </div>
-                <!-- Barcode -->
                 <div class="method-card" data-method="barcode">
                     <div class="method-icon"><i class="fas fa-barcode"></i></div>
                     <div class="method-title" data-i18n="method_barcode">Barcode System</div>
                     <div class="method-desc" data-i18n="method_barcode_desc">Scan barcode using camera or scanner</div>
                     <div class="method-settings">
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="enable_barcode">Enable Barcode System</span>
-                            <label class="switch"><input type="checkbox" id="enableBarcode" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="barcode_placeholder">Barcode Field Text</span></label>
-                            <input type="text" id="barcodePlaceholder" class="form-control" value="Enter barcode">
-                        </div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="enable_barcode">Enable Barcode System</span><label class="switch"><input type="checkbox" id="enableBarcode" checked><span class="slider"></span></label></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="barcode_placeholder">Barcode Field Text</span></label><input type="text" id="barcodePlaceholder" class="form-control" value="Enter barcode"></div>
                     </div>
                 </div>
-                <!-- Mixed -->
                 <div class="method-card active" data-method="mixed">
                     <div class="method-icon"><i class="fas fa-layer-group"></i></div>
                     <div class="method-title" data-i18n="method_mixed">Mixed System</div>
                     <div class="method-desc" data-i18n="method_mixed_desc">Combine all three methods in one page</div>
                     <div class="method-settings" style="display:block;">
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="enable_userpass">Enable User/Pass</span>
-                            <label class="switch"><input type="checkbox" id="enableUserPassMixed" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="enable_cards">Enable Cards</span>
-                            <label class="switch"><input type="checkbox" id="enableCardsMixed" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="enable_barcode">Enable Barcode</span>
-                            <label class="switch"><input type="checkbox" id="enableBarcodeMixed" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="switch-row">
-                            <span class="switch-label" data-i18n="allow_switch">Allow Switching</span>
-                            <label class="switch"><input type="checkbox" id="allowSwitchMethods" checked><span class="slider"></span></label>
-                        </div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="enable_userpass">Enable User/Pass</span><label class="switch"><input type="checkbox" id="enableUserPassMixed" checked><span class="slider"></span></label></div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="enable_cards">Enable Cards</span><label class="switch"><input type="checkbox" id="enableCardsMixed" checked><span class="slider"></span></label></div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="enable_barcode">Enable Barcode</span><label class="switch"><input type="checkbox" id="enableBarcodeMixed" checked><span class="slider"></span></label></div>
+                        <div class="switch-row"><span class="switch-label" data-i18n="allow_switch">Allow Switching</span><label class="switch"><input type="checkbox" id="allowSwitchMethods" checked><span class="slider"></span></label></div>
                     </div>
                 </div>
             </div>
             <div class="action-buttons">
-                <button class="btn btn-primary" onclick="switchTab('preview'); showNotif('Preview updated ✅')">
-                    <i class="fas fa-eye"></i> <span data-i18n="update_preview">Update Preview</span>
-                </button>
+                <button class="btn btn-primary" onclick="switchTab('preview'); showNotif('Preview updated ✅')"><i class="fas fa-eye"></i> <span data-i18n="update_preview">Update Preview</span></button>
             </div>
         </div>
     </div>
@@ -1062,19 +427,14 @@
             <div class="section-title"><i class="fas fa-eye"></i> <span data-i18n="page_preview">Page Preview</span></div>
             <div class="preview-area">
                 <div class="preview-header">
-                    <div>
-                        <strong data-i18n="live_preview">Live Preview</strong>
-                        <div style="font-size:12px;color:#94a3b8;" data-i18n="live_preview_desc">Changes appear instantly</div>
-                    </div>
+                    <div><strong data-i18n="live_preview">Live Preview</strong><div style="font-size:12px;color:#94a3b8;" data-i18n="live_preview_desc">Changes appear instantly</div></div>
                     <div style="display:flex;gap:10px;">
                         <select id="deviceType" class="device-select" onchange="updateDevice(this.value)">
                             <option value="desktop" data-i18n="desktop">Desktop</option>
                             <option value="tablet" data-i18n="tablet">Tablet</option>
                             <option value="mobile" data-i18n="mobile">Mobile</option>
                         </select>
-                        <button class="btn btn-success" onclick="buildPreview(); showNotif('Refreshed ✅')" style="padding:10px 20px;">
-                            <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
-                        </button>
+                        <button class="btn btn-success" onclick="buildPreview(); showNotif('Refreshed ✅')" style="padding:10px 20px;"><i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span></button>
                     </div>
                 </div>
                 <div id="livePreview"></div>
@@ -1097,9 +457,7 @@
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-save"></i> <span data-i18n="save_current">Save Current Settings</span></label>
                         <p style="color:var(--gray);margin-bottom:15px;" data-i18n="save_desc">Download final HTML file with your current settings</p>
-                        <button class="btn btn-success" style="width:100%;justify-content:center;" onclick="downloadHTML()">
-                            <i class="fas fa-download"></i> <span data-i18n="download_html">Download HTML File</span>
-                        </button>
+                        <button class="btn btn-success" style="width:100%;justify-content:center;" onclick="downloadHTML()"><i class="fas fa-download"></i> <span data-i18n="download_html">Download HTML File</span></button>
                     </div>
                 </div>
                 <div class="card">
@@ -1110,33 +468,27 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-undo"></i> <span data-i18n="restore_default">Restore Default Settings</span></label>
-                        <button class="btn btn-warning" style="width:100%;justify-content:center;" onclick="resetDefaults()">
-                            <i class="fas fa-history"></i> <span data-i18n="restore">Restore Default</span>
-                        </button>
+                        <button class="btn btn-warning" style="width:100%;justify-content:center;" onclick="resetDefaults()"><i class="fas fa-history"></i> <span data-i18n="restore">Restore Default</span></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-</div><!-- end wrapper -->
+</div>
 
-<!-- NOTIFICATION -->
 <div class="notification" id="notification">
     <i class="fas fa-check-circle" style="font-size:24px;"></i>
     <span id="notifMsg">Done!</span>
 </div>
 
 <script>
-// ============================================================
-// TRANSLATIONS
-// ============================================================
 const translations = {
     en: {
         home:"Home", merge:"Merge", hotspot:"Hotspot", design_block:"Design & Block", help:"Help",
         merge_v6:"Load Balancing v6", merge_v7:"Load Balancing v7",
         hotspot_settings:"Hotspot+PPP Settings", speed_profiles:"Speed Profiles",
-        hotspot_design:"Hotspot Design", block_sites:"Block Sites",
+        hotspot_design:"Hotspot Design", card_designer:"Card Designer", block_sites:"Block Sites",
         log_analyzer:"Log Analyzer", new:"NEW",
         troubleshooting:"Troubleshooting", about:"About Us", privacy:"Privacy Policy", contact_us:"Contact Us",
         hotspot_badge:"Complete System - Preview All Login Methods",
@@ -1172,7 +524,6 @@ const translations = {
         save_desc:"Download final HTML file with your current settings",
         restore:"Restore Versions", default_settings:"Default Settings",
         can_restore:"You can restore default settings", restore_default:"Restore Default Settings",
-        // For downloaded file
         dl_userpass_tab:"User/Pass", dl_cards_tab:"Cards", dl_barcode_tab:"Barcode",
         dl_activate_card:"Activate Card", dl_scan_barcode:"Scan Barcode",
         dl_cards_title:"Prepaid Cards System", dl_barcode_title:"Scan QR code to login"
@@ -1181,7 +532,7 @@ const translations = {
         home:"الرئيسية", merge:"الدمج", hotspot:"الهوت سبوت", design_block:"التصميم والحجب", help:"المساعدة",
         merge_v6:"دمج خطوط v6", merge_v7:"دمج خطوط v7",
         hotspot_settings:"اعدادات hotspot+ppp", speed_profiles:"بروفايلات السرعة",
-        hotspot_design:"تصميم hotspot", block_sites:"حجب مواقع",
+        hotspot_design:"تصميم hotspot", card_designer:"مصمم الكروت", block_sites:"حجب مواقع",
         log_analyzer:"محلل السجلات", new:"جديد",
         troubleshooting:"المشكلات الشائعة", about:"من نحن", privacy:"سياسة الخصوصية", contact_us:"تواصل معنا",
         hotspot_badge:"نظام متكامل - معاينة جميع أنظمة الدخول",
@@ -1217,7 +568,6 @@ const translations = {
         save_desc:"تحميل ملف HTML نهائي بالتعديلات الحالية",
         restore:"استعادة النسخ", default_settings:"الإعدادات الافتراضية",
         can_restore:"يمكنك استعادة الإعدادات الافتراضية", restore_default:"استعادة الافتراضي",
-        // For downloaded file
         dl_userpass_tab:"يوزر/باس", dl_cards_tab:"كروت", dl_barcode_tab:"باركود",
         dl_activate_card:"تفعيل الكارت", dl_scan_barcode:"مسح الباركود",
         dl_cards_title:"نظام البطاقات المسبقة الدفع", dl_barcode_title:"امسح رمز QR لتسجيل الدخول"
@@ -1230,24 +580,18 @@ function setLang(lang) {
     currentLang = lang;
     localStorage.setItem('language', lang);
     const html = document.documentElement;
-    html.lang = lang;
-    html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    html.lang = lang; html.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.body.classList.toggle('ar', lang === 'ar');
     document.body.classList.toggle('rtl', lang === 'ar');
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
-        }
+        if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
     });
     document.getElementById('langEn').classList.toggle('active', lang === 'en');
     document.getElementById('langAr').classList.toggle('active', lang === 'ar');
     buildPreview();
 }
 
-// ============================================================
-// TAB SWITCHING
-// ============================================================
 function switchTab(id) {
     document.querySelectorAll('.control-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -1255,113 +599,54 @@ function switchTab(id) {
     document.getElementById(id).classList.add('active');
     if (id === 'preview') buildPreview();
 }
-
 document.querySelectorAll('.control-tab').forEach(tab => {
     tab.addEventListener('click', () => switchTab(tab.getAttribute('data-tab')));
 });
 
-// ============================================================
-// NAVBAR MOBILE
-// ============================================================
 document.getElementById('menuToggle').addEventListener('click', function() {
     const navLinks = document.getElementById('navLinks');
     const icon = this.querySelector('i');
     navLinks.classList.toggle('active');
     icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
 });
-
-// Dropdown toggle for mobile
 document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
     toggle.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            e.preventDefault();
-            const dropdown = this.closest('.dropdown');
-            dropdown.classList.toggle('active');
-        }
+        if (window.innerWidth <= 768) { e.preventDefault(); this.closest('.dropdown').classList.toggle('active'); }
     });
 });
 
-// ============================================================
-// BACKGROUND OPTIONS
-// ============================================================
 function showBgOptions(type) {
     document.getElementById('colorOptions').style.display = type === 'color' ? 'block' : 'none';
     document.getElementById('gradientOptions').style.display = type === 'gradient' ? 'block' : 'none';
     document.getElementById('imageOptions').style.display = type === 'image' ? 'block' : 'none';
 }
-
-document.getElementById('bgType').addEventListener('change', function() {
-    showBgOptions(this.value);
-    buildPreview();
-});
-
+document.getElementById('bgType').addEventListener('change', function() { showBgOptions(this.value); buildPreview(); });
 document.querySelectorAll('.bg-item').forEach(item => {
     item.addEventListener('click', function() {
         document.querySelectorAll('.bg-item').forEach(i => i.classList.remove('active'));
         this.classList.add('active');
         const bg = this.getAttribute('data-bg');
-        if (bg === 'gradient-blue') {
-            document.getElementById('bgType').value = 'gradient';
-            document.getElementById('gradientColor1').value = '#667eea';
-            document.getElementById('gradientColor2').value = '#764ba2';
-            showBgOptions('gradient');
-        } else if (bg === 'gradient-pink') {
-            document.getElementById('bgType').value = 'gradient';
-            document.getElementById('gradientColor1').value = '#f093fb';
-            document.getElementById('gradientColor2').value = '#f5576c';
-            showBgOptions('gradient');
-        } else if (bg === 'dark-blue') {
-            document.getElementById('bgType').value = 'color';
-            document.getElementById('bgColor').value = '#1a1a2e';
-            showBgOptions('color');
-        }
+        if (bg === 'gradient-blue') { document.getElementById('bgType').value='gradient'; document.getElementById('gradientColor1').value='#667eea'; document.getElementById('gradientColor2').value='#764ba2'; showBgOptions('gradient'); }
+        else if (bg === 'gradient-pink') { document.getElementById('bgType').value='gradient'; document.getElementById('gradientColor1').value='#f093fb'; document.getElementById('gradientColor2').value='#f5576c'; showBgOptions('gradient'); }
+        else if (bg === 'dark-blue') { document.getElementById('bgType').value='color'; document.getElementById('bgColor').value='#1a1a2e'; showBgOptions('color'); }
         buildPreview();
     });
 });
 
-// ============================================================
-// IMAGE UPLOADS
-// ============================================================
 document.getElementById('bgImageInput').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    const file = e.target.files[0]; if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(ev) {
-        document.getElementById('bgPreviewImg').src = ev.target.result;
-        document.getElementById('bgPreview').classList.add('show');
-        document.getElementById('bgType').value = 'image';
-        showBgOptions('image');
-        buildPreview();
-        showNotif('Background uploaded ✅');
-    };
+    reader.onload = function(ev) { document.getElementById('bgPreviewImg').src=ev.target.result; document.getElementById('bgPreview').classList.add('show'); document.getElementById('bgType').value='image'; showBgOptions('image'); buildPreview(); showNotif('Background uploaded ✅'); };
     reader.readAsDataURL(file);
 });
-
 document.getElementById('logoImageInput').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    const file = e.target.files[0]; if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(ev) {
-        document.getElementById('logoPreviewImg').src = ev.target.result;
-        document.getElementById('logoPreview').classList.add('show');
-        updateLogoDisplay();
-        buildPreview();
-        showNotif('Logo uploaded ✅');
-    };
+    reader.onload = function(ev) { document.getElementById('logoPreviewImg').src=ev.target.result; document.getElementById('logoPreview').classList.add('show'); updateLogoDisplay(); buildPreview(); showNotif('Logo uploaded ✅'); };
     reader.readAsDataURL(file);
 });
+function removeLogo() { document.getElementById('logoPreviewImg').src=''; document.getElementById('logoPreview').classList.remove('show'); document.getElementById('logoImageInput').value=''; updateLogoDisplay(); buildPreview(); }
 
-function removeLogo() {
-    document.getElementById('logoPreviewImg').src = '';
-    document.getElementById('logoPreview').classList.remove('show');
-    document.getElementById('logoImageInput').value = '';
-    updateLogoDisplay();
-    buildPreview();
-}
-
-// ============================================================
-// LOGO DISPLAY BOX
-// ============================================================
 function updateLogoDisplay() {
     const box = document.getElementById('logoDisplayBox');
     const logoImgSrc = document.getElementById('logoPreviewImg').src;
@@ -1370,461 +655,178 @@ function updateLogoDisplay() {
     const logoColor = document.getElementById('logoColor').value;
     const logoSize = document.getElementById('logoSize').value;
     const fontSize = logoSize === 'small' ? '22px' : logoSize === 'large' ? '32px' : '28px';
-
     box.style.fontSize = fontSize;
-    if (hasLogo) {
-        box.style.background = `url('${logoImgSrc}') center/contain no-repeat`;
-        box.textContent = '';
-    } else {
-        box.style.background = `linear-gradient(45deg, ${logoColor}, ${darkenColor(logoColor, 20)})`;
-        box.textContent = logoText;
-    }
+    if (hasLogo) { box.style.background=`url('${logoImgSrc}') center/contain no-repeat`; box.textContent=''; }
+    else { box.style.background=`linear-gradient(45deg,${logoColor},${darkenColor(logoColor,20)})`; box.textContent=logoText; }
 }
-
-// Live update logo display
 ['logoText','logoColor','logoSize'].forEach(id => {
     document.getElementById(id).addEventListener('input', function() { updateLogoDisplay(); buildPreview(); });
     document.getElementById(id).addEventListener('change', function() { updateLogoDisplay(); buildPreview(); });
 });
-
-// Live update on all text inputs
-['pageTitle','welcomeMessage','usernamePlaceholder','passwordPlaceholder','loginButtonText','footerText',
- 'bgColor','gradientColor1','gradientColor2','cardPlaceholder','barcodePlaceholder'
-].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-        el.addEventListener('input', buildPreview);
-        el.addEventListener('change', buildPreview);
-    }
+['pageTitle','welcomeMessage','usernamePlaceholder','passwordPlaceholder','loginButtonText','footerText','bgColor','gradientColor1','gradientColor2','cardPlaceholder','barcodePlaceholder'].forEach(id => {
+    const el = document.getElementById(id); if (el) { el.addEventListener('input', buildPreview); el.addEventListener('change', buildPreview); }
 });
 
-// ============================================================
-// LOGIN METHOD CARDS
-// ============================================================
 document.querySelectorAll('.method-card').forEach(card => {
     card.addEventListener('click', function(e) {
         if (e.target.closest('.method-settings')) return;
-        document.querySelectorAll('.method-card').forEach(c => {
-            c.classList.remove('active');
-            const s = c.querySelector('.method-settings');
-            if (s && c.getAttribute('data-method') !== 'mixed') s.style.display = 'none';
-        });
+        document.querySelectorAll('.method-card').forEach(c => { c.classList.remove('active'); const s=c.querySelector('.method-settings'); if (s&&c.getAttribute('data-method')!=='mixed') s.style.display='none'; });
         this.classList.add('active');
-        const s = this.querySelector('.method-settings');
-        if (s) s.style.display = 'block';
+        const s = this.querySelector('.method-settings'); if (s) s.style.display='block';
         buildPreview();
     });
 });
+document.querySelectorAll('.method-settings input').forEach(el => { el.addEventListener('change', buildPreview); });
 
-document.querySelectorAll('.method-settings input').forEach(el => {
-    el.addEventListener('change', buildPreview);
-});
-
-// ============================================================
-// DEVICE SWITCH
-// ============================================================
 function updateDevice(val) {
     const preview = document.getElementById('livePreview');
-    if (val === 'tablet') {
-        preview.style.maxWidth = '768px';
-        preview.style.margin = '0 auto';
-    } else if (val === 'mobile') {
-        preview.style.maxWidth = '375px';
-        preview.style.margin = '0 auto';
-    } else {
-        preview.style.maxWidth = '100%';
-        preview.style.margin = '0';
-    }
+    if (val==='tablet') { preview.style.maxWidth='768px'; preview.style.margin='0 auto'; }
+    else if (val==='mobile') { preview.style.maxWidth='375px'; preview.style.margin='0 auto'; }
+    else { preview.style.maxWidth='100%'; preview.style.margin='0'; }
 }
 
-// ============================================================
-// BUILD PREVIEW
-// ============================================================
 function buildPreview() {
-    const preview = document.getElementById('livePreview');
-    if (!preview) return;
-
+    const preview = document.getElementById('livePreview'); if (!preview) return;
     const isArabic = currentLang === 'ar';
     const t = translations[currentLang];
-
     const bgType = document.getElementById('bgType').value;
     let bgCSS = '';
-    if (bgType === 'color') {
-        bgCSS = `background:${document.getElementById('bgColor').value};`;
-    } else if (bgType === 'gradient') {
-        bgCSS = `background:linear-gradient(135deg,${document.getElementById('gradientColor1').value} 0%,${document.getElementById('gradientColor2').value} 100%);`;
+    if (bgType==='color') bgCSS=`background:${document.getElementById('bgColor').value};`;
+    else if (bgType==='gradient') bgCSS=`background:linear-gradient(135deg,${document.getElementById('gradientColor1').value} 0%,${document.getElementById('gradientColor2').value} 100%);`;
+    else { const src=document.getElementById('bgPreviewImg').src; bgCSS=src?`background:url('${src}') center/cover no-repeat;`:`background:linear-gradient(135deg,#667eea,#764ba2);`; }
+
+    const logoImgSrc=document.getElementById('logoPreviewImg').src;
+    const hasLogo=document.getElementById('logoPreview').classList.contains('show')&&logoImgSrc;
+    const logoText=document.getElementById('logoText').value;
+    const logoColor=document.getElementById('logoColor').value;
+    const logoSize=document.getElementById('logoSize').value;
+    const logoFS=logoSize==='small'?'22px':logoSize==='large'?'32px':'28px';
+    let logoCSS=hasLogo?`background:url('${logoImgSrc}') center/contain no-repeat;`:`background:linear-gradient(45deg,${logoColor},${darkenColor(logoColor,20)});`;
+
+    const welcomeMsg=document.getElementById('welcomeMessage').value;
+    const userPH=document.getElementById('usernamePlaceholder').value;
+    const passPH=document.getElementById('passwordPlaceholder').value;
+    const loginBtn=document.getElementById('loginButtonText').value;
+    const footerT=document.getElementById('footerText').value;
+    const cardPH=document.getElementById('cardPlaceholder').value;
+    const barcodePH=document.getElementById('barcodePlaceholder').value;
+    const activeMethod=document.querySelector('.method-card.active')?.getAttribute('data-method')||'mixed';
+
+    let loginHTML='';
+    const inputStyle=`style="display:block;width:100%;padding:14px 16px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;font-size:15px;margin-bottom:14px;box-sizing:border-box;font-family:inherit;"`;
+    const btnBlue=`style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
+    const btnGreen=`style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#10b981,#34d399);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
+    const btnYellow=`style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#f59e0b,#fbbf24);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
+
+    if (activeMethod==='userpass') {
+        loginHTML=`<input type="text" placeholder="${userPH}" ${inputStyle} disabled><input type="password" placeholder="${passPH}" ${inputStyle} disabled><button ${btnBlue}>${loginBtn}</button>`;
+    } else if (activeMethod==='cards') {
+        loginHTML=`<div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:20px;margin-bottom:16px;text-align:center;"><div style="font-size:48px;margin-bottom:10px;">💳</div><div style="font-size:14px;">${t.dl_cards_title||'Prepaid Cards System'}</div></div><input type="text" placeholder="${cardPH}" ${inputStyle} disabled><button ${btnGreen}>${t.dl_activate_card||'Activate Card'}</button>`;
+    } else if (activeMethod==='barcode') {
+        loginHTML=`<div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:28px;margin-bottom:16px;text-align:center;"><div style="font-size:64px;margin-bottom:12px;">📱</div><div style="font-size:14px;">${t.dl_barcode_title||'Scan QR code to login'}</div></div><input type="text" placeholder="${barcodePH}" ${inputStyle} disabled><button ${btnYellow}>${t.dl_scan_barcode||'Scan Barcode'}</button>`;
     } else {
-        const src = document.getElementById('bgPreviewImg').src;
-        bgCSS = src ? `background:url('${src}') center/cover no-repeat;` : `background:linear-gradient(135deg,#667eea,#764ba2);`;
+        const upEnabled=document.getElementById('enableUserPassMixed').checked;
+        const cardsEnabled=document.getElementById('enableCardsMixed').checked;
+        const barcodeEnabled=document.getElementById('enableBarcodeMixed').checked;
+        const allowSwitch=document.getElementById('allowSwitchMethods').checked;
+        let tabs='',contents='',firstId='';
+        if (upEnabled) { if(!firstId)firstId='tab-up'; tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-up')" id="ptab-up">👤 ${t.dl_userpass_tab||'User/Pass'}</button>`; contents+=`<div id="tab-up" class="pcon" style="display:block;"><input type="text" placeholder="${userPH}" ${inputStyle} disabled><input type="password" placeholder="${passPH}" ${inputStyle} disabled><button ${btnBlue}>${loginBtn}</button></div>`; }
+        if (cardsEnabled) { if(!firstId)firstId='tab-cards'; tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-cards')" id="ptab-cards">💳 ${t.dl_cards_tab||'Cards'}</button>`; contents+=`<div id="tab-cards" class="pcon" style="display:${firstId==='tab-cards'?'block':'none'}"><input type="text" placeholder="${cardPH}" ${inputStyle} disabled><button ${btnGreen}>${t.dl_activate_card||'Activate Card'}</button></div>`; }
+        if (barcodeEnabled) { if(!firstId)firstId='tab-barcode'; tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-barcode')" id="ptab-barcode">📱 ${t.dl_barcode_tab||'Barcode'}</button>`; contents+=`<div id="tab-barcode" class="pcon" style="display:${firstId==='tab-barcode'?'block':'none'}"><input type="text" placeholder="${barcodePH}" ${inputStyle} disabled><button ${btnYellow}>${t.dl_scan_barcode||'Scan Barcode'}</button></div>`; }
+        let tabsHTML=allowSwitch?`<div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">${tabs}</div>`:'';
+        loginHTML=tabsHTML+contents;
     }
 
-    const logoImgSrc = document.getElementById('logoPreviewImg').src;
-    const hasLogo = document.getElementById('logoPreview').classList.contains('show') && logoImgSrc;
-    const logoText = document.getElementById('logoText').value;
-    const logoColor = document.getElementById('logoColor').value;
-    const logoSize = document.getElementById('logoSize').value;
-    const logoFS = logoSize === 'small' ? '22px' : logoSize === 'large' ? '32px' : '28px';
-    let logoCSS = hasLogo ? `background:url('${logoImgSrc}') center/contain no-repeat;` : `background:linear-gradient(45deg,${logoColor},${darkenColor(logoColor,20)});`;
-
-    const welcomeMsg = document.getElementById('welcomeMessage').value;
-    const userPH = document.getElementById('usernamePlaceholder').value;
-    const passPH = document.getElementById('passwordPlaceholder').value;
-    const loginBtn = document.getElementById('loginButtonText').value;
-    const footerT = document.getElementById('footerText').value;
-    const cardPH = document.getElementById('cardPlaceholder').value;
-    const barcodePH = document.getElementById('barcodePlaceholder').value;
-    const activeMethod = document.querySelector('.method-card.active')?.getAttribute('data-method') || 'mixed';
-
-    let loginHTML = '';
-    const inputStyle = `style="display:block;width:100%;padding:14px 16px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;font-size:15px;margin-bottom:14px;box-sizing:border-box;font-family:inherit;"`;
-    const btnBlue = `style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
-    const btnGreen = `style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#10b981,#34d399);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
-    const btnYellow = `style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#f59e0b,#fbbf24);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
-
-    if (activeMethod === 'userpass') {
-        loginHTML = `
-            <input type="text" placeholder="${userPH}" ${inputStyle} disabled>
-            <input type="password" placeholder="${passPH}" ${inputStyle} disabled>
-            <button ${btnBlue}>${loginBtn}</button>`;
-    } else if (activeMethod === 'cards') {
-        loginHTML = `
-            <div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:20px;margin-bottom:16px;text-align:center;">
-                <div style="font-size:48px;margin-bottom:10px;">💳</div>
-                <div style="font-size:14px;">${t.dl_cards_title || 'Prepaid Cards System'}</div>
-            </div>
-            <input type="text" placeholder="${cardPH}" ${inputStyle} disabled>
-            <button ${btnGreen}>${t.dl_activate_card || 'Activate Card'}</button>`;
-    } else if (activeMethod === 'barcode') {
-        loginHTML = `
-            <div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:28px;margin-bottom:16px;text-align:center;">
-                <div style="font-size:64px;margin-bottom:12px;">📱</div>
-                <div style="font-size:14px;">${t.dl_barcode_title || 'Scan QR code to login'}</div>
-            </div>
-            <input type="text" placeholder="${barcodePH}" ${inputStyle} disabled>
-            <button ${btnYellow}>${t.dl_scan_barcode || 'Scan Barcode'}</button>`;
-    } else {
-        // mixed
-        const upEnabled = document.getElementById('enableUserPassMixed').checked;
-        const cardsEnabled = document.getElementById('enableCardsMixed').checked;
-        const barcodeEnabled = document.getElementById('enableBarcodeMixed').checked;
-        const allowSwitch = document.getElementById('allowSwitchMethods').checked;
-
-        let tabs = '';
-        let contents = '';
-        let firstId = '';
-
-        if (upEnabled) {
-            if (!firstId) firstId = 'tab-up';
-            tabs += `<button class="ptab" onclick="switchPTab(this,'tab-up')" id="ptab-up">👤 ${t.dl_userpass_tab || 'User/Pass'}</button>`;
-            contents += `<div id="tab-up" class="pcon" style="display:block;">
-                <input type="text" placeholder="${userPH}" ${inputStyle} disabled>
-                <input type="password" placeholder="${passPH}" ${inputStyle} disabled>
-                <button ${btnBlue}>${loginBtn}</button>
-            </div>`;
-        }
-        if (cardsEnabled) {
-            if (!firstId) firstId = 'tab-cards';
-            tabs += `<button class="ptab" onclick="switchPTab(this,'tab-cards')" id="ptab-cards">💳 ${t.dl_cards_tab || 'Cards'}</button>`;
-            contents += `<div id="tab-cards" class="pcon" style="display:${firstId==='tab-cards'?'block':'none'}">
-                <input type="text" placeholder="${cardPH}" ${inputStyle} disabled>
-                <button ${btnGreen}>${t.dl_activate_card || 'Activate Card'}</button>
-            </div>`;
-        }
-        if (barcodeEnabled) {
-            if (!firstId) firstId = 'tab-barcode';
-            tabs += `<button class="ptab" onclick="switchPTab(this,'tab-barcode')" id="ptab-barcode">📱 ${t.dl_barcode_tab || 'Barcode'}</button>`;
-            contents += `<div id="tab-barcode" class="pcon" style="display:${firstId==='tab-barcode'?'block':'none'}">
-                <input type="text" placeholder="${barcodePH}" ${inputStyle} disabled>
-                <button ${btnYellow}>${t.dl_scan_barcode || 'Scan Barcode'}</button>
-            </div>`;
-        }
-
-        let tabsHTML = allowSwitch ? `<div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">${tabs}</div>` : '';
-        loginHTML = tabsHTML + contents;
-    }
-
-    const dirAttr = isArabic ? 'rtl' : 'ltr';
-    const fontFamily = isArabic ? "'Tajawal', sans-serif" : "'Poppins', sans-serif";
-
-    preview.innerHTML = `
-        <div style="width:100%;min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;${bgCSS};box-sizing:border-box;direction:${dirAttr};">
-            <div style="background:rgba(30,41,59,0.85);backdrop-filter:blur(12px);border-radius:16px;padding:40px 32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 20px 40px rgba(0,0,0,0.3);color:#fff;box-sizing:border-box;font-family:${fontFamily};">
-                <div style="text-align:center;margin-bottom:24px;">
-                    <div style="width:200px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:${logoFS};font-weight:800;color:white;border-radius:12px;${logoCSS}">
-                        ${hasLogo ? '' : logoText}
-                    </div>
-                </div>
-                <div style="text-align:center;margin-bottom:24px;color:rgba(255,255,255,0.88);line-height:1.7;font-size:15px;">${welcomeMsg}</div>
-                <style>
-                    .ptab{flex:1;padding:10px 12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:rgba(255,255,255,0.8);cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap;font-family:inherit;}
-                    .ptab.active{background:rgba(99,102,241,0.55);border-color:rgba(99,102,241,0.8);color:#fff;}
-                </style>
-                ${loginHTML}
-                <div style="text-align:center;margin-top:22px;color:rgba(255,255,255,0.6);font-size:13px;">${footerT}</div>
-            </div>
-        </div>`;
-
-    // set first tab active
-    const firstTab = preview.querySelector('.ptab');
-    if (firstTab) firstTab.classList.add('active');
+    const dirAttr=isArabic?'rtl':'ltr';
+    const fontFamily=isArabic?"'Tajawal', sans-serif":"'Poppins', sans-serif";
+    preview.innerHTML=`<div style="width:100%;min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;${bgCSS};box-sizing:border-box;direction:${dirAttr};"><div style="background:rgba(30,41,59,0.85);backdrop-filter:blur(12px);border-radius:16px;padding:40px 32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 20px 40px rgba(0,0,0,0.3);color:#fff;box-sizing:border-box;font-family:${fontFamily};"><div style="text-align:center;margin-bottom:24px;"><div style="width:200px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:${logoFS};font-weight:800;color:white;border-radius:12px;${logoCSS}">${hasLogo?'':logoText}</div></div><div style="text-align:center;margin-bottom:24px;color:rgba(255,255,255,0.88);line-height:1.7;font-size:15px;">${welcomeMsg}</div><style>.ptab{flex:1;padding:10px 12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:rgba(255,255,255,0.8);cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap;font-family:inherit;}.ptab.active{background:rgba(99,102,241,0.55);border-color:rgba(99,102,241,0.8);color:#fff;}</style>${loginHTML}<div style="text-align:center;margin-top:22px;color:rgba(255,255,255,0.6);font-size:13px;">${footerT}</div></div></div>`;
+    const firstTab=preview.querySelector('.ptab'); if (firstTab) firstTab.classList.add('active');
 }
 
-// Switch preview tabs
-function switchPTab(btn, id) {
-    const preview = document.getElementById('livePreview');
-    preview.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
-    preview.querySelectorAll('.pcon').forEach(c => c.style.display = 'none');
+function switchPTab(btn,id) {
+    const preview=document.getElementById('livePreview');
+    preview.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+    preview.querySelectorAll('.pcon').forEach(c=>c.style.display='none');
     btn.classList.add('active');
-    const t = preview.querySelector('#' + id);
-    if (t) t.style.display = 'block';
+    const t=preview.querySelector('#'+id); if(t)t.style.display='block';
 }
 
-// ============================================================
-// GENERATE & DOWNLOAD FINAL HTML
-// ============================================================
 function downloadHTML() {
-    const isArabic = currentLang === 'ar';
-    const t = translations[currentLang];
-    const dirAttr = isArabic ? 'rtl' : 'ltr';
-    const langAttr = isArabic ? 'ar' : 'en';
-    const fontFamily = isArabic ? "'Tajawal', sans-serif" : "'Poppins', sans-serif";
-    const googleFont = isArabic 
-        ? '<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">'
-        : '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">';
-
-    const bgType = document.getElementById('bgType').value;
-    let bgStyle = '';
-    if (bgType === 'color') {
-        bgStyle = `background:${document.getElementById('bgColor').value};`;
-    } else if (bgType === 'gradient') {
-        bgStyle = `background:linear-gradient(135deg,${document.getElementById('gradientColor1').value} 0%,${document.getElementById('gradientColor2').value} 100%);`;
-    } else {
-        const src = document.getElementById('bgPreviewImg').src;
-        bgStyle = src ? `background:url('${src}') center/cover no-repeat;` : `background:linear-gradient(135deg,#667eea,#764ba2);`;
+    const isArabic=currentLang==='ar';
+    const t=translations[currentLang];
+    const dirAttr=isArabic?'rtl':'ltr';
+    const langAttr=isArabic?'ar':'en';
+    const fontFamily=isArabic?"'Tajawal', sans-serif":"'Poppins', sans-serif";
+    const googleFont=isArabic?'<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">':'<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">';
+    const bgType=document.getElementById('bgType').value;
+    let bgStyle='';
+    if (bgType==='color') bgStyle=`background:${document.getElementById('bgColor').value};`;
+    else if (bgType==='gradient') bgStyle=`background:linear-gradient(135deg,${document.getElementById('gradientColor1').value} 0%,${document.getElementById('gradientColor2').value} 100%);`;
+    else { const src=document.getElementById('bgPreviewImg').src; bgStyle=src?`background:url('${src}') center/cover no-repeat;`:`background:linear-gradient(135deg,#667eea,#764ba2);`; }
+    const logoImgSrc=document.getElementById('logoPreviewImg').src;
+    const hasLogo=document.getElementById('logoPreview').classList.contains('show')&&logoImgSrc;
+    const logoText=document.getElementById('logoText').value;
+    const logoColor=document.getElementById('logoColor').value;
+    const logoSize=document.getElementById('logoSize').value;
+    const logoFS=logoSize==='small'?'22px':logoSize==='large'?'32px':'28px';
+    let logoCSS=hasLogo?`background:url('${logoImgSrc}') center/contain no-repeat;`:`background:linear-gradient(45deg,${logoColor},${darkenColor(logoColor,20)});`;
+    const logoContent=hasLogo?'':logoText;
+    const pageTitle=document.getElementById('pageTitle').value;
+    const welcomeMsg=document.getElementById('welcomeMessage').value;
+    const userPH=document.getElementById('usernamePlaceholder').value;
+    const passPH=document.getElementById('passwordPlaceholder').value;
+    const loginBtn=document.getElementById('loginButtonText').value;
+    const footerT=document.getElementById('footerText').value;
+    const cardPH=document.getElementById('cardPlaceholder').value;
+    const barcodePH=document.getElementById('barcodePlaceholder').value;
+    const activeMethod=document.querySelector('.method-card.active')?.getAttribute('data-method')||'mixed';
+    let loginBlock='';
+    if (activeMethod==='userpass') { loginBlock=`<form action="" method="post" class="form"><div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div><div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div><button type="submit" class="fb">${loginBtn}</button></form>`; }
+    else if (activeMethod==='cards') { loginBlock=`<form action="" method="post" class="form"><div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:22px;margin-bottom:18px;text-align:center;"><div style="font-size:52px;margin-bottom:12px;">💳</div><div>${t.dl_cards_title||'Prepaid Cards System'}</div></div><div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card||'Activate Card'}</button></form>`; }
+    else if (activeMethod==='barcode') { loginBlock=`<form action="" method="post" class="form"><div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:30px;margin-bottom:18px;text-align:center;"><div style="font-size:68px;margin-bottom:14px;">📱</div><div>${t.dl_barcode_title||'Scan QR code to login'}</div></div><div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode||'Scan Barcode'}</button></form>`; }
+    else {
+        const upEnabled=document.getElementById('enableUserPassMixed').checked;
+        const cardsEnabled=document.getElementById('enableCardsMixed').checked;
+        const barcodeEnabled=document.getElementById('enableBarcodeMixed').checked;
+        const allowSwitch=document.getElementById('allowSwitchMethods').checked;
+        let tabsBtns='',tabContents='',first=true;
+        if (upEnabled) { tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-up')" type="button">👤 ${t.dl_userpass_tab||'User/Pass'}</button>`; tabContents+=`<div id="tab-up" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div><div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div><button type="submit" class="fb">${loginBtn}</button></form></div>`; first=false; }
+        if (cardsEnabled) { tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-cards')" type="button">💳 ${t.dl_cards_tab||'Cards'}</button>`; tabContents+=`<div id="tab-cards" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card||'Activate Card'}</button></form></div>`; first=false; }
+        if (barcodeEnabled) { tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-barcode')" type="button">📱 ${t.dl_barcode_tab||'Barcode'}</button>`; tabContents+=`<div id="tab-barcode" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode||'Scan Barcode'}</button></form></div>`; }
+        loginBlock=`<div class="tabs">${allowSwitch?`<div class="tabs-bar">${tabsBtns}</div>`:''}${tabContents}</div>`;
     }
-
-    const logoImgSrc = document.getElementById('logoPreviewImg').src;
-    const hasLogo = document.getElementById('logoPreview').classList.contains('show') && logoImgSrc;
-    const logoText = document.getElementById('logoText').value;
-    const logoColor = document.getElementById('logoColor').value;
-    const logoSize = document.getElementById('logoSize').value;
-    const logoFS = logoSize === 'small' ? '22px' : logoSize === 'large' ? '32px' : '28px';
-    let logoCSS = hasLogo ? `background:url('${logoImgSrc}') center/contain no-repeat;` : `background:linear-gradient(45deg,${logoColor},${darkenColor(logoColor,20)});`;
-    const logoContent = hasLogo ? '' : logoText;
-
-    const pageTitle = document.getElementById('pageTitle').value;
-    const welcomeMsg = document.getElementById('welcomeMessage').value;
-    const userPH = document.getElementById('usernamePlaceholder').value;
-    const passPH = document.getElementById('passwordPlaceholder').value;
-    const loginBtn = document.getElementById('loginButtonText').value;
-    const footerT = document.getElementById('footerText').value;
-    const cardPH = document.getElementById('cardPlaceholder').value;
-    const barcodePH = document.getElementById('barcodePlaceholder').value;
-    const activeMethod = document.querySelector('.method-card.active')?.getAttribute('data-method') || 'mixed';
-
-    let loginBlock = '';
-
-    if (activeMethod === 'userpass') {
-        loginBlock = `
-        <form action="" method="post" class="form">
-            <div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div>
-            <div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div>
-            <button type="submit" class="fb">${loginBtn}</button>
-        </form>`;
-    } else if (activeMethod === 'cards') {
-        loginBlock = `
-        <form action="" method="post" class="form">
-            <div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:22px;margin-bottom:18px;text-align:center;">
-                <div style="font-size:52px;margin-bottom:12px;">💳</div>
-                <div>${t.dl_cards_title || 'Prepaid Cards System'}</div>
-            </div>
-            <div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div>
-            <button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card || 'Activate Card'}</button>
-        </form>`;
-    } else if (activeMethod === 'barcode') {
-        loginBlock = `
-        <form action="" method="post" class="form">
-            <div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:30px;margin-bottom:18px;text-align:center;">
-                <div style="font-size:68px;margin-bottom:14px;">📱</div>
-                <div>${t.dl_barcode_title || 'Scan QR code to login'}</div>
-            </div>
-            <div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div>
-            <button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode || 'Scan Barcode'}</button>
-        </form>`;
-    } else {
-        const upEnabled = document.getElementById('enableUserPassMixed').checked;
-        const cardsEnabled = document.getElementById('enableCardsMixed').checked;
-        const barcodeEnabled = document.getElementById('enableBarcodeMixed').checked;
-        const allowSwitch = document.getElementById('allowSwitchMethods').checked;
-
-        let tabsBtns = '';
-        let tabContents = '';
-        let first = true;
-
-        if (upEnabled) {
-            tabsBtns += `<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-up')" type="button">👤 ${t.dl_userpass_tab || 'User/Pass'}</button>`;
-            tabContents += `<div id="tab-up" class="tab-pane${first?' active':''}">
-                <form action="" method="post">
-                    <div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div>
-                    <div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div>
-                    <button type="submit" class="fb">${loginBtn}</button>
-                </form></div>`;
-            first = false;
-        }
-        if (cardsEnabled) {
-            tabsBtns += `<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-cards')" type="button">💳 ${t.dl_cards_tab || 'Cards'}</button>`;
-            tabContents += `<div id="tab-cards" class="tab-pane${first?' active':''}">
-                <form action="" method="post">
-                    <div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div>
-                    <button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card || 'Activate Card'}</button>
-                </form></div>`;
-            first = false;
-        }
-        if (barcodeEnabled) {
-            tabsBtns += `<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-barcode')" type="button">📱 ${t.dl_barcode_tab || 'Barcode'}</button>`;
-            tabContents += `<div id="tab-barcode" class="tab-pane${first?' active':''}">
-                <form action="" method="post">
-                    <div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div>
-                    <button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode || 'Scan Barcode'}</button>
-                </form></div>`;
-        }
-
-        loginBlock = `
-        <div class="tabs">
-            ${allowSwitch ? `<div class="tabs-bar">${tabsBtns}</div>` : ''}
-            ${tabContents}
-        </div>`;
-    }
-
-    const html = `<!DOCTYPE html>
-<html lang="${langAttr}" dir="${dirAttr}">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${pageTitle}</title>
-${googleFont}
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:${fontFamily};}
-body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;color:#fff;${bgStyle}}
-.box{background:rgba(30,41,59,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:40px 34px;width:100%;max-width:500px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
-.logo-box{width:200px;height:95px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:${logoFS};font-weight:800;color:white;border-radius:12px;${logoCSS}}
-.welcome{text-align:center;margin-bottom:24px;color:rgba(255,255,255,0.88);line-height:1.7;font-size:15px;}
-.form .fg{margin-bottom:16px;}
-.fi{width:100%;padding:15px 18px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;font-size:15px;outline:none;transition:border-color .3s;font-family:inherit;}
-.fi::placeholder{color:rgba(255,255,255,0.6);}
-.fi:focus{border-color:#6366f1;background:rgba(255,255,255,0.15);}
-.fb{width:100%;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;border-radius:10px;font-size:17px;font-weight:600;cursor:pointer;transition:all .3s;margin-top:6px;font-family:inherit;}
-.fb:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(99,102,241,0.35);}
-.footer{text-align:center;margin-top:22px;color:rgba(255,255,255,0.6);font-size:13px;}
-.tabs-bar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
-.tab-btn{flex:1;padding:11px 14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:rgba(255,255,255,0.8);cursor:pointer;font-size:13px;font-weight:600;transition:all .3s;font-family:inherit;}
-.tab-btn:hover{background:rgba(255,255,255,0.14);color:#fff;}
-.tab-btn.active{background:rgba(99,102,241,0.55);border-color:rgba(99,102,241,0.8);color:#fff;}
-.tab-pane{display:none;}
-.tab-pane.active{display:block;}
-</style>
-</head>
-<body>
-<div class="box">
-    <div style="text-align:center;margin-bottom:22px;">
-        <div class="logo-box">${logoContent}</div>
-    </div>
-    <div class="welcome">${welcomeMsg}</div>
-    ${loginBlock}
-    <div class="footer">${footerT}</div>
-</div>
-<script>
-function switchTab(e,id){
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-    var p=document.getElementById(id);
-    if(p)p.classList.add('active');
-}
-<\/script>
-</body>
-</html>`;
-
-    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'login.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showNotif(isArabic ? 'تم تحميل الملف بنجاح ✅' : 'File downloaded successfully ✅');
+    const html=`<!DOCTYPE html>\n<html lang="${langAttr}" dir="${dirAttr}">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${pageTitle}</title>\n${googleFont}\n<style>\n*{margin:0;padding:0;box-sizing:border-box;font-family:${fontFamily};}\nbody{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;color:#fff;${bgStyle}}\n.box{background:rgba(30,41,59,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:40px 34px;width:100%;max-width:500px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 20px 40px rgba(0,0,0,0.3);}\n.logo-box{width:200px;height:95px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:${logoFS};font-weight:800;color:white;border-radius:12px;${logoCSS}}\n.welcome{text-align:center;margin-bottom:24px;color:rgba(255,255,255,0.88);line-height:1.7;font-size:15px;}\n.form .fg{margin-bottom:16px;}\n.fi{width:100%;padding:15px 18px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;font-size:15px;outline:none;transition:border-color .3s;font-family:inherit;}\n.fi::placeholder{color:rgba(255,255,255,0.6);}\n.fi:focus{border-color:#6366f1;background:rgba(255,255,255,0.15);}\n.fb{width:100%;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;border-radius:10px;font-size:17px;font-weight:600;cursor:pointer;transition:all .3s;margin-top:6px;font-family:inherit;}\n.fb:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(99,102,241,0.35);}\n.footer{text-align:center;margin-top:22px;color:rgba(255,255,255,0.6);font-size:13px;}\n.tabs-bar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}\n.tab-btn{flex:1;padding:11px 14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:rgba(255,255,255,0.8);cursor:pointer;font-size:13px;font-weight:600;transition:all .3s;font-family:inherit;}\n.tab-btn:hover{background:rgba(255,255,255,0.14);color:#fff;}\n.tab-btn.active{background:rgba(99,102,241,0.55);border-color:rgba(99,102,241,0.8);color:#fff;}\n.tab-pane{display:none;}\n.tab-pane.active{display:block;}\n</style>\n</head>\n<body>\n<div class="box">\n<div style="text-align:center;margin-bottom:22px;"><div class="logo-box">${logoContent}</div></div>\n<div class="welcome">${welcomeMsg}</div>\n${loginBlock}\n<div class="footer">${footerT}</div>\n</div>\n<script>\nfunction switchTab(e,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));e.currentTarget.classList.add('active');var p=document.getElementById(id);if(p)p.classList.add('active');}\n<\/script>\n</body>\n</html>`;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='login.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    showNotif(isArabic?'تم تحميل الملف بنجاح ✅':'File downloaded successfully ✅');
 }
 
-// ============================================================
-// RESET DEFAULTS
-// ============================================================
 function resetDefaults() {
-    const msg = currentLang === 'ar' ? 'هل أنت متأكد من استعادة الإعدادات الافتراضية؟' : 'Are you sure you want to restore default settings?';
+    const msg=currentLang==='ar'?'هل أنت متأكد من استعادة الإعدادات الافتراضية؟':'Are you sure you want to restore default settings?';
     if (!confirm(msg)) return;
-    document.getElementById('bgType').value = 'gradient';
-    document.getElementById('bgColor').value = '#1a1a2e';
-    document.getElementById('gradientColor1').value = '#667eea';
-    document.getElementById('gradientColor2').value = '#764ba2';
-    showBgOptions('gradient');
-    document.querySelectorAll('.bg-item').forEach(i => i.classList.remove('active'));
-    document.querySelector('.bg-item[data-bg="gradient-blue"]').classList.add('active');
-    removeLogo();
-    document.getElementById('logoText').value = 'mikro-tools';
-    document.getElementById('logoColor').value = '#4361ee';
-    document.getElementById('logoSize').value = 'medium';
-    document.getElementById('pageTitle').value = 'by same7-01092503391';
-    document.getElementById('welcomeMessage').value = 'Welcome! Please log in to access the internet';
-    document.getElementById('usernamePlaceholder').value = 'Username';
-    document.getElementById('passwordPlaceholder').value = 'Password';
-    document.getElementById('loginButtonText').value = 'Login';
-    document.getElementById('footerText').value = '© mikro-tools.com All rights reserved';
-    document.getElementById('cardPlaceholder').value = 'CARD-XXXX-XXXX-XXXX';
-    document.getElementById('barcodePlaceholder').value = 'Enter barcode';
-    document.querySelectorAll('.method-card').forEach(c => {
-        c.classList.remove('active');
-        const s = c.querySelector('.method-settings');
-        if (s) s.style.display = 'none';
-    });
-    const mixed = document.querySelector('.method-card[data-method="mixed"]');
-    mixed.classList.add('active');
-    mixed.querySelector('.method-settings').style.display = 'block';
-    ['enableUserPassMixed','enableCardsMixed','enableBarcodeMixed','allowSwitchMethods'].forEach(id => {
-        document.getElementById(id).checked = true;
-    });
-    updateLogoDisplay();
-    buildPreview();
-    showNotif(currentLang === 'ar' ? 'تم استعادة الإعدادات ✅' : 'Default settings restored ✅');
+    document.getElementById('bgType').value='gradient'; document.getElementById('bgColor').value='#1a1a2e'; document.getElementById('gradientColor1').value='#667eea'; document.getElementById('gradientColor2').value='#764ba2'; showBgOptions('gradient');
+    document.querySelectorAll('.bg-item').forEach(i=>i.classList.remove('active')); document.querySelector('.bg-item[data-bg="gradient-blue"]').classList.add('active');
+    removeLogo(); document.getElementById('logoText').value='mikro-tools'; document.getElementById('logoColor').value='#4361ee'; document.getElementById('logoSize').value='medium';
+    document.getElementById('pageTitle').value='by same7-01092503391'; document.getElementById('welcomeMessage').value='Welcome! Please log in to access the internet';
+    document.getElementById('usernamePlaceholder').value='Username'; document.getElementById('passwordPlaceholder').value='Password'; document.getElementById('loginButtonText').value='Login'; document.getElementById('footerText').value='© mikro-tools.com All rights reserved';
+    document.getElementById('cardPlaceholder').value='CARD-XXXX-XXXX-XXXX'; document.getElementById('barcodePlaceholder').value='Enter barcode';
+    document.querySelectorAll('.method-card').forEach(c=>{c.classList.remove('active');const s=c.querySelector('.method-settings');if(s)s.style.display='none';});
+    const mixed=document.querySelector('.method-card[data-method="mixed"]'); mixed.classList.add('active'); mixed.querySelector('.method-settings').style.display='block';
+    ['enableUserPassMixed','enableCardsMixed','enableBarcodeMixed','allowSwitchMethods'].forEach(id=>{document.getElementById(id).checked=true;});
+    updateLogoDisplay(); buildPreview(); showNotif(currentLang==='ar'?'تم استعادة الإعدادات ✅':'Default settings restored ✅');
 }
 
-// ============================================================
-// NOTIFICATION
-// ============================================================
-let notifTimer = null;
-function showNotif(msg) {
-    const n = document.getElementById('notification');
-    document.getElementById('notifMsg').textContent = msg;
-    n.classList.add('show');
-    clearTimeout(notifTimer);
-    notifTimer = setTimeout(() => n.classList.remove('show'), 3000);
+let notifTimer=null;
+function showNotif(msg) { const n=document.getElementById('notification'); document.getElementById('notifMsg').textContent=msg; n.classList.add('show'); clearTimeout(notifTimer); notifTimer=setTimeout(()=>n.classList.remove('show'),3000); }
+
+function darkenColor(color,percent) {
+    const num=parseInt(color.replace('#',''),16); const amt=Math.round(2.55*percent);
+    const R=Math.max(0,Math.min(255,(num>>16)-amt)); const G=Math.max(0,Math.min(255,((num>>8)&0x00FF)-amt)); const B=Math.max(0,Math.min(255,(num&0x0000FF)-amt));
+    return '#'+(0x1000000+R*0x10000+G*0x100+B).toString(16).slice(1);
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
-function darkenColor(color, percent) {
-    const num = parseInt(color.replace('#',''), 16);
-    const amt = Math.round(2.55 * percent);
-    const R = Math.max(0, Math.min(255, (num >> 16) - amt));
-    const G = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) - amt));
-    const B = Math.max(0, Math.min(255, (num & 0x0000FF) - amt));
-    return '#' + (0x1000000 + R*0x10000 + G*0x100 + B).toString(16).slice(1);
-}
-
-// ============================================================
-// INIT
-// ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     setLang(currentLang);
     document.getElementById('langEn').addEventListener('click', () => setLang('en'));
@@ -1833,24 +835,7 @@ document.addEventListener('DOMContentLoaded', function() {
     buildPreview();
 });
 </script>
-     <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+
+<iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 </body>
 </html>
-
