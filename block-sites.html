@@ -9,23 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #10b981;
-            --danger: #ef4444;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
+            --primary: #6366f1; --secondary: #10b981; --danger: #ef4444; --dark: #1e293b;
+            --light: #f8fafc; --gray: #64748b;
             --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
             --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
             --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            --shadow: 0 20px 40px rgba(99,102,241,.1);
-            --border-radius: 16px;
-            
-            /* لون علامة جديد */
-            --new-badge-start: #ff416c;
-            --new-badge-end: #ff4b2b;
-            --new-badge-glow: rgba(255, 65, 108, 0.5);
+            --shadow: 0 20px 40px rgba(99,102,241,.1); --border-radius: 16px;
+            --new-badge-start: #ff416c; --new-badge-end: #ff4b2b; --new-badge-glow: rgba(255,65,108,0.5);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--light); color: var(--dark); line-height: 1.8; min-height: 100vh; overflow-x: hidden; font-family: 'Poppins', sans-serif; }
@@ -62,47 +53,9 @@
         .dropdown-item i { width: 20px; font-size: 16px; color: var(--danger); }
         .dropdown-item.active { background: var(--danger); color: white; }
         .dropdown-item.active i { color: white; }
-
-        /* ===== علامة جديد المميزة ===== */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-left: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة العربية */
-        body.rtl .new-badge {
-            margin-right: 5px;
-            margin-left: 0;
-        }
+        .new-badge { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 30px; margin-left: 5px; display: inline-block; animation: newGlow 1.5s ease-in-out infinite; box-shadow: 0 2px 10px rgba(255,65,108,0.5); border: 1px solid rgba(255,255,255,0.3); position: relative; top: -2px; text-transform: uppercase; letter-spacing: 0.5px; }
+        @keyframes newGlow { 0% { transform:scale(1); box-shadow:0 2px 10px rgba(255,65,108,0.5); } 50% { transform:scale(1.1); background:linear-gradient(135deg,#ff4b2b,#ff416c); box-shadow:0 4px 20px rgba(255,65,108,0.9); } 100% { transform:scale(1); box-shadow:0 2px 10px rgba(255,65,108,0.5); } }
+        body.rtl .new-badge { margin-right: 5px; margin-left: 0; }
 
         /* HERO */
         .hero-block { background: var(--gradient-dark); min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 120px 2rem 4rem; position: relative; overflow: hidden; text-align: center; }
@@ -118,8 +71,8 @@
         .version-tab:last-child { border-radius: 0 12px 12px 0; }
         .version-tab.v6 { background: #e2e8f0; color: #64748b; border: 2px solid #e2e8f0; }
         .version-tab.v7 { background: #e2e8f0; color: #64748b; border: 2px solid #e2e8f0; border-left: none; }
-        .version-tab.v6.active { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-color: #2563eb; box-shadow: 0 8px 20px rgba(37,99,235,.3); z-index: 1; }
-        .version-tab.v7.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border-color: #7c3aed; box-shadow: 0 8px 20px rgba(124,58,237,.3); z-index: 1; }
+        .version-tab.v6.active { background: linear-gradient(135deg,#3b82f6,#2563eb); color: white; border-color: #2563eb; box-shadow: 0 8px 20px rgba(37,99,235,.3); z-index: 1; }
+        .version-tab.v7.active { background: linear-gradient(135deg,#8b5cf6,#7c3aed); color: white; border-color: #7c3aed; box-shadow: 0 8px 20px rgba(124,58,237,.3); z-index: 1; }
         .version-tab .tab-label { font-size: 1rem; }
         .version-tab .tab-sub { font-size: 0.75rem; opacity: 0.85; display: block; margin-top: 2px; font-weight: 400; }
         .version-badge { position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
@@ -127,8 +80,8 @@
         .version-panel.active { display: block; }
 
         /* DIFF NOTICE */
-        .diff-notice { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #93c5fd; border-radius: 12px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; font-size: 0.92rem; }
-        .diff-notice.v7 { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: #c4b5fd; }
+        .diff-notice { background: linear-gradient(135deg,#eff6ff,#dbeafe); border: 1px solid #93c5fd; border-radius: 12px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; font-size: 0.92rem; }
+        .diff-notice.v7 { background: linear-gradient(135deg,#f5f3ff,#ede9fe); border-color: #c4b5fd; }
         .diff-notice i { font-size: 1.2rem; margin-top: 2px; }
         .diff-notice.v6 i { color: #2563eb; }
         .diff-notice.v7 i { color: #7c3aed; }
@@ -178,7 +131,7 @@
         .script-output { width: 100%; min-height: 380px; padding: 1.5rem; border-radius: 12px; background: #1e293b; color: #86efac; font-family: 'Courier New', monospace; font-size: .92rem; line-height: 1.7; border: none; resize: vertical; white-space: pre; direction: ltr; text-align: left; }
         .script-output:focus { outline: none; }
         .alert-msg { padding: 12px 20px; border-radius: 10px; margin: 1rem 0; display: flex; align-items: center; gap: 10px; animation: fadeIn .3s ease; color: white; font-weight: 500; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
 
         /* CONTACT */
         .contact { padding: 6rem 2rem; background: var(--dark); color: white; text-align: center; margin-top: 4rem; }
@@ -192,7 +145,6 @@
         .footer-text { font-size: 1rem; margin-bottom: 1rem; }
         .copyright { color: #64748b; font-size: .9rem; }
 
-        /* RESPONSIVE */
         @media (max-width: 1024px) { .hero-title-block { font-size: 2.5rem; } .settings-grid { grid-template-columns: 1fr; } .sites-grid { grid-template-columns: repeat(3,1fr); } }
         @media (max-width: 768px) {
             .nav-links { display: none; position: absolute; top: 100%; right: 0; left: 0; background: var(--dark); width: 100%; padding: 1rem; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-height: 80vh; overflow-y: auto; }
@@ -235,7 +187,7 @@
                 <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
             </div>
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">Home</span></a>
-            
+
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">Merge</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -243,7 +195,7 @@
                     <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">Load Balancing v7</span></a>
                 </div>
             </div>
-            
+
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-wifi"></i><span data-i18n="hotspot">Hotspot</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -251,16 +203,18 @@
                     <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
             </div>
-            
+
+            <!-- Design & Block -->
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle active"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
                     <a href="Hotspot Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">Hotspot Design</span></a>
+                    <!-- ✅ CardEditor مضاف -->
+                    <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">Card Designer</span></a>
                     <a href="block-sites.html" class="dropdown-item active"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">Block Sites</span></a>
                 </div>
             </div>
-            
-            <!-- محلل السجلات مع علامة جديد -->
+
             <div class="dropdown">
                 <a href="log.html" class="nav-link">
                     <i class="fas fa-chart-bar"></i>
@@ -268,7 +222,7 @@
                     <span class="new-badge" data-i18n="new">NEW</span>
                 </a>
             </div>
-            
+
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -458,7 +412,7 @@
 <footer class="footer">
     <div class="footer-content">
         <p class="footer-text"><i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span></p>
-        <p class="copyright">© 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
+        <p class="copyright">© 2026 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
     </div>
 </footer>
 
@@ -468,7 +422,7 @@ var translations = {
         home:"Home", merge:"Merge", hotspot:"Hotspot", design_block:"Design & Block", help:"Help",
         merge_v6:"Load Balancing v6", merge_v7:"Load Balancing v7",
         hotspot_settings:"Hotspot+PPP Settings", speed_profiles:"Speed Profiles",
-        hotspot_design:"Hotspot Design", block_sites:"Block Sites",
+        hotspot_design:"Hotspot Design", card_designer:"Card Designer", block_sites:"Block Sites",
         log_analyzer:"Log Analyzer", new:"NEW",
         troubleshooting:"Troubleshooting", about:"About Us", privacy:"Privacy Policy",
         contact_us:"Contact Us", hero_badge:"Complete Protection System",
@@ -506,7 +460,7 @@ var translations = {
         home:"الرئيسية", merge:"الدمج", hotspot:"الهوت سبوت", design_block:"التصميم والحجب", help:"المساعدة",
         merge_v6:"دمج خطوط v6", merge_v7:"دمج خطوط v7",
         hotspot_settings:"اعدادات hotspot+ppp", speed_profiles:"بروفايلات السرعة",
-        hotspot_design:"تصميم hotspot", block_sites:"حجب مواقع",
+        hotspot_design:"تصميم hotspot", card_designer:"مصمم الكروت", block_sites:"حجب مواقع",
         log_analyzer:"محلل السجلات", new:"جديد",
         troubleshooting:"المشكلات الشائعة", about:"من نحن", privacy:"سياسة الخصوصية",
         contact_us:"تواصل معنا", hero_badge:"نظام حماية متكامل",
@@ -545,66 +499,24 @@ var translations = {
 var SIGNATURE = "By Same7_01092503391";
 var state = { v6: { blockType: 'layer7' }, v7: { blockType: 'layer7' } };
 
-// =====================================================
-// ✅ Layer7 entries builder
-// قاعدة MikroTik Layer7:
-//   - regexp = keyword بسيط بدون أي escape
-//   - بدون ^ أو $ أو .* أو \. أو |
-//   - كل keyword في سطر add منفصل
-//   - MikroTik بيعمل string search في الـ packet
-// =====================================================
 var L7_CDN_MAP = {
-    'youtube.com':   [
-        { suffix: '',      kw: 'youtube'      },
-        { suffix: '_CDN1', kw: 'googlevideo'  },
-        { suffix: '_CDN2', kw: 'ytimg'        }
-    ],
-    'facebook.com':  [
-        { suffix: '',      kw: 'facebook'     },
-        { suffix: '_CDN1', kw: 'fbcdn'        }
-    ],
-    'instagram.com': [
-        { suffix: '',      kw: 'instagram'    },
-        { suffix: '_CDN1', kw: 'cdninstagram' }
-    ],
-    'tiktok.com':    [
-        { suffix: '',      kw: 'tiktok'       },
-        { suffix: '_CDN1', kw: 'tiktokcdn'    }
-    ],
-    'twitter.com':   [
-        { suffix: '',      kw: 'twitter'      },
-        { suffix: '_CDN1', kw: 'twimg'        }
-    ],
-    'snapchat.com':  [
-        { suffix: '',      kw: 'snapchat'     },
-        { suffix: '_CDN1', kw: 'sc-cdn'       }
-    ],
-    'whatsapp.com':  [
-        { suffix: '',      kw: 'whatsapp'     }
-    ],
-    'telegram.org':  [
-        { suffix: '',      kw: 'telegram'     }
-    ]
+    'youtube.com':   [{ suffix:'', kw:'youtube' },{ suffix:'_CDN1', kw:'googlevideo' },{ suffix:'_CDN2', kw:'ytimg' }],
+    'facebook.com':  [{ suffix:'', kw:'facebook' },{ suffix:'_CDN1', kw:'fbcdn' }],
+    'instagram.com': [{ suffix:'', kw:'instagram' },{ suffix:'_CDN1', kw:'cdninstagram' }],
+    'tiktok.com':    [{ suffix:'', kw:'tiktok' },{ suffix:'_CDN1', kw:'tiktokcdn' }],
+    'twitter.com':   [{ suffix:'', kw:'twitter' },{ suffix:'_CDN1', kw:'twimg' }],
+    'snapchat.com':  [{ suffix:'', kw:'snapchat' },{ suffix:'_CDN1', kw:'sc-cdn' }],
+    'whatsapp.com':  [{ suffix:'', kw:'whatsapp' }],
+    'telegram.org':  [{ suffix:'', kw:'telegram' }]
 };
 
 function buildL7Entries(site) {
     var baseName = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
     var list = L7_CDN_MAP[site];
-    if (list) {
-        return list.map(function(item) {
-            return { name: baseName + item.suffix, regexp: item.kw };
-        });
-    }
-    // موقع غير معروف: استخدم الجزء قبل النقطة الأولى
+    if (list) return list.map(function(item) { return { name: baseName + item.suffix, regexp: item.kw }; });
     return [{ name: baseName, regexp: site.split('.')[0] }];
 }
 
-// =====================================================
-// RouterOS v6 Generator
-// /ip firewall layer7-protocol
-// /ip firewall filter
-// /ip firewall mangle
-// =====================================================
 function generateScriptV6(sites, group, iface, blockType) {
     var out = [];
     out.push('# ' + SIGNATURE);
@@ -614,57 +526,26 @@ function generateScriptV6(sites, group, iface, blockType) {
     out.push('# Block Type: ' + (blockType === 'layer7' ? 'Layer7 Protocol' : blockType === 'tls' ? 'TLS/SSL Host' : 'Layer7 + TLS/SSL'));
     out.push('# Generated: ' + new Date().toLocaleString());
     out.push('');
-
     if (blockType === 'layer7' || blockType === 'both') {
         out.push('/ip firewall layer7-protocol');
-        sites.forEach(function(site) {
-            buildL7Entries(site).forEach(function(e) {
-                // ✅ regexp = keyword بسيط — بدون أي escape أو prefix
-                out.push('add name=' + e.name + ' regexp="' + e.regexp + '" comment="Block ' + site + '"');
-            });
-        });
+        sites.forEach(function(site) { buildL7Entries(site).forEach(function(e) { out.push('add name=' + e.name + ' regexp="' + e.regexp + '" comment="Block ' + site + '"'); }); });
         out.push('');
     }
-
     if (blockType === 'tls' || blockType === 'both') {
         out.push('/ip firewall mangle');
-        sites.forEach(function(site) {
-            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
-            out.push('add action=add-dst-to-address-list address-list=' + vn + '_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*' + site + '*" comment="Track ' + site + ' [v6]"');
-        });
+        sites.forEach(function(site) { var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase(); out.push('add action=add-dst-to-address-list address-list=' + vn + '_IPs address-list-timeout=1d chain=prerouting protocol=tcp tls-host="*' + site + '*" comment="Track ' + site + ' [v6]"'); });
         out.push('');
     }
-
     out.push('/ip firewall filter');
-    if (blockType === 'layer7' || blockType === 'both') {
-        sites.forEach(function(site) {
-            buildL7Entries(site).forEach(function(e) {
-                out.push('add action=drop chain=forward layer7-protocol=' + e.name + ' out-interface=' + iface + ' comment="Block ' + site + ' L7 [v6]"');
-            });
-        });
-    }
+    if (blockType === 'layer7' || blockType === 'both') { sites.forEach(function(site) { buildL7Entries(site).forEach(function(e) { out.push('add action=drop chain=forward layer7-protocol=' + e.name + ' out-interface=' + iface + ' comment="Block ' + site + ' L7 [v6]"'); }); }); }
     if (blockType === 'tls' || blockType === 'both') {
-        sites.forEach(function(site) {
-            out.push('add action=drop chain=forward protocol=tcp tls-host="*' + site + '*" out-interface=' + iface + ' comment="Block ' + site + ' TLS [v6]"');
-        });
-        sites.forEach(function(site) {
-            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
-            out.push('add action=drop chain=forward dst-address-list=' + vn + '_IPs out-interface=' + iface + ' comment="Block ' + site + ' IP [v6]"');
-        });
+        sites.forEach(function(site) { out.push('add action=drop chain=forward protocol=tcp tls-host="*' + site + '*" out-interface=' + iface + ' comment="Block ' + site + ' TLS [v6]"'); });
+        sites.forEach(function(site) { var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase(); out.push('add action=drop chain=forward dst-address-list=' + vn + '_IPs out-interface=' + iface + ' comment="Block ' + site + ' IP [v6]"'); });
     }
-
-    out.push('');
-    out.push('# Created by MikroTools - Contact: 01092503391 - Sameh El-Sayed');
-    out.push('# Total sites: ' + sites.length);
+    out.push(''); out.push('# Created by MikroTools - Contact: 01092503391 - Sameh El-Sayed'); out.push('# Total sites: ' + sites.length);
     return out.join('\n');
 }
 
-// =====================================================
-// RouterOS v7 Generator
-// /ip/firewall/layer7-protocol
-// /ip/firewall/filter
-// /ip/firewall/mangle
-// =====================================================
 function generateScriptV7(sites, group, iface, blockType) {
     var out = [];
     out.push('# ' + SIGNATURE);
@@ -674,71 +555,36 @@ function generateScriptV7(sites, group, iface, blockType) {
     out.push('# Block Type: ' + (blockType === 'layer7' ? 'Layer7 Protocol' : blockType === 'tls' ? 'TLS/SSL Host' : 'Layer7 + TLS/SSL'));
     out.push('# Generated: ' + new Date().toLocaleString());
     out.push('');
-
     if (blockType === 'layer7' || blockType === 'both') {
         out.push('/ip/firewall/layer7-protocol');
-        sites.forEach(function(site) {
-            buildL7Entries(site).forEach(function(e) {
-                // ✅ regexp = keyword بسيط — بدون أي escape أو prefix
-                out.push('add name=' + e.name + ' regexp="' + e.regexp + '" comment="Block ' + site + '"');
-            });
-        });
+        sites.forEach(function(site) { buildL7Entries(site).forEach(function(e) { out.push('add name=' + e.name + ' regexp="' + e.regexp + '" comment="Block ' + site + '"'); }); });
         out.push('');
     }
-
     if (blockType === 'tls' || blockType === 'both') {
         out.push('/ip/firewall/mangle');
-        sites.forEach(function(site) {
-            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
-            out.push('add action=add-dst-to-address-list address-list=' + vn + '_IPs address-list-timeout=1d chain=prerouting dst-port=443 protocol=tcp tls-host="*' + site + '*" comment="Track ' + site + ' [v7]"');
-        });
+        sites.forEach(function(site) { var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase(); out.push('add action=add-dst-to-address-list address-list=' + vn + '_IPs address-list-timeout=1d chain=prerouting dst-port=443 protocol=tcp tls-host="*' + site + '*" comment="Track ' + site + ' [v7]"'); });
         out.push('');
     }
-
     out.push('/ip/firewall/filter');
-    if (blockType === 'layer7' || blockType === 'both') {
-        sites.forEach(function(site) {
-            buildL7Entries(site).forEach(function(e) {
-                out.push('add action=drop chain=forward layer7-protocol=' + e.name + ' out-interface=' + iface + ' comment="Block ' + site + ' L7 [v7]"');
-            });
-        });
-    }
+    if (blockType === 'layer7' || blockType === 'both') { sites.forEach(function(site) { buildL7Entries(site).forEach(function(e) { out.push('add action=drop chain=forward layer7-protocol=' + e.name + ' out-interface=' + iface + ' comment="Block ' + site + ' L7 [v7]"'); }); }); }
     if (blockType === 'tls' || blockType === 'both') {
-        sites.forEach(function(site) {
-            out.push('add action=drop chain=forward dst-port=443 protocol=tcp tls-host="*' + site + '*" out-interface=' + iface + ' comment="Block ' + site + ' TLS [v7]"');
-        });
-        sites.forEach(function(site) {
-            var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase();
-            out.push('add action=drop chain=forward dst-address-list=' + vn + '_IPs out-interface=' + iface + ' comment="Block ' + site + ' IP [v7]"');
-        });
+        sites.forEach(function(site) { out.push('add action=drop chain=forward dst-port=443 protocol=tcp tls-host="*' + site + '*" out-interface=' + iface + ' comment="Block ' + site + ' TLS [v7]"'); });
+        sites.forEach(function(site) { var vn = 'BLOCK_' + site.replace(/\./g, '_').toUpperCase(); out.push('add action=drop chain=forward dst-address-list=' + vn + '_IPs out-interface=' + iface + ' comment="Block ' + site + ' IP [v7]"'); });
     }
-
-    out.push('');
-    out.push('# Created by MikroTools - Contact: 01092503391 - Sameh El-Sayed');
-    out.push('# Total sites: ' + sites.length);
+    out.push(''); out.push('# Created by MikroTools - Contact: 01092503391 - Sameh El-Sayed'); out.push('# Total sites: ' + sites.length);
     return out.join('\n');
 }
 
-// ===== Language =====
 function setLanguage(lang) {
     localStorage.setItem('language', lang);
-    var html = document.documentElement;
-    var body = document.body;
-    if (lang === 'ar') {
-        html.setAttribute('lang','ar'); html.setAttribute('dir','rtl');
-        body.classList.add('ar','rtl'); body.classList.remove('en');
-    } else {
-        html.setAttribute('lang','en'); html.setAttribute('dir','ltr');
-        body.classList.remove('ar','rtl'); body.classList.add('en');
-    }
+    var html = document.documentElement; var body = document.body;
+    if (lang === 'ar') { html.setAttribute('lang','ar'); html.setAttribute('dir','rtl'); body.classList.add('ar','rtl'); body.classList.remove('en'); }
+    else { html.setAttribute('lang','en'); html.setAttribute('dir','ltr'); body.classList.remove('ar','rtl'); body.classList.add('en'); }
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         var key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = translations[lang][key];
-            } else {
-                el.textContent = translations[lang][key];
-            }
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = translations[lang][key];
+            else el.textContent = translations[lang][key];
         }
     });
     document.getElementById('langEn').classList.toggle('active', lang === 'en');
@@ -748,168 +594,85 @@ document.getElementById('langEn').addEventListener('click', function() { setLang
 document.getElementById('langAr').addEventListener('click', function() { setLanguage('ar'); });
 setLanguage(localStorage.getItem('language') || 'en');
 
-// ===== Mobile Menu =====
 document.getElementById('menuToggle').addEventListener('click', function() {
-    var navLinks = document.getElementById('navLinks');
-    var icon = this.querySelector('i');
+    var navLinks = document.getElementById('navLinks'); var icon = this.querySelector('i');
     navLinks.classList.toggle('active');
     icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
 });
 document.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item').forEach(function(link) {
-    link.addEventListener('click', function() {
-        document.getElementById('navLinks').classList.remove('active');
-        var icon = document.querySelector('#menuToggle i');
-        if (icon) icon.className = 'fas fa-bars';
-    });
+    link.addEventListener('click', function() { document.getElementById('navLinks').classList.remove('active'); var icon = document.querySelector('#menuToggle i'); if (icon) icon.className = 'fas fa-bars'; });
 });
 document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
     toggle.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            e.preventDefault();
-            var dropdown = this.closest('.dropdown');
-            dropdown.classList.toggle('active');
-            var arrow = this.querySelector('.dropdown-arrow');
-            if (arrow) arrow.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
-        }
+        if (window.innerWidth <= 768) { e.preventDefault(); var dropdown = this.closest('.dropdown'); dropdown.classList.toggle('active'); var arrow = this.querySelector('.dropdown-arrow'); if (arrow) arrow.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)'; }
     });
 });
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        document.getElementById('navLinks').classList.remove('active');
-        var icon = document.querySelector('#menuToggle i');
-        if (icon) icon.className = 'fas fa-bars';
-    }
-});
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { document.getElementById('navLinks').classList.remove('active'); var icon = document.querySelector('#menuToggle i'); if (icon) icon.className = 'fas fa-bars'; } });
 
-// ===== Version Switch =====
 function switchVersion(ver, btn) {
     document.querySelectorAll('.version-panel').forEach(function(p) { p.classList.remove('active'); });
     document.querySelectorAll('.version-tab').forEach(function(t) { t.classList.remove('active'); });
-    document.getElementById('panel-' + ver).classList.add('active');
-    btn.classList.add('active');
+    document.getElementById('panel-' + ver).classList.add('active'); btn.classList.add('active');
 }
 
-// ===== Site Selection =====
 function selectSite(url, name, ver) {
-    var input = document.getElementById('sitesInput-' + ver);
-    var current = input.value.trim();
+    var input = document.getElementById('sitesInput-' + ver); var current = input.value.trim();
     var existing = current ? current.split(',').map(function(s) { return s.trim(); }) : [];
-    if (!existing.includes(url)) {
-        input.value = current ? current + ', ' + url : url;
-        showAlert('siteAlert-' + ver, '\u2705 ' + name + ' added to list', 'linear-gradient(135deg,#10b981,#059669)');
-    }
+    if (!existing.includes(url)) { input.value = current ? current + ', ' + url : url; showAlert('siteAlert-' + ver, '✅ ' + name + ' added to list', 'linear-gradient(135deg,#10b981,#059669)'); }
     updateSiteCards(ver);
 }
 function updateSiteCards(ver) {
     var val = document.getElementById('sitesInput-' + ver).value;
     var sites = val ? val.split(',').map(function(s) { return s.trim(); }) : [];
-    document.querySelectorAll('#sitesGrid-' + ver + ' .site-card').forEach(function(card) {
-        var url = card.querySelector('.site-url').textContent.trim();
-        card.classList.toggle('active', sites.includes(url));
-    });
+    document.querySelectorAll('#sitesGrid-' + ver + ' .site-card').forEach(function(card) { var url = card.querySelector('.site-url').textContent.trim(); card.classList.toggle('active', sites.includes(url)); });
 }
-
-// ===== Block Type =====
 function selectBlockType(type, ver, el) {
     state[ver].blockType = type;
     document.querySelectorAll('#blockTypes-' + ver + ' .type-btn').forEach(function(btn) { btn.classList.remove('active'); });
     el.classList.add('active');
     var names = { layer7:'Layer7 Protocol', tls:'TLS/SSL Host', both:'Layer7 + TLS/SSL' };
-    showAlert('typeAlert-' + ver, '\uD83D\uDEE1\uFE0F Selected: ' + names[type], 'linear-gradient(135deg,#ef4444,#dc2626)');
+    showAlert('typeAlert-' + ver, '🛡️ Selected: ' + names[type], 'linear-gradient(135deg,#ef4444,#dc2626)');
 }
-
-// ===== Alert =====
 function showAlert(id, msg, bg) {
-    var container = document.getElementById(id);
-    container.innerHTML = '';
-    var div = document.createElement('div');
-    div.className = 'alert-msg';
-    div.style.background = bg;
-    div.textContent = msg;
-    container.appendChild(div);
-    setTimeout(function() {
-        div.style.opacity = '0';
-        div.style.transition = 'opacity .5s';
-        setTimeout(function() { if (container.contains(div)) container.removeChild(div); }, 500);
-    }, 3000);
+    var container = document.getElementById(id); container.innerHTML = '';
+    var div = document.createElement('div'); div.className = 'alert-msg'; div.style.background = bg; div.textContent = msg; container.appendChild(div);
+    setTimeout(function() { div.style.opacity = '0'; div.style.transition = 'opacity .5s'; setTimeout(function() { if (container.contains(div)) container.removeChild(div); }, 500); }, 3000);
 }
-
-// ===== Generate =====
 function generateScript(ver) {
     var sitesInput = document.getElementById('sitesInput-' + ver).value.trim();
     var groupName  = document.getElementById('groupName-' + ver).value.trim();
     var iface      = document.getElementById('interfaceName-' + ver).value.trim() || 'OUT';
     if (!sitesInput) { alert('Please enter at least one site to block'); return; }
     var sites = sitesInput.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
-    var group = groupName || 'Blocked Sites';
-    var bt    = state[ver].blockType;
+    var group = groupName || 'Blocked Sites'; var bt = state[ver].blockType;
     var script = (ver === 'v6') ? generateScriptV6(sites, group, iface, bt) : generateScriptV7(sites, group, iface, bt);
     document.getElementById('outputScript-' + ver).value = script;
     document.getElementById('resultSection-' + ver).style.display = 'block';
-    setTimeout(function() {
-        document.getElementById('resultSection-' + ver).scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    setTimeout(function() { document.getElementById('resultSection-' + ver).scrollIntoView({ behavior:'smooth', block:'start' }); }, 100);
 }
-
-// ===== Copy =====
 function copyScript(ver) {
-    var el = document.getElementById('outputScript-' + ver);
-    if (!el.value) { alert('No script to copy'); return; }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(el.value).then(function() {
-            alert('Script copied successfully! \u2705');
-        }).catch(function() { fallbackCopy(el); });
-    } else { fallbackCopy(el); }
+    var el = document.getElementById('outputScript-' + ver); if (!el.value) { alert('No script to copy'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(el.value).then(function() { alert('Script copied successfully! ✅'); }).catch(function() { fallbackCopy(el); }); }
+    else { fallbackCopy(el); }
 }
-function fallbackCopy(el) {
-    el.select(); el.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    alert('Script copied successfully! \u2705');
-}
-
-// ===== Reset =====
+function fallbackCopy(el) { el.select(); el.setSelectionRange(0, 99999); document.execCommand('copy'); alert('Script copied successfully! ✅'); }
 function resetForm(ver) {
-    document.getElementById('sitesInput-' + ver).value = '';
-    document.getElementById('groupName-' + ver).value = '';
-    document.getElementById('interfaceName-' + ver).value = 'OUT';
-    document.getElementById('outputScript-' + ver).value = '';
+    document.getElementById('sitesInput-' + ver).value = ''; document.getElementById('groupName-' + ver).value = '';
+    document.getElementById('interfaceName-' + ver).value = 'OUT'; document.getElementById('outputScript-' + ver).value = '';
     document.getElementById('resultSection-' + ver).style.display = 'none';
-    document.getElementById('siteAlert-' + ver).innerHTML = '';
-    document.getElementById('typeAlert-' + ver).innerHTML = '';
+    document.getElementById('siteAlert-' + ver).innerHTML = ''; document.getElementById('typeAlert-' + ver).innerHTML = '';
     document.querySelectorAll('#sitesGrid-' + ver + ' .site-card').forEach(function(c) { c.classList.remove('active'); });
     document.querySelectorAll('#blockTypes-' + ver + ' .type-btn').forEach(function(b) { b.classList.remove('active'); });
     document.querySelector('#blockTypes-' + ver + ' .type-btn').classList.add('active');
     state[ver].blockType = 'layer7';
 }
-
-// ===== Block Popup Domains =====
 (function() {
     var blocked = ["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"];
     var orig = window.open;
-    window.open = function(url, name, specs) {
-        if (url && blocked.some(function(d) { return url.includes(d); })) { return null; }
-        return orig.apply(this, arguments);
-    };
+    window.open = function(url, name, specs) { if (url && blocked.some(function(d) { return url.includes(d); })) { return null; } return orig.apply(this, arguments); };
 })();
 </script>
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+
+<iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 </body>
 </html>
-
