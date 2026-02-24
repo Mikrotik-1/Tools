@@ -2,1857 +2,282 @@
 <html lang="ar" dir="rtl">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VV99LZRKBJ');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- SEO Meta Tags -->
     <meta name="description" content="إعدادات الهوت سبوت والبرودباند - أداة مجانية لتوليد سكريبتات ميكروتيك احترافية">
     <meta name="keywords" content="ميكروتيك, هوت سبوت, برودباند, MikroTik, Hotspot, Script Generator">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
-    
-    <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="google6096a3c525d406ea" />
-    
     <title>Hotspot Settings | MikroTools</title>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --secondary: #10b981;
-            --accent: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
-            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
-            --border-radius: 16px;
-            
-            /* لون علامة جديد */
-            --new-badge-start: #ff416c;
-            --new-badge-end: #ff4b2b;
-            --new-badge-glow: rgba(255, 65, 108, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.8;
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body.ar {
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        /* ===== قائمة التنقل العلوية ===== */
-        .navbar {
-            background: var(--dark);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .logo-icon {
-            background: var(--gradient);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-            color: white;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link.active {
-            color: white;
-            background: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 70%;
-        }
-
-        .nav-cta {
-            background: var(--gradient);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 13px;
-        }
-
-        .nav-cta i {
-            font-size: 14px;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-        }
-
-        /* ===== أزرار تبديل اللغة ===== */
-        .lang-switcher {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 0 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: #cbd5e1;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-btn i {
-            font-size: 12px;
-        }
-
-        .lang-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* ===== القوائم المنسدلة ===== */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .dropdown-arrow {
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        .dropdown:hover .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--dark);
-            min-width: 250px;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: #cbd5e1;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        .dropdown-item i {
-            width: 20px;
-            font-size: 16px;
-            color: var(--primary);
-        }
-
-        .dropdown-item.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .dropdown-item.active i {
-            color: white;
-        }
-
-        /* ===== علامة جديد المميزة ===== */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-right: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة الإنجليزية */
-        body.en .new-badge {
-            margin-left: 5px;
-            margin-right: 0;
-        }
-
-        body.en .nav-link .new-badge {
-            order: 2;
-        }
-
-        /* RTL Support */
-        body.rtl {
-            direction: rtl;
-            text-align: right;
-        }
-
-        body.rtl .nav-link::after {
-            left: auto;
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        body.rtl .dropdown-item:hover {
-            transform: translateX(5px);
-        }
-
-        /* ===== الهيرو المعدل ===== */
-        .hero-hotspot {
-            background: var(--gradient-dark);
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .hero-hotspot::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: 200px;
-        }
-
-        .hero-content-hotspot {
-            max-width: 1200px;
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge-hotspot {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-title-hotspot {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle-hotspot {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        /* ===== قسم توليد السكربت ===== */
-        .generator-section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .generator-card {
-            background: var(--gradient-card);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .generator-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-
-        .tool-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ===== قسم الشبكة (الجديد في الأعلى) ===== */
-        .network-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--primary);
-        }
-
-        /* ===== تصميم اختيار الشبكة ===== */
-        .subnet-selector {
-            margin: 1.5rem 0;
-        }
-
-        .subnet-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .subnet-box {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .subnet-box:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
-        }
-
-        .subnet-box.active {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.15);
-        }
-
-        .subnet-box.active::before {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--primary);
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .subnet-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .subnet-mask {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            background: #eff6ff;
-            padding: 5px 15px;
-            border-radius: 10px;
-        }
-
-        .subnet-title {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1rem;
-        }
-
-        .subnet-info {
-            margin: 10px 0;
-        }
-
-        .ip-count {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 5px;
-        }
-
-        .ip-range {
-            font-size: 0.9rem;
-            color: #64748b;
-            line-height: 1.4;
-            font-family: 'Fira Code', monospace;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* ===== نافذة الشرح ===== */
-        .subnet-description {
-            position: fixed;
-            bottom: 20px;
-            right: 50%;
-            transform: translateX(50%);
-            background: var(--dark);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .subnet-description.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(50%) translateY(-10px);
-        }
-
-        .description-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .description-text {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #cbd5e1;
-        }
-
-        /* ===== إعدادات التوليد ===== */
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .setting-group {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        .setting-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .setting-title i {
-            color: var(--primary);
-        }
-
-        /* ===== إدخال البيانات ===== */
-        .input-box {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .input-field:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-            outline: none;
-        }
-
-        /* ===== الأزرار ===== */
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            min-width: 200px;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
-        }
-
-        /* ===== نتيجة السكربت ===== */
-        .result-section {
-            margin-top: 3rem;
-            display: none;
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .script-output {
-            width: 100%;
-            min-height: 300px;
-            padding: 1.5rem;
-            border-radius: 12px;
-            background: #1e293b;
-            color: #38bdf8;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            border: none;
-            resize: vertical;
-            white-space: pre-wrap;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* ===== قسم الاتصال ===== */
-        .contact {
-            padding: 6rem 2rem;
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .contact-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #a5b4fc, #f0abfc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-subtitle {
-            color: #94a3b8;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .contact-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-phone {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1rem 0;
-            direction: ltr;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-name {
-            color: #94a3b8;
-            margin-bottom: 2rem;
-        }
-
-        /* ===== التذييل ===== */
-        .footer {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        /* ===== أيقونات التواصل العائمة ===== */
-        .social-iframe {
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        }
-
-        /* ===== التجاوب ===== */
-        @media (max-width: 1024px) {
-            .hero-title-hotspot {
-                font-size: 2.5rem;
-            }
-            
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .subnet-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: 0;
-                background: var(--dark);
-                width: 100%;
-                padding: 1rem;
-                flex-direction: column;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .lang-switcher {
-                width: 100%;
-                justify-content: center;
-                margin: 10px 0 20px;
-                order: -1;
-            }
-            
-            .lang-btn {
-                flex: 1;
-                justify-content: center;
-                padding: 8px;
-            }
-            
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .dropdown {
-                width: 100%;
-            }
-            
-            .dropdown-toggle {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                background: rgba(255, 255, 255, 0.05);
-                margin-top: 5px;
-                margin-bottom: 10px;
-                display: none;
-                width: 100%;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                display: block;
-            }
-            
-            .dropdown-toggle {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .dropdown-item {
-                justify-content: center;
-            }
-            
-            .nav-cta {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                margin-top: 10px;
-            }
-            
-            .hero-title-hotspot {
-                font-size: 2rem;
-            }
-            
-            .generator-section {
-                padding: 2rem 1rem;
-            }
-            
-            .generator-card {
-                padding: 1.5rem;
-            }
-            
-            .btn {
-                min-width: 100%;
-            }
-            
-            .btn-group {
-                flex-direction: column;
-            }
-            
-            .subnet-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .subnet-description {
-                position: fixed;
-                bottom: 10px;
-                right: 5%;
-                left: 5%;
-                transform: none;
-                width: 90%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-hotspot {
-                min-height: 60vh;
-                padding: 100px 1rem 2rem;
-            }
-            
-            .contact-phone {
-                font-size: 1.8rem;
-            }
+        :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--light);color:var(--dark);line-height:1.8;min-height:100vh;overflow-x:hidden;font-family:'Poppins',sans-serif;}
+        body.ar{font-family:'Tajawal',sans-serif;}
+        body.rtl{direction:rtl;text-align:right;}
+        body.rtl .nav-link::after{left:auto;right:50%;transform:translateX(50%);}
+        body.rtl .dropdown-item:hover{transform:translateX(5px);}
+        .navbar{background:var(--dark);padding:1rem 2rem;position:fixed;top:0;right:0;left:0;z-index:1000;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
+        .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+        .logo{display:flex;align-items:center;gap:15px;text-decoration:none;color:white;}
+        .logo-icon{background:var(--gradient);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;animation:pulse 2s infinite;}
+        @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+        .logo-text{font-size:24px;font-weight:800;color:white;}
+        .nav-links{display:flex;gap:0.5rem;align-items:center;}
+        .nav-link{color:#cbd5e1;text-decoration:none;font-weight:500;transition:all 0.3s;padding:8px 16px;border-radius:10px;position:relative;display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;}
+        .nav-link:hover{color:white;background:rgba(255,255,255,0.1);}
+        .nav-link.active{color:white;background:var(--primary);}
+        .nav-cta{background:var(--gradient);color:white;padding:5px 15px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;display:flex;align-items:center;gap:5px;font-size:13px;}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
+        .lang-switcher{display:flex;gap:5px;background:rgba(255,255,255,0.05);padding:4px;border-radius:30px;border:1px solid rgba(255,255,255,0.1);margin:0 10px;}
+        .lang-btn{background:transparent;border:none;color:#cbd5e1;padding:6px 16px;border-radius:25px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px;}
+        .lang-btn:hover{color:white;background:rgba(255,255,255,0.1);}
+        .lang-btn.active{background:var(--primary);color:white;box-shadow:0 4px 10px rgba(99,102,241,0.3);}
+        .menu-toggle{display:none;background:none;border:none;color:white;font-size:24px;cursor:pointer;}
+        .dropdown{position:relative;display:inline-block;}
+        .dropdown-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;}
+        .dropdown-arrow{font-size:12px;transition:transform 0.3s;}
+        .dropdown:hover .dropdown-arrow{transform:rotate(180deg);}
+        .dropdown-menu{position:absolute;top:100%;right:0;background:var(--dark);min-width:250px;border-radius:12px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s;z-index:1000;border:1px solid rgba(255,255,255,0.1);}
+        .dropdown:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+        .dropdown-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#cbd5e1;text-decoration:none;border-radius:8px;transition:all 0.3s;}
+        .dropdown-item:hover{background:rgba(255,255,255,0.1);color:white;transform:translateX(-5px);}
+        .dropdown-item i{width:20px;font-size:16px;color:var(--primary);}
+        .dropdown-item.active{background:var(--primary);color:white;}
+        .dropdown-item.active i{color:white;}
+        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-right:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
+        @keyframes newGlow{0%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5);}50%{transform:scale(1.1);background:linear-gradient(135deg,#ff4b2b,#ff416c);box-shadow:0 4px 20px rgba(255,65,108,0.9);}100%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5);}}
+        body.en .new-badge{margin-left:5px;margin-right:0;}
+        .hero-hotspot{background:var(--gradient-dark);min-height:70vh;display:flex;align-items:center;justify-content:center;padding:120px 2rem 4rem;position:relative;overflow:hidden;text-align:center;}
+        .hero-content-hotspot{max-width:1200px;text-align:center;color:white;position:relative;z-index:1;}
+        .hero-badge-hotspot{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;margin-bottom:1.5rem;border:1px solid rgba(99,102,241,0.3);}
+        .hero-title-hotspot{font-size:3rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(to right,#ffffff,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;}
+        .hero-subtitle-hotspot{font-size:1.1rem;color:#cbd5e1;margin-bottom:2rem;max-width:700px;margin-right:auto;margin-left:auto;}
+        .generator-section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
+        .generator-card{background:var(--gradient-card);padding:2.5rem;border-radius:var(--border-radius);box-shadow:var(--shadow);border:1px solid rgba(99,102,241,0.1);position:relative;overflow:hidden;}
+        .generator-card::before{content:'';position:absolute;top:0;right:0;width:100%;height:4px;background:var(--gradient);}
+        .tool-title{font-size:2rem;font-weight:800;margin-bottom:2rem;text-align:center;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .network-section{background:white;padding:2rem;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);margin-bottom:2rem;border:1px solid #e2e8f0;}
+        .section-title{font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);display:flex;align-items:center;gap:10px;}
+        .section-title i{color:var(--primary);}
+        .subnet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin:1rem 0;}
+        .subnet-box{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:1.5rem;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;}
+        .subnet-box:hover{border-color:var(--primary);transform:translateY(-5px);box-shadow:0 15px 30px rgba(99,102,241,0.1);}
+        .subnet-box.active{border-color:var(--primary);background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);transform:translateY(-5px);box-shadow:0 15px 30px rgba(99,102,241,0.15);}
+        .subnet-box.active::before{content:'✓';position:absolute;top:10px;left:10px;background:var(--primary);color:white;width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;}
+        .subnet-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+        .subnet-mask{font-size:1.8rem;font-weight:800;color:var(--primary);background:#eff6ff;padding:5px 15px;border-radius:10px;}
+        .subnet-title{font-weight:600;color:var(--dark);font-size:1rem;}
+        .ip-count{font-size:1.2rem;font-weight:700;color:#1e293b;margin-bottom:5px;}
+        .ip-range{font-size:0.9rem;color:#64748b;line-height:1.4;direction:ltr;text-align:left;}
+        .subnet-description{position:fixed;bottom:20px;right:50%;transform:translateX(50%);background:var(--dark);color:white;padding:1.5rem;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:90%;z-index:1000;opacity:0;visibility:hidden;transition:all 0.3s ease;border:1px solid rgba(255,255,255,0.1);}
+        .subnet-description.show{opacity:1;visibility:visible;transform:translateX(50%) translateY(-10px);}
+        .description-title{font-size:1.2rem;font-weight:700;margin-bottom:1rem;color:var(--primary-light);display:flex;align-items:center;gap:10px;}
+        .description-text{font-size:0.95rem;line-height:1.6;color:#cbd5e1;}
+        .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-bottom:2rem;}
+        .setting-group{background:white;padding:1.5rem;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border:1px solid #e2e8f0;}
+        .setting-title{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--dark);display:flex;align-items:center;gap:10px;}
+        .setting-title i{color:var(--primary);}
+        .input-box{margin-bottom:1.5rem;}
+        .input-label{display:block;font-weight:600;margin-bottom:0.5rem;color:var(--dark);font-size:0.95rem;}
+        .input-field{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:1rem;transition:all 0.3s;background:white;}
+        .input-field:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.1);outline:none;}
+        .btn-group{display:flex;gap:1rem;justify-content:center;margin:2rem 0;flex-wrap:wrap;}
+        .btn{padding:1rem 2.5rem;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:10px;font-size:1rem;border:none;cursor:pointer;min-width:200px;justify-content:center;}
+        .btn-primary{background:var(--gradient);color:white;}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(99,102,241,0.3);}
+        .btn-secondary{background:var(--secondary);color:white;}
+        .btn-secondary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(16,185,129,0.3);}
+        .result-section{margin-top:3rem;display:none;}
+        .result-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;}
+        .result-title{font-size:1.5rem;font-weight:700;color:var(--dark);}
+        .script-output{width:100%;min-height:300px;padding:1.5rem;border-radius:12px;background:#1e293b;color:#38bdf8;font-family:'Courier New',monospace;font-size:0.95rem;line-height:1.6;border:none;resize:vertical;white-space:pre-wrap;direction:ltr;text-align:left;}
+        .contact{padding:6rem 2rem;background:var(--dark);color:white;text-align:center;margin-top:4rem;}
+        .contact-title{font-size:2.5rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(to right,#a5b4fc,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .contact-subtitle{color:#94a3b8;margin-bottom:3rem;max-width:600px;margin-right:auto;margin-left:auto;}
+        .contact-info{background:rgba(255,255,255,0.05);padding:3rem;border-radius:var(--border-radius);border:1px solid rgba(255,255,255,0.1);max-width:600px;margin:0 auto;}
+        .contact-phone{font-size:2.5rem;font-weight:800;margin:1rem 0;direction:ltr;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .contact-name{color:#94a3b8;margin-bottom:2rem;}
+        .footer{background:#0f172a;color:#94a3b8;padding:3rem 2rem;text-align:center;}
+        .footer-content{max-width:1200px;margin:0 auto;}
+        .footer-text{font-size:1rem;margin-bottom:1rem;}
+        .copyright{color:#64748b;font-size:0.9rem;}
+        @media(max-width:768px){
+            .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto;}
+            .nav-links.active{display:flex;}.menu-toggle{display:block;}
+            .lang-switcher{width:100%;justify-content:center;margin:10px 0 20px;order:-1;}
+            .lang-btn{flex:1;justify-content:center;padding:8px;}
+            .nav-link{width:100%;text-align:center;justify-content:center;}
+            .dropdown{width:100%;}.dropdown-toggle{width:100%;justify-content:space-between;}
+            .dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:rgba(255,255,255,0.05);margin-top:5px;margin-bottom:10px;display:none;width:100%;}
+            .dropdown.active .dropdown-menu{display:block;}.dropdown-item{justify-content:center;}
+            .nav-cta{width:100%;text-align:center;justify-content:center;margin-top:10px;}
+            .hero-title-hotspot{font-size:2rem;}.generator-section{padding:2rem 1rem;}.generator-card{padding:1.5rem;}
+            .btn{min-width:100%;}.btn-group{flex-direction:column;}.subnet-grid{grid-template-columns:1fr;}
+            .subnet-description{position:fixed;bottom:10px;right:5%;left:5%;transform:none;width:90%;}
         }
     </style>
 </head>
 <body class="ar rtl">
-    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <span class="logo-text">MikroTools</span>
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <div class="nav-links" id="navLinks">
-                <!-- أزرار تبديل اللغة -->
-                <div class="lang-switcher">
-                    <button class="lang-btn active" id="langEn">
-                        <i class="fas fa-globe"></i>
-                        EN
-                    </button>
-                    <button class="lang-btn" id="langAr">
-                        <i class="fas fa-globe"></i>
-                        AR
-                    </button>
-                </div>
-                
-                <!-- الرئيسية -->
-                <a href="index.html" class="nav-link">
-                    <i class="fas fa-home"></i>
-                    <span data-i18n="home">الرئيسية</span>
-                </a>
-                
-                <!-- قائمة الدمج المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-code-branch"></i>
-                        <span data-i18n="merge">الدمج</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="merge-v6.html" class="dropdown-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span data-i18n="merge_v6">دمج خطوط v6</span>
-                        </a>
-                        <a href="merge-v7.html" class="dropdown-item">
-                            <i class="fas fa-rocket"></i>
-                            <span data-i18n="merge_v7">دمج خطوط v7</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- قائمة الهوت سبوت المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active">
-                        <i class="fas fa-wifi"></i>
-                        <span data-i18n="hotspot">الهوت سبوت</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="hotspot.html" class="dropdown-item active">
-                            <i class="fas fa-cog"></i>
-                            <span data-i18n="hotspot_settings">اعدادات hotspot+ppp</span>
-                        </a>
-                        <a href="speed-profiles.html" class="dropdown-item">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span data-i18n="speed_profiles">بروفايلات السرعة</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- قائمة التصميم والحجب المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-paint-brush"></i>
-                        <span data-i18n="design_block">التصميم والحجب</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="Hotspot%20Editor.html" class="dropdown-item">
-                            <i class="fas fa-paint-brush"></i>
-                            <span data-i18n="hotspot_design">تصميم hotspot</span>
-                        </a>
-                        <a href="block-sites.html" class="dropdown-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span data-i18n="block_sites">حجب مواقع</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- محلل السجلات مع علامة جديد -->
-                <div class="dropdown">
-                    <a href="log.html" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span data-i18n="log_analyzer">محلل السجلات</span>
-                        <span class="new-badge" data-i18n="new">جديد</span>
-                    </a>
-                </div>
-                
-                <!-- قائمة المساعدة المنسدلة -->
-                <div class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-question-circle"></i>
-                        <span data-i18n="help">المساعدة</span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="troubleshooting.html" class="dropdown-item">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span data-i18n="troubleshooting">المشكلات الشائعة</span>
-                        </a>
-                        <a href="about.html" class="dropdown-item">
-                            <i class="fas fa-users"></i>
-                            <span data-i18n="about">من نحن</span>
-                        </a>
-                        <a href="privacy-policy.html" class="dropdown-item">
-                            <i class="fas fa-user-shield"></i>
-                            <span data-i18n="privacy">سياسة الخصوصية</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- واتساب -->
-                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
-                    <i class="fab fa-whatsapp"></i>
-                    <span data-i18n="contact_us">تواصل معنا</span>
-                </a>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+            <span class="logo-text">MikroTools</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <div class="lang-switcher">
+                <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
+                <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
             </div>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">الرئيسية</span></a>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">الدمج</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i><span data-i18n="merge_v6">دمج خطوط v6</span></a>
+                    <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">دمج خطوط v7</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle active"><i class="fas fa-wifi"></i><span data-i18n="hotspot">الهوت سبوت</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="hotspot.html" class="dropdown-item active"><i class="fas fa-cog"></i><span data-i18n="hotspot_settings">اعدادات hotspot+ppp</span></a>
+                    <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">بروفايلات السرعة</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">التصميم والحجب</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="Hotspot%20Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">تصميم hotspot</span></a>
+                    <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">مصمم الكروت</span></a>
+                    <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">حجب مواقع</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="log.html" class="nav-link"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">محلل السجلات</span><span class="new-badge" data-i18n="new">جديد</span></a>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">المساعدة</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-exclamation-triangle"></i><span data-i18n="troubleshooting">المشكلات الشائعة</span></a>
+                    <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i><span data-i18n="about">من نحن</span></a>
+                    <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">سياسة الخصوصية</span></a>
+                </div>
+            </div>
+            <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">تواصل معنا</span></a>
         </div>
-    </nav>
-
-    <!-- الهيرو المعدل -->
-    <section class="hero-hotspot">
-        <div class="hero-content-hotspot">
-            <span class="hero-badge-hotspot">
-                <i class="fas fa-magic"></i>
-                <span data-i18n="hero_badge">توليد سكربت تلقائي</span>
-            </span>
-            
-            <h1 class="hero-title-hotspot" data-i18n="hero_title">
-                مولد سكربت هوت سبوت وبرودباند
-            </h1>
-            
-            <p class="hero-subtitle-hotspot" data-i18n="hero_subtitle">
-                أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة
-                مع إعدادات DHCP، PPPoE، و NAT تلقائية
-            </p>
-        </div>
-    </section>
-
-    <!-- قسم توليد السكربت -->
-    <section class="generator-section">
-        <div class="generator-card">
-            <h2 class="tool-title">
-                <i class="fas fa-cogs"></i>
-                <span data-i18n="tool_title">إعدادات السكربت</span>
-            </h2>
-            
-            <!-- الشبكة أولاً -->
-            <div class="network-section">
-                <h3 class="section-title">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                    <span data-i18n="network_title">اختر حجم الشبكة المناسب</span>
-                </h3>
-                
-                <div class="subnet-grid" id="subnetSelector">
-                    <!-- /24 = 254 IP -->
-                    <div class="subnet-box active" 
-                         data-subnet="24" 
-                         data-title-en="Small network - ideal for homes and cafes"
-                         data-title-ar="شبكة صغيرة - مناسبة للمنازل والمقاهي"
-                         data-description-en="Perfect for homes, cafes, small shops. Supports up to 254 connected devices simultaneously. Ideal for daily use."
-                         data-description-ar="مثالية للمنازل، المقاهي، المحلات الصغيرة. تدعم حتى 254 جهاز متصل في نفس الوقت. مناسبة للاستخدام اليومي."
-                         onmouseenter="showDescription(this)" 
-                         onmouseleave="hideDescription()"
-                         onclick="selectSubnet(24)">
-                        <div class="subnet-header">
-                            <div class="subnet-mask">/24</div>
-                            <div class="subnet-title" data-i18n="subnet_small">شبكة صغيرة</div>
-                        </div>
-                        <div class="subnet-info">
-                            <div class="ip-count">254 IP</div>
-                            <div class="ip-range">x.x.x.1 - x.x.x.254</div>
-                        </div>
-                    </div>
-                    
-                    <!-- /16 = 65,534 IP -->
-                    <div class="subnet-box" 
-                         data-subnet="16" 
-                         data-title-en="Medium network for companies and institutions"
-                         data-title-ar="شبكة متوسطة للشركات والمؤسسات"
-                         data-description-en="Suitable for small and medium companies, hotels, schools. Supports up to 65,534 connected devices. Provides great flexibility for growth."
-                         data-description-ar="مناسبة للشركات الصغيرة والمتوسطة، الفنادق، المدارس. تدعم حتى 65,534 جهاز متصل. توفر مرونة كبيرة للتوسع."
-                         onmouseenter="showDescription(this)" 
-                         onmouseleave="hideDescription()"
-                         onclick="selectSubnet(16)">
-                        <div class="subnet-header">
-                            <div class="subnet-mask">/16</div>
-                            <div class="subnet-title" data-i18n="subnet_medium">شبكة متوسطة</div>
-                        </div>
-                        <div class="subnet-info">
-                            <div class="ip-count">65,534 IP</div>
-                            <div class="ip-range">x.x.0.1 - x.x.255.254</div>
-                        </div>
-                    </div>
-                    
-                    <!-- /8 = 16,777,214 IP -->
-                    <div class="subnet-box" 
-                         data-subnet="8" 
-                         data-title-en="Large network for universities and institutions"
-                         data-title-ar="شبكة كبيرة للجامعات والمؤسسات"
-                         data-description-en="Ideal for universities, large hospitals, shopping centers. Supports 16.7 million connected devices. Suitable for large projects."
-                         data-description-ar="مثالية للجامعات، المستشفيات الكبيرة، المراكز التجارية. تدعم 16.7 مليون جهاز متصل. مناسبة للمشاريع الضخمة."
-                         onmouseenter="showDescription(this)" 
-                         onmouseleave="hideDescription()"
-                         onclick="selectSubnet(8)">
-                        <div class="subnet-header">
-                            <div class="subnet-mask">/8</div>
-                            <div class="subnet-title" data-i18n="subnet_large">شبكة كبيرة</div>
-                        </div>
-                        <div class="subnet-info">
-                            <div class="ip-count">16.7M IP</div>
-                            <div class="ip-range">x.0.0.1 - x.255.255.254</div>
-                        </div>
-                    </div>
-                    
-                    <!-- /4 = 268,435,454 IP -->
-                    <div class="subnet-box" 
-                         data-subnet="4" 
-                         data-title-en="Giant network for service providers"
-                         data-title-ar="شبكة عملاقة لمقدمي الخدمات"
-                         data-description-en="Designed for Internet Service Providers (ISPs), large corporations. Supports 268 million connected devices. Ideal for massive infrastructure."
-                         data-description-ar="مصممة لشركات تقديم خدمات الإنترنت، المؤسسات الكبرى. تدعم 268 مليون جهاز متصل. مثالية للبنية التحتية الضخمة."
-                         onmouseenter="showDescription(this)" 
-                         onmouseleave="hideDescription()"
-                         onclick="selectSubnet(4)">
-                        <div class="subnet-header">
-                            <div class="subnet-mask">/4</div>
-                            <div class="subnet-title" data-i18n="subnet_giant">شبكة عملاقة</div>
-                        </div>
-                        <div class="subnet-info">
-                            <div class="ip-count">268M IP</div>
-                            <div class="ip-range">0-15.x.x.x</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- الإعدادات -->
-            <div class="settings-grid">
-                <!-- الشبكة -->
-                <div class="setting-group">
-                    <h3 class="setting-title">
-                        <i class="fas fa-network-wired"></i>
-                        <span data-i18n="network_settings">إعدادات الشبكة</span>
-                    </h3>
-                    
-                    <div class="input-box">
-                        <label class="input-label" data-i18n="ip_address">عنوان IP الميكروتك:</label>
-                        <input type="text" id="newIp" value="10.0.0.1/24" class="input-field" placeholder="مثال: 10.0.0.1/24">
-                    </div>
-                    
-                    <div class="input-box">
-                        <label class="input-label" data-i18n="out_interface">اسم كارت الخروج:</label>
-                        <input type="text" id="newInterface" value="OUT" class="input-field" placeholder="مثال: bridge-local, ether2">
-                    </div>
-                </div>
-
-                <!-- DHCP Client -->
-                <div class="setting-group">
-                    <h3 class="setting-title">
-                        <i class="fas fa-plug"></i>
-                        <span data-i18n="internet_settings">إعدادات الإنترنت</span>
-                    </h3>
-                    
-                    <div class="input-box">
-                        <label class="input-label" data-i18n="wan_interface">كارت الدخول (WAN):</label>
-                        <input type="text" id="dhcpInterface" value="WAN" class="input-field" placeholder="مثال: ether1, wan-port">
-                    </div>
-                </div>
-            </div>
-
-            <!-- أزرار التوليد -->
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="generateHotspotScript(); ">
-                    <i class="fas fa-play"></i>
-                    <span data-i18n="generate_btn">توليد السكربت</span>
-                </button>
-                <button class="btn btn-secondary" onclick="resetForm()">
-                    <i class="fas fa-redo"></i>
-                    <span data-i18n="reset_btn">إعادة تعيين</span>
-                </button>
-            </div>
-
-            <!-- نتيجة السكربت -->
-            <div id="resultSection" class="result-section">
-                <div class="result-header">
-                    <h3 class="result-title">
-                        <i class="fas fa-code"></i>
-                        <span data-i18n="result_title">السكربت الناتج</span>
-                    </h3>
-                    <button class="btn btn-secondary" onclick="copyScript(); ">
-                        <i class="fas fa-copy"></i>
-                        <span data-i18n="copy_btn">نسخ السكربت</span>
-                    </button>
-                </div>
-                <textarea id="outputScript" class="script-output" readonly></textarea>
-            </div>
-        </div>
-    </section>
-
-    <!-- نافذة الشرح -->
-    <div class="subnet-description" id="subnetDescription">
-        <h3 class="description-title" id="descTitle">
-            <i class="fas fa-info-circle"></i>
-            <span data-i18n="desc_title">الشرح</span>
-        </h3>
-        <p class="description-text" id="descText">
-            سيظهر الشرح هنا عند المرور على أي شبكة
-        </p>
     </div>
+</nav>
 
-    <!-- قسم الاتصال -->
-    <section class="contact">
-        <h2 class="contact-title" data-i18n="need_help">هل تحتاج مساعدة؟</h2>
-        <p class="contact-subtitle" data-i18n="contact_desc">
-            فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك
-        </p>
-        
-        <div class="contact-info">
-            <h3 style="color: #94a3b8; margin-bottom: 1rem;">
-                <i class="fas fa-headset"></i>
-                <span data-i18n="contact_support">للتواصل والدعم الفني</span>
-            </h3>
-            <div class="contact-phone">01092503391</div>
-            <p class="contact-name">Sameh El-Sayed</p>
-            <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
-                <i class="fab fa-whatsapp"></i>
-                <span data-i18n="contact_whatsapp">تواصل عبر واتساب</span>
-            </a>
+<section class="hero-hotspot">
+    <div class="hero-content-hotspot">
+        <span class="hero-badge-hotspot"><i class="fas fa-magic"></i> <span data-i18n="hero_badge">توليد سكربت تلقائي</span></span>
+        <h1 class="hero-title-hotspot" data-i18n="hero_title">مولد سكربت هوت سبوت وبرودباند</h1>
+        <p class="hero-subtitle-hotspot" data-i18n="hero_subtitle">أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة مع إعدادات DHCP، PPPoE، و NAT تلقائية</p>
+    </div>
+</section>
+
+<section class="generator-section">
+    <div class="generator-card">
+        <h2 class="tool-title"><i class="fas fa-cogs"></i> <span data-i18n="tool_title">إعدادات السكربت</span></h2>
+        <div class="network-section">
+            <h3 class="section-title"><i class="fas fa-expand-arrows-alt"></i> <span data-i18n="network_title">اختر حجم الشبكة المناسب</span></h3>
+            <div class="subnet-grid" id="subnetSelector">
+                <div class="subnet-box active" data-subnet="24" data-title-ar="شبكة صغيرة - مناسبة للمنازل والمقاهي" data-title-en="Small network - ideal for homes and cafes" data-description-ar="مثالية للمنازل، المقاهي، المحلات الصغيرة. تدعم حتى 254 جهاز متصل في نفس الوقت." data-description-en="Perfect for homes, cafes, small shops. Supports up to 254 connected devices simultaneously." onmouseenter="showDescription(this)" onmouseleave="hideDescription()" onclick="selectSubnet(24)">
+                    <div class="subnet-header"><div class="subnet-mask">/24</div><div class="subnet-title" data-i18n="subnet_small">شبكة صغيرة</div></div>
+                    <div class="subnet-info"><div class="ip-count">254 IP</div><div class="ip-range">x.x.x.1 - x.x.x.254</div></div>
+                </div>
+                <div class="subnet-box" data-subnet="16" data-title-ar="شبكة متوسطة للشركات والمؤسسات" data-title-en="Medium network for companies" data-description-ar="مناسبة للشركات الصغيرة والمتوسطة، الفنادق، المدارس. تدعم حتى 65,534 جهاز متصل." data-description-en="Suitable for small and medium companies, hotels, schools. Supports up to 65,534 devices." onmouseenter="showDescription(this)" onmouseleave="hideDescription()" onclick="selectSubnet(16)">
+                    <div class="subnet-header"><div class="subnet-mask">/16</div><div class="subnet-title" data-i18n="subnet_medium">شبكة متوسطة</div></div>
+                    <div class="subnet-info"><div class="ip-count">65,534 IP</div><div class="ip-range">x.x.0.1 - x.x.255.254</div></div>
+                </div>
+                <div class="subnet-box" data-subnet="8" data-title-ar="شبكة كبيرة للجامعات والمؤسسات" data-title-en="Large network for universities" data-description-ar="مثالية للجامعات، المستشفيات الكبيرة، المراكز التجارية. تدعم 16.7 مليون جهاز متصل." data-description-en="Ideal for universities, large hospitals, shopping centers. Supports 16.7 million devices." onmouseenter="showDescription(this)" onmouseleave="hideDescription()" onclick="selectSubnet(8)">
+                    <div class="subnet-header"><div class="subnet-mask">/8</div><div class="subnet-title" data-i18n="subnet_large">شبكة كبيرة</div></div>
+                    <div class="subnet-info"><div class="ip-count">16.7M IP</div><div class="ip-range">x.0.0.1 - x.255.255.254</div></div>
+                </div>
+                <div class="subnet-box" data-subnet="4" data-title-ar="شبكة عملاقة لمقدمي الخدمات" data-title-en="Giant network for ISPs" data-description-ar="مصممة لشركات تقديم خدمات الإنترنت. تدعم 268 مليون جهاز متصل." data-description-en="Designed for Internet Service Providers. Supports 268 million connected devices." onmouseenter="showDescription(this)" onmouseleave="hideDescription()" onclick="selectSubnet(4)">
+                    <div class="subnet-header"><div class="subnet-mask">/4</div><div class="subnet-title" data-i18n="subnet_giant">شبكة عملاقة</div></div>
+                    <div class="subnet-info"><div class="ip-count">268M IP</div><div class="ip-range">0-15.x.x.x</div></div>
+                </div>
+            </div>
         </div>
-    </section>
-
-    <!-- التذييل -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                <i class="fas fa-phone-alt"></i>
-                <span data-i18n="footer_contact">للتواصل والاستفسار: 01092503391 - Sameh El-Sayed</span>
-            </p>
-            <p class="copyright">
-                © 2026 MikroTools. <span data-i18n="copyright">جميع الحقوق محفوظة.</span>
-            </p>
+        <div class="settings-grid">
+            <div class="setting-group">
+                <h3 class="setting-title"><i class="fas fa-network-wired"></i> <span data-i18n="network_settings">إعدادات الشبكة</span></h3>
+                <div class="input-box"><label class="input-label" data-i18n="ip_address">عنوان IP الميكروتك:</label><input type="text" id="newIp" value="10.0.0.1/24" class="input-field"></div>
+                <div class="input-box"><label class="input-label" data-i18n="out_interface">اسم كارت الخروج:</label><input type="text" id="newInterface" value="OUT" class="input-field"></div>
+            </div>
+            <div class="setting-group">
+                <h3 class="setting-title"><i class="fas fa-plug"></i> <span data-i18n="internet_settings">إعدادات الإنترنت</span></h3>
+                <div class="input-box"><label class="input-label" data-i18n="wan_interface">كارت الدخول (WAN):</label><input type="text" id="dhcpInterface" value="WAN" class="input-field"></div>
+            </div>
         </div>
-    </footer>
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="generateHotspotScript()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">توليد السكربت</span></button>
+            <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">إعادة تعيين</span></button>
+        </div>
+        <div id="resultSection" class="result-section">
+            <div class="result-header">
+                <h3 class="result-title"><i class="fas fa-code"></i> <span data-i18n="result_title">السكربت الناتج</span></h3>
+                <button class="btn btn-secondary" onclick="copyScript()"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">نسخ السكربت</span></button>
+            </div>
+            <textarea id="outputScript" class="script-output" readonly></textarea>
+        </div>
+    </div>
+</section>
 
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        class="social-iframe"
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+<div class="subnet-description" id="subnetDescription">
+    <h3 class="description-title" id="descTitle"><i class="fas fa-info-circle"></i> الشرح</h3>
+    <p class="description-text" id="descText">سيظهر الشرح هنا عند المرور على أي شبكة</p>
+</div>
 
-    <script>
-        // نظام الترجمة
-        const translations = {
-            en: {
-                home: "Home",
-                merge: "Merge",
-                hotspot: "Hotspot",
-                design_block: "Design & Block",
-                help: "Help",
-                merge_v6: "Load Balancing v6",
-                merge_v7: "Load Balancing v7",
-                hotspot_settings: "Hotspot+PPP Settings",
-                speed_profiles: "Speed Profiles",
-                hotspot_design: "Hotspot Design",
-                block_sites: "Block Sites",
-                log_analyzer: "Log Analyzer",
-                new: "NEW",
-                troubleshooting: "Troubleshooting",
-                about: "About Us",
-                privacy: "Privacy Policy",
-                contact_us: "Contact Us",
-                hero_badge: "Automatic Script Generator",
-                hero_title: "Hotspot & Broadband Script Generator",
-                hero_subtitle: "Create a professional full-featured hotspot script in seconds with automatic DHCP, PPPoE, and NAT settings",
-                tool_title: "Script Settings",
-                network_title: "Choose the appropriate network size",
-                subnet_small: "Small Network",
-                subnet_medium: "Medium Network",
-                subnet_large: "Large Network",
-                subnet_giant: "Giant Network",
-                network_settings: "Network Settings",
-                ip_address: "MikroTik IP Address:",
-                out_interface: "Out Interface:",
-                internet_settings: "Internet Settings",
-                wan_interface: "WAN Interface:",
-                generate_btn: "Generate Script",
-                reset_btn: "Reset",
-                result_title: "Generated Script",
-                copy_btn: "Copy Script",
-                desc_title: "Description",
-                need_help: "Need Help?",
-                contact_desc: "Technical support team is available 24/7 to answer your inquiries",
-                contact_support: "Contact Support",
-                contact_whatsapp: "Contact via WhatsApp",
-                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
-                copyright: "All rights reserved."
-            },
-            ar: {
-                home: "الرئيسية",
-                merge: "الدمج",
-                hotspot: "الهوت سبوت",
-                design_block: "التصميم والحجب",
-                help: "المساعدة",
-                merge_v6: "دمج خطوط v6",
-                merge_v7: "دمج خطوط v7",
-                hotspot_settings: "اعدادات hotspot+ppp",
-                speed_profiles: "بروفايلات السرعة",
-                hotspot_design: "تصميم hotspot",
-                block_sites: "حجب مواقع",
-                log_analyzer: "محلل السجلات",
-                new: "جديد",
-                troubleshooting: "المشكلات الشائعة",
-                about: "من نحن",
-                privacy: "سياسة الخصوصية",
-                contact_us: "تواصل معنا",
-                hero_badge: "توليد سكربت تلقائي",
-                hero_title: "مولد سكربت هوت سبوت وبرودباند",
-                hero_subtitle: "أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة مع إعدادات DHCP، PPPoE، و NAT تلقائية",
-                tool_title: "إعدادات السكربت",
-                network_title: "اختر حجم الشبكة المناسب",
-                subnet_small: "شبكة صغيرة",
-                subnet_medium: "شبكة متوسطة",
-                subnet_large: "شبكة كبيرة",
-                subnet_giant: "شبكة عملاقة",
-                network_settings: "إعدادات الشبكة",
-                ip_address: "عنوان IP الميكروتك:",
-                out_interface: "اسم كارت الخروج:",
-                internet_settings: "إعدادات الإنترنت",
-                wan_interface: "كارت الدخول (WAN):",
-                generate_btn: "توليد السكربت",
-                reset_btn: "إعادة تعيين",
-                result_title: "السكربت الناتج",
-                copy_btn: "نسخ السكربت",
-                desc_title: "الشرح",
-                need_help: "هل تحتاج مساعدة؟",
-                contact_desc: "فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",
-                contact_support: "للتواصل والدعم الفني",
-                contact_whatsapp: "تواصل عبر واتساب",
-                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
-                copyright: "جميع الحقوق محفوظة."
-            }
-        };
+<section class="contact">
+    <h2 class="contact-title" data-i18n="need_help">هل تحتاج مساعدة؟</h2>
+    <p class="contact-subtitle" data-i18n="contact_desc">فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك</p>
+    <div class="contact-info">
+        <h3 style="color:#94a3b8;margin-bottom:1rem;"><i class="fas fa-headset"></i> <span data-i18n="contact_support">للتواصل والدعم الفني</span></h3>
+        <div class="contact-phone">01092503391</div>
+        <p class="contact-name">Sameh El-Sayed</p>
+        <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> <span data-i18n="contact_whatsapp">تواصل عبر واتساب</span></a>
+    </div>
+</section>
 
-        // دوال JavaScript مع إضافة نافذة الشرح
-        const SIGNATURE = "By Same7_01092503391";
-        let currentSubnet = 24;
-        let descriptionTimeout;
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-text"><i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">للتواصل والاستفسار: 01092503391 - Sameh El-Sayed</span></p>
+        <p class="copyright">© 2026 MikroTools. <span data-i18n="copyright">جميع الحقوق محفوظة.</span></p>
+    </div>
+</footer>
 
-        // تبديل اللغة
-        function setLanguage(lang) {
-            localStorage.setItem('language', lang);
-            
-            const html = document.documentElement;
-            const body = document.body;
-            
-            if (lang === 'ar') {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                body.classList.add('ar', 'rtl');
-                body.classList.remove('en');
-            } else {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                body.classList.add('en');
-                body.classList.remove('ar', 'rtl');
-            }
-            
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else if (element.tagName === 'OPTION') {
-                        element.textContent = translations[lang][key];
-                    } else {
-                        element.innerHTML = translations[lang][key];
-                    }
-                }
-            });
-            
-            document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
-        }
+<iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 
-        // تبديل القائمة في الجوال
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            const icon = this.querySelector('i');
-            
-            navLinks.classList.toggle('active');
-            icon.className = navLinks.classList.contains('active') 
-                ? 'fas fa-times' 
-                : 'fas fa-bars';
-        });
-
-        // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!link.classList.contains('dropdown-toggle') && window.innerWidth <= 768) {
-                    document.getElementById('navLinks').classList.remove('active');
-                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
-                }
-            });
-        });
-
-        // تفعيل القوائم المنسدلة في الجوال
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const dropdown = this.closest('.dropdown');
-                    dropdown.classList.toggle('active');
-                    
-                    const arrow = this.querySelector('.dropdown-arrow');
-                    if (dropdown.classList.contains('active')) {
-                        arrow.style.transform = 'rotate(180deg)';
-                    } else {
-                        arrow.style.transform = 'rotate(0)';
-                    }
-                }
-            });
-        });
-
-        // أحداث أزرار اللغة
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
-
-        // تحميل اللغة المحفوظة أو استخدام العربية كافتراضية
-        const savedLanguage = localStorage.getItem('language') || 'ar';
-        setLanguage(savedLanguage);
-
-        // اختيار الشبكة
-        function selectSubnet(subnetMask) {
-            currentSubnet = subnetMask;
-            document.querySelectorAll('.subnet-box').forEach(box => {
-                box.classList.remove('active');
-                if (parseInt(box.getAttribute('data-subnet')) === subnetMask) {
-                    box.classList.add('active');
-                }
-            });
-            
-            const ipInput = document.getElementById('newIp');
-            const currentValue = ipInput.value;
-            const baseIP = currentValue.split('/')[0];
-            ipInput.value = `${baseIP}/${subnetMask}`;
-            
-            // إغلاق نافذة الشرح عند الاختيار
-            hideDescription();
-        }
-
-        // عرض نافذة الشرح
-        function showDescription(element) {
-            clearTimeout(descriptionTimeout);
-            
-            const lang = document.documentElement.lang;
-            const title = element.getAttribute(lang === 'ar' ? 'data-title-ar' : 'data-title-en');
-            const description = element.getAttribute(lang === 'ar' ? 'data-description-ar' : 'data-description-en');
-            const descriptionBox = document.getElementById('subnetDescription');
-            
-            document.getElementById('descTitle').innerHTML = `<i class="fas fa-info-circle"></i> ${title}`;
-            document.getElementById('descText').textContent = description;
-            
-            descriptionTimeout = setTimeout(() => {
-                descriptionBox.classList.add('show');
-            }, 300);
-        }
-
-        // إخفاء نافذة الشرح
-        function hideDescription() {
-            clearTimeout(descriptionTimeout);
-            descriptionTimeout = setTimeout(() => {
-                document.getElementById('subnetDescription').classList.remove('show');
-            }, 500);
-        }
-
-        // تحقق من صحة IP
-        function validateIP(ip) {
-            const regex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
-            if (!regex.test(ip)) return false;
-            
-            const parts = ip.split('/')[0].split('.');
-            return parts.every(part => {
-                const num = parseInt(part);
-                return num >= 0 && num <= 255;
-            });
-        }
-
-        // حساب نطاق الشبكة
-        function calculateNetwork(ip, mask) {
-            const ipParts = ip.split('.').map(Number);
-            
-            if (mask >= 24) {
-                return `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.0`;
-            } else if (mask >= 16) {
-                return `${ipParts[0]}.${ipParts[1]}.0.0`;
-            } else if (mask >= 8) {
-                return `${ipParts[0]}.0.0.0`;
-            } else {
-                const firstOctet = ipParts[0];
-                const startRange = Math.floor(firstOctet / 16) * 16;
-                return `${startRange}.0.0.0`;
-            }
-        }
-
-        // حساب نطاق DHCP
-        function calculateDHCPRange(ip, mask) {
-            const ipParts = ip.split('.').map(Number);
-            
-            if (mask >= 24) {
-                return {
-                    start: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.100`,
-                    end: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.200`,
-                    pppStart: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.201`,
-                    pppEnd: `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.250`
-                };
-            } else if (mask >= 16) {
-                return {
-                    start: `${ipParts[0]}.${ipParts[1]}.0.100`,
-                    end: `${ipParts[0]}.${ipParts[1]}.127.200`,
-                    pppStart: `${ipParts[0]}.${ipParts[1]}.128.100`,
-                    pppEnd: `${ipParts[0]}.${ipParts[1]}.255.200`
-                };
-            } else if (mask >= 8) {
-                return {
-                    start: `${ipParts[0]}.0.0.100`,
-                    end: `${ipParts[0]}.127.255.200`,
-                    pppStart: `${ipParts[0]}.128.0.100`,
-                    pppEnd: `${ipParts[0]}.255.255.200`
-                };
-            } else {
-                const firstOctet = ipParts[0];
-                const startRange = Math.floor(firstOctet / 16) * 16;
-                return {
-                    start: `${startRange}.0.0.100`,
-                    end: `${startRange + 7}.255.255.200`,
-                    pppStart: `${startRange + 8}.0.0.100`,
-                    pppEnd: `${startRange + 15}.255.255.200`
-                };
-            }
-        }
-
-        // توليد السكربت
-        function generateHotspotScript() {
-            const ipInput = document.getElementById('newIp').value.trim();
-            const iface = document.getElementById('newInterface').value.trim();
-            const dhcpIface = document.getElementById('dhcpInterface').value.trim();
-            
-            if (!ipInput || !iface || !dhcpIface) {
-                alert(document.documentElement.lang === 'ar' ? 'الرجاء ملء جميع الحقول المطلوبة' : 'Please fill in all required fields');
-                return;
-            }
-
-            const ipParts = ipInput.split('/')[0];
-            if (!validateIP(ipParts)) {
-                alert("⚠️ " + (document.documentElement.lang === 'ar' ? 'عنوان IP غير صالح' : 'Invalid IP address'));
-                return;
-            }
-            
-            const mask = ipInput.includes('/') ? parseInt(ipInput.split('/')[1]) : currentSubnet;
-            const network = calculateNetwork(ipParts, mask);
-            const dhcpRange = calculateDHCPRange(ipParts, mask);
-            
-            const script = `# ${SIGNATURE}:
-# Network: ${network}/${mask}
-
-/ip address add address=${ipInput} interface=${iface}
-
-# DHCP Client for internet
-/ip dhcp-client add interface=${dhcpIface} use-peer-dns=yes use-peer-ntp=yes add-default-route=yes disabled=no
-
-/ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes 
-
-/ip pool add name=dhcp ranges=${dhcpRange.start}-${dhcpRange.end} comment="${SIGNATURE}"
-/ip pool add name=ppp ranges=${dhcpRange.pppStart}-${dhcpRange.pppEnd} comment="${SIGNATURE}"
-
-/interface pppoe-server server remove [find]
-/ppp profile remove [find]
-/ppp profile
-set *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"
-
-/interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" 
-
-/ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}
-/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap,http-pap use-radius=yes 
-/ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 
-
-/ip firewall nat remove [find]
-/ip firewall nat add action=masquerade chain=srcnat comment="Masquerade All ${SIGNATURE}" src-address=${network}/${mask}
-
-/ip dhcp-server add address-pool=dhcp authoritative=after-2sec-delay disabled=no interface=${iface} lease-time=3d name="Same7.01092503391" 
-/ip dhcp-server network add address=${network}/${mask} gateway=${ipParts} dns-server=8.8.8.8,8.8.4.4 comment="${SIGNATURE}"
-
-/system ntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
-/system sntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8
-/system clock set time-zone-name=Africa/Cairo 
-
-# Script created for /${mask} network
-            `.trim();
-
-            document.getElementById('outputScript').value = script;
-            document.getElementById('resultSection').style.display = 'block';
-            
-            // تمرير إلى النتيجة
-            setTimeout(() => {
-                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        }
-
-        // نسخ السكربت
-        function copyScript() {
-            const scriptOutput = document.getElementById('outputScript');
-            if (!scriptOutput.value) {
-                alert(document.documentElement.lang === 'ar' ? 'لا يوجد سكربت للنسخ' : 'No script to copy');
-                return;
-            }
-            
-            scriptOutput.select();
-            scriptOutput.setSelectionRange(0, 99999);
-            
-            try {
-                navigator.clipboard.writeText(scriptOutput.value);
-                alert(document.documentElement.lang === 'ar' ? 'تم نسخ السكربت بنجاح! ✅' : 'Script copied successfully! ✅');
-            } catch (err) {
-                document.execCommand('copy');
-                alert(document.documentElement.lang === 'ar' ? 'تم نسخ السكربت بنجاح! ✅' : 'Script copied successfully! ✅');
-            }
-        }
-
-        // إعادة تعيين النموذج
-        function resetForm() {
-            document.getElementById('newIp').value = '10.0.0.1/24';
-            document.getElementById('newInterface').value = 'OUT';
-            document.getElementById('dhcpInterface').value = 'WAN';
-            selectSubnet(24);
-            document.getElementById('outputScript').value = '';
-            document.getElementById('resultSection').style.display = 'none';
-            hideDescription();
-        }
-
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            selectSubnet(24);
-            
-            // إخفاء نافذة الشرح عند النقر خارجها
-            document.addEventListener('click', function(event) {
-                const descriptionBox = document.getElementById('subnetDescription');
-                if (!event.target.closest('.subnet-box') && !event.target.closest('.subnet-description')) {
-                    hideDescription();
-                }
-            });
-        });
-    </script>
-     
-    <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
-    <script>
-        (function() {
-            const BIN_ID = '6984fe4d43b1c97be9684aa8';
-            const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-            
-            fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                headers: { 'X-Master-Key': API_KEY }
-            })
-            .then(res => res.json())
-            .then(data => {
-                const record = data.record || {};
-                if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
-                
-                const page = document.title || window.location.pathname;
-                const today = new Date().toDateString();
-                
-                record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
-                record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
-                record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
-                
-                return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': API_KEY
-                    },
-                    body: JSON.stringify(record)
-                });
-            })
-            .catch(() => {});
-        })();
-    </script>
-    
-    <script type="text/javascript">
-        (function () {
-            const blockedDomains = [
-                "jumanchu-dragondiyaa.site",
-                "transcube-uy7.xyz",
-                "vp.jumanchu-dragondiyaa.site"
-            ];
-
-            const originalOpen = window.open;
-
-            window.open = function (url, name, specs) {
-                if (url && blockedDomains.some(domain => url.includes(domain))) {
-                    console.log("Blocked:", url);
-                    return null;
-                }
-                return originalOpen.apply(this, arguments);
-            };
-        })();
-    </script>
-
+<script>
+const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",new:"NEW",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Automatic Script Generator",hero_title:"Hotspot & Broadband Script Generator",hero_subtitle:"Create a professional full-featured hotspot script in seconds with automatic DHCP, PPPoE, and NAT settings",tool_title:"Script Settings",network_title:"Choose the appropriate network size",subnet_small:"Small Network",subnet_medium:"Medium Network",subnet_large:"Large Network",subnet_giant:"Giant Network",network_settings:"Network Settings",ip_address:"MikroTik IP Address:",out_interface:"Out Interface:",internet_settings:"Internet Settings",wan_interface:"WAN Interface:",generate_btn:"Generate Script",reset_btn:"Reset",result_title:"Generated Script",copy_btn:"Copy Script",need_help:"Need Help?",contact_desc:"Technical support team is available 24/7",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",new:"جديد",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_badge:"توليد سكربت تلقائي",hero_title:"مولد سكربت هوت سبوت وبرودباند",hero_subtitle:"أنشئ سكربت هوت سبوت احترافي كامل التجهيزات في ثوانٍ معدودة مع إعدادات DHCP، PPPoE، و NAT تلقائية",tool_title:"إعدادات السكربت",network_title:"اختر حجم الشبكة المناسب",subnet_small:"شبكة صغيرة",subnet_medium:"شبكة متوسطة",subnet_large:"شبكة كبيرة",subnet_giant:"شبكة عملاقة",network_settings:"إعدادات الشبكة",ip_address:"عنوان IP الميكروتك:",out_interface:"اسم كارت الخروج:",internet_settings:"إعدادات الإنترنت",wan_interface:"كارت الدخول (WAN):",generate_btn:"توليد السكربت",reset_btn:"إعادة تعيين",result_title:"السكربت الناتج",copy_btn:"نسخ السكربت",need_help:"هل تحتاج مساعدة؟",contact_desc:"فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",contact_support:"للتواصل والدعم الفني",contact_whatsapp:"تواصل عبر واتساب",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}};
+const SIGNATURE="By Same7_01092503391";let currentSubnet=24,descriptionTimeout;
+function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
+document.getElementById('menuToggle').addEventListener('click',function(){const n=document.getElementById('navLinks'),i=this.querySelector('i');n.classList.toggle('active');i.className=n.classList.contains('active')?'fas fa-times':'fas fa-bars';});
+document.querySelectorAll('.dropdown-toggle').forEach(t=>{t.addEventListener('click',function(e){if(window.innerWidth<=768){e.preventDefault();const d=this.closest('.dropdown');d.classList.toggle('active');const a=this.querySelector('.dropdown-arrow');if(a)a.style.transform=d.classList.contains('active')?'rotate(180deg)':'rotate(0)';}});});
+document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
+document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
+setLanguage(localStorage.getItem('language')||'ar');
+function selectSubnet(m){currentSubnet=m;document.querySelectorAll('.subnet-box').forEach(b=>{b.classList.remove('active');if(parseInt(b.getAttribute('data-subnet'))===m)b.classList.add('active');});const ip=document.getElementById('newIp');ip.value=ip.value.split('/')[0]+'/'+m;hideDescription();}
+function showDescription(el){clearTimeout(descriptionTimeout);const lang=document.documentElement.lang,title=el.getAttribute(lang==='ar'?'data-title-ar':'data-title-en'),desc=el.getAttribute(lang==='ar'?'data-description-ar':'data-description-en'),box=document.getElementById('subnetDescription');document.getElementById('descTitle').innerHTML='<i class="fas fa-info-circle"></i> '+title;document.getElementById('descText').textContent=desc;descriptionTimeout=setTimeout(()=>box.classList.add('show'),300);}
+function hideDescription(){clearTimeout(descriptionTimeout);descriptionTimeout=setTimeout(()=>document.getElementById('subnetDescription').classList.remove('show'),500);}
+function validateIP(ip){const r=/^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;if(!r.test(ip))return false;return ip.split('/')[0].split('.').every(p=>{const n=parseInt(p);return n>=0&&n<=255;});}
+function calculateNetwork(ip,mask){const p=ip.split('.').map(Number);if(mask>=24)return p[0]+'.'+p[1]+'.'+p[2]+'.0';if(mask>=16)return p[0]+'.'+p[1]+'.0.0';if(mask>=8)return p[0]+'.0.0.0';const s=Math.floor(p[0]/16)*16;return s+'.0.0.0';}
+function calculateDHCPRange(ip,mask){const p=ip.split('.').map(Number);if(mask>=24)return{start:p[0]+'.'+p[1]+'.'+p[2]+'.100',end:p[0]+'.'+p[1]+'.'+p[2]+'.200',pppStart:p[0]+'.'+p[1]+'.'+p[2]+'.201',pppEnd:p[0]+'.'+p[1]+'.'+p[2]+'.250'};if(mask>=16)return{start:p[0]+'.'+p[1]+'.0.100',end:p[0]+'.'+p[1]+'.127.200',pppStart:p[0]+'.'+p[1]+'.128.100',pppEnd:p[0]+'.'+p[1]+'.255.200'};if(mask>=8)return{start:p[0]+'.0.0.100',end:p[0]+'.127.255.200',pppStart:p[0]+'.128.0.100',pppEnd:p[0]+'.255.255.200'};const s=Math.floor(p[0]/16)*16;return{start:s+'.0.0.100',end:(s+7)+'.255.255.200',pppStart:(s+8)+'.0.0.100',pppEnd:(s+15)+'.255.255.200'};}
+function generateHotspotScript(){const ipInput=document.getElementById('newIp').value.trim(),iface=document.getElementById('newInterface').value.trim(),dhcpIface=document.getElementById('dhcpInterface').value.trim();if(!ipInput||!iface||!dhcpIface){alert(document.documentElement.lang==='ar'?'الرجاء ملء جميع الحقول المطلوبة':'Please fill in all required fields');return;}const ipParts=ipInput.split('/')[0];if(!validateIP(ipParts)){alert('⚠️ '+(document.documentElement.lang==='ar'?'عنوان IP غير صالح':'Invalid IP address'));return;}const mask=ipInput.includes('/')?parseInt(ipInput.split('/')[1]):currentSubnet,network=calculateNetwork(ipParts,mask),r=calculateDHCPRange(ipParts,mask);const script=`# ${SIGNATURE}:\n# Network: ${network}/${mask}\n\n/ip address add address=${ipInput} interface=${iface}\n\n# DHCP Client for internet\n/ip dhcp-client add interface=${dhcpIface} use-peer-dns=yes use-peer-ntp=yes add-default-route=yes disabled=no\n\n/ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes \n\n/ip pool add name=dhcp ranges=${r.start}-${r.end} comment="${SIGNATURE}"\n/ip pool add name=ppp ranges=${r.pppStart}-${r.pppEnd} comment="${SIGNATURE}"\n\n/interface pppoe-server server remove [find]\n/ppp profile remove [find]\n/ppp profile\nset *0 local-address=ppp remote-address=ppp comment="${SIGNATURE}"\n\n/interface pppoe-server server add authentication=pap,chap default-profile=default disabled=no interface=${iface} service-name="Same7.01092503391" \n\n/ip hotspot profile set [ find default=yes ] dns-name="" hotspot-address=${ipParts}\n/ip hotspot profile add name=hsprof1 dns-name="" hotspot-address=${ipParts} html-directory=hotspot login-by=mac,cookie,http-chap,http-pap use-radius=yes \n/ip hotspot add disabled=no address-pool=none interface=${iface} profile=hsprof1 \n\n/ip firewall nat remove [find]\n/ip firewall nat add action=masquerade chain=srcnat comment="Masquerade All ${SIGNATURE}" src-address=${network}/${mask}\n\n/ip dhcp-server add address-pool=dhcp authoritative=after-2sec-delay disabled=no interface=${iface} lease-time=3d name="Same7.01092503391" \n/ip dhcp-server network add address=${network}/${mask} gateway=${ipParts} dns-server=8.8.8.8,8.8.4.4 comment="${SIGNATURE}"\n\n/system ntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8\n/system sntp client set enabled=yes mode=unicast primary-ntp=216.239.35.8\n/system clock set time-zone-name=Africa/Cairo \n\n# Script created for /${mask} network`;
+document.getElementById('outputScript').value=script;document.getElementById('resultSection').style.display='block';setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth'}),100);}
+function copyScript(){const el=document.getElementById('outputScript');if(!el.value){alert(document.documentElement.lang==='ar'?'لا يوجد سكربت للنسخ':'No script to copy');return;}el.select();el.setSelectionRange(0,99999);try{navigator.clipboard.writeText(el.value);alert(document.documentElement.lang==='ar'?'تم نسخ السكربت بنجاح! ✅':'Script copied successfully! ✅');}catch(err){document.execCommand('copy');alert(document.documentElement.lang==='ar'?'تم نسخ السكربت بنجاح! ✅':'Script copied successfully! ✅');}}
+function resetForm(){document.getElementById('newIp').value='10.0.0.1/24';document.getElementById('newInterface').value='OUT';document.getElementById('dhcpInterface').value='WAN';selectSubnet(24);document.getElementById('outputScript').value='';document.getElementById('resultSection').style.display='none';hideDescription();}
+document.addEventListener('DOMContentLoaded',function(){selectSubnet(24);document.addEventListener('click',function(e){if(!e.target.closest('.subnet-box')&&!e.target.closest('.subnet-description'))hideDescription();});});
+</script>
+<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 </body>
 </html>
