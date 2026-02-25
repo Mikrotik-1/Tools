@@ -1,2114 +1,346 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
-   
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VV99LZRKBJ');
-    </script>
-    
-    
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
-     crossorigin="anonymous"></script>
-    
-    
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/YOUR_SCRIPT_ID.js"></script>
-    
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Free tool to create professional MikroTik speed profiles - Hotspot and Broadband">
     <meta name="keywords" content="MikroTik, Speed Profiles, Hotspot, Broadband, Pricing, Speeds">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
-    
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://mikro-tools.com/speed-profiles.html">
-    
-    <!-- Open Graph -->
     <meta property="og:title" content="Speed Profile Generator | MikroTools">
     <meta property="og:description" content="Free tool to create professional MikroTik speed profiles">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mikro-tools.com/speed-profiles.html">
-    <meta property="og:locale" content="en_US">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
     <title>Speed Profile Generator | MikroTools - Free MikroTik Tools</title>
-    
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --secondary: #10b981;
-            --accent: #f59e0b;
-            --danger: #ef4444;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
-            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
-            --border-radius: 16px;
-            
-            /* لون علامة جديد */
-            --new-badge-start: #ff416c;
-            --new-badge-end: #ff4b2b;
-            --new-badge-glow: rgba(255, 65, 108, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.8;
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body.ar {
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        /* ===== قائمة التنقل العلوية ===== */
-        .navbar {
-            background: var(--dark);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .logo-icon {
-            background: var(--gradient);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link.active {
-            color: white;
-            background: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 70%;
-        }
-
-        .nav-cta {
-            background: var(--gradient);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* ===== أزرار تبديل اللغة ===== */
-        .lang-switcher {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 0 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: #cbd5e1;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-btn i {
-            font-size: 12px;
-        }
-
-        .lang-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-        }
-
-        /* ===== القوائم المنسدلة للـ navbar ===== */
-        .navbar-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .navbar-dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .navbar-dropdown-arrow {
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        .navbar-dropdown:hover .navbar-dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .navbar-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: #1e293b;
-            min-width: 250px;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .navbar-dropdown:hover .navbar-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .navbar-dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: #f1f5f9;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-weight: 500;
-            margin: 2px 0;
-        }
-
-        .navbar-dropdown-item i {
-            width: 20px;
-            font-size: 16px;
-            color: var(--primary-light);
-        }
-
-        .navbar-dropdown-item:hover {
-            background: rgba(99, 102, 241, 0.25);
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        .navbar-dropdown-item:hover i {
-            color: white;
-        }
-
-        .navbar-dropdown-item.active {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .navbar-dropdown-item.active i {
-            color: white;
-        }
-
-        /* ===== علامة جديد المميزة ===== */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-left: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة العربية */
-        body.rtl .new-badge {
-            margin-right: 5px;
-            margin-left: 0;
-        }
-
-        /* RTL Support */
-        body.rtl {
-            direction: rtl;
-            text-align: right;
-        }
-
-        body.rtl .nav-link::after {
-            left: auto;
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        body.rtl .navbar-dropdown-item:hover {
-            transform: translateX(5px);
-        }
-
-        /* ===== الهيرو المختصر ===== */
-        .page-hero {
-            background: var(--gradient-dark);
-            min-height: 40vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 3rem;
-            margin-top: 80px;
-        }
-
-        .page-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: 200px;
-        }
-
-        .page-hero-content {
-            max-width: 1200px;
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .page-hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .page-hero-subtitle {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* ===== أداة البروفايلات الرئيسية ===== */
-        .main-tool {
-            max-width: 1400px;
-            margin: 0 auto 4rem;
-            padding: 0 2rem;
-        }
-
-        .tool-container {
-            background: var(--gradient-card);
-            border-radius: var(--border-radius);
-            padding: 3rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-        }
-
-        .tool-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .tool-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tool-description {
-            color: var(--gray);
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* ===== إعدادات النظام ===== */
-        .system-settings {
-            background: #f1f5f9;
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 3rem;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .input-label {
-            font-weight: 600;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .input-label i {
-            color: var(--primary);
-        }
-
-        .input-field {
-            padding: 1rem 1.5rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        .system-options {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .system-option {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .option-input {
-            display: none;
-        }
-
-        .option-label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem 1rem;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .option-input:checked + .option-label {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
-        }
-
-        .option-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .option-text {
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        /* ===== باقات السرعات المسبقة ===== */
-        .speed-presets-section {
-            background: white;
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 3rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .presets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .preset-btn {
-            padding: 1.5rem 1rem;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .preset-btn:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .preset-btn.active {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            transform: translateY(-3px);
-        }
-
-        .preset-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .preset-speeds {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        /* ===== بروفايلات السرعة ===== */
-        .profiles-section {
-            margin-bottom: 3rem;
-        }
-
-        .profiles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .profile-card {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .profile-name {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .profile-tier {
-            background: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .profile-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .speed-input {
-            position: relative;
-        }
-
-        .speed-input label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #475569;
-        }
-
-        .speed-unit {
-            position: absolute;
-            left: 12px;
-            top: 40px;
-            background: #f1f5f9;
-            padding: 0 10px;
-            border-radius: 6px;
-            font-weight: 600;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        .profile-checkboxes {
-            display: flex;
-            gap: 1rem;
-            justify-content: space-between;
-            margin-top: 1rem;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .checkbox-group label {
-            font-size: 0.9rem;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        /* ===== أزرار التحكم ===== */
-        .controls-section {
-            text-align: center;
-            margin: 3rem 0;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            margin: 0 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
-        }
-
-        /* ===== منطقة النتائج ===== */
-        .results-section {
-            margin-top: 3rem;
-            display: none;
-        }
-
-        .results-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .results-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .result-box {
-            width: 100%;
-            min-height: 400px;
-            font-family: 'Fira Code', 'Consolas', monospace;
-            direction: ltr;
-            background: var(--dark);
-            color: #38bdf8;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            font-size: 14px;
-            line-height: 1.7;
-            border: none;
-            resize: vertical;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        /* ===== قسم الاتصال ===== */
-        .contact {
-            padding: 6rem 2rem;
-            background: var(--dark);
-            color: white;
-            text-align: center;
-        }
-
-        .contact-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #a5b4fc, #f0abfc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-subtitle {
-            color: #94a3b8;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .contact-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-phone {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1rem 0;
-            direction: ltr;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-name {
-            color: #94a3b8;
-            margin-bottom: 2rem;
-        }
-
-        /* ===== التذييل ===== */
-        .footer {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        /* ===== التجاوب ===== */
-        @media (max-width: 1024px) {
-            .page-hero-title {
-                font-size: 2.8rem;
-            }
-            
-            .profiles-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: 0;
-                background: var(--dark);
-                width: 100%;
-                padding: 1rem;
-                flex-direction: column;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .lang-switcher {
-                width: 100%;
-                justify-content: center;
-                margin: 10px 0 20px;
-                order: -1;
-            }
-            
-            .lang-btn {
-                flex: 1;
-                justify-content: center;
-                padding: 8px;
-            }
-            
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .navbar-dropdown {
-                width: 100%;
-            }
-            
-            .navbar-dropdown-toggle {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .navbar-dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                background: rgba(255, 255, 255, 0.08);
-                margin-top: 5px;
-                margin-bottom: 10px;
-                display: none;
-                width: 100%;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .navbar-dropdown.active .navbar-dropdown-menu {
-                display: block;
-            }
-            
-            .navbar-dropdown-toggle {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .navbar-dropdown-item {
-                justify-content: center;
-                color: #e2e8f0;
-            }
-            
-            .nav-cta {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                margin-top: 10px;
-            }
-            
-            .page-hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .page-hero-subtitle {
-                font-size: 1rem;
-            }
-            
-            .main-tool {
-                padding: 0 1.5rem;
-            }
-            
-            .tool-container {
-                padding: 2rem;
-            }
-            
-            .tool-title {
-                font-size: 2rem;
-            }
-            
-            .profiles-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-inputs {
-                grid-template-columns: 1fr;
-            }
-            
-            .controls-section .btn {
-                display: block;
-                width: 100%;
-                margin: 10px 0;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .page-hero {
-                min-height: 30vh;
-                padding: 100px 1rem 3rem;
-            }
-            
-            .page-hero-title {
-                font-size: 1.8rem;
-            }
-            
-            .system-settings {
-                padding: 1.5rem;
-            }
-            
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .system-options {
-                flex-direction: column;
-            }
-            
-            .presets-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-phone {
-                font-size: 1.8rem;
-            }
-            
-            .result-box {
-                min-height: 300px;
-                font-size: 13px;
-                padding: 1.5rem;
-            }
+        :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--danger:#ef4444;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--light);color:var(--dark);line-height:1.8;min-height:100vh;overflow-x:hidden;font-family:'Poppins',sans-serif;}
+        body.ar{font-family:'Tajawal',sans-serif;}
+        body.rtl{direction:rtl;text-align:right;}
+        body.rtl .nav-link::after{left:auto;right:50%;transform:translateX(50%);}
+        body.rtl .navbar-dropdown-item:hover{transform:translateX(5px);}
+        body.rtl .new-badge{margin-right:5px;margin-left:0;}
+        .navbar{background:var(--dark);padding:1rem 2rem;position:fixed;top:0;right:0;left:0;z-index:1000;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
+        .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+        .logo{display:flex;align-items:center;gap:15px;text-decoration:none;color:white;}
+        .logo-icon{background:var(--gradient);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;animation:pulse 2s infinite;}
+        @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+        .logo-text{font-size:24px;font-weight:800;}
+        .nav-links{display:flex;gap:0.5rem;align-items:center;}
+        .nav-link{color:#cbd5e1;text-decoration:none;font-weight:500;transition:all 0.3s;padding:8px 16px;border-radius:10px;position:relative;display:flex;align-items:center;gap:6px;}
+        .nav-link:hover{color:white;background:rgba(255,255,255,0.1);}
+        .nav-link.active{color:white;background:var(--primary);}
+        .nav-cta{background:var(--gradient);color:white;padding:10px 24px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
+        .menu-toggle{display:none;background:none;border:none;color:white;font-size:24px;cursor:pointer;}
+        .lang-switcher{display:flex;gap:5px;background:rgba(255,255,255,0.05);padding:4px;border-radius:30px;border:1px solid rgba(255,255,255,0.1);margin:0 10px;}
+        .lang-btn{background:transparent;border:none;color:#cbd5e1;padding:6px 16px;border-radius:25px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px;}
+        .lang-btn:hover{color:white;background:rgba(255,255,255,0.1);}
+        .lang-btn.active{background:var(--primary);color:white;box-shadow:0 4px 10px rgba(99,102,241,0.3);}
+        .navbar-dropdown{position:relative;display:inline-block;}
+        .navbar-dropdown-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;}
+        .navbar-dropdown-arrow{font-size:12px;transition:transform 0.3s;}
+        .navbar-dropdown:hover .navbar-dropdown-arrow{transform:rotate(180deg);}
+        .navbar-dropdown-menu{position:absolute;top:100%;right:0;background:#1e293b;min-width:250px;border-radius:12px;padding:8px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s;z-index:1000;border:1px solid rgba(255,255,255,0.15);}
+        .navbar-dropdown:hover .navbar-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+        .navbar-dropdown-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#f1f5f9;text-decoration:none;border-radius:8px;transition:all 0.3s;font-weight:500;margin:2px 0;}
+        .navbar-dropdown-item i{width:20px;font-size:16px;color:var(--primary-light);}
+        .navbar-dropdown-item:hover{background:rgba(99,102,241,0.25);color:white;transform:translateX(-5px);}
+        .navbar-dropdown-item.active{background:var(--gradient);color:white;}
+        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-left:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
+        @keyframes newGlow{0%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5);}50%{transform:scale(1.1);background:linear-gradient(135deg,#ff4b2b,#ff416c);box-shadow:0 4px 20px rgba(255,65,108,0.9);}100%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5);}}
+        .page-hero{background:var(--gradient-dark);min-height:40vh;display:flex;align-items:center;justify-content:center;padding:120px 2rem 4rem;position:relative;overflow:hidden;margin-bottom:3rem;margin-top:80px;}
+        .page-hero-content{max-width:1200px;text-align:center;color:white;position:relative;z-index:1;}
+        .page-hero-title{font-size:3.5rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(to right,#ffffff,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;}
+        .page-hero-subtitle{font-size:1.2rem;color:#cbd5e1;max-width:700px;margin:0 auto;}
+        .main-tool{max-width:1400px;margin:0 auto 4rem;padding:0 2rem;}
+        .tool-container{background:var(--gradient-card);border-radius:var(--border-radius);padding:3rem;box-shadow:var(--shadow);border:1px solid rgba(99,102,241,0.1);}
+        .tool-header{text-align:center;margin-bottom:3rem;}
+        .tool-title{font-size:2.5rem;font-weight:800;margin-bottom:1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .tool-description{color:var(--gray);font-size:1.1rem;max-width:800px;margin:0 auto;}
+        .system-settings{background:#f1f5f9;padding:2.5rem;border-radius:var(--border-radius);margin-bottom:3rem;}
+        .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:1.5rem;}
+        .input-group{display:flex;flex-direction:column;gap:0.75rem;}
+        .input-label{font-weight:600;color:var(--dark);display:flex;align-items:center;gap:10px;}
+        .input-label i{color:var(--primary);}
+        .input-field{padding:1rem 1.5rem;border:2px solid #e2e8f0;border-radius:12px;font-size:1rem;transition:all 0.3s;background:white;}
+        .input-field:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(99,102,241,0.1);}
+        .system-options{display:flex;gap:1rem;flex-wrap:wrap;}
+        .system-option{flex:1;min-width:120px;}
+        .option-input{display:none;}
+        .option-label{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 1rem;background:white;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all 0.3s;text-align:center;}
+        .option-input:checked+.option-label{border-color:var(--primary);background:linear-gradient(135deg,#f0f9ff,#e0f2fe);transform:translateY(-5px);box-shadow:0 10px 25px rgba(99,102,241,0.15);}
+        .option-icon{font-size:2rem;margin-bottom:0.5rem;}
+        .option-text{font-weight:600;color:var(--dark);}
+        .speed-presets-section{background:white;padding:2.5rem;border-radius:var(--border-radius);margin-bottom:3rem;border:1px solid #e2e8f0;}
+        .presets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:1.5rem;}
+        .preset-btn{padding:1.5rem 1rem;background:white;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all 0.3s;text-align:center;}
+        .preset-btn:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+        .preset-btn.active{border-color:var(--primary);background:linear-gradient(135deg,#f0f9ff,#e0f2fe);transform:translateY(-3px);}
+        .preset-name{font-weight:700;font-size:1.1rem;margin-bottom:0.5rem;}
+        .preset-speeds{font-size:0.9rem;color:var(--gray);}
+        .profiles-section{margin-bottom:3rem;}
+        .profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-top:1.5rem;}
+        .profile-card{background:white;padding:2rem;border-radius:var(--border-radius);box-shadow:var(--shadow);border:2px solid #e2e8f0;transition:all 0.3s;position:relative;overflow:hidden;}
+        .profile-card:hover{border-color:var(--primary);transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+        .profile-card::before{content:'';position:absolute;top:0;right:0;width:100%;height:4px;background:var(--gradient);}
+        .profile-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #f1f5f9;}
+        .profile-name{display:flex;align-items:center;gap:10px;font-size:1.3rem;font-weight:700;color:var(--primary);}
+        .profile-tier{background:var(--primary);color:white;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;}
+        .profile-inputs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+        .speed-input{position:relative;}
+        .speed-input label{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:0.5rem;color:#475569;}
+        .speed-unit{position:absolute;left:12px;top:40px;background:#f1f5f9;padding:0 10px;border-radius:6px;font-weight:600;color:#64748b;font-size:0.9rem;}
+        .profile-checkboxes{display:flex;gap:1rem;justify-content:space-between;margin-top:1rem;}
+        .checkbox-group{display:flex;align-items:center;gap:8px;}
+        .checkbox-group input[type="checkbox"]{width:18px;height:18px;cursor:pointer;}
+        .checkbox-group label{font-size:0.9rem;cursor:pointer;user-select:none;}
+        .controls-section{text-align:center;margin:3rem 0;}
+        .btn{padding:1rem 2.5rem;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:10px;font-size:1rem;border:none;cursor:pointer;margin:0 0.5rem;}
+        .btn-primary{background:var(--gradient);color:white;}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(99,102,241,0.3);}
+        .btn-secondary{background:var(--secondary);color:white;}
+        .btn-secondary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(16,185,129,0.3);}
+        .btn-danger{background:var(--danger);color:white;}
+        .btn-danger:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(239,68,68,0.3);}
+        .results-section{margin-top:3rem;display:none;}
+        .results-header{text-align:center;margin-bottom:2rem;}
+        .results-title{font-size:2rem;font-weight:800;margin-bottom:1rem;color:var(--dark);}
+        .result-box{width:100%;min-height:400px;font-family:'Fira Code','Consolas',monospace;direction:ltr;background:var(--dark);color:#38bdf8;padding:2rem;border-radius:var(--border-radius);font-size:14px;line-height:1.7;border:none;resize:vertical;box-shadow:inset 0 2px 10px rgba(0,0,0,0.2);white-space:pre-wrap;word-wrap:break-word;}
+        .contact{padding:6rem 2rem;background:var(--dark);color:white;text-align:center;}
+        .contact-title{font-size:2.5rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(to right,#a5b4fc,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .contact-subtitle{color:#94a3b8;margin-bottom:3rem;max-width:600px;margin-right:auto;margin-left:auto;}
+        .contact-info{background:rgba(255,255,255,0.05);padding:3rem;border-radius:var(--border-radius);border:1px solid rgba(255,255,255,0.1);max-width:600px;margin:0 auto;}
+        .contact-phone{font-size:2.5rem;font-weight:800;margin:1rem 0;direction:ltr;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .contact-name{color:#94a3b8;margin-bottom:2rem;}
+        .footer{background:#0f172a;color:#94a3b8;padding:3rem 2rem;text-align:center;}
+        .footer-content{max-width:1200px;margin:0 auto;}
+        .footer-text{font-size:1rem;margin-bottom:1rem;}
+        .copyright{color:#64748b;font-size:0.9rem;}
+        @media(max-width:768px){
+            .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto;}
+            .nav-links.active{display:flex;}.menu-toggle{display:block;}
+            .lang-switcher{width:100%;justify-content:center;margin:10px 0 20px;order:-1;}
+            .lang-btn{flex:1;justify-content:center;padding:8px;}
+            .nav-link{width:100%;text-align:center;justify-content:center;}
+            .navbar-dropdown{width:100%;}.navbar-dropdown-toggle{width:100%;justify-content:space-between;}
+            .navbar-dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:rgba(255,255,255,0.08);margin-top:5px;margin-bottom:10px;display:none;width:100%;border:1px solid rgba(255,255,255,0.1);}
+            .navbar-dropdown.active .navbar-dropdown-menu{display:block;}
+            .navbar-dropdown-item{justify-content:center;color:#e2e8f0;}
+            .nav-cta{width:100%;text-align:center;justify-content:center;margin-top:10px;}
+            .page-hero-title{font-size:2.2rem;}.main-tool{padding:0 1.5rem;}.tool-container{padding:2rem;}.tool-title{font-size:2rem;}
+            .profiles-grid{grid-template-columns:1fr;}.profile-inputs{grid-template-columns:1fr;}
+            .controls-section .btn{display:block;width:100%;margin:10px 0;}
+        }
+        @media(max-width:640px){
+            .page-hero{min-height:30vh;padding:100px 1rem 3rem;}.page-hero-title{font-size:1.8rem;}
+            .system-settings{padding:1.5rem;}.settings-grid{grid-template-columns:1fr;}
+            .system-options{flex-direction:column;}.presets-grid{grid-template-columns:1fr;}
+            .contact-phone{font-size:1.8rem;}.result-box{min-height:300px;font-size:13px;padding:1.5rem;}
         }
     </style>
 </head>
 <body>
-    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-bolt"></i>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+            <span class="logo-text">MikroTools</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <div class="lang-switcher">
+                <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
+                <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
+            </div>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">Home</span></a>
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">Merge</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="merge-v6.html" class="navbar-dropdown-item"><i class="fas fa-network-wired"></i><span data-i18n="merge_v6">Load Balancing v6</span></a>
+                    <a href="merge-v7.html" class="navbar-dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">Load Balancing v7</span></a>
                 </div>
-                <span class="logo-text">MikroTools</span>
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <div class="nav-links" id="navLinks">
-                <!-- أزرار تبديل اللغة -->
-                <div class="lang-switcher">
-                    <button class="lang-btn active" id="langEn">
-                        <i class="fas fa-globe"></i>
-                        EN
-                    </button>
-                    <button class="lang-btn" id="langAr">
-                        <i class="fas fa-globe"></i>
-                        AR
-                    </button>
+            </div>
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle active"><i class="fas fa-wifi"></i><span data-i18n="hotspot">Hotspot</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="hotspot.html" class="navbar-dropdown-item"><i class="fas fa-cog"></i><span data-i18n="hotspot_settings">Hotspot+PPP Settings</span></a>
+                    <a href="speed-profiles.html" class="navbar-dropdown-item active"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
-                
-                <!-- الرئيسية -->
-                <a href="index.html" class="nav-link" data-i18n="home">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-                
-                <!-- قائمة الدمج المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle">
-                        <i class="fas fa-code-branch"></i>
-                        <span data-i18n="merge">Merge</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="merge-v6.html" class="navbar-dropdown-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span data-i18n="merge_v6">Load Balancing v6</span>
-                        </a>
-                        <a href="merge-v7.html" class="navbar-dropdown-item">
-                            <i class="fas fa-rocket"></i>
-                            <span data-i18n="merge_v7">Load Balancing v7</span>
-                        </a>
-                    </div>
+            </div>
+            <!-- Design & Block - ✅ CardEditor مضاف -->
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="Hotspot Editor.html" class="navbar-dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">Hotspot Design</span></a>
+                    <a href="CardEditor.html" class="navbar-dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">Card Designer</span></a>
+                    <a href="block-sites.html" class="navbar-dropdown-item"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">Block Sites</span></a>
                 </div>
-                
-                <!-- قائمة الهوت سبوت المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle active">
-                        <i class="fas fa-wifi"></i>
-                        <span data-i18n="hotspot">Hotspot</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="hotspot.html" class="navbar-dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
-                        </a>
-                        <a href="speed-profiles.html" class="navbar-dropdown-item active">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span data-i18n="speed_profiles">Speed Profiles</span>
-                        </a>
-                    </div>
+            </div>
+            <div class="navbar-dropdown">
+                <a href="log.html" class="nav-link"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">Log Analyzer</span><span class="new-badge" data-i18n="new">NEW</span></a>
+            </div>
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="troubleshooting.html" class="navbar-dropdown-item"><i class="fas fa-exclamation-triangle"></i><span data-i18n="troubleshooting">Troubleshooting</span></a>
+                    <a href="about.html" class="navbar-dropdown-item"><i class="fas fa-users"></i><span data-i18n="about">About Us</span></a>
+                    <a href="privacy-policy.html" class="navbar-dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">Privacy Policy</span></a>
                 </div>
-                
-                <!-- قائمة التصميم والحجب المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle">
-                        <i class="fas fa-paint-brush"></i>
-                        <span data-i18n="design_block">Design & Block</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="Hotspot Editor.html" class="navbar-dropdown-item">
-                            <i class="fas fa-paint-brush"></i>
-                            <span data-i18n="hotspot_design">Hotspot Design</span>
-                        </a>
-                        <a href="block-sites.html" class="navbar-dropdown-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span data-i18n="block_sites">Block Sites</span>
-                        </a>
-                    </div>
+            </div>
+            <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">Contact Us</span></a>
+        </div>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="page-hero-content">
+        <h1 class="page-hero-title"><i class="fas fa-tachometer-alt"></i> <span data-i18n="hero_title">Speed Profile Generator</span></h1>
+        <p class="page-hero-subtitle" data-i18n="hero_subtitle">Create professional speed profiles for Hotspot and Broadband with one click</p>
+    </div>
+</section>
+
+<main class="main-tool">
+    <div class="tool-container">
+        <div class="tool-header">
+            <h2 class="tool-title" data-i18n="tool_title">⚡ Speed Profile Settings</h2>
+            <p class="tool-description" data-i18n="tool_description">Customize speed profiles according to your needs, choose the appropriate system and number of profiles</p>
+        </div>
+
+        <div class="system-settings">
+            <h3 style="color:var(--dark);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;"><i class="fas fa-cog"></i><span data-i18n="system_settings">Basic System Settings</span></h3>
+            <div class="settings-grid">
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-tag"></i><span data-i18n="profile_name">Base Profile Name</span></label>
+                    <input type="text" class="input-field" id="profileName" value="speed" placeholder="Example: MySpeedProfile">
                 </div>
-                
-                <!-- محلل السجلات مع علامة جديد -->
-                <div class="navbar-dropdown">
-                    <a href="log.html" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span data-i18n="log_analyzer">Log Analyzer</span>
-                        <span class="new-badge" data-i18n="new">NEW</span>
-                    </a>
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-list-ol"></i><span data-i18n="profile_count">Number of Profiles</span></label>
+                    <select class="input-field" id="profileCount" onchange="updateProfiles()">
+                        <option value="4" selected data-i18n="profiles_4">4 Profiles</option>
+                        <option value="5" data-i18n="profiles_5">5 Profiles</option>
+                        <option value="6" data-i18n="profiles_6">6 Profiles</option>
+                        <option value="7" data-i18n="profiles_7">7 Profiles</option>
+                        <option value="8" data-i18n="profiles_8">8 Profiles</option>
+                    </select>
                 </div>
-                
-                <!-- قائمة المساعدة المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle">
-                        <i class="fas fa-question-circle"></i>
-                        <span data-i18n="help">Help</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="troubleshooting.html" class="navbar-dropdown-item">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span data-i18n="troubleshooting">Troubleshooting</span>
-                        </a>
-                        <a href="about.html" class="navbar-dropdown-item">
-                            <i class="fas fa-users"></i>
-                            <span data-i18n="about">About Us</span>
-                        </a>
-                        <a href="privacy-policy.html" class="navbar-dropdown-item">
-                            <i class="fas fa-user-shield"></i>
-                            <span data-i18n="privacy">Privacy Policy</span>
-                        </a>
-                    </div>
+            </div>
+            <h4 style="color:var(--dark);margin:2rem 0 1rem;display:flex;align-items:center;gap:10px;"><i class="fas fa-laptop"></i><span data-i18n="choose_system">Choose Required System</span></h4>
+            <div class="system-options">
+                <div class="system-option">
+                    <input type="checkbox" id="hotspotCheckbox" class="option-input" checked onchange="toggleSystem('hotspot')">
+                    <label for="hotspotCheckbox" class="option-label">
+                        <div class="option-icon"><i class="fas fa-wifi"></i></div>
+                        <div class="option-text" data-i18n="hotspot">Hotspot</div>
+                    </label>
                 </div>
-                
-                <!-- واتساب -->
-                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
-                    <i class="fab fa-whatsapp"></i>
-                    <span data-i18n="contact_us">Contact Us</span>
-                </a>
+                <div class="system-option">
+                    <input type="checkbox" id="broadbandCheckbox" class="option-input" onchange="toggleSystem('broadband')">
+                    <label for="broadbandCheckbox" class="option-label">
+                        <div class="option-icon"><i class="fas fa-network-wired"></i></div>
+                        <div class="option-text" data-i18n="broadband">Broadband</div>
+                    </label>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <!-- الهيرو الخاص بالصفحة -->
-    <section class="page-hero">
-        <div class="page-hero-content">
-            <h1 class="page-hero-title">
-                <i class="fas fa-tachometer-alt"></i>
-                <span data-i18n="hero_title">Speed Profile Generator</span>
-            </h1>
-            <p class="page-hero-subtitle" data-i18n="hero_subtitle">
-                Create professional speed profiles for Hotspot and Broadband with one click
-            </p>
-        </div>
-    </section>
-
-    <!-- الأداة الرئيسية -->
-    <main class="main-tool">
-        <div class="tool-container">
-            <!-- رأس الأداة -->
-            <div class="tool-header">
-                <h2 class="tool-title" data-i18n="tool_title">⚡ Speed Profile Settings</h2>
-                <p class="tool-description" data-i18n="tool_description">
-                    Customize speed profiles according to your needs, choose the appropriate system and number of profiles
-                </p>
-            </div>
-
-            <!-- إعدادات النظام -->
-            <div class="system-settings">
-                <h3 style="color: var(--dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-cog"></i>
-                    <span data-i18n="system_settings">Basic System Settings</span>
-                </h3>
-                
-                <div class="settings-grid">
-                    <div class="input-group">
-                        <label class="input-label">
-                            <i class="fas fa-tag"></i>
-                            <span data-i18n="profile_name">Base Profile Name</span>
-                        </label>
-                        <input type="text" 
-                               class="input-field" 
-                               id="profileName" 
-                               value="speed"
-                               placeholder="Example: MySpeedProfile">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label class="input-label">
-                            <i class="fas fa-list-ol"></i>
-                            <span data-i18n="profile_count">Number of Profiles</span>
-                        </label>
-                        <select class="input-field" id="profileCount" onchange="updateProfiles()">
-                            <option value="4" selected data-i18n="profiles_4">4 Profiles</option>
-                            <option value="5" data-i18n="profiles_5">5 Profiles</option>
-                            <option value="6" data-i18n="profiles_6">6 Profiles</option>
-                            <option value="7" data-i18n="profiles_7">7 Profiles</option>
-                            <option value="8" data-i18n="profiles_8">8 Profiles</option>
-                        </select>
-                    </div>
-                </div>
-
-                <h4 style="color: var(--dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-laptop"></i>
-                    <span data-i18n="choose_system">Choose Required System</span>
-                </h4>
-                
-                <div class="system-options">
-                    <div class="system-option">
-                        <input type="checkbox" id="hotspotCheckbox" class="option-input" checked onchange="toggleSystem('hotspot')">
-                        <label for="hotspotCheckbox" class="option-label">
-                            <div class="option-icon">
-                                <i class="fas fa-wifi"></i>
-                            </div>
-                            <div class="option-text" data-i18n="hotspot">Hotspot</div>
-                        </label>
-                    </div>
-                    
-                    <div class="system-option">
-                        <input type="checkbox" id="broadbandCheckbox" class="option-input" onchange="toggleSystem('broadband')">
-                        <label for="broadbandCheckbox" class="option-label">
-                            <div class="option-icon">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <div class="option-text" data-i18n="broadband">Broadband</div>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- باقات السرعات المسبقة -->
-            <div class="speed-presets-section">
-                <h3 style="color: var(--dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-bolt"></i>
-                    <span data-i18n="choose_preset">Choose Speed Preset</span>
-                </h3>
-                
-                <div class="presets-grid">
-                    <button class="preset-btn active" onclick="loadPreset('economic')" data-preset="economic">
-                        <div class="preset-name" style="color: #10b981;" data-i18n="economic">Economic</div>
-                        <div class="preset-speeds" data-i18n="economic_speeds">2M - 4M - 8M - 16M</div>
-                    </button>
-                    
-                    <button class="preset-btn" onclick="loadPreset('standard')" data-preset="standard">
-                        <div class="preset-name" style="color: #3b82f6;" data-i18n="standard">Standard</div>
-                        <div class="preset-speeds" data-i18n="standard_speeds">4M - 8M - 16M - 32M</div>
-                    </button>
-                    
-                    <button class="preset-btn" onclick="loadPreset('premium')" data-preset="premium">
-                        <div class="preset-name" style="color: #8b5cf6;" data-i18n="premium">Premium</div>
-                        <div class="preset-speeds" data-i18n="premium_speeds">8M - 16M - 32M - 64M</div>
-                    </button>
-                    
-                    <button class="preset-btn" onclick="loadPreset('gaming')" data-preset="gaming">
-                        <div class="preset-name" style="color: #ef4444;" data-i18n="gaming">Gaming</div>
-                        <div class="preset-speeds" data-i18n="gaming_speeds">Symmetric speeds 1:1</div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- بروفايلات السرعة -->
-            <div class="profiles-section">
-                <h3 style="color: var(--dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span data-i18n="profile_settings">Profile Settings</span>
-                </h3>
-                
-                <div id="profilesContainer" class="profiles-grid">
-                    <!-- سيتم إنشاء البروفايلات هنا ديناميكياً -->
-                </div>
-            </div>
-
-            <!-- أزرار التحكم -->
-            <div class="controls-section">
-                <button class="btn btn-primary" onclick="generateScript();">
-                    <i class="fas fa-magic"></i>
-                    <span data-i18n="generate_script">Generate Script</span>
+        <div class="speed-presets-section">
+            <h3 style="color:var(--dark);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;"><i class="fas fa-bolt"></i><span data-i18n="choose_preset">Choose Speed Preset</span></h3>
+            <div class="presets-grid">
+                <button class="preset-btn active" onclick="loadPreset('economic')" data-preset="economic">
+                    <div class="preset-name" style="color:#10b981;" data-i18n="economic">Economic</div>
+                    <div class="preset-speeds" data-i18n="economic_speeds">2M - 4M - 8M - 16M</div>
                 </button>
-               <button class="btn btn-secondary" onclick="copyScript();" id="copyBtn">
-                    <i class="fas fa-copy"></i>
-                    <span data-i18n="copy_script">Copy Script</span>
+                <button class="preset-btn" onclick="loadPreset('standard')" data-preset="standard">
+                    <div class="preset-name" style="color:#3b82f6;" data-i18n="standard">Standard</div>
+                    <div class="preset-speeds" data-i18n="standard_speeds">4M - 8M - 16M - 32M</div>
                 </button>
-                <button class="btn btn-danger" onclick="resetAll();">
-                    <i class="fas fa-redo"></i>
-                    <span data-i18n="reset">Reset</span>
+                <button class="preset-btn" onclick="loadPreset('premium')" data-preset="premium">
+                    <div class="preset-name" style="color:#8b5cf6;" data-i18n="premium">Premium</div>
+                    <div class="preset-speeds" data-i18n="premium_speeds">8M - 16M - 32M - 64M</div>
+                </button>
+                <button class="preset-btn" onclick="loadPreset('gaming')" data-preset="gaming">
+                    <div class="preset-name" style="color:#ef4444;" data-i18n="gaming">Gaming</div>
+                    <div class="preset-speeds" data-i18n="gaming_speeds">Symmetric speeds 1:1</div>
                 </button>
             </div>
+        </div>
 
-            <!-- منطقة النتائج -->
-            <div id="resultsSection" class="results-section">
-                <div class="results-header">
-                    <h3 class="results-title">
-                        <i class="fas fa-code"></i>
-                        <span data-i18n="final_script">Final Script</span>
-                    </h3>
-                    <p style="color: var(--gray);" data-i18n="copy_instruction">Copy and paste the script into MikroTik</p>
-                </div>
-                
-                <textarea id="scriptOutput" class="result-box" readonly placeholder="Speed profile script will appear here..."></textarea>
+        <div class="profiles-section">
+            <h3 style="color:var(--dark);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;"><i class="fas fa-tachometer-alt"></i><span data-i18n="profile_settings">Profile Settings</span></h3>
+            <div id="profilesContainer" class="profiles-grid"></div>
+        </div>
+
+        <div class="controls-section">
+            <button class="btn btn-primary" onclick="generateScript()"><i class="fas fa-magic"></i><span data-i18n="generate_script">Generate Script</span></button>
+            <button class="btn btn-secondary" onclick="copyScript()" id="copyBtn"><i class="fas fa-copy"></i><span data-i18n="copy_script">Copy Script</span></button>
+            <button class="btn btn-danger" onclick="resetAll()"><i class="fas fa-redo"></i><span data-i18n="reset">Reset</span></button>
+        </div>
+
+        <div id="resultsSection" class="results-section">
+            <div class="results-header">
+                <h3 class="results-title"><i class="fas fa-code"></i><span data-i18n="final_script">Final Script</span></h3>
+                <p style="color:var(--gray);" data-i18n="copy_instruction">Copy and paste the script into MikroTik</p>
             </div>
+            <textarea id="scriptOutput" class="result-box" readonly placeholder="Speed profile script will appear here..."></textarea>
         </div>
-    </main>
+    </div>
+</main>
 
-    <!-- قسم الاتصال -->
-    <section class="contact">
-        <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
-        <p class="contact-subtitle" data-i18n="contact_subtitle">
-            We are here to help you anytime, contact us for technical support
-        </p>
-        
-        <div class="contact-info">
-            <h3 style="color: #94a3b8; margin-bottom: 1rem;">
-                <i class="fas fa-headset"></i>
-                <span data-i18n="contact_support">Contact Support</span>
-            </h3>
-            <div class="contact-phone">01092503391</div>
-            <p class="contact-name">Sameh El-Sayed</p>
-            <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
-                <i class="fab fa-whatsapp"></i>
-                <span data-i18n="contact_whatsapp">Contact via WhatsApp</span>
-            </a>
-        </div>
-    </section>
+<section class="contact">
+    <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
+    <p class="contact-subtitle" data-i18n="contact_subtitle">We are here to help you anytime, contact us for technical support</p>
+    <div class="contact-info">
+        <h3 style="color:#94a3b8;margin-bottom:1rem;"><i class="fas fa-headset"></i><span data-i18n="contact_support">Contact Support</span></h3>
+        <div class="contact-phone">01092503391</div>
+        <p class="contact-name">Sameh El-Sayed</p>
+        <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i><span data-i18n="contact_whatsapp">Contact via WhatsApp</span></a>
+    </div>
+</section>
 
-    <!-- التذييل -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                <i class="fas fa-phone-alt"></i>
-                <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
-            </p>
-            <p class="copyright">
-                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span>
-            </p>
-        </div>
-    </footer>
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-text"><i class="fas fa-phone-alt"></i><span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span></p>
+        <p class="copyright">© 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
+    </div>
+</footer>
 
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+<iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 
-    <script>
-        // نظام الترجمة
-        const translations = {
-            en: {
-                home: "Home",
-                merge: "Merge",
-                hotspot: "Hotspot",
-                design_block: "Design & Block",
-                help: "Help",
-                merge_v6: "Load Balancing v6",
-                merge_v7: "Load Balancing v7",
-                hotspot_settings: "Hotspot+PPP Settings",
-                speed_profiles: "Speed Profiles",
-                hotspot_design: "Hotspot Design",
-                block_sites: "Block Sites",
-                log_analyzer: "Log Analyzer",
-                new: "NEW",
-                troubleshooting: "Troubleshooting",
-                about: "About Us",
-                privacy: "Privacy Policy",
-                contact_us: "Contact Us",
-                hero_title: "Speed Profile Generator",
-                hero_subtitle: "Create professional speed profiles for Hotspot and Broadband with one click",
-                tool_title: "⚡ Speed Profile Settings",
-                tool_description: "Customize speed profiles according to your needs, choose the appropriate system and number of profiles",
-                system_settings: "Basic System Settings",
-                profile_name: "Base Profile Name",
-                profile_count: "Number of Profiles",
-                profiles_4: "4 Profiles",
-                profiles_5: "5 Profiles",
-                profiles_6: "6 Profiles",
-                profiles_7: "7 Profiles",
-                profiles_8: "8 Profiles",
-                choose_system: "Choose Required System",
-                broadband: "Broadband",
-                choose_preset: "Choose Speed Preset",
-                economic: "Economic",
-                economic_speeds: "2M - 4M - 8M - 16M",
-                standard: "Standard",
-                standard_speeds: "4M - 8M - 16M - 32M",
-                premium: "Premium",
-                premium_speeds: "8M - 16M - 32M - 64M",
-                gaming: "Gaming",
-                gaming_speeds: "Symmetric speeds 1:1",
-                profile_settings: "Profile Settings",
-                generate_script: "Generate Script",
-                copy_script: "Copy Script",
-                reset: "Reset",
-                final_script: "Final Script",
-                copy_instruction: "Copy and paste the script into MikroTik",
-                need_help: "Need Help?",
-                contact_subtitle: "We are here to help you anytime, contact us for technical support",
-                contact_support: "Contact Support",
-                contact_whatsapp: "Contact via WhatsApp",
-                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
-                copyright: "All rights reserved.",
-                tier_economic: "Economic",
-                tier_standard: "Standard",
-                tier_medium: "Medium",
-                tier_advanced: "Advanced",
-                tier_gold: "Gold",
-                tier_premium: "Premium",
-                tier_platinum: "Platinum",
-                tier_business: "Business",
-                download_speed: "Download Speed",
-                upload_speed: "Upload Speed",
-                monthly_price: "Monthly Price (optional)"
-            },
-            ar: {
-                home: "الرئيسية",
-                merge: "الدمج",
-                hotspot: "الهوت سبوت",
-                design_block: "التصميم والحجب",
-                help: "المساعدة",
-                merge_v6: "دمج خطوط v6",
-                merge_v7: "دمج خطوط v7",
-                hotspot_settings: "اعدادات hotspot+ppp",
-                speed_profiles: "بروفايلات السرعة",
-                hotspot_design: "تصميم hotspot",
-                block_sites: "حجب مواقع",
-                log_analyzer: "محلل السجلات",
-                new: "جديد",
-                troubleshooting: "المشكلات الشائعة",
-                about: "من نحن",
-                privacy: "سياسة الخصوصية",
-                contact_us: "تواصل معنا",
-                hero_title: "مولد بروفايلات السرعة",
-                hero_subtitle: "أنشئ بروفايلات سرعة احترافية للهوتسبوت والبرودباند بضغطة زر",
-                tool_title: "⚡ إعدادات بروفايلات السرعة",
-                tool_description: "قم بتخصيص بروفايلات السرعة حسب احتياجاتك، اختر النظام المناسب وعدد البروفايلات المطلوبة",
-                system_settings: "إعدادات النظام الأساسية",
-                profile_name: "اسم البروفايل الأساسي",
-                profile_count: "عدد البروفايلات",
-                profiles_4: "4 بروفايلات",
-                profiles_5: "5 بروفايلات",
-                profiles_6: "6 بروفايلات",
-                profiles_7: "7 بروفايلات",
-                profiles_8: "8 بروفايلات",
-                choose_system: "اختر النظام المطلوب",
-                broadband: "برودباند",
-                choose_preset: "اختيار باقة السرعات",
-                economic: "اقتصادية",
-                economic_speeds: "2ميجا - 4ميجا - 8ميجا - 16ميجا",
-                standard: "أساسية",
-                standard_speeds: "4ميجا - 8ميجا - 16ميجا - 32ميجا",
-                premium: "متميزة",
-                premium_speeds: "8ميجا - 16ميجا - 32ميجا - 64ميجا",
-                gaming: "ألعاب",
-                gaming_speeds: "سرعات متماثلة 1:1",
-                profile_settings: "إعدادات البروفايلات",
-                generate_script: "توليد السكربت",
-                copy_script: "نسخ السكربت",
-                reset: "إعادة تعيين",
-                final_script: "السكربت النهائي",
-                copy_instruction: "انسخ السكربت والصقه في ميكروتيك",
-                need_help: "هل تحتاج مساعدة؟",
-                contact_subtitle: "نحن هنا لمساعدتك في أي وقت، تواصل معنا للحصول على الدعم الفني",
-                contact_support: "للتواصل والدعم الفني",
-                contact_whatsapp: "تواصل عبر واتساب",
-                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
-                copyright: "جميع الحقوق محفوظة.",
-                tier_economic: "اقتصادية",
-                tier_standard: "أساسية",
-                tier_medium: "متوسطة",
-                tier_advanced: "متقدمة",
-                tier_gold: "ذهبية",
-                tier_premium: "ممتازة",
-                tier_platinum: "بلاتينية",
-                tier_business: "أعمال",
-                download_speed: "سرعة التنزيل",
-                upload_speed: "سرعة الرفع",
-                monthly_price: "السعر الشهري (اختياري)"
-            }
-        };
-
-        // ========== المتغيرات العامة ==========
-        const SIGNATURE = "By Same7_01092503391";
-        let currentSystem = {
-            hotspot: true,
-            broadband: false
-        };
-        let currentPreset = 'economic';
-
-        // تبديل اللغة
-        function setLanguage(lang) {
-            localStorage.setItem('language', lang);
-            
-            const html = document.documentElement;
-            const body = document.body;
-            
-            if (lang === 'ar') {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                body.classList.add('ar', 'rtl');
-                body.classList.remove('en');
-            } else {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                body.classList.add('en');
-                body.classList.remove('ar', 'rtl');
-            }
-            
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else if (element.tagName === 'OPTION') {
-                        element.textContent = translations[lang][key];
-                    } else {
-                        element.innerHTML = translations[lang][key];
-                    }
-                }
-            });
-            
-            document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
-        }
-
-        // ========== دوال القائمة العلوية ==========
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            const icon = this.querySelector('i');
-            
-            navLinks.classList.toggle('active');
-            icon.className = navLinks.classList.contains('active') 
-                ? 'fas fa-times' 
-                : 'fas fa-bars';
-        });
-
-        // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link, .navbar-dropdown-item').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!link.classList.contains('navbar-dropdown-toggle')) {
-                    document.getElementById('navLinks').classList.remove('active');
-                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
-                }
-            });
-        });
-
-        // تفعيل القوائم المنسدلة في الجوال
-        document.querySelectorAll('.navbar-dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const dropdown = this.closest('.navbar-dropdown');
-                    dropdown.classList.toggle('active');
-                    
-                    const arrow = this.querySelector('.navbar-dropdown-arrow');
-                    if (dropdown.classList.contains('active')) {
-                        arrow.style.transform = 'rotate(180deg)';
-                    } else {
-                        arrow.style.transform = 'rotate(0)';
-                    }
-                }
-            });
-        });
-
-        // أحداث أزرار اللغة
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
-
-        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
-        const savedLanguage = localStorage.getItem('language') || 'en';
-        setLanguage(savedLanguage);
-
-        // ========== دوال بروفايلات السرعة ==========
-        function toggleSystem(type) {
-            if (type === 'hotspot') {
-                currentSystem.hotspot = !currentSystem.hotspot;
-                document.getElementById('hotspotCheckbox').checked = currentSystem.hotspot;
-            } else if (type === 'broadband') {
-                currentSystem.broadband = !currentSystem.broadband;
-                document.getElementById('broadbandCheckbox').checked = currentSystem.broadband;
-            }
-            
-            updateProfiles();
-        }
-
-        function updateProfiles() {
-            const container = document.getElementById('profilesContainer');
-            const count = parseInt(document.getElementById('profileCount').value);
-            const baseName = document.getElementById('profileName').value;
-            const lang = document.documentElement.lang;
-            
-            container.innerHTML = '';
-            
-            // تحديد السرعات حسب الباقة المختارة
-            const downloadSpeeds = getDownloadSpeedsByPreset(currentPreset, count);
-            
-            const tierNames = lang === 'ar' 
-                ? ['اقتصادية', 'أساسية', 'متوسطة', 'متقدمة', 'ذهبية', 'ممتازة', 'بلاتينية', 'أعمال']
-                : ['Economic', 'Standard', 'Medium', 'Advanced', 'Gold', 'Premium', 'Platinum', 'Business'];
-            
-            for (let i = 1; i <= count; i++) {
-                const downloadSpeed = downloadSpeeds[i - 1];
-                const uploadSpeed = currentPreset === 'gaming' 
-                    ? downloadSpeed 
-                    : Math.max(1, Math.floor(downloadSpeed / 4));
-                
-                const tierName = tierNames[Math.min(i - 1, tierNames.length - 1)];
-                
-                const profileCard = document.createElement('div');
-                profileCard.className = 'profile-card';
-                profileCard.innerHTML = `
-                    <div class="profile-header">
-                        <div class="profile-name">
-                            <i class="fas fa-bolt"></i>
-                            ${baseName}_${i.toString().padStart(2, '0')}
-                        </div>
-                        <div class="profile-tier">${tierName}</div>
-                    </div>
-                    
-                    <div class="profile-inputs">
-                        <div class="speed-input">
-                            <label><i class="fas fa-download"></i> <span data-i18n="download_speed">Download Speed</span></label>
-                            <input type="number" 
-                                   class="input-field speed-download" 
-                                   id="dl${i}"
-                                   value="${downloadSpeed}"
-                                   min="1" 
-                                   max="1000"
-                                   onchange="updateUploadSpeed(${i})">
-                            <span class="speed-unit">Mbps</span>
-                        </div>
-                        
-                        <div class="speed-input">
-                            <label><i class="fas fa-upload"></i> <span data-i18n="upload_speed">Upload Speed</span></label>
-                            <input type="number" 
-                                   class="input-field speed-upload" 
-                                   id="ul${i}"
-                                   value="${uploadSpeed}"
-                                   min="1" 
-                                   max="500"
-                                   onchange="validateUploadSpeed(${i})">
-                            <span class="speed-unit">Mbps</span>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 1rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #475569;">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <span data-i18n="monthly_price">Monthly Price (optional)</span>
-                        </label>
-                        <input type="text" 
-                               class="input-field"
-                               id="price${i}"
-                               placeholder="${lang === 'ar' ? 'مثال: 150 جنيه' : 'Example: 150 EGP'}"
-                               value="${getPriceForSpeed(downloadSpeed, lang)}">
-                    </div>
-                    
-                    <div class="profile-checkboxes">
-                        <div class="checkbox-group">
-                            <input type="checkbox" 
-                                   id="hs${i}" 
-                                   ${currentSystem.hotspot ? 'checked' : ''}
-                                   ${!currentSystem.hotspot ? 'disabled' : ''}>
-                            <label for="hs${i}"><i class="fas fa-wifi"></i> <span data-i18n="hotspot">Hotspot</span></label>
-                        </div>
-                        
-                        <div class="checkbox-group">
-                            <input type="checkbox" 
-                                   id="bb${i}" 
-                                   ${currentSystem.broadband ? 'checked' : ''}
-                                   ${!currentSystem.broadband ? 'disabled' : ''}>
-                            <label for="bb${i}"><i class="fas fa-network-wired"></i> <span data-i18n="broadband">Broadband</span></label>
-                        </div>
-                        
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="burst${i}" checked>
-                            <label for="burst${i}"><i class="fas fa-rocket"></i> Burst</label>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(profileCard);
-            }
-            
-            // تحديث النصوص للغة الجديدة
-            if (lang) {
-                document.querySelectorAll('[data-i18n]').forEach(element => {
-                    const key = element.getAttribute('data-i18n');
-                    if (translations[lang] && translations[lang][key]) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            element.placeholder = translations[lang][key];
-                        } else {
-                            element.innerHTML = translations[lang][key];
-                        }
-                    }
-                });
-            }
-        }
-
-        function loadPreset(preset) {
-            currentPreset = preset;
-            
-            // تحديث حالة الأزرار
-            document.querySelectorAll('.preset-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-preset') === preset) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            updateProfiles();
-        }
-
-        function getDownloadSpeedsByPreset(preset, count) {
-            const presets = {
-                economic: [2, 4, 8, 16, 24, 32, 48, 64],
-                standard: [4, 8, 16, 32, 50, 64, 100, 128],
-                premium: [8, 16, 32, 64, 100, 150, 200, 250],
-                gaming: [10, 20, 30, 50, 100, 150, 200, 300]
-            };
-            
-            const speeds = presets[preset] || presets.economic;
-            
-            // إذا كانت باقة ألعاب، نجعل سرعات التنزيل والرفع متساوية
-            if (preset === 'gaming') {
-                return speeds.slice(0, count);
-            }
-            
-            // لباقات أخرى، نرجع السرعات كما هي
-            return speeds.slice(0, count);
-        }
-
-        function getPriceForSpeed(speed, lang) {
-            if (lang === 'ar') {
-                if (speed <= 2) return "50-80 جنيه";
-                if (speed <= 4) return "80-120 جنيه";
-                if (speed <= 8) return "120-180 جنيه";
-                if (speed <= 16) return "180-250 جنيه";
-                if (speed <= 32) return "250-350 جنيه";
-                if (speed <= 64) return "350-500 جنيه";
-                if (speed <= 100) return "500-750 جنيه";
-                return "750+ جنيه";
-            } else {
-                if (speed <= 2) return "50-80 EGP";
-                if (speed <= 4) return "80-120 EGP";
-                if (speed <= 8) return "120-180 EGP";
-                if (speed <= 16) return "180-250 EGP";
-                if (speed <= 32) return "250-350 EGP";
-                if (speed <= 64) return "350-500 EGP";
-                if (speed <= 100) return "500-750 EGP";
-                return "750+ EGP";
-            }
-        }
-
-        function updateUploadSpeed(profileIndex) {
-            const dlInput = document.getElementById(`dl${profileIndex}`);
-            const ulInput = document.getElementById(`ul${profileIndex}`);
-            
-            const dl = parseInt(dlInput.value) || 1;
-            let newUl;
-            
-            // إذا كانت باقة ألعاب، نجعل سرعة الرفع = سرعة التنزيل
-            if (currentPreset === 'gaming') {
-                newUl = dl;
-            } else {
-                // لباقات أخرى، نسبة 4:1
-                newUl = Math.max(1, Math.floor(dl / 4));
-            }
-            
-            ulInput.value = newUl;
-        }
-
-        function validateUploadSpeed(profileIndex) {
-            const ulInput = document.getElementById(`ul${profileIndex}`);
-            const ul = parseInt(ulInput.value) || 1;
-            
-            if (ul > 500) {
-                ulInput.value = 500;
-                alert('⚠️ Maximum upload speed is 500 Mbps');
-            }
-        }
-
-        function generateScript() {
-            const profileCount = parseInt(document.getElementById('profileCount').value);
-            const baseName = document.getElementById('profileName').value;
-            const lang = document.documentElement.lang;
-            
-            let script = `##############################################\n`;
-            script += `# Speed Profiles Script - ${SIGNATURE}\n`;
-            script += `# Date: ${new Date().toLocaleDateString()}\n`;
-            script += `# Number of Profiles: ${profileCount}\n`;
-            script += `# Systems: ${currentSystem.hotspot ? 'Hotspot ' : ''}${currentSystem.broadband ? 'Broadband' : ''}\n`;
-            script += `##############################################\n\n`;
-            
-            // Hotspot Profiles
-            if (currentSystem.hotspot) {
-                script += `# ======================\n`;
-                script += `# 📡 Hotspot Profiles\n`;
-                script += `# ======================\n\n`;
-                
-                script += `/ip hotspot user profile\n`;
-                
-                for (let i = 1; i <= profileCount; i++) {
-                    const hsEnabled = document.getElementById(`hs${i}`).checked;
-                    if (!hsEnabled) continue;
-                    
-                    const dl = document.getElementById(`dl${i}`).value || 1;
-                    const ul = document.getElementById(`ul${i}`).value || 1;
-                    const price = document.getElementById(`price${i}`).value;
-                    const burstEnabled = document.getElementById(`burst${i}`).checked;
-                    
-                    const profileName = `speed_${dl}M`;
-                    
-                    // حساب سرعات Burst
-                    const burstDown = burstEnabled ? dl * 2 : dl;
-                    const burstUp = burstEnabled ? ul * 2 : ul;
-                    
-                    const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M 60/60"`;
-                    
-                    let nameWithDetails = `${profileName}`;
-                    if (price) {
-                        nameWithDetails += ` (${price})`;
-                    }
-                    
-                    script += `add name="${nameWithDetails}" `;
-                    script += `rate-limit=${rateLimit}`;
-                    script += `\n`;
-                }
-                script += `\n`;
-            }
-            
-            // Broadband Profiles (PPP Profile)
-            if (currentSystem.broadband) {
-                script += `# ========================\n`;
-                script += `# 🌐 Broadband Profiles\n`;
-                script += `# ========================\n\n`;
-                
-                script += `/ppp profile\n`;
-                
-                // تعيين الاعدادات الافتراضية للبروفايل الاساسي
-                script += `set *0 local-address=ppp remote-address=ppp use-encryption=yes\n\n`;
-                
-                for (let i = 1; i <= profileCount; i++) {
-                    const bbEnabled = document.getElementById(`bb${i}`).checked;
-                    if (!bbEnabled) continue;
-                    
-                    const dl = document.getElementById(`dl${i}`).value || 1;
-                    const ul = document.getElementById(`ul${i}`).value || 1;
-                    const burstEnabled = document.getElementById(`burst${i}`).checked;
-                    
-                    const profileName = `${baseName}_${dl}M`;
-                    
-                    // حساب سرعات Burst
-                    const burstDown = burstEnabled ? dl * 2 : dl;
-                    const burstUp = burstEnabled ? ul * 2 : ul;
-                    
-                    const rateLimit = `"${ul}M/${dl}M ${burstUp}M/${burstDown}M ${ul}M/${dl}M 60 "`;
-                    
-                    script += `add name="${profileName}" `;
-                    script += `local-address=ppp remote-address=ppp `;
-                    script += `use-encryption=yes `;
-                    script += `rate-limit=${rateLimit}`;
-                    script += `\n`;
-                }
-                script += `\n`;
-            }
-            
-            script += `# ${SIGNATURE}\n`;
-            script += `# ${lang === 'ar' ? 'تم إنشاء' : 'Created'} ${profileCount} ${lang === 'ar' ? 'بروفايلات سرعة بنجاح' : 'speed profiles successfully'} ✓\n`;
-            
-            document.getElementById('scriptOutput').value = script;
-            document.getElementById('resultsSection').style.display = 'block';
-            
-            // تمرير لأسفل لعرض النتائج
-            setTimeout(() => {
-                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-        }
-
-        function copyScript() {
-            const textarea = document.getElementById('scriptOutput');
-            const lang = document.documentElement.lang;
-            
-            if (!textarea || !textarea.value) {
-                alert(lang === 'ar' ? '⚠️ يرجى توليد السكربت أولاً' : '⚠️ Please generate the script first');
-                return;
-            }
-            
-            textarea.select();
-            textarea.setSelectionRange(0, 99999);
-            
-            try {
-                navigator.clipboard.writeText(textarea.value).then(() => {
-                    const copyBtn = document.getElementById('copyBtn');
-                    const originalText = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> ' + (lang === 'ar' ? 'تم النسخ!' : 'Copied!');
-                    copyBtn.style.background = '#10b981';
-                    
-                    setTimeout(() => {
-                        copyBtn.innerHTML = originalText;
-                        copyBtn.style.background = '';
-                    }, 2000);
-                });
-            } catch (err) {
-                document.execCommand('copy');
-                alert(lang === 'ar' ? '✅ تم نسخ السكربت بنجاح!' : '✅ Script copied successfully!');
-            }
-        }
-
-        function resetAll() {
-            const lang = document.documentElement.lang;
-            if (confirm(lang === 'ar' ? 'هل تريد إعادة تعيين جميع الإعدادات إلى القيم الافتراضية؟' : 'Do you want to reset all settings to default values?')) {
-                document.getElementById('profileName').value = 'speed';
-                document.getElementById('profileCount').value = '4';
-                
-                currentSystem.hotspot = true;
-                currentSystem.broadband = false;
-                currentPreset = 'economic';
-                
-                document.getElementById('hotspotCheckbox').checked = true;
-                document.getElementById('broadbandCheckbox').checked = false;
-                
-                document.querySelectorAll('.preset-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('data-preset') === 'economic') {
-                        btn.classList.add('active');
-                    }
-                });
-                
-                updateProfiles();
-                document.getElementById('resultsSection').style.display = 'none';
-                
-                alert(lang === 'ar' ? '✅ تمت إعادة التعيين بنجاح' : '✅ Reset completed successfully');
-            }
-        }
-
-        // ========== تهيئة الصفحة ==========
-        document.addEventListener('DOMContentLoaded', function() {
-            // إنشاء البروفايلات الأولية
-            updateProfiles();
-            
-            // تأثيرات عند التمرير
-            const cards = document.querySelectorAll('.profile-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
-            });
-            
-            console.log('🚀 MikroTools - Speed Profiles page ready!');
-        });
-
-        // ========== إضافة تأثير على الروابط ==========
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
-    <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
 <script>
-(function() {
-    const BIN_ID = '6984fe4d43b1c97be9684aa8';
-    const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    
-    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-        headers: { 'X-Master-Key': API_KEY }
-    })
-    .then(res => res.json())
-    .then(data => {
-        const record = data.record || {};
-        if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
-        
-        const page = document.title || window.location.pathname;
-        const today = new Date().toDateString();
-        
-        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
-        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
-        record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
-        
-        return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': API_KEY
-            },
-            body: JSON.stringify(record)
-        });
-    })
-    .catch(() => {});
-})();
+const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",new:"NEW",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_title:"Speed Profile Generator",hero_subtitle:"Create professional speed profiles for Hotspot and Broadband with one click",tool_title:"⚡ Speed Profile Settings",tool_description:"Customize speed profiles according to your needs, choose the appropriate system and number of profiles",system_settings:"Basic System Settings",profile_name:"Base Profile Name",profile_count:"Number of Profiles",profiles_4:"4 Profiles",profiles_5:"5 Profiles",profiles_6:"6 Profiles",profiles_7:"7 Profiles",profiles_8:"8 Profiles",choose_system:"Choose Required System",broadband:"Broadband",choose_preset:"Choose Speed Preset",economic:"Economic",economic_speeds:"2M - 4M - 8M - 16M",standard:"Standard",standard_speeds:"4M - 8M - 16M - 32M",premium:"Premium",premium_speeds:"8M - 16M - 32M - 64M",gaming:"Gaming",gaming_speeds:"Symmetric speeds 1:1",profile_settings:"Profile Settings",generate_script:"Generate Script",copy_script:"Copy Script",reset:"Reset",final_script:"Final Script",copy_instruction:"Copy and paste the script into MikroTik",need_help:"Need Help?",contact_subtitle:"We are here to help you anytime, contact us for technical support",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved.",tier_economic:"Economic",tier_standard:"Standard",tier_medium:"Medium",tier_advanced:"Advanced",tier_gold:"Gold",tier_premium:"Premium",tier_platinum:"Platinum",tier_business:"Business",download_speed:"Download Speed",upload_speed:"Upload Speed",monthly_price:"Monthly Price (optional)"},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",new:"جديد",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_title:"مولد بروفايلات السرعة",hero_subtitle:"أنشئ بروفايلات سرعة احترافية للهوتسبوت والبرودباند بضغطة زر",tool_title:"⚡ إعدادات بروفايلات السرعة",tool_description:"قم بتخصيص بروفايلات السرعة حسب احتياجاتك، اختر النظام المناسب وعدد البروفايلات المطلوبة",system_settings:"إعدادات النظام الأساسية",profile_name:"اسم البروفايل الأساسي",profile_count:"عدد البروفايلات",profiles_4:"4 بروفايلات",profiles_5:"5 بروفايلات",profiles_6:"6 بروفايلات",profiles_7:"7 بروفايلات",profiles_8:"8 بروفايلات",choose_system:"اختر النظام المطلوب",broadband:"برودباند",choose_preset:"اختيار باقة السرعات",economic:"اقتصادية",economic_speeds:"2ميجا - 4ميجا - 8ميجا - 16ميجا",standard:"أساسية",standard_speeds:"4ميجا - 8ميجا - 16ميجا - 32ميجا",premium:"متميزة",premium_speeds:"8ميجا - 16ميجا - 32ميجا - 64ميجا",gaming:"ألعاب",gaming_speeds:"سرعات متماثلة 1:1",profile_settings:"إعدادات البروفايلات",generate_script:"توليد السكربت",copy_script:"نسخ السكربت",reset:"إعادة تعيين",final_script:"السكربت النهائي",copy_instruction:"انسخ السكربت والصقه في ميكروتيك",need_help:"هل تحتاج مساعدة؟",contact_subtitle:"نحن هنا لمساعدتك في أي وقت، تواصل معنا للحصول على الدعم الفني",contact_support:"للتواصل والدعم الفني",contact_whatsapp:"تواصل عبر واتساب",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة.",tier_economic:"اقتصادية",tier_standard:"أساسية",tier_medium:"متوسطة",tier_advanced:"متقدمة",tier_gold:"ذهبية",tier_premium:"ممتازة",tier_platinum:"بلاتينية",tier_business:"أعمال",download_speed:"سرعة التنزيل",upload_speed:"سرعة الرفع",monthly_price:"السعر الشهري (اختياري)"}};
+const SIGNATURE="By Same7_01092503391";let currentSystem={hotspot:true,broadband:false};let currentPreset='economic';
+function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else if(el.tagName==='OPTION')el.textContent=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
+document.getElementById('menuToggle').addEventListener('click',function(){const n=document.getElementById('navLinks'),i=this.querySelector('i');n.classList.toggle('active');i.className=n.classList.contains('active')?'fas fa-times':'fas fa-bars';});
+document.querySelectorAll('.nav-link,.navbar-dropdown-item').forEach(link=>{link.addEventListener('click',()=>{if(!link.classList.contains('navbar-dropdown-toggle')){document.getElementById('navLinks').classList.remove('active');document.querySelector('#menuToggle i').className='fas fa-bars';}});});
+document.querySelectorAll('.navbar-dropdown-toggle').forEach(t=>{t.addEventListener('click',function(e){if(window.innerWidth<=768){e.preventDefault();const d=this.closest('.navbar-dropdown');d.classList.toggle('active');const a=this.querySelector('.navbar-dropdown-arrow');if(a)a.style.transform=d.classList.contains('active')?'rotate(180deg)':'rotate(0)';}});});
+document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
+document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
+setLanguage(localStorage.getItem('language')||'en');
+function toggleSystem(type){if(type==='hotspot'){currentSystem.hotspot=!currentSystem.hotspot;document.getElementById('hotspotCheckbox').checked=currentSystem.hotspot;}else{currentSystem.broadband=!currentSystem.broadband;document.getElementById('broadbandCheckbox').checked=currentSystem.broadband;}updateProfiles();}
+function updateProfiles(){const container=document.getElementById('profilesContainer');const count=parseInt(document.getElementById('profileCount').value);const baseName=document.getElementById('profileName').value;const lang=document.documentElement.lang;container.innerHTML='';const downloadSpeeds=getDownloadSpeedsByPreset(currentPreset,count);const tierNames=lang==='ar'?['اقتصادية','أساسية','متوسطة','متقدمة','ذهبية','ممتازة','بلاتينية','أعمال']:['Economic','Standard','Medium','Advanced','Gold','Premium','Platinum','Business'];for(let i=1;i<=count;i++){const dl=downloadSpeeds[i-1];const ul=currentPreset==='gaming'?dl:Math.max(1,Math.floor(dl/4));const tierName=tierNames[Math.min(i-1,tierNames.length-1)];const card=document.createElement('div');card.className='profile-card';card.innerHTML=`<div class="profile-header"><div class="profile-name"><i class="fas fa-bolt"></i> ${baseName}_${String(i).padStart(2,'0')}</div><div class="profile-tier">${tierName}</div></div><div class="profile-inputs"><div class="speed-input"><label><i class="fas fa-download"></i> <span data-i18n="download_speed">Download Speed</span></label><input type="number" class="input-field speed-download" id="dl${i}" value="${dl}" min="1" max="1000" onchange="updateUploadSpeed(${i})"><span class="speed-unit">Mbps</span></div><div class="speed-input"><label><i class="fas fa-upload"></i> <span data-i18n="upload_speed">Upload Speed</span></label><input type="number" class="input-field speed-upload" id="ul${i}" value="${ul}" min="1" max="500" onchange="validateUploadSpeed(${i})"><span class="speed-unit">Mbps</span></div></div><div style="margin-top:1rem;"><label style="display:block;margin-bottom:0.5rem;font-weight:600;color:#475569;"><i class="fas fa-money-bill-wave"></i> <span data-i18n="monthly_price">Monthly Price (optional)</span></label><input type="text" class="input-field" id="price${i}" value="${getPriceForSpeed(dl,lang)}"></div><div class="profile-checkboxes"><div class="checkbox-group"><input type="checkbox" id="hs${i}" ${currentSystem.hotspot?'checked':''} ${!currentSystem.hotspot?'disabled':''}><label for="hs${i}"><i class="fas fa-wifi"></i> <span data-i18n="hotspot">Hotspot</span></label></div><div class="checkbox-group"><input type="checkbox" id="bb${i}" ${currentSystem.broadband?'checked':''} ${!currentSystem.broadband?'disabled':''}><label for="bb${i}"><i class="fas fa-network-wired"></i> <span data-i18n="broadband">Broadband</span></label></div><div class="checkbox-group"><input type="checkbox" id="burst${i}" checked><label for="burst${i}"><i class="fas fa-rocket"></i> Burst</label></div></div>`;container.appendChild(card);}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});}
+function loadPreset(preset){currentPreset=preset;document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.remove('active');if(b.getAttribute('data-preset')===preset)b.classList.add('active');});updateProfiles();}
+function getDownloadSpeedsByPreset(preset,count){const presets={economic:[2,4,8,16,24,32,48,64],standard:[4,8,16,32,50,64,100,128],premium:[8,16,32,64,100,150,200,250],gaming:[10,20,30,50,100,150,200,300]};return(presets[preset]||presets.economic).slice(0,count);}
+function getPriceForSpeed(speed,lang){if(lang==='ar'){if(speed<=2)return"50-80 جنيه";if(speed<=4)return"80-120 جنيه";if(speed<=8)return"120-180 جنيه";if(speed<=16)return"180-250 جنيه";if(speed<=32)return"250-350 جنيه";if(speed<=64)return"350-500 جنيه";if(speed<=100)return"500-750 جنيه";return"750+ جنيه";}else{if(speed<=2)return"50-80 EGP";if(speed<=4)return"80-120 EGP";if(speed<=8)return"120-180 EGP";if(speed<=16)return"180-250 EGP";if(speed<=32)return"250-350 EGP";if(speed<=64)return"350-500 EGP";if(speed<=100)return"500-750 EGP";return"750+ EGP";}}
+function updateUploadSpeed(i){const dl=parseInt(document.getElementById(`dl${i}`).value)||1;document.getElementById(`ul${i}`).value=currentPreset==='gaming'?dl:Math.max(1,Math.floor(dl/4));}
+function validateUploadSpeed(i){const ul=document.getElementById(`ul${i}`);if(parseInt(ul.value)>500){ul.value=500;alert('⚠️ Maximum upload speed is 500 Mbps');}}
+function generateScript(){const profileCount=parseInt(document.getElementById('profileCount').value);const baseName=document.getElementById('profileName').value;const lang=document.documentElement.lang;let script=`##############################################\n# Speed Profiles Script - ${SIGNATURE}\n# Date: ${new Date().toLocaleDateString()}\n# Number of Profiles: ${profileCount}\n# Systems: ${currentSystem.hotspot?'Hotspot ':' '}${currentSystem.broadband?'Broadband':''}\n##############################################\n\n`;
+if(currentSystem.hotspot){script+=`# ======================\n# 📡 Hotspot Profiles\n# ======================\n\n/ip hotspot user profile\n`;for(let i=1;i<=profileCount;i++){if(!document.getElementById(`hs${i}`).checked)continue;const dl=document.getElementById(`dl${i}`).value||1;const ul=document.getElementById(`ul${i}`).value||1;const price=document.getElementById(`price${i}`).value;const burst=document.getElementById(`burst${i}`).checked;const bd=burst?dl*2:dl,bu=burst?ul*2:ul;const name=`speed_${dl}M${price?` (${price})`:''}`;script+=`add name="${name}" rate-limit="${ul}M/${dl}M ${bu}M/${bd}M ${ul}M/${dl}M 60/60"\n`;}script+=`\n`;}
+if(currentSystem.broadband){script+=`# ========================\n# 🌐 Broadband Profiles\n# ========================\n\n/ppp profile\nset *0 local-address=ppp remote-address=ppp use-encryption=yes\n\n`;for(let i=1;i<=profileCount;i++){if(!document.getElementById(`bb${i}`).checked)continue;const dl=document.getElementById(`dl${i}`).value||1;const ul=document.getElementById(`ul${i}`).value||1;const burst=document.getElementById(`burst${i}`).checked;const bd=burst?dl*2:dl,bu=burst?ul*2:ul;script+=`add name="${baseName}_${dl}M" local-address=ppp remote-address=ppp use-encryption=yes rate-limit="${ul}M/${dl}M ${bu}M/${bd}M ${ul}M/${dl}M 60 "\n`;}script+=`\n`;}
+script+=`# ${SIGNATURE}\n# ${lang==='ar'?'تم إنشاء':'Created'} ${profileCount} ${lang==='ar'?'بروفايلات سرعة بنجاح':'speed profiles successfully'} ✓\n`;
+document.getElementById('scriptOutput').value=script;document.getElementById('resultsSection').style.display='block';setTimeout(()=>document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'}),300);}
+function copyScript(){const el=document.getElementById('scriptOutput');const lang=document.documentElement.lang;if(!el||!el.value){alert(lang==='ar'?'⚠️ يرجى توليد السكربت أولاً':'⚠️ Please generate the script first');return;}el.select();el.setSelectionRange(0,99999);try{navigator.clipboard.writeText(el.value).then(()=>{const btn=document.getElementById('copyBtn');const orig=btn.innerHTML;btn.innerHTML=`<i class="fas fa-check"></i> ${lang==='ar'?'تم النسخ!':'Copied!'}`;btn.style.background='#10b981';setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';},2000);});}catch(err){document.execCommand('copy');alert(lang==='ar'?'✅ تم نسخ السكربت بنجاح!':'✅ Script copied successfully!');}}
+function resetAll(){const lang=document.documentElement.lang;if(confirm(lang==='ar'?'هل تريد إعادة تعيين جميع الإعدادات؟':'Do you want to reset all settings?')){document.getElementById('profileName').value='speed';document.getElementById('profileCount').value='4';currentSystem={hotspot:true,broadband:false};currentPreset='economic';document.getElementById('hotspotCheckbox').checked=true;document.getElementById('broadbandCheckbox').checked=false;document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.remove('active');if(b.getAttribute('data-preset')==='economic')b.classList.add('active');});updateProfiles();document.getElementById('resultsSection').style.display='none';alert(lang==='ar'?'✅ تمت إعادة التعيين بنجاح':'✅ Reset completed successfully');}}
+document.addEventListener('DOMContentLoaded',function(){updateProfiles();});
 </script>
-    <script type="text/javascript">
-(function () {
-    const blockedDomains = [
-        "jumanchu-dragondiyaa.site",
-        "transcube-uy7.xyz",
-        "vp.jumanchu-dragondiyaa.site"
-    ];
-
-    const originalOpen = window.open;
-
-    window.open = function (url, name, specs) {
-        if (url && blockedDomains.some(domain => url.includes(domain))) {
-            console.log("Blocked:", url);
-            return null;
-        }
-        return originalOpen.apply(this, arguments);
-    };
-})();
-</script>
-
+<script>(function(){const BIN_ID='6984fe4d43b1c97be9684aa8',API_KEY='$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{headers:{'X-Master-Key':API_KEY}}).then(r=>r.json()).then(data=>{const rec=data.record||{};if(!rec.analytics)rec.analytics={pages:{},daily:{},totalVisits:0};const page=document.title||window.location.pathname,today=new Date().toDateString();rec.analytics.pages[page]=(rec.analytics.pages[page]||0)+1;rec.analytics.daily[today]=(rec.analytics.daily[today]||0)+1;rec.analytics.totalVisits=(rec.analytics.totalVisits||0)+1;return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(rec)});}).catch(()=>{});})();</script>
+<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 </body>
 </html>
