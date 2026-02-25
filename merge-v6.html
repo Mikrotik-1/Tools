@@ -2,7 +2,6 @@
 <html lang="en" dir="ltr">
 <head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
-      
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -15,1859 +14,290 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --secondary: #10b981;
-            --accent: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
-            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
-            --border-radius: 16px;
-            
-            /* لون علامة جديد */
-            --new-badge-start: #ff416c;
-            --new-badge-end: #ff4b2b;
-            --new-badge-glow: rgba(255, 65, 108, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.8;
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body.ar {
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        /* ===== قائمة التنقل العلوية ===== */
-        .navbar {
-            background: var(--dark);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .logo-icon {
-            background: var(--gradient);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link.active {
-            color: white;
-            background: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 70%;
-        }
-
-        .nav-cta {
-            background: var(--gradient);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* ===== أزرار تبديل اللغة ===== */
-        .lang-switcher {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 0 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: #cbd5e1;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-btn i {
-            font-size: 12px;
-        }
-
-        .lang-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-        }
-
-        /* ===== القوائم المنسدلة للـ navbar ===== */
-        .navbar-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .navbar-dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .navbar-dropdown-arrow {
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        .navbar-dropdown:hover .navbar-dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .navbar-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: #1e293b;
-            min-width: 250px;
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .navbar-dropdown:hover .navbar-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .navbar-dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: #f1f5f9;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-weight: 500;
-            margin: 2px 0;
-        }
-
-        .navbar-dropdown-item i {
-            width: 20px;
-            font-size: 16px;
-            color: var(--primary-light);
-        }
-
-        .navbar-dropdown-item:hover {
-            background: rgba(99, 102, 241, 0.25);
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        .navbar-dropdown-item:hover i {
-            color: white;
-        }
-
-        .navbar-dropdown-item.active {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .navbar-dropdown-item.active i {
-            color: white;
-        }
-
-        /* ===== علامة جديد المميزة ===== */
-        .new-badge {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 30px;
-            margin-left: 5px;
-            display: inline-block;
-            animation: newGlow 1.5s ease-in-out infinite;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            top: -2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes newGlow {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, #ff4b2b, #ff416c);
-                box-shadow: 0 4px 20px rgba(255, 65, 108, 0.9);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 10px rgba(255, 65, 108, 0.5);
-            }
-        }
-
-        /* تنسيق خاص للغة العربية */
-        body.rtl .new-badge {
-            margin-right: 5px;
-            margin-left: 0;
-        }
-
-        /* RTL Support */
-        body.rtl {
-            direction: rtl;
-            text-align: right;
-        }
-
-        body.rtl .nav-link::after {
-            left: auto;
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        body.rtl .navbar-dropdown-item:hover {
-            transform: translateX(5px);
-        }
-
-        body.rtl .new-badge {
-            margin-left: 0;
-            margin-right: 5px;
-        }
-
-        /* ===== الهيرو المعدل ===== */
-        .hero-merge {
-            background: var(--gradient-dark);
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .hero-merge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: 200px;
-        }
-
-        .hero-content-merge {
-            max-width: 1200px;
-            text-align: center;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge-merge {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-title-merge {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle-merge {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        /* ===== قسم توليد السكربت ===== */
-        .generator-section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .generator-card {
-            background: var(--gradient-card);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .generator-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-
-        .tool-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ===== إعدادات التوليد ===== */
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .setting-group {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        .setting-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .setting-title i {
-            color: var(--primary);
-        }
-
-        /* ===== إدخال البيانات ===== */
-        .input-box {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .input-field:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-            outline: none;
-        }
-
-        /* ===== قسم اختيار عدد الخطوط ===== */
-        .lines-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin: 2rem 0;
-            border: 1px solid #e2e8f0;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--primary);
-        }
-
-        /* ===== القائمة المنسدلة الداخلية ===== */
-        .inner-dropdown-selector {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .inner-dropdown-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .inner-dropdown-box:hover {
-            border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.1);
-        }
-
-        .inner-dropdown-box.active {
-            border-color: var(--primary);
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .inner-dropdown-selected {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1.1rem;
-        }
-
-        .inner-dropdown-arrow {
-            color: var(--gray);
-            font-size: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .inner-dropdown-box.active .inner-dropdown-arrow {
-            transform: rotate(180deg);
-            color: var(--primary);
-        }
-
-        .inner-dropdown-list {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 2px solid var(--primary);
-            border-top: none;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 100;
-            display: none;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .inner-dropdown-list.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .inner-dropdown-item {
-            padding: 14px 20px;
-            cursor: pointer;
-            color: var(--dark);
-            transition: all 0.2s ease;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .inner-dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .inner-dropdown-item:hover {
-            background: #f8fafc;
-            color: var(--primary);
-            padding-left: 25px;
-        }
-
-        body.rtl .inner-dropdown-item:hover {
-            padding-left: 20px;
-            padding-right: 25px;
-        }
-
-        /* ===== حاويات الخطوط ===== */
-        .lines-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .line-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .line-box:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
-        }
-
-        .line-title {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ===== الأزرار ===== */
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            min-width: 200px;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
-        }
-
-        /* ===== نتيجة السكربت ===== */
-        .result-section {
-            margin-top: 3rem;
-            display: none;
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .script-output {
-            width: 100%;
-            min-height: 300px;
-            padding: 1.5rem;
-            border-radius: 12px;
-            background: #1e293b;
-            color: #38bdf8;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            border: none;
-            resize: vertical;
-            white-space: pre-wrap;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* ===== قسم الاتصال ===== */
-        .contact {
-            padding: 6rem 2rem;
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .contact-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #a5b4fc, #f0abfc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-subtitle {
-            color: #94a3b8;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .contact-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-phone {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1rem 0;
-            direction: ltr;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-name {
-            color: #94a3b8;
-            margin-bottom: 2rem;
-        }
-
-        /* ===== التذييل ===== */
-        .footer {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        /* ===== التجاوب ===== */
-        @media (max-width: 1024px) {
-            .hero-title-merge {
-                font-size: 2.5rem;
-            }
-            
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .lines-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: 0;
-                background: var(--dark);
-                width: 100%;
-                padding: 1rem;
-                flex-direction: column;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .lang-switcher {
-                width: 100%;
-                justify-content: center;
-                margin: 10px 0 20px;
-                order: -1;
-            }
-            
-            .lang-btn {
-                flex: 1;
-                justify-content: center;
-                padding: 8px;
-            }
-            
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .navbar-dropdown {
-                width: 100%;
-            }
-            
-            .navbar-dropdown-toggle {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .navbar-dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                background: rgba(255, 255, 255, 0.08);
-                margin-top: 5px;
-                margin-bottom: 10px;
-                display: none;
-                width: 100%;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .navbar-dropdown.active .navbar-dropdown-menu {
-                display: block;
-            }
-            
-            .navbar-dropdown-toggle {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .navbar-dropdown-item {
-                justify-content: center;
-                color: #e2e8f0;
-            }
-            
-            .nav-cta {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                margin-top: 10px;
-            }
-            
-            .hero-title-merge {
-                font-size: 2rem;
-            }
-            
-            .generator-section {
-                padding: 2rem 1rem;
-            }
-            
-            .generator-card {
-                padding: 1.5rem;
-            }
-            
-            .btn {
-                min-width: 100%;
-            }
-            
-            .btn-group {
-                flex-direction: column;
-            }
-            
-            .lines-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-merge {
-                min-height: 60vh;
-                padding: 100px 1rem 2rem;
-            }
-            
-            .contact-phone {
-                font-size: 1.8rem;
-            }
+        :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;--new-badge-start:#ff416c;--new-badge-end:#ff4b2b;--new-badge-glow:rgba(255,65,108,0.5);}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--light);color:var(--dark);line-height:1.8;min-height:100vh;overflow-x:hidden;font-family:'Poppins',sans-serif;}
+        body.ar{font-family:'Tajawal',sans-serif;}
+        body.rtl{direction:rtl;text-align:right;}
+        body.rtl .nav-link::after{left:auto;right:50%;transform:translateX(50%);}
+        body.rtl .navbar-dropdown-item:hover{transform:translateX(5px);}
+        body.rtl .new-badge{margin-right:5px;margin-left:0;}
+        .navbar{background:var(--dark);padding:1rem 2rem;position:fixed;top:0;right:0;left:0;z-index:1000;box-shadow:0 5px 20px rgba(0,0,0,0.1);backdrop-filter:blur(10px);}
+        .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+        .logo{display:flex;align-items:center;gap:15px;text-decoration:none;color:white;}
+        .logo-icon{background:var(--gradient);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;animation:pulse 2s infinite;}
+        @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+        .logo-text{font-size:24px;font-weight:800;}
+        .nav-links{display:flex;gap:0.5rem;align-items:center;}
+        .nav-link{color:#cbd5e1;text-decoration:none;font-weight:500;transition:all 0.3s;padding:8px 16px;border-radius:10px;position:relative;display:flex;align-items:center;gap:6px;}
+        .nav-link:hover{color:white;background:rgba(255,255,255,0.1);}
+        .nav-link.active{color:white;background:var(--primary);}
+        .nav-cta{background:var(--gradient);color:white;padding:10px 24px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
+        .menu-toggle{display:none;background:none;border:none;color:white;font-size:24px;cursor:pointer;}
+        .lang-switcher{display:flex;gap:5px;background:rgba(255,255,255,0.05);padding:4px;border-radius:30px;border:1px solid rgba(255,255,255,0.1);margin:0 10px;}
+        .lang-btn{background:transparent;border:none;color:#cbd5e1;padding:6px 16px;border-radius:25px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px;}
+        .lang-btn:hover{color:white;background:rgba(255,255,255,0.1);}
+        .lang-btn.active{background:var(--primary);color:white;box-shadow:0 4px 10px rgba(99,102,241,0.3);}
+        .navbar-dropdown{position:relative;display:inline-block;}
+        .navbar-dropdown-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;}
+        .navbar-dropdown-arrow{font-size:12px;transition:transform 0.3s;}
+        .navbar-dropdown:hover .navbar-dropdown-arrow{transform:rotate(180deg);}
+        .navbar-dropdown-menu{position:absolute;top:100%;right:0;background:#1e293b;min-width:250px;border-radius:12px;padding:8px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s;z-index:1000;border:1px solid rgba(255,255,255,0.15);}
+        .navbar-dropdown:hover .navbar-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+        .navbar-dropdown-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#f1f5f9;text-decoration:none;border-radius:8px;transition:all 0.3s;font-weight:500;margin:2px 0;}
+        .navbar-dropdown-item i{width:20px;font-size:16px;color:var(--primary-light);}
+        .navbar-dropdown-item:hover{background:rgba(99,102,241,0.25);color:white;transform:translateX(-5px);}
+        .navbar-dropdown-item.active{background:var(--gradient);color:white;}
+        .navbar-dropdown-item.active i{color:white;}
+        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-left:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
+        @keyframes newGlow{0%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5);}50%{transform:scale(1.1);background:linear-gradient(135deg,#ff4b2b,#ff416c);box-shadow:0 4px 20px rgba(255,65,108,0.9);}100%{transform:scale(1);box-shadow:0 2px 10px rgba(255,65,108,0.5);}}
+        .hero-merge{background:var(--gradient-dark);min-height:70vh;display:flex;align-items:center;justify-content:center;padding:120px 2rem 4rem;position:relative;overflow:hidden;text-align:center;}
+        .hero-content-merge{max-width:1200px;text-align:center;color:white;position:relative;z-index:1;}
+        .hero-badge-merge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;margin-bottom:1.5rem;border:1px solid rgba(99,102,241,0.3);}
+        .hero-title-merge{font-size:3rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(to right,#ffffff,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;}
+        .hero-subtitle-merge{font-size:1.1rem;color:#cbd5e1;margin-bottom:2rem;max-width:700px;margin-right:auto;margin-left:auto;}
+        .generator-section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
+        .generator-card{background:var(--gradient-card);padding:2.5rem;border-radius:var(--border-radius);box-shadow:var(--shadow);border:1px solid rgba(99,102,241,0.1);position:relative;overflow:hidden;}
+        .generator-card::before{content:'';position:absolute;top:0;right:0;width:100%;height:4px;background:var(--gradient);}
+        .tool-title{font-size:2rem;font-weight:800;margin-bottom:2rem;text-align:center;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-bottom:2rem;}
+        .setting-group{background:white;padding:1.5rem;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);border:1px solid #e2e8f0;}
+        .setting-title{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--dark);display:flex;align-items:center;gap:10px;}
+        .setting-title i{color:var(--primary);}
+        .input-box{margin-bottom:1.5rem;}
+        .input-label{display:block;font-weight:600;margin-bottom:0.5rem;color:var(--dark);font-size:0.95rem;}
+        .input-field{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:1rem;transition:all 0.3s;background:white;}
+        .input-field:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.1);outline:none;}
+        .lines-section{background:white;padding:2rem;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);margin:2rem 0;border:1px solid #e2e8f0;}
+        .section-title{font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);display:flex;align-items:center;gap:10px;}
+        .section-title i{color:var(--primary);}
+        .inner-dropdown-selector{position:relative;width:100%;max-width:400px;margin:0 auto;}
+        .inner-dropdown-box{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:white;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all 0.3s ease;user-select:none;}
+        .inner-dropdown-box:hover{border-color:var(--primary);box-shadow:0 5px 15px rgba(99,102,241,0.1);}
+        .inner-dropdown-box.active{border-color:var(--primary);border-bottom-left-radius:0;border-bottom-right-radius:0;}
+        .inner-dropdown-selected{display:flex;align-items:center;gap:12px;font-weight:600;color:var(--dark);font-size:1.1rem;}
+        .inner-dropdown-arrow{color:var(--gray);font-size:12px;transition:transform 0.3s ease;}
+        .inner-dropdown-box.active .inner-dropdown-arrow{transform:rotate(180deg);color:var(--primary);}
+        .inner-dropdown-list{position:absolute;top:100%;left:0;right:0;background:white;border:2px solid var(--primary);border-top:none;border-bottom-left-radius:12px;border-bottom-right-radius:12px;max-height:300px;overflow-y:auto;z-index:100;display:none;box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+        .inner-dropdown-list.active{display:block;animation:slideDown 0.3s ease;}
+        @keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+        .inner-dropdown-item{padding:14px 20px;cursor:pointer;color:var(--dark);transition:all 0.2s ease;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:10px;}
+        .inner-dropdown-item:last-child{border-bottom:none;}
+        .inner-dropdown-item:hover{background:#f8fafc;color:var(--primary);padding-left:25px;}
+        body.rtl .inner-dropdown-item:hover{padding-left:20px;padding-right:25px;}
+        .lines-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin:2rem 0;}
+        .line-box{background:white;padding:1.5rem;border-radius:12px;border:2px solid #e2e8f0;transition:all 0.3s ease;}
+        .line-box:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 10px 20px rgba(99,102,241,0.1);}
+        .line-title{color:var(--primary);margin-bottom:1rem;font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:8px;}
+        .btn-group{display:flex;gap:1rem;justify-content:center;margin:2rem 0;flex-wrap:wrap;}
+        .btn{padding:1rem 2.5rem;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:10px;font-size:1rem;border:none;cursor:pointer;min-width:200px;justify-content:center;}
+        .btn-primary{background:var(--gradient);color:white;}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(99,102,241,0.3);}
+        .btn-secondary{background:var(--secondary);color:white;}
+        .btn-secondary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(16,185,129,0.3);}
+        .result-section{margin-top:3rem;display:none;}
+        .result-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;}
+        .result-title{font-size:1.5rem;font-weight:700;color:var(--dark);}
+        .script-output{width:100%;min-height:300px;padding:1.5rem;border-radius:12px;background:#1e293b;color:#38bdf8;font-family:'Courier New',monospace;font-size:0.95rem;line-height:1.6;border:none;resize:vertical;white-space:pre-wrap;direction:ltr;text-align:left;}
+        .contact{padding:6rem 2rem;background:var(--dark);color:white;text-align:center;margin-top:4rem;}
+        .contact-title{font-size:2.5rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(to right,#a5b4fc,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .contact-subtitle{color:#94a3b8;margin-bottom:3rem;max-width:600px;margin-right:auto;margin-left:auto;}
+        .contact-info{background:rgba(255,255,255,0.05);padding:3rem;border-radius:var(--border-radius);border:1px solid rgba(255,255,255,0.1);max-width:600px;margin:0 auto;}
+        .contact-phone{font-size:2.5rem;font-weight:800;margin:1rem 0;direction:ltr;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .contact-name{color:#94a3b8;margin-bottom:2rem;}
+        .footer{background:#0f172a;color:#94a3b8;padding:3rem 2rem;text-align:center;}
+        .footer-content{max-width:1200px;margin:0 auto;}
+        .footer-text{font-size:1rem;margin-bottom:1rem;}
+        .copyright{color:#64748b;font-size:0.9rem;}
+        @media(max-width:768px){
+            .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto;}
+            .nav-links.active{display:flex;}.menu-toggle{display:block;}
+            .lang-switcher{width:100%;justify-content:center;margin:10px 0 20px;order:-1;}
+            .lang-btn{flex:1;justify-content:center;padding:8px;}
+            .nav-link{width:100%;text-align:center;justify-content:center;}
+            .navbar-dropdown{width:100%;}.navbar-dropdown-toggle{width:100%;justify-content:space-between;}
+            .navbar-dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:rgba(255,255,255,0.08);margin-top:5px;margin-bottom:10px;display:none;width:100%;border:1px solid rgba(255,255,255,0.1);}
+            .navbar-dropdown.active .navbar-dropdown-menu{display:block;}
+            .navbar-dropdown-item{justify-content:center;color:#e2e8f0;}
+            .nav-cta{width:100%;text-align:center;justify-content:center;margin-top:10px;}
+            .hero-title-merge{font-size:2rem;}.generator-section{padding:2rem 1rem;}.generator-card{padding:1.5rem;}
+            .btn{min-width:100%;}.btn-group{flex-direction:column;}.lines-container{grid-template-columns:1fr;}
         }
     </style>
 </head>
 <body>
-    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-bolt"></i>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+            <span class="logo-text">MikroTools</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <div class="lang-switcher">
+                <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
+                <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
+            </div>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">Home</span></a>
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle active"><i class="fas fa-code-branch"></i><span data-i18n="merge">Merge</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="merge-v6.html" class="navbar-dropdown-item active"><i class="fas fa-network-wired"></i><span data-i18n="merge_v6">Load Balancing v6</span></a>
+                    <a href="merge-v7.html" class="navbar-dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">Load Balancing v7</span></a>
                 </div>
-                <span class="logo-text">MikroTools</span>
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <div class="nav-links" id="navLinks">
-                <!-- أزرار تبديل اللغة -->
-                <div class="lang-switcher">
-                    <button class="lang-btn active" id="langEn">
-                        <i class="fas fa-globe"></i>
-                        EN
-                    </button>
-                    <button class="lang-btn" id="langAr">
-                        <i class="fas fa-globe"></i>
-                        AR
-                    </button>
+            </div>
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-wifi"></i><span data-i18n="hotspot">Hotspot</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="hotspot.html" class="navbar-dropdown-item"><i class="fas fa-cog"></i><span data-i18n="hotspot_settings">Hotspot+PPP Settings</span></a>
+                    <a href="speed-profiles.html" class="navbar-dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
-                
-                <!-- الرئيسية -->
-                <a href="index.html" class="nav-link" data-i18n="home">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-                
-                <!-- قائمة الدمج المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle active">
-                        <i class="fas fa-code-branch"></i>
-                        <span data-i18n="merge">Merge</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="merge-v6.html" class="navbar-dropdown-item active">
-                            <i class="fas fa-network-wired"></i>
-                            <span data-i18n="merge_v6">Load Balancing v6</span>
-                        </a>
-                        <a href="merge-v7.html" class="navbar-dropdown-item">
-                            <i class="fas fa-rocket"></i>
-                            <span data-i18n="merge_v7">Load Balancing v7</span>
-                        </a>
-                    </div>
+            </div>
+            <!-- Design & Block - ✅ CardEditor مضاف -->
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="Hotspot Editor.html" class="navbar-dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">Hotspot Design</span></a>
+                    <a href="CardEditor.html" class="navbar-dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">Card Designer</span></a>
+                    <a href="block-sites.html" class="navbar-dropdown-item"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">Block Sites</span></a>
                 </div>
-                
-                <!-- قائمة الهوت سبوت المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle">
-                        <i class="fas fa-wifi"></i>
-                        <span data-i18n="hotspot">Hotspot</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="hotspot.html" class="navbar-dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span data-i18n="hotspot_settings">Hotspot+PPP Settings</span>
-                        </a>
-                        <a href="speed-profiles.html" class="navbar-dropdown-item">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span data-i18n="speed_profiles">Speed Profiles</span>
-                        </a>
-                    </div>
+            </div>
+            <div class="navbar-dropdown">
+                <a href="log.html" class="nav-link"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">Log Analyzer</span><span class="new-badge">NEW</span></a>
+            </div>
+            <div class="navbar-dropdown">
+                <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
+                <div class="navbar-dropdown-menu">
+                    <a href="troubleshooting.html" class="navbar-dropdown-item"><i class="fas fa-exclamation-triangle"></i><span data-i18n="troubleshooting">Troubleshooting</span></a>
+                    <a href="about.html" class="navbar-dropdown-item"><i class="fas fa-users"></i><span data-i18n="about">About Us</span></a>
+                    <a href="privacy-policy.html" class="navbar-dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">Privacy Policy</span></a>
                 </div>
-                
-                <!-- قائمة التصميم والحجب المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle">
-                        <i class="fas fa-paint-brush"></i>
-                        <span data-i18n="design_block">Design & Block</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="Hotspot Editor.html" class="navbar-dropdown-item">
-                            <i class="fas fa-paint-brush"></i>
-                            <span data-i18n="hotspot_design">Hotspot Design</span>
-                        </a>
-                        <a href="block-sites.html" class="navbar-dropdown-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span data-i18n="block_sites">Block Sites</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- محلل السجلات مع علامة جديد -->
-                <div class="navbar-dropdown">
-                    <a href="log.html" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span data-i18n="log_analyzer">Log Analyzer</span>
-                        <span class="new-badge">NEW</span>
-                    </a>
-                </div>
-                
-                <!-- قائمة المساعدة المنسدلة -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="nav-link navbar-dropdown-toggle">
-                        <i class="fas fa-question-circle"></i>
-                        <span data-i18n="help">Help</span>
-                        <i class="fas fa-chevron-down navbar-dropdown-arrow"></i>
-                    </a>
-                    <div class="navbar-dropdown-menu">
-                        <a href="troubleshooting.html" class="navbar-dropdown-item">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span data-i18n="troubleshooting">Troubleshooting</span>
-                        </a>
-                        <a href="about.html" class="navbar-dropdown-item">
-                            <i class="fas fa-users"></i>
-                            <span data-i18n="about">About Us</span>
-                        </a>
-                        <a href="privacy-policy.html" class="navbar-dropdown-item">
-                            <i class="fas fa-user-shield"></i>
-                            <span data-i18n="privacy">Privacy Policy</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- واتساب -->
-                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta">
-                    <i class="fab fa-whatsapp"></i>
-                    <span data-i18n="contact_us">Contact Us</span>
-                </a>
+            </div>
+            <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">Contact Us</span></a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-merge">
+    <div class="hero-content-merge">
+        <span class="hero-badge-merge"><i class="fas fa-network-wired"></i> <span data-i18n="hero_badge">Multiple Internet Line Merging</span></span>
+        <h1 class="hero-title-merge" data-i18n="hero_title">MikroTik Load Balancing v6.x</h1>
+        <p class="hero-subtitle-merge" data-i18n="hero_subtitle">Merge up to 20 internet lines into a complete Load Balancing system for MikroTik RouterOS v6.x</p>
+    </div>
+</section>
+
+<section class="generator-section">
+    <div class="generator-card">
+        <h2 class="tool-title"><i class="fas fa-cogs"></i> <span data-i18n="tool_title">Load Balancing v6 Settings</span></h2>
+        <div class="settings-grid">
+            <div class="setting-group">
+                <h3 class="setting-title"><i class="fas fa-network-wired"></i> <span data-i18n="network_settings">Network Settings</span></h3>
+                <div class="input-box"><label class="input-label" data-i18n="lan_interface">LAN Interface:</label><input type="text" id="lanName" value="OUT" class="input-field" placeholder="Example: bridge-local, ether2"></div>
+                <div class="input-box"><label class="input-label" data-i18n="subnet_range">Subnet Range:</label><input type="text" id="srcAddr" value="10.0.0.1/16" class="input-field" placeholder="Example: 10.0.0.1/16"></div>
             </div>
         </div>
-    </nav>
-
-    <!-- الهيرو المعدل -->
-    <section class="hero-merge">
-        <div class="hero-content-merge">
-            <span class="hero-badge-merge">
-                <i class="fas fa-network-wired"></i>
-                <span data-i18n="hero_badge">Multiple Internet Line Merging</span>
-            </span>
-            
-            <h1 class="hero-title-merge" data-i18n="hero_title">
-                MikroTik Load Balancing v6.x
-            </h1>
-            
-            <p class="hero-subtitle-merge" data-i18n="hero_subtitle">
-                Merge up to 20 internet lines into a complete Load Balancing system
-                for MikroTik RouterOS v6.x
-            </p>
-        </div>
-    </section>
-
-    <!-- قسم توليد السكربت -->
-    <section class="generator-section">
-        <div class="generator-card">
-            <h2 class="tool-title">
-                <i class="fas fa-cogs"></i>
-                <span data-i18n="tool_title">Load Balancing v6 Settings</span>
-            </h2>
-            
-            <!-- الإعدادات الأساسية -->
-            <div class="settings-grid">
-                <div class="setting-group">
-                    <h3 class="setting-title">
-                        <i class="fas fa-network-wired"></i>
-                        <span data-i18n="network_settings">Network Settings</span>
-                    </h3>
-                    
-                    <div class="input-box">
-                        <label class="input-label" data-i18n="lan_interface">LAN Interface:</label>
-                        <input type="text" id="lanName" value="OUT" class="input-field" placeholder="Example: bridge-local, ether2">
-                    </div>
-                    
-                    <div class="input-box">
-                        <label class="input-label" data-i18n="subnet_range">Subnet Range:</label>
-                        <input type="text" id="srcAddr" value="10.0.0.1/16" class="input-field" placeholder="Example: 10.0.0.1/16">
-                    </div>
+        <div class="lines-section">
+            <h3 class="section-title"><i class="fas fa-sliders-h"></i> <span data-i18n="select_lines">Choose number of lines to merge</span></h3>
+            <div class="inner-dropdown-selector">
+                <div class="inner-dropdown-box" onclick="toggleInnerDropdown()">
+                    <div class="inner-dropdown-selected"><span>🔢</span><span id="selectedCount" data-i18n="lines_2">2 Lines</span></div>
+                    <div class="inner-dropdown-arrow">▼</div>
+                </div>
+                <div class="inner-dropdown-list" id="innerDropdownList">
+                    <div class="inner-dropdown-item" onclick="selectLineCount(2)"><i class="fas fa-network-wired"></i><span data-i18n="lines_2">2 Lines (Backup)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(3)"><i class="fas fa-server"></i><span data-i18n="lines_3">3 Lines (Small Business)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(4)"><i class="fas fa-building"></i><span data-i18n="lines_4">4 Lines (Institutions)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(5)"><i class="fas fa-hotel"></i><span data-i18n="lines_5">5 Lines (Hotels)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(6)"><i class="fas fa-university"></i><span data-i18n="lines_6">6 Lines (Universities)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(7)"><i class="fas fa-city"></i><span data-i18n="lines_7">7 Lines (Complexes)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(8)"><i class="fas fa-tower-broadcast"></i><span data-i18n="lines_8">8 Lines (Providers)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(9)"><i class="fas fa-satellite-dish"></i><span data-i18n="lines_9">9 Lines (Large Networks)</span></div>
+                    <div class="inner-dropdown-item" onclick="selectLineCount(10)"><i class="fas fa-globe"></i><span data-i18n="lines_10">10 Lines (Giant Networks)</span></div>
+                </div>
+                <input type="number" id="lineCount" value="2" min="2" max="20" style="display:none;">
+            </div>
+            <div style="margin-top:1.5rem;padding:1rem;background:#f0f9ff;border-radius:10px;border-left:4px solid var(--primary);">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                    <i class="fas fa-info-circle" style="color:var(--primary);"></i>
+                    <span style="font-weight:600;color:var(--primary);" data-i18n="tips_title">Tips for choosing the number of lines</span>
+                </div>
+                <div style="color:var(--gray);font-size:0.9rem;line-height:1.6;">
+                    <span data-i18n="tips_1">• <strong>2-4 lines:</strong> Ideal for small and medium businesses</span><br>
+                    <span data-i18n="tips_2">• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes</span><br>
+                    <span data-i18n="tips_3">• <strong>9-10+ lines:</strong> Ideal for cities and large institutions</span>
                 </div>
             </div>
-
-            <!-- اختيار عدد الخطوط -->
-            <div class="lines-section">
-                <h3 class="section-title">
-                    <i class="fas fa-sliders-h"></i>
-                    <span data-i18n="select_lines">Choose number of lines to merge</span>
-                </h3>
-                
-                <div class="inner-dropdown-selector">
-                    <div class="inner-dropdown-box" onclick="toggleInnerDropdown()">
-                        <div class="inner-dropdown-selected">
-                            <span>🔢</span>
-                            <span id="selectedCount" data-i18n="lines_2">2 Lines</span>
-                        </div>
-                        <div class="inner-dropdown-arrow">▼</div>
-                    </div>
-                    
-                    <div class="inner-dropdown-list" id="innerDropdownList">
-                        <div class="inner-dropdown-item" onclick="selectLineCount(2)">
-                            <i class="fas fa-network-wired"></i>
-                            <span data-i18n="lines_2">2 Lines (Backup)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(3)">
-                            <i class="fas fa-server"></i>
-                            <span data-i18n="lines_3">3 Lines (Small Business)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(4)">
-                            <i class="fas fa-building"></i>
-                            <span data-i18n="lines_4">4 Lines (Institutions)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(5)">
-                            <i class="fas fa-hotel"></i>
-                            <span data-i18n="lines_5">5 Lines (Hotels)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(6)">
-                            <i class="fas fa-university"></i>
-                            <span data-i18n="lines_6">6 Lines (Universities)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(7)">
-                            <i class="fas fa-city"></i>
-                            <span data-i18n="lines_7">7 Lines (Complexes)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(8)">
-                            <i class="fas fa-tower-broadcast"></i>
-                            <span data-i18n="lines_8">8 Lines (Providers)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(9)">
-                            <i class="fas fa-satellite-dish"></i>
-                            <span data-i18n="lines_9">9 Lines (Large Networks)</span>
-                        </div>
-                        <div class="inner-dropdown-item" onclick="selectLineCount(10)">
-                            <i class="fas fa-globe"></i>
-                            <span data-i18n="lines_10">10 Lines (Giant Networks)</span>
-                        </div>
-                    </div>
-                    
-                    <input type="number" id="lineCount" value="2" min="2" max="20" style="display: none;">
-                </div>
-                
-                <div style="margin-top: 1.5rem; padding: 1rem; background: #f0f9ff; border-radius: 10px; border-left: 4px solid var(--primary);">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <i class="fas fa-info-circle" style="color: var(--primary);"></i>
-                        <span style="font-weight: 600; color: var(--primary);" data-i18n="tips_title">Tips for choosing the number of lines</span>
-                    </div>
-                    <div style="color: var(--gray); font-size: 0.9rem; line-height: 1.6;">
-                        <span data-i18n="tips_1">• <strong>2-4 lines:</strong> Ideal for small and medium businesses</span><br>
-                        <span data-i18n="tips_2">• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes</span><br>
-                        <span data-i18n="tips_3">• <strong>9-10+ lines:</strong> Ideal for cities and large institutions</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- حاويات إدخال الخطوط -->
-            <div id="lines-container" class="lines-container">
-                <!-- سيتم إنشاء الخطوط هنا ديناميكياً -->
-            </div>
-
-            <!-- أزرار التوليد -->
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="generateV6Script(); ">
-                    <i class="fas fa-play"></i>
-                    <span data-i18n="generate_btn">Generate v6 Script</span>
-                </button>
-               <button class="btn btn-secondary" onclick="resetForm();">
-                    <i class="fas fa-redo"></i>
-                    <span data-i18n="reset_btn">Reset</span>
-                </button>
-            </div>
-
-            <!-- نتيجة السكربت -->
-            <div id="resultSection" class="result-section">
-                <div class="result-header">
-                    <h3 class="result-title">
-                        <i class="fas fa-code"></i>
-                        <span data-i18n="result_title">Generated Script</span>
-                    </h3>
-                   <button class="btn btn-secondary" onclick="copyScript();">
-                        <i class="fas fa-copy"></i>
-                        <span data-i18n="copy_btn">Copy Script</span>
-                    </button>
-                </div>
-                <textarea id="outputScript" class="script-output" readonly></textarea>
-            </div>
         </div>
-    </section>
-
-    <!-- قسم الاتصال -->
-    <section class="contact">
-        <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
-        <p class="contact-subtitle" data-i18n="contact_desc">
-            Technical support team is available 24/7 to answer your inquiries
-        </p>
-        
-        <div class="contact-info">
-            <h3 style="color: #94a3b8; margin-bottom: 1rem;">
-                <i class="fas fa-headset"></i>
-                <span data-i18n="contact_support">Contact Support</span>
-            </h3>
-            <div class="contact-phone">01092503391</div>
-            <p class="contact-name">Sameh El-Sayed</p>
-           <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary">
-                <i class="fab fa-whatsapp"></i>
-                <span data-i18n="contact_whatsapp">Contact via WhatsApp</span>
-            </a>
+        <div id="lines-container" class="lines-container"></div>
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="generateV6Script()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">Generate v6 Script</span></button>
+            <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
         </div>
-    </section>
-
-    <!-- التذييل -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                <i class="fas fa-phone-alt"></i>
-                <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span>
-            </p>
-            <p class="copyright">
-                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span>
-            </p>
+        <div id="resultSection" class="result-section">
+            <div class="result-header">
+                <h3 class="result-title"><i class="fas fa-code"></i> <span data-i18n="result_title">Generated Script</span></h3>
+                <button class="btn btn-secondary" onclick="copyScript()"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
+            </div>
+            <textarea id="outputScript" class="script-output" readonly></textarea>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <!-- أيقونات التواصل العائمة -->
-    <iframe 
-        src="mikro-icons.html" 
-        style="
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            width: 90px;
-            height: 280px;
-            border: none;
-            z-index: 99999;
-            background: transparent;
-            pointer-events: auto;
-        "
-        scrolling="no"
-        frameborder="0"
-        allowtransparency="true">
-    </iframe>
+<section class="contact">
+    <h2 class="contact-title" data-i18n="need_help">Need Help?</h2>
+    <p class="contact-subtitle" data-i18n="contact_desc">Technical support team is available 24/7 to answer your inquiries</p>
+    <div class="contact-info">
+        <h3 style="color:#94a3b8;margin-bottom:1rem;"><i class="fas fa-headset"></i> <span data-i18n="contact_support">Contact Support</span></h3>
+        <div class="contact-phone">01092503391</div>
+        <p class="contact-name">Sameh El-Sayed</p>
+        <a href="https://wa.me/201092503391" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> <span data-i18n="contact_whatsapp">Contact via WhatsApp</span></a>
+    </div>
+</section>
 
-    <script>
-        // نظام الترجمة
-        const translations = {
-            en: {
-                home: "Home",
-                merge: "Merge",
-                hotspot: "Hotspot",
-                design_block: "Design & Block",
-                help: "Help",
-                merge_v6: "Load Balancing v6",
-                merge_v7: "Load Balancing v7",
-                hotspot_settings: "Hotspot+PPP Settings",
-                speed_profiles: "Speed Profiles",
-                hotspot_design: "Hotspot Design",
-                block_sites: "Block Sites",
-                log_analyzer: "Log Analyzer",
-                troubleshooting: "Troubleshooting",
-                about: "About Us",
-                privacy: "Privacy Policy",
-                contact_us: "Contact Us",
-                hero_badge: "Multiple Internet Line Merging",
-                hero_title: "MikroTik Load Balancing v6.x",
-                hero_subtitle: "Merge up to 20 internet lines into a complete Load Balancing system for MikroTik RouterOS v6.x",
-                tool_title: "Load Balancing v6 Settings",
-                network_settings: "Network Settings",
-                lan_interface: "LAN Interface:",
-                subnet_range: "Subnet Range:",
-                select_lines: "Choose number of lines to merge",
-                lines_2: "2 Lines (Backup)",
-                lines_3: "3 Lines (Small Business)",
-                lines_4: "4 Lines (Institutions)",
-                lines_5: "5 Lines (Hotels)",
-                lines_6: "6 Lines (Universities)",
-                lines_7: "7 Lines (Complexes)",
-                lines_8: "8 Lines (Providers)",
-                lines_9: "9 Lines (Large Networks)",
-                lines_10: "10 Lines (Giant Networks)",
-                tips_title: "Tips for choosing the number of lines",
-                tips_1: "• <strong>2-4 lines:</strong> Ideal for small and medium businesses",
-                tips_2: "• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes",
-                tips_3: "• <strong>9-10+ lines:</strong> Ideal for cities and large institutions",
-                generate_btn: "Generate v6 Script",
-                reset_btn: "Reset",
-                result_title: "Generated Script",
-                copy_btn: "Copy Script",
-                need_help: "Need Help?",
-                contact_desc: "Technical support team is available 24/7 to answer your inquiries",
-                contact_support: "Contact Support",
-                contact_whatsapp: "Contact via WhatsApp",
-                footer_contact: "Contact: 01092503391 - Sameh El-Sayed",
-                copyright: "All rights reserved."
-            },
-            ar: {
-                home: "الرئيسية",
-                merge: "الدمج",
-                hotspot: "الهوت سبوت",
-                design_block: "التصميم والحجب",
-                help: "المساعدة",
-                merge_v6: "دمج خطوط v6",
-                merge_v7: "دمج خطوط v7",
-                hotspot_settings: "اعدادات hotspot+ppp",
-                speed_profiles: "بروفايلات السرعة",
-                hotspot_design: "تصميم hotspot",
-                block_sites: "حجب مواقع",
-                log_analyzer: "محلل السجلات",
-                troubleshooting: "المشكلات الشائعة",
-                about: "من نحن",
-                privacy: "سياسة الخصوصية",
-                contact_us: "تواصل معنا",
-                hero_badge: "دمج خطوط إنترنت متعدد",
-                hero_title: "دمج خطوط ميكروتيك v6.x",
-                hero_subtitle: "دمج حتى 20 خط إنترنت في نظام Load Balancing متكامل لإصدار MikroTik RouterOS v6.x",
-                tool_title: "إعدادات دمج الخطوط v6",
-                network_settings: "إعدادات الشبكة",
-                lan_interface: "اسم كارت الخروج (LAN):",
-                subnet_range: "رينج آيبي المشتركين:",
-                select_lines: "اختر عدد الخطوط للدمج",
-                lines_2: "2 خطوط (نسخ احتياطي)",
-                lines_3: "3 خطوط (شركات صغيرة)",
-                lines_4: "4 خطوط (مؤسسات)",
-                lines_5: "5 خطوط (فنادق)",
-                lines_6: "6 خطوط (جامعات)",
-                lines_7: "7 خطوط (مجمعات)",
-                lines_8: "8 خطوط (مزودين)",
-                lines_9: "9 خطوط (شبكات كبيرة)",
-                lines_10: "10 خطوط (شبكات عملاقة)",
-                tips_title: "نصائح لاختيار عدد الخطوط",
-                tips_1: "• <strong>2-4 خطوط:</strong> مثالي للشركات الصغيرة والمتوسطة",
-                tips_2: "• <strong>5-8 خطوط:</strong> مناسب للفنادق والمجمعات التجارية",
-                tips_3: "• <strong>9-10+ خطوط:</strong> مثالي للمدن والمؤسسات الكبيرة",
-                generate_btn: "توليد سكربت v6",
-                reset_btn: "إعادة تعيين",
-                result_title: "السكربت الناتج",
-                copy_btn: "نسخ السكربت",
-                need_help: "هل تحتاج مساعدة؟",
-                contact_desc: "فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",
-                contact_support: "للتواصل والدعم الفني",
-                contact_whatsapp: "تواصل عبر واتساب",
-                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
-                copyright: "جميع الحقوق محفوظة."
-            }
-        };
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-text"><i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span></p>
+        <p class="copyright">© 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
+    </div>
+</footer>
 
-        // دوال JavaScript لدمج الخطوط v6
-        const SIGNATURE = "By Same7_01092503391";
-        let lineCount = 2;
+<iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 
-        // تبديل اللغة
-        function setLanguage(lang) {
-            localStorage.setItem('language', lang);
-            
-            const html = document.documentElement;
-            const body = document.body;
-            
-            if (lang === 'ar') {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                body.classList.add('ar', 'rtl');
-                body.classList.remove('en');
-            } else {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                body.classList.add('en');
-                body.classList.remove('ar', 'rtl');
-            }
-            
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else if (element.tagName === 'OPTION') {
-                        element.textContent = translations[lang][key];
-                    } else {
-                        element.innerHTML = translations[lang][key];
-                    }
-                }
-            });
-            
-            document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            document.getElementById('langAr').classList.toggle('active', lang === 'ar');
-            
-            // تحديث النص المحدد
-            document.getElementById('selectedCount').textContent = translations[lang][`lines_${lineCount}`];
-        }
-
-        // تبديل القائمة في الجوال
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            const icon = this.querySelector('i');
-            
-            navLinks.classList.toggle('active');
-            if (navLinks.classList.contains('active')) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
-        });
-
-        // إغلاق القائمة عند النقر على رابط
-        document.querySelectorAll('.nav-link, .navbar-dropdown-item').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!link.classList.contains('navbar-dropdown-toggle')) {
-                    document.getElementById('navLinks').classList.remove('active');
-                    document.querySelector('#menuToggle i').className = 'fas fa-bars';
-                }
-            });
-        });
-
-        // تفعيل القوائم المنسدلة في الجوال
-        document.querySelectorAll('.navbar-dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const dropdown = this.closest('.navbar-dropdown');
-                    dropdown.classList.toggle('active');
-                    
-                    const arrow = this.querySelector('.navbar-dropdown-arrow');
-                    if (dropdown.classList.contains('active')) {
-                        arrow.style.transform = 'rotate(180deg)';
-                    } else {
-                        arrow.style.transform = 'rotate(0)';
-                    }
-                }
-            });
-        });
-
-        // أحداث أزرار اللغة
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
-        document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
-
-        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
-        const savedLanguage = localStorage.getItem('language') || 'en';
-        setLanguage(savedLanguage);
-
-        // القائمة المنسدلة الداخلية
-        function toggleInnerDropdown() {
-            const dropdownList = document.getElementById('innerDropdownList');
-            const dropdownBox = dropdownList.previousElementSibling;
-            
-            dropdownList.classList.toggle('active');
-            dropdownBox.classList.toggle('active');
-        }
-
-        function selectLineCount(count) {
-            lineCount = count;
-            document.getElementById('lineCount').value = count;
-            const lang = document.documentElement.lang;
-            document.getElementById('selectedCount').textContent = translations[lang][`lines_${count}`];
-            
-            // إغلاق القائمة
-            document.getElementById('innerDropdownList').classList.remove('active');
-            document.querySelector('.inner-dropdown-box').classList.remove('active');
-            
-            // إنشاء مدخلات الخطوط
-            createLineInputs();
-            
-            // عرض رسالة تأكيد
-            showCountMessage(count);
-        }
-
-        // إنشاء مدخلات الخطوط
-        function createLineInputs() {
-            const container = document.getElementById('lines-container');
-            container.innerHTML = '';
-            
-            for (let i = 1; i <= lineCount; i++) {
-                const baseIP = 100 + (i - 1);
-                const wanIp = `192.168.${baseIP}.${baseIP}/24`;
-                const wanGateway = `192.168.${baseIP}.1`;
-                
-                const lineBox = document.createElement('div');
-                lineBox.className = 'line-box';
-                lineBox.innerHTML = `
-                    <div class="line-title">
-                        <i class="fas fa-plug"></i>
-                        WAN${i} Line
-                    </div>
-                    <div class="input-box">
-                        <label class="input-label">MikroTik IP Address:</label>
-                        <input type="text" id="wan${i}Ip" value="${wanIp}" class="input-field" placeholder="Example: ${wanIp}">
-                    </div>
-                    <div class="input-box">
-                        <label class="input-label">Router Gateway:</label>
-                        <input type="text" id="wan${i}Gateway" value="${wanGateway}" class="input-field" placeholder="Example: ${wanGateway}">
-                    </div>
-                `;
-                
-                container.appendChild(lineBox);
-            }
-        }
-
-        // رسالة تأكيد عدد الخطوط
-        function showCountMessage(count) {
-            let message = '';
-            let icon = '✅';
-            const lang = document.documentElement.lang;
-            
-            if (lang === 'ar') {
-                if (count === 2) {
-                    message = `تم اختيار خطين - مثالي للنسخ الاحتياطي (Failover)`;
-                } else if (count >= 3 && count <= 5) {
-                    message = `تم اختيار ${count} خطوط - مثالي للشركات الصغيرة والمتوسطة`;
-                } else if (count >= 6 && count <= 8) {
-                    message = `تم اختيار ${count} خطوط - مناسب للفنادق والمجمعات التجارية`;
-                    icon = '🏢';
-                } else {
-                    message = `تم اختيار ${count} خطوط - نظام دمج احترافي كبير`;
-                    icon = '🚀';
-                }
-            } else {
-                if (count === 2) {
-                    message = `Selected 2 lines - Perfect for backup (Failover)`;
-                } else if (count >= 3 && count <= 5) {
-                    message = `Selected ${count} lines - Ideal for small and medium businesses`;
-                } else if (count >= 6 && count <= 8) {
-                    message = `Selected ${count} lines - Suitable for hotels and commercial complexes`;
-                    icon = '🏢';
-                } else {
-                    message = `Selected ${count} lines - Professional large merging system`;
-                    icon = '🚀';
-                }
-            }
-            
-            const alertDiv = document.createElement('div');
-            alertDiv.style.cssText = `
-                background: linear-gradient(135deg, #10b981, #059669);
-                color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
-                margin: 1rem 0;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: fadeIn 0.3s ease;
-            `;
-            
-            alertDiv.innerHTML = `
-                <span>${icon}</span>
-                <span>${message}</span>
-            `;
-            
-            const oldAlert = document.querySelector('.count-alert');
-            if (oldAlert) oldAlert.remove();
-            
-            alertDiv.className = 'count-alert';
-            const container = document.getElementById('lines-container');
-            if (container && container.parentNode) {
-                container.parentNode.insertBefore(alertDiv, container);
-            }
-            
-            // إزالة الرسالة بعد 5 ثواني
-            setTimeout(() => {
-                if (alertDiv.parentNode) {
-                    alertDiv.style.opacity = '0';
-                    alertDiv.style.transition = 'opacity 0.5s ease';
-                    setTimeout(() => {
-                        if (alertDiv.parentNode) {
-                            alertDiv.remove();
-                        }
-                    }, 500);
-                }
-            }, 5000);
-        }
-
-        // تحقق من صحة IP
-        function validateIP(ip) {
-            const regex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
-            if (!regex.test(ip)) return false;
-            
-            const parts = ip.split('/')[0].split('.');
-            return parts.every(part => {
-                const num = parseInt(part);
-                return num >= 0 && num <= 255;
-            });
-        }
-
-        // توليد سكربت v6
-        function generateV6Script() {
-            const lan = document.getElementById('lanName').value.trim();
-            const src = document.getElementById('srcAddr').value.trim();
-            
-            if (!lan || !src) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            // جمع بيانات الخطوط
-            const lines = [];
-            let isValid = true;
-            
-            for (let i = 1; i <= lineCount; i++) {
-                const ip = document.getElementById(`wan${i}Ip`).value.trim();
-                const gateway = document.getElementById(`wan${i}Gateway`).value.trim();
-                
-                if (!ip || !gateway) {
-                    alert(`Please enter all data for line WAN${i}`);
-                    isValid = false;
-                    break;
-                }
-                
-                if (!validateIP(ip) || !validateIP(gateway)) {
-                    alert(`Invalid data for line WAN${i}`);
-                    isValid = false;
-                    break;
-                }
-                
-                lines.push({ ip, gateway });
-            }
-            
-            if (!isValid) return;
-            
-            // بناء السكربت
-            let script = `# ${SIGNATURE}\n`;
-            script += `# Load Balancing v6.x - ${lineCount} Lines\n\n`;
-            
-            script += `/ip address\n`;
-            lines.forEach((line, index) => {
-                const network = line.ip.split('/')[0].split('.').slice(0,3).join('.') + '.0';
-                script += `add address=${line.ip} network=${network} interface=WAN${index + 1} comment="${SIGNATURE}"\n`;
-            });
-            
-            script += `\n/ip firewall mangle\n`;
-            
-            // Mark connections from each WAN
-            lines.forEach((line, index) => {
-                const i = index + 1;
-                script += `add action=mark-connection chain=input comment="${SIGNATURE}" connection-mark=no-mark in-interface=WAN${i} new-connection-mark=cm_in_public${i} passthrough=yes\n`;
-                script += `add action=mark-routing chain=output connection-mark=cm_in_public${i} new-routing-mark=via_public${i} passthrough=no\n`;
-            });
-            
-            script += `\nadd action=jump chain=prerouting comment="JUMP -> LOADBALANCE" dst-address-type=!local hotspot=auth in-interface=${lan} jump-target=loadbalance src-address=${src}\n\n`;
-            
-            // Load balancing classifier
-            for (let i = 0; i < lineCount; i++) {
-                script += `add action=mark-connection chain=loadbalance new-connection-mark=cm_lb_${i+1} per-connection-classifier=both-addresses-and-ports:${lineCount}/${i} passthrough=yes comment="${SIGNATURE}"\n`;
-            }
-            
-            // Routing marks
-            for (let i = 1; i <= lineCount; i++) {
-                script += `add action=mark-routing chain=prerouting connection-mark=cm_lb_${i} in-interface=${lan} new-routing-mark=via_public${i} passthrough=no\n`;
-            }
-            
-            script += `\n/ip firewall nat\n`;
-            lines.forEach((line, index) => {
-                script += `add chain=srcnat out-interface=WAN${index + 1} action=masquerade comment="${SIGNATURE}"\n`;
-            });
-            
-            script += `\n/ip route\n`;
-            const gateways = lines.map(line => line.gateway);
-            lines.forEach((line, index) => {
-                script += `add check-gateway=ping distance=1 gateway=${line.gateway} routing-mark=via_public${index + 1} comment="${SIGNATURE}"\n`;
-            });
-            
-            // Default route with all gateways
-            if (gateways.length > 0) {
-                script += `add check-gateway=ping distance=1 gateway=${gateways.join(',')} comment="Main-Gateways ${SIGNATURE}"\n`;
-            }
-            
-            script += `\n# Created by MikroTools\n`;
-            script += `# Contact: 01092503391 - Sameh El-Sayed\n`;
-            
-            document.getElementById('outputScript').value = script;
-            document.getElementById('resultSection').style.display = 'block';
-            
-            // تمرير إلى النتيجة
-            window.scrollTo({
-                top: document.getElementById('resultSection').offsetTop - 100,
-                behavior: 'smooth'
-            });
-        }
-
-        // نسخ السكربت
-        function copyScript() {
-            const scriptOutput = document.getElementById('outputScript');
-            if (!scriptOutput.value) {
-                alert('No script to copy');
-                return;
-            }
-            
-            scriptOutput.select();
-            scriptOutput.setSelectionRange(0, 99999);
-            
-            try {
-                navigator.clipboard.writeText(scriptOutput.value);
-                alert('Script copied successfully! ✅');
-            } catch (err) {
-                document.execCommand('copy');
-                alert('Script copied successfully! ✅');
-            }
-        }
-
-        // إعادة تعيين النموذج
-        function resetForm() {
-            document.getElementById('lanName').value = 'bridge-local';
-            document.getElementById('srcAddr').value = '10.0.0.1/16';
-            selectLineCount(2);
-            document.getElementById('outputScript').value = '';
-            document.getElementById('resultSection').style.display = 'none';
-        }
-
-        // إغلاق القائمة المنسدلة الداخلية عند النقر خارجها
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.inner-dropdown-selector')) {
-                document.getElementById('innerDropdownList').classList.remove('active');
-                document.querySelector('.inner-dropdown-box').classList.remove('active');
-            }
-        });
-
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            createLineInputs();
-            
-            // إغلاق القوائم المنسدلة عند الضغط على Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    document.getElementById('innerDropdownList').classList.remove('active');
-                    document.querySelector('.inner-dropdown-box').classList.remove('active');
-                    
-                    const navLinks = document.getElementById('navLinks');
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        document.querySelector('#menuToggle i').className = 'fas fa-bars';
-                    }
-                }
-            });
-        });
-    </script>
-      <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
 <script>
-(function() {
-    const BIN_ID = '6984fe4d43b1c97be9684aa8';
-    const API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    
-    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-        headers: { 'X-Master-Key': API_KEY }
-    })
-    .then(res => res.json())
-    .then(data => {
-        const record = data.record || {};
-        if (!record.analytics) record.analytics = { pages: {}, daily: {}, totalVisits: 0 };
-        
-        const page = document.title || window.location.pathname;
-        const today = new Date().toDateString();
-        
-        record.analytics.pages[page] = (record.analytics.pages[page] || 0) + 1;
-        record.analytics.daily[today] = (record.analytics.daily[today] || 0) + 1;
-        record.analytics.totalVisits = (record.analytics.totalVisits || 0) + 1;
-        
-        return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': API_KEY
-            },
-            body: JSON.stringify(record)
-        });
-    })
-    .catch(() => {});
-})();
+const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Multiple Internet Line Merging",hero_title:"MikroTik Load Balancing v6.x",hero_subtitle:"Merge up to 20 internet lines into a complete Load Balancing system for MikroTik RouterOS v6.x",tool_title:"Load Balancing v6 Settings",network_settings:"Network Settings",lan_interface:"LAN Interface:",subnet_range:"Subnet Range:",select_lines:"Choose number of lines to merge",lines_2:"2 Lines (Backup)",lines_3:"3 Lines (Small Business)",lines_4:"4 Lines (Institutions)",lines_5:"5 Lines (Hotels)",lines_6:"6 Lines (Universities)",lines_7:"7 Lines (Complexes)",lines_8:"8 Lines (Providers)",lines_9:"9 Lines (Large Networks)",lines_10:"10 Lines (Giant Networks)",tips_title:"Tips for choosing the number of lines",tips_1:"• <strong>2-4 lines:</strong> Ideal for small and medium businesses",tips_2:"• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes",tips_3:"• <strong>9-10+ lines:</strong> Ideal for cities and large institutions",generate_btn:"Generate v6 Script",reset_btn:"Reset",result_title:"Generated Script",copy_btn:"Copy Script",need_help:"Need Help?",contact_desc:"Technical support team is available 24/7 to answer your inquiries",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_badge:"دمج خطوط إنترنت متعدد",hero_title:"دمج خطوط ميكروتيك v6.x",hero_subtitle:"دمج حتى 20 خط إنترنت في نظام Load Balancing متكامل لإصدار MikroTik RouterOS v6.x",tool_title:"إعدادات دمج الخطوط v6",network_settings:"إعدادات الشبكة",lan_interface:"اسم كارت الخروج (LAN):",subnet_range:"رينج آيبي المشتركين:",select_lines:"اختر عدد الخطوط للدمج",lines_2:"2 خطوط (نسخ احتياطي)",lines_3:"3 خطوط (شركات صغيرة)",lines_4:"4 خطوط (مؤسسات)",lines_5:"5 خطوط (فنادق)",lines_6:"6 خطوط (جامعات)",lines_7:"7 خطوط (مجمعات)",lines_8:"8 خطوط (مزودين)",lines_9:"9 خطوط (شبكات كبيرة)",lines_10:"10 خطوط (شبكات عملاقة)",tips_title:"نصائح لاختيار عدد الخطوط",tips_1:"• <strong>2-4 خطوط:</strong> مثالي للشركات الصغيرة والمتوسطة",tips_2:"• <strong>5-8 خطوط:</strong> مناسب للفنادق والمجمعات التجارية",tips_3:"• <strong>9-10+ خطوط:</strong> مثالي للمدن والمؤسسات الكبيرة",generate_btn:"توليد سكربت v6",reset_btn:"إعادة تعيين",result_title:"السكربت الناتج",copy_btn:"نسخ السكربت",need_help:"هل تحتاج مساعدة؟",contact_desc:"فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",contact_support:"للتواصل والدعم الفني",contact_whatsapp:"تواصل عبر واتساب",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}};
+const SIGNATURE="By Same7_01092503391";let lineCount=2;
+function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');document.getElementById('selectedCount').textContent=translations[lang][`lines_${lineCount}`];}
+document.getElementById('menuToggle').addEventListener('click',function(){const n=document.getElementById('navLinks'),i=this.querySelector('i');n.classList.toggle('active');i.className=n.classList.contains('active')?'fas fa-times':'fas fa-bars';});
+document.querySelectorAll('.nav-link,.navbar-dropdown-item').forEach(link=>{link.addEventListener('click',()=>{if(!link.classList.contains('navbar-dropdown-toggle')){document.getElementById('navLinks').classList.remove('active');document.querySelector('#menuToggle i').className='fas fa-bars';}});});
+document.querySelectorAll('.navbar-dropdown-toggle').forEach(t=>{t.addEventListener('click',function(e){if(window.innerWidth<=768){e.preventDefault();const d=this.closest('.navbar-dropdown');d.classList.toggle('active');const a=this.querySelector('.navbar-dropdown-arrow');if(a)a.style.transform=d.classList.contains('active')?'rotate(180deg)':'rotate(0)';}});});
+document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
+document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
+setLanguage(localStorage.getItem('language')||'en');
+function toggleInnerDropdown(){const l=document.getElementById('innerDropdownList'),b=l.previousElementSibling;l.classList.toggle('active');b.classList.toggle('active');}
+function selectLineCount(count){lineCount=count;document.getElementById('lineCount').value=count;const lang=document.documentElement.lang;document.getElementById('selectedCount').textContent=translations[lang][`lines_${count}`];document.getElementById('innerDropdownList').classList.remove('active');document.querySelector('.inner-dropdown-box').classList.remove('active');createLineInputs();showCountMessage(count);}
+function createLineInputs(){const container=document.getElementById('lines-container');container.innerHTML='';for(let i=1;i<=lineCount;i++){const baseIP=100+(i-1),wanIp=`192.168.${baseIP}.${baseIP}/24`,wanGateway=`192.168.${baseIP}.1`;const box=document.createElement('div');box.className='line-box';box.innerHTML=`<div class="line-title"><i class="fas fa-plug"></i> WAN${i} Line</div><div class="input-box"><label class="input-label">MikroTik IP Address:</label><input type="text" id="wan${i}Ip" value="${wanIp}" class="input-field"></div><div class="input-box"><label class="input-label">Router Gateway:</label><input type="text" id="wan${i}Gateway" value="${wanGateway}" class="input-field"></div>`;container.appendChild(box);}}
+function showCountMessage(count){const lang=document.documentElement.lang;let msg='',icon='✅';if(lang==='ar'){msg=count===2?'تم اختيار خطين - مثالي للنسخ الاحتياطي':count<=5?`تم اختيار ${count} خطوط - مثالي للشركات الصغيرة والمتوسطة`:count<=8?`تم اختيار ${count} خطوط - مناسب للفنادق`:`تم اختيار ${count} خطوط - نظام دمج احترافي`;if(count>=6)icon='🏢';if(count>=9)icon='🚀';}else{msg=count===2?'Selected 2 lines - Perfect for backup (Failover)':count<=5?`Selected ${count} lines - Ideal for small and medium businesses`:count<=8?`Selected ${count} lines - Suitable for hotels and complexes`:`Selected ${count} lines - Professional large merging system`;if(count>=6)icon='🏢';if(count>=9)icon='🚀';}
+const div=document.createElement('div');div.style.cssText='background:linear-gradient(135deg,#10b981,#059669);color:white;padding:12px 20px;border-radius:10px;margin:1rem 0;display:flex;align-items:center;gap:10px;animation:fadeIn 0.3s ease;';div.innerHTML=`<span>${icon}</span><span>${msg}</span>`;div.className='count-alert';const old=document.querySelector('.count-alert');if(old)old.remove();const c=document.getElementById('lines-container');if(c&&c.parentNode)c.parentNode.insertBefore(div,c);setTimeout(()=>{if(div.parentNode){div.style.opacity='0';div.style.transition='opacity 0.5s ease';setTimeout(()=>{if(div.parentNode)div.remove();},500);}},5000);}
+function validateIP(ip){const r=/^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;if(!r.test(ip))return false;return ip.split('/')[0].split('.').every(p=>{const n=parseInt(p);return n>=0&&n<=255;});}
+function generateV6Script(){const lan=document.getElementById('lanName').value.trim(),src=document.getElementById('srcAddr').value.trim();if(!lan||!src){alert('Please fill in all required fields');return;}const lines=[];let isValid=true;for(let i=1;i<=lineCount;i++){const ip=document.getElementById(`wan${i}Ip`).value.trim(),gateway=document.getElementById(`wan${i}Gateway`).value.trim();if(!ip||!gateway){alert(`Please enter all data for line WAN${i}`);isValid=false;break;}if(!validateIP(ip)||!validateIP(gateway)){alert(`Invalid data for line WAN${i}`);isValid=false;break;}lines.push({ip,gateway});}if(!isValid)return;
+let script=`# ${SIGNATURE}\n# Load Balancing v6.x - ${lineCount} Lines\n\n/ip address\n`;lines.forEach((l,idx)=>{const net=l.ip.split('/')[0].split('.').slice(0,3).join('.')+'.0';script+=`add address=${l.ip} network=${net} interface=WAN${idx+1} comment="${SIGNATURE}"\n`;});
+script+=`\n/ip firewall mangle\n`;lines.forEach((l,idx)=>{const i=idx+1;script+=`add action=mark-connection chain=input comment="${SIGNATURE}" connection-mark=no-mark in-interface=WAN${i} new-connection-mark=cm_in_public${i} passthrough=yes\nadd action=mark-routing chain=output connection-mark=cm_in_public${i} new-routing-mark=via_public${i} passthrough=no\n`;});
+script+=`\nadd action=jump chain=prerouting comment="JUMP -> LOADBALANCE" dst-address-type=!local hotspot=auth in-interface=${lan} jump-target=loadbalance src-address=${src}\n\n`;
+for(let i=0;i<lineCount;i++)script+=`add action=mark-connection chain=loadbalance new-connection-mark=cm_lb_${i+1} per-connection-classifier=both-addresses-and-ports:${lineCount}/${i} passthrough=yes comment="${SIGNATURE}"\n`;
+for(let i=1;i<=lineCount;i++)script+=`add action=mark-routing chain=prerouting connection-mark=cm_lb_${i} in-interface=${lan} new-routing-mark=via_public${i} passthrough=no\n`;
+script+=`\n/ip firewall nat\n`;lines.forEach((l,idx)=>script+=`add chain=srcnat out-interface=WAN${idx+1} action=masquerade comment="${SIGNATURE}"\n`);
+script+=`\n/ip route\n`;const gws=lines.map(l=>l.gateway);lines.forEach((l,idx)=>script+=`add check-gateway=ping distance=1 gateway=${l.gateway} routing-mark=via_public${idx+1} comment="${SIGNATURE}"\n`);
+if(gws.length>0)script+=`add check-gateway=ping distance=1 gateway=${gws.join(',')} comment="Main-Gateways ${SIGNATURE}"\n`;
+script+=`\n# Created by MikroTools\n# Contact: 01092503391 - Sameh El-Sayed\n`;
+document.getElementById('outputScript').value=script;document.getElementById('resultSection').style.display='block';window.scrollTo({top:document.getElementById('resultSection').offsetTop-100,behavior:'smooth'});}
+function copyScript(){const el=document.getElementById('outputScript');if(!el.value){alert('No script to copy');return;}el.select();el.setSelectionRange(0,99999);try{navigator.clipboard.writeText(el.value);alert('Script copied successfully! ✅');}catch(err){document.execCommand('copy');alert('Script copied successfully! ✅');}}
+function resetForm(){document.getElementById('lanName').value='bridge-local';document.getElementById('srcAddr').value='10.0.0.1/16';selectLineCount(2);document.getElementById('outputScript').value='';document.getElementById('resultSection').style.display='none';}
+document.addEventListener('click',function(e){if(!e.target.closest('.inner-dropdown-selector')){document.getElementById('innerDropdownList').classList.remove('active');document.querySelector('.inner-dropdown-box').classList.remove('active');}});
+document.addEventListener('DOMContentLoaded',function(){createLineInputs();document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('innerDropdownList').classList.remove('active');document.querySelector('.inner-dropdown-box').classList.remove('active');const n=document.getElementById('navLinks');if(n.classList.contains('active')){n.classList.remove('active');document.querySelector('#menuToggle i').className='fas fa-bars';}}});});
 </script>
-      <script type="text/javascript">
-(function () {
-    const blockedDomains = [
-        "jumanchu-dragondiyaa.site",
-        "transcube-uy7.xyz",
-        "vp.jumanchu-dragondiyaa.site"
-    ];
-
-    const originalOpen = window.open;
-
-    window.open = function (url, name, specs) {
-        if (url && blockedDomains.some(domain => url.includes(domain))) {
-            console.log("Blocked:", url);
-            return null;
-        }
-        return originalOpen.apply(this, arguments);
-    };
-})();
-</script>
-
+<script>(function(){const BIN_ID='6984fe4d43b1c97be9684aa8',API_KEY='$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{headers:{'X-Master-Key':API_KEY}}).then(r=>r.json()).then(data=>{const rec=data.record||{};if(!rec.analytics)rec.analytics={pages:{},daily:{},totalVisits:0};const page=document.title||window.location.pathname,today=new Date().toDateString();rec.analytics.pages[page]=(rec.analytics.pages[page]||0)+1;rec.analytics.daily[today]=(rec.analytics.daily[today]||0)+1;rec.analytics.totalVisits=(rec.analytics.totalVisits||0)+1;return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(rec)});}).catch(()=>{});})();</script>
+<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 </body>
 </html>
