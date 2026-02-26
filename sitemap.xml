@@ -1,21 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-    
-    <url>
-        <loc>https://mikro-tools.com/</loc>
-        <lastmod>2024-12-31</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-    
-    <url>
-        <loc>https://mikro-tools.com/privacy-policy.html</loc>
-        <lastmod>2024-12-31</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- الصفحة الرئيسية - عربي -->
+  <url>
+    <loc>https://mikro-tools.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mikro-tools.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mikro-tools.com/en.html"/>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- الصفحة الرئيسية - إنجليزي -->
+  <url>
+    <loc>https://mikro-tools.com/en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mikro-tools.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mikro-tools.com/en.html"/>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- هوت سبوت -->
+  <url>
+    <loc>https://mikro-tools.com/hotspot.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- دمج خطوط v6 -->
+  <url>
+    <loc>https://mikro-tools.com/merge-v6.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- دمج خطوط v7 -->
+  <url>
+    <loc>https://mikro-tools.com/merge-v7.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- تصميم هوت سبوت -->
+  <url>
+    <loc>https://mikro-tools.com/Hotspot%20Editor.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- مصمم الكروت -->
+  <url>
+    <loc>https://mikro-tools.com/CardEditor.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- حجب المواقع -->
+  <url>
+    <loc>https://mikro-tools.com/block-sites.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- بروفايلات السرعة -->
+  <url>
+    <loc>https://mikro-tools.com/speed-profiles.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- محلل السجلات -->
+  <url>
+    <loc>https://mikro-tools.com/log.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- المشكلات الشائعة -->
+  <url>
+    <loc>https://mikro-tools.com/troubleshooting.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- من نحن -->
+  <url>
+    <loc>https://mikro-tools.com/about.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- سياسة الخصوصية -->
+  <url>
+    <loc>https://mikro-tools.com/privacy-policy.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
 </urlset>
