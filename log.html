@@ -22,15 +22,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <title>MikroTools | محلل سجلات المايكروتيك</title>
     <style>
-        :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
+        :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
         *{margin:0;padding:0;box-sizing:border-box;}
         body{background:var(--light);color:var(--dark);line-height:1.8;min-height:100vh;overflow-x:hidden;font-family:'Poppins',sans-serif;}
         body.ar{font-family:'Tajawal',sans-serif;}
         body.rtl{direction:rtl;text-align:right;}
         body.rtl .dropdown-item:hover{transform:translateX(5px);}
         body.en .new-badge{margin-left:5px;margin-right:0;}
-
-        /* NAVBAR */
         .navbar{background:var(--dark);padding:1rem 2rem;position:fixed;top:0;right:0;left:0;z-index:1000;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
         .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
         .logo{display:flex;align-items:center;gap:15px;text-decoration:none;color:white;}
@@ -49,7 +47,7 @@
         .lang-btn:hover{color:white;background:rgba(255,255,255,0.1);}
         .lang-btn.active{background:var(--primary);color:white;}
         .dropdown{position:relative;display:inline-block;}
-        .dropdown-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;}
+        .dropdown-toggle{display:flex;align-items:center;gap:5px;}
         .dropdown-arrow{font-size:12px;transition:transform 0.3s;}
         .dropdown:hover .dropdown-arrow{transform:rotate(180deg);}
         .dropdown-menu{position:absolute;top:100%;right:0;background:var(--dark);min-width:250px;border-radius:12px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s;z-index:1000;border:1px solid rgba(255,255,255,0.1);}
@@ -59,10 +57,8 @@
         .dropdown-item i{width:20px;font-size:16px;color:var(--primary);}
         .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-right:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
         @keyframes newGlow{0%{transform:scale(1);}50%{transform:scale(1.1);box-shadow:0 4px 20px rgba(255,65,108,0.9);}100%{transform:scale(1);}}
-
-        /* MAIN */
         .main-container{max-width:1400px;margin:0 auto;padding:100px 20px 40px;}
-        @keyframes glowPulse{0%{text-shadow:0 0 5px rgba(99,102,241,0.2);}50%{text-shadow:0 0 20px rgba(139,92,246,0.6),0 0 35px rgba(217,70,239,0.4);}100%{text-shadow:0 0 5px rgba(99,102,241,0.2);}}
+        @keyframes glowPulse{0%{text-shadow:0 0 5px rgba(99,102,241,0.2);}50%{text-shadow:0 0 20px rgba(139,92,246,0.6);}100%{text-shadow:0 0 5px rgba(99,102,241,0.2);}}
         @keyframes float{0%{transform:translateY(0px);}50%{transform:translateY(-5px);}100%{transform:translateY(0px);}}
         @keyframes rotateIcon{0%{transform:rotate(0deg);}25%{transform:rotate(10deg);}75%{transform:rotate(-10deg);}100%{transform:rotate(0deg);}}
         .animated-title{animation:glowPulse 3s ease-in-out infinite,float 6s ease-in-out infinite;display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6,#d946ef);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;font-size:3rem;}
@@ -71,56 +67,8 @@
         .site-card{background:var(--gradient-card);border-radius:var(--border-radius);box-shadow:var(--shadow);padding:30px;margin-bottom:30px;border:1px solid rgba(99,102,241,0.1);}
         .section-title{font-size:2rem;font-weight:700;margin-bottom:25px;display:flex;align-items:center;gap:15px;color:var(--dark);}
         .section-title i{color:var(--primary);}
-
-        /* ===== DIRECT CONNECTION - NEW FEATURE ===== */
-        .connect-card{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border-radius:var(--border-radius);padding:30px;margin-bottom:30px;border:2px solid rgba(99,102,241,0.4);position:relative;overflow:hidden;}
-        .connect-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(99,102,241,0.05) 0%,transparent 60%);pointer-events:none;}
-        .connect-title{font-size:1.6rem;font-weight:800;color:white;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
-        .connect-subtitle{color:#94a3b8;margin-bottom:25px;font-size:0.95rem;}
-        .connect-badge{background:linear-gradient(135deg,#10b981,#059669);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:20px;}
-
-        .connect-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:15px;align-items:end;}
-        .connect-field{display:flex;flex-direction:column;gap:8px;}
-        .connect-label{color:#94a3b8;font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:6px;}
-        .connect-label i{color:var(--primary-light);}
-        .connect-input{background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);color:white;padding:12px 16px;border-radius:12px;font-size:0.95rem;transition:all 0.3s;outline:none;}
-        .connect-input:focus{border-color:var(--primary);background:rgba(99,102,241,0.1);box-shadow:0 0 0 3px rgba(99,102,241,0.15);}
-        .connect-input::placeholder{color:#475569;}
-
-        .connect-btn{background:var(--gradient);color:white;border:none;padding:12px 28px;border-radius:12px;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:8px;white-space:nowrap;}
-        .connect-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.4);}
-        .connect-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-
-        .connect-status{margin-top:20px;padding:15px 20px;border-radius:12px;font-weight:600;display:none;align-items:center;gap:10px;}
-        .connect-status.connecting{background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;display:flex;}
-        .connect-status.success{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;display:flex;}
-        .connect-status.error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;display:flex;}
-
-        .connect-info-box{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:15px 20px;margin-top:20px;color:#fcd34d;font-size:0.9rem;}
-        .connect-info-box i{margin-left:8px;}
-
-        /* spinning loader */
-        @keyframes spin{to{transform:rotate(360deg);}}
-        .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;}
-
-        /* Tabs for input method */
-        .input-tabs{display:flex;gap:5px;background:rgba(99,102,241,0.08);padding:6px;border-radius:14px;margin-bottom:25px;border:1px solid rgba(99,102,241,0.15);}
-        .input-tab{flex:1;padding:10px 20px;border:none;border-radius:10px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.3s;background:transparent;color:var(--gray);display:flex;align-items:center;justify-content:center;gap:8px;}
-        .input-tab.active{background:var(--gradient);color:white;box-shadow:0 4px 15px rgba(99,102,241,0.3);}
-        .input-tab:hover:not(.active){background:rgba(99,102,241,0.1);color:var(--primary);}
-        .tab-content{display:none;}
-        .tab-content.active{display:block;}
-
-        /* REST setup guide */
-        .setup-guide{background:#f8fafc;border-radius:14px;padding:20px;margin-top:20px;border:1px solid #e2e8f0;}
-        .setup-step{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #e2e8f0;}
-        .setup-step:last-child{border-bottom:none;}
-        .setup-num{background:var(--primary);color:white;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0;margin-top:3px;}
-        .code-inline{background:#1e293b;color:#38bdf8;padding:3px 10px;border-radius:6px;font-family:monospace;font-size:0.9rem;}
-
-        /* existing styles */
         .tooltip-hint{position:relative;cursor:help;border-bottom:2px dotted var(--primary);}
-        .command-box{background:#f1f5f9;border:2px solid var(--primary);border-radius:20px;padding:25px;margin:20px 0;position:relative;overflow:hidden;}
+        .command-box{background:#f1f5f9;border:2px solid var(--primary);border-radius:20px;padding:25px;margin:20px 0;}
         .command-text{font-size:2.5rem;color:var(--primary-dark);font-family:'Courier New',monospace;text-align:center;margin:15px 0;padding:20px;background:white;border-radius:18px;border:1px solid var(--primary-light);letter-spacing:2px;direction:ltr;}
         .copy-command-btn{background:var(--primary);color:white;border:none;padding:15px 30px;border-radius:50px;font-size:1.2rem;font-weight:600;display:inline-flex;align-items:center;gap:10px;margin:10px 0;transition:all 0.3s;cursor:pointer;}
         .copy-command-btn:hover{background:var(--primary-dark);transform:translateY(-3px);}
@@ -173,8 +121,7 @@
         .social-iframe{position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;}
         @keyframes slideIn{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
         @keyframes slideOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(100%);opacity:0;}}
-
-        @media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr);}.charts-grid{grid-template-columns:repeat(2,1fr);}.connect-form{grid-template-columns:1fr 1fr;}}
+        @media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr);}.charts-grid{grid-template-columns:repeat(2,1fr);}}
         @media(max-width:992px){
             .nav-links{display:none;position:absolute;top:100%;right:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;align-items:flex-start;max-height:80vh;overflow-y:auto;}
             .nav-links.active{display:flex;}.menu-toggle{display:block;}
@@ -182,7 +129,6 @@
             .dropdown.active .dropdown-menu{display:block;}.dropdown-toggle{width:100%;justify-content:space-between;}
             .nav-cta{width:100%;text-align:center;justify-content:center;margin-top:10px;}
             .lang-switcher{width:100%;justify-content:center;margin-bottom:20px;order:-1;}.lang-btn{flex:1;justify-content:center;}
-            .connect-form{grid-template-columns:1fr 1fr;}
         }
         @media(max-width:768px){
             .main-container{padding-top:80px;}
@@ -190,14 +136,11 @@
             .animated-title{font-size:2rem;}.title-icon{font-size:2rem;}
             .command-text{font-size:1.5rem;}.site-card{padding:20px;}
             .step-detail{flex-direction:column;text-align:center;}
-            .connect-form{grid-template-columns:1fr;}
-            .input-tabs{flex-direction:column;}
         }
     </style>
 </head>
 <body class="ar rtl">
 
-<!-- NAVBAR -->
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
@@ -225,7 +168,6 @@
                     <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">بروفايلات السرعة</span></a>
                 </div>
             </div>
-            <!-- Design & Block - ✅ CardEditor مضاف -->
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">التصميم والحجب</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -251,137 +193,53 @@
 </nav>
 
 <div class="main-container">
-    <!-- Title -->
     <div class="title-wrapper">
         <i class="fas fa-microchip title-icon"></i>
         <span class="animated-title" data-i18n="log_analyzer_title">MikroTik Log Analyzer</span>
     </div>
 
-    <!-- ===== DIRECT CONNECTION CARD ===== -->
-    <div class="connect-card" data-aos="fade-down">
-
-        <!-- Header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:20px;">
-            <div>
-                <div class="connect-title">
-                    <i class="fas fa-plug" style="color:#10b981;"></i>
-                    <span data-i18n="direct_connect_title">اتصال مباشر بالميكرو</span>
-                    <span class="connect-badge">✨ <span data-i18n="new_feature">جديد</span></span>
-                </div>
-                <div class="connect-subtitle" data-i18n="direct_connect_sub">اكتب IP + يوزر + باسورد وهنجيب السجلات أوتوماتيك</div>
-            </div>
-            <div style="display:flex;gap:8px;">
-                <span style="background:rgba(99,102,241,0.2);color:#a5b4fc;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;">RouterOS v6</span>
-                <span style="background:rgba(16,185,129,0.2);color:#6ee7b7;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;">RouterOS v7</span>
-            </div>
-        </div>
-
-        <!-- BROWSER LIMITATION WARNING -->
-        <div id="browserWarning" style="background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(245,158,11,0.08));border:1.5px solid rgba(239,68,68,0.3);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
-            <div style="display:flex;align-items:flex-start;gap:14px;">
-                <div style="background:rgba(239,68,68,0.2);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <i class="fas fa-exclamation-triangle" style="color:#f87171;font-size:1.2rem;"></i>
-                </div>
-                <div style="flex:1;">
-                    <div style="font-weight:800;color:white;font-size:1.05rem;margin-bottom:6px;" data-i18n="browser_limit_title">⚠️ الاتصال المباشر مش شغّال من النت</div>
-                    <div style="color:#94a3b8;font-size:0.9rem;line-height:1.8;" data-i18n="browser_limit_desc">
-                        Chrome بيحجب أي اتصال من موقع على النت لـ IP محلي (192.168.x.x) — ده قيد أمني في المتصفح مش عندنا حل ليه من الموقع.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SOLUTION: Download local version -->
-        <div style="background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(99,102,241,0.08));border:1.5px solid rgba(16,185,129,0.3);border-radius:14px;padding:22px;">
-            <div style="font-weight:800;color:white;font-size:1.1rem;margin-bottom:5px;">
-                <i class="fas fa-check-circle" style="color:#10b981;margin-left:8px;"></i>
-                <span data-i18n="solution_title">✅ الحل: حمّل الأداة وشغّلها من جهازك مباشرة</span>
-            </div>
-            <div style="color:#94a3b8;font-size:0.9rem;margin-bottom:18px;" data-i18n="solution_desc">
-                ملف HTML واحد — بيشتغل بدون إنترنت وبيتصل بالميكرو مباشرة بدون أي قيود
-            </div>
-
-            <!-- Steps -->
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;">
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
-                    <div style="font-size:1.8rem;margin-bottom:6px;">📥</div>
-                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_dl">١. حمّل الملف</div>
-                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_dl_sub">اضغط الزر بالأسفل</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
-                    <div style="font-size:1.8rem;margin-bottom:6px;">🖱️</div>
-                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_open">٢. افتحه بـ Double Click</div>
-                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_open_sub">من أي مجلد على جهازك</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
-                    <div style="font-size:1.8rem;margin-bottom:6px;">🔌</div>
-                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_connect">٣. اكتب البيانات واتصل</div>
-                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_connect_sub">IP + يوزر + باسورد</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
-                    <div style="font-size:1.8rem;margin-bottom:6px;">📊</div>
-                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_analyze">٤. شوف كل البيانات</div>
-                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_analyze_sub">لوج + CPU + يوزرز + فايروول</div>
-                </div>
-            </div>
-
-            <!-- Download Button -->
-            <div style="text-align:center;">
-                <button onclick="downloadLocalTool()" style="background:linear-gradient(135deg,#10b981,#059669);color:white;border:none;padding:16px 40px;border-radius:50px;font-size:1.15rem;font-weight:800;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 25px rgba(16,185,129,0.3);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 30px rgba(16,185,129,0.5)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 25px rgba(16,185,129,0.3)'">
-                    <i class="fas fa-download"></i>
-                    <span data-i18n="download_btn">📥 حمّل أداة الاتصال المباشر</span>
-                </button>
-                <div style="color:#475569;font-size:0.8rem;margin-top:10px;" data-i18n="download_note">ملف HTML — لا يحتاج تثبيت • يعمل بدون إنترنت • آمن 100%</div>
-            </div>
-        </div>
-
+    <div class="site-card" data-aos="fade-down">
+        <p><i class="fas fa-sparkles" style="color:var(--primary);margin-left:8px;"></i>
+        <span class="tooltip-hint" data-tooltip="كل ما عليك فعله هو نسخ السجلات من جهازك ولصقها هنا" data-i18n="log_tooltip">محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين</span></p>
     </div>
-    <!-- ===== END DIRECT CONNECTION ===== -->
 
-    <!-- How to get logs manually -->
     <div class="site-card" data-aos="fade-up">
-        <div class="section-title">
-            <i class="fas fa-graduation-cap"></i>
-            <span data-i18n="how_to_get_logs">ازاي تجيب السجلات من المايكروتيك؟</span>
+        <div class="section-title"><i class="fas fa-graduation-cap"></i><span data-i18n="how_to_get_logs">ازاي تجيب السجلات من المايكروتيك؟</span></div>
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:20px;">
+            <div style="background:var(--primary);width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;"><i class="fas fa-terminal"></i></div>
+            <div>
+                <div style="font-size:1.3rem;font-weight:700;color:var(--primary-dark);" data-i18n="simple_method">طريقة واحدة وبسيطة</div>
+                <div style="color:var(--gray);" data-i18n="use_terminal">استخدم Terminal - أسرع وأسهل طريقة</div>
+            </div>
         </div>
-        <div class="simple-guide">
-            <div class="guide-header" style="display:flex;align-items:center;gap:15px;margin-bottom:20px;">
-                <div style="background:var(--primary);width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;"><i class="fas fa-terminal"></i></div>
-                <div>
-                    <div style="font-size:1.3rem;font-weight:700;color:var(--primary-dark);" data-i18n="simple_method">طريقة واحدة وبسيطة</div>
-                    <div style="color:var(--gray);" data-i18n="use_terminal">استخدم Terminal - أسرع وأسهل طريقة</div>
-                </div>
+        <div class="command-box">
+            <h5 style="color:var(--primary-dark);margin-bottom:15px;" data-i18n="write_command">✍️ اكتب الأمر ده في التيرمينال:</h5>
+            <div class="command-text">log print</div>
+            <div style="text-align:center;margin:20px 0;">
+                <button class="copy-command-btn" onclick="copyCommand('log print')"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
             </div>
-            <div class="command-box">
-                <h5 style="color:var(--primary-dark);margin-bottom:15px;" data-i18n="write_command">✍️ اكتب الأمر ده في التيرمينال:</h5>
-                <div class="command-text">log print</div>
-                <div style="text-align:center;margin:20px 0;">
-                    <button class="copy-command-btn" onclick="copyCommand('log print')"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
-                </div>
-                <div style="margin-top:30px;">
-                    <div class="step-detail"><div class="step-num">①</div><div><strong style="color:var(--primary-dark);" data-i18n="step1_title">افتح Terminal:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step1_desc">في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal</p></div></div>
-                    <div class="step-detail"><div class="step-num">②</div><div><strong style="color:var(--primary-dark);" data-i18n="step2_title">اكتب الأمر:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step2_desc">اكتب log print واضغط Enter</p></div></div>
-                    <div class="step-detail"><div class="step-num">③</div><div><strong style="color:var(--primary-dark);" data-i18n="step3_title">حدد كل السجلات:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step3_desc">اضغط كليك يمين في التيرمينال واختار "Select All"</p></div></div>
-                    <div class="step-detail"><div class="step-num">④</div><div><strong style="color:var(--primary-dark);" data-i18n="step4_title">انسخ:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step4_desc">اضغط كليك يمين تاني واختار "Copy"</p></div></div>
-                    <div class="step-detail"><div class="step-num">⑤</div><div><strong style="color:var(--primary-dark);" data-i18n="step5_title">الصق هنا:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step5_desc">ارجع للصفحة واضغط Ctrl+V في المربع الأسود</p></div></div>
-                </div>
+            <div style="margin-top:30px;">
+                <div class="step-detail"><div class="step-num">①</div><div><strong style="color:var(--primary-dark);" data-i18n="step1_title">افتح Terminal:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step1_desc">في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal</p></div></div>
+                <div class="step-detail"><div class="step-num">②</div><div><strong style="color:var(--primary-dark);" data-i18n="step2_title">اكتب الأمر:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step2_desc">اكتب log print واضغط Enter</p></div></div>
+                <div class="step-detail"><div class="step-num">③</div><div><strong style="color:var(--primary-dark);" data-i18n="step3_title">حدد كل السجلات:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step3_desc">اضغط كليك يمين في التيرمينال واختار "Select All"</p></div></div>
+                <div class="step-detail"><div class="step-num">④</div><div><strong style="color:var(--primary-dark);" data-i18n="step4_title">انسخ:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step4_desc">اضغط كليك يمين تاني واختار "Copy"</p></div></div>
+                <div class="step-detail"><div class="step-num">⑤</div><div><strong style="color:var(--primary-dark);" data-i18n="step5_title">الصق هنا:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step5_desc">ارجع للصفحة واضغط Ctrl+V في المربع الأسود</p></div></div>
             </div>
-            <div class="note-box" style="display:flex;align-items:flex-start;gap:15px;margin-top:20px;">
-                <i class="fas fa-star" style="color:#eab308;font-size:1.5rem;"></i>
-                <div>
-                    <strong style="color:#854d0e;" data-i18n="important_notes">💡 ملاحظات مهمة:</strong>
-                    <ul style="color:var(--gray);margin-top:10px;padding-right:20px;">
-                        <li data-i18n="note1">🔹 الأمر <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print</code> بيظهر كل السجلات</li>
-                        <li data-i18n="note2">🔹 للسجلات المباشرة استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print follow</code></li>
-                        <li data-i18n="note3">🔹 لإيقاف العرض المباشر اضغط Ctrl+C</li>
-                        <li data-i18n="note4">🔹 لحفظ في ملف <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print file=logs.txt</code></li>
-                    </ul>
-                </div>
+        </div>
+        <div class="note-box" style="display:flex;align-items:flex-start;gap:15px;margin-top:20px;">
+            <i class="fas fa-star" style="color:#eab308;font-size:1.5rem;"></i>
+            <div>
+                <strong style="color:#854d0e;" data-i18n="important_notes">💡 ملاحظات مهمة:</strong>
+                <ul style="color:var(--gray);margin-top:10px;padding-right:20px;">
+                    <li data-i18n="note1">🔹 الأمر <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print</code> بيظهر كل السجلات من الأحدث للأقدم</li>
+                    <li data-i18n="note2">🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print follow</code></li>
+                    <li data-i18n="note3">🔹 عشان توقف العرض المباشر اضغط Ctrl+C</li>
+                    <li data-i18n="note4">🔹 لو عايز تحفظ السجلات في ملف استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print file=logs.txt</code></li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <!-- Log Input Area -->
     <div class="site-card" data-aos="fade-up">
         <div class="terminal-header">
             <div class="terminal-dots">
@@ -390,22 +248,19 @@
                 <span class="terminal-dot dot-green"></span>
             </div>
             <span class="terminal-title" data-i18n="paste_logs">الصق السجلات هنا</span>
-            <span class="badge bg-primary" data-i18n="important_paste">مهم: الصق السجلات اللي نسختها</span>
+            <span class="badge bg-primary" data-i18n="important_paste">مهم: الصق السجلات اللي نسختها من التيرمينال</span>
         </div>
-
-        <textarea class="command-input-pro" id="logInput" placeholder="الصق السجلات هنا أو استخدم الاتصال المباشر بالأعلى..."></textarea>
-
+        <textarea class="command-input-pro" id="logInput" placeholder="الصق السجلات هنا..."></textarea>
         <div class="input-stats">
             <span class="stat-badge"><i class="fas fa-text-width"></i> <span data-i18n="lines_count">عدد الأسطر</span>: <span id="lineCount">0</span></span>
             <div>
-                <button class="action-btn" onclick="clearInput()" title="مسح"><i class="fas fa-eraser"></i></button>
-                <button class="action-btn" onclick="copyInput()" title="نسخ"><i class="fas fa-copy"></i></button>
-                <button class="action-btn" onclick="pasteInput()" title="لصق"><i class="fas fa-paste"></i></button>
+                <button class="action-btn" onclick="clearInput()"><i class="fas fa-eraser"></i></button>
+                <button class="action-btn" onclick="copyInput()"><i class="fas fa-copy"></i></button>
+                <button class="action-btn" onclick="pasteInput()"><i class="fas fa-paste"></i></button>
             </div>
         </div>
-
         <div style="margin-top:20px;">
-            <p style="margin-bottom:10px;"><i class="fas fa-flask" style="color:var(--primary)"></i> <span data-i18n="try_examples">جرب الأمثلة الجاهزة:</span></p>
+            <p style="margin-bottom:10px;"><i class="fas fa-flask" style="color:var(--primary)"></i> <span data-i18n="try_examples">جرب الأمثلة الجاهزة (للتجربة فقط):</span></p>
             <div class="example-buttons">
                 <span class="example-btn" onclick="loadExample('basic')">📋 <span data-i18n="basic_logs">سجلات عادية</span></span>
                 <span class="example-btn" onclick="loadExample('security')">🔒 <span data-i18n="security_attacks">هجمات أمنية</span></span>
@@ -413,8 +268,8 @@
                 <span class="example-btn" onclick="loadExample('wireless')">📡 <span data-i18n="wireless_network">شبكة لاسلكية</span></span>
                 <span class="example-btn" onclick="loadExample('vpn')">🔐 <span data-i18n="vpn_connections">اتصالات VPN</span></span>
             </div>
+            <small style="display:block;margin-top:5px;color:var(--gray);" data-i18n="click_to_fill">اضغط على أي مثال لملء المربع تلقائياً</small>
         </div>
-
         <button class="analyze-btn" onclick="analyzeLogs()">
             <i class="fas fa-chart-pie"></i>
             <span data-i18n="analyze_button">اضغط هنا لتحليل السجلات</span>
@@ -423,7 +278,6 @@
         <p style="text-align:center;margin-top:10px;color:var(--gray);" data-i18n="wait_message">بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل</p>
     </div>
 
-    <!-- Results -->
     <div id="resultsContainer" style="display:none;">
         <div class="site-card" id="analysisResults"></div>
     </div>
@@ -439,102 +293,8 @@
 <iframe src="mikro-icons.html" class="social-iframe" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 
 <script>
-document.addEventListener('DOMContentLoaded',function(){if(typeof AOS!=='undefined')AOS.init({duration:800,once:true});});
-
-let currentLogs=[],filteredLogs=[],charts={};
-
-// ==================== DIRECT CONNECTION ====================
-function toggleSetup(){
-    const guide=document.getElementById('setupGuide');
-    const arrow=document.getElementById('setupArrow');
-    if(guide.style.display==='none'){
-        guide.style.display='block';
-        arrow.style.transform='rotate(180deg)';
-    }else{
-        guide.style.display='none';
-        arrow.style.transform='rotate(0)';
-    }
-}
-
-function downloadLocalTool(){
-    // Read the mikrotik-analyzer.html content embedded as a data URI
-    const a=document.createElement('a');
-    a.href='mikrotik-analyzer.html';
-    a.download='MikroTik-Analyzer.html';
-    a.click();
-}
-
-function connectToRouter(){
-    const ip=document.getElementById('routerIP').value.trim();
-    const user=document.getElementById('routerUser').value.trim();
-    const pass=document.getElementById('routerPass').value;
-    const lang=document.documentElement.lang;
-
-    if(!ip||!user){
-        showStatus('error','⚠️ '+(lang==='ar'?'ادخل IP اليوزر دلوقتي':'Enter IP and username'));
-        return;
-    }
-
-    const btn=document.getElementById('connectBtn');
-    btn.disabled=true;
-    btn.innerHTML=`<span class="spinner"></span> <span>${lang==='ar'?'جاري الاتصال...':'Connecting...'}</span>`;
-    showStatus('connecting','<span class="spinner"></span> '+(lang==='ar'?'بيتصل بالراوتر...':'Connecting to router...'));
-
-    // XMLHttpRequest — works from file:// without CORS block
-    const url=`http://${ip}/rest/log`;
-    const xhr=new XMLHttpRequest();
-    xhr.open('GET',url,true);
-    xhr.setRequestHeader('Authorization','Basic '+btoa(unescape(encodeURIComponent(user+':'+pass))));
-    xhr.timeout=9000;
-
-    xhr.onload=function(){
-        if(xhr.status===401){showStatus('error','❌ '+(lang==='ar'?'اليوزر أو الباسورد غلط':'Wrong username or password'));resetConnectBtn();return;}
-        if(xhr.status===403){showStatus('error','❌ '+(lang==='ar'?'الصلاحيات مش كافية':'Insufficient permissions'));resetConnectBtn();return;}
-        if(xhr.status===404){showStatus('error','❌ '+(lang==='ar'?'REST API مش شغّال — شغّل www service أولاً: /ip service enable www':'REST API not found — enable www: /ip service enable www'));resetConnectBtn();return;}
-        if(xhr.status!==200){showStatus('error','❌ HTTP '+xhr.status);resetConnectBtn();return;}
-        try{
-            const data=JSON.parse(xhr.responseText);
-            if(!Array.isArray(data)||data.length===0){showStatus('error','⚠️ '+(lang==='ar'?'مفيش سجلات موجودة':'No logs found'));resetConnectBtn();return;}
-            const logText=data.map(e=>`${e.time||'00:00:00'} ${e.topics||'system'} ${e.message||''}`).join('\n');
-            document.getElementById('logInput').value=logText;
-            updateLineCount();
-            showStatus('success',`✅ ${lang==='ar'?'تم جلب':'Fetched'} ${data.length} ${lang==='ar'?'سجل — جاري التحليل...':'logs — analyzing...'}`);
-            showToast(`✅ ${lang==='ar'?'تم جلب':'Got'} ${data.length} ${lang==='ar'?'سجل من الميكرو':'logs from router'}`,'#10b981');
-            setTimeout(()=>analyzeLogs(),600);
-        }catch(e){showStatus('error','❌ '+(lang==='ar'?'خطأ في قراءة البيانات':'Error reading data'));resetConnectBtn();}
-    };
-    xhr.ontimeout=function(){
-        showStatus('error','❌ '+(lang==='ar'?'انتهى الوقت — تأكد من IP والشبكة':'Timeout — check IP and network'));
-        resetConnectBtn();
-    };
-    xhr.onerror=function(){
-        showStatus('error','❌ '+(lang==='ar'?'تعذر الاتصال — تأكد من: IP صح • www service مفعّل (/ip service enable www) • نفس الشبكة':'Cannot connect — check: correct IP • www service enabled • same network'));
-        resetConnectBtn();
-    };
-    xhr.send();
-}
-
-function showStatus(type,msg){
-    const el=document.getElementById('connectStatus');
-    el.className='connect-status '+type;
-    el.innerHTML=msg;
-    el.style.display='flex';
-}
-
-function resetConnectBtn(){
-    const btn=document.getElementById('connectBtn');
-    const lang=document.documentElement.lang;
-    btn.disabled=false;
-    btn.innerHTML=`<i class="fas fa-bolt"></i><span>${lang==='ar'?'جيب السجلات':'Fetch Logs'}</span>`;
-}
-
-// Allow Enter key on IP/User fields
-['routerIP','routerUser','routerPass'].forEach(id=>{
-    document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')connectToRouter();});
-});
-
-// ==================== HELPERS ====================
 document.addEventListener('DOMContentLoaded',function(){
+    if(typeof AOS!=='undefined') AOS.init({duration:800,once:true});
     const menuToggle=document.getElementById('menuToggle');
     const navLinks=document.getElementById('navLinks');
     if(menuToggle){
@@ -551,7 +311,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 const dd=this.closest('.dropdown');
                 dd.classList.toggle('active');
                 const arrow=this.querySelector('.dropdown-arrow');
-                if(arrow)arrow.style.transform=dd.classList.contains('active')?'rotate(180deg)':'rotate(0)';
+                if(arrow) arrow.style.transform=dd.classList.contains('active')?'rotate(180deg)':'rotate(0)';
             }
         });
     });
@@ -568,20 +328,21 @@ document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('logInput').addEventListener('input',updateLineCount);
 });
 
+let currentLogs=[],filteredLogs=[],charts={};
+
 function updateLineCount(){const t=document.getElementById('logInput').value;document.getElementById('lineCount').textContent=t.split('\n').filter(l=>l.trim()!=='').length;}
 function clearInput(){document.getElementById('logInput').value='';updateLineCount();}
 function copyInput(){navigator.clipboard.writeText(document.getElementById('logInput').value);showToast('✅ '+(document.documentElement.lang==='ar'?'تم النسخ':'Copied'),'#10b981');}
 async function pasteInput(){try{const t=await navigator.clipboard.readText();document.getElementById('logInput').value=t;updateLineCount();showToast('✅ '+(document.documentElement.lang==='ar'?'تم اللصق':'Pasted'),'#10b981');}catch(e){showToast('❌ '+(document.documentElement.lang==='ar'?'فشل اللصق':'Paste failed'),'#ef4444');}}
 function copyCommand(cmd){navigator.clipboard.writeText(cmd);showToast('✅ '+(document.documentElement.lang==='ar'?'تم نسخ الأمر':'Command copied'),'#10b981');}
 
-function showToast(message,color){
+function showToast(msg,color){
     const t=document.createElement('div');
     t.style.cssText=`position:fixed;bottom:20px;right:20px;background:${color};color:white;padding:15px 25px;border-radius:50px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:9999;animation:slideIn 0.3s ease;`;
-    t.innerHTML=message;document.body.appendChild(t);
+    t.innerHTML=msg;document.body.appendChild(t);
     setTimeout(()=>{t.style.animation='slideOut 0.3s ease';setTimeout(()=>document.body.removeChild(t),300);},2500);
 }
 
-// ==================== EXAMPLES ====================
 function loadExample(type){
     const ex={
         basic:`09:15:23 system,info جهاز بدأ التشغيل بنجاح\n09:16:45 dhcp,info تم تعيين IP 192.168.1.100 للعميل\n09:17:12 system,info تمت مزامنة الوقت مع خادم NTP\n09:18:30 wireless,info عميل 192.168.1.150 متصل بالشبكة\n09:19:55 firewall,info تم قبول اتصال من 10.0.0.50`,
@@ -595,29 +356,28 @@ function loadExample(type){
     showToast('✅ '+(document.documentElement.lang==='ar'?'تم تحميل المثال':'Example loaded'),'#10b981');
 }
 
-// ==================== ANALYZE ====================
 function parseLogs(text){
     return text.split('\n').filter(l=>l.trim()).map(line=>{
         const m=line.match(/(\d{1,2}:\d{2}:\d{2})\s+([a-zA-Z,_]+)\s+(.+)/);
-        if(!m)return null;
+        if(!m) return null;
         const ips=m[3].match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g)||[];
         const msg=m[3].toLowerCase();
-        let severity='info';
-        if(msg.includes('critical')||msg.includes('حرج')||msg.includes('هجوم')||msg.includes('ddos'))severity='critical';
-        else if(msg.includes('error')||msg.includes('فشل')||msg.includes('خطأ')||msg.includes('رفض'))severity='error';
-        else if(msg.includes('warning')||msg.includes('تحذير')||msg.includes('انقطع'))severity='warning';
-        return{time:m[1],source:m[2].split(',')[0],message:m[3],ips,severity};
+        let sev='info';
+        if(msg.includes('critical')||msg.includes('حرج')||msg.includes('هجوم')||msg.includes('ddos')) sev='critical';
+        else if(msg.includes('error')||msg.includes('فشل')||msg.includes('خطأ')||msg.includes('رفض')) sev='error';
+        else if(msg.includes('warning')||msg.includes('تحذير')||msg.includes('انقطع')) sev='warning';
+        return{time:m[1],source:m[2].split(',')[0],message:m[3],ips,severity:sev};
     }).filter(Boolean);
 }
 
 function addExplanations(logs){
     return logs.map(log=>{
         let exp='',sol='';
-        if(log.source.includes('dhcp')){exp='ده سجل توزيع IP — بيشرح مين أخذ عنوان';sol='تأكد من الكابل أو الواي فاي';}
-        else if(log.source.includes('firewall')||log.severity==='critical'){exp='⚠️ محاولة اختراق أو هجوم على الشبكة';sol='غير الباسورد فوراً وفعّل الحماية';}
+        if(log.source.includes('dhcp')){exp='ده سجل توزيع IP';sol='تأكد من الكابل أو الواي فاي';}
+        else if(log.source.includes('firewall')||log.severity==='critical'){exp='⚠️ محاولة اختراق أو هجوم';sol='غير الباسورد فوراً وفعّل الحماية';}
         else if(log.source.includes('wireless')){exp='📡 سجل الشبكة اللاسلكية';sol='قرّب الجهاز من الراوتر';}
         else if(log.severity==='error'){exp='❌ في خطأ حصل';sol='شوف باقي السجلات لفهم المشكلة';}
-        else if(log.severity==='warning'){exp='⚠️ تحذير محتاج متابعة';sol='تابع السجلات لو المشكلة تكررت';}
+        else if(log.severity==='warning'){exp='⚠️ تحذير محتاج متابعة';sol='تابع السجلات لو تكررت';}
         else{exp='ℹ️ سجل معلومات عادي';sol='لا يوجد إجراء مطلوب';}
         return{...log,explanation:exp,solution:sol};
     });
@@ -634,7 +394,7 @@ function analyzeLogs(){
     const container=document.getElementById('resultsContainer');
     const div=document.getElementById('analysisResults');
     div.innerHTML=`<h3 style="margin-bottom:20px;"><i class="fas fa-check-circle" style="color:var(--primary)"></i> ${lang==='ar'?'نتائج التحليل':'Analysis Results'}:</h3>`;
-    showAnalysisSummary(enhanced,div);
+    showSummary(enhanced,div);
     displayStats(enhanced,div);
     displayCharts(enhanced,div);
     displayTable(enhanced,div);
@@ -643,15 +403,13 @@ function analyzeLogs(){
     showToast(`✅ ${lang==='ar'?'تم تحليل':'Analyzed'} ${logs.length} ${lang==='ar'?'سجل':'logs'}`,'#10b981');
 }
 
-function showAnalysisSummary(logs,container){
+function showSummary(logs,container){
     const crit=logs.filter(l=>l.severity==='critical').length;
     const err=logs.filter(l=>l.severity==='error').length;
-    const warn=logs.filter(l=>l.severity==='warning').length;
     const lang=document.documentElement.lang;
     let msg='',color='';
     if(crit>0){msg=lang==='ar'?`🚨 فيه ${crit} مشكلة حرجة!`:`🚨 ${crit} critical issues!`;color='#ef4444';}
     else if(err>0){msg=lang==='ar'?`⚠️ فيه ${err} خطأ`:`⚠️ ${err} errors`;color='#f59e0b';}
-    else if(warn>0){msg=lang==='ar'?`⚡ فيه ${warn} تحذير`:`⚡ ${warn} warnings`;color='#eab308';}
     else{msg=lang==='ar'?'✅ الشبكة كويسة':'✅ Network healthy';color='#10b981';}
     const d=document.createElement('div');
     d.style.cssText=`background:${color}20;border:2px solid ${color};border-radius:24px;padding:20px;margin-bottom:20px;font-size:1.3rem;text-align:center;`;
@@ -663,12 +421,12 @@ function displayStats(logs,container){
     const lang=document.documentElement.lang;
     const g=document.createElement('div');g.className='stats-grid';
     g.innerHTML=`
-        <div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${logs.length}</div><div>${lang==='ar'?'إجمالي':'Total'}</div></div>
+        <div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${logs.length}</div><div>${lang==='ar'?'إجمالي السجلات':'Total Logs'}</div></div>
         <div class="stat-item"><i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444"></i><div class="stat-value">${logs.filter(l=>l.severity==='critical').length}</div><div>${lang==='ar'?'حرجة':'Critical'}</div></div>
         <div class="stat-item"><i class="fas fa-exclamation-triangle fa-2x" style="color:#f59e0b"></i><div class="stat-value">${logs.filter(l=>l.severity==='error').length}</div><div>${lang==='ar'?'أخطاء':'Errors'}</div></div>
         <div class="stat-item"><i class="fas fa-exclamation fa-2x" style="color:#eab308"></i><div class="stat-value">${logs.filter(l=>l.severity==='warning').length}</div><div>${lang==='ar'?'تحذيرات':'Warnings'}</div></div>
         <div class="stat-item"><i class="fas fa-info-circle fa-2x" style="color:#3b82f6"></i><div class="stat-value">${logs.filter(l=>l.severity==='info').length}</div><div>${lang==='ar'?'معلومات':'Info'}</div></div>
-        <div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${logs.filter(l=>l.ips.length>0).length}</div><div>IPs</div></div>`;
+        <div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${logs.filter(l=>l.ips.length>0).length}</div><div>${lang==='ar'?'عناوين IP':'IP Addresses'}</div></div>`;
     container.appendChild(g);
 }
 
@@ -686,7 +444,7 @@ function displayCharts(logs,container){
         charts.severity=new Chart(sCtx,{type:'doughnut',data:{labels:lang==='ar'?['حرجة','أخطاء','تحذيرات','معلومات']:['Critical','Errors','Warnings','Info'],datasets:[{data:[logs.filter(l=>l.severity==='critical').length,logs.filter(l=>l.severity==='error').length,logs.filter(l=>l.severity==='warning').length,logs.filter(l=>l.severity==='info').length],backgroundColor:['#ef4444','#f59e0b','#eab308','#3b82f6'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#1e293b'}}}}});
         const ipC={};logs.forEach(log=>log.ips.forEach(ip=>ipC[ip]=(ipC[ip]||0)+1));
         const topIPs=Object.entries(ipC).sort((a,b)=>b[1]-a[1]).slice(0,8);
-        if(topIPs.length){const iCtx=document.getElementById('ipChart').getContext('2d');if(charts.ip)charts.ip.destroy();charts.ip=new Chart(iCtx,{type:'bar',data:{labels:topIPs.map(i=>i[0]),datasets:[{label:lang==='ar'?'عدد المرات':'Count',data:topIPs.map(i=>i[1]),backgroundColor:'var(--primary)',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});}
+        if(topIPs.length){const iCtx=document.getElementById('ipChart').getContext('2d');if(charts.ip)charts.ip.destroy();charts.ip=new Chart(iCtx,{type:'bar',data:{labels:topIPs.map(i=>i[0]),datasets:[{label:lang==='ar'?'عدد المرات':'Count',data:topIPs.map(i=>i[1]),backgroundColor:'rgba(99,102,241,0.8)',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});}
         const tSlots={};logs.forEach(log=>{const h=log.time.split(':')[0];tSlots[h]=(tSlots[h]||0)+1;});
         const tCtx=document.getElementById('timelineChart').getContext('2d');if(charts.timeline)charts.timeline.destroy();
         charts.timeline=new Chart(tCtx,{type:'line',data:{labels:Object.keys(tSlots).sort().map(h=>h+':00'),datasets:[{label:lang==='ar'?'عدد السجلات':'Count',data:Object.values(tSlots),borderColor:'var(--primary)',backgroundColor:'rgba(99,102,241,0.2)',tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});
@@ -710,33 +468,25 @@ function displayTable(logs,container){
                 </select>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead><tr>
-                    <th>${lang==='ar'?'الوقت':'Time'}</th>
-                    <th>${lang==='ar'?'المستوى':'Level'}</th>
-                    <th>${lang==='ar'?'المصدر':'Source'}</th>
-                    <th>${lang==='ar'?'الرسالة والشرح':'Message & Explanation'}</th>
-                    <th>IPs</th>
-                </tr></thead>
-                <tbody id="logTableBody"></tbody>
-            </table>
-        </div>`;
+        <div class="table-responsive"><table class="table"><thead><tr>
+            <th>${lang==='ar'?'الوقت':'Time'}</th><th>${lang==='ar'?'المستوى':'Level'}</th>
+            <th>${lang==='ar'?'المصدر':'Source'}</th><th>${lang==='ar'?'الرسالة والشرح':'Message & Explanation'}</th><th>IPs</th>
+        </tr></thead><tbody id="logTableBody"></tbody></table></div>`;
     container.appendChild(tc);
-    renderTableRows(logs);
+    renderRows(logs);
 }
 
-function renderTableRows(logs){
+function renderRows(logs){
     const lang=document.documentElement.lang;
     const tbody=document.getElementById('logTableBody');
     if(!tbody)return;
     tbody.innerHTML='';
-    const sevText={critical:lang==='ar'?'حرج':'Critical',error:lang==='ar'?'خطأ':'Error',warning:lang==='ar'?'تحذير':'Warning',info:lang==='ar'?'معلومات':'Info'};
+    const sText={critical:lang==='ar'?'حرج':'Critical',error:lang==='ar'?'خطأ':'Error',warning:lang==='ar'?'تحذير':'Warning',info:lang==='ar'?'معلومات':'Info'};
     logs.slice(0,200).forEach(log=>{
         const row=document.createElement('tr');
         row.innerHTML=`
             <td style="font-weight:700;color:var(--primary-dark)">${log.time}</td>
-            <td><span class="severity-badge severity-${log.severity}">${sevText[log.severity]||'Info'}</span></td>
+            <td><span class="severity-badge severity-${log.severity}">${sText[log.severity]||'Info'}</span></td>
             <td style="font-weight:600;">${log.source}</td>
             <td>
                 <div style="margin-bottom:8px;">${log.message}</div>
@@ -757,17 +507,12 @@ window.filterLogs=function(){
         if(search)return log.message.toLowerCase().includes(search)||log.source.toLowerCase().includes(search)||log.ips.some(ip=>ip.includes(search));
         return true;
     });
-    renderTableRows(filteredLogs);
+    renderRows(filteredLogs);
 };
 
-// ==================== TRANSLATIONS ====================
 const translations={
-    en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",hotspot_settings:"Hotspot+PPP Settings",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",block_sites:"Block Sites",speed_profiles:"Speed Profiles",troubleshooting:"Troubleshooting",hotspot_design:"Hotspot Design",card_designer:"Card Designer",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",log_analyzer:"Log Analyzer",new:"NEW",
-        direct_connect_title:"Direct Router Connection",new_feature:"New!",direct_connect_sub:"Enter your router details and we'll fetch logs automatically — no copy/paste needed",works_with:"Works with:",router_ip:"Router IP",router_user:"Username",router_pass:"Password",fetch_logs:"Fetch Logs",connect_info:"Connection via REST API (port 80) — router and browser must be on same network. See setup guide below if first time.",setup_guide_btn:"How to enable REST API on MikroTik?",setup_title:"🔧 REST API Setup Steps:",setup_step1_t:"Open Terminal in WinBox or WebFig",setup_step1_d:"Tools → Terminal or SSH",setup_step2_t:"Enable www (HTTP) service",setup_step2_d:"This enables REST API on port 80 — works with v6 and v7",setup_step3_t:"Verify API is enabled",setup_step3_d:"www should be enabled on port 80",setup_step4_t:"For v7 only — confirm REST is active",setup_step4_d:"v7 also supports HTTPS on port 443 for better security",setup_warning:"Warning: After use, disable www service for security",
-        log_analyzer_title:"MikroTik Log Analyzer",how_to_get_logs:"How to get logs from MikroTik?",simple_method:"One Simple Method",use_terminal:"Use Terminal - Fastest Way",write_command:"✍️ Type this command in terminal:",copy_command:"Copy Command",step1_title:"Open Terminal:",step1_desc:"In WinBox or WebFig, click on Terminal",step2_title:"Type the command:",step2_desc:"Type log print and press Enter",step3_title:"Select all logs:",step3_desc:"Right-click and choose 'Select All'",step4_title:"Copy:",step4_desc:"Right-click again and choose 'Copy'",step5_title:"Paste here:",step5_desc:"Press Ctrl+V in the input box",important_notes:"💡 Important Notes:",note1:"🔹 <code>log print</code> shows all logs newest first",note2:"🔹 For real-time use <code>log print follow</code>",note3:"🔹 Press Ctrl+C to stop follow mode",note4:"🔹 Save to file: <code>log print file=logs.txt</code>",paste_logs:"Paste logs here",important_paste:"Paste logs copied from terminal",lines_count:"Lines",try_examples:"Try ready examples:",basic_logs:"Basic Logs",security_attacks:"Security Attacks",firewall_issues:"Firewall Issues",wireless_network:"Wireless",vpn_connections:"VPN",analyze_button:"Click here to analyze logs",wait_message:"Results will appear below",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},
-    ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",hotspot_settings:"اعدادات hotspot+ppp",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",block_sites:"حجب مواقع",speed_profiles:"بروفايلات السرعة",troubleshooting:"المشكلات الشائعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",log_analyzer:"محلل السجلات",new:"جديد",
-        direct_connect_title:"اتصال مباشر بالميكرو",new_feature:"جديد!",direct_connect_sub:"اكتب بيانات الميكرو وهنجيب السجلات على طول بدون ما تعمل copy/paste",works_with:"يشتغل مع:",router_ip:"IP الراوتر",router_user:"اليوزر",router_pass:"الباسورد",fetch_logs:"جيب السجلات",connect_info:"الاتصال بيتم عبر REST API (port 80) — لازم المتصفح والراوتر يكونوا على نفس الشبكة. لو أول مرة، شوف خطوات التفعيل بالأسفل.",setup_guide_btn:"ازاي تفعّل REST API في الميكرو؟",setup_title:"🔧 خطوات تفعيل REST API:",setup_step1_t:"افتح Terminal في WinBox أو WebFig",setup_step1_d:"من Tools → Terminal أو SSH",setup_step2_t:"فعّل www (HTTP) service",setup_step2_d:"ده بيشغّل الـ REST API على port 80 — يشتغل مع v6 و v7",setup_step3_t:"تأكد إن الـ API مفتوح",setup_step3_d:"لازم www يبقى enabled على port 80",setup_step4_t:"للـ v7 فقط — تأكد من تفعيل REST",setup_step4_d:"في v7 ممكن برضو HTTPS على port 443 لأمان أكثر",setup_warning:"تنبيه: بعد الاستخدام، قفل www service تاني للأمان",
-        log_analyzer_title:"MikroTik Log Analyzer",how_to_get_logs:"ازاي تجيب السجلات من المايكروتيك؟",simple_method:"طريقة واحدة وبسيطة",use_terminal:"استخدم Terminal - أسرع وأسهل طريقة",write_command:"✍️ اكتب الأمر ده في التيرمينال:",copy_command:"نسخ الأمر",step1_title:"افتح Terminal:",step1_desc:"في WinBox أو WebFig اضغط Terminal",step2_title:"اكتب الأمر:",step2_desc:"اكتب log print واضغط Enter",step3_title:"حدد السجلات:",step3_desc:"كليك يمين واختار Select All",step4_title:"انسخ:",step4_desc:"كليك يمين → Copy",step5_title:"الصق هنا:",step5_desc:"Ctrl+V في المربع الأسود",important_notes:"💡 ملاحظات مهمة:",note1:"🔹 الأمر <code>log print</code> بيظهر كل السجلات",note2:"🔹 للسجلات المباشرة <code>log print follow</code>",note3:"🔹 Ctrl+C لإيقاف العرض",note4:"🔹 <code>log print file=logs.txt</code> للحفظ",paste_logs:"الصق السجلات هنا",important_paste:"الصق السجلات المنسوخة",lines_count:"عدد الأسطر",try_examples:"جرب الأمثلة:",basic_logs:"سجلات عادية",security_attacks:"هجمات أمنية",firewall_issues:"مشاكل جدار ناري",wireless_network:"شبكة لاسلكية",vpn_connections:"اتصالات VPN",analyze_button:"اضغط هنا لتحليل السجلات",wait_message:"ستظهر النتائج بالأسفل",footer_contact:"للتواصل: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}
+    en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",hotspot_settings:"Hotspot+PPP Settings",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",block_sites:"Block Sites",speed_profiles:"Speed Profiles",troubleshooting:"Troubleshooting",hotspot_design:"Hotspot Design",card_designer:"Card Designer",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",log_analyzer:"Log Analyzer",new:"NEW",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"MikroTik Log Analyzer - Step by step for beginners",how_to_get_logs:"How to get logs from MikroTik?",simple_method:"One Simple Method",use_terminal:"Use Terminal - Fastest Way",write_command:"✍️ Type this command in terminal:",copy_command:"Copy Command",step1_title:"Open Terminal:",step1_desc:"In WinBox or WebFig, click on Terminal",step2_title:"Type the command:",step2_desc:"Type log print and press Enter",step3_title:"Select all logs:",step3_desc:"Right-click and choose 'Select All'",step4_title:"Copy:",step4_desc:"Right-click again and choose 'Copy'",step5_title:"Paste here:",step5_desc:"Press Ctrl+V in the input box",important_notes:"💡 Important Notes:",note1:"🔹 <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print</code> shows all logs newest first",note2:"🔹 For real-time logs use <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print follow</code>",note3:"🔹 Press Ctrl+C to stop follow mode",note4:"🔹 Save to file: <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print file=logs.txt</code>",paste_logs:"Paste logs here",important_paste:"Paste the logs you copied from terminal",lines_count:"Lines",try_examples:"Try ready examples:",basic_logs:"Basic Logs",security_attacks:"Security Attacks",firewall_issues:"Firewall Issues",wireless_network:"Wireless",vpn_connections:"VPN",click_to_fill:"Click any example to auto-fill",analyze_button:"Click here to analyze logs",wait_message:"Results will appear below",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},
+    ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",hotspot_settings:"اعدادات hotspot+ppp",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",block_sites:"حجب مواقع",speed_profiles:"بروفايلات السرعة",troubleshooting:"المشكلات الشائعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",log_analyzer:"محلل السجلات",new:"جديد",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين",how_to_get_logs:"ازاي تجيب السجلات من المايكروتيك؟",simple_method:"طريقة واحدة وبسيطة",use_terminal:"استخدم Terminal - أسرع وأسهل طريقة",write_command:"✍️ اكتب الأمر ده في التيرمينال:",copy_command:"نسخ الأمر",step1_title:"افتح Terminal:",step1_desc:"في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal",step2_title:"اكتب الأمر:",step2_desc:"اكتب log print واضغط Enter",step3_title:"حدد كل السجلات:",step3_desc:"اضغط كليك يمين في التيرمينال واختار 'Select All'",step4_title:"انسخ:",step4_desc:"اضغط كليك يمين تاني واختار 'Copy'",step5_title:"الصق هنا:",step5_desc:"ارجع للصفحة واضغط Ctrl+V في المربع الأسود",important_notes:"💡 ملاحظات مهمة:",note1:"🔹 الأمر <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print</code> بيظهر كل السجلات من الأحدث للأقدم",note2:"🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print follow</code>",note3:"🔹 عشان توقف العرض المباشر اضغط Ctrl+C",note4:"🔹 لو عايز تحفظ السجلات في ملف استخدم <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print file=logs.txt</code>",paste_logs:"الصق السجلات هنا",important_paste:"مهم: الصق السجلات اللي نسختها من التيرمينال",lines_count:"عدد الأسطر",try_examples:"جرب الأمثلة الجاهزة (للتجربة فقط):",basic_logs:"سجلات عادية",security_attacks:"هجمات أمنية",firewall_issues:"مشاكل جدار ناري",wireless_network:"شبكة لاسلكية",vpn_connections:"اتصالات VPN",click_to_fill:"اضغط على أي مثال لملء المربع تلقائياً",analyze_button:"اضغط هنا لتحليل السجلات",wait_message:"بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}
 };
 
 function setLanguage(lang){
@@ -778,14 +523,12 @@ function setLanguage(lang){
     document.querySelectorAll('[data-i18n]').forEach(el=>{
         const key=el.getAttribute('data-i18n');
         if(translations[lang]&&translations[lang][key]){
-            if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];
+            if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=translations[lang][key];
             else el.innerHTML=translations[lang][key];
         }
     });
     document.getElementById('langEn').classList.toggle('active',lang==='en');
     document.getElementById('langAr').classList.toggle('active',lang==='ar');
-    // Update connect button text
-    resetConnectBtn();
 }
 
 document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
