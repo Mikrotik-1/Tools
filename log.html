@@ -257,8 +257,10 @@
         <span class="animated-title" data-i18n="log_analyzer_title">MikroTik Log Analyzer</span>
     </div>
 
-    <!-- ===== DIRECT CONNECTION CARD - NEW FEATURE ===== -->
+    <!-- ===== DIRECT CONNECTION CARD ===== -->
     <div class="connect-card" data-aos="fade-down">
+
+        <!-- Header -->
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:20px;">
             <div>
                 <div class="connect-title">
@@ -266,110 +268,73 @@
                     <span data-i18n="direct_connect_title">اتصال مباشر بالميكرو</span>
                     <span class="connect-badge">✨ <span data-i18n="new_feature">جديد</span></span>
                 </div>
-                <div class="connect-subtitle" data-i18n="direct_connect_sub">اكتب بيانات الميكرو وهنجيب السجلات على طول بدون ما تعمل copy/paste</div>
+                <div class="connect-subtitle" data-i18n="direct_connect_sub">اكتب IP + يوزر + باسورد وهنجيب السجلات أوتوماتيك</div>
             </div>
-            <div style="text-align:left;">
-                <div style="color:#94a3b8;font-size:0.8rem;margin-bottom:5px;" data-i18n="works_with">يشتغل مع:</div>
-                <div style="display:flex;gap:8px;">
-                    <span style="background:rgba(99,102,241,0.2);color:#a5b4fc;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;">RouterOS v6</span>
-                    <span style="background:rgba(16,185,129,0.2);color:#6ee7b7;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;">RouterOS v7</span>
+            <div style="display:flex;gap:8px;">
+                <span style="background:rgba(99,102,241,0.2);color:#a5b4fc;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;">RouterOS v6</span>
+                <span style="background:rgba(16,185,129,0.2);color:#6ee7b7;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;">RouterOS v7</span>
+            </div>
+        </div>
+
+        <!-- BROWSER LIMITATION WARNING -->
+        <div id="browserWarning" style="background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(245,158,11,0.08));border:1.5px solid rgba(239,68,68,0.3);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
+            <div style="display:flex;align-items:flex-start;gap:14px;">
+                <div style="background:rgba(239,68,68,0.2);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <i class="fas fa-exclamation-triangle" style="color:#f87171;font-size:1.2rem;"></i>
+                </div>
+                <div style="flex:1;">
+                    <div style="font-weight:800;color:white;font-size:1.05rem;margin-bottom:6px;" data-i18n="browser_limit_title">⚠️ الاتصال المباشر مش شغّال من النت</div>
+                    <div style="color:#94a3b8;font-size:0.9rem;line-height:1.8;" data-i18n="browser_limit_desc">
+                        Chrome بيحجب أي اتصال من موقع على النت لـ IP محلي (192.168.x.x) — ده قيد أمني في المتصفح مش عندنا حل ليه من الموقع.
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="connect-form">
-            <div class="connect-field">
-                <label class="connect-label"><i class="fas fa-server"></i><span data-i18n="router_ip">IP الراوتر</span></label>
-                <input type="text" class="connect-input" id="routerIP" placeholder="192.168.1.1" dir="ltr">
+        <!-- SOLUTION: Download local version -->
+        <div style="background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(99,102,241,0.08));border:1.5px solid rgba(16,185,129,0.3);border-radius:14px;padding:22px;">
+            <div style="font-weight:800;color:white;font-size:1.1rem;margin-bottom:5px;">
+                <i class="fas fa-check-circle" style="color:#10b981;margin-left:8px;"></i>
+                <span data-i18n="solution_title">✅ الحل: حمّل الأداة وشغّلها من جهازك مباشرة</span>
             </div>
-            <div class="connect-field">
-                <label class="connect-label"><i class="fas fa-user"></i><span data-i18n="router_user">اليوزر</span></label>
-                <input type="text" class="connect-input" id="routerUser" placeholder="admin" dir="ltr">
+            <div style="color:#94a3b8;font-size:0.9rem;margin-bottom:18px;" data-i18n="solution_desc">
+                ملف HTML واحد — بيشتغل بدون إنترنت وبيتصل بالميكرو مباشرة بدون أي قيود
             </div>
-            <div class="connect-field">
-                <label class="connect-label"><i class="fas fa-lock"></i><span data-i18n="router_pass">الباسورد</span></label>
-                <input type="password" class="connect-input" id="routerPass" placeholder="••••••••" dir="ltr">
+
+            <!-- Steps -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
+                    <div style="font-size:1.8rem;margin-bottom:6px;">📥</div>
+                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_dl">١. حمّل الملف</div>
+                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_dl_sub">اضغط الزر بالأسفل</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
+                    <div style="font-size:1.8rem;margin-bottom:6px;">🖱️</div>
+                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_open">٢. افتحه بـ Double Click</div>
+                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_open_sub">من أي مجلد على جهازك</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
+                    <div style="font-size:1.8rem;margin-bottom:6px;">🔌</div>
+                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_connect">٣. اكتب البيانات واتصل</div>
+                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_connect_sub">IP + يوزر + باسورد</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;text-align:center;">
+                    <div style="font-size:1.8rem;margin-bottom:6px;">📊</div>
+                    <div style="font-weight:700;color:white;font-size:0.9rem;" data-i18n="step_analyze">٤. شوف كل البيانات</div>
+                    <div style="color:#64748b;font-size:0.8rem;margin-top:3px;" data-i18n="step_analyze_sub">لوج + CPU + يوزرز + فايروول</div>
+                </div>
             </div>
-            <div>
-                <button class="connect-btn" id="connectBtn" onclick="connectToRouter()">
-                    <i class="fas fa-bolt"></i>
-                    <span data-i18n="fetch_logs">جيب السجلات</span>
+
+            <!-- Download Button -->
+            <div style="text-align:center;">
+                <button onclick="downloadLocalTool()" style="background:linear-gradient(135deg,#10b981,#059669);color:white;border:none;padding:16px 40px;border-radius:50px;font-size:1.15rem;font-weight:800;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 25px rgba(16,185,129,0.3);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 30px rgba(16,185,129,0.5)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 25px rgba(16,185,129,0.3)'">
+                    <i class="fas fa-download"></i>
+                    <span data-i18n="download_btn">📥 حمّل أداة الاتصال المباشر</span>
                 </button>
+                <div style="color:#475569;font-size:0.8rem;margin-top:10px;" data-i18n="download_note">ملف HTML — لا يحتاج تثبيت • يعمل بدون إنترنت • آمن 100%</div>
             </div>
         </div>
 
-        <!-- Status -->
-        <div class="connect-status" id="connectStatus">
-            <span id="connectStatusIcon"></span>
-            <span id="connectStatusMsg"></span>
-        </div>
-
-        <!-- How it works info -->
-        <div class="connect-info-box">
-            <i class="fas fa-info-circle"></i>
-            <span data-i18n="connect_info">الاتصال بيتم عبر REST API (port 80) — لازم المتصفح والراوتر يكونوا على نفس الشبكة. لو أول مرة، شوف خطوات التفعيل بالأسفل.</span>
-        </div>
-
-        <!-- Setup guide collapsible -->
-        <div style="margin-top:15px;">
-            <button onclick="toggleSetup()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:#94a3b8;padding:8px 20px;border-radius:20px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;" id="setupToggleBtn">
-                <i class="fas fa-tools" style="margin-left:6px;"></i>
-                <span data-i18n="setup_guide_btn">ازاي تفعّل REST API في الميكرو؟</span>
-                <i class="fas fa-chevron-down" style="margin-right:8px;" id="setupArrow"></i>
-            </button>
-
-            <div id="setupGuide" style="display:none;margin-top:15px;">
-                <div class="setup-guide">
-                    <div style="font-weight:700;color:var(--dark);margin-bottom:15px;font-size:1.05rem;" data-i18n="setup_title">🔧 خطوات تفعيل REST API:</div>
-
-                    <div class="setup-step">
-                        <div class="setup-num">1</div>
-                        <div>
-                            <div style="font-weight:600;color:var(--dark);" data-i18n="setup_step1_t">افتح Terminal في WinBox أو Telnet/SSH</div>
-                            <div style="color:var(--gray);font-size:0.9rem;margin-top:4px;" data-i18n="setup_step1_d">أو من WebFig → Tools → Terminal</div>
-                        </div>
-                    </div>
-
-                    <div class="setup-step">
-                        <div class="setup-num">2</div>
-                        <div>
-                            <div style="font-weight:600;color:var(--dark);" data-i18n="setup_step2_t">فعّل www (HTTP) service</div>
-                            <div style="margin-top:8px;">
-                                <span class="code-inline">/ip service enable www</span>
-                            </div>
-                            <div style="color:var(--gray);font-size:0.85rem;margin-top:6px;" data-i18n="setup_step2_d">ده بيشغّل الـ REST API على port 80 — يشتغل مع v6 و v7</div>
-                        </div>
-                    </div>
-
-                    <div class="setup-step">
-                        <div class="setup-num">3</div>
-                        <div>
-                            <div style="font-weight:600;color:var(--dark);" data-i18n="setup_step3_t">تأكد إن الـ API مفتوح</div>
-                            <div style="margin-top:8px;">
-                                <span class="code-inline">/ip service print</span>
-                            </div>
-                            <div style="color:var(--gray);font-size:0.85rem;margin-top:6px;" data-i18n="setup_step3_d">لازم www يبقى enabled وport 80</div>
-                        </div>
-                    </div>
-
-                    <div class="setup-step">
-                        <div class="setup-num">4</div>
-                        <div>
-                            <div style="font-weight:600;color:var(--dark);" data-i18n="setup_step4_t">للـ v7 فقط — تأكد من تفعيل REST</div>
-                            <div style="margin-top:8px;">
-                                <span class="code-inline">/ip/service/enable www</span>
-                            </div>
-                            <div style="color:var(--gray);font-size:0.85rem;margin-top:6px;" data-i18n="setup_step4_d">في v7 ممكن تستخدم برضو HTTPS على port 443 لأمان أكثر</div>
-                        </div>
-                    </div>
-
-                    <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px 15px;margin-top:10px;color:#dc2626;font-size:0.9rem;">
-                        <i class="fas fa-shield-alt" style="margin-left:6px;"></i>
-                        <span data-i18n="setup_warning">تنبيه: بعد ما تخلص الاستخدام، قفل www service تاني للأمان — <span class="code-inline" style="background:#fee2e2;color:#dc2626;">/ip service disable www</span></span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- ===== END DIRECT CONNECTION ===== -->
 
@@ -489,6 +454,14 @@ function toggleSetup(){
         guide.style.display='none';
         arrow.style.transform='rotate(0)';
     }
+}
+
+function downloadLocalTool(){
+    // Read the mikrotik-analyzer.html content embedded as a data URI
+    const a=document.createElement('a');
+    a.href='mikrotik-analyzer.html';
+    a.download='MikroTik-Analyzer.html';
+    a.click();
 }
 
 function connectToRouter(){
