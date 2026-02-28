@@ -128,6 +128,27 @@
     </style>
 </head>
 <body>
+
+<!-- Password Modal -->
+<div id="paywall-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;">
+  <div style="background:white;border-radius:20px;padding:2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,0.4);position:relative;font-family:'Tajawal',sans-serif;direction:rtl;">
+    <div style="background:linear-gradient(135deg,#6366f1,#8b5cf6,#d946ef);width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:32px;">🔒</div>
+    <h2 style="font-size:1.5rem;font-weight:800;color:#1e293b;margin-bottom:0.5rem;">هذه الخدمة أصبحت مدفوعة</h2>
+    <p style="color:#64748b;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">للحصول على كود التفعيل تواصل معنا عبر واتساب</p>
+    <a href="https://wa.me/201092503391" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25d366;color:white;padding:12px 24px;border-radius:12px;font-weight:700;text-decoration:none;margin-bottom:1.5rem;font-size:1rem;">
+      <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
+    </a>
+    <div style="margin-bottom:1rem;">
+      <input type="password" id="paywall-password" placeholder="أدخل كود التفعيل" style="width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:1rem;text-align:center;outline:none;direction:ltr;" onkeydown="if(event.key==='Enter')checkPaywallPassword()">
+      <div id="paywall-error" style="color:#ef4444;font-size:0.85rem;margin-top:6px;display:none;">❌ كود التفعيل غير صحيح</div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button onclick="checkPaywallPassword()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;padding:12px 28px;border-radius:10px;font-weight:700;cursor:pointer;font-size:1rem;">تفعيل ✅</button>
+      <button onclick="closePaywall()" style="background:#f1f5f9;color:#64748b;border:none;padding:12px 28px;border-radius:10px;font-weight:700;cursor:pointer;font-size:1rem;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
@@ -155,7 +176,6 @@
                     <a href="speed-profiles.html" class="navbar-dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
             </div>
-            <!-- Design & Block - ✅ CardEditor مضاف -->
             <div class="navbar-dropdown">
                 <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
                 <div class="navbar-dropdown-menu">
@@ -232,7 +252,7 @@
         </div>
         <div id="lines-container" class="lines-container"></div>
         <div class="btn-group">
-            <button class="btn btn-primary" onclick="generateV6Script()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">Generate v6 Script</span></button>
+            <button class="btn btn-primary" onclick="requestGenerate()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">Generate v6 Script</span></button>
             <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
         </div>
         <div id="resultSection" class="result-section">
@@ -268,6 +288,16 @@
 <script>
 const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Multiple Internet Line Merging",hero_title:"MikroTik Load Balancing v6.x",hero_subtitle:"Merge up to 20 internet lines into a complete Load Balancing system for MikroTik RouterOS v6.x",tool_title:"Load Balancing v6 Settings",network_settings:"Network Settings",lan_interface:"LAN Interface:",subnet_range:"Subnet Range:",select_lines:"Choose number of lines to merge",lines_2:"2 Lines (Backup)",lines_3:"3 Lines (Small Business)",lines_4:"4 Lines (Institutions)",lines_5:"5 Lines (Hotels)",lines_6:"6 Lines (Universities)",lines_7:"7 Lines (Complexes)",lines_8:"8 Lines (Providers)",lines_9:"9 Lines (Large Networks)",lines_10:"10 Lines (Giant Networks)",tips_title:"Tips for choosing the number of lines",tips_1:"• <strong>2-4 lines:</strong> Ideal for small and medium businesses",tips_2:"• <strong>5-8 lines:</strong> Suitable for hotels and commercial complexes",tips_3:"• <strong>9-10+ lines:</strong> Ideal for cities and large institutions",generate_btn:"Generate v6 Script",reset_btn:"Reset",result_title:"Generated Script",copy_btn:"Copy Script",need_help:"Need Help?",contact_desc:"Technical support team is available 24/7 to answer your inquiries",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_badge:"دمج خطوط إنترنت متعدد",hero_title:"دمج خطوط ميكروتيك v6.x",hero_subtitle:"دمج حتى 20 خط إنترنت في نظام Load Balancing متكامل لإصدار MikroTik RouterOS v6.x",tool_title:"إعدادات دمج الخطوط v6",network_settings:"إعدادات الشبكة",lan_interface:"اسم كارت الخروج (LAN):",subnet_range:"رينج آيبي المشتركين:",select_lines:"اختر عدد الخطوط للدمج",lines_2:"2 خطوط (نسخ احتياطي)",lines_3:"3 خطوط (شركات صغيرة)",lines_4:"4 خطوط (مؤسسات)",lines_5:"5 خطوط (فنادق)",lines_6:"6 خطوط (جامعات)",lines_7:"7 خطوط (مجمعات)",lines_8:"8 خطوط (مزودين)",lines_9:"9 خطوط (شبكات كبيرة)",lines_10:"10 خطوط (شبكات عملاقة)",tips_title:"نصائح لاختيار عدد الخطوط",tips_1:"• <strong>2-4 خطوط:</strong> مثالي للشركات الصغيرة والمتوسطة",tips_2:"• <strong>5-8 خطوط:</strong> مناسب للفنادق والمجمعات التجارية",tips_3:"• <strong>9-10+ خطوط:</strong> مثالي للمدن والمؤسسات الكبيرة",generate_btn:"توليد سكربت v6",reset_btn:"إعادة تعيين",result_title:"السكربت الناتج",copy_btn:"نسخ السكربت",need_help:"هل تحتاج مساعدة؟",contact_desc:"فريق الدعم الفني متاح على مدار الساعة للإجابة على استفساراتك",contact_support:"للتواصل والدعم الفني",contact_whatsapp:"تواصل عبر واتساب",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}};
 const SIGNATURE="By Same7_01092503391";let lineCount=2;
+
+// ===== PAYWALL =====
+var PAYWALL_PASSWORD='0166843763';
+var paywallCallback=null;
+function openPaywall(cb){paywallCallback=cb;document.getElementById('paywall-modal').style.display='flex';document.getElementById('paywall-password').value='';document.getElementById('paywall-error').style.display='none';setTimeout(function(){document.getElementById('paywall-password').focus();},100);}
+function closePaywall(){document.getElementById('paywall-modal').style.display='none';paywallCallback=null;}
+function checkPaywallPassword(){var v=document.getElementById('paywall-password').value.trim();if(v===PAYWALL_PASSWORD){document.getElementById('paywall-modal').style.display='none';if(paywallCallback)paywallCallback();}else{document.getElementById('paywall-error').style.display='block';document.getElementById('paywall-password').style.borderColor='#ef4444';setTimeout(function(){document.getElementById('paywall-password').style.borderColor='#e2e8f0';},1500);}}
+function requestGenerate(){openPaywall(function(){generateV6Script();});}
+// ===== END PAYWALL =====
+
 function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');document.getElementById('selectedCount').textContent=translations[lang][`lines_${lineCount}`];}
 document.getElementById('menuToggle').addEventListener('click',function(){const n=document.getElementById('navLinks'),i=this.querySelector('i');n.classList.toggle('active');i.className=n.classList.contains('active')?'fas fa-times':'fas fa-bars';});
 document.querySelectorAll('.nav-link,.navbar-dropdown-item').forEach(link=>{link.addEventListener('click',()=>{if(!link.classList.contains('navbar-dropdown-toggle')){document.getElementById('navLinks').classList.remove('active');document.querySelector('#menuToggle i').className='fas fa-bars';}});});
