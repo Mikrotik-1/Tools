@@ -2,543 +2,1040 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="محلل سجلات المايكروتيك - أداة مجانية لتحليل وفهم سجلات جهاز المايكروتيك بسهولة">
-    <meta name="keywords" content="ميكروتيك, محلل سجلات, تحليل سجلات, MikroTik, Log Analyzer">
+    <meta name="description" content="مصمم كروت المايكروتيك - أداة مجانية لتصميم وتخصيص كروت الشبكة">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
-    <meta name="google-site-verification" content="google6096a3c525d406ea" />
-    <meta property="og:title" content="MikroTools | محلل سجلات المايكروتيك">
-    <meta property="og:description" content="أداة مجانية لتحليل وفهم سجلات جهاز المايكروتيك بسهولة">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mikro-tools.com/log-analyzer">
-    <link rel="canonical" href="https://mikro-tools.com/log-analyzer">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <title>MikroTools | محلل سجلات المايكروتيك</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>MikroTools | مصمم الكروت</title>
     <style>
-        :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
+        :root{
+            --primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;
+            --secondary:#10b981;--accent:#f59e0b;
+            --dark:#1e293b;--light:#f8fafc;--gray:#64748b;
+            --gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);
+            --gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);
+            --shadow:0 20px 40px rgba(99,102,241,0.1);
+            --shadow-lg:0 30px 60px rgba(0,0,0,0.15);
+            --border-radius:16px;
+        }
         *{margin:0;padding:0;box-sizing:border-box;}
-        body{background:var(--light);color:var(--dark);line-height:1.8;min-height:100vh;overflow-x:hidden;font-family:'Poppins',sans-serif;}
-        body.ar{font-family:'Tajawal',sans-serif;}
-        body.rtl{direction:rtl;text-align:right;}
-        body.rtl .dropdown-item:hover{transform:translateX(5px);}
-        body.en .new-badge{margin-left:5px;margin-right:0;}
+        body{background:var(--light);color:var(--dark);line-height:1.8;min-height:100vh;overflow-x:hidden;font-family:'Tajawal',sans-serif;}
+
+        /* ===== NAVBAR ===== */
         .navbar{background:var(--dark);padding:1rem 2rem;position:fixed;top:0;right:0;left:0;z-index:1000;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
         .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
         .logo{display:flex;align-items:center;gap:15px;text-decoration:none;color:white;}
         .logo-icon{background:var(--gradient);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;animation:pulse 2s infinite;}
         @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
         .logo-text{font-size:24px;font-weight:800;color:white;}
-        .nav-links{display:flex;gap:0.5rem;align-items:center;}
-        .nav-link{color:#cbd5e1;text-decoration:none;font-weight:500;transition:all 0.3s;padding:8px 16px;border-radius:10px;position:relative;display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;}
-        .nav-link:hover{color:white;background:rgba(255,255,255,0.1);}
-        .nav-link.active{color:white;background:var(--primary);}
-        .nav-cta{background:var(--gradient);color:white;padding:5px 15px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;display:flex;align-items:center;gap:5px;font-size:13px;}
-        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
-        .menu-toggle{display:none;background:none;border:none;color:white;font-size:24px;cursor:pointer;}
-        .lang-switcher{display:flex;gap:5px;background:rgba(255,255,255,0.05);padding:4px;border-radius:30px;border:1px solid rgba(255,255,255,0.1);margin:0 10px;}
-        .lang-btn{background:transparent;border:none;color:#cbd5e1;padding:6px 16px;border-radius:25px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px;}
-        .lang-btn:hover{color:white;background:rgba(255,255,255,0.1);}
-        .lang-btn.active{background:var(--primary);color:white;}
-        .dropdown{position:relative;display:inline-block;}
-        .dropdown-toggle{display:flex;align-items:center;gap:5px;}
-        .dropdown-arrow{font-size:12px;transition:transform 0.3s;}
-        .dropdown:hover .dropdown-arrow{transform:rotate(180deg);}
-        .dropdown-menu{position:absolute;top:100%;right:0;background:var(--dark);min-width:250px;border-radius:12px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s;z-index:1000;border:1px solid rgba(255,255,255,0.1);}
-        .dropdown:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
-        .dropdown-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#cbd5e1;text-decoration:none;border-radius:8px;transition:all 0.3s;}
-        .dropdown-item:hover{background:rgba(255,255,255,0.1);color:white;transform:translateX(-5px);}
-        .dropdown-item i{width:20px;font-size:16px;color:var(--primary);}
-        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-right:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
-        @keyframes newGlow{0%{transform:scale(1);}50%{transform:scale(1.1);box-shadow:0 4px 20px rgba(255,65,108,0.9);}100%{transform:scale(1);}}
-        .main-container{max-width:1400px;margin:0 auto;padding:100px 20px 40px;}
-        @keyframes glowPulse{0%{text-shadow:0 0 5px rgba(99,102,241,0.2);}50%{text-shadow:0 0 20px rgba(139,92,246,0.6);}100%{text-shadow:0 0 5px rgba(99,102,241,0.2);}}
-        @keyframes float{0%{transform:translateY(0px);}50%{transform:translateY(-5px);}100%{transform:translateY(0px);}}
-        @keyframes rotateIcon{0%{transform:rotate(0deg);}25%{transform:rotate(10deg);}75%{transform:rotate(-10deg);}100%{transform:rotate(0deg);}}
-        .animated-title{animation:glowPulse 3s ease-in-out infinite,float 6s ease-in-out infinite;display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6,#d946ef);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;font-size:3rem;}
-        .title-icon{animation:rotateIcon 4s linear infinite;display:inline-block;color:var(--primary);font-size:3rem;margin-left:15px;}
-        .title-wrapper{display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
-        .site-card{background:var(--gradient-card);border-radius:var(--border-radius);box-shadow:var(--shadow);padding:30px;margin-bottom:30px;border:1px solid rgba(99,102,241,0.1);}
-        .section-title{font-size:2rem;font-weight:700;margin-bottom:25px;display:flex;align-items:center;gap:15px;color:var(--dark);}
-        .section-title i{color:var(--primary);}
-        .tooltip-hint{position:relative;cursor:help;border-bottom:2px dotted var(--primary);}
-        .command-box{background:#f1f5f9;border:2px solid var(--primary);border-radius:20px;padding:25px;margin:20px 0;}
-        .command-text{font-size:2.5rem;color:var(--primary-dark);font-family:'Courier New',monospace;text-align:center;margin:15px 0;padding:20px;background:white;border-radius:18px;border:1px solid var(--primary-light);letter-spacing:2px;direction:ltr;}
-        .copy-command-btn{background:var(--primary);color:white;border:none;padding:15px 30px;border-radius:50px;font-size:1.2rem;font-weight:600;display:inline-flex;align-items:center;gap:10px;margin:10px 0;transition:all 0.3s;cursor:pointer;}
-        .copy-command-btn:hover{background:var(--primary-dark);transform:translateY(-3px);}
-        .step-detail{display:flex;align-items:center;gap:20px;background:white;padding:20px;border-radius:18px;margin:15px 0;border:1px solid #e2e8f0;}
-        .step-num{width:45px;height:45px;background:var(--primary);border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.3rem;color:white;flex-shrink:0;}
-        .note-box{background:#fef9c3;border-radius:24px;padding:25px;margin-top:20px;border:1px solid #fbbf24;}
-        .terminal-header{display:flex;align-items:center;gap:12px;margin-bottom:15px;flex-wrap:wrap;}
-        .terminal-dots{display:flex;gap:8px;}
-        .terminal-dot{width:14px;height:14px;border-radius:50%;}
-        .dot-red{background:#ff5f56;}.dot-yellow{background:#ffbd2e;}.dot-green{background:#27c93f;}
-        .terminal-title{color:var(--gray);font-size:1rem;}
-        .badge{display:inline-block;padding:5px 10px;border-radius:20px;font-size:0.8rem;font-weight:600;}
-        .bg-primary{background:var(--primary);color:white;}
-        .command-input-pro{width:100%;min-height:200px;background:white;border:2px solid #e2e8f0;border-radius:20px;padding:20px;color:var(--dark);font-family:'Courier New',monospace;font-size:14px;line-height:1.8;resize:vertical;outline:none;direction:ltr;text-align:left;}
-        .command-input-pro:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.1);}
-        .input-stats{display:flex;justify-content:space-between;align-items:center;margin:15px 0 0;flex-wrap:wrap;gap:10px;}
-        .stat-badge{background:#f1f5f9;padding:8px 20px;border-radius:30px;color:var(--dark);border:1px solid #e2e8f0;}
-        .action-btn{background:white;border:1px solid #e2e8f0;color:var(--dark);width:45px;height:45px;border-radius:14px;margin-left:8px;transition:all 0.3s;cursor:pointer;}
-        .action-btn:hover{background:var(--primary);color:white;transform:translateY(-3px);}
-        .analyze-btn{background:var(--gradient);border:none;color:white;padding:20px;border-radius:30px;font-weight:700;font-size:1.3rem;width:100%;margin-top:25px;box-shadow:var(--shadow);transition:all 0.3s;cursor:pointer;}
-        .analyze-btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
-        .example-buttons{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;}
-        .example-btn{background:#f1f5f9;border:1px solid #e2e8f0;color:var(--dark);padding:8px 16px;border-radius:30px;cursor:pointer;transition:all 0.3s;font-size:0.9rem;}
-        .example-btn:hover{background:var(--primary);color:white;border-color:var(--primary);transform:translateY(-2px);}
-        .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;margin-bottom:30px;}
-        .stat-item{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:20px 15px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
-        .stat-item i{margin-bottom:10px;}
-        .stat-value{font-size:2.2rem;font-weight:900;color:var(--primary);line-height:1.2;}
-        .charts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:30px;}
-        .chart-card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
-        .chart-card h5{margin-bottom:15px;color:var(--dark);}
-        .chart-container{height:250px;position:relative;}
-        .table-container{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
-        .table-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:15px;}
-        .table-responsive{max-height:500px;overflow-y:auto;border-radius:20px;border:1px solid #e2e8f0;}
-        .table{width:100%;border-collapse:collapse;}
-        .table th{background:#f8fafc;color:var(--dark);padding:18px 15px;position:sticky;top:0;font-weight:700;border-bottom:2px solid #e2e8f0;}
-        .table td{padding:15px;border-bottom:1px solid #e2e8f0;}
-        .severity-badge{display:inline-block;padding:6px 16px;border-radius:30px;font-size:0.9rem;font-weight:700;min-width:90px;text-align:center;}
-        .severity-critical{background:#fee2e2;color:#991b1b;border:1px solid #ef4444;}
-        .severity-error{background:#ffedd5;color:#9a3412;border:1px solid #f59e0b;}
-        .severity-warning{background:#fef9c3;color:#854d0e;border:1px solid #eab308;}
-        .severity-info{background:#dbeafe;color:#1e40af;border:1px solid #3b82f6;}
-        .ip-tag{background:#f1f5f9;color:var(--primary-dark);padding:5px 12px;border-radius:20px;font-family:monospace;font-size:0.9rem;display:inline-block;margin:3px;border:1px solid #e2e8f0;}
-        .log-explanation{font-size:0.9rem;color:#059669;background:#f0fdf4;padding:8px 12px;border-radius:12px;margin-top:5px;border:1px solid #10b981;}
-        .footer{background:var(--dark);color:#94a3b8;padding:3rem 2rem;text-align:center;margin-top:50px;border-radius:var(--border-radius) var(--border-radius) 0 0;}
-        .footer-content{max-width:1200px;margin:0 auto;}
-        .footer-text{font-size:1rem;margin-bottom:1rem;}
-        .copyright{color:#64748b;font-size:0.9rem;}
-        .social-iframe{position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;}
+        .nav-back{background:rgba(255,255,255,0.1);color:#cbd5e1;text-decoration:none;padding:8px 18px;border-radius:10px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.3s;border:1px solid rgba(255,255,255,0.1);}
+        .nav-back:hover{background:var(--primary);color:white;}
+
+        /* ===== MAIN ===== */
+        .main-container{max-width:1300px;margin:0 auto;padding:100px 20px 60px;}
+
+        /* ===== PAGE HEADER ===== */
+        .page-header{text-align:center;margin-bottom:40px;}
+        .page-header h1{font-size:2.8rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+        .page-header p{color:var(--gray);font-size:1.1rem;}
+
+        /* ===== WORKSPACE ===== */
+        .workspace{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start;}
+
+        /* ===== CARD PREVIEW AREA ===== */
+        .preview-area{background:var(--gradient-card);border-radius:var(--border-radius);box-shadow:var(--shadow);padding:30px;border:1px solid rgba(99,102,241,0.1);}
+        .preview-label{font-size:1rem;font-weight:700;color:var(--gray);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+
+        #cardWrapper{
+            width:100%;
+            aspect-ratio:1.586/1; /* standard card ratio */
+            max-width:560px;
+            margin:0 auto;
+            position:relative;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 25px 60px rgba(0,0,0,0.25),0 0 0 1px rgba(99,102,241,0.2);
+            background:linear-gradient(135deg,#1e2a4a 0%,#312e81 100%);
+            cursor:default;
+            transition:box-shadow 0.3s;
+            user-select:none;
+        }
+        #cardWrapper:hover{box-shadow:0 30px 70px rgba(0,0,0,0.3),0 0 0 2px var(--primary);}
+
+        #cardBg{
+            position:absolute;inset:0;
+            background-size:cover;background-position:center;background-repeat:no-repeat;
+            transition:opacity 0.4s;
+        }
+        #cardOverlay{
+            position:absolute;inset:0;
+            transition:background 0.3s;
+        }
+
+        /* Draggable logo/text element */
+        .card-element{
+            position:absolute;
+            cursor:grab;
+            z-index:10;
+            display:flex;align-items:center;justify-content:center;
+            touch-action:none;
+        }
+        .card-element:active{cursor:grabbing;}
+        .card-element.selected{outline:2px dashed rgba(255,255,255,0.8);outline-offset:4px;border-radius:4px;}
+
+        .resize-handle{
+            position:absolute;bottom:-6px;right:-6px;
+            width:14px;height:14px;
+            background:white;border:2px solid var(--primary);
+            border-radius:3px;cursor:se-resize;z-index:20;
+        }
+
+        /* Empty state hint */
+        .card-hint{
+            position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+            color:rgba(255,255,255,0.3);font-size:0.9rem;gap:8px;pointer-events:none;
+            transition:opacity 0.3s;
+        }
+        .card-hint i{font-size:2rem;}
+        .card-hint.hidden{opacity:0;}
+
+        /* ===== CONTROLS PANEL ===== */
+        .controls-panel{display:flex;flex-direction:column;gap:20px;}
+
+        .ctrl-card{background:var(--gradient-card);border-radius:var(--border-radius);box-shadow:var(--shadow);padding:22px;border:1px solid rgba(99,102,241,0.1);}
+        .ctrl-title{font-size:1rem;font-weight:700;color:var(--primary-dark);margin-bottom:16px;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid rgba(99,102,241,0.1);}
+
+        /* Upload Buttons */
+        .upload-area{
+            border:2px dashed rgba(99,102,241,0.3);border-radius:14px;padding:20px;
+            text-align:center;cursor:pointer;transition:all 0.3s;background:rgba(99,102,241,0.03);
+            display:flex;flex-direction:column;align-items:center;gap:8px;
+        }
+        .upload-area:hover{border-color:var(--primary);background:rgba(99,102,241,0.07);}
+        .upload-area i{font-size:2rem;color:var(--primary);}
+        .upload-area span{font-size:0.9rem;color:var(--gray);}
+        .upload-area small{font-size:0.78rem;color:#aaa;}
+        .upload-area input{display:none;}
+
+        /* Overlay control */
+        .slider-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+        .slider-row label{font-size:0.85rem;color:var(--gray);min-width:80px;}
+        .slider-row input[type=range]{flex:1;accent-color:var(--primary);}
+        .slider-row .val{font-size:0.85rem;color:var(--primary-dark);font-weight:700;min-width:36px;text-align:center;}
+
+        /* Color pickers row */
+        .color-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:6px;}
+        .color-preset{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.2s;flex-shrink:0;}
+        .color-preset:hover,.color-preset.active{transform:scale(1.2);border-color:var(--primary-dark);}
+        .color-custom{width:34px;height:34px;border-radius:50%;border:2px solid #e2e8f0;cursor:pointer;padding:0;background:none;}
+
+        /* Text inputs */
+        .form-group{margin-bottom:14px;}
+        .form-group label{display:block;font-size:0.85rem;color:var(--gray);margin-bottom:5px;}
+        .form-input{width:100%;background:white;border:1.5px solid #e2e8f0;border-radius:10px;padding:9px 12px;color:var(--dark);font-family:'Tajawal',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+        .form-input:focus{border-color:var(--primary);}
+
+        /* Font size */
+        .form-input[type=range]{padding:4px 12px;height:38px;}
+
+        /* Tabs for logo vs text */
+        .tabs{display:flex;background:rgba(99,102,241,0.08);border-radius:10px;padding:4px;gap:4px;margin-bottom:16px;}
+        .tab{flex:1;text-align:center;padding:8px;border-radius:7px;cursor:pointer;font-size:0.88rem;font-weight:600;color:var(--gray);transition:all 0.2s;}
+        .tab.active{background:var(--primary);color:white;}
+        .tab-pane{display:none;}
+        .tab-pane.show{display:block;}
+
+        /* Action buttons */
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:12px;font-family:'Tajawal',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;border:none;transition:all 0.3s;}
+        .btn-outline{background:white;border:1.5px solid #e2e8f0;color:var(--dark);}
+        .btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+        .btn-danger{background:#fee2e2;border:1.5px solid #ef4444;color:#991b1b;}
+        .btn-danger:hover{background:#fecaca;}
+        .btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+
+        /* Download button */
+        .download-btn{
+            background:var(--gradient);border:none;color:white;
+            padding:18px;border-radius:16px;font-weight:800;font-size:1.2rem;
+            width:100%;cursor:pointer;box-shadow:var(--shadow);
+            transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px;
+            font-family:'Tajawal',sans-serif;
+        }
+        .download-btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+        .download-btn:active{transform:translateY(0);}
+
+        /* Gradient presets */
+        .gradient-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;}
+        .grad-preset{height:40px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;}
+        .grad-preset:hover,.grad-preset.active{border-color:white;box-shadow:0 4px 12px rgba(0,0,0,0.2);transform:scale(1.05);}
+
+        /* Overlay color selector */
+        .overlay-colors{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+        .overlay-chip{padding:5px 12px;border-radius:20px;font-size:0.8rem;cursor:pointer;border:2px solid transparent;font-weight:600;transition:all 0.2s;}
+        .overlay-chip:hover,.overlay-chip.active{border-color:var(--primary);transform:translateY(-1px);}
+
+        /* Toast */
         @keyframes slideIn{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
         @keyframes slideOut{from{transform:translateX(0);opacity:1;}to{transform:translateX(100%);opacity:0;}}
-        @media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr);}.charts-grid{grid-template-columns:repeat(2,1fr);}}
-        @media(max-width:992px){
-            .nav-links{display:none;position:absolute;top:100%;right:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;align-items:flex-start;max-height:80vh;overflow-y:auto;}
-            .nav-links.active{display:flex;}.menu-toggle{display:block;}
-            .dropdown{width:100%;}.dropdown-menu{position:static;width:100%;display:none;opacity:1;visibility:visible;transform:none;box-shadow:none;background:rgba(255,255,255,0.05);}
-            .dropdown.active .dropdown-menu{display:block;}.dropdown-toggle{width:100%;justify-content:space-between;}
-            .nav-cta{width:100%;text-align:center;justify-content:center;margin-top:10px;}
-            .lang-switcher{width:100%;justify-content:center;margin-bottom:20px;order:-1;}.lang-btn{flex:1;justify-content:center;}
+
+        /* Footer */
+        .footer{background:var(--dark);color:#94a3b8;padding:3rem 2rem;text-align:center;margin-top:60px;border-radius:var(--border-radius) var(--border-radius) 0 0;}
+        .footer-content{max-width:1200px;margin:0 auto;}
+
+        /* Social iframe */
+        .social-iframe{position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;}
+
+        /* Responsive */
+        @media(max-width:900px){
+            .workspace{grid-template-columns:1fr;}
+            .page-header h1{font-size:2rem;}
         }
-        @media(max-width:768px){
-            .main-container{padding-top:80px;}
-            .stats-grid,.charts-grid{grid-template-columns:1fr;}
-            .animated-title{font-size:2rem;}.title-icon{font-size:2rem;}
-            .command-text{font-size:1.5rem;}.site-card{padding:20px;}
-            .step-detail{flex-direction:column;text-align:center;}
+        @media(max-width:600px){
+            .main-container{padding:80px 12px 40px;}
+            .ctrl-card{padding:16px;}
         }
+
+        /* element controls floating toolbar */
+        .element-toolbar{
+            position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+            background:rgba(30,41,59,0.95);border-radius:8px;padding:4px 8px;
+            display:flex;gap:6px;z-index:50;white-space:nowrap;
+            box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            opacity:0;pointer-events:none;transition:opacity 0.2s;
+        }
+        .card-element.selected .element-toolbar{opacity:1;pointer-events:all;}
+        .toolbar-btn{background:none;border:none;color:white;cursor:pointer;padding:4px 6px;border-radius:6px;font-size:0.8rem;transition:background 0.2s;}
+        .toolbar-btn:hover{background:rgba(255,255,255,0.15);}
     </style>
 </head>
-<body class="ar rtl">
+<body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
             <div class="logo-icon"><i class="fas fa-bolt"></i></div>
             <span class="logo-text">MikroTools</span>
         </a>
-        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-        <div class="nav-links" id="navLinks">
-            <div class="lang-switcher">
-                <button class="lang-btn active" id="langEn"><i class="fas fa-globe"></i> EN</button>
-                <button class="lang-btn" id="langAr"><i class="fas fa-globe"></i> AR</button>
-            </div>
-            <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span data-i18n="home">الرئيسية</span></a>
-            <div class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span data-i18n="merge">الدمج</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
-                <div class="dropdown-menu">
-                    <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i><span data-i18n="merge_v6">دمج خطوط v6</span></a>
-                    <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i><span data-i18n="merge_v7">دمج خطوط v7</span></a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-wifi"></i><span data-i18n="hotspot">الهوت سبوت</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
-                <div class="dropdown-menu">
-                    <a href="hotspot.html" class="dropdown-item"><i class="fas fa-cog"></i><span data-i18n="hotspot_settings">اعدادات hotspot+ppp</span></a>
-                    <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">بروفايلات السرعة</span></a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">التصميم والحجب</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
-                <div class="dropdown-menu">
-                    <a href="Hotspot Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">تصميم hotspot</span></a>
-                    <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">مصمم الكروت</span></a>
-                    <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">حجب مواقع</span></a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a href="log.html" class="nav-link active"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">محلل السجلات</span><span class="new-badge" data-i18n="new">جديد</span></a>
-            </div>
-            <div class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">المساعدة</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
-                <div class="dropdown-menu">
-                    <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-exclamation-triangle"></i><span data-i18n="troubleshooting">المشكلات الشائعة</span></a>
-                    <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i><span data-i18n="about">من نحن</span></a>
-                    <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">سياسة الخصوصية</span></a>
-                </div>
-            </div>
-            <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">تواصل معنا</span></a>
-        </div>
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-right"></i> الرئيسية</a>
     </div>
 </nav>
 
+<!-- MAIN -->
 <div class="main-container">
-    <div class="title-wrapper">
-        <i class="fas fa-microchip title-icon"></i>
-        <span class="animated-title" data-i18n="log_analyzer_title">MikroTik Log Analyzer</span>
+
+    <div class="page-header">
+        <h1><i class="fas fa-id-card"></i> مصمم الكروت</h1>
+        <p>صمم كرت الشبكة بتاعك — أضف خلفية، لوجو، أو نص، ثم حمله كصورة</p>
     </div>
 
-    <div class="site-card" data-aos="fade-down">
-        <p><i class="fas fa-sparkles" style="color:var(--primary);margin-left:8px;"></i>
-        <span class="tooltip-hint" data-tooltip="كل ما عليك فعله هو نسخ السجلات من جهازك ولصقها هنا" data-i18n="log_tooltip">محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين</span></p>
-    </div>
+    <div class="workspace">
 
-    <div class="site-card" data-aos="fade-up">
-        <div class="section-title"><i class="fas fa-graduation-cap"></i><span data-i18n="how_to_get_logs">ازاي تجيب السجلات من المايكروتيك؟</span></div>
-        <div style="display:flex;align-items:center;gap:15px;margin-bottom:20px;">
-            <div style="background:var(--primary);width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;"><i class="fas fa-terminal"></i></div>
-            <div>
-                <div style="font-size:1.3rem;font-weight:700;color:var(--primary-dark);" data-i18n="simple_method">طريقة واحدة وبسيطة</div>
-                <div style="color:var(--gray);" data-i18n="use_terminal">استخدم Terminal - أسرع وأسهل طريقة</div>
-            </div>
-        </div>
-        <div class="command-box">
-            <h5 style="color:var(--primary-dark);margin-bottom:15px;" data-i18n="write_command">✍️ اكتب الأمر ده في التيرمينال:</h5>
-            <div class="command-text">log print</div>
-            <div style="text-align:center;margin:20px 0;">
-                <button class="copy-command-btn" onclick="copyCommand('log print')"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
-            </div>
-            <div style="margin-top:30px;">
-                <div class="step-detail"><div class="step-num">①</div><div><strong style="color:var(--primary-dark);" data-i18n="step1_title">افتح Terminal:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step1_desc">في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal</p></div></div>
-                <div class="step-detail"><div class="step-num">②</div><div><strong style="color:var(--primary-dark);" data-i18n="step2_title">اكتب الأمر:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step2_desc">اكتب log print واضغط Enter</p></div></div>
-                <div class="step-detail"><div class="step-num">③</div><div><strong style="color:var(--primary-dark);" data-i18n="step3_title">حدد كل السجلات:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step3_desc">اضغط كليك يمين في التيرمينال واختار "Select All"</p></div></div>
-                <div class="step-detail"><div class="step-num">④</div><div><strong style="color:var(--primary-dark);" data-i18n="step4_title">انسخ:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step4_desc">اضغط كليك يمين تاني واختار "Copy"</p></div></div>
-                <div class="step-detail"><div class="step-num">⑤</div><div><strong style="color:var(--primary-dark);" data-i18n="step5_title">الصق هنا:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step5_desc">ارجع للصفحة واضغط Ctrl+V في المربع الأسود</p></div></div>
-            </div>
-        </div>
-        <div class="note-box" style="display:flex;align-items:flex-start;gap:15px;margin-top:20px;">
-            <i class="fas fa-star" style="color:#eab308;font-size:1.5rem;"></i>
-            <div>
-                <strong style="color:#854d0e;" data-i18n="important_notes">💡 ملاحظات مهمة:</strong>
-                <ul style="color:var(--gray);margin-top:10px;padding-right:20px;">
-                    <li data-i18n="note1">🔹 الأمر <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print</code> بيظهر كل السجلات من الأحدث للأقدم</li>
-                    <li data-i18n="note2">🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print follow</code></li>
-                    <li data-i18n="note3">🔹 عشان توقف العرض المباشر اضغط Ctrl+C</li>
-                    <li data-i18n="note4">🔹 لو عايز تحفظ السجلات في ملف استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print file=logs.txt</code></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+        <!-- CARD PREVIEW -->
+        <div class="preview-area">
+            <div class="preview-label"><i class="fas fa-eye" style="color:var(--primary)"></i> معاينة الكارت</div>
 
-    <div class="site-card" data-aos="fade-up">
-        <div class="terminal-header">
-            <div class="terminal-dots">
-                <span class="terminal-dot dot-red"></span>
-                <span class="terminal-dot dot-yellow"></span>
-                <span class="terminal-dot dot-green"></span>
+            <div id="cardWrapper">
+                <div id="cardBg"></div>
+                <div id="cardOverlay"></div>
+                <!-- Elements are injected here -->
+                <div class="card-hint" id="cardHint">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>أضف خلفية أو عنصر من اللوحة</span>
+                </div>
             </div>
-            <span class="terminal-title" data-i18n="paste_logs">الصق السجلات هنا</span>
-            <span class="badge bg-primary" data-i18n="important_paste">مهم: الصق السجلات اللي نسختها من التيرمينال</span>
-        </div>
-        <textarea class="command-input-pro" id="logInput" placeholder="الصق السجلات هنا..."></textarea>
-        <div class="input-stats">
-            <span class="stat-badge"><i class="fas fa-text-width"></i> <span data-i18n="lines_count">عدد الأسطر</span>: <span id="lineCount">0</span></span>
-            <div>
-                <button class="action-btn" onclick="clearInput()"><i class="fas fa-eraser"></i></button>
-                <button class="action-btn" onclick="copyInput()"><i class="fas fa-copy"></i></button>
-                <button class="action-btn" onclick="pasteInput()"><i class="fas fa-paste"></i></button>
-            </div>
-        </div>
-        <div style="margin-top:20px;">
-            <p style="margin-bottom:10px;"><i class="fas fa-flask" style="color:var(--primary)"></i> <span data-i18n="try_examples">جرب الأمثلة الجاهزة (للتجربة فقط):</span></p>
-            <div class="example-buttons">
-                <span class="example-btn" onclick="loadExample('basic')">📋 <span data-i18n="basic_logs">سجلات عادية</span></span>
-                <span class="example-btn" onclick="loadExample('security')">🔒 <span data-i18n="security_attacks">هجمات أمنية</span></span>
-                <span class="example-btn" onclick="loadExample('firewall')">🔥 <span data-i18n="firewall_issues">مشاكل جدار ناري</span></span>
-                <span class="example-btn" onclick="loadExample('wireless')">📡 <span data-i18n="wireless_network">شبكة لاسلكية</span></span>
-                <span class="example-btn" onclick="loadExample('vpn')">🔐 <span data-i18n="vpn_connections">اتصالات VPN</span></span>
-            </div>
-            <small style="display:block;margin-top:5px;color:var(--gray);" data-i18n="click_to_fill">اضغط على أي مثال لملء المربع تلقائياً</small>
-        </div>
-        <button class="analyze-btn" onclick="analyzeLogs()">
-            <i class="fas fa-chart-pie"></i>
-            <span data-i18n="analyze_button">اضغط هنا لتحليل السجلات</span>
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <p style="text-align:center;margin-top:10px;color:var(--gray);" data-i18n="wait_message">بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل</p>
-    </div>
 
-    <div id="resultsContainer" style="display:none;">
-        <div class="site-card" id="analysisResults"></div>
+            <p style="text-align:center;margin-top:14px;color:var(--gray);font-size:0.85rem;"><i class="fas fa-arrows-alt" style="color:var(--primary)"></i> اسحب العناصر داخل الكارت لتحريكها</p>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="controls-panel">
+
+            <!-- 1. BACKGROUND -->
+            <div class="ctrl-card">
+                <div class="ctrl-title"><i class="fas fa-image"></i> خلفية الكارت</div>
+
+                <label class="upload-area" id="bgUploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>ارفع صورة خلفية</span>
+                    <small>PNG, JPG, WEBP</small>
+                    <input type="file" id="bgUpload" accept="image/*">
+                </label>
+
+                <div style="margin-top:14px;">
+                    <div class="ctrl-title" style="font-size:0.85rem;border:none;padding:0;margin-bottom:8px;">أو اختار تدرج لوني جاهز:</div>
+                    <div class="gradient-presets" id="gradientPresets">
+                        <div class="grad-preset active" style="background:linear-gradient(135deg,#1e2a4a,#312e81)" data-grad="linear-gradient(135deg,#1e2a4a,#312e81)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#0f172a,#1e3a5f)" data-grad="linear-gradient(135deg,#0f172a,#1e3a5f)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#064e3b,#065f46)" data-grad="linear-gradient(135deg,#064e3b,#065f46)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#7f1d1d,#991b1b)" data-grad="linear-gradient(135deg,#7f1d1d,#991b1b)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#1a1a2e,#16213e)" data-grad="linear-gradient(135deg,#1a1a2e,#16213e)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#f59e0b,#d97706)" data-grad="linear-gradient(135deg,#f59e0b,#d97706)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#6366f1,#8b5cf6,#d946ef)" data-grad="linear-gradient(135deg,#6366f1,#8b5cf6,#d946ef)"></div>
+                        <div class="grad-preset" style="background:linear-gradient(135deg,#0ea5e9,#2563eb)" data-grad="linear-gradient(135deg,#0ea5e9,#2563eb)"></div>
+                    </div>
+                </div>
+
+                <div class="slider-row" style="margin-top:14px;">
+                    <label><i class="fas fa-adjust"></i> الشفافية</label>
+                    <input type="range" id="overlayOpacity" min="0" max="80" value="0">
+                    <span class="val" id="overlayOpacityVal">0%</span>
+                </div>
+
+                <div style="margin-top:10px;">
+                    <div style="font-size:0.82rem;color:var(--gray);margin-bottom:6px;">لون الطبقة الشفافة:</div>
+                    <div class="overlay-colors">
+                        <div class="overlay-chip active" style="background:#00000020;color:#333;" data-overlay="0,0,0">أسود</div>
+                        <div class="overlay-chip" style="background:#ffffff20;color:#333;" data-overlay="255,255,255">أبيض</div>
+                        <div class="overlay-chip" style="background:#6366f120;color:#4f46e5;" data-overlay="99,102,241">بنفسجي</div>
+                        <div class="overlay-chip" style="background:#10b98120;color:#065f46;" data-overlay="16,185,129">أخضر</div>
+                    </div>
+                </div>
+
+                <div class="btn-row" style="margin-top:14px;">
+                    <button class="btn btn-danger" onclick="clearBg()"><i class="fas fa-trash-alt"></i> مسح الخلفية</button>
+                </div>
+            </div>
+
+            <!-- 2. ADD ELEMENT -->
+            <div class="ctrl-card">
+                <div class="ctrl-title"><i class="fas fa-plus-circle"></i> إضافة عنصر</div>
+
+                <div class="tabs">
+                    <div class="tab active" data-tab="logoTab"><i class="fas fa-image"></i> لوجو/صورة</div>
+                    <div class="tab" data-tab="textTab"><i class="fas fa-font"></i> نص</div>
+                </div>
+
+                <!-- Logo Tab -->
+                <div class="tab-pane show" id="logoTab">
+                    <label class="upload-area" id="logoUploadArea">
+                        <i class="fas fa-image" style="color:var(--secondary)"></i>
+                        <span>ارفع لوجو أو صورة</span>
+                        <small>PNG شفاف أفضل</small>
+                        <input type="file" id="logoUpload" accept="image/*">
+                    </label>
+
+                    <div class="slider-row" style="margin-top:12px;">
+                        <label>الحجم</label>
+                        <input type="range" id="logoSize" min="30" max="300" value="120">
+                        <span class="val" id="logoSizeVal">120</span>
+                    </div>
+
+                    <div class="slider-row">
+                        <label>الشفافية</label>
+                        <input type="range" id="logoOpacity" min="10" max="100" value="100">
+                        <span class="val" id="logoOpacityVal">100%</span>
+                    </div>
+                </div>
+
+                <!-- Text Tab -->
+                <div class="tab-pane" id="textTab">
+                    <div class="form-group">
+                        <label>نص الكارت</label>
+                        <input type="text" class="form-input" id="cardTextInput" placeholder="اكتب هنا...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>الخط</label>
+                        <select class="form-input" id="fontFamily">
+                            <option value="Tajawal">Tajawal (عربي)</option>
+                            <option value="Cairo">Cairo (عربي)</option>
+                            <option value="Amiri">Amiri (عربي أنيق)</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                        </select>
+                    </div>
+
+                    <div class="slider-row">
+                        <label>حجم الخط</label>
+                        <input type="range" id="fontSize" min="10" max="80" value="24">
+                        <span class="val" id="fontSizeVal">24px</span>
+                    </div>
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <label>لون النص</label>
+                        <div class="color-row">
+                            <div class="color-preset active" style="background:#ffffff" data-color="#ffffff"></div>
+                            <div class="color-preset" style="background:#000000" data-color="#000000"></div>
+                            <div class="color-preset" style="background:#6366f1" data-color="#6366f1"></div>
+                            <div class="color-preset" style="background:#f59e0b" data-color="#f59e0b"></div>
+                            <div class="color-preset" style="background:#10b981" data-color="#10b981"></div>
+                            <div class="color-preset" style="background:#ef4444" data-color="#ef4444"></div>
+                            <input type="color" class="color-custom" id="textColorCustom" value="#ffffff" title="لون مخصص">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ظل النص</label>
+                        <select class="form-input" id="textShadow">
+                            <option value="none">بدون ظل</option>
+                            <option value="2px 2px 8px rgba(0,0,0,0.8)" selected>ظل داكن</option>
+                            <option value="0 0 15px rgba(99,102,241,0.9)">توهج بنفسجي</option>
+                            <option value="0 0 15px rgba(251,191,36,0.9)">توهج ذهبي</option>
+                            <option value="2px 2px 4px rgba(255,255,255,0.5)">ظل فاتح</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-outline" style="width:100%;" onclick="addTextElement()">
+                        <i class="fas fa-plus"></i> إضافة النص للكارت
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. ELEMENTS MANAGER -->
+            <div class="ctrl-card" id="elementsManager" style="display:none;">
+                <div class="ctrl-title"><i class="fas fa-layer-group"></i> العناصر <span id="elementCount" style="background:var(--primary);color:white;border-radius:20px;padding:1px 10px;font-size:0.8rem;margin-right:4px;">0</span></div>
+                <div id="elementsList"></div>
+                <button class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="clearAllElements()">
+                    <i class="fas fa-trash-alt"></i> حذف كل العناصر
+                </button>
+            </div>
+
+            <!-- 4. DOWNLOAD -->
+            <div class="ctrl-card">
+                <div class="ctrl-title"><i class="fas fa-download"></i> تحميل الكارت</div>
+                <div class="form-group">
+                    <label>دقة التحميل</label>
+                    <select class="form-input" id="downloadQuality">
+                        <option value="1">عادية (x1)</option>
+                        <option value="2" selected>عالية (x2)</option>
+                        <option value="3">فائقة (x3)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>صيغة الصورة</label>
+                    <select class="form-input" id="downloadFormat">
+                        <option value="png">PNG (شفافية)</option>
+                        <option value="jpeg" selected>JPEG (حجم أصغر)</option>
+                    </select>
+                </div>
+                <button class="download-btn" onclick="downloadCard()">
+                    <i class="fas fa-download"></i>
+                    تحميل الكارت كصورة
+                </button>
+            </div>
+
+        </div>
     </div>
 </div>
 
 <footer class="footer">
     <div class="footer-content">
-        <p class="footer-text"><i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">للتواصل والاستفسار: 01092503391 - Sameh El-Sayed</span></p>
-        <p class="copyright">© 2026 MikroTools. <span data-i18n="copyright">جميع الحقوق محفوظة.</span></p>
+        <p style="margin-bottom:10px;"><i class="fas fa-phone-alt"></i> للتواصل والاستفسار: 01092503391 - Sameh El-Sayed</p>
+        <p style="color:#64748b;font-size:0.9rem;">© 2026 MikroTools. جميع الحقوق محفوظة.</p>
     </div>
 </footer>
 
 <iframe src="mikro-icons.html" class="social-iframe" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 
 <script>
-document.addEventListener('DOMContentLoaded',function(){
-    if(typeof AOS!=='undefined') AOS.init({duration:800,once:true});
-    const menuToggle=document.getElementById('menuToggle');
-    const navLinks=document.getElementById('navLinks');
-    if(menuToggle){
-        menuToggle.addEventListener('click',function(){
-            const icon=this.querySelector('i');
-            navLinks.classList.toggle('active');
-            icon.className=navLinks.classList.contains('active')?'fas fa-times':'fas fa-bars';
-        });
-    }
-    document.querySelectorAll('.dropdown-toggle').forEach(toggle=>{
-        toggle.addEventListener('click',function(e){
-            if(window.innerWidth<=992){
-                e.preventDefault();
-                const dd=this.closest('.dropdown');
-                dd.classList.toggle('active');
-                const arrow=this.querySelector('.dropdown-arrow');
-                if(arrow) arrow.style.transform=dd.classList.contains('active')?'rotate(180deg)':'rotate(0)';
-            }
-        });
-    });
-    document.querySelectorAll('.nav-link,.dropdown-item').forEach(link=>{
-        link.addEventListener('click',()=>{
-            if(!link.classList.contains('dropdown-toggle')&&window.innerWidth<=992){
-                document.getElementById('navLinks').classList.remove('active');
-                document.querySelector('#menuToggle i').className='fas fa-bars';
-            }
-        });
-    });
-    updateLineCount();
-    loadExample('basic');
-    document.getElementById('logInput').addEventListener('input',updateLineCount);
+// ============================================================
+//  STATE
+// ============================================================
+let state = {
+    bgType: 'gradient',             // 'gradient' | 'image'
+    bgGradient: 'linear-gradient(135deg,#1e2a4a,#312e81)',
+    bgImage: null,
+    overlayOpacity: 0,
+    overlayColor: '0,0,0',
+    elements: [],                   // array of element objects
+    selectedId: null,
+    nextId: 1
+};
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+    applyBackground();
+    initTabs();
+    initSliders();
+    initGradientPresets();
+    initOverlayChips();
+    initColorPresets();
+    initBgUpload();
+    initLogoUpload();
 });
 
-let currentLogs=[],filteredLogs=[],charts={};
+// ============================================================
+//  BACKGROUND
+// ============================================================
+function applyBackground() {
+    const bg = document.getElementById('cardBg');
+    const overlay = document.getElementById('cardOverlay');
 
-function updateLineCount(){const t=document.getElementById('logInput').value;document.getElementById('lineCount').textContent=t.split('\n').filter(l=>l.trim()!=='').length;}
-function clearInput(){document.getElementById('logInput').value='';updateLineCount();}
-function copyInput(){navigator.clipboard.writeText(document.getElementById('logInput').value);showToast('✅ '+(document.documentElement.lang==='ar'?'تم النسخ':'Copied'),'#10b981');}
-async function pasteInput(){try{const t=await navigator.clipboard.readText();document.getElementById('logInput').value=t;updateLineCount();showToast('✅ '+(document.documentElement.lang==='ar'?'تم اللصق':'Pasted'),'#10b981');}catch(e){showToast('❌ '+(document.documentElement.lang==='ar'?'فشل اللصق':'Paste failed'),'#ef4444');}}
-function copyCommand(cmd){navigator.clipboard.writeText(cmd);showToast('✅ '+(document.documentElement.lang==='ar'?'تم نسخ الأمر':'Command copied'),'#10b981');}
+    if (state.bgType === 'image' && state.bgImage) {
+        bg.style.backgroundImage = `url(${state.bgImage})`;
+        bg.style.background = '';
+        bg.style.backgroundSize = 'cover';
+        bg.style.backgroundPosition = 'center';
+    } else {
+        bg.style.background = state.bgGradient;
+        bg.style.backgroundImage = '';
+    }
 
-function showToast(msg,color){
-    const t=document.createElement('div');
-    t.style.cssText=`position:fixed;bottom:20px;right:20px;background:${color};color:white;padding:15px 25px;border-radius:50px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:9999;animation:slideIn 0.3s ease;`;
-    t.innerHTML=msg;document.body.appendChild(t);
-    setTimeout(()=>{t.style.animation='slideOut 0.3s ease';setTimeout(()=>document.body.removeChild(t),300);},2500);
+    overlay.style.background = `rgba(${state.overlayColor},${state.overlayOpacity/100})`;
+    updateHint();
 }
 
-function loadExample(type){
-    const ex={
-        basic:`09:15:23 system,info جهاز بدأ التشغيل بنجاح\n09:16:45 dhcp,info تم تعيين IP 192.168.1.100 للعميل\n09:17:12 system,info تمت مزامنة الوقت مع خادم NTP\n09:18:30 wireless,info عميل 192.168.1.150 متصل بالشبكة\n09:19:55 firewall,info تم قبول اتصال من 10.0.0.50`,
-        security:`09:15:23 firewall,error محاولة دخول فاشلة من 185.142.53.23\n09:16:45 firewall,error اكتشاف فحص منافذ من 45.78.23.11\n09:17:12 firewall,warning 5 محاولات فاشلة من 192.168.1.100\n09:18:30 firewall,critical هجوم DDoS محتمل\n09:19:55 firewall,error هجوم قوة غاشمة من 103.145.67.89`,
-        firewall:`09:15:23 firewall,info قبول اتصال من 192.168.1.50\n09:16:45 firewall,error رفض اتصال من 10.0.0.100\n09:17:12 firewall,info تم تطبيق NAT للاتصال\n09:18:30 firewall,warning تجاوز حد الاتصالات\n09:19:55 firewall,info تم حظر IP 45.67.89.100`,
-        wireless:`09:15:23 wireless,info عميل 192.168.1.100 متصل\n09:16:45 wireless,warning عميل 192.168.1.150 انقطع بسبب ضعف الإشارة\n09:17:12 wireless,error فشل المصادقة للعميل 192.168.1.200\n09:18:30 wireless,info تم تغيير القناة إلى 6\n09:19:55 wireless,info قوة الإشارة 80%`,
-        vpn:`09:15:23 pptp,info عميل 185.142.53.23 متصل\n09:16:45 l2tp,error فشل المصادقة للعميل 45.78.23.11\n09:17:12 sstp,warning العميل 103.145.67.89 انقطع فجأة\n09:18:30 openvpn,info تم إنشاء نفق مع 192.168.1.200\n09:19:55 pptp,info تم قطع الاتصال مع 10.0.0.50`
-    };
-    document.getElementById('logInput').value=ex[type]||ex.basic;
-    updateLineCount();
-    showToast('✅ '+(document.documentElement.lang==='ar'?'تم تحميل المثال':'Example loaded'),'#10b981');
-}
-
-function parseLogs(text){
-    return text.split('\n').filter(l=>l.trim()).map(line=>{
-        const m=line.match(/(\d{1,2}:\d{2}:\d{2})\s+([a-zA-Z,_]+)\s+(.+)/);
-        if(!m) return null;
-        const ips=m[3].match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g)||[];
-        const msg=m[3].toLowerCase();
-        let sev='info';
-        if(msg.includes('critical')||msg.includes('حرج')||msg.includes('هجوم')||msg.includes('ddos')) sev='critical';
-        else if(msg.includes('error')||msg.includes('فشل')||msg.includes('خطأ')||msg.includes('رفض')) sev='error';
-        else if(msg.includes('warning')||msg.includes('تحذير')||msg.includes('انقطع')) sev='warning';
-        return{time:m[1],source:m[2].split(',')[0],message:m[3],ips,severity:sev};
-    }).filter(Boolean);
-}
-
-function addExplanations(logs){
-    return logs.map(log=>{
-        let exp='',sol='';
-        if(log.source.includes('dhcp')){exp='ده سجل توزيع IP';sol='تأكد من الكابل أو الواي فاي';}
-        else if(log.source.includes('firewall')||log.severity==='critical'){exp='⚠️ محاولة اختراق أو هجوم';sol='غير الباسورد فوراً وفعّل الحماية';}
-        else if(log.source.includes('wireless')){exp='📡 سجل الشبكة اللاسلكية';sol='قرّب الجهاز من الراوتر';}
-        else if(log.severity==='error'){exp='❌ في خطأ حصل';sol='شوف باقي السجلات لفهم المشكلة';}
-        else if(log.severity==='warning'){exp='⚠️ تحذير محتاج متابعة';sol='تابع السجلات لو تكررت';}
-        else{exp='ℹ️ سجل معلومات عادي';sol='لا يوجد إجراء مطلوب';}
-        return{...log,explanation:exp,solution:sol};
+function initBgUpload() {
+    document.getElementById('bgUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            state.bgImage = ev.target.result;
+            state.bgType = 'image';
+            document.querySelectorAll('.grad-preset').forEach(p=>p.classList.remove('active'));
+            applyBackground();
+            showToast('✅ تم رفع الخلفية', '#10b981');
+        };
+        reader.readAsDataURL(file);
     });
 }
 
-function analyzeLogs(){
-    const input=document.getElementById('logInput').value;
-    const lang=document.documentElement.lang;
-    if(!input.trim()){showToast('⚠️ '+(lang==='ar'?'الصق السجلات أولاً':'Paste logs first'),'#f59e0b');return;}
-    const logs=parseLogs(input);
-    if(!logs.length){showToast('❌ '+(lang==='ar'?'تنسيق السجلات غير مدعوم':'Log format not supported'),'#ef4444');return;}
-    const enhanced=addExplanations(logs);
-    currentLogs=enhanced;filteredLogs=[...enhanced];
-    const container=document.getElementById('resultsContainer');
-    const div=document.getElementById('analysisResults');
-    div.innerHTML=`<h3 style="margin-bottom:20px;"><i class="fas fa-check-circle" style="color:var(--primary)"></i> ${lang==='ar'?'نتائج التحليل':'Analysis Results'}:</h3>`;
-    showSummary(enhanced,div);
-    displayStats(enhanced,div);
-    displayCharts(enhanced,div);
-    displayTable(enhanced,div);
-    container.style.display='block';
-    setTimeout(()=>container.scrollIntoView({behavior:'smooth'}),100);
-    showToast(`✅ ${lang==='ar'?'تم تحليل':'Analyzed'} ${logs.length} ${lang==='ar'?'سجل':'logs'}`,'#10b981');
-}
-
-function showSummary(logs,container){
-    const crit=logs.filter(l=>l.severity==='critical').length;
-    const err=logs.filter(l=>l.severity==='error').length;
-    const lang=document.documentElement.lang;
-    let msg='',color='';
-    if(crit>0){msg=lang==='ar'?`🚨 فيه ${crit} مشكلة حرجة!`:`🚨 ${crit} critical issues!`;color='#ef4444';}
-    else if(err>0){msg=lang==='ar'?`⚠️ فيه ${err} خطأ`:`⚠️ ${err} errors`;color='#f59e0b';}
-    else{msg=lang==='ar'?'✅ الشبكة كويسة':'✅ Network healthy';color='#10b981';}
-    const d=document.createElement('div');
-    d.style.cssText=`background:${color}20;border:2px solid ${color};border-radius:24px;padding:20px;margin-bottom:20px;font-size:1.3rem;text-align:center;`;
-    d.innerHTML=`<i class="fas fa-robot" style="color:${color};margin-left:10px;"></i>${msg}`;
-    container.insertBefore(d,container.firstChild);
-}
-
-function displayStats(logs,container){
-    const lang=document.documentElement.lang;
-    const g=document.createElement('div');g.className='stats-grid';
-    g.innerHTML=`
-        <div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${logs.length}</div><div>${lang==='ar'?'إجمالي السجلات':'Total Logs'}</div></div>
-        <div class="stat-item"><i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444"></i><div class="stat-value">${logs.filter(l=>l.severity==='critical').length}</div><div>${lang==='ar'?'حرجة':'Critical'}</div></div>
-        <div class="stat-item"><i class="fas fa-exclamation-triangle fa-2x" style="color:#f59e0b"></i><div class="stat-value">${logs.filter(l=>l.severity==='error').length}</div><div>${lang==='ar'?'أخطاء':'Errors'}</div></div>
-        <div class="stat-item"><i class="fas fa-exclamation fa-2x" style="color:#eab308"></i><div class="stat-value">${logs.filter(l=>l.severity==='warning').length}</div><div>${lang==='ar'?'تحذيرات':'Warnings'}</div></div>
-        <div class="stat-item"><i class="fas fa-info-circle fa-2x" style="color:#3b82f6"></i><div class="stat-value">${logs.filter(l=>l.severity==='info').length}</div><div>${lang==='ar'?'معلومات':'Info'}</div></div>
-        <div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${logs.filter(l=>l.ips.length>0).length}</div><div>${lang==='ar'?'عناوين IP':'IP Addresses'}</div></div>`;
-    container.appendChild(g);
-}
-
-function displayCharts(logs,container){
-    const lang=document.documentElement.lang;
-    const g=document.createElement('div');g.className='charts-grid';
-    g.innerHTML=`
-        <div class="chart-card"><h5><i class="fas fa-chart-pie" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'توزيع السجلات':'Distribution'}</h5><div class="chart-container"><canvas id="severityChart"></canvas></div></div>
-        <div class="chart-card"><h5><i class="fas fa-network-wired" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'أكثر IPs تكراراً':'Top IPs'}</h5><div class="chart-container"><canvas id="ipChart"></canvas></div></div>
-        <div class="chart-card"><h5><i class="fas fa-chart-line" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'النشاط الزمني':'Timeline'}</h5><div class="chart-container"><canvas id="timelineChart"></canvas></div></div>`;
-    container.appendChild(g);
-    setTimeout(()=>{
-        const sCtx=document.getElementById('severityChart').getContext('2d');
-        if(charts.severity)charts.severity.destroy();
-        charts.severity=new Chart(sCtx,{type:'doughnut',data:{labels:lang==='ar'?['حرجة','أخطاء','تحذيرات','معلومات']:['Critical','Errors','Warnings','Info'],datasets:[{data:[logs.filter(l=>l.severity==='critical').length,logs.filter(l=>l.severity==='error').length,logs.filter(l=>l.severity==='warning').length,logs.filter(l=>l.severity==='info').length],backgroundColor:['#ef4444','#f59e0b','#eab308','#3b82f6'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#1e293b'}}}}});
-        const ipC={};logs.forEach(log=>log.ips.forEach(ip=>ipC[ip]=(ipC[ip]||0)+1));
-        const topIPs=Object.entries(ipC).sort((a,b)=>b[1]-a[1]).slice(0,8);
-        if(topIPs.length){const iCtx=document.getElementById('ipChart').getContext('2d');if(charts.ip)charts.ip.destroy();charts.ip=new Chart(iCtx,{type:'bar',data:{labels:topIPs.map(i=>i[0]),datasets:[{label:lang==='ar'?'عدد المرات':'Count',data:topIPs.map(i=>i[1]),backgroundColor:'rgba(99,102,241,0.8)',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});}
-        const tSlots={};logs.forEach(log=>{const h=log.time.split(':')[0];tSlots[h]=(tSlots[h]||0)+1;});
-        const tCtx=document.getElementById('timelineChart').getContext('2d');if(charts.timeline)charts.timeline.destroy();
-        charts.timeline=new Chart(tCtx,{type:'line',data:{labels:Object.keys(tSlots).sort().map(h=>h+':00'),datasets:[{label:lang==='ar'?'عدد السجلات':'Count',data:Object.values(tSlots),borderColor:'var(--primary)',backgroundColor:'rgba(99,102,241,0.2)',tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});
-    },100);
-}
-
-function displayTable(logs,container){
-    const lang=document.documentElement.lang;
-    const tc=document.createElement('div');tc.className='table-container';
-    tc.innerHTML=`
-        <div class="table-header">
-            <h5><i class="fas fa-table" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'السجلات التفصيلية':'Detailed Logs'}</h5>
-            <div>
-                <input type="text" id="searchInput" placeholder="${lang==='ar'?'🔍 ابحث...':'🔍 Search...'}" onkeyup="filterLogs()" style="background:white;border:1px solid #e2e8f0;color:var(--dark);width:200px;padding:8px 15px;border-radius:20px;outline:none;">
-                <select id="severityFilter" onchange="filterLogs()" style="background:white;border:1px solid #e2e8f0;color:var(--dark);padding:8px 15px;border-radius:20px;margin-right:8px;outline:none;">
-                    <option value="all">${lang==='ar'?'كل المستويات':'All'}</option>
-                    <option value="critical">${lang==='ar'?'حرجة':'Critical'}</option>
-                    <option value="error">${lang==='ar'?'أخطاء':'Errors'}</option>
-                    <option value="warning">${lang==='ar'?'تحذيرات':'Warnings'}</option>
-                    <option value="info">${lang==='ar'?'معلومات':'Info'}</option>
-                </select>
-            </div>
-        </div>
-        <div class="table-responsive"><table class="table"><thead><tr>
-            <th>${lang==='ar'?'الوقت':'Time'}</th><th>${lang==='ar'?'المستوى':'Level'}</th>
-            <th>${lang==='ar'?'المصدر':'Source'}</th><th>${lang==='ar'?'الرسالة والشرح':'Message & Explanation'}</th><th>IPs</th>
-        </tr></thead><tbody id="logTableBody"></tbody></table></div>`;
-    container.appendChild(tc);
-    renderRows(logs);
-}
-
-function renderRows(logs){
-    const lang=document.documentElement.lang;
-    const tbody=document.getElementById('logTableBody');
-    if(!tbody)return;
-    tbody.innerHTML='';
-    const sText={critical:lang==='ar'?'حرج':'Critical',error:lang==='ar'?'خطأ':'Error',warning:lang==='ar'?'تحذير':'Warning',info:lang==='ar'?'معلومات':'Info'};
-    logs.slice(0,200).forEach(log=>{
-        const row=document.createElement('tr');
-        row.innerHTML=`
-            <td style="font-weight:700;color:var(--primary-dark)">${log.time}</td>
-            <td><span class="severity-badge severity-${log.severity}">${sText[log.severity]||'Info'}</span></td>
-            <td style="font-weight:600;">${log.source}</td>
-            <td>
-                <div style="margin-bottom:8px;">${log.message}</div>
-                <div class="log-explanation"><i class="fas fa-comment-dots" style="margin-left:6px;"></i><strong>${lang==='ar'?'شرح:':'Explanation:'}</strong> ${log.explanation}</div>
-                <div class="log-explanation" style="background:#f1f5f9;border-color:var(--primary);margin-top:5px;"><i class="fas fa-lightbulb" style="color:#eab308;margin-left:6px;"></i><strong>${lang==='ar'?'الحل:':'Solution:'}</strong> ${log.solution}</div>
-            </td>
-            <td>${log.ips.map(ip=>`<span class="ip-tag">${ip}</span>`).join(' ')||'-'}</td>`;
-        tbody.appendChild(row);
+function initGradientPresets() {
+    document.querySelectorAll('.grad-preset').forEach(preset => {
+        preset.addEventListener('click', () => {
+            document.querySelectorAll('.grad-preset').forEach(p=>p.classList.remove('active'));
+            preset.classList.add('active');
+            state.bgGradient = preset.dataset.grad;
+            state.bgType = 'gradient';
+            state.bgImage = null;
+            applyBackground();
+        });
     });
 }
 
-window.filterLogs=function(){
-    if(!currentLogs.length)return;
-    const search=document.getElementById('searchInput')?.value.toLowerCase()||'';
-    const sev=document.getElementById('severityFilter')?.value||'all';
-    filteredLogs=currentLogs.filter(log=>{
-        if(sev!=='all'&&log.severity!==sev)return false;
-        if(search)return log.message.toLowerCase().includes(search)||log.source.toLowerCase().includes(search)||log.ips.some(ip=>ip.includes(search));
-        return true;
+function initOverlayChips() {
+    document.querySelectorAll('.overlay-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.overlay-chip').forEach(c=>c.classList.remove('active'));
+            chip.classList.add('active');
+            state.overlayColor = chip.dataset.overlay;
+            applyBackground();
+        });
     });
-    renderRows(filteredLogs);
-};
+}
 
-const translations={
-    en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",hotspot_settings:"Hotspot+PPP Settings",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",block_sites:"Block Sites",speed_profiles:"Speed Profiles",troubleshooting:"Troubleshooting",hotspot_design:"Hotspot Design",card_designer:"Card Designer",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",log_analyzer:"Log Analyzer",new:"NEW",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"MikroTik Log Analyzer - Step by step for beginners",how_to_get_logs:"How to get logs from MikroTik?",simple_method:"One Simple Method",use_terminal:"Use Terminal - Fastest Way",write_command:"✍️ Type this command in terminal:",copy_command:"Copy Command",step1_title:"Open Terminal:",step1_desc:"In WinBox or WebFig, click on Terminal",step2_title:"Type the command:",step2_desc:"Type log print and press Enter",step3_title:"Select all logs:",step3_desc:"Right-click and choose 'Select All'",step4_title:"Copy:",step4_desc:"Right-click again and choose 'Copy'",step5_title:"Paste here:",step5_desc:"Press Ctrl+V in the input box",important_notes:"💡 Important Notes:",note1:"🔹 <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print</code> shows all logs newest first",note2:"🔹 For real-time logs use <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print follow</code>",note3:"🔹 Press Ctrl+C to stop follow mode",note4:"🔹 Save to file: <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print file=logs.txt</code>",paste_logs:"Paste logs here",important_paste:"Paste the logs you copied from terminal",lines_count:"Lines",try_examples:"Try ready examples:",basic_logs:"Basic Logs",security_attacks:"Security Attacks",firewall_issues:"Firewall Issues",wireless_network:"Wireless",vpn_connections:"VPN",click_to_fill:"Click any example to auto-fill",analyze_button:"Click here to analyze logs",wait_message:"Results will appear below",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},
-    ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",hotspot_settings:"اعدادات hotspot+ppp",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",block_sites:"حجب مواقع",speed_profiles:"بروفايلات السرعة",troubleshooting:"المشكلات الشائعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",log_analyzer:"محلل السجلات",new:"جديد",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين",how_to_get_logs:"ازاي تجيب السجلات من المايكروتيك؟",simple_method:"طريقة واحدة وبسيطة",use_terminal:"استخدم Terminal - أسرع وأسهل طريقة",write_command:"✍️ اكتب الأمر ده في التيرمينال:",copy_command:"نسخ الأمر",step1_title:"افتح Terminal:",step1_desc:"في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal",step2_title:"اكتب الأمر:",step2_desc:"اكتب log print واضغط Enter",step3_title:"حدد كل السجلات:",step3_desc:"اضغط كليك يمين في التيرمينال واختار 'Select All'",step4_title:"انسخ:",step4_desc:"اضغط كليك يمين تاني واختار 'Copy'",step5_title:"الصق هنا:",step5_desc:"ارجع للصفحة واضغط Ctrl+V في المربع الأسود",important_notes:"💡 ملاحظات مهمة:",note1:"🔹 الأمر <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print</code> بيظهر كل السجلات من الأحدث للأقدم",note2:"🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print follow</code>",note3:"🔹 عشان توقف العرض المباشر اضغط Ctrl+C",note4:"🔹 لو عايز تحفظ السجلات في ملف استخدم <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print file=logs.txt</code>",paste_logs:"الصق السجلات هنا",important_paste:"مهم: الصق السجلات اللي نسختها من التيرمينال",lines_count:"عدد الأسطر",try_examples:"جرب الأمثلة الجاهزة (للتجربة فقط):",basic_logs:"سجلات عادية",security_attacks:"هجمات أمنية",firewall_issues:"مشاكل جدار ناري",wireless_network:"شبكة لاسلكية",vpn_connections:"اتصالات VPN",click_to_fill:"اضغط على أي مثال لملء المربع تلقائياً",analyze_button:"اضغط هنا لتحليل السجلات",wait_message:"بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}
-};
+function clearBg() {
+    state.bgType = 'gradient';
+    state.bgGradient = 'linear-gradient(135deg,#1e2a4a,#312e81)';
+    state.bgImage = null;
+    state.overlayOpacity = 0;
+    document.getElementById('overlayOpacity').value = 0;
+    document.getElementById('overlayOpacityVal').textContent = '0%';
+    document.querySelectorAll('.grad-preset').forEach((p,i)=>{p.classList.toggle('active',i===0);});
+    applyBackground();
+    showToast('🗑️ تم مسح الخلفية', '#f59e0b');
+}
 
-function setLanguage(lang){
-    localStorage.setItem('language',lang);
-    const html=document.documentElement,body=document.body;
-    if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}
-    else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const key=el.getAttribute('data-i18n');
-        if(translations[lang]&&translations[lang][key]){
-            if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=translations[lang][key];
-            else el.innerHTML=translations[lang][key];
+// ============================================================
+//  SLIDERS
+// ============================================================
+function initSliders() {
+    // Overlay opacity
+    document.getElementById('overlayOpacity').addEventListener('input', function() {
+        state.overlayOpacity = parseInt(this.value);
+        document.getElementById('overlayOpacityVal').textContent = this.value + '%';
+        applyBackground();
+    });
+
+    // Logo size
+    document.getElementById('logoSize').addEventListener('input', function() {
+        document.getElementById('logoSizeVal').textContent = this.value;
+        if (state.selectedId) {
+            const el = getElement(state.selectedId);
+            if (el && el.type === 'logo') {
+                el.size = parseInt(this.value);
+                renderElement(el);
+            }
         }
     });
-    document.getElementById('langEn').classList.toggle('active',lang==='en');
-    document.getElementById('langAr').classList.toggle('active',lang==='ar');
+
+    // Logo opacity
+    document.getElementById('logoOpacity').addEventListener('input', function() {
+        document.getElementById('logoOpacityVal').textContent = this.value + '%';
+        if (state.selectedId) {
+            const el = getElement(state.selectedId);
+            if (el && el.type === 'logo') {
+                el.opacity = parseInt(this.value);
+                renderElement(el);
+            }
+        }
+    });
+
+    // Font size
+    document.getElementById('fontSize').addEventListener('input', function() {
+        document.getElementById('fontSizeVal').textContent = this.value + 'px';
+        if (state.selectedId) {
+            const el = getElement(state.selectedId);
+            if (el && el.type === 'text') {
+                el.fontSize = parseInt(this.value);
+                renderElement(el);
+            }
+        }
+    });
+
+    // Text color custom
+    document.getElementById('textColorCustom').addEventListener('input', function() {
+        document.querySelectorAll('.color-preset').forEach(c=>c.classList.remove('active'));
+        applyTextColor(this.value);
+    });
+
+    // Font family
+    document.getElementById('fontFamily').addEventListener('change', function() {
+        if (state.selectedId) {
+            const el = getElement(state.selectedId);
+            if (el && el.type === 'text') {
+                el.fontFamily = this.value;
+                renderElement(el);
+            }
+        }
+    });
+
+    // Text shadow
+    document.getElementById('textShadow').addEventListener('change', function() {
+        if (state.selectedId) {
+            const el = getElement(state.selectedId);
+            if (el && el.type === 'text') {
+                el.textShadow = this.value;
+                renderElement(el);
+            }
+        }
+    });
 }
 
-document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
-document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
-setLanguage(localStorage.getItem('language')||'ar');
+// ============================================================
+//  TABS
+// ============================================================
+function initTabs() {
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabId = tab.dataset.tab;
+            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+            tab.classList.add('active');
+            document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('show'));
+            document.getElementById(tabId).classList.add('show');
+        });
+    });
+}
+
+// ============================================================
+//  COLOR PRESETS
+// ============================================================
+function initColorPresets() {
+    document.querySelectorAll('.color-preset').forEach(preset => {
+        preset.addEventListener('click', () => {
+            document.querySelectorAll('.color-preset').forEach(c=>c.classList.remove('active'));
+            preset.classList.add('active');
+            applyTextColor(preset.dataset.color);
+        });
+    });
+}
+
+function applyTextColor(color) {
+    if (state.selectedId) {
+        const el = getElement(state.selectedId);
+        if (el && el.type === 'text') {
+            el.color = color;
+            renderElement(el);
+        }
+    }
+    // Store for next element too
+    state.pendingTextColor = color;
+}
+
+// ============================================================
+//  LOGO UPLOAD
+// ============================================================
+function initLogoUpload() {
+    document.getElementById('logoUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            addLogoElement(ev.target.result);
+            showToast('✅ تم إضافة اللوجو', '#10b981');
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+// ============================================================
+//  ELEMENTS
+// ============================================================
+function getElement(id) {
+    return state.elements.find(e => e.id === id);
+}
+
+function addLogoElement(src) {
+    const wrapper = document.getElementById('cardWrapper');
+    const rect = wrapper.getBoundingClientRect();
+    const el = {
+        id: state.nextId++,
+        type: 'logo',
+        src,
+        size: parseInt(document.getElementById('logoSize').value),
+        opacity: parseInt(document.getElementById('logoOpacity').value),
+        x: 50, y: 50  // % based position
+    };
+    state.elements.push(el);
+    createElementDOM(el);
+    selectElement(el.id);
+    updateHint();
+    updateElementsManager();
+}
+
+function addTextElement() {
+    const text = document.getElementById('cardTextInput').value.trim();
+    if (!text) { showToast('⚠️ اكتب نص أولاً', '#f59e0b'); return; }
+
+    const el = {
+        id: state.nextId++,
+        type: 'text',
+        text,
+        fontSize: parseInt(document.getElementById('fontSize').value),
+        fontFamily: document.getElementById('fontFamily').value,
+        color: state.pendingTextColor || '#ffffff',
+        textShadow: document.getElementById('textShadow').value,
+        x: 50, y: 50
+    };
+    state.elements.push(el);
+    createElementDOM(el);
+    selectElement(el.id);
+    updateHint();
+    updateElementsManager();
+    document.getElementById('cardTextInput').value = '';
+}
+
+function createElementDOM(el) {
+    const wrapper = document.getElementById('cardWrapper');
+    const div = document.createElement('div');
+    div.className = 'card-element';
+    div.id = 'el-' + el.id;
+    div.dataset.elId = el.id;
+
+    // Floating toolbar
+    const toolbar = document.createElement('div');
+    toolbar.className = 'element-toolbar';
+    toolbar.innerHTML = `
+        <button class="toolbar-btn" onclick="duplicateElement(${el.id})" title="نسخ"><i class="fas fa-copy"></i></button>
+        <button class="toolbar-btn" onclick="deleteElement(${el.id})" title="حذف" style="color:#f87171"><i class="fas fa-trash"></i></button>
+    `;
+    div.appendChild(toolbar);
+
+    // Resize handle
+    const handle = document.createElement('div');
+    handle.className = 'resize-handle';
+    div.appendChild(handle);
+
+    wrapper.appendChild(div);
+    renderElement(el);
+    makeDraggable(div, el, handle);
+
+    div.addEventListener('pointerdown', (e) => {
+        if (e.target === handle) return; // handled separately
+        selectElement(el.id);
+    });
+}
+
+function renderElement(el) {
+    const div = document.getElementById('el-' + el.id);
+    if (!div) return;
+    const wrapper = document.getElementById('cardWrapper');
+    const wRect = wrapper.getBoundingClientRect();
+
+    // Set position
+    div.style.left = el.x + '%';
+    div.style.top = el.y + '%';
+    div.style.transform = 'translate(-50%, -50%)';
+
+    // Clear content (keep toolbar and handle)
+    const toolbar = div.querySelector('.element-toolbar');
+    const handle = div.querySelector('.resize-handle');
+    div.innerHTML = '';
+    div.appendChild(toolbar);
+
+    if (el.type === 'logo') {
+        const img = document.createElement('img');
+        img.src = el.src;
+        img.style.cssText = `width:${el.size}px;height:auto;max-height:${el.size}px;object-fit:contain;display:block;opacity:${el.opacity/100};pointer-events:none;`;
+        div.insertBefore(img, toolbar);
+    } else if (el.type === 'text') {
+        const span = document.createElement('span');
+        span.textContent = el.text;
+        span.style.cssText = `font-size:${el.fontSize}px;font-family:${el.fontFamily},sans-serif;color:${el.color};text-shadow:${el.textShadow};font-weight:700;white-space:nowrap;pointer-events:none;display:block;`;
+        div.insertBefore(span, toolbar);
+    }
+
+    div.appendChild(handle);
+    makeDraggable(div, el, div.querySelector('.resize-handle'));
+}
+
+function selectElement(id) {
+    state.selectedId = id;
+    document.querySelectorAll('.card-element').forEach(d => d.classList.remove('selected'));
+    const div = document.getElementById('el-' + id);
+    if (div) div.classList.add('selected');
+
+    // Sync controls
+    const el = getElement(id);
+    if (!el) return;
+    if (el.type === 'logo') {
+        document.getElementById('logoSize').value = el.size;
+        document.getElementById('logoSizeVal').textContent = el.size;
+        document.getElementById('logoOpacity').value = el.opacity;
+        document.getElementById('logoOpacityVal').textContent = el.opacity + '%';
+    } else if (el.type === 'text') {
+        document.getElementById('fontSize').value = el.fontSize;
+        document.getElementById('fontSizeVal').textContent = el.fontSize + 'px';
+        document.getElementById('fontFamily').value = el.fontFamily;
+        document.getElementById('textShadow').value = el.textShadow;
+        document.getElementById('textColorCustom').value = el.color;
+        state.pendingTextColor = el.color;
+        document.querySelectorAll('.color-preset').forEach(c => {
+            c.classList.toggle('active', c.dataset.color === el.color);
+        });
+    }
+}
+
+function deleteElement(id) {
+    state.elements = state.elements.filter(e => e.id !== id);
+    const div = document.getElementById('el-' + id);
+    if (div) div.remove();
+    if (state.selectedId === id) state.selectedId = null;
+    updateHint();
+    updateElementsManager();
+}
+
+function duplicateElement(id) {
+    const el = getElement(id);
+    if (!el) return;
+    const newEl = { ...el, id: state.nextId++, x: el.x + 5, y: el.y + 5 };
+    state.elements.push(newEl);
+    createElementDOM(newEl);
+    selectElement(newEl.id);
+    updateElementsManager();
+}
+
+function clearAllElements() {
+    state.elements.forEach(el => {
+        const div = document.getElementById('el-' + el.id);
+        if (div) div.remove();
+    });
+    state.elements = [];
+    state.selectedId = null;
+    updateHint();
+    updateElementsManager();
+}
+
+function updateElementsManager() {
+    const mgr = document.getElementById('elementsManager');
+    const list = document.getElementById('elementsList');
+    const count = document.getElementById('elementCount');
+
+    if (state.elements.length === 0) {
+        mgr.style.display = 'none';
+        return;
+    }
+    mgr.style.display = 'block';
+    count.textContent = state.elements.length;
+
+    list.innerHTML = state.elements.map(el => `
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:8px;margin-bottom:6px;border:1px solid #e2e8f0;cursor:pointer;" onclick="selectElement(${el.id})">
+            <i class="fas fa-${el.type === 'logo' ? 'image' : 'font'}" style="color:var(--primary);"></i>
+            <span style="flex:1;font-size:0.85rem;font-weight:600;">${el.type === 'logo' ? 'لوجو/صورة' : ('"' + (el.text.length > 15 ? el.text.slice(0,15)+'…' : el.text) + '"')}</span>
+            <button onclick="event.stopPropagation();deleteElement(${el.id})" style="background:#fee2e2;border:none;border-radius:6px;padding:3px 8px;cursor:pointer;color:#991b1b;"><i class="fas fa-times"></i></button>
+        </div>
+    `).join('');
+}
+
+function updateHint() {
+    const hint = document.getElementById('cardHint');
+    if (!hint) return;
+    const hasContent = state.elements.length > 0 || state.bgImage;
+    hint.classList.toggle('hidden', hasContent);
+}
+
+// ============================================================
+//  DRAG & RESIZE
+// ============================================================
+function makeDraggable(div, el, resizeHandle) {
+    // Remove old listeners by cloning — simplest approach
+    const newDiv = div.cloneNode(false);
+    div.parentNode.replaceChild(newDiv, div);
+    const freshDiv = document.getElementById('el-' + el.id);
+
+    // Re-render content
+    if (el.type === 'logo') {
+        const img = document.createElement('img');
+        img.src = el.src;
+        img.style.cssText = `width:${el.size}px;height:auto;max-height:${el.size}px;object-fit:contain;display:block;opacity:${el.opacity/100};pointer-events:none;`;
+        freshDiv.appendChild(img);
+    } else {
+        const span = document.createElement('span');
+        span.textContent = el.text;
+        span.style.cssText = `font-size:${el.fontSize}px;font-family:${el.fontFamily},sans-serif;color:${el.color};text-shadow:${el.textShadow};font-weight:700;white-space:nowrap;pointer-events:none;display:block;`;
+        freshDiv.appendChild(span);
+    }
+
+    // Toolbar
+    const toolbar = document.createElement('div');
+    toolbar.className = 'element-toolbar';
+    toolbar.innerHTML = `
+        <button class="toolbar-btn" onclick="duplicateElement(${el.id})" title="نسخ"><i class="fas fa-copy"></i></button>
+        <button class="toolbar-btn" onclick="deleteElement(${el.id})" title="حذف" style="color:#f87171"><i class="fas fa-trash"></i></button>
+    `;
+    freshDiv.appendChild(toolbar);
+
+    // Resize handle
+    const handle = document.createElement('div');
+    handle.className = 'resize-handle';
+    freshDiv.appendChild(handle);
+
+    freshDiv.addEventListener('pointerdown', (e) => {
+        if (e.target === handle || e.target.closest('.element-toolbar')) return;
+        selectElement(el.id);
+        startDrag(e, el);
+    });
+
+    handle.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        selectElement(el.id);
+        startResize(e, el);
+    });
+}
+
+function startDrag(e, el) {
+    e.preventDefault();
+    const wrapper = document.getElementById('cardWrapper');
+    const wRect = wrapper.getBoundingClientRect();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startElX = el.x;
+    const startElY = el.y;
+
+    function onMove(ev) {
+        const dx = ((ev.clientX - startX) / wRect.width) * 100;
+        const dy = ((ev.clientY - startY) / wRect.height) * 100;
+        el.x = Math.max(0, Math.min(100, startElX + dx));
+        el.y = Math.max(0, Math.min(100, startElY + dy));
+        const div = document.getElementById('el-' + el.id);
+        if (div) {
+            div.style.left = el.x + '%';
+            div.style.top = el.y + '%';
+        }
+    }
+
+    function onUp() {
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+    }
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+}
+
+function startResize(e, el) {
+    e.preventDefault();
+    const wrapper = document.getElementById('cardWrapper');
+    const wRect = wrapper.getBoundingClientRect();
+    const startX = e.clientX;
+    const startSize = el.type === 'logo' ? el.size : el.fontSize;
+
+    function onMove(ev) {
+        const dx = ev.clientX - startX;
+        if (el.type === 'logo') {
+            el.size = Math.max(20, Math.min(400, startSize + dx));
+            document.getElementById('logoSize').value = el.size;
+            document.getElementById('logoSizeVal').textContent = el.size;
+            const img = document.querySelector('#el-' + el.id + ' img');
+            if (img) img.style.width = el.size + 'px';
+        } else if (el.type === 'text') {
+            el.fontSize = Math.max(8, Math.min(120, startSize + Math.round(dx/3)));
+            document.getElementById('fontSize').value = el.fontSize;
+            document.getElementById('fontSizeVal').textContent = el.fontSize + 'px';
+            const span = document.querySelector('#el-' + el.id + ' span');
+            if (span) span.style.fontSize = el.fontSize + 'px';
+        }
+    }
+
+    function onUp() {
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+    }
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+}
+
+// Click outside to deselect
+document.getElementById('cardWrapper').addEventListener('pointerdown', (e) => {
+    if (e.target === document.getElementById('cardWrapper') ||
+        e.target === document.getElementById('cardBg') ||
+        e.target === document.getElementById('cardOverlay') ||
+        e.target === document.getElementById('cardHint')) {
+        state.selectedId = null;
+        document.querySelectorAll('.card-element').forEach(d => d.classList.remove('selected'));
+    }
+});
+
+// ============================================================
+//  DOWNLOAD
+// ============================================================
+function downloadCard() {
+    // Deselect all before capture
+    state.selectedId = null;
+    document.querySelectorAll('.card-element').forEach(d => d.classList.remove('selected'));
+
+    const wrapper = document.getElementById('cardWrapper');
+    const scale = parseInt(document.getElementById('downloadQuality').value);
+    const format = document.getElementById('downloadFormat').value;
+    const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+    const ext = format === 'jpeg' ? 'jpg' : 'png';
+
+    // Temporarily hide toolbar elements
+    document.querySelectorAll('.element-toolbar, .resize-handle').forEach(el => el.style.display = 'none');
+
+    html2canvas(wrapper, {
+        scale: scale,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        logging: false
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `mikro-card-${Date.now()}.${ext}`;
+        link.href = canvas.toDataURL(mime, 0.95);
+        link.click();
+        showToast('✅ تم تحميل الكارت!', '#10b981');
+    }).catch(err => {
+        showToast('❌ فشل التحميل', '#ef4444');
+    }).finally(() => {
+        document.querySelectorAll('.element-toolbar, .resize-handle').forEach(el => el.style.display = '');
+    });
+}
+
+// ============================================================
+//  TOAST
+// ============================================================
+function showToast(msg, color) {
+    const t = document.createElement('div');
+    t.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:${color};color:white;padding:12px 28px;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 8px 25px rgba(0,0,0,0.25);z-index:9999;animation:slideIn 0.3s ease;white-space:nowrap;font-family:'Tajawal',sans-serif;`;
+    t.innerHTML = msg;
+    document.body.appendChild(t);
+    setTimeout(() => { t.style.animation = 'slideOut 0.3s ease'; setTimeout(() => t.remove(), 300); }, 2500);
+}
 </script>
 
 <script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 </body>
 </html>
-
