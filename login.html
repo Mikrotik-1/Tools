@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - MikroTools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+      --dark: #1e293b;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Tajawal',sans-serif;
+      background:var(--dark);
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      padding:1rem; position:relative; overflow:hidden;
+    }
+    body::before {
+      content:''; position:fixed; inset:0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(217,70,239,0.08) 0%, transparent 50%);
+      pointer-events:none;
+    }
+    .bg-dots { position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+    .dot {
+      position:absolute; border-radius:50%;
+      background:rgba(99,102,241,0.15);
+      animation:floatDot linear infinite;
+    }
+    @keyframes floatDot {
+      0%   { transform:translateY(100vh) scale(0); opacity:0; }
+      10%  { opacity:1; } 90% { opacity:1; }
+      100% { transform:translateY(-100px) scale(1); opacity:0; }
+    }
+
+    .card {
+      background:rgba(255,255,255,0.04);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:24px;
+      padding:2.5rem 2.5rem;
+      width:100%; max-width:440px;
+      position:relative; z-index:1;
+      box-shadow:0 40px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      animation:cardIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes cardIn {
+      from { transform:translateY(30px) scale(0.95); opacity:0; }
+      to   { transform:translateY(0) scale(1); opacity:1; }
+    }
+    .card::before {
+      content:''; position:absolute;
+      top:0; right:0; left:0; height:3px;
+      background:var(--gradient);
+      border-radius:24px 24px 0 0;
+    }
+
+    /* Logo */
+    .logo { text-align:center; margin-bottom:1.75rem; }
+    .logo-icon {
+      width:58px; height:58px;
+      background:var(--gradient); border-radius:14px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:26px; color:white; margin-bottom:0.75rem;
+      box-shadow:0 10px 30px rgba(99,102,241,0.4);
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow:0 10px 30px rgba(99,102,241,0.4); }
+      50%      { box-shadow:0 10px 40px rgba(99,102,241,0.7); }
+    }
+    .logo-name {
+      font-size:1.7rem; font-weight:800;
+      background:var(--gradient);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      display:block;
+    }
+
+    /* Tabs */
+    .tabs {
+      display:flex; background:rgba(255,255,255,0.05);
+      border-radius:12px; padding:4px;
+      margin-bottom:1.75rem;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .tab {
+      flex:1; padding:0.6rem;
+      text-align:center; border-radius:9px;
+      color:#64748b; font-size:0.95rem; font-weight:600;
+      cursor:pointer; transition:all 0.25s;
+      border:none; background:transparent;
+      font-family:'Tajawal',sans-serif;
+    }
+    .tab.active {
+      background:var(--primary); color:white;
+      box-shadow:0 4px 12px rgba(99,102,241,0.35);
+    }
+
+    /* Form */
+    .form-section { display:none; }
+    .form-section.active { display:block; animation:fadeIn 0.3s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    .form-group { margin-bottom:1.1rem; }
+    label { display:block; color:#cbd5e1; font-size:0.88rem; font-weight:600; margin-bottom:0.45rem; }
+    .input-wrap { position:relative; }
+    .input-wrap .ico {
+      position:absolute; right:0.9rem; top:50%;
+      transform:translateY(-50%); color:#475569; font-size:15px;
+      pointer-events:none; transition:color 0.2s;
+    }
+    .input-wrap input {
+      width:100%;
+      background:rgba(255,255,255,0.05);
+      border:1.5px solid rgba(255,255,255,0.1);
+      border-radius:11px;
+      padding:0.8rem 0.9rem 0.8rem 2.5rem;
+      color:white; font-size:0.97rem;
+      font-family:'Tajawal',sans-serif;
+      transition:all 0.2s; outline:none;
+      direction:ltr; text-align:left;
+    }
+    .input-wrap input:focus {
+      border-color:var(--primary);
+      background:rgba(99,102,241,0.08);
+      box-shadow:0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .input-wrap input:focus ~ .ico { color:var(--primary); }
+    input::placeholder { color:#374151; }
+
+    /* toggle password */
+    .toggle-pass {
+      position:absolute; left:0.9rem; top:50%;
+      transform:translateY(-50%);
+      color:#475569; cursor:pointer;
+      font-size:15px; transition:color 0.2s;
+    }
+    .toggle-pass:hover { color:#94a3b8; }
+
+    /* forgot */
+    .forgot {
+      text-align:left; margin-top:0.3rem;
+    }
+    .forgot a {
+      color:#6366f1; font-size:0.82rem;
+      text-decoration:none; transition:color 0.2s;
+    }
+    .forgot a:hover { color:#a5b4fc; }
+
+    /* Main btn */
+    .btn-main {
+      width:100%; padding:0.9rem;
+      background:var(--gradient); color:white;
+      border:none; border-radius:11px;
+      font-size:1rem; font-weight:700;
+      font-family:'Tajawal',sans-serif;
+      cursor:pointer; transition:all 0.3s;
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      margin-top:0.25rem;
+    }
+    .btn-main:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 12px 30px rgba(99,102,241,0.4); }
+    .btn-main:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .spinner {
+      width:17px; height:17px;
+      border:2px solid rgba(255,255,255,0.3);
+      border-top-color:white; border-radius:50%;
+      animation:spin 0.7s linear infinite; display:none;
+    }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .btn-main.loading .spinner { display:block; }
+    .btn-main.loading .btn-text { display:none; }
+
+    /* Divider */
+    .divider {
+      display:flex; align-items:center; gap:0.75rem;
+      margin:1.25rem 0;
+    }
+    .divider::before, .divider::after {
+      content:''; flex:1; height:1px;
+      background:rgba(255,255,255,0.08);
+    }
+    .divider span { color:#475569; font-size:0.82rem; white-space:nowrap; }
+
+    /* Google btn */
+    .btn-google {
+      width:100%; padding:0.85rem;
+      background:rgba(255,255,255,0.06);
+      border:1.5px solid rgba(255,255,255,0.12);
+      border-radius:11px; color:white;
+      font-size:0.97rem; font-weight:700;
+      font-family:'Tajawal',sans-serif;
+      cursor:pointer; transition:all 0.3s;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .btn-google:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); transform:translateY(-2px); }
+    .btn-google img { width:20px; height:20px; }
+
+    /* Error / Success */
+    .alert {
+      padding:10px 14px; border-radius:10px;
+      font-size:0.87rem; margin-top:1rem;
+      display:none; align-items:center; gap:8px;
+    }
+    .alert.error   { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.2);  color:#fca5a5; }
+    .alert.success { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#6ee7b7; }
+  </style>
+</head>
+<body>
+<div class="bg-dots" id="bgDots"></div>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+    <span class="logo-name">MikroTools</span>
+  </div>
+
+  <!-- Tabs: تسجيل دخول / إنشاء حساب -->
+  <div class="tabs">
+    <button class="tab active" id="tabLogin" onclick="switchTab('login')">تسجيل الدخول</button>
+    <button class="tab" id="tabRegister" onclick="switchTab('register')">إنشاء حساب</button>
+  </div>
+
+  <!-- ===== تسجيل الدخول ===== -->
+  <div class="form-section active" id="sectionLogin">
+    <div class="form-group">
+      <label>البريد الإلكتروني</label>
+      <div class="input-wrap">
+        <input type="email" id="loginEmail" placeholder="example@gmail.com" autocomplete="email" />
+        <i class="fas fa-envelope ico"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <div class="input-wrap">
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
+        <i class="fas fa-lock ico"></i>
+        <i class="fas fa-eye toggle-pass" id="toggleLoginPass"></i>
+      </div>
+      <div class="forgot"><a href="#" id="forgotLink">نسيت كلمة المرور؟</a></div>
+    </div>
+    <button class="btn-main" id="loginBtn">
+      <div class="spinner"></div>
+      <span class="btn-text"><i class="fas fa-sign-in-alt"></i> دخول</span>
+    </button>
+    <div class="alert error" id="loginError"><i class="fas fa-exclamation-circle"></i><span id="loginErrText"></span></div>
+  </div>
+
+  <!-- ===== إنشاء حساب ===== -->
+  <div class="form-section" id="sectionRegister">
+    <div class="form-group">
+      <label>البريد الإلكتروني</label>
+      <div class="input-wrap">
+        <input type="email" id="regEmail" placeholder="example@gmail.com" autocomplete="email" />
+        <i class="fas fa-envelope ico"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <div class="input-wrap">
+        <input type="password" id="regPass" placeholder="على الأقل 6 أحرف" autocomplete="new-password" />
+        <i class="fas fa-lock ico"></i>
+        <i class="fas fa-eye toggle-pass" id="toggleRegPass"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>تأكيد كلمة المرور</label>
+      <div class="input-wrap">
+        <input type="password" id="regPassConfirm" placeholder="أعد كتابة كلمة المرور" autocomplete="new-password" />
+        <i class="fas fa-lock ico"></i>
+      </div>
+    </div>
+    <button class="btn-main" id="registerBtn">
+      <div class="spinner"></div>
+      <span class="btn-text"><i class="fas fa-user-plus"></i> إنشاء حساب</span>
+    </button>
+    <div class="alert error"   id="regError"><i class="fas fa-exclamation-circle"></i><span id="regErrText"></span></div>
+    <div class="alert success" id="regSuccess"><i class="fas fa-check-circle"></i><span id="regSuccessText"></span></div>
+  </div>
+
+  <!-- Divider + Google -->
+  <div class="divider"><span>أو</span></div>
+  <button class="btn-google" id="googleBtn">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+    الدخول بحساب Google
+  </button>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    sendPasswordResetEmail,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",
+    authDomain: "mikro-tools.firebaseapp.com",
+    projectId: "mikro-tools",
+    storageBucket: "mikro-tools.firebasestorage.app",
+    messagingSenderId: "22698503616",
+    appId: "1:22698503616:web:de7a3802b2fd746cc2ec25"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  // لو مسجل دخول → روّحه
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const params = new URLSearchParams(window.location.search);
+      window.location.href = params.get("redirect") || "index.html";
+    }
+  });
+
+  // ترجمة أخطاء Firebase
+  function getErrMsg(code) {
+    const map = {
+      "auth/user-not-found":      "الإيميل ده مش موجود، سجّل حساب جديد",
+      "auth/wrong-password":      "كلمة المرور غلط",
+      "auth/invalid-credential":  "الإيميل أو كلمة المرور غلط",
+      "auth/email-already-in-use":"الإيميل ده مسجل قبل كده، سجّل دخول",
+      "auth/weak-password":       "كلمة المرور ضعيفة — على الأقل 6 أحرف",
+      "auth/invalid-email":       "الإيميل غير صحيح",
+      "auth/too-many-requests":   "محاولات كتير، استنى شوية وحاول تاني",
+      "auth/popup-closed-by-user":"تم إغلاق نافذة جوجل",
+    };
+    return map[code] || "حدث خطأ، حاول تاني";
+  }
+
+  function setLoading(btn, loading) {
+    btn.disabled = loading;
+    btn.classList.toggle("loading", loading);
+  }
+
+  function showError(elId, textElId, msg) {
+    const el = document.getElementById(elId);
+    document.getElementById(textElId).textContent = msg;
+    el.style.display = "flex";
+  }
+  function hideAlert(elId) { document.getElementById(elId).style.display = "none"; }
+
+  // ===== Login =====
+  document.getElementById("loginBtn").addEventListener("click", async () => {
+    const email = document.getElementById("loginEmail").value.trim();
+    const pass  = document.getElementById("loginPass").value;
+    const btn   = document.getElementById("loginBtn");
+    hideAlert("loginError");
+    if (!email || !pass) { showError("loginError","loginErrText","من فضلك ادخل الإيميل وكلمة المرور"); return; }
+    setLoading(btn, true);
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+    } catch(e) {
+      showError("loginError","loginErrText", getErrMsg(e.code));
+      setLoading(btn, false);
+    }
+  });
+
+  // ===== Register =====
+  document.getElementById("registerBtn").addEventListener("click", async () => {
+    const email   = document.getElementById("regEmail").value.trim();
+    const pass    = document.getElementById("regPass").value;
+    const confirm = document.getElementById("regPassConfirm").value;
+    const btn     = document.getElementById("registerBtn");
+    hideAlert("regError"); hideAlert("regSuccess");
+    if (!email || !pass) { showError("regError","regErrText","من فضلك ادخل الإيميل وكلمة المرور"); return; }
+    if (pass !== confirm) { showError("regError","regErrText","كلمتا المرور مش متطابقتين"); return; }
+    if (pass.length < 6)  { showError("regError","regErrText","كلمة المرور على الأقل 6 أحرف"); return; }
+    setLoading(btn, true);
+    try {
+      await createUserWithEmailAndPassword(auth, email, pass);
+      // onAuthStateChanged هيروّحه أوتوماتيك
+    } catch(e) {
+      showError("regError","regErrText", getErrMsg(e.code));
+      setLoading(btn, false);
+    }
+  });
+
+  // ===== Google =====
+  document.getElementById("googleBtn").addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch(e) {
+      console.error(e.code);
+    }
+  });
+
+  // ===== Forgot Password =====
+  document.getElementById("forgotLink").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    if (!email) { showError("loginError","loginErrText","ادخل إيميلك الأول عشان نبعتلك رابط إعادة تعيين"); return; }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      hideAlert("loginError");
+      const s = document.getElementById("loginError");
+      s.className = "alert success";
+      document.getElementById("loginErrText").textContent = "تم الإرسال! افتح إيميلك واتبع التعليمات";
+      s.style.display = "flex";
+    } catch(e) {
+      showError("loginError","loginErrText", getErrMsg(e.code));
+    }
+  });
+
+  // ===== Enter key =====
+  ["loginEmail","loginPass"].forEach(id => {
+    document.getElementById(id).addEventListener("keydown", e => { if(e.key==="Enter") document.getElementById("loginBtn").click(); });
+  });
+  ["regEmail","regPass","regPassConfirm"].forEach(id => {
+    document.getElementById(id).addEventListener("keydown", e => { if(e.key==="Enter") document.getElementById("registerBtn").click(); });
+  });
+
+  // ===== Toggle password =====
+  function togglePass(inputId, iconId) {
+    const inp  = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    icon.addEventListener("click", () => {
+      const show = inp.type === "password";
+      inp.type = show ? "text" : "password";
+      icon.className = show ? "fas fa-eye-slash toggle-pass" : "fas fa-eye toggle-pass";
+    });
+  }
+  togglePass("loginPass", "toggleLoginPass");
+  togglePass("regPass",   "toggleRegPass");
+
+  // ===== Switch Tabs =====
+  window.switchTab = function(tab) {
+    document.getElementById("sectionLogin").classList.toggle("active", tab==="login");
+    document.getElementById("sectionRegister").classList.toggle("active", tab==="register");
+    document.getElementById("tabLogin").classList.toggle("active", tab==="login");
+    document.getElementById("tabRegister").classList.toggle("active", tab==="register");
+    hideAlert("loginError"); hideAlert("regError"); hideAlert("regSuccess");
+  };
+</script>
+
+<script>
+  // نقاط الخلفية
+  const c = document.getElementById("bgDots");
+  for(let i=0;i<15;i++){
+    const d=document.createElement("div");
+    d.className="dot";
+    const s=Math.random()*6+3;
+    d.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;opacity:${Math.random()*0.3+0.1};`;
+    c.appendChild(d);
+  }
+</script>
+</body>
+</html>
