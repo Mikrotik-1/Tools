@@ -2,9 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
-     crossorigin="anonymous"></script>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Free tool to create professional MikroTik speed profiles - Hotspot and Broadband">
@@ -125,6 +124,104 @@
         .footer-content{max-width:1200px;margin:0 auto;}
         .footer-text{font-size:1rem;margin-bottom:1rem;}
         .copyright{color:#64748b;font-size:0.9rem;}
+
+        /* ===== AUTH MODAL ===== */
+        .auth-overlay{
+            display:none;position:fixed;inset:0;
+            background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);
+            z-index:9999;align-items:center;justify-content:center;padding:1rem;
+        }
+        .auth-overlay.show{display:flex;}
+        .auth-modal{
+            background:#1e293b;border-radius:24px;
+            padding:2.5rem;width:100%;max-width:420px;
+            position:relative;
+            border:1px solid rgba(255,255,255,0.1);
+            box-shadow:0 40px 80px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);
+            animation:modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        @keyframes modalIn{from{transform:translateY(30px) scale(0.95);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
+        .auth-modal::before{
+            content:'';position:absolute;top:0;right:0;left:0;height:3px;
+            background:var(--gradient);border-radius:24px 24px 0 0;
+        }
+        .auth-close{
+            position:absolute;top:14px;left:14px;
+            background:rgba(255,255,255,0.07);border:none;
+            color:#94a3b8;width:32px;height:32px;border-radius:50%;
+            font-size:14px;cursor:pointer;transition:all 0.2s;
+            display:flex;align-items:center;justify-content:center;
+        }
+        .auth-close:hover{background:rgba(255,255,255,0.15);color:white;}
+        .auth-logo{text-align:center;margin-bottom:1.5rem;}
+        .auth-logo-icon{
+            width:54px;height:54px;background:var(--gradient);
+            border-radius:14px;display:inline-flex;align-items:center;
+            justify-content:center;font-size:24px;color:white;
+            box-shadow:0 8px 25px rgba(99,102,241,0.4);
+            animation:pulse 2s infinite;
+        }
+        .auth-logo-name{
+            display:block;font-size:1.5rem;font-weight:800;margin-top:0.5rem;
+            background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        /* Tabs */
+        .auth-tabs{display:flex;background:rgba(255,255,255,0.05);border-radius:10px;padding:3px;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.08);}
+        .auth-tab{flex:1;padding:0.55rem;text-align:center;border-radius:8px;color:#64748b;font-size:0.93rem;font-weight:600;cursor:pointer;transition:all 0.25s;border:none;background:transparent;font-family:inherit;}
+        .auth-tab.active{background:var(--primary);color:white;box-shadow:0 4px 12px rgba(99,102,241,0.35);}
+        /* Form sections */
+        .auth-section{display:none;}
+        .auth-section.active{display:block;animation:fadeUp 0.3s ease;}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+        .auth-group{margin-bottom:1rem;}
+        .auth-label{display:block;color:#cbd5e1;font-size:0.85rem;font-weight:600;margin-bottom:0.4rem;}
+        .auth-input-wrap{position:relative;}
+        .auth-input-wrap .ico{position:absolute;right:0.85rem;top:50%;transform:translateY(-50%);color:#475569;font-size:14px;pointer-events:none;transition:color 0.2s;}
+        .auth-input{
+            width:100%;background:rgba(255,255,255,0.05);
+            border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;
+            padding:0.75rem 0.85rem 0.75rem 2.4rem;
+            color:white;font-size:0.95rem;font-family:inherit;
+            transition:all 0.2s;outline:none;direction:ltr;text-align:left;
+        }
+        .auth-input:focus{border-color:var(--primary);background:rgba(99,102,241,0.08);box-shadow:0 0 0 3px rgba(99,102,241,0.15);}
+        .auth-input:focus~.ico{color:var(--primary);}
+        .auth-input::placeholder{color:#374151;}
+        .toggle-pw{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);color:#475569;cursor:pointer;font-size:14px;transition:color 0.2s;}
+        .toggle-pw:hover{color:#94a3b8;}
+        .auth-forgot{text-align:left;margin-top:0.25rem;}
+        .auth-forgot a{color:#6366f1;font-size:0.8rem;text-decoration:none;transition:color 0.2s;}
+        .auth-forgot a:hover{color:#a5b4fc;}
+        .auth-btn{
+            width:100%;padding:0.85rem;background:var(--gradient);color:white;
+            border:none;border-radius:10px;font-size:0.97rem;font-weight:700;
+            font-family:inherit;cursor:pointer;transition:all 0.3s;
+            display:flex;align-items:center;justify-content:center;gap:9px;margin-top:0.25rem;
+        }
+        .auth-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 30px rgba(99,102,241,0.4);}
+        .auth-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+        .auth-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+        .auth-btn.loading .auth-spinner{display:block;}
+        .auth-btn.loading .auth-btn-text{display:none;}
+        .auth-divider{display:flex;align-items:center;gap:0.6rem;margin:1rem 0;}
+        .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+        .auth-divider span{color:#475569;font-size:0.8rem;}
+        .auth-google{
+            width:100%;padding:0.8rem;background:rgba(255,255,255,0.05);
+            border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;
+            color:white;font-size:0.93rem;font-weight:700;font-family:inherit;
+            cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px;
+        }
+        .auth-google:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
+        .auth-google img{width:18px;height:18px;}
+        .auth-alert{padding:9px 13px;border-radius:9px;font-size:0.84rem;margin-top:0.75rem;display:none;align-items:center;gap:7px;}
+        .auth-alert.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#fca5a5;}
+        .auth-alert.success{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#6ee7b7;}
+
+        /* Generate btn lock hint */
+        #generateBtn{position:relative;}
+
         @media(max-width:768px){
             .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:var(--dark);width:100%;padding:1rem;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto;}
             .nav-links.active{display:flex;}.menu-toggle{display:block;}
@@ -149,6 +246,85 @@
     </style>
 </head>
 <body>
+
+<!-- ===== AUTH MODAL ===== -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+    <div class="auth-logo">
+      <div class="auth-logo-icon"><i class="fas fa-bolt"></i></div>
+      <span class="auth-logo-name">MikroTools</span>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+      <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب</button>
+    </div>
+
+    <!-- Login -->
+    <div class="auth-section active" id="authLogin">
+      <div class="auth-group">
+        <label class="auth-label">البريد الإلكتروني</label>
+        <div class="auth-input-wrap">
+          <input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com" autocomplete="email"/>
+          <i class="fas fa-envelope ico"></i>
+        </div>
+      </div>
+      <div class="auth-group">
+        <label class="auth-label">كلمة المرور</label>
+        <div class="auth-input-wrap">
+          <input type="password" class="auth-input" id="loginPass" placeholder="••••••••" autocomplete="current-password"/>
+          <i class="fas fa-lock ico"></i>
+          <i class="fas fa-eye toggle-pw" id="toggleLogin"></i>
+        </div>
+        <div class="auth-forgot"><a href="#" id="forgotLink">نسيت كلمة المرور؟</a></div>
+      </div>
+      <button class="auth-btn" id="loginBtn">
+        <div class="auth-spinner"></div>
+        <span class="auth-btn-text"><i class="fas fa-sign-in-alt"></i> دخول</span>
+      </button>
+      <div class="auth-alert error" id="loginErr"><i class="fas fa-exclamation-circle"></i><span id="loginErrTxt"></span></div>
+    </div>
+
+    <!-- Register -->
+    <div class="auth-section" id="authRegister">
+      <div class="auth-group">
+        <label class="auth-label">البريد الإلكتروني</label>
+        <div class="auth-input-wrap">
+          <input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com" autocomplete="email"/>
+          <i class="fas fa-envelope ico"></i>
+        </div>
+      </div>
+      <div class="auth-group">
+        <label class="auth-label">كلمة المرور</label>
+        <div class="auth-input-wrap">
+          <input type="password" class="auth-input" id="regPass" placeholder="على الأقل 6 أحرف" autocomplete="new-password"/>
+          <i class="fas fa-lock ico"></i>
+          <i class="fas fa-eye toggle-pw" id="toggleReg"></i>
+        </div>
+      </div>
+      <div class="auth-group">
+        <label class="auth-label">تأكيد كلمة المرور</label>
+        <div class="auth-input-wrap">
+          <input type="password" class="auth-input" id="regConfirm" placeholder="أعد كتابة كلمة المرور" autocomplete="new-password"/>
+          <i class="fas fa-lock ico"></i>
+        </div>
+      </div>
+      <button class="auth-btn" id="registerBtn">
+        <div class="auth-spinner"></div>
+        <span class="auth-btn-text"><i class="fas fa-user-plus"></i> إنشاء حساب</span>
+      </button>
+      <div class="auth-alert error"   id="regErr"><i class="fas fa-exclamation-circle"></i><span id="regErrTxt"></span></div>
+      <div class="auth-alert success" id="regOk"><i class="fas fa-check-circle"></i><span id="regOkTxt"></span></div>
+    </div>
+
+    <div class="auth-divider"><span>أو</span></div>
+    <button class="auth-google" id="googleBtn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"/>
+      الدخول بحساب Google
+    </button>
+  </div>
+</div>
+
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
@@ -176,7 +352,6 @@
                     <a href="speed-profiles.html" class="navbar-dropdown-item active"><i class="fas fa-tachometer-alt"></i><span data-i18n="speed_profiles">Speed Profiles</span></a>
                 </div>
             </div>
-            <!-- Design & Block - ✅ CardEditor مضاف -->
             <div class="navbar-dropdown">
                 <a href="#" class="nav-link navbar-dropdown-toggle"><i class="fas fa-paint-brush"></i><span data-i18n="design_block">Design & Block</span><i class="fas fa-chevron-down navbar-dropdown-arrow"></i></a>
                 <div class="navbar-dropdown-menu">
@@ -280,7 +455,9 @@
         </div>
 
         <div class="controls-section">
-            <button class="btn btn-primary" onclick="generateScript()"><i class="fas fa-magic"></i><span data-i18n="generate_script">Generate Script</span></button>
+            <button class="btn btn-primary" id="generateBtn" onclick="handleGenerate()">
+                <i class="fas fa-magic"></i><span data-i18n="generate_script">Generate Script</span>
+            </button>
             <button class="btn btn-secondary" onclick="copyScript()" id="copyBtn"><i class="fas fa-copy"></i><span data-i18n="copy_script">Copy Script</span></button>
             <button class="btn btn-danger" onclick="resetAll()"><i class="fas fa-redo"></i><span data-i18n="reset">Reset</span></button>
         </div>
@@ -315,9 +492,156 @@
 
 <iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth, onAuthStateChanged,
+    signInWithEmailAndPassword, createUserWithEmailAndPassword,
+    GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",
+    authDomain: "mikro-tools.firebaseapp.com",
+    projectId: "mikro-tools",
+    storageBucket: "mikro-tools.firebasestorage.app",
+    messagingSenderId: "22698503616",
+    appId: "1:22698503616:web:de7a3802b2fd746cc2ec25"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  // تتبع حالة الدخول
+  onAuthStateChanged(auth, (user) => {
+    window._firebaseUser = user || null;
+    // لو كان في pending generate → كمّله
+    if (user && window._pendingGenerate) {
+      window._pendingGenerate = false;
+      generateScript();
+      closeAuthModal();
+    }
+  });
+
+  function errMsg(code) {
+    const m = {
+      "auth/user-not-found":     "الإيميل ده مش موجود، سجّل حساب جديد",
+      "auth/wrong-password":     "كلمة المرور غلط",
+      "auth/invalid-credential": "الإيميل أو كلمة المرور غلط",
+      "auth/email-already-in-use":"الإيميل ده مسجل قبل كده",
+      "auth/weak-password":      "كلمة المرور ضعيفة — 6 أحرف على الأقل",
+      "auth/invalid-email":      "الإيميل غير صحيح",
+      "auth/too-many-requests":  "محاولات كتير، استنى شوية",
+      "auth/popup-closed-by-user":"تم إغلاق نافذة جوجل",
+    };
+    return m[code] || "حدث خطأ، حاول تاني";
+  }
+
+  function setLoad(btn, v) { btn.disabled=v; btn.classList.toggle("loading",v); }
+  function showErr(id, txtId, msg) { const el=document.getElementById(id); document.getElementById(txtId).textContent=msg; el.style.display="flex"; }
+  function hideAlert(id) { document.getElementById(id).style.display="none"; }
+
+  // Login
+  document.getElementById("loginBtn").addEventListener("click", async () => {
+    const email=document.getElementById("loginEmail").value.trim();
+    const pass =document.getElementById("loginPass").value;
+    const btn  =document.getElementById("loginBtn");
+    hideAlert("loginErr");
+    if(!email||!pass){showErr("loginErr","loginErrTxt","من فضلك ادخل الإيميل وكلمة المرور");return;}
+    setLoad(btn,true);
+    try { await signInWithEmailAndPassword(auth,email,pass); closeAuthModal(); }
+    catch(e){ showErr("loginErr","loginErrTxt",errMsg(e.code)); setLoad(btn,false); }
+  });
+
+  // Register
+  document.getElementById("registerBtn").addEventListener("click", async () => {
+    const email  =document.getElementById("regEmail").value.trim();
+    const pass   =document.getElementById("regPass").value;
+    const confirm=document.getElementById("regConfirm").value;
+    const btn    =document.getElementById("registerBtn");
+    hideAlert("regErr"); hideAlert("regOk");
+    if(!email||!pass){showErr("regErr","regErrTxt","من فضلك ادخل الإيميل وكلمة المرور");return;}
+    if(pass!==confirm){showErr("regErr","regErrTxt","كلمتا المرور مش متطابقتين");return;}
+    if(pass.length<6){showErr("regErr","regErrTxt","كلمة المرور على الأقل 6 أحرف");return;}
+    setLoad(btn,true);
+    try {
+      await createUserWithEmailAndPassword(auth,email,pass);
+      closeAuthModal();
+    } catch(e){ showErr("regErr","regErrTxt",errMsg(e.code)); setLoad(btn,false); }
+  });
+
+  // Google
+  document.getElementById("googleBtn").addEventListener("click", async () => {
+    try { await signInWithPopup(auth,googleProvider); closeAuthModal(); }
+    catch(e){ console.error(e.code); }
+  });
+
+  // Forgot
+  document.getElementById("forgotLink").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email=document.getElementById("loginEmail").value.trim();
+    if(!email){showErr("loginErr","loginErrTxt","ادخل إيميلك الأول");return;}
+    try {
+      await sendPasswordResetEmail(auth,email);
+      const el=document.getElementById("loginErr");
+      el.className="auth-alert success"; el.style.display="flex";
+      document.getElementById("loginErrTxt").textContent="تم الإرسال! افتح إيميلك";
+    } catch(e){ showErr("loginErr","loginErrTxt",errMsg(e.code)); }
+  });
+
+  // Toggle passwords
+  function togglePw(inputId, iconId){
+    document.getElementById(iconId).addEventListener("click",()=>{
+      const inp=document.getElementById(inputId);
+      const show=inp.type==="password";
+      inp.type=show?"text":"password";
+      document.getElementById(iconId).className=show?"fas fa-eye-slash toggle-pw":"fas fa-eye toggle-pw";
+    });
+  }
+  togglePw("loginPass","toggleLogin");
+  togglePw("regPass","toggleReg");
+
+  // Enter keys
+  ["loginEmail","loginPass"].forEach(id=>{
+    document.getElementById(id).addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("loginBtn").click();});
+  });
+  ["regEmail","regPass","regConfirm"].forEach(id=>{
+    document.getElementById(id).addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("registerBtn").click();});
+  });
+</script>
+
 <script>
 const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",new:"NEW",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_title:"Speed Profile Generator",hero_subtitle:"Create professional speed profiles for Hotspot and Broadband with one click",tool_title:"⚡ Speed Profile Settings",tool_description:"Customize speed profiles according to your needs, choose the appropriate system and number of profiles",system_settings:"Basic System Settings",profile_name:"Base Profile Name",profile_count:"Number of Profiles",profiles_4:"4 Profiles",profiles_5:"5 Profiles",profiles_6:"6 Profiles",profiles_7:"7 Profiles",profiles_8:"8 Profiles",choose_system:"Choose Required System",broadband:"Broadband",choose_preset:"Choose Speed Preset",economic:"Economic",economic_speeds:"2M - 4M - 8M - 16M",standard:"Standard",standard_speeds:"4M - 8M - 16M - 32M",premium:"Premium",premium_speeds:"8M - 16M - 32M - 64M",gaming:"Gaming",gaming_speeds:"Symmetric speeds 1:1",profile_settings:"Profile Settings",generate_script:"Generate Script",copy_script:"Copy Script",reset:"Reset",final_script:"Final Script",copy_instruction:"Copy and paste the script into MikroTik",need_help:"Need Help?",contact_subtitle:"We are here to help you anytime, contact us for technical support",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved.",tier_economic:"Economic",tier_standard:"Standard",tier_medium:"Medium",tier_advanced:"Advanced",tier_gold:"Gold",tier_premium:"Premium",tier_platinum:"Platinum",tier_business:"Business",download_speed:"Download Speed",upload_speed:"Upload Speed",monthly_price:"Monthly Price (optional)"},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",new:"جديد",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_title:"مولد بروفايلات السرعة",hero_subtitle:"أنشئ بروفايلات سرعة احترافية للهوتسبوت والبرودباند بضغطة زر",tool_title:"⚡ إعدادات بروفايلات السرعة",tool_description:"قم بتخصيص بروفايلات السرعة حسب احتياجاتك، اختر النظام المناسب وعدد البروفايلات المطلوبة",system_settings:"إعدادات النظام الأساسية",profile_name:"اسم البروفايل الأساسي",profile_count:"عدد البروفايلات",profiles_4:"4 بروفايلات",profiles_5:"5 بروفايلات",profiles_6:"6 بروفايلات",profiles_7:"7 بروفايلات",profiles_8:"8 بروفايلات",choose_system:"اختر النظام المطلوب",broadband:"برودباند",choose_preset:"اختيار باقة السرعات",economic:"اقتصادية",economic_speeds:"2ميجا - 4ميجا - 8ميجا - 16ميجا",standard:"أساسية",standard_speeds:"4ميجا - 8ميجا - 16ميجا - 32ميجا",premium:"متميزة",premium_speeds:"8ميجا - 16ميجا - 32ميجا - 64ميجا",gaming:"ألعاب",gaming_speeds:"سرعات متماثلة 1:1",profile_settings:"إعدادات البروفايلات",generate_script:"توليد السكربت",copy_script:"نسخ السكربت",reset:"إعادة تعيين",final_script:"السكربت النهائي",copy_instruction:"انسخ السكربت والصقه في ميكروتيك",need_help:"هل تحتاج مساعدة؟",contact_subtitle:"نحن هنا لمساعدتك في أي وقت، تواصل معنا للحصول على الدعم الفني",contact_support:"للتواصل والدعم الفني",contact_whatsapp:"تواصل عبر واتساب",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة.",tier_economic:"اقتصادية",tier_standard:"أساسية",tier_medium:"متوسطة",tier_advanced:"متقدمة",tier_gold:"ذهبية",tier_premium:"ممتازة",tier_platinum:"بلاتينية",tier_business:"أعمال",download_speed:"سرعة التنزيل",upload_speed:"سرعة الرفع",monthly_price:"السعر الشهري (اختياري)"}};
-const SIGNATURE="By Same7_01092503391";let currentSystem={hotspot:true,broadband:false};let currentPreset='economic';
+const SIGNATURE="By Same7_01092503391";
+let currentSystem={hotspot:true,broadband:false};
+let currentPreset='economic';
+window._firebaseUser=null;
+window._pendingGenerate=false;
+
+// ===== Auth Modal =====
+function openAuthModal(){ document.getElementById('authOverlay').classList.add('show'); document.body.style.overflow='hidden'; }
+function closeAuthModal(){ document.getElementById('authOverlay').classList.remove('show'); document.body.style.overflow=''; }
+function switchAuthTab(tab){
+  document.getElementById('authLogin').classList.toggle('active',tab==='login');
+  document.getElementById('authRegister').classList.toggle('active',tab==='register');
+  document.getElementById('tabLogin').classList.toggle('active',tab==='login');
+  document.getElementById('tabRegister').classList.toggle('active',tab==='register');
+}
+document.getElementById('authOverlay').addEventListener('click',function(e){ if(e.target===this) closeAuthModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAuthModal(); });
+
+// ===== handleGenerate: التحقق من الدخول أولاً =====
+function handleGenerate(){
+  if(window._firebaseUser){
+    generateScript(); // مسجل دخول → شغّل مباشرة
+  } else {
+    window._pendingGenerate=true; // حفظ الطلب
+    openAuthModal();              // افتح modal الدخول
+  }
+}
+
 function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else if(el.tagName==='OPTION')el.textContent=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
 document.getElementById('menuToggle').addEventListener('click',function(){const n=document.getElementById('navLinks'),i=this.querySelector('i');n.classList.toggle('active');i.className=n.classList.contains('active')?'fas fa-times':'fas fa-bars';});
 document.querySelectorAll('.nav-link,.navbar-dropdown-item').forEach(link=>{link.addEventListener('click',()=>{if(!link.classList.contains('navbar-dropdown-toggle')){document.getElementById('navLinks').classList.remove('active');document.querySelector('#menuToggle i').className='fas fa-bars';}});});
@@ -325,6 +649,7 @@ document.querySelectorAll('.navbar-dropdown-toggle').forEach(t=>{t.addEventListe
 document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
 document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
 setLanguage(localStorage.getItem('language')||'en');
+
 function toggleSystem(type){if(type==='hotspot'){currentSystem.hotspot=!currentSystem.hotspot;document.getElementById('hotspotCheckbox').checked=currentSystem.hotspot;}else{currentSystem.broadband=!currentSystem.broadband;document.getElementById('broadbandCheckbox').checked=currentSystem.broadband;}updateProfiles();}
 function updateProfiles(){const container=document.getElementById('profilesContainer');const count=parseInt(document.getElementById('profileCount').value);const baseName=document.getElementById('profileName').value;const lang=document.documentElement.lang;container.innerHTML='';const downloadSpeeds=getDownloadSpeedsByPreset(currentPreset,count);const tierNames=lang==='ar'?['اقتصادية','أساسية','متوسطة','متقدمة','ذهبية','ممتازة','بلاتينية','أعمال']:['Economic','Standard','Medium','Advanced','Gold','Premium','Platinum','Business'];for(let i=1;i<=count;i++){const dl=downloadSpeeds[i-1];const ul=currentPreset==='gaming'?dl:Math.max(1,Math.floor(dl/4));const tierName=tierNames[Math.min(i-1,tierNames.length-1)];const card=document.createElement('div');card.className='profile-card';card.innerHTML=`<div class="profile-header"><div class="profile-name"><i class="fas fa-bolt"></i> ${baseName}_${String(i).padStart(2,'0')}</div><div class="profile-tier">${tierName}</div></div><div class="profile-inputs"><div class="speed-input"><label><i class="fas fa-download"></i> <span data-i18n="download_speed">Download Speed</span></label><input type="number" class="input-field speed-download" id="dl${i}" value="${dl}" min="1" max="1000" onchange="updateUploadSpeed(${i})"><span class="speed-unit">Mbps</span></div><div class="speed-input"><label><i class="fas fa-upload"></i> <span data-i18n="upload_speed">Upload Speed</span></label><input type="number" class="input-field speed-upload" id="ul${i}" value="${ul}" min="1" max="500" onchange="validateUploadSpeed(${i})"><span class="speed-unit">Mbps</span></div></div><div style="margin-top:1rem;"><label style="display:block;margin-bottom:0.5rem;font-weight:600;color:#475569;"><i class="fas fa-money-bill-wave"></i> <span data-i18n="monthly_price">Monthly Price (optional)</span></label><input type="text" class="input-field" id="price${i}" value="${getPriceForSpeed(dl,lang)}"></div><div class="profile-checkboxes"><div class="checkbox-group"><input type="checkbox" id="hs${i}" ${currentSystem.hotspot?'checked':''} ${!currentSystem.hotspot?'disabled':''}><label for="hs${i}"><i class="fas fa-wifi"></i> <span data-i18n="hotspot">Hotspot</span></label></div><div class="checkbox-group"><input type="checkbox" id="bb${i}" ${currentSystem.broadband?'checked':''} ${!currentSystem.broadband?'disabled':''}><label for="bb${i}"><i class="fas fa-network-wired"></i> <span data-i18n="broadband">Broadband</span></label></div><div class="checkbox-group"><input type="checkbox" id="burst${i}" checked><label for="burst${i}"><i class="fas fa-rocket"></i> Burst</label></div></div>`;container.appendChild(card);}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});}
 function loadPreset(preset){currentPreset=preset;document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.remove('active');if(b.getAttribute('data-preset')===preset)b.classList.add('active');});updateProfiles();}
@@ -341,11 +666,8 @@ function copyScript(){const el=document.getElementById('scriptOutput');const lan
 function resetAll(){const lang=document.documentElement.lang;if(confirm(lang==='ar'?'هل تريد إعادة تعيين جميع الإعدادات؟':'Do you want to reset all settings?')){document.getElementById('profileName').value='speed';document.getElementById('profileCount').value='4';currentSystem={hotspot:true,broadband:false};currentPreset='economic';document.getElementById('hotspotCheckbox').checked=true;document.getElementById('broadbandCheckbox').checked=false;document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.remove('active');if(b.getAttribute('data-preset')==='economic')b.classList.add('active');});updateProfiles();document.getElementById('resultsSection').style.display='none';alert(lang==='ar'?'✅ تمت إعادة التعيين بنجاح':'✅ Reset completed successfully');}}
 document.addEventListener('DOMContentLoaded',function(){updateProfiles();});
 </script>
+
 <script>(function(){const BIN_ID='6984fe4d43b1c97be9684aa8',API_KEY='$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{headers:{'X-Master-Key':API_KEY}}).then(r=>r.json()).then(data=>{const rec=data.record||{};if(!rec.analytics)rec.analytics={pages:{},daily:{},totalVisits:0};const page=document.title||window.location.pathname,today=new Date().toDateString();rec.analytics.pages[page]=(rec.analytics.pages[page]||0)+1;rec.analytics.daily[today]=(rec.analytics.daily[today]||0)+1;rec.analytics.totalVisits=(rec.analytics.totalVisits||0)+1;return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(rec)});}).catch(()=>{});})();</script>
 <script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
-
 </body>
 </html>
-
-
-
