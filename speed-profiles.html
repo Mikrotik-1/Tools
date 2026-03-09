@@ -40,16 +40,16 @@
         .nav-cta{background:var(--gradient);color:white;padding:10px 24px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
         .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
         .nav-user{position:relative;display:inline-block;}
-        .nav-user-btn{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:0.9rem;font-weight:600;font-family:inherit;transition:all 0.25s;}
-        .nav-user-btn:hover{background:rgba(255,255,255,0.15);}
-        .nav-user-avatar{width:28px;height:28px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
-        .nav-user-email{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.82rem;}
-        .nav-user-dropdown{position:absolute;top:calc(100% + 8px);left:0;background:#1e293b;border-radius:12px;padding:8px;min-width:200px;box-shadow:0 15px 35px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);opacity:0;visibility:hidden;transform:translateY(-8px);transition:all 0.25s;z-index:999;}
-        .nav-user:hover .nav-user-dropdown{opacity:1;visibility:visible;transform:translateY(0);}
-        .nav-user-info{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:6px;}
-        .nav-user-info small{color:#64748b;font-size:0.75rem;display:block;}
+        .nav-user-btn{display:flex;align-items:center;background:none;border:none;padding:4px;border-radius:50%;cursor:pointer;transition:all 0.25s;}
+        .nav-user-btn:hover .nav-user-avatar{box-shadow:0 0 0 3px rgba(99,102,241,0.5);transform:scale(1.08);}
+        .nav-user-avatar{width:36px;height:36px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:white;flex-shrink:0;transition:all 0.25s;box-shadow:0 4px 12px rgba(99,102,241,0.4);}
+        .nav-user-dropdown{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-8px);background:#1e293b;border-radius:14px;padding:8px;min-width:210px;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);opacity:0;visibility:hidden;transition:all 0.25s;z-index:999;}
+        .nav-user-dropdown.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+        .nav-user-dropdown::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:#1e293b;border-left:1px solid rgba(255,255,255,0.1);border-top:1px solid rgba(255,255,255,0.1);transform:translateX(-50%) rotate(45deg);}
+        .nav-user-info{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:6px;text-align:center;}
+        .nav-user-info small{color:#64748b;font-size:0.75rem;display:block;margin-bottom:3px;}
         .nav-user-info span{color:white;font-size:0.85rem;font-weight:600;word-break:break-all;}
-        .nav-user-logout{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#fca5a5;border-radius:8px;cursor:pointer;transition:background 0.2s;font-size:0.88rem;font-weight:600;border:none;background:transparent;width:100%;font-family:inherit;}
+        .nav-user-logout{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#fca5a5;border-radius:8px;cursor:pointer;transition:background 0.2s;font-size:0.88rem;font-weight:600;border:none;background:transparent;width:100%;font-family:inherit;justify-content:center;}
         .nav-user-logout:hover{background:rgba(239,68,68,0.1);}
         .nav-login-btn{display:flex;align-items:center;gap:7px;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);color:#a5b4fc;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:0.88rem;font-weight:600;font-family:inherit;transition:all 0.25s;}
         .nav-login-btn:hover{background:rgba(99,102,241,0.35);color:white;}
@@ -387,12 +387,10 @@
             </div>
             <!-- Auth Nav -->
             <div class="nav-user" id="navUserMenu" style="display:none;">
-              <button class="nav-user-btn">
+              <button class="nav-user-btn" id="navUserBtn">
                 <div class="nav-user-avatar" id="navAvatar">?</div>
-                <span class="nav-user-email" id="navEmail">...</span>
-                <i class="fas fa-chevron-down" style="font-size:11px;color:#64748b;"></i>
               </button>
-              <div class="nav-user-dropdown">
+              <div class="nav-user-dropdown" id="navUserDropdown">
                 <div class="nav-user-info">
                   <small>مسجل دخول كـ</small>
                   <span id="navEmailFull">...</span>
@@ -564,7 +562,6 @@
       navLoginBtn.style.display = 'none';
       const email = user.email || user.displayName || 'مستخدم';
       navAvatar.textContent    = email[0].toUpperCase();
-      navEmail.textContent     = email;
       navEmailFull.textContent = email;
       // لو كان في pending generate → كمّله
       if (window._pendingGenerate) {
@@ -577,6 +574,15 @@
       navUserMenu.style.display = 'none';
       navLoginBtn.style.display = 'flex';
     }
+  });
+
+  // Toggle dropdown on avatar click
+  document.getElementById('navUserBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('navUserDropdown').classList.toggle('show');
+  });
+  document.addEventListener('click', () => {
+    document.getElementById('navUserDropdown')?.classList.remove('show');
   });
 
   // Logout
