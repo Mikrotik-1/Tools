@@ -343,8 +343,9 @@ document.addEventListener('DOMContentLoaded',function(){updateProfiles();});
 </script>
 <script>(function(){const BIN_ID='6984fe4d43b1c97be9684aa8',API_KEY='$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{headers:{'X-Master-Key':API_KEY}}).then(r=>r.json()).then(data=>{const rec=data.record||{};if(!rec.analytics)rec.analytics={pages:{},daily:{},totalVisits:0};const page=document.title||window.location.pathname,today=new Date().toDateString();rec.analytics.pages[page]=(rec.analytics.pages[page]||0)+1;rec.analytics.daily[today]=(rec.analytics.daily[today]||0)+1;rec.analytics.totalVisits=(rec.analytics.totalVisits||0)+1;return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(rec)});}).catch(()=>{});})();</script>
 <script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
-    <script type="module" src="auth.js"></script>
+
 </body>
 </html>
+
 
 
