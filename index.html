@@ -227,6 +227,11 @@
         .auth-error.show { display: block; }
         .auth-success { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 10px 14px; color: #6ee7b7; font-size: 13px; margin-bottom: 14px; display: none; }
         .auth-success.show { display: block; }
+
+        /* LOCK BADGE on free tools */
+        .auth-lock-badge { position: absolute; top: 14px; right: 14px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+        body.en .auth-lock-badge { right: auto; left: 14px; }
+        .tool-card.auth-locked:hover .auth-lock-badge { background: rgba(99,102,241,0.25); border-color: var(--primary); }
     </style>
 </head>
 <body>
@@ -364,12 +369,12 @@
             <div class="tool-tags"><span class="tag">New Version</span><span class="tag">v7.x</span></div>
             <div class="premium-hint"><i class="fas fa-lock"></i> <span data-i18n="premium_hint">تواصل معنا للحصول على الوصول</span></div>
         </div>
-        <a href="Hotspot%20Editor.html" class="tool-card tool-6"><div class="tool-icon"><i class="fas fa-paint-brush"></i></div><h3 class="tool-title" data-i18n="hotspot_design_title">تصميم هوت سبوت</h3><p class="tool-desc" data-i18n="hotspot_design_desc">صمم صفحة هوت سبوت احترافية</p><div class="tool-tags"><span class="tag">Design</span><span class="tag">HTML</span></div></a>
-        <a href="CardEditor.html" class="tool-card tool-9"><div class="tool-icon"><i class="fas fa-id-card"></i></div><h3 class="tool-title" data-i18n="card_designer_title">مصمم الكروت</h3><p class="tool-desc" data-i18n="card_designer_desc">صمم واطبع كروت WiFi احترافية</p><div class="tool-tags"><span class="tag">Cards</span><span class="tag">WiFi</span></div></a>
-        <a href="log.html" class="tool-card tool-8"><div class="tool-icon"><i class="fas fa-chart-bar"></i></div><h3 class="tool-title" data-i18n="log_analyzer_title">محلل السجلات</h3><p class="tool-desc" data-i18n="log_analyzer_desc">حلل سجلات المايكروتيك بسهولة</p><div class="tool-tags"><span class="tag">Logs</span><span class="tag new-tag" data-i18n="new">جديد</span></div></a>
-        <a href="troubleshooting.html" class="tool-card tool-7"><div class="tool-icon"><i class="fas fa-question-circle"></i></div><h3 class="tool-title" data-i18n="troubleshooting_title">المشكلات الشائعة</h3><p class="tool-desc" data-i18n="troubleshooting_desc">حلول لأشهر مشاكل ميكروتيك</p><div class="tool-tags"><span class="tag">Solutions</span></div></a>
-        <a href="block-sites.html" class="tool-card tool-4"><div class="tool-icon"><i class="fas fa-shield-alt"></i></div><h3 class="tool-title" data-i18n="block_sites_title">حجب المواقع</h3><p class="tool-desc" data-i18n="block_sites_desc">حجب أي موقع باستخدام Layer7 و TLS/SSL</p><div class="tool-tags"><span class="tag">Layer7</span><span class="tag">TLS</span></div></a>
-        <a href="speed-profiles.html" class="tool-card tool-5"><div class="tool-icon"><i class="fas fa-tachometer-alt"></i></div><h3 class="tool-title" data-i18n="speed_profiles_title">بروفايلات السرعة</h3><p class="tool-desc" data-i18n="speed_profiles_desc">إنشاء بروفايلات سرعة متعددة</p><div class="tool-tags"><span class="tag">Profiles</span><span class="tag">Speed</span></div></a>
+        <div onclick="requireAuth('Hotspot%20Editor.html')" class="tool-card auth-locked tool-6" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-paint-brush"></i></div><h3 class="tool-title" data-i18n="hotspot_design_title">تصميم هوت سبوت</h3><p class="tool-desc" data-i18n="hotspot_design_desc">صمم صفحة هوت سبوت احترافية</p><div class="tool-tags"><span class="tag">Design</span><span class="tag">HTML</span></div></div>
+        <div onclick="requireAuth('CardEditor.html')" class="tool-card auth-locked tool-9" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-id-card"></i></div><h3 class="tool-title" data-i18n="card_designer_title">مصمم الكروت</h3><p class="tool-desc" data-i18n="card_designer_desc">صمم واطبع كروت WiFi احترافية</p><div class="tool-tags"><span class="tag">Cards</span><span class="tag">WiFi</span></div></div>
+        <div onclick="requireAuth('log.html')" class="tool-card auth-locked tool-8" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-chart-bar"></i></div><h3 class="tool-title" data-i18n="log_analyzer_title">محلل السجلات</h3><p class="tool-desc" data-i18n="log_analyzer_desc">حلل سجلات المايكروتيك بسهولة</p><div class="tool-tags"><span class="tag">Logs</span><span class="tag new-tag" data-i18n="new">جديد</span></div></div>
+        <div onclick="requireAuth('troubleshooting.html')" class="tool-card auth-locked tool-7" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-question-circle"></i></div><h3 class="tool-title" data-i18n="troubleshooting_title">المشكلات الشائعة</h3><p class="tool-desc" data-i18n="troubleshooting_desc">حلول لأشهر مشاكل ميكروتيك</p><div class="tool-tags"><span class="tag">Solutions</span></div></div>
+        <div onclick="requireAuth('block-sites.html')" class="tool-card auth-locked tool-4" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-shield-alt"></i></div><h3 class="tool-title" data-i18n="block_sites_title">حجب المواقع</h3><p class="tool-desc" data-i18n="block_sites_desc">حجب أي موقع باستخدام Layer7 و TLS/SSL</p><div class="tool-tags"><span class="tag">Layer7</span><span class="tag">TLS</span></div></div>
+        <div onclick="requireAuth('speed-profiles.html')" class="tool-card auth-locked tool-5" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-tachometer-alt"></i></div><h3 class="tool-title" data-i18n="speed_profiles_title">بروفايلات السرعة</h3><p class="tool-desc" data-i18n="speed_profiles_desc">إنشاء بروفايلات سرعة متعددة</p><div class="tool-tags"><span class="tag">Profiles</span><span class="tag">Speed</span></div></div>
     </div>
 </section>
 <section class="contact">
@@ -439,12 +444,24 @@ onAuthStateChanged(auth,(user)=>{
         if(lb)lb.style.display='none'; if(ub){ub.style.display='flex';ub.textContent=(user.displayName||user.email||'U')[0].toUpperCase();}
         const ed=document.getElementById('userEmailDisplay'); if(ed)ed.textContent=user.email||user.displayName||'';
         closeAuthModal();
+        if(window._pendingNav){var nav=window._pendingNav;window._pendingNav=null;setTimeout(()=>window.location.href=nav,200);}
     } else {
         if(lb)lb.style.display='flex'; if(ub)ub.style.display='none';
     }
 });
 </script>
 <script>
+
+function requireAuth(url) {
+    if (window._auth && window._auth.currentUser) {
+        window.location.href = url;
+    } else {
+        window._pendingNav = url;
+        openAuthModal();
+    }
+}
+window.requireAuth = requireAuth;
+
 function openAuthModal(){document.getElementById('authOverlay').classList.add('open');}
 function closeAuthModal(){document.getElementById('authOverlay').classList.remove('open');}
 window.openAuthModal=openAuthModal; window.closeAuthModal=closeAuthModal;
