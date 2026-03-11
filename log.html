@@ -8,17 +8,9 @@
     <meta name="description" content="محلل سجلات المايكروتيك - أداة مجانية لتحليل وفهم سجلات جهاز المايكروتيك بسهولة">
     <meta name="keywords" content="ميكروتيك, محلل سجلات, تحليل سجلات, MikroTik, Log Analyzer">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
-    <meta name="google-site-verification" content="google6096a3c525d406ea" />
-    <meta property="og:title" content="MikroTools | محلل سجلات المايكروتيك">
-    <meta property="og:description" content="أداة مجانية لتحليل وفهم سجلات جهاز المايكروتيك بسهولة">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mikro-tools.com/log-analyzer">
-    <link rel="canonical" href="https://mikro-tools.com/log-analyzer">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <title>MikroTools | محلل سجلات المايكروتيك</title>
     <style>
@@ -55,8 +47,8 @@
         .dropdown-item{display:flex;align-items:center;gap:12px;padding:12px 15px;color:#cbd5e1;text-decoration:none;border-radius:8px;transition:all 0.3s;}
         .dropdown-item:hover{background:rgba(255,255,255,0.1);color:white;transform:translateX(-5px);}
         .dropdown-item i{width:20px;font-size:16px;color:var(--primary);}
-        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-right:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;box-shadow:0 2px 10px rgba(255,65,108,0.5);border:1px solid rgba(255,255,255,0.3);position:relative;top:-2px;text-transform:uppercase;letter-spacing:0.5px;}
-        @keyframes newGlow{0%{transform:scale(1);}50%{transform:scale(1.1);box-shadow:0 4px 20px rgba(255,65,108,0.9);}100%{transform:scale(1);}}
+        .new-badge{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:30px;margin-right:5px;display:inline-block;animation:newGlow 1.5s ease-in-out infinite;position:relative;top:-2px;text-transform:uppercase;}
+        @keyframes newGlow{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
         .main-container{max-width:1400px;margin:0 auto;padding:100px 20px 40px;}
         @keyframes glowPulse{0%{text-shadow:0 0 5px rgba(99,102,241,0.2);}50%{text-shadow:0 0 20px rgba(139,92,246,0.6);}100%{text-shadow:0 0 5px rgba(99,102,241,0.2);}}
         @keyframes float{0%{transform:translateY(0px);}50%{transform:translateY(-5px);}100%{transform:translateY(0px);}}
@@ -67,7 +59,6 @@
         .site-card{background:var(--gradient-card);border-radius:var(--border-radius);box-shadow:var(--shadow);padding:30px;margin-bottom:30px;border:1px solid rgba(99,102,241,0.1);}
         .section-title{font-size:2rem;font-weight:700;margin-bottom:25px;display:flex;align-items:center;gap:15px;color:var(--dark);}
         .section-title i{color:var(--primary);}
-        .tooltip-hint{position:relative;cursor:help;border-bottom:2px dotted var(--primary);}
         .command-box{background:#f1f5f9;border:2px solid var(--primary);border-radius:20px;padding:25px;margin:20px 0;}
         .command-text{font-size:2.5rem;color:var(--primary-dark);font-family:'Courier New',monospace;text-align:center;margin:15px 0;padding:20px;background:white;border-radius:18px;border:1px solid var(--primary-light);letter-spacing:2px;direction:ltr;}
         .copy-command-btn{background:var(--primary);color:white;border:none;padding:15px 30px;border-radius:50px;font-size:1.2rem;font-weight:600;display:inline-flex;align-items:center;gap:10px;margin:10px 0;transition:all 0.3s;cursor:pointer;}
@@ -137,10 +128,87 @@
             .command-text{font-size:1.5rem;}.site-card{padding:20px;}
             .step-detail{flex-direction:column;text-align:center;}
         }
+
+        /* NAV AUTH */
+        #navLoginBtn{background:rgba(99,102,241,0.2);border:1.5px solid rgba(99,102,241,0.5);color:#a5b4fc;padding:9px 20px;border-radius:12px;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.3s;font-family:inherit;white-space:nowrap;}
+        #navLoginBtn:hover{background:rgba(99,102,241,0.35);color:white;border-color:var(--primary);}
+        #navUserBtn{background:var(--gradient);border:none;width:38px;height:38px;border-radius:50%;color:white;font-weight:800;font-size:15px;cursor:pointer;display:none;align-items:center;justify-content:center;transition:all 0.3s;font-family:inherit;flex-shrink:0;}
+        #navUserBtn:hover{transform:scale(1.08);box-shadow:0 5px 20px rgba(99,102,241,0.4);}
+        .user-dropdown{position:absolute;top:calc(100% + 12px);right:0;background:#1e293b;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:8px;min-width:220px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transform:translateY(-8px);transition:all 0.25s;z-index:2000;}
+        body.rtl .user-dropdown{right:auto;left:0;}
+        .user-dropdown.open{opacity:1;visibility:visible;transform:translateY(0);}
+        .user-dropdown-email{padding:10px 14px 12px;color:#94a3b8;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:6px;word-break:break-all;}
+        .user-dropdown-email strong{display:block;color:white;font-size:13px;margin-bottom:2px;}
+        .user-dropdown-item{display:flex;align-items:center;gap:10px;padding:10px 14px;color:#cbd5e1;border-radius:8px;cursor:pointer;font-size:14px;transition:all 0.2s;background:none;border:none;width:100%;font-family:inherit;text-align:right;}
+        .user-dropdown-item:hover{background:rgba(255,255,255,0.08);color:white;}
+        .user-dropdown-item i{width:16px;color:#f87171;}
+        /* AUTH MODAL */
+        .auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;}
+        .auth-overlay.open{display:flex;animation:fadeOverlay 0.25s ease;}
+        @keyframes fadeOverlay{from{opacity:0}to{opacity:1}}
+        .auth-box{background:#0f172a;border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px;width:100%;max-width:440px;position:relative;animation:slideUpAuth 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+        @keyframes slideUpAuth{from{opacity:0;transform:translateY(40px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+        .auth-close{position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+        body.en .auth-close{left:auto;right:16px;}
+        .auth-logo{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+        .auth-logo-icon{background:var(--gradient);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+        .auth-logo-text{font-size:20px;font-weight:800;color:white;}
+        .auth-tabs{display:flex;gap:4px;background:rgba(255,255,255,0.06);border-radius:12px;padding:4px;margin-bottom:28px;}
+        .auth-tab{flex:1;padding:10px;border:none;background:transparent;color:#94a3b8;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;}
+        .auth-tab.active{background:var(--primary);color:white;}
+        .auth-form{display:none;}
+        .auth-form.active{display:block;}
+        .auth-field{margin-bottom:16px;}
+        .auth-field label{display:block;color:#94a3b8;font-size:13px;font-weight:600;margin-bottom:7px;}
+        .auth-input-wrap{position:relative;}
+        .auth-input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;color:white;font-size:14px;font-family:inherit;}
+        .auth-input:focus{outline:none;border-color:var(--primary);}
+        .auth-input::placeholder{color:#475569;}
+        .auth-eye{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#64748b;cursor:pointer;font-size:15px;padding:0;}
+        body.en .auth-eye{left:auto;right:14px;}
+        .auth-forgot{text-align:left;margin-top:-8px;margin-bottom:16px;}
+        .auth-forgot a{color:#818cf8;font-size:12px;text-decoration:none;}
+        .auth-btn{width:100%;padding:14px;background:var(--gradient);border:none;border-radius:12px;color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;}
+        .auth-btn:disabled{opacity:0.6;cursor:not-allowed;}
+        .auth-divider{display:flex;align-items:center;gap:12px;margin:4px 0 16px;color:#475569;font-size:12px;}
+        .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+        .auth-google{width:100%;padding:13px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;color:white;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;}
+        .auth-error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;color:#fca5a5;font-size:13px;margin-bottom:14px;display:none;}
+        .auth-error.show{display:block;}
+        .auth-success{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:10px 14px;color:#6ee7b7;font-size:13px;margin-bottom:14px;display:none;}
+        .auth-success.show{display:block;}
+        /* LOCK HINT */
+        .lock-hint{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;margin-top:8px;}
     </style>
 </head>
 <body class="ar rtl">
 
+
+<div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+        <button class="auth-close" id="authClose"><i class="fas fa-times"></i></button>
+        <div class="auth-logo"><div class="auth-logo-icon"><i class="fas fa-bolt" style="color:white"></i></div><span class="auth-logo-text">MikroTools</span></div>
+        <div class="auth-tabs"><button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button><button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب</button></div>
+        <div class="auth-form active" id="formLogin">
+            <div class="auth-error" id="loginError"></div><div class="auth-success" id="loginSuccess"></div>
+            <div class="auth-field"><label>البريد الإلكتروني</label><input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com"></div>
+            <div class="auth-field"><label>كلمة المرور</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="loginPass" placeholder="••••••••" style="padding-left:44px;"><button class="auth-eye" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button></div></div>
+            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">نسيت كلمة المرور؟</a></div>
+            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+            <div class="auth-divider">أو</div>
+            <button class="auth-google" onclick="doGoogle()"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>الدخول بـ Google</button>
+        </div>
+        <div class="auth-form" id="formRegister">
+            <div class="auth-error" id="registerError"></div>
+            <div class="auth-field"><label>البريد الإلكتروني</label><input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com"></div>
+            <div class="auth-field"><label>كلمة المرور</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="regPass" placeholder="••••••••" style="padding-left:44px;"><button class="auth-eye" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button></div></div>
+            <div class="auth-field"><label>تأكيد كلمة المرور</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="regPass2" placeholder="••••••••" style="padding-left:44px;"><button class="auth-eye" onclick="togglePass('regPass2',this)"><i class="fas fa-eye"></i></button></div></div>
+            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+            <div class="auth-divider">أو</div>
+            <button class="auth-google" onclick="doGoogle()"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>الدخول بـ Google</button>
+        </div>
+    </div>
+</div>
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
@@ -187,6 +255,14 @@
                     <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-user-shield"></i><span data-i18n="privacy">سياسة الخصوصية</span></a>
                 </div>
             </div>
+            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> تسجيل الدخول</button>
+            <div style="position:relative;display:flex;align-items:center;">
+                <button id="navUserBtn" onclick="toggleUserDropdown()"></button>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-email"><strong>مرحباً 👋</strong><span id="userEmailDisplay"></span></div>
+                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                </div>
+            </div>
             <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">تواصل معنا</span></a>
         </div>
     </div>
@@ -197,50 +273,21 @@
         <i class="fas fa-microchip title-icon"></i>
         <span class="animated-title" data-i18n="log_analyzer_title">MikroTik Log Analyzer</span>
     </div>
-
-    <div class="site-card" data-aos="fade-down">
+    <div class="site-card">
         <p><i class="fas fa-sparkles" style="color:var(--primary);margin-left:8px;"></i>
-        <span class="tooltip-hint" data-tooltip="كل ما عليك فعله هو نسخ السجلات من جهازك ولصقها هنا" data-i18n="log_tooltip">محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين</span></p>
+        <span data-i18n="log_tooltip">محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين</span></p>
     </div>
-
-    <div class="site-card" data-aos="fade-up">
+    <div class="site-card">
         <div class="section-title"><i class="fas fa-graduation-cap"></i><span data-i18n="how_to_get_logs">ازاي تجيب السجلات من المايكروتيك؟</span></div>
-        <div style="display:flex;align-items:center;gap:15px;margin-bottom:20px;">
-            <div style="background:var(--primary);width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;"><i class="fas fa-terminal"></i></div>
-            <div>
-                <div style="font-size:1.3rem;font-weight:700;color:var(--primary-dark);" data-i18n="simple_method">طريقة واحدة وبسيطة</div>
-                <div style="color:var(--gray);" data-i18n="use_terminal">استخدم Terminal - أسرع وأسهل طريقة</div>
-            </div>
-        </div>
         <div class="command-box">
             <h5 style="color:var(--primary-dark);margin-bottom:15px;" data-i18n="write_command">✍️ اكتب الأمر ده في التيرمينال:</h5>
             <div class="command-text">log print</div>
             <div style="text-align:center;margin:20px 0;">
-                <button class="copy-command-btn" onclick="copyCommand('log print')"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
-            </div>
-            <div style="margin-top:30px;">
-                <div class="step-detail"><div class="step-num">①</div><div><strong style="color:var(--primary-dark);" data-i18n="step1_title">افتح Terminal:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step1_desc">في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal</p></div></div>
-                <div class="step-detail"><div class="step-num">②</div><div><strong style="color:var(--primary-dark);" data-i18n="step2_title">اكتب الأمر:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step2_desc">اكتب log print واضغط Enter</p></div></div>
-                <div class="step-detail"><div class="step-num">③</div><div><strong style="color:var(--primary-dark);" data-i18n="step3_title">حدد كل السجلات:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step3_desc">اضغط كليك يمين في التيرمينال واختار "Select All"</p></div></div>
-                <div class="step-detail"><div class="step-num">④</div><div><strong style="color:var(--primary-dark);" data-i18n="step4_title">انسخ:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step4_desc">اضغط كليك يمين تاني واختار "Copy"</p></div></div>
-                <div class="step-detail"><div class="step-num">⑤</div><div><strong style="color:var(--primary-dark);" data-i18n="step5_title">الصق هنا:</strong><p style="color:var(--gray);margin:5px 0 0;" data-i18n="step5_desc">ارجع للصفحة واضغط Ctrl+V في المربع الأسود</p></div></div>
-            </div>
-        </div>
-        <div class="note-box" style="display:flex;align-items:flex-start;gap:15px;margin-top:20px;">
-            <i class="fas fa-star" style="color:#eab308;font-size:1.5rem;"></i>
-            <div>
-                <strong style="color:#854d0e;" data-i18n="important_notes">💡 ملاحظات مهمة:</strong>
-                <ul style="color:var(--gray);margin-top:10px;padding-right:20px;">
-                    <li data-i18n="note1">🔹 الأمر <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print</code> بيظهر كل السجلات من الأحدث للأقدم</li>
-                    <li data-i18n="note2">🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print follow</code></li>
-                    <li data-i18n="note3">🔹 عشان توقف العرض المباشر اضغط Ctrl+C</li>
-                    <li data-i18n="note4">🔹 لو عايز تحفظ السجلات في ملف استخدم <code style="background:#f1f5f9;padding:2px 8px;border-radius:8px;">log print file=logs.txt</code></li>
-                </ul>
+                <button class="copy-command-btn" onclick="handleCopyCommand('log print',this)"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
             </div>
         </div>
     </div>
-
-    <div class="site-card" data-aos="fade-up">
+    <div class="site-card">
         <div class="terminal-header">
             <div class="terminal-dots">
                 <span class="terminal-dot dot-red"></span>
@@ -268,16 +315,15 @@
                 <span class="example-btn" onclick="loadExample('wireless')">📡 <span data-i18n="wireless_network">شبكة لاسلكية</span></span>
                 <span class="example-btn" onclick="loadExample('vpn')">🔐 <span data-i18n="vpn_connections">اتصالات VPN</span></span>
             </div>
-            <small style="display:block;margin-top:5px;color:var(--gray);" data-i18n="click_to_fill">اضغط على أي مثال لملء المربع تلقائياً</small>
         </div>
-        <button class="analyze-btn" onclick="analyzeLogs()">
+        <div id="analyzeLockHint" class="lock-hint" style="display:none;margin-bottom:8px;"><i class="fas fa-lock"></i> سجّل دخولك لتحليل السجلات</div>
+        <button class="analyze-btn" onclick="handleAnalyze()">
             <i class="fas fa-chart-pie"></i>
             <span data-i18n="analyze_button">اضغط هنا لتحليل السجلات</span>
             <i class="fas fa-arrow-left"></i>
         </button>
         <p style="text-align:center;margin-top:10px;color:var(--gray);" data-i18n="wait_message">بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل</p>
     </div>
-
     <div id="resultsContainer" style="display:none;">
         <div class="site-card" id="analysisResults"></div>
     </div>
@@ -294,249 +340,110 @@
 
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-    if(typeof AOS!=='undefined') AOS.init({duration:800,once:true});
     const menuToggle=document.getElementById('menuToggle');
     const navLinks=document.getElementById('navLinks');
-    if(menuToggle){
-        menuToggle.addEventListener('click',function(){
-            const icon=this.querySelector('i');
-            navLinks.classList.toggle('active');
-            icon.className=navLinks.classList.contains('active')?'fas fa-times':'fas fa-bars';
-        });
-    }
-    document.querySelectorAll('.dropdown-toggle').forEach(toggle=>{
-        toggle.addEventListener('click',function(e){
-            if(window.innerWidth<=992){
-                e.preventDefault();
-                const dd=this.closest('.dropdown');
-                dd.classList.toggle('active');
-                const arrow=this.querySelector('.dropdown-arrow');
-                if(arrow) arrow.style.transform=dd.classList.contains('active')?'rotate(180deg)':'rotate(0)';
-            }
-        });
-    });
-    document.querySelectorAll('.nav-link,.dropdown-item').forEach(link=>{
-        link.addEventListener('click',()=>{
-            if(!link.classList.contains('dropdown-toggle')&&window.innerWidth<=992){
-                document.getElementById('navLinks').classList.remove('active');
-                document.querySelector('#menuToggle i').className='fas fa-bars';
-            }
-        });
-    });
+    if(menuToggle){menuToggle.addEventListener('click',function(){const icon=this.querySelector('i');navLinks.classList.toggle('active');icon.className=navLinks.classList.contains('active')?'fas fa-times':'fas fa-bars';});}
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle=>{toggle.addEventListener('click',function(e){if(window.innerWidth<=992){e.preventDefault();const dd=this.closest('.dropdown');dd.classList.toggle('active');const arrow=this.querySelector('.dropdown-arrow');if(arrow)arrow.style.transform=dd.classList.contains('active')?'rotate(180deg)':'rotate(0)';}});});
     updateLineCount();
     loadExample('basic');
     document.getElementById('logInput').addEventListener('input',updateLineCount);
 });
 
 let currentLogs=[],filteredLogs=[],charts={};
-
 function updateLineCount(){const t=document.getElementById('logInput').value;document.getElementById('lineCount').textContent=t.split('\n').filter(l=>l.trim()!=='').length;}
 function clearInput(){document.getElementById('logInput').value='';updateLineCount();}
-function copyInput(){navigator.clipboard.writeText(document.getElementById('logInput').value);showToast('✅ '+(document.documentElement.lang==='ar'?'تم النسخ':'Copied'),'#10b981');}
-async function pasteInput(){try{const t=await navigator.clipboard.readText();document.getElementById('logInput').value=t;updateLineCount();showToast('✅ '+(document.documentElement.lang==='ar'?'تم اللصق':'Pasted'),'#10b981');}catch(e){showToast('❌ '+(document.documentElement.lang==='ar'?'فشل اللصق':'Paste failed'),'#ef4444');}}
-function copyCommand(cmd){navigator.clipboard.writeText(cmd);showToast('✅ '+(document.documentElement.lang==='ar'?'تم نسخ الأمر':'Command copied'),'#10b981');}
+function copyInput(){navigator.clipboard.writeText(document.getElementById('logInput').value);showToast('✅ تم النسخ','#10b981');}
+async function pasteInput(){try{const t=await navigator.clipboard.readText();document.getElementById('logInput').value=t;updateLineCount();showToast('✅ تم اللصق','#10b981');}catch(e){showToast('❌ فشل اللصق','#ef4444');}}
+function copyCommand(cmd){navigator.clipboard.writeText(cmd);showToast('✅ تم نسخ الأمر','#10b981');}
+function showToast(msg,color){const t=document.createElement('div');t.style.cssText=`position:fixed;bottom:20px;right:20px;background:${color};color:white;padding:15px 25px;border-radius:50px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:9999;animation:slideIn 0.3s ease;`;t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>{t.style.animation='slideOut 0.3s ease';setTimeout(()=>document.body.removeChild(t),300);},2500);}
+function loadExample(type){const ex={basic:`09:15:23 system,info جهاز بدأ التشغيل بنجاح\n09:16:45 dhcp,info تم تعيين IP 192.168.1.100 للعميل\n09:17:12 system,info تمت مزامنة الوقت مع خادم NTP`,security:`09:15:23 firewall,error محاولة دخول فاشلة من 185.142.53.23\n09:16:45 firewall,error اكتشاف فحص منافذ من 45.78.23.11\n09:17:12 firewall,critical هجوم DDoS محتمل`,firewall:`09:15:23 firewall,info قبول اتصال من 192.168.1.50\n09:16:45 firewall,error رفض اتصال من 10.0.0.100`,wireless:`09:15:23 wireless,info عميل 192.168.1.100 متصل\n09:16:45 wireless,warning عميل 192.168.1.150 انقطع`,vpn:`09:15:23 pptp,info عميل 185.142.53.23 متصل\n09:16:45 l2tp,error فشل المصادقة للعميل 45.78.23.11`};document.getElementById('logInput').value=ex[type]||ex.basic;updateLineCount();showToast('✅ تم تحميل المثال','#10b981');}
+function parseLogs(text){return text.split('\n').filter(l=>l.trim()).map(line=>{const m=line.match(/(\d{1,2}:\d{2}:\d{2})\s+([a-zA-Z,_]+)\s+(.+)/);if(!m)return null;const ips=m[3].match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g)||[];const msg=m[3].toLowerCase();let sev='info';if(msg.includes('critical')||msg.includes('هجوم')||msg.includes('ddos'))sev='critical';else if(msg.includes('error')||msg.includes('فشل')||msg.includes('رفض'))sev='error';else if(msg.includes('warning')||msg.includes('تحذير')||msg.includes('انقطع'))sev='warning';return{time:m[1],source:m[2].split(',')[0],message:m[3],ips,severity:sev};}).filter(Boolean);}
+function addExplanations(logs){return logs.map(log=>{let exp='',sol='';if(log.source.includes('dhcp')){exp='ده سجل توزيع IP';sol='تأكد من الكابل أو الواي فاي';}else if(log.source.includes('firewall')||log.severity==='critical'){exp='⚠️ محاولة اختراق أو هجوم';sol='غير الباسورد فوراً وفعّل الحماية';}else if(log.source.includes('wireless')){exp='📡 سجل الشبكة اللاسلكية';sol='قرّب الجهاز من الراوتر';}else if(log.severity==='error'){exp='❌ في خطأ حصل';sol='شوف باقي السجلات لفهم المشكلة';}else if(log.severity==='warning'){exp='⚠️ تحذير محتاج متابعة';sol='تابع السجلات لو تكررت';}else{exp='ℹ️ سجل معلومات عادي';sol='لا يوجد إجراء مطلوب';}return{...log,explanation:exp,solution:sol};});}
+function analyzeLogs(){const input=document.getElementById('logInput').value;if(!input.trim()){showToast('⚠️ الصق السجلات أولاً','#f59e0b');return;}const logs=parseLogs(input);if(!logs.length){showToast('❌ تنسيق السجلات غير مدعوم','#ef4444');return;}const enhanced=addExplanations(logs);currentLogs=enhanced;filteredLogs=[...enhanced];const container=document.getElementById('resultsContainer');const div=document.getElementById('analysisResults');div.innerHTML=`<h3 style="margin-bottom:20px;"><i class="fas fa-check-circle" style="color:var(--primary)"></i> نتائج التحليل:</h3>`;showSummary(enhanced,div);displayStats(enhanced,div);displayCharts(enhanced,div);displayTable(enhanced,div);container.style.display='block';setTimeout(()=>container.scrollIntoView({behavior:'smooth'}),100);showToast(`✅ تم تحليل ${logs.length} سجل`,'#10b981');}
+function showSummary(logs,container){const crit=logs.filter(l=>l.severity==='critical').length;const err=logs.filter(l=>l.severity==='error').length;let msg='',color='';if(crit>0){msg=`🚨 فيه ${crit} مشكلة حرجة!`;color='#ef4444';}else if(err>0){msg=`⚠️ فيه ${err} خطأ`;color='#f59e0b';}else{msg='✅ الشبكة كويسة';color='#10b981';}const d=document.createElement('div');d.style.cssText=`background:${color}20;border:2px solid ${color};border-radius:24px;padding:20px;margin-bottom:20px;font-size:1.3rem;text-align:center;`;d.innerHTML=`<i class="fas fa-robot" style="color:${color};margin-left:10px;"></i>${msg}`;container.insertBefore(d,container.firstChild);}
+function displayStats(logs,container){const g=document.createElement('div');g.className='stats-grid';g.innerHTML=`<div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${logs.length}</div><div>إجمالي السجلات</div></div><div class="stat-item"><i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444"></i><div class="stat-value">${logs.filter(l=>l.severity==='critical').length}</div><div>حرجة</div></div><div class="stat-item"><i class="fas fa-exclamation-triangle fa-2x" style="color:#f59e0b"></i><div class="stat-value">${logs.filter(l=>l.severity==='error').length}</div><div>أخطاء</div></div><div class="stat-item"><i class="fas fa-exclamation fa-2x" style="color:#eab308"></i><div class="stat-value">${logs.filter(l=>l.severity==='warning').length}</div><div>تحذيرات</div></div><div class="stat-item"><i class="fas fa-info-circle fa-2x" style="color:#3b82f6"></i><div class="stat-value">${logs.filter(l=>l.severity==='info').length}</div><div>معلومات</div></div><div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${logs.filter(l=>l.ips.length>0).length}</div><div>عناوين IP</div></div>`;container.appendChild(g);}
+function displayCharts(logs,container){const g=document.createElement('div');g.className='charts-grid';g.innerHTML=`<div class="chart-card"><h5><i class="fas fa-chart-pie" style="color:var(--primary);margin-left:8px;"></i>توزيع السجلات</h5><div class="chart-container"><canvas id="severityChart"></canvas></div></div><div class="chart-card"><h5><i class="fas fa-network-wired" style="color:var(--primary);margin-left:8px;"></i>أكثر IPs تكراراً</h5><div class="chart-container"><canvas id="ipChart"></canvas></div></div><div class="chart-card"><h5><i class="fas fa-chart-line" style="color:var(--primary);margin-left:8px;"></i>النشاط الزمني</h5><div class="chart-container"><canvas id="timelineChart"></canvas></div></div>`;container.appendChild(g);setTimeout(()=>{const sCtx=document.getElementById('severityChart').getContext('2d');if(charts.severity)charts.severity.destroy();charts.severity=new Chart(sCtx,{type:'doughnut',data:{labels:['حرجة','أخطاء','تحذيرات','معلومات'],datasets:[{data:[logs.filter(l=>l.severity==='critical').length,logs.filter(l=>l.severity==='error').length,logs.filter(l=>l.severity==='warning').length,logs.filter(l=>l.severity==='info').length],backgroundColor:['#ef4444','#f59e0b','#eab308','#3b82f6'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#1e293b'}}}}});const ipC={};logs.forEach(log=>log.ips.forEach(ip=>ipC[ip]=(ipC[ip]||0)+1));const topIPs=Object.entries(ipC).sort((a,b)=>b[1]-a[1]).slice(0,8);if(topIPs.length){const iCtx=document.getElementById('ipChart').getContext('2d');if(charts.ip)charts.ip.destroy();charts.ip=new Chart(iCtx,{type:'bar',data:{labels:topIPs.map(i=>i[0]),datasets:[{label:'عدد المرات',data:topIPs.map(i=>i[1]),backgroundColor:'rgba(99,102,241,0.8)',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false}});}const tSlots={};logs.forEach(log=>{const h=log.time.split(':')[0];tSlots[h]=(tSlots[h]||0)+1;});const tCtx=document.getElementById('timelineChart').getContext('2d');if(charts.timeline)charts.timeline.destroy();charts.timeline=new Chart(tCtx,{type:'line',data:{labels:Object.keys(tSlots).sort().map(h=>h+':00'),datasets:[{label:'عدد السجلات',data:Object.values(tSlots),borderColor:'var(--primary)',backgroundColor:'rgba(99,102,241,0.2)',tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false}});},100);}
+function displayTable(logs,container){const tc=document.createElement('div');tc.className='table-container';tc.innerHTML=`<div class="table-header"><h5><i class="fas fa-table" style="color:var(--primary);margin-left:8px;"></i>السجلات التفصيلية</h5><div><input type="text" id="searchInput" placeholder="🔍 ابحث..." onkeyup="filterLogs()" style="background:white;border:1px solid #e2e8f0;color:var(--dark);width:200px;padding:8px 15px;border-radius:20px;outline:none;"><select id="severityFilter" onchange="filterLogs()" style="background:white;border:1px solid #e2e8f0;color:var(--dark);padding:8px 15px;border-radius:20px;margin-right:8px;outline:none;"><option value="all">كل المستويات</option><option value="critical">حرجة</option><option value="error">أخطاء</option><option value="warning">تحذيرات</option><option value="info">معلومات</option></select></div></div><div class="table-responsive"><table class="table"><thead><tr><th>الوقت</th><th>المستوى</th><th>المصدر</th><th>الرسالة والشرح</th><th>IPs</th></tr></thead><tbody id="logTableBody"></tbody></table></div>`;container.appendChild(tc);renderRows(logs);}
+function renderRows(logs){const tbody=document.getElementById('logTableBody');if(!tbody)return;tbody.innerHTML='';const sText={critical:'حرج',error:'خطأ',warning:'تحذير',info:'معلومات'};logs.slice(0,200).forEach(log=>{const row=document.createElement('tr');row.innerHTML=`<td style="font-weight:700;color:var(--primary-dark)">${log.time}</td><td><span class="severity-badge severity-${log.severity}">${sText[log.severity]||'Info'}</span></td><td style="font-weight:600;">${log.source}</td><td><div style="margin-bottom:8px;">${log.message}</div><div class="log-explanation"><i class="fas fa-comment-dots" style="margin-left:6px;"></i><strong>شرح:</strong> ${log.explanation}</div><div class="log-explanation" style="background:#f1f5f9;border-color:var(--primary);margin-top:5px;"><i class="fas fa-lightbulb" style="color:#eab308;margin-left:6px;"></i><strong>الحل:</strong> ${log.solution}</div></td><td>${log.ips.map(ip=>`<span class="ip-tag">${ip}</span>`).join(' ')||'-'}</td>`;tbody.appendChild(row);});}
+window.filterLogs=function(){if(!currentLogs.length)return;const search=document.getElementById('searchInput')?.value.toLowerCase()||'';const sev=document.getElementById('severityFilter')?.value||'all';filteredLogs=currentLogs.filter(log=>{if(sev!=='all'&&log.severity!==sev)return false;if(search)return log.message.toLowerCase().includes(search)||log.source.toLowerCase().includes(search)||log.ips.some(ip=>ip.includes(search));return true;});renderRows(filteredLogs);};
 
-function showToast(msg,color){
-    const t=document.createElement('div');
-    t.style.cssText=`position:fixed;bottom:20px;right:20px;background:${color};color:white;padding:15px 25px;border-radius:50px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:9999;animation:slideIn 0.3s ease;`;
-    t.innerHTML=msg;document.body.appendChild(t);
-    setTimeout(()=>{t.style.animation='slideOut 0.3s ease';setTimeout(()=>document.body.removeChild(t),300);},2500);
-}
+const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",hotspot_settings:"Hotspot+PPP Settings",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",block_sites:"Block Sites",speed_profiles:"Speed Profiles",troubleshooting:"Troubleshooting",hotspot_design:"Hotspot Design",card_designer:"Card Designer",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",log_analyzer:"Log Analyzer",new:"NEW",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"MikroTik Log Analyzer - Step by step",how_to_get_logs:"How to get logs from MikroTik?",write_command:"✍️ Type this command in terminal:",copy_command:"Copy Command",paste_logs:"Paste logs here",important_paste:"Paste the logs you copied from terminal",lines_count:"Lines",try_examples:"Try ready examples:",basic_logs:"Basic Logs",security_attacks:"Security Attacks",firewall_issues:"Firewall Issues",wireless_network:"Wireless",vpn_connections:"VPN",analyze_button:"Click here to analyze logs",wait_message:"Results will appear below",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",hotspot_settings:"اعدادات hotspot+ppp",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",block_sites:"حجب مواقع",speed_profiles:"بروفايلات السرعة",troubleshooting:"المشكلات الشائعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",log_analyzer:"محلل السجلات",new:"جديد",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين",how_to_get_logs:"ازاي تجيب السجلات من المايكروتيك؟",write_command:"✍️ اكتب الأمر ده في التيرمينال:",copy_command:"نسخ الأمر",paste_logs:"الصق السجلات هنا",important_paste:"مهم: الصق السجلات اللي نسختها من التيرمينال",lines_count:"عدد الأسطر",try_examples:"جرب الأمثلة الجاهزة:",basic_logs:"سجلات عادية",security_attacks:"هجمات أمنية",firewall_issues:"مشاكل جدار ناري",wireless_network:"شبكة لاسلكية",vpn_connections:"اتصالات VPN",analyze_button:"اضغط هنا لتحليل السجلات",wait_message:"بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}};
 
-function loadExample(type){
-    const ex={
-        basic:`09:15:23 system,info جهاز بدأ التشغيل بنجاح\n09:16:45 dhcp,info تم تعيين IP 192.168.1.100 للعميل\n09:17:12 system,info تمت مزامنة الوقت مع خادم NTP\n09:18:30 wireless,info عميل 192.168.1.150 متصل بالشبكة\n09:19:55 firewall,info تم قبول اتصال من 10.0.0.50`,
-        security:`09:15:23 firewall,error محاولة دخول فاشلة من 185.142.53.23\n09:16:45 firewall,error اكتشاف فحص منافذ من 45.78.23.11\n09:17:12 firewall,warning 5 محاولات فاشلة من 192.168.1.100\n09:18:30 firewall,critical هجوم DDoS محتمل\n09:19:55 firewall,error هجوم قوة غاشمة من 103.145.67.89`,
-        firewall:`09:15:23 firewall,info قبول اتصال من 192.168.1.50\n09:16:45 firewall,error رفض اتصال من 10.0.0.100\n09:17:12 firewall,info تم تطبيق NAT للاتصال\n09:18:30 firewall,warning تجاوز حد الاتصالات\n09:19:55 firewall,info تم حظر IP 45.67.89.100`,
-        wireless:`09:15:23 wireless,info عميل 192.168.1.100 متصل\n09:16:45 wireless,warning عميل 192.168.1.150 انقطع بسبب ضعف الإشارة\n09:17:12 wireless,error فشل المصادقة للعميل 192.168.1.200\n09:18:30 wireless,info تم تغيير القناة إلى 6\n09:19:55 wireless,info قوة الإشارة 80%`,
-        vpn:`09:15:23 pptp,info عميل 185.142.53.23 متصل\n09:16:45 l2tp,error فشل المصادقة للعميل 45.78.23.11\n09:17:12 sstp,warning العميل 103.145.67.89 انقطع فجأة\n09:18:30 openvpn,info تم إنشاء نفق مع 192.168.1.200\n09:19:55 pptp,info تم قطع الاتصال مع 10.0.0.50`
-    };
-    document.getElementById('logInput').value=ex[type]||ex.basic;
-    updateLineCount();
-    showToast('✅ '+(document.documentElement.lang==='ar'?'تم تحميل المثال':'Example loaded'),'#10b981');
-}
-
-function parseLogs(text){
-    return text.split('\n').filter(l=>l.trim()).map(line=>{
-        const m=line.match(/(\d{1,2}:\d{2}:\d{2})\s+([a-zA-Z,_]+)\s+(.+)/);
-        if(!m) return null;
-        const ips=m[3].match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g)||[];
-        const msg=m[3].toLowerCase();
-        let sev='info';
-        if(msg.includes('critical')||msg.includes('حرج')||msg.includes('هجوم')||msg.includes('ddos')) sev='critical';
-        else if(msg.includes('error')||msg.includes('فشل')||msg.includes('خطأ')||msg.includes('رفض')) sev='error';
-        else if(msg.includes('warning')||msg.includes('تحذير')||msg.includes('انقطع')) sev='warning';
-        return{time:m[1],source:m[2].split(',')[0],message:m[3],ips,severity:sev};
-    }).filter(Boolean);
-}
-
-function addExplanations(logs){
-    return logs.map(log=>{
-        let exp='',sol='';
-        if(log.source.includes('dhcp')){exp='ده سجل توزيع IP';sol='تأكد من الكابل أو الواي فاي';}
-        else if(log.source.includes('firewall')||log.severity==='critical'){exp='⚠️ محاولة اختراق أو هجوم';sol='غير الباسورد فوراً وفعّل الحماية';}
-        else if(log.source.includes('wireless')){exp='📡 سجل الشبكة اللاسلكية';sol='قرّب الجهاز من الراوتر';}
-        else if(log.severity==='error'){exp='❌ في خطأ حصل';sol='شوف باقي السجلات لفهم المشكلة';}
-        else if(log.severity==='warning'){exp='⚠️ تحذير محتاج متابعة';sol='تابع السجلات لو تكررت';}
-        else{exp='ℹ️ سجل معلومات عادي';sol='لا يوجد إجراء مطلوب';}
-        return{...log,explanation:exp,solution:sol};
-    });
-}
-
-function analyzeLogs(){
-    const input=document.getElementById('logInput').value;
-    const lang=document.documentElement.lang;
-    if(!input.trim()){showToast('⚠️ '+(lang==='ar'?'الصق السجلات أولاً':'Paste logs first'),'#f59e0b');return;}
-    const logs=parseLogs(input);
-    if(!logs.length){showToast('❌ '+(lang==='ar'?'تنسيق السجلات غير مدعوم':'Log format not supported'),'#ef4444');return;}
-    const enhanced=addExplanations(logs);
-    currentLogs=enhanced;filteredLogs=[...enhanced];
-    const container=document.getElementById('resultsContainer');
-    const div=document.getElementById('analysisResults');
-    div.innerHTML=`<h3 style="margin-bottom:20px;"><i class="fas fa-check-circle" style="color:var(--primary)"></i> ${lang==='ar'?'نتائج التحليل':'Analysis Results'}:</h3>`;
-    showSummary(enhanced,div);
-    displayStats(enhanced,div);
-    displayCharts(enhanced,div);
-    displayTable(enhanced,div);
-    container.style.display='block';
-    setTimeout(()=>container.scrollIntoView({behavior:'smooth'}),100);
-    showToast(`✅ ${lang==='ar'?'تم تحليل':'Analyzed'} ${logs.length} ${lang==='ar'?'سجل':'logs'}`,'#10b981');
-}
-
-function showSummary(logs,container){
-    const crit=logs.filter(l=>l.severity==='critical').length;
-    const err=logs.filter(l=>l.severity==='error').length;
-    const lang=document.documentElement.lang;
-    let msg='',color='';
-    if(crit>0){msg=lang==='ar'?`🚨 فيه ${crit} مشكلة حرجة!`:`🚨 ${crit} critical issues!`;color='#ef4444';}
-    else if(err>0){msg=lang==='ar'?`⚠️ فيه ${err} خطأ`:`⚠️ ${err} errors`;color='#f59e0b';}
-    else{msg=lang==='ar'?'✅ الشبكة كويسة':'✅ Network healthy';color='#10b981';}
-    const d=document.createElement('div');
-    d.style.cssText=`background:${color}20;border:2px solid ${color};border-radius:24px;padding:20px;margin-bottom:20px;font-size:1.3rem;text-align:center;`;
-    d.innerHTML=`<i class="fas fa-robot" style="color:${color};margin-left:10px;"></i>${msg}`;
-    container.insertBefore(d,container.firstChild);
-}
-
-function displayStats(logs,container){
-    const lang=document.documentElement.lang;
-    const g=document.createElement('div');g.className='stats-grid';
-    g.innerHTML=`
-        <div class="stat-item"><i class="fas fa-database fa-2x" style="color:var(--primary)"></i><div class="stat-value">${logs.length}</div><div>${lang==='ar'?'إجمالي السجلات':'Total Logs'}</div></div>
-        <div class="stat-item"><i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444"></i><div class="stat-value">${logs.filter(l=>l.severity==='critical').length}</div><div>${lang==='ar'?'حرجة':'Critical'}</div></div>
-        <div class="stat-item"><i class="fas fa-exclamation-triangle fa-2x" style="color:#f59e0b"></i><div class="stat-value">${logs.filter(l=>l.severity==='error').length}</div><div>${lang==='ar'?'أخطاء':'Errors'}</div></div>
-        <div class="stat-item"><i class="fas fa-exclamation fa-2x" style="color:#eab308"></i><div class="stat-value">${logs.filter(l=>l.severity==='warning').length}</div><div>${lang==='ar'?'تحذيرات':'Warnings'}</div></div>
-        <div class="stat-item"><i class="fas fa-info-circle fa-2x" style="color:#3b82f6"></i><div class="stat-value">${logs.filter(l=>l.severity==='info').length}</div><div>${lang==='ar'?'معلومات':'Info'}</div></div>
-        <div class="stat-item"><i class="fas fa-network-wired fa-2x" style="color:#10b981"></i><div class="stat-value">${logs.filter(l=>l.ips.length>0).length}</div><div>${lang==='ar'?'عناوين IP':'IP Addresses'}</div></div>`;
-    container.appendChild(g);
-}
-
-function displayCharts(logs,container){
-    const lang=document.documentElement.lang;
-    const g=document.createElement('div');g.className='charts-grid';
-    g.innerHTML=`
-        <div class="chart-card"><h5><i class="fas fa-chart-pie" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'توزيع السجلات':'Distribution'}</h5><div class="chart-container"><canvas id="severityChart"></canvas></div></div>
-        <div class="chart-card"><h5><i class="fas fa-network-wired" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'أكثر IPs تكراراً':'Top IPs'}</h5><div class="chart-container"><canvas id="ipChart"></canvas></div></div>
-        <div class="chart-card"><h5><i class="fas fa-chart-line" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'النشاط الزمني':'Timeline'}</h5><div class="chart-container"><canvas id="timelineChart"></canvas></div></div>`;
-    container.appendChild(g);
-    setTimeout(()=>{
-        const sCtx=document.getElementById('severityChart').getContext('2d');
-        if(charts.severity)charts.severity.destroy();
-        charts.severity=new Chart(sCtx,{type:'doughnut',data:{labels:lang==='ar'?['حرجة','أخطاء','تحذيرات','معلومات']:['Critical','Errors','Warnings','Info'],datasets:[{data:[logs.filter(l=>l.severity==='critical').length,logs.filter(l=>l.severity==='error').length,logs.filter(l=>l.severity==='warning').length,logs.filter(l=>l.severity==='info').length],backgroundColor:['#ef4444','#f59e0b','#eab308','#3b82f6'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#1e293b'}}}}});
-        const ipC={};logs.forEach(log=>log.ips.forEach(ip=>ipC[ip]=(ipC[ip]||0)+1));
-        const topIPs=Object.entries(ipC).sort((a,b)=>b[1]-a[1]).slice(0,8);
-        if(topIPs.length){const iCtx=document.getElementById('ipChart').getContext('2d');if(charts.ip)charts.ip.destroy();charts.ip=new Chart(iCtx,{type:'bar',data:{labels:topIPs.map(i=>i[0]),datasets:[{label:lang==='ar'?'عدد المرات':'Count',data:topIPs.map(i=>i[1]),backgroundColor:'rgba(99,102,241,0.8)',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});}
-        const tSlots={};logs.forEach(log=>{const h=log.time.split(':')[0];tSlots[h]=(tSlots[h]||0)+1;});
-        const tCtx=document.getElementById('timelineChart').getContext('2d');if(charts.timeline)charts.timeline.destroy();
-        charts.timeline=new Chart(tCtx,{type:'line',data:{labels:Object.keys(tSlots).sort().map(h=>h+':00'),datasets:[{label:lang==='ar'?'عدد السجلات':'Count',data:Object.values(tSlots),borderColor:'var(--primary)',backgroundColor:'rgba(99,102,241,0.2)',tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:'#1e293b'}},x:{ticks:{color:'#1e293b'}}}}});
-    },100);
-}
-
-function displayTable(logs,container){
-    const lang=document.documentElement.lang;
-    const tc=document.createElement('div');tc.className='table-container';
-    tc.innerHTML=`
-        <div class="table-header">
-            <h5><i class="fas fa-table" style="color:var(--primary);margin-left:8px;"></i>${lang==='ar'?'السجلات التفصيلية':'Detailed Logs'}</h5>
-            <div>
-                <input type="text" id="searchInput" placeholder="${lang==='ar'?'🔍 ابحث...':'🔍 Search...'}" onkeyup="filterLogs()" style="background:white;border:1px solid #e2e8f0;color:var(--dark);width:200px;padding:8px 15px;border-radius:20px;outline:none;">
-                <select id="severityFilter" onchange="filterLogs()" style="background:white;border:1px solid #e2e8f0;color:var(--dark);padding:8px 15px;border-radius:20px;margin-right:8px;outline:none;">
-                    <option value="all">${lang==='ar'?'كل المستويات':'All'}</option>
-                    <option value="critical">${lang==='ar'?'حرجة':'Critical'}</option>
-                    <option value="error">${lang==='ar'?'أخطاء':'Errors'}</option>
-                    <option value="warning">${lang==='ar'?'تحذيرات':'Warnings'}</option>
-                    <option value="info">${lang==='ar'?'معلومات':'Info'}</option>
-                </select>
-            </div>
-        </div>
-        <div class="table-responsive"><table class="table"><thead><tr>
-            <th>${lang==='ar'?'الوقت':'Time'}</th><th>${lang==='ar'?'المستوى':'Level'}</th>
-            <th>${lang==='ar'?'المصدر':'Source'}</th><th>${lang==='ar'?'الرسالة والشرح':'Message & Explanation'}</th><th>IPs</th>
-        </tr></thead><tbody id="logTableBody"></tbody></table></div>`;
-    container.appendChild(tc);
-    renderRows(logs);
-}
-
-function renderRows(logs){
-    const lang=document.documentElement.lang;
-    const tbody=document.getElementById('logTableBody');
-    if(!tbody)return;
-    tbody.innerHTML='';
-    const sText={critical:lang==='ar'?'حرج':'Critical',error:lang==='ar'?'خطأ':'Error',warning:lang==='ar'?'تحذير':'Warning',info:lang==='ar'?'معلومات':'Info'};
-    logs.slice(0,200).forEach(log=>{
-        const row=document.createElement('tr');
-        row.innerHTML=`
-            <td style="font-weight:700;color:var(--primary-dark)">${log.time}</td>
-            <td><span class="severity-badge severity-${log.severity}">${sText[log.severity]||'Info'}</span></td>
-            <td style="font-weight:600;">${log.source}</td>
-            <td>
-                <div style="margin-bottom:8px;">${log.message}</div>
-                <div class="log-explanation"><i class="fas fa-comment-dots" style="margin-left:6px;"></i><strong>${lang==='ar'?'شرح:':'Explanation:'}</strong> ${log.explanation}</div>
-                <div class="log-explanation" style="background:#f1f5f9;border-color:var(--primary);margin-top:5px;"><i class="fas fa-lightbulb" style="color:#eab308;margin-left:6px;"></i><strong>${lang==='ar'?'الحل:':'Solution:'}</strong> ${log.solution}</div>
-            </td>
-            <td>${log.ips.map(ip=>`<span class="ip-tag">${ip}</span>`).join(' ')||'-'}</td>`;
-        tbody.appendChild(row);
-    });
-}
-
-window.filterLogs=function(){
-    if(!currentLogs.length)return;
-    const search=document.getElementById('searchInput')?.value.toLowerCase()||'';
-    const sev=document.getElementById('severityFilter')?.value||'all';
-    filteredLogs=currentLogs.filter(log=>{
-        if(sev!=='all'&&log.severity!==sev)return false;
-        if(search)return log.message.toLowerCase().includes(search)||log.source.toLowerCase().includes(search)||log.ips.some(ip=>ip.includes(search));
-        return true;
-    });
-    renderRows(filteredLogs);
-};
-
-const translations={
-    en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",hotspot_settings:"Hotspot+PPP Settings",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",block_sites:"Block Sites",speed_profiles:"Speed Profiles",troubleshooting:"Troubleshooting",hotspot_design:"Hotspot Design",card_designer:"Card Designer",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",log_analyzer:"Log Analyzer",new:"NEW",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"MikroTik Log Analyzer - Step by step for beginners",how_to_get_logs:"How to get logs from MikroTik?",simple_method:"One Simple Method",use_terminal:"Use Terminal - Fastest Way",write_command:"✍️ Type this command in terminal:",copy_command:"Copy Command",step1_title:"Open Terminal:",step1_desc:"In WinBox or WebFig, click on Terminal",step2_title:"Type the command:",step2_desc:"Type log print and press Enter",step3_title:"Select all logs:",step3_desc:"Right-click and choose 'Select All'",step4_title:"Copy:",step4_desc:"Right-click again and choose 'Copy'",step5_title:"Paste here:",step5_desc:"Press Ctrl+V in the input box",important_notes:"💡 Important Notes:",note1:"🔹 <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print</code> shows all logs newest first",note2:"🔹 For real-time logs use <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print follow</code>",note3:"🔹 Press Ctrl+C to stop follow mode",note4:"🔹 Save to file: <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print file=logs.txt</code>",paste_logs:"Paste logs here",important_paste:"Paste the logs you copied from terminal",lines_count:"Lines",try_examples:"Try ready examples:",basic_logs:"Basic Logs",security_attacks:"Security Attacks",firewall_issues:"Firewall Issues",wireless_network:"Wireless",vpn_connections:"VPN",click_to_fill:"Click any example to auto-fill",analyze_button:"Click here to analyze logs",wait_message:"Results will appear below",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved."},
-    ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",hotspot_settings:"اعدادات hotspot+ppp",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",block_sites:"حجب مواقع",speed_profiles:"بروفايلات السرعة",troubleshooting:"المشكلات الشائعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",log_analyzer:"محلل السجلات",new:"جديد",log_analyzer_title:"MikroTik Log Analyzer",log_tooltip:"محلل سجلات المايكروتيك - خطوة بخطوة للمبتدئين",how_to_get_logs:"ازاي تجيب السجلات من المايكروتيك؟",simple_method:"طريقة واحدة وبسيطة",use_terminal:"استخدم Terminal - أسرع وأسهل طريقة",write_command:"✍️ اكتب الأمر ده في التيرمينال:",copy_command:"نسخ الأمر",step1_title:"افتح Terminal:",step1_desc:"في برنامج WinBox أو من صفحة WebFig، اضغط على Terminal",step2_title:"اكتب الأمر:",step2_desc:"اكتب log print واضغط Enter",step3_title:"حدد كل السجلات:",step3_desc:"اضغط كليك يمين في التيرمينال واختار 'Select All'",step4_title:"انسخ:",step4_desc:"اضغط كليك يمين تاني واختار 'Copy'",step5_title:"الصق هنا:",step5_desc:"ارجع للصفحة واضغط Ctrl+V في المربع الأسود",important_notes:"💡 ملاحظات مهمة:",note1:"🔹 الأمر <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print</code> بيظهر كل السجلات من الأحدث للأقدم",note2:"🔹 لو عايز تشوف السجلات وهي بتظهر مباشرة استخدم <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print follow</code>",note3:"🔹 عشان توقف العرض المباشر اضغط Ctrl+C",note4:"🔹 لو عايز تحفظ السجلات في ملف استخدم <code style='background:#f1f5f9;padding:2px 8px;border-radius:8px;'>log print file=logs.txt</code>",paste_logs:"الصق السجلات هنا",important_paste:"مهم: الصق السجلات اللي نسختها من التيرمينال",lines_count:"عدد الأسطر",try_examples:"جرب الأمثلة الجاهزة (للتجربة فقط):",basic_logs:"سجلات عادية",security_attacks:"هجمات أمنية",firewall_issues:"مشاكل جدار ناري",wireless_network:"شبكة لاسلكية",vpn_connections:"اتصالات VPN",click_to_fill:"اضغط على أي مثال لملء المربع تلقائياً",analyze_button:"اضغط هنا لتحليل السجلات",wait_message:"بعد الضغط، انتظر قليلاً وستظهر النتائج بالأسفل",footer_contact:"للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة."}
-};
-
-function setLanguage(lang){
-    localStorage.setItem('language',lang);
-    const html=document.documentElement,body=document.body;
-    if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}
-    else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const key=el.getAttribute('data-i18n');
-        if(translations[lang]&&translations[lang][key]){
-            if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=translations[lang][key];
-            else el.innerHTML=translations[lang][key];
-        }
-    });
-    document.getElementById('langEn').classList.toggle('active',lang==='en');
-    document.getElementById('langAr').classList.toggle('active',lang==='ar');
-}
-
+function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
 document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
 document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
 setLanguage(localStorage.getItem('language')||'ar');
 </script>
-
 <script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+const app = initializeApp({apiKey:"AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",authDomain:"mikro-tools.firebaseapp.com",projectId:"mikro-tools",storageBucket:"mikro-tools.firebasestorage.app",messagingSenderId:"22698503616",appId:"1:22698503616:web:de7a3802b2fd746cc2ec25"});
+const auth=getAuth(app); const provider=new GoogleAuthProvider();
+window._auth=auth; window._provider=provider;
+window._signInWithEmailAndPassword=signInWithEmailAndPassword;
+window._createUserWithEmailAndPassword=createUserWithEmailAndPassword;
+window._signInWithPopup=signInWithPopup; window._signOut=signOut; window._sendPasswordResetEmail=sendPasswordResetEmail;
+onAuthStateChanged(auth,(user)=>{
+    const lb=document.getElementById('navLoginBtn'),ub=document.getElementById('navUserBtn');
+    if(user){
+        if(lb)lb.style.display='none';
+        if(ub){ub.style.display='flex';ub.textContent=(user.displayName||user.email||'U')[0].toUpperCase();}
+        const ed=document.getElementById('userEmailDisplay'); if(ed)ed.textContent=user.email||user.displayName||'';
+        // hide lock hints
+        const ch=document.getElementById('copyLockHint'); if(ch)ch.style.display='none';
+        const ah=document.getElementById('analyzeLockHint'); if(ah)ah.style.display='none';
+        closeAuthModal();
+        // execute pending action
+        if(window._pendingCopy){var cmd=window._pendingCopy;window._pendingCopy=null;copyCommand(cmd);}
+        if(window._pendingAnalyze){window._pendingAnalyze=false;analyzeLogs();}
+    } else {
+        if(lb)lb.style.display='flex'; if(ub)ub.style.display='none';
+        // show lock hints
+        const ch=document.getElementById('copyLockHint'); if(ch)ch.style.display='inline-flex';
+        const ah=document.getElementById('analyzeLockHint'); if(ah)ah.style.display='inline-flex';
+    }
+});
+</script>
+<script>
+function openAuthModal(){document.getElementById('authOverlay').classList.add('open');}
+function closeAuthModal(){document.getElementById('authOverlay').classList.remove('open');}
+window.openAuthModal=openAuthModal; window.closeAuthModal=closeAuthModal;
+
+function handleCopyCommand(cmd){
+    if(window._auth&&window._auth.currentUser){copyCommand(cmd);}
+    else{window._pendingCopy=cmd;openAuthModal();}
+}
+window.handleCopyCommand=handleCopyCommand;
+
+function handleAnalyze(){
+    if(window._auth&&window._auth.currentUser){analyzeLogs();}
+    else{window._pendingAnalyze=true;openAuthModal();}
+}
+window.handleAnalyze=handleAnalyze;
+
+function switchAuthTab(t){var isL=t==='login';document.getElementById('tabLogin').classList.toggle('active',isL);document.getElementById('tabRegister').classList.toggle('active',!isL);document.getElementById('formLogin').classList.toggle('active',isL);document.getElementById('formRegister').classList.toggle('active',!isL);['loginError','loginSuccess','registerError'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('show');});}
+window.switchAuthTab=switchAuthTab;
+function togglePass(id,btn){var inp=document.getElementById(id);var show=inp.type==='password';inp.type=show?'text':'password';btn.querySelector('i').className=show?'fas fa-eye-slash':'fas fa-eye';}
+window.togglePass=togglePass;
+function getErrMsg(c){var m={'auth/invalid-email':'البريد الإلكتروني غير صحيح','auth/user-not-found':'لا يوجد حساب بهذا البريد','auth/wrong-password':'كلمة المرور غير صحيحة','auth/invalid-credential':'البريد أو كلمة المرور غير صحيحة','auth/email-already-in-use':'هذا البريد مسجّل مسبقاً','auth/weak-password':'كلمة المرور ضعيفة','auth/too-many-requests':'محاولات كثيرة','auth/popup-closed-by-user':'تم إغلاق نافذة Google'};return m[c]||'حدث خطأ، حاول مرة أخرى';}
+function showAuthErr(id,msg){var el=document.getElementById(id);el.textContent=msg;el.classList.add('show');}
+async function doLogin(){var e=document.getElementById('loginEmail').value.trim(),p=document.getElementById('loginPass').value;document.getElementById('loginError').classList.remove('show');document.getElementById('loginSuccess').classList.remove('show');if(!e||!p){showAuthErr('loginError','يرجى ملء جميع الحقول');return;}var btn=document.getElementById('loginBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الدخول...';try{await window._signInWithEmailAndPassword(window._auth,e,p);}catch(err){showAuthErr('loginError',getErrMsg(err.code));}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';}}
+window.doLogin=doLogin;
+async function doRegister(){var e=document.getElementById('regEmail').value.trim(),p=document.getElementById('regPass').value,p2=document.getElementById('regPass2').value;document.getElementById('registerError').classList.remove('show');if(!e||!p||!p2){showAuthErr('registerError','يرجى ملء جميع الحقول');return;}if(p!==p2){showAuthErr('registerError','كلمتا المرور غير متطابقتين');return;}var btn=document.getElementById('registerBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الإنشاء...';try{await window._createUserWithEmailAndPassword(window._auth,e,p);}catch(err){showAuthErr('registerError',getErrMsg(err.code));}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-user-plus"></i> إنشاء الحساب';}}
+window.doRegister=doRegister;
+async function doGoogle(){try{await window._signInWithPopup(window._auth,window._provider);}catch(err){showAuthErr('loginError',getErrMsg(err.code));document.getElementById('loginError').classList.add('show');}}
+window.doGoogle=doGoogle;
+async function forgotPassword(e){e.preventDefault();var email=document.getElementById('loginEmail').value.trim();['loginError','loginSuccess'].forEach(function(id){document.getElementById(id).classList.remove('show');});if(!email){showAuthErr('loginError','أدخل بريدك الإلكتروني أولاً');return;}try{await window._sendPasswordResetEmail(window._auth,email);var s=document.getElementById('loginSuccess');s.textContent='تم إرسال رابط الاستعادة ✅';s.classList.add('show');}catch(err){showAuthErr('loginError',getErrMsg(err.code));}}
+window.forgotPassword=forgotPassword;
+async function doLogout(){await window._signOut(window._auth);document.getElementById('userDropdown').classList.remove('open');}
+window.doLogout=doLogout;
+function toggleUserDropdown(){document.getElementById('userDropdown').classList.toggle('open');}
+window.toggleUserDropdown=toggleUserDropdown;
+document.addEventListener('click',function(e){var ud=document.getElementById('userDropdown'),ub=document.getElementById('navUserBtn');if(ud&&ub&&!ub.contains(e.target)&&!ud.contains(e.target))ud.classList.remove('open');var ov=document.getElementById('authOverlay');if(ov&&ov.classList.contains('open')&&e.target===ov)closeAuthModal();});
+document.getElementById('authClose').addEventListener('click',closeAuthModal);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAuthModal();var dd=document.getElementById('userDropdown');if(dd)dd.classList.remove('open');}});
+</script>
+
 </body>
 </html>
-
