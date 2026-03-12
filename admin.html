@@ -615,12 +615,14 @@
             }
             async sendTelegramMessage(text) {
                 try {
-                    const r = await fetch(`https://api.telegram.org/bot${this.botToken}/sendMessage`, {
-                        method: 'POST', headers: {'Content-Type':'application/json'},
-                        body: JSON.stringify({ chat_id: this.chatId, text, parse_mode: 'HTML' })
+                    const params = new URLSearchParams({
+                        chat_id: this.chatId,
+                        text: text,
+                        parse_mode: 'HTML'
                     });
+                    const r = await fetch(`https://api.telegram.org/bot${this.botToken}/sendMessage?${params.toString()}`);
                     const data = await r.json();
-                    if (!data.ok) console.error('Telegram error:', data);
+                    if (!data.ok) console.error('Telegram error:', data.description);
                     return data.ok;
                 } catch(e) { console.error('Telegram fetch error:', e); return false; }
             }
