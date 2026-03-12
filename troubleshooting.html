@@ -315,7 +315,6 @@
                 <form id="addProblemForm">
                     <textarea class="form-textarea" id="problemText" placeholder="Write your problem in detail..."></textarea>
                     <div class="form-row">
-                        <input type="text" class="form-input" id="userName" placeholder="Your name (optional)">
                         <select class="form-select" id="problemType">
                             <option value="network" data-i18n="type_network">Network & Connection</option>
                             <option value="dhcp" data-i18n="type_dhcp">DHCP Problems</option>
@@ -422,14 +421,12 @@ onAuthStateChanged(auth,(user)=>{
         if(lb)lb.style.display='none';
         if(ub){ub.style.display='flex';ub.textContent=(user.displayName||user.email||'U')[0].toUpperCase();}
         const ed=document.getElementById('userEmailDisplay'); if(ed)ed.textContent=user.email||user.displayName||'';
-        const un=document.getElementById('userName'); if(un&&!un.value)un.value=user.displayName||user.email||'';
         if(lh)lh.style.display='none';
         closeAuthModal();
         if(window._pendingSubmit){window._pendingSubmit=false;doSubmitProblem();}
     } else {
         if(lb)lb.style.display='flex'; if(ub)ub.style.display='none';
         if(lh)lh.style.display='block';
-        const un=document.getElementById('userName'); if(un)un.value='';
     }
 });
 </script>
@@ -446,7 +443,8 @@ function doSubmitProblem(){
     const lang=document.documentElement.lang;
     const problemText=document.getElementById('problemText').value.trim();
     const user=window._auth&&window._auth.currentUser;
-    const userName=document.getElementById('userName').value.trim()||(user?(user.displayName||user.email):(lang==='ar'?'مستخدم مجهول':'Anonymous'));
+    if(!user){openAuthModal();return;}
+    const userName=user.email||user.displayName||'Anonymous';
     const problemType=document.getElementById('problemType').value;
     if(!problemText){alert(lang==='ar'?'الرجاء كتابة وصف المشكلة':'Please write the problem description');return;}
     const newProblem={user:userName,type:problemType,problem:problemText,date:new Date().toISOString(),likes:0,solved:false};
@@ -456,10 +454,9 @@ function doSubmitProblem(){
         loadProblems();
     }).catch((e)=>{
         console.error('Save error:',e);
-        alert(lang==='ar'?'⚠️ تم الحفظ محلياً فقط':'⚠️ Saved locally only');
+        alert(lang==='ar'?'⚠️ حدث خطأ أثناء الحفظ':'⚠️ Error saving problem');
     });
     document.getElementById('addProblemForm').reset();
-    if(user){setTimeout(()=>{const un=document.getElementById('userName');if(un)un.value=user.displayName||user.email||'';},50);}
 }
 window.doSubmitProblem=doSubmitProblem;
 function switchAuthTab(t){var isL=t==='login';document.getElementById('tabLogin').classList.toggle('active',isL);document.getElementById('tabRegister').classList.toggle('active',!isL);document.getElementById('formLogin').classList.toggle('active',isL);document.getElementById('formRegister').classList.toggle('active',!isL);['loginError','loginSuccess','registerError'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('show');});}
