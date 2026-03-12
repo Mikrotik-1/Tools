@@ -188,6 +188,7 @@
         .telegram-btn.primary { background: linear-gradient(135deg,#0088cc,#4361ee); color: white; }
         .telegram-btn.success { background: linear-gradient(135deg,var(--success),#0d9465); color: white; }
         .telegram-btn.warning { background: linear-gradient(135deg,var(--warning),#d97706); color: white; }
+        .telegram-btn.danger { background: linear-gradient(135deg,var(--danger),#dc2626); color: white; }
         .telegram-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,136,204,0.2); }
         .telegram-chat-id { background: var(--light-card); padding: 10px 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; word-break: break-all; color: #0088cc; }
         .replies-container { margin: 20px 0; border-top: 1px solid var(--light-border); padding-top: 20px; }
@@ -262,19 +263,84 @@
         <div class="main-content" id="mainContent">
             <!-- Dashboard Page -->
             <div id="dashboardPage" class="page active">
-                <div class="page-header"><h1>لوحة التحكم الرئيسية</h1><p>نظرة عامة على أداء الموقع والرسائل</p></div>
-                <div class="stats-grid">
-                    <div class="stat-card"><div class="stat-header"><div><div class="stat-title">إجمالي الزوار</div><div class="stat-value" id="totalVisitors">0</div><div class="stat-change positive" id="visitorsChange"><i class="fas fa-arrow-up"></i><span>0%</span></div></div><div class="stat-icon blue"><i class="fas fa-users"></i></div></div></div>
-                    <div class="stat-card"><div class="stat-header"><div><div class="stat-title">رسائل المشكلات</div><div class="stat-value" id="totalMessages">0</div></div><div class="stat-icon orange"><i class="fas fa-comments"></i></div></div></div>
-                    <div class="stat-card"><div class="stat-header"><div><div class="stat-title">الصفحات المشاهدة</div><div class="stat-value" id="totalPageViews">0</div></div><div class="stat-icon green"><i class="fas fa-eye"></i></div></div></div>
-                    <div class="stat-card"><div class="stat-header"><div><div class="stat-title">معدل الحل</div><div class="stat-value" id="resolutionRate">0%</div><div class="stat-change positive"><i class="fas fa-chart-line"></i><span>أداء جيد</span></div></div><div class="stat-icon purple"><i class="fas fa-percentage"></i></div></div></div>
+                <div class="page-header">
+                    <h1>لوحة التحكم الرئيسية</h1>
+                    <p>نظرة عامة شاملة على أداء MikroTools</p>
+                </div>
+                <!-- Live Alert Banner -->
+                <div id="liveBanner" style="display:none;background:linear-gradient(135deg,#10b981,#059669);color:white;padding:14px 20px;border-radius:12px;margin-bottom:20px;display:flex;align-items:center;gap:12px;animation:fadeIn 0.5s ease">
+                    <i class="fas fa-bell fa-beat" style="font-size:20px"></i>
+                    <span id="liveBannerText" style="font-weight:600;font-size:15px"></span>
+                </div>
+                <!-- Main Stats -->
+                <div class="stats-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
+                    <div class="stat-card" style="border-top:3px solid #4361ee">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">إجمالي الزوار</div>
+                                <div class="stat-value" id="totalVisitors">0</div>
+                                <div class="stat-change positive"><i class="fas fa-users"></i><span>زائر فريد</span></div>
+                            </div>
+                            <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="border-top:3px solid #f59e0b">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">إجمالي الرسائل</div>
+                                <div class="stat-value" id="totalMessages">0</div>
+                                <div class="stat-change positive"><i class="fas fa-comment-dots"></i><span>رسالة</span></div>
+                            </div>
+                            <div class="stat-icon orange"><i class="fas fa-comments"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="border-top:3px solid #ef4444">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">قيد الانتظار</div>
+                                <div class="stat-value" id="pendingMessages">0</div>
+                                <div class="stat-change negative"><i class="fas fa-clock"></i><span>تحتاج رد</span></div>
+                            </div>
+                            <div class="stat-icon pink"><i class="fas fa-hourglass-half"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="border-top:3px solid #10b981">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">تم الحل</div>
+                                <div class="stat-value" id="solvedMessages">0</div>
+                                <div class="stat-change positive"><i class="fas fa-check-circle"></i><span>محلولة</span></div>
+                            </div>
+                            <div class="stat-icon green"><i class="fas fa-check-double"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="border-top:3px solid #560bad">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">معدل الحل</div>
+                                <div class="stat-value" id="resolutionRate">0%</div>
+                                <div class="stat-change positive"><i class="fas fa-chart-line"></i><span>أداء</span></div>
+                            </div>
+                            <div class="stat-icon purple"><i class="fas fa-percentage"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="border-top:3px solid #3b82f6">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">اليوم</div>
+                                <div class="stat-value" id="todayMessages">0</div>
+                                <div class="stat-change positive"><i class="fas fa-calendar-day"></i><span>رسالة اليوم</span></div>
+                            </div>
+                            <div class="stat-icon blue"><i class="fas fa-calendar-day"></i></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="charts-grid">
                     <div class="chart-card"><div class="chart-header"><div class="chart-title"><i class="fas fa-chart-bar"></i>نشاط الزوار خلال 7 أيام</div></div><div class="chart-container"><canvas id="visitorsChart"></canvas></div></div>
                     <div class="chart-card"><div class="chart-header"><div class="chart-title"><i class="fas fa-chart-pie"></i>توزيع المشكلات حسب النوع</div></div><div class="chart-container"><canvas id="problemsChart"></canvas></div></div>
                 </div>
                 <div class="table-container">
-                    <div class="table-title"><i class="fas fa-history"></i>آخر 5 رسائل</div>
+                    <div class="table-title"><i class="fas fa-history"></i>آخر الرسائل</div>
                     <div class="table-responsive"><table><thead><tr><th>المستخدم</th><th>المشكلة</th><th>النوع</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody id="recentMessagesBody"></tbody></table></div>
                 </div>
             </div>
@@ -365,19 +431,27 @@
             </div>
             <!-- Telegram Page -->
             <div id="telegramPage" class="page">
-                <div class="page-header"><h1><i class="fab fa-telegram"></i> نظام إشعارات Telegram</h1><p>إرسال تقارير وإشعارات فورية</p></div>
+                <div class="page-header"><h1><i class="fab fa-telegram"></i> نظام إشعارات Telegram</h1><p>إشعارات فورية لكل مشكلة جديدة وتقارير شاملة</p></div>
                 <div class="telegram-controls">
                     <div class="telegram-card">
                         <div class="telegram-header"><div class="telegram-icon"><i class="fab fa-telegram"></i></div><div class="telegram-title">حالة النظام</div></div>
                         <div class="telegram-status"><div class="status-indicator" id="statusIndicator"></div><span id="statusText">جاري التحقق...</span></div>
-                        <div id="chatIdDisplay" style="display:none"><div style="color:#64748b;font-size:14px;margin-bottom:5px">معرف الدردشة:</div><div class="telegram-chat-id" id="currentChatId"></div></div>
-                        <div class="telegram-buttons">
-                            <button class="telegram-btn primary" onclick="setupTelegram()" id="setupBtn"><i class="fas fa-cog"></i>إعداد Telegram</button>
-                            <button class="telegram-btn success" onclick="testTelegramNotification()" id="testBtn" style="display:none"><i class="fas fa-paper-plane"></i>اختبار الإشعار</button>
+                        <div id="chatIdDisplay">
+                            <div style="color:#64748b;font-size:13px;margin-bottom:5px">Chat ID:</div>
+                            <div class="telegram-chat-id" id="currentChatId"></div>
+                            <div style="margin-top:12px;padding:10px;background:rgba(16,185,129,0.08);border-radius:8px;border:1px solid rgba(16,185,129,0.2)">
+                                <div style="color:#065f46;font-size:13px;font-weight:600"><i class="fas fa-bell"></i> الإشعار الفوري مفعّل</div>
+                                <div style="color:#047857;font-size:12px;margin-top:4px">ستصلك رسالة تليجرام فور إرسال أي مشكلة جديدة</div>
+                            </div>
+                        </div>
+                        <div class="telegram-buttons" style="margin-top:15px">
+                            <button class="telegram-btn primary" id="setupBtn" style="display:none" onclick="setupTelegram()"><i class="fas fa-cog"></i>إعداد</button>
+                            <button class="telegram-btn success" onclick="testTelegramNotification()" id="testBtn"><i class="fas fa-paper-plane"></i>اختبار الإشعار</button>
                         </div>
                     </div>
                     <div class="telegram-card">
                         <div class="telegram-header"><div class="telegram-icon"><i class="fas fa-paper-plane"></i></div><div class="telegram-title">إرسال تقارير</div></div>
+                        <div style="color:#64748b;font-size:13px;margin-bottom:15px"><i class="fas fa-info-circle"></i> أرسل تقرير الآن أو اجدوله</div>
                         <div class="telegram-buttons">
                             <button class="telegram-btn primary" onclick="sendQuickReport()"><i class="fas fa-bolt"></i>تقرير سريع</button>
                             <button class="telegram-btn success" onclick="sendDetailedReport()"><i class="fas fa-file-alt"></i>تقرير مفصل</button>
@@ -385,9 +459,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="telegram-controls" style="margin-top:0">
+                    <div class="telegram-card">
+                        <div class="telegram-header"><div class="telegram-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b"><i class="fas fa-clock"></i></div><div class="telegram-title">الجدولة التلقائية</div></div>
+                        <div style="color:#64748b;font-size:13px;margin-bottom:15px">تقارير دورية تلقائية</div>
+                        <div class="telegram-buttons">
+                            <button class="telegram-btn warning" onclick="scheduleDailyReport()"><i class="fas fa-calendar-day"></i>تقرير يومي</button>
+                            <button class="telegram-btn warning" onclick="scheduleHourlyReport()"><i class="fas fa-history"></i>تقرير كل ساعة</button>
+                            <button class="telegram-btn danger" onclick="stopAllSchedules()"><i class="fas fa-stop-circle"></i>إيقاف الجداول</button>
+                        </div>
+                    </div>
+                    <div class="telegram-card">
+                        <div class="telegram-header"><div class="telegram-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6"><i class="fas fa-info-circle"></i></div><div class="telegram-title">معلومات البوت</div></div>
+                        <div style="font-size:13px;color:#475569;line-height:2">
+                            <div><i class="fas fa-robot" style="color:#4361ee;width:20px"></i> Bot: MikroTools Admin</div>
+                            <div><i class="fas fa-id-card" style="color:#10b981;width:20px"></i> Chat ID: 83208458</div>
+                            <div><i class="fas fa-bell" style="color:#f59e0b;width:20px"></i> فحص مشاكل جديدة: كل 30 ثانية</div>
+                            <div><i class="fas fa-shield-alt" style="color:#ef4444;width:20px"></i> الحالة: <span style="color:#10b981;font-weight:600">نشط ✅</span></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-container">
-                    <div class="table-title"><i class="fas fa-history"></i>سجل الإشعارات</div>
-                    <div id="notificationLogs"><div style="padding:15px;color:#64748b">تم تحميل نظام الإشعارات</div></div>
+                    <div class="table-title"><i class="fas fa-history"></i>سجل الإشعارات المرسلة</div>
+                    <div id="notificationLogs"><div style="padding:20px;color:#64748b;text-align:center">لا توجد سجلات بعد</div></div>
                 </div>
                 <div class="table-container">
                     <div class="table-title"><i class="fas fa-eye"></i>معاينة الإشعار الأخير</div>
@@ -496,9 +590,9 @@
         // ===== Telegram =====
         class TelegramNotificationSystem {
             constructor() {
-                this.botToken = '8399455499:AAGozeiCxaN8AQWN0P1Jj-GuyFUcEp3p2hk';
-                this.chatId = localStorage.getItem('telegram_chat_id');
-                this.enabled = !!this.chatId;
+                this.botToken = '8032439649:AAFqVT11FDtk3GMtEyerUUQ1m-_m76Vxdm0';
+                this.chatId = '83208458';
+                this.enabled = true;
                 this.scheduledJobs = {};
                 this.notificationLogs = JSON.parse(localStorage.getItem('telegram_logs') || '[]');
                 this.systemStats = { liveVisitors: 50, activeUsers: [], pageViews: 3000, serverLoad: 25, messagesToday: 5, resolvedIssues: 0, pendingIssues: 0 };
@@ -512,75 +606,140 @@
                 const sb = document.getElementById('setupBtn');
                 const tb = document.getElementById('testBtn');
                 if (!si) return;
-                if (this.enabled && this.chatId) {
-                    si.className = 'status-indicator'; st.textContent = 'النظام مفعل وجاهز';
-                    cd.style.display = 'block'; cc.textContent = this.chatId;
-                    sb.style.display = 'none'; tb.style.display = 'block';
-                } else {
-                    si.className = 'status-indicator inactive'; st.textContent = 'غير مفعل';
-                    cd.style.display = 'none'; sb.style.display = 'block'; tb.style.display = 'none';
-                }
+                si.className = 'status-indicator';
+                st.textContent = 'النظام مفعل وجاهز ✅';
+                if (cd) cd.style.display = 'block';
+                if (cc) cc.textContent = this.chatId;
+                if (sb) sb.style.display = 'none';
+                if (tb) tb.style.display = 'block';
             }
             async sendTelegramMessage(text) {
-                if (!this.enabled || !this.chatId) return false;
                 try {
                     const r = await fetch(`https://api.telegram.org/bot${this.botToken}/sendMessage`, {
                         method: 'POST', headers: {'Content-Type':'application/json'},
                         body: JSON.stringify({ chat_id: this.chatId, text, parse_mode: 'HTML' })
                     });
-                    return r.ok;
-                } catch(e) { return false; }
+                    const data = await r.json();
+                    if (!data.ok) console.error('Telegram error:', data);
+                    return data.ok;
+                } catch(e) { console.error('Telegram fetch error:', e); return false; }
             }
             async sendAndLog(message, type) {
-                const np = document.getElementById('notificationPreview');
-                if (np) np.textContent = message;
                 const ok = await this.sendTelegramMessage(message);
-                if (ok) { this.logActivity(`تم إرسال ${type}`); showNotification(`تم إرسال ${type} بنجاح`, 'success'); }
-                else showNotification(`فشل إرسال ${type}`, 'error');
+                if (ok) { this.logActivity(`✅ تم إرسال ${type}`); showNotification(`تم إرسال ${type} بنجاح`, 'success'); }
+                else { this.logActivity(`❌ فشل إرسال ${type}`); showNotification(`فشل إرسال ${type}`, 'error'); }
             }
             logActivity(msg) {
                 this.notificationLogs.unshift({ time: new Date().toLocaleTimeString('ar-EG'), message: msg });
-                if (this.notificationLogs.length > 10) this.notificationLogs.pop();
+                if (this.notificationLogs.length > 20) this.notificationLogs.pop();
                 localStorage.setItem('telegram_logs', JSON.stringify(this.notificationLogs));
                 this.updateLogsUI();
             }
             updateLogsUI() {
                 const c = document.getElementById('notificationLogs');
                 if (!c) return;
-                c.innerHTML = this.notificationLogs.map(l => `<div style="display:flex;align-items:center;gap:15px;padding:15px;border-bottom:1px solid #e2e8f0"><div style="color:#64748b;font-size:12px">${l.time}</div><div style="color:#475569;font-size:14px">${l.message}</div></div>`).join('');
+                c.innerHTML = this.notificationLogs.length ? this.notificationLogs.map(l => `<div style="display:flex;align-items:center;gap:15px;padding:12px 15px;border-bottom:1px solid #e2e8f0"><div style="color:#64748b;font-size:12px;min-width:80px">${l.time}</div><div style="color:#475569;font-size:14px">${l.message}</div></div>`).join('') : '<div style="padding:20px;color:#64748b;text-align:center">لا توجد سجلات بعد</div>';
+            }
+            async sendNewProblemAlert(problem) {
+                const typeMap = { network:'🌐 شبكة', firewall:'🔥 جدار حماية', bandwidth:'📶 باند ويدث', vpn:'🔒 VPN', hotspot:'📡 هوت سبوت', hardware:'🖥️ هاردوير', routing:'🗺️ راوتنج', system:'⚙️ نظام', dhcp:'📋 DHCP', other:'❓ أخرى' };
+                const typeLabel = typeMap[problem.type] || problem.type || 'غير محدد';
+                const msg = `🆕 <b>مشكلة جديدة في MikroTools!</b>
+
+👤 <b>المستخدم:</b> ${problem.user || 'مجهول'}
+🏷️ <b>النوع:</b> ${typeLabel}
+📝 <b>المشكلة:</b>
+${problem.problem || ''}
+
+📅 <b>التوقيت:</b> ${new Date().toLocaleString('ar-EG')}
+━━━━━━━━━━━━━━━
+🔗 افتح لوحة التحكم للرد`;
+                await this.sendTelegramMessage(msg);
+                this.logActivity(`🆕 مشكلة جديدة من: ${problem.user}`);
             }
             async sendQuickReport() {
-                if (!this.enabled) { showNotification('يرجى إعداد Telegram أولاً', 'error'); return; }
-                const msg = `⚡ <b>تقرير سريع - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n✅ النظام: <b>يعمل</b>\n👥 الزوار الآن: <b>${document.getElementById('liveVisitors')?.textContent || 50}</b>\n📨 الرسائل: <b>${systemData.problems?.length || 0}</b>\n📊 قيد الانتظار: <b>${systemData.problems?.filter(p=>!p.solved).length || 0}</b>`;
+                const total = systemData.problems?.length || 0;
+                const solved = systemData.problems?.filter(p=>p.solved).length || 0;
+                const pending = total - solved;
+                const today = systemData.problems?.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length || 0;
+                const msg = `⚡ <b>تقرير سريع - MikroTools</b>
+🕒 ${new Date().toLocaleTimeString('ar-EG')}
+━━━━━━━━━━━━━━━
+📨 <b>الرسائل الكلية:</b> ${total}
+✅ <b>محلولة:</b> ${solved}
+⏳ <b>قيد الانتظار:</b> ${pending}
+📅 <b>اليوم:</b> ${today} رسالة
+━━━━━━━━━━━━━━━
+✅ النظام يعمل بشكل طبيعي`;
                 await this.sendAndLog(msg, 'تقرير سريع');
             }
             async sendDetailedReport() {
-                if (!this.enabled) { showNotification('يرجى إعداد Telegram أولاً', 'error'); return; }
                 const total = systemData.problems?.length || 0;
                 const solved = systemData.problems?.filter(p=>p.solved).length || 0;
-                const msg = `📊 <b>تقرير مفصل - ${new Date().toLocaleDateString('ar-EG')}</b>\n\n⏰ ${new Date().toLocaleString('ar-EG')}\n━━━━━━━━━━━━━━━\n\n📨 <b>الرسائل:</b>\n   • إجمالي: <b>${total}</b>\n   • محلولة: <b>${solved}</b>\n   • قيد الانتظار: <b>${total-solved}</b>\n\n👥 زوار: <b>${systemData.analytics?.totalVisits || 0}</b>`;
+                const pending = total - solved;
+                const rate = total > 0 ? Math.round(solved/total*100) : 0;
+                const today = systemData.problems?.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length || 0;
+                const typeStats = {};
+                systemData.problems?.forEach(p => { typeStats[p.type] = (typeStats[p.type]||0)+1; });
+                const typesText = Object.entries(typeStats).map(([t,c])=>`   • ${t}: ${c}`).join('\n') || '   لا يوجد';
+                const msg = `📊 <b>تقرير مفصل - MikroTools</b>
+📅 ${new Date().toLocaleDateString('ar-EG')} | 🕒 ${new Date().toLocaleTimeString('ar-EG')}
+━━━━━━━━━━━━━━━
+
+📨 <b>إحصائيات الرسائل:</b>
+   • إجمالي: <b>${total}</b>
+   • محلولة: <b>${solved}</b>
+   • قيد الانتظار: <b>${pending}</b>
+   • اليوم: <b>${today}</b>
+   • نسبة الحل: <b>${rate}%</b>
+
+🏷️ <b>توزيع المشاكل حسب النوع:</b>
+${typesText}
+
+👥 <b>إحصائيات الزوار:</b>
+   • إجمالي الزيارات: <b>${systemData.analytics?.totalVisits || 0}</b>
+   • زوار فريدون: <b>${systemData.analytics?.uniqueVisitors || 0}</b>
+━━━━━━━━━━━━━━━
+🤖 MikroTools Admin Panel`;
                 await this.sendAndLog(msg, 'تقرير مفصل');
             }
             async sendLiveStatsReport() {
-                if (!this.enabled) { showNotification('يرجى إعداد Telegram أولاً', 'error'); return; }
-                const msg = `🔴 <b>مباشر - ${new Date().toLocaleTimeString('ar-EG')}</b>\n\n👁️ زوار الآن: <b>${document.getElementById('liveVisitors')?.textContent || 50}</b>`;
+                const total = systemData.problems?.length || 0;
+                const pending = systemData.problems?.filter(p=>!p.solved).length || 0;
+                const msg = `🔴 <b>إحصائيات حية - MikroTools</b>
+🕒 ${new Date().toLocaleTimeString('ar-EG')}
+━━━━━━━━━━━━━━━
+📨 رسائل قيد الانتظار: <b>${pending}</b>
+📊 إجمالي الرسائل: <b>${total}</b>
+━━━━━━━━━━━━━━━
+🤖 MikroTools`;
                 await this.sendAndLog(msg, 'إحصائيات حية');
             }
-            setupTelegram() {
-                const chatId = prompt('أدخل Chat ID من @getidsbot:');
-                if (chatId && /^\d+$/.test(chatId)) {
-                    localStorage.setItem('telegram_chat_id', chatId);
-                    this.chatId = chatId; this.enabled = true; this.updateUI();
-                    showNotification(`تم حفظ Chat ID: ${chatId}`, 'success');
-                    this.sendTelegramMessage('🎉 <b>تم ربط لوحة تحكم MikroTools بنجاح!</b>');
-                } else if (chatId) showNotification('Chat ID يجب أن يكون أرقام فقط', 'error');
-            }
+            setupTelegram() { showNotification('Telegram مفعل تلقائياً ✅', 'success'); }
             async testTelegramNotification() {
-                await this.sendAndLog(`🔔 <b>اختبار من MikroTools</b>\n✅ النظام يعمل!\n🕒 ${new Date().toLocaleString('ar-EG')}`, 'إشعار تجريبي');
+                await this.sendAndLog(`🔔 <b>اختبار من MikroTools</b>
+✅ النظام يعمل بشكل مثالي!
+🕒 ${new Date().toLocaleString('ar-EG')}
+━━━━━━━━━━━━━━━
+🤖 MikroTools Admin Panel`, 'إشعار تجريبي');
             }
-            scheduleDailyReport() { setInterval(() => this.sendDetailedReport(), 86400000); showNotification('تم جدولة التقارير اليومية', 'success'); }
-            scheduleHourlyReport() { setInterval(() => this.sendQuickReport(), 3600000); showNotification('تم جدولة التقارير الساعية', 'success'); }
-            stopAllSchedules() { Object.values(this.scheduledJobs).forEach(j => clearInterval(j)); this.scheduledJobs = {}; showNotification('تم إيقاف الجداول', 'success'); }
+            scheduleDailyReport() {
+                if (this.scheduledJobs.daily) clearInterval(this.scheduledJobs.daily);
+                this.scheduledJobs.daily = setInterval(() => this.sendDetailedReport(), 86400000);
+                showNotification('تم جدولة التقارير اليومية ✅', 'success');
+                this.logActivity('تم تفعيل التقارير اليومية');
+            }
+            scheduleHourlyReport() {
+                if (this.scheduledJobs.hourly) clearInterval(this.scheduledJobs.hourly);
+                this.scheduledJobs.hourly = setInterval(() => this.sendQuickReport(), 3600000);
+                showNotification('تم جدولة التقارير الساعية ✅', 'success');
+                this.logActivity('تم تفعيل التقارير الساعية');
+            }
+            stopAllSchedules() {
+                Object.values(this.scheduledJobs).forEach(j => clearInterval(j));
+                this.scheduledJobs = {};
+                showNotification('تم إيقاف كل الجداول', 'success');
+                this.logActivity('تم إيقاف جميع الجداول');
+            }
         }
 
         // ===== Globals =====
@@ -613,6 +772,45 @@
                 console.error('Firestore load error:', e);
                 return [];
             }
+        }
+
+        // ===== Firestore Real-time listener for new problems =====
+        let _knownDocIds = new Set();
+        let _listenerStarted = false;
+        async function startNewProblemListener() {
+            if (_listenerStarted) return;
+            _listenerStarted = true;
+            await waitForFirestore();
+            if (!window._db_fs || !window._fs) return;
+            // Mark existing problems as known
+            systemData.problems.forEach(p => { if (p._docId) _knownDocIds.add(p._docId); });
+
+            // Poll every 30 seconds for new problems
+            setInterval(async () => {
+                try {
+                    const { collection, getDocs, orderBy, query } = window._fs;
+                    const q = query(collection(window._db_fs, 'problems'), orderBy('date', 'desc'));
+                    const snap = await getDocs(q);
+                    const newProblems = [];
+                    snap.forEach(d => {
+                        if (!_knownDocIds.has(d.id)) {
+                            newProblems.push({ ...d.data(), _docId: d.id });
+                            _knownDocIds.add(d.id);
+                        }
+                    });
+                    if (newProblems.length > 0) {
+                        newProblems.forEach(p => {
+                            systemData.problems.unshift(p);
+                            // Send telegram alert for each new problem
+                            telegramSystem.sendNewProblemAlert(p);
+                        });
+                        updateMessagesDisplay();
+                        updateDashboard();
+                        showNotification(`🆕 ${newProblems.length} مشكلة جديدة!`, 'success');
+                        addSystemLog(`تم استقبال ${newProblems.length} مشكلة جديدة`, 'info');
+                    }
+                } catch(e) { console.error('Listener poll error:', e); }
+            }, 30000);
         }
 
         // ===== Update Problem in Firestore =====
@@ -714,6 +912,7 @@
                 telegramSystem.systemStats.resolvedIssues = systemData.problems.filter(p=>p.solved).length;
                 telegramSystem.systemStats.pendingIssues = systemData.problems.filter(p=>!p.solved).length;
                 telegramSystem.systemStats.messagesToday = systemData.problems.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length;
+                startNewProblemListener();
             } catch(e) {
                 console.error('initSystem error:', e);
                 addSystemLog('خطأ في تهيئة النظام: ' + e.message, 'error');
@@ -876,11 +1075,20 @@
 
         // ===== Dashboard =====
         function updateDashboard() {
-            document.getElementById('totalVisitors').textContent = systemData.analytics.uniqueVisitors || 0;
-            document.getElementById('totalPageViews').textContent = systemData.analytics.pageViews || 0;
-            const total = systemData.problems.length, solved = systemData.problems.filter(m=>m.solved).length;
-            document.getElementById('totalMessages').textContent = total;
+            const total = systemData.problems.length;
+            const solved = systemData.problems.filter(m=>m.solved).length;
+            const pending = total - solved;
+            const today = systemData.problems.filter(m => new Date(m.date).toDateString() === new Date().toDateString()).length;
+            document.getElementById('totalVisitors').textContent = (systemData.analytics.uniqueVisitors || 0).toLocaleString('ar-EG');
+            document.getElementById('totalMessages').textContent = total.toLocaleString('ar-EG');
+            document.getElementById('pendingMessages').textContent = pending.toLocaleString('ar-EG');
+            document.getElementById('solvedMessages').textContent = solved.toLocaleString('ar-EG');
             document.getElementById('resolutionRate').textContent = total > 0 ? Math.round(solved/total*100)+'%' : '0%';
+            document.getElementById('todayMessages').textContent = today.toLocaleString('ar-EG');
+            if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').textContent = (systemData.analytics.pageViews || 0).toLocaleString('ar-EG');
+            // Pending badge color
+            const pendingEl = document.getElementById('pendingMessages');
+            if (pendingEl) pendingEl.style.color = pending > 0 ? '#ef4444' : '#10b981';
             updateCharts();
         }
 
