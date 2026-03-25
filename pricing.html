@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#6366f1">
+    <title>الاشتراكات - MikroTools</title>
+    <meta name="description" content="اشترك في MikroTools واحصل على وصول كامل لجميع الأدوات المتقدمة">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1; --primary-dark: #4f46e5; --primary-light: #818cf8;
+            --secondary: #10b981; --accent: #f59e0b; --dark: #1e293b; --light: #f8fafc; --gray: #64748b;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--light); color: var(--dark); line-height: 1.8; min-height: 100vh; overflow-x: hidden; font-family: 'Tajawal', sans-serif; }
+        
+        /* Navbar نفس الموقع */
+        .navbar { background: var(--dark); padding: 1rem 2rem; position: fixed; top: 0; right: 0; left: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; color: white; }
+        .logo-icon { background: var(--gradient); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .logo-text { font-size: 24px; font-weight: 800; }
+        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+        .nav-link { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 8px 16px; border-radius: 10px; position: relative; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: white; background: var(--primary); }
+        .nav-cta { background: var(--gradient); color: white; padding: 5px 15px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.3s; white-space: nowrap; display: flex; align-items: center; gap: 5px; font-size: 13px; }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99,102,241,0.3); }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        
+        /* Hero Section للصفحة */
+        .page-hero { background: var(--gradient-dark); min-height: 50vh; display: flex; align-items: center; justify-content: center; padding: 120px 2rem 4rem; position: relative; overflow: hidden; margin-top: 0; }
+        .page-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+        .page-hero-content { max-width: 800px; text-align: center; color: white; position: relative; z-index: 1; }
+        .page-hero-badge { display: inline-block; background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; margin-bottom: 1.5rem; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .page-hero-badge i { margin-left: 5px; }
+        .page-hero-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to right, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+        .page-hero-subtitle { font-size: 1.1rem; color: #cbd5e1; max-width: 600px; margin: 0 auto; }
+        
+        /* Pricing Section */
+        .pricing-section { padding: 4rem 2rem; background: #f1f5f9; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-subtitle { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        
+        /* Pricing Cards - نفس style كروت الموقع */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        
+        .pricing-card { background: white; padding: 2.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); transition: all 0.3s; position: relative; overflow: hidden; border: 2px solid transparent; }
+        .pricing-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        
+        .pricing-card.weekly { border-color: rgba(99, 102, 241, 0.2); }
+        .pricing-card.weekly:hover { border-color: var(--primary); }
+        
+        .pricing-card.monthly { 
+            border-color: rgba(245, 158, 11, 0.3); 
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #fffbf0 0%, #ffffff 100%);
+        }
+        .pricing-card.monthly:hover { 
+            border-color: var(--accent); 
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .popular-badge { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); 
+            color: white; 
+            text-align: center; 
+            padding: 8px; 
+            font-size: 12px; 
+            font-weight: 700; 
+        }
+        
+        .plan-icon { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2.5rem; 
+            margin: 1rem auto 1.5rem; 
+        }
+        .weekly .plan-icon { background: linear-gradient(135deg, #6366f1, #a5b4fc); color: white; }
+        .monthly .plan-icon { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
+        
+        .plan-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; text-align: center; }
+        .weekly .plan-name { color: var(--primary); }
+        .monthly .plan-name { color: #b45309; }
+        
+        .plan-price { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            text-align: center; 
+            margin: 1rem 0; 
+            display: flex; 
+            align-items: baseline; 
+            justify-content: center; 
+            gap: 0.5rem; 
+        }
+        .plan-price .currency { font-size: 1.5rem; font-weight: 600; }
+        .plan-price .amount { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .monthly .plan-price .amount { background: linear-gradient(135deg, #f59e0b, #ef4444); -webkit-background-clip: text; }
+        .plan-price .period { font-size: 1rem; color: var(--gray); font-weight: 500; }
+        
+        .plan-features { list-style: none; margin: 2rem 0; }
+        .plan-features li { 
+            padding: 0.8rem 0; 
+            border-bottom: 1px solid #f1f5f9; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            color: var(--dark);
+        }
+        .plan-features li:last-child { border-bottom: none; }
+        .plan-features li i { 
+            color: var(--secondary); 
+            font-size: 1.1rem; 
+        }
+        .monthly .plan-features li i { color: #f59e0b; }
+        
+        /* WhatsApp Button - نفس style الأزرار */
+        .btn-whatsapp { 
+            display: block; 
+            width: 100%; 
+            padding: 1rem; 
+            background: linear-gradient(135deg, #25D366, #128C7E); 
+            color: white; 
+            text-decoration: none; 
+            text-align: center; 
+            border-radius: 12px; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            transition: all 0.3s; 
+            border: none; 
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); 
+        }
+        .btn-whatsapp i { margin-left: 8px; }
+        
+        /* How it works */
+        .how-it-works { padding: 5rem 2rem; background: white; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 3rem auto 0; }
+        .step-card { 
+            background: var(--gradient-card); 
+            padding: 2rem; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--shadow); 
+            text-align: center; 
+            border: 1px solid rgba(99,102,241,0.1);
+            transition: all 0.3s;
+        }
+        .step-card:hover { transform: translateY(-5px); }
+        .step-number { 
+            width: 60px; 
+            height: 60px; 
+            background: var(--gradient); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: white; 
+            margin: 0 auto 1.5rem; 
+        }
+        .step-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--dark); }
+        .step-desc { color: var(--gray); font-size: 0.95rem; }
+        
+        /* Contact Section */
+        .contact { padding: 4rem 2rem; background: var(--dark); color: white; text-align: center; }
+        .contact-title { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to right, #a5b4fc, #f0abfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .contact-subtitle { color: #94a3b8; margin-bottom: 2rem; }
+        .contact-phone { font-size: 2rem; font-weight: 800; margin: 1rem 0; direction: ltr; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Footer */
+        .footer { background: #0f172a; color: #94a3b8; padding: 2rem; text-align: center; }
+        .footer-text { margin-bottom: 0.5rem; }
+        .copyright { color: #64748b; font-size: 0.9rem; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links { display: none; position: absolute; top: 100%; right: 0; background: var(--dark); width: 100%; padding: 1rem; flex-direction: column; }
+            .nav-links.active { display: flex; }
+            .page-hero-title { font-size: 2rem; }
+            .pricing-card.monthly { transform: scale(1); }
+            .pricing-card.monthly:hover { transform: translateY(-10px); }
+            .plan-price { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar نفس الموقع -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                <span class="logo-text">MikroTools</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="index.html#tools" class="nav-link"><i class="fas fa-tools"></i> الأدوات</a>
+                <a href="pricing.html" class="nav-link active"><i class="fas fa-crown"></i> الاشتراكات</a>
+                <a href="https://wa.me/201092503391" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i> تواصل معنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <span class="page-hero-badge"><i class="fas fa-crown"></i> خطط الأسعار</span>
+            <h1 class="page-hero-title">اختر خطتك المناسبة</h1>
+            <p class="page-hero-subtitle">اشترك الآن واحصل على وصول كامل لجميع أدوات MikroTools المتقدمة. دفع آمن عبر فودافون كاش وفعّال فوري.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="section-header">
+            <h2 class="section-title">باقات الاشتراك</h2>
+            <p class="section-subtitle">اختر الباقة التي تناسبك وابدأ في استخدام جميع الأدوات المتقدمة</p>
+        </div>
+        
+        <div class="pricing-grid">
+            
+            <!-- Weekly Plan -->
+            <div class="pricing-card weekly">
+                <div class="plan-icon"><i class="fas fa-calendar-week"></i></div>
+                <h3 class="plan-name">الاشتراك الأسبوعي</h3>
+                <div class="plan-price">
+                    <span class="currency">جنيه</span>
+                    <span class="amount">50</span>
+                    <span class="period">/ أسبوع</span>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check-circle"></i> وصول كامل لجميع الأدوات</li>
+                    <li><i class="fas fa-check-circle"></i> إعدادات هوت سبوت المتقدمة</li>
+                    <li><i class="fas fa-check-circle"></i> دمج خطوط v6 و v7</li>
+                    <li><i class="fas fa-check-circle"></i> دعم فني لمدة أسبوع</li>
+                    <li><i class="fas fa-check-circle"></i> تحديثات مجانية</li>
+                </ul>
+                <a href="https://wa.me/201092503391?text=مرحباً%20أرغب%20في%20الاشتراك%20الأسبوعي%20(50%20جنيه)%0A%0Aالاسم:%20[اكتب%20اسمك]%0Aالبريد:%20[اكتب%20بريدك]" 
+                   target="_blank" 
+                   class="btn-whatsapp">
+                   <i class="fab fa-whatsapp"></i> اشترك الآن عبر واتساب
+                </a>
+            </div>
+
+            <!-- Monthly Plan - Featured -->
+            <div class="pricing-card monthly">
+                <div class="popular-badge"><i class="fas fa-fire"></i> الأكثر شيوعاً</div>
+                <div class="plan-icon"><i class="fas fa-calendar-alt"></i></div>
+                <h3 class="plan-name">الاشتراك الشهري</h3>
+                <div class="plan-price">
+                    <span class="currency">جنيه</span>
+                    <span class="amount">100</span>
+                    <span class="period">/ شهر</span>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check-circle"></i> وصول كامل لجميع الأدوات</li>
+                    <li><i class="fas fa-check-circle"></i> إعدادات هوت سبوت المتقدمة</li>
+                    <li><i class="fas fa-check-circle"></i> دمج خطوط v6 و v7</li>
+                    <li><i class="fas fa-check-circle"></i> دعم فني لمدة شهر كامل</li>
+                    <li><i class="fas fa-check-circle"></i> تحديثات مجانية</li>
+                    <li><i class="fas fa-check-circle"></i> أولوية في الدعم الفني</li>
+                    <li><i class="fas fa-check-circle"></i> وصول للميزات الجديدة أولاً</li>
+                </ul>
+                <a href="https://wa.me/201092503391?text=مرحباً%20أرغب%20في%20الاشتراك%20الشهري%20(100%20جنيه)%0A%0Aالاسم:%20[اكتب%20اسمك]%0Aالبريد:%20[اكتب%20بريدك]" 
+                   target="_blank" 
+                   class="btn-whatsapp">
+                   <i class="fab fa-whatsapp"></i> اشترك الآن عبر واتساب
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2 class="section-title">كيفية الاشتراك؟</h2>
+            <p class="section-subtitle">ثلاث خطوات بسيطة للحصول على وصول كامل</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 class="step-title">اختر خطتك</h3>
+                <p class="step-desc">اختار الاشتراك الأسبوعي (50 جنيه) أو الشهري (100 جنيه)</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 class="step-title">تواصل عبر واتساب</h3>
+                <p class="step-desc">ابعت رسالة على واتساب مع بياناتك وعمل تحويل فودافون كاش</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 class="step-title">تفعيل فوري</h3>
+                <p class="step-desc">بعد تأكيد الدفع، هنفعل حسابك في خلال دقائق</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact">
+        <h2 class="contact-title">هل لديك استفسار؟</h2>
+        <p class="contact-subtitle">تواصل معنا مباشرة على واتساب</p>
+        <div class="contact-phone">01092503391</div>
+        <a href="https://wa.me/201092503391" target="_blank" class="btn-whatsapp" style="max-width: 300px; margin: 0 auto;">
+            <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text"><i class="fas fa-phone-alt"></i> للتواصل: 01092503391 - Sameh El-Sayed</p>
+        <p class="copyright">© 2026 MikroTools. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            const icon = this.querySelector('i');
+            const isOpen = navLinks.classList.toggle('active');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+    </script>
+
+</body>
+</html>
