@@ -42,7 +42,6 @@
             --light-hover: #f1f5f9;
             --sidebar-bg: #1e293b;
             --gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
-            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
         body { background: var(--light-bg); color: var(--light-text); min-height: 100vh; overflow-x: hidden; }
@@ -198,17 +197,6 @@
         .reply-author { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--primary); }
         .reply-date { color: var(--light-gray); font-size: 12px; }
         .reply-content { color: var(--light-text); line-height: 1.6; font-size: 14px; }
-        
-        /* Subscription Styles - NEW ONLY */
-        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; }
-        .user-info-cell { display: flex; align-items: center; gap: 12px; }
-        .user-details { display: flex; flex-direction: column; }
-        .user-name-text { font-weight: 600; color: var(--light-text); }
-        .user-email { font-size: 12px; color: var(--light-gray); }
-        .date-input { padding: 10px 15px; border: 1px solid var(--light-border); border-radius: 8px; font-size: 14px; font-family: inherit; width: 100%; }
-        .modal-footer { display: flex; gap: 10px; padding: 25px; border-top: 1px solid var(--light-border); }
-        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .btn-secondary { background: var(--light-card); color: var(--light-text); border: 1px solid var(--light-border); }
     </style>
 </head>
 <body>
@@ -264,8 +252,6 @@
         <div class="sidebar" id="sidebar">
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i><span>لوحة التحكم</span></a></li>
-                <!-- NEW: Subscriptions Menu Item -->
-                <li class="nav-item"><a href="#" class="nav-link" data-page="subscriptions"><i class="fas fa-crown"></i><span>الاشتراكات</span><span class="badge badge-warning" id="subsBadge" style="margin-right:auto;display:none">0</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link" data-page="messages"><i class="fas fa-comments"></i><span>رسائل المشكلات</span><span class="badge badge-danger" id="newMessagesBadge" style="margin-right:auto;display:none">0</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link" data-page="visitors"><i class="fas fa-users"></i><span>الزوار</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link" data-page="pages"><i class="fas fa-file-alt"></i><span>الصفحات</span></a></li>
@@ -275,17 +261,18 @@
             </ul>
         </div>
         <div class="main-content" id="mainContent">
-            
             <!-- Dashboard Page -->
             <div id="dashboardPage" class="page active">
                 <div class="page-header">
                     <h1>لوحة التحكم الرئيسية</h1>
                     <p>نظرة عامة شاملة على أداء MikroTools</p>
                 </div>
+                <!-- Live Alert Banner -->
                 <div id="liveBanner" style="display:none;background:linear-gradient(135deg,#10b981,#059669);color:white;padding:14px 20px;border-radius:12px;margin-bottom:20px;display:flex;align-items:center;gap:12px;animation:fadeIn 0.5s ease">
                     <i class="fas fa-bell fa-beat" style="font-size:20px"></i>
                     <span id="liveBannerText" style="font-weight:600;font-size:15px"></span>
                 </div>
+                <!-- Main Stats -->
                 <div class="stats-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
                     <div class="stat-card" style="border-top:3px solid #4361ee">
                         <div class="stat-header">
@@ -297,25 +284,14 @@
                             <div class="stat-icon blue"><i class="fas fa-users"></i></div>
                         </div>
                     </div>
-                    <!-- NEW: Subscription Stats -->
                     <div class="stat-card" style="border-top:3px solid #f59e0b">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الاشتراكات النشطة</div>
-                                <div class="stat-value" id="activeSubscriptions">0</div>
-                                <div class="stat-change positive"><i class="fas fa-crown"></i> مشترك</div>
-                            </div>
-                            <div class="stat-icon orange"><i class="fas fa-crown"></i></div>
-                        </div>
-                    </div>
-                    <div class="stat-card" style="border-top:3px solid #10b981">
                         <div class="stat-header">
                             <div>
                                 <div class="stat-title">إجمالي الرسائل</div>
                                 <div class="stat-value" id="totalMessages">0</div>
                                 <div class="stat-change positive"><i class="fas fa-comment-dots"></i><span>رسالة</span></div>
                             </div>
-                            <div class="stat-icon green"><i class="fas fa-comments"></i></div>
+                            <div class="stat-icon orange"><i class="fas fa-comments"></i></div>
                         </div>
                     </div>
                     <div class="stat-card" style="border-top:3px solid #ef4444">
@@ -348,6 +324,16 @@
                             <div class="stat-icon purple"><i class="fas fa-percentage"></i></div>
                         </div>
                     </div>
+                    <div class="stat-card" style="border-top:3px solid #3b82f6">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">اليوم</div>
+                                <div class="stat-value" id="todayMessages">0</div>
+                                <div class="stat-change positive"><i class="fas fa-calendar-day"></i><span>رسالة اليوم</span></div>
+                            </div>
+                            <div class="stat-icon blue"><i class="fas fa-calendar-day"></i></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="charts-grid">
                     <div class="chart-card"><div class="chart-header"><div class="chart-title"><i class="fas fa-chart-bar"></i>نشاط الزوار خلال 7 أيام</div></div><div class="chart-container"><canvas id="visitorsChart"></canvas></div></div>
@@ -358,76 +344,6 @@
                     <div class="table-responsive"><table><thead><tr><th>المستخدم</th><th>المشكلة</th><th>النوع</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody id="recentMessagesBody"></tbody></table></div>
                 </div>
             </div>
-
-            <!-- NEW: Subscriptions Page -->
-            <div id="subscriptionsPage" class="page">
-                <div class="page-header">
-                    <h1><i class="fas fa-crown" style="color: var(--warning)"></i> إدارة الاشتراكات</h1>
-                    <p>إدارة اشتراكات المستخدمين والتحكم في الباقات</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">الاشتراكات النشطة</div>
-                                <div class="stat-value" id="subStatsActive">0</div>
-                            </div>
-                            <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">اشتراكات منتهية</div>
-                                <div class="stat-value" id="subStatsExpired">0</div>
-                            </div>
-                            <div class="stat-icon pink"><i class="fas fa-times-circle"></i></div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div>
-                                <div class="stat-title">بانتظار التفعيل</div>
-                                <div class="stat-value" id="subStatsPending">0</div>
-                            </div>
-                            <div class="stat-icon orange"><i class="fas fa-user-clock"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="filters">
-                    <div class="search-box">
-                        <input type="text" id="searchSubscriptions" placeholder="ابحث بالإيميل...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="filter-group">
-                        <button class="filter-btn active" data-sub-filter="all">الكل</button>
-                        <button class="filter-btn" data-sub-filter="active">نشط</button>
-                        <button class="filter-btn" data-sub-filter="expired">منتهي</button>
-                        <button class="filter-btn" data-sub-filter="pending">بانتظار التفعيل</button>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <div class="table-title"><i class="fas fa-list"></i> قائمة المشتركين</div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>المستخدم</th>
-                                    <th>نوع الاشتراك</th>
-                                    <th>تاريخ الانتهاء</th>
-                                    <th>الحالة</th>
-                                    <th>الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody id="subscriptionsTableBody">
-                                <tr><td colspan="6" class="empty-state"><i class="fas fa-spinner fa-spin"></i><h4>جاري التحميل...</h4></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
             <!-- Messages Page -->
             <div id="messagesPage" class="page">
                 <div class="page-header"><h1>إدارة رسائل المشكلات</h1><p>إدارة ورد على جميع مشاكل المستخدمين</p></div>
@@ -453,7 +369,6 @@
                     <div class="table-responsive"><table><thead><tr><th>#</th><th>المستخدم</th><th>نوع المشكلة</th><th>الرسالة</th><th>التاريخ</th><th>الحالة</th><th>الإجراءات</th></tr></thead><tbody id="messagesTableBody"></tbody></table></div>
                 </div>
             </div>
-
             <!-- Visitors Page -->
             <div id="visitorsPage" class="page">
                 <div class="page-header"><h1>إحصائيات الزوار</h1><p>تحليل شامل لزوار الموقع</p></div>
@@ -478,7 +393,6 @@
                     <button class="export-btn" onclick="window.print()"><i class="fas fa-print"></i>طباعة</button>
                 </div>
             </div>
-
             <!-- Pages Page -->
             <div id="pagesPage" class="page">
                 <div class="page-header"><h1>إحصائيات الصفحات</h1><p>تحليل أداء صفحات الموقع</p></div>
@@ -493,7 +407,6 @@
                     <div class="table-responsive"><table><thead><tr><th>الصفحة</th><th>المشاهدات</th><th>الزوار الفريدون</th><th>متوسط المدة</th><th>الشعبية</th></tr></thead><tbody id="pagesTableBody"></tbody></table></div>
                 </div>
             </div>
-
             <!-- Realtime Page -->
             <div id="realtimePage" class="page">
                 <div class="page-header"><h1>المتابعة المباشرة</h1><p>متابعة الزوار في الوقت الفعلي</p></div>
@@ -516,7 +429,6 @@
                     <button class="btn btn-primary" onclick="refreshLiveData()"><i class="fas fa-sync-alt"></i>تحديث البيانات الآن</button>
                 </div>
             </div>
-
             <!-- Telegram Page -->
             <div id="telegramPage" class="page">
                 <div class="page-header"><h1><i class="fab fa-telegram"></i> نظام إشعارات Telegram</h1><p>إشعارات فورية لكل مشكلة جديدة وتقارير شاملة</p></div>
@@ -527,21 +439,55 @@
                         <div id="chatIdDisplay">
                             <div style="color:#64748b;font-size:13px;margin-bottom:5px">Chat ID:</div>
                             <div class="telegram-chat-id" id="currentChatId"></div>
+                            <div style="margin-top:12px;padding:10px;background:rgba(16,185,129,0.08);border-radius:8px;border:1px solid rgba(16,185,129,0.2)">
+                                <div style="color:#065f46;font-size:13px;font-weight:600"><i class="fas fa-bell"></i> الإشعار الفوري مفعّل</div>
+                                <div style="color:#047857;font-size:12px;margin-top:4px">ستصلك رسالة تليجرام فور إرسال أي مشكلة جديدة</div>
+                            </div>
                         </div>
                         <div class="telegram-buttons" style="margin-top:15px">
+                            <button class="telegram-btn primary" id="setupBtn" style="display:none" onclick="setupTelegram()"><i class="fas fa-cog"></i>إعداد</button>
                             <button class="telegram-btn success" onclick="testTelegramNotification()" id="testBtn"><i class="fas fa-paper-plane"></i>اختبار الإشعار</button>
                         </div>
                     </div>
                     <div class="telegram-card">
                         <div class="telegram-header"><div class="telegram-icon"><i class="fas fa-paper-plane"></i></div><div class="telegram-title">إرسال تقارير</div></div>
+                        <div style="color:#64748b;font-size:13px;margin-bottom:15px"><i class="fas fa-info-circle"></i> أرسل تقرير الآن أو اجدوله</div>
                         <div class="telegram-buttons">
                             <button class="telegram-btn primary" onclick="sendQuickReport()"><i class="fas fa-bolt"></i>تقرير سريع</button>
                             <button class="telegram-btn success" onclick="sendDetailedReport()"><i class="fas fa-file-alt"></i>تقرير مفصل</button>
+                            <button class="telegram-btn warning" onclick="sendLiveStatsReport()"><i class="fas fa-chart-line"></i>إحصائيات حية</button>
                         </div>
                     </div>
                 </div>
+                <div class="telegram-controls" style="margin-top:0">
+                    <div class="telegram-card">
+                        <div class="telegram-header"><div class="telegram-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b"><i class="fas fa-clock"></i></div><div class="telegram-title">الجدولة التلقائية</div></div>
+                        <div style="color:#64748b;font-size:13px;margin-bottom:15px">تقارير دورية تلقائية</div>
+                        <div class="telegram-buttons">
+                            <button class="telegram-btn warning" onclick="scheduleDailyReport()"><i class="fas fa-calendar-day"></i>تقرير يومي</button>
+                            <button class="telegram-btn warning" onclick="scheduleHourlyReport()"><i class="fas fa-history"></i>تقرير كل ساعة</button>
+                            <button class="telegram-btn danger" onclick="stopAllSchedules()"><i class="fas fa-stop-circle"></i>إيقاف الجداول</button>
+                        </div>
+                    </div>
+                    <div class="telegram-card">
+                        <div class="telegram-header"><div class="telegram-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6"><i class="fas fa-info-circle"></i></div><div class="telegram-title">معلومات البوت</div></div>
+                        <div style="font-size:13px;color:#475569;line-height:2">
+                            <div><i class="fas fa-robot" style="color:#4361ee;width:20px"></i> Bot: MikroTools Admin</div>
+                            <div><i class="fas fa-id-card" style="color:#10b981;width:20px"></i> Chat ID: 83208458</div>
+                            <div><i class="fas fa-bell" style="color:#f59e0b;width:20px"></i> فحص مشاكل جديدة: كل 30 ثانية</div>
+                            <div><i class="fas fa-shield-alt" style="color:#ef4444;width:20px"></i> الحالة: <span style="color:#10b981;font-weight:600">نشط ✅</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="table-title"><i class="fas fa-history"></i>سجل الإشعارات المرسلة</div>
+                    <div id="notificationLogs"><div style="padding:20px;color:#64748b;text-align:center">لا توجد سجلات بعد</div></div>
+                </div>
+                <div class="table-container">
+                    <div class="table-title"><i class="fas fa-eye"></i>معاينة الإشعار الأخير</div>
+                    <div style="background:#f8fafc;padding:20px;border-radius:12px;margin-top:15px"><pre style="color:#475569;font-size:14px;line-height:1.6;white-space:pre-wrap" id="notificationPreview">⏳ جاري التحميل...</pre></div>
+                </div>
             </div>
-
             <!-- Settings Page -->
             <div id="settingsPage" class="page">
                 <div class="page-header"><h1>إعدادات النظام</h1><p>تعديل إعدادات المدير والنظام</p></div>
@@ -555,7 +501,17 @@
                             <div class="form-group"><label>تأكيد كلمة المرور</label><input type="password" class="form-control" id="confirmPassword"></div>
                             <button class="btn btn-primary" onclick="updateAdminSettings()"><i class="fas fa-save"></i>حفظ التغييرات</button>
                         </div>
+                        <div>
+                            <div style="margin-top:30px;display:flex;flex-direction:column;gap:10px">
+                                <button class="export-btn" onclick="backupData()"><i class="fas fa-download"></i>نسخ احتياطي</button>
+                                <button class="export-btn" style="background:rgba(239,68,68,0.1);color:#ef4444;border-color:rgba(239,68,68,0.2)" onclick="resetAllData()"><i class="fas fa-trash"></i>حذف جميع البيانات</button>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="table-container" style="margin-top:30px">
+                    <div class="table-title"><i class="fas fa-history"></i>سجلات النظام</div>
+                    <div id="systemLogs" style="max-height:300px;overflow-y:auto"></div>
                 </div>
             </div>
         </div>
@@ -596,43 +552,6 @@
             </div>
         </div>
     </div>
-
-    <!-- NEW: Subscription Modal -->
-    <div class="modal-overlay" id="subscriptionModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-crown"></i> تفعيل/تجديد اشتراك</h3>
-                <button class="close-modal" onclick="closeSubModal()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>المستخدم</label>
-                    <input type="text" class="form-control" id="subUserEmail" readonly>
-                    <input type="hidden" id="subUserId">
-                </div>
-                <div class="form-group">
-                    <label>نوع الاشتراك</label>
-                    <select class="form-control" id="subType">
-                        <option value="weekly">أسبوعي (50 ج.م)</option>
-                        <option value="monthly">شهري (100 ج.م)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>تاريخ البداية</label>
-                    <input type="date" class="date-input" id="subStartDate">
-                </div>
-                <div class="form-group">
-                    <label>تاريخ الانتهاء</label>
-                    <input type="date" class="date-input" id="subEndDate">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" onclick="saveSubscription()"><i class="fas fa-save"></i> حفظ</button>
-                <button class="btn btn-secondary" onclick="closeSubModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
     <div id="notificationArea"></div>
 
     <script>
@@ -645,11 +564,7 @@
         const SESSION_KEY = 'mikrotools_admin_session';
         const PROTECTED_MESSAGE_IDS = [1, 2, 3];
 
-        // ===== NEW: Subscription Variables =====
-        let subscriptionsData = [];
-        let currentSubFilter = 'all';
-
-        // ===== JSONBin =====
+        // ===== JSONBin (analytics only) =====
         class DatabaseService {
             constructor() {
                 this.baseURL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
@@ -661,14 +576,14 @@
                     if (!r.ok) throw new Error(`HTTP ${r.status}`);
                     const d = await r.json();
                     return d.record || { adminData: {}, analytics: {} };
-                } catch(e) { return { adminData: {}, analytics: {} }; }
+                } catch(e) { console.error('JSONBin get error:', e); return { adminData: {}, analytics: {} }; }
             }
             async saveData(data) {
                 try {
                     const r = await fetch(this.baseURL, { method: 'PUT', headers: this.headers, body: JSON.stringify(data) });
                     if (!r.ok) throw new Error(`HTTP ${r.status}`);
                     return await r.json();
-                } catch(e) { throw e; }
+                } catch(e) { console.error('JSONBin save error:', e); throw e; }
             }
         }
 
@@ -678,24 +593,164 @@
                 this.botToken = '8032439649:AAFqVT11FDtk3GMtEyerUUQ1m-_m76Vxdm0';
                 this.chatId = '83208458';
                 this.enabled = true;
+                this.scheduledJobs = {};
+                this.notificationLogs = JSON.parse(localStorage.getItem('telegram_logs') || '[]');
+                this.systemStats = { liveVisitors: 50, activeUsers: [], pageViews: 3000, serverLoad: 25, messagesToday: 5, resolvedIssues: 0, pendingIssues: 0 };
+            }
+            init() { this.updateUI(); this.logActivity('تم تهيئة نظام Telegram'); }
+            updateUI() {
+                const si = document.getElementById('statusIndicator');
+                const st = document.getElementById('statusText');
+                const cd = document.getElementById('chatIdDisplay');
+                const cc = document.getElementById('currentChatId');
+                const sb = document.getElementById('setupBtn');
+                const tb = document.getElementById('testBtn');
+                if (!si) return;
+                si.className = 'status-indicator';
+                st.textContent = 'النظام مفعل وجاهز ✅';
+                if (cd) cd.style.display = 'block';
+                if (cc) cc.textContent = this.chatId;
+                if (sb) sb.style.display = 'none';
+                if (tb) tb.style.display = 'block';
             }
             async sendTelegramMessage(text) {
                 try {
-                    const params = new URLSearchParams({ chat_id: this.chatId, text: text, parse_mode: 'HTML' });
+                    const params = new URLSearchParams({
+                        chat_id: this.chatId,
+                        text: text,
+                        parse_mode: 'HTML'
+                    });
                     const r = await fetch(`https://api.telegram.org/bot${this.botToken}/sendMessage?${params.toString()}`);
                     const data = await r.json();
+                    if (!data.ok) console.error('Telegram error:', data.description);
                     return data.ok;
-                } catch(e) { return false; }
+                } catch(e) { console.error('Telegram fetch error:', e); return false; }
+            }
+            async sendAndLog(message, type) {
+                const ok = await this.sendTelegramMessage(message);
+                if (ok) { this.logActivity(`✅ تم إرسال ${type}`); showNotification(`تم إرسال ${type} بنجاح`, 'success'); }
+                else { this.logActivity(`❌ فشل إرسال ${type}`); showNotification(`فشل إرسال ${type}`, 'error'); }
+            }
+            logActivity(msg) {
+                this.notificationLogs.unshift({ time: new Date().toLocaleTimeString('ar-EG'), message: msg });
+                if (this.notificationLogs.length > 20) this.notificationLogs.pop();
+                localStorage.setItem('telegram_logs', JSON.stringify(this.notificationLogs));
+                this.updateLogsUI();
+            }
+            updateLogsUI() {
+                const c = document.getElementById('notificationLogs');
+                if (!c) return;
+                c.innerHTML = this.notificationLogs.length ? this.notificationLogs.map(l => `<div style="display:flex;align-items:center;gap:15px;padding:12px 15px;border-bottom:1px solid #e2e8f0"><div style="color:#64748b;font-size:12px;min-width:80px">${l.time}</div><div style="color:#475569;font-size:14px">${l.message}</div></div>`).join('') : '<div style="padding:20px;color:#64748b;text-align:center">لا توجد سجلات بعد</div>';
+            }
+            async sendNewProblemAlert(problem) {
+                const typeMap = { network:'🌐 شبكة', firewall:'🔥 جدار حماية', bandwidth:'📶 باند ويدث', vpn:'🔒 VPN', hotspot:'📡 هوت سبوت', hardware:'🖥️ هاردوير', routing:'🗺️ راوتنج', system:'⚙️ نظام', dhcp:'📋 DHCP', other:'❓ أخرى' };
+                const typeLabel = typeMap[problem.type] || problem.type || 'غير محدد';
+                const msg = `🆕 <b>مشكلة جديدة في MikroTools!</b>
+
+👤 <b>المستخدم:</b> ${problem.user || 'مجهول'}
+🏷️ <b>النوع:</b> ${typeLabel}
+📝 <b>المشكلة:</b>
+${problem.problem || ''}
+
+📅 <b>التوقيت:</b> ${new Date().toLocaleString('ar-EG')}
+━━━━━━━━━━━━━━━
+🔗 افتح لوحة التحكم للرد`;
+                await this.sendTelegramMessage(msg);
+                this.logActivity(`🆕 مشكلة جديدة من: ${problem.user}`);
+            }
+            async sendQuickReport() {
+                const total = systemData.problems?.length || 0;
+                const solved = systemData.problems?.filter(p=>p.solved).length || 0;
+                const pending = total - solved;
+                const today = systemData.problems?.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length || 0;
+                const msg = `⚡ <b>تقرير سريع - MikroTools</b>
+🕒 ${new Date().toLocaleTimeString('ar-EG')}
+━━━━━━━━━━━━━━━
+📨 <b>الرسائل الكلية:</b> ${total}
+✅ <b>محلولة:</b> ${solved}
+⏳ <b>قيد الانتظار:</b> ${pending}
+📅 <b>اليوم:</b> ${today} رسالة
+━━━━━━━━━━━━━━━
+✅ النظام يعمل بشكل طبيعي`;
+                await this.sendAndLog(msg, 'تقرير سريع');
+            }
+            async sendDetailedReport() {
+                const total = systemData.problems?.length || 0;
+                const solved = systemData.problems?.filter(p=>p.solved).length || 0;
+                const pending = total - solved;
+                const rate = total > 0 ? Math.round(solved/total*100) : 0;
+                const today = systemData.problems?.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length || 0;
+                const typeStats = {};
+                systemData.problems?.forEach(p => { typeStats[p.type] = (typeStats[p.type]||0)+1; });
+                const typesText = Object.entries(typeStats).map(([t,c])=>`   • ${t}: ${c}`).join('\n') || '   لا يوجد';
+                const msg = `📊 <b>تقرير مفصل - MikroTools</b>
+📅 ${new Date().toLocaleDateString('ar-EG')} | 🕒 ${new Date().toLocaleTimeString('ar-EG')}
+━━━━━━━━━━━━━━━
+
+📨 <b>إحصائيات الرسائل:</b>
+   • إجمالي: <b>${total}</b>
+   • محلولة: <b>${solved}</b>
+   • قيد الانتظار: <b>${pending}</b>
+   • اليوم: <b>${today}</b>
+   • نسبة الحل: <b>${rate}%</b>
+
+🏷️ <b>توزيع المشاكل حسب النوع:</b>
+${typesText}
+
+👥 <b>إحصائيات الزوار:</b>
+   • إجمالي الزيارات: <b>${systemData.analytics?.totalVisits || 0}</b>
+   • زوار فريدون: <b>${systemData.analytics?.uniqueVisitors || 0}</b>
+━━━━━━━━━━━━━━━
+🤖 MikroTools Admin Panel`;
+                await this.sendAndLog(msg, 'تقرير مفصل');
+            }
+            async sendLiveStatsReport() {
+                const total = systemData.problems?.length || 0;
+                const pending = systemData.problems?.filter(p=>!p.solved).length || 0;
+                const msg = `🔴 <b>إحصائيات حية - MikroTools</b>
+🕒 ${new Date().toLocaleTimeString('ar-EG')}
+━━━━━━━━━━━━━━━
+📨 رسائل قيد الانتظار: <b>${pending}</b>
+📊 إجمالي الرسائل: <b>${total}</b>
+━━━━━━━━━━━━━━━
+🤖 MikroTools`;
+                await this.sendAndLog(msg, 'إحصائيات حية');
+            }
+            setupTelegram() { showNotification('Telegram مفعل تلقائياً ✅', 'success'); }
+            async testTelegramNotification() {
+                await this.sendAndLog(`🔔 <b>اختبار من MikroTools</b>
+✅ النظام يعمل بشكل مثالي!
+🕒 ${new Date().toLocaleString('ar-EG')}
+━━━━━━━━━━━━━━━
+🤖 MikroTools Admin Panel`, 'إشعار تجريبي');
+            }
+            scheduleDailyReport() {
+                if (this.scheduledJobs.daily) clearInterval(this.scheduledJobs.daily);
+                this.scheduledJobs.daily = setInterval(() => this.sendDetailedReport(), 86400000);
+                showNotification('تم جدولة التقارير اليومية ✅', 'success');
+                this.logActivity('تم تفعيل التقارير اليومية');
+            }
+            scheduleHourlyReport() {
+                if (this.scheduledJobs.hourly) clearInterval(this.scheduledJobs.hourly);
+                this.scheduledJobs.hourly = setInterval(() => this.sendQuickReport(), 3600000);
+                showNotification('تم جدولة التقارير الساعية ✅', 'success');
+                this.logActivity('تم تفعيل التقارير الساعية');
+            }
+            stopAllSchedules() {
+                Object.values(this.scheduledJobs).forEach(j => clearInterval(j));
+                this.scheduledJobs = {};
+                showNotification('تم إيقاف كل الجداول', 'success');
+                this.logActivity('تم إيقاف جميع الجداول');
             }
         }
-        const telegramSystem = new TelegramNotificationSystem();
 
         // ===== Globals =====
         let db = new DatabaseService();
-        let systemData = { problems: [], analytics: {}, adminData: {} };
+        let systemData = { problems: [], analytics: { totalVisits: 0, uniqueVisitors: 0, todayVisits: 0, pageViews: 0, liveNow: 50 }, adminData: { systemLogs: [], settings: {} } };
+        const telegramSystem = new TelegramNotificationSystem();
         let currentFilter = 'all', searchQuery = '', currentMessageId = null, realtimeInterval = null, sidebarOpen = false;
 
-        // ===== Firestore =====
+        // ===== Wait for Firestore =====
         function waitForFirestore() {
             return new Promise(resolve => {
                 if (window._firestoreReady) { resolve(); return; }
@@ -704,6 +759,7 @@
             });
         }
 
+        // ===== Load Problems from Firestore =====
         async function loadProblemsFromFirestore() {
             try {
                 await waitForFirestore();
@@ -714,166 +770,82 @@
                 const problems = [];
                 snap.forEach(d => problems.push({ ...d.data(), _docId: d.id }));
                 return problems;
-            } catch(e) { return []; }
+            } catch(e) {
+                console.error('Firestore load error:', e);
+                return [];
+            }
         }
 
-        // ===== NEW: Subscription Functions =====
-        async function loadSubscriptions() {
-            try {
-                await waitForFirestore();
-                if (!window._db_fs) return [];
-                const { collection, getDocs } = window._fs;
-                const snap = await getDocs(collection(window._db_fs, 'users'));
-                const subs = [];
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    subs.push({
-                        id: doc.id,
-                        email: data.email || 'غير معروف',
-                        displayName: data.displayName || '',
-                        subscription: data.subscription || null
+        // ===== Firestore Real-time listener for new problems =====
+        let _knownDocIds = new Set();
+        let _listenerStarted = false;
+        async function startNewProblemListener() {
+            if (_listenerStarted) return;
+            _listenerStarted = true;
+            await waitForFirestore();
+            if (!window._db_fs || !window._fs) return;
+            // Mark existing problems as known
+            systemData.problems.forEach(p => { if (p._docId) _knownDocIds.add(p._docId); });
+
+            // Poll every 30 seconds for new problems
+            setInterval(async () => {
+                try {
+                    const { collection, getDocs, orderBy, query } = window._fs;
+                    const q = query(collection(window._db_fs, 'problems'), orderBy('date', 'desc'));
+                    const snap = await getDocs(q);
+                    const newProblems = [];
+                    snap.forEach(d => {
+                        if (!_knownDocIds.has(d.id)) {
+                            newProblems.push({ ...d.data(), _docId: d.id });
+                            _knownDocIds.add(d.id);
+                        }
                     });
-                });
-                return subs;
-            } catch(e) { return []; }
+                    if (newProblems.length > 0) {
+                        newProblems.forEach(p => {
+                            systemData.problems.unshift(p);
+                            // Send telegram alert for each new problem
+                            telegramSystem.sendNewProblemAlert(p);
+                        });
+                        updateMessagesDisplay();
+                        updateDashboard();
+                        showNotification(`🆕 ${newProblems.length} مشكلة جديدة!`, 'success');
+                        addSystemLog(`تم استقبال ${newProblems.length} مشكلة جديدة`, 'info');
+                    }
+                } catch(e) { console.error('Listener poll error:', e); }
+            }, 30000);
         }
 
-        async function updateUserSubscription(userId, subscriptionData) {
+        // ===== Update Problem in Firestore =====
+        async function updateProblemInFirestore(problem) {
             try {
-                if (!window._db_fs) return false;
+                if (!problem._docId || !window._db_fs) return;
                 const { updateDoc, doc } = window._fs;
-                await updateDoc(doc(window._db_fs, 'users', userId), { subscription: subscriptionData });
-                return true;
-            } catch(e) { return false; }
+                const { _docId, ...data } = problem;
+                await updateDoc(doc(window._db_fs, 'problems', problem._docId), data);
+            } catch(e) { console.error('Firestore update error:', e); }
         }
 
-        function updateSubscriptionsDisplay() {
-            const tbody = document.getElementById('subscriptionsTableBody');
-            const searchQuery = document.getElementById('searchSubscriptions')?.value?.toLowerCase() || '';
-            
-            let filtered = subscriptionsData.filter(sub => {
-                if (searchQuery) {
-                    const searchText = (sub.email + ' ' + sub.displayName).toLowerCase();
-                    if (!searchText.includes(searchQuery)) return false;
-                }
-                if (currentSubFilter === 'all') return true;
-                if (currentSubFilter === 'pending') return !sub.subscription;
-                if (!sub.subscription) return false;
-                const now = new Date();
-                const expiry = sub.subscription.expiry ? new Date(sub.subscription.expiry) : null;
-                const isActive = expiry && expiry > now;
-                if (currentSubFilter === 'active') return isActive;
-                if (currentSubFilter === 'expired') return !isActive;
-                return true;
-            });
+        // ===== Init =====
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                if (checkSession()) { showDashboard(); initSystem(); }
+                else showLoginScreen();
+            }, 1000);
+            setupEventListeners();
+            initMobileMenu();
+        });
 
-            // Update stats
-            const now = new Date();
-            const activeCount = subscriptionsData.filter(s => s.subscription && new Date(s.subscription.expiry) > now).length;
-            const expiredCount = subscriptionsData.filter(s => s.subscription && new Date(s.subscription.expiry) <= now).length;
-            const pendingCount = subscriptionsData.filter(s => !s.subscription).length;
-            
-            document.getElementById('subStatsActive').textContent = activeCount;
-            document.getElementById('subStatsExpired').textContent = expiredCount;
-            document.getElementById('subStatsPending').textContent = pendingCount;
-            document.getElementById('activeSubscriptions').textContent = activeCount;
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i><h4>لا توجد اشتراكات</h4></td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = filtered.map((sub, index) => {
-                const hasSub = !!sub.subscription;
-                const now = new Date();
-                const expiry = hasSub ? new Date(sub.subscription.expiry) : null;
-                const isActive = hasSub && expiry > now;
-                const statusClass = !hasSub ? 'badge-secondary' : isActive ? 'badge-success' : 'badge-danger';
-                const statusText = !hasSub ? 'بدون اشتراك' : isActive ? 'نشط' : 'منتهي';
-                const avatarLetter = (sub.displayName || sub.email || 'U')[0].toUpperCase();
-                
-                return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>
-                            <div class="user-info-cell">
-                                <div class="user-avatar">${avatarLetter}</div>
-                                <div class="user-details">
-                                    <span class="user-name-text">${sub.displayName || 'مستخدم'}</span>
-                                    <span class="user-email">${sub.email}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>${hasSub ? `<span class="badge ${sub.subscription.type === 'monthly' ? 'badge-warning' : 'badge-info'}">${sub.subscription.type === 'monthly' ? 'شهري' : 'أسبوعي'}</span>` : '<span class="badge badge-secondary">-</span>'}</td>
-                        <td>${hasSub ? expiry.toLocaleDateString('ar-EG') : '-'}</td>
-                        <td><span class="badge ${statusClass}">${statusText}</span></td>
-                        <td>
-                            <div style="display:flex;gap:5px">
-                                <button class="action-btn btn-reply" onclick="openSubModal('${sub.id}', '${sub.email}')" title="${hasSub ? 'تجديد' : 'تفعيل'}">
-                                    <i class="fas fa-${hasSub ? 'sync-alt' : 'plus-circle'}"></i>
-                                </button>
-                                ${hasSub ? `<button class="action-btn btn-delete" onclick="cancelSubscription('${sub.id}')" title="إلغاء"><i class="fas fa-ban"></i></button>` : ''}
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+        function initMobileMenu() {
+            document.getElementById('menuToggle').addEventListener('click', toggleSidebar);
+            document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+            document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { if (window.innerWidth <= 768) closeSidebar(); }));
+            window.addEventListener('resize', () => { if (window.innerWidth > 768 && sidebarOpen) closeSidebar(); });
         }
+        function toggleSidebar() { sidebarOpen ? closeSidebar() : openSidebar(); }
+        function openSidebar() { document.getElementById('sidebar').classList.add('active'); document.getElementById('sidebarOverlay').classList.add('active'); sidebarOpen = true; document.body.style.overflow = 'hidden'; }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); document.getElementById('sidebarOverlay').classList.remove('active'); sidebarOpen = false; document.body.style.overflow = ''; }
 
-        function openSubModal(userId, userEmail) {
-            document.getElementById('subUserId').value = userId;
-            document.getElementById('subUserEmail').value = userEmail;
-            const today = new Date();
-            const endDate = new Date();
-            endDate.setDate(today.getDate() + 7);
-            document.getElementById('subStartDate').value = today.toISOString().split('T')[0];
-            document.getElementById('subEndDate').value = endDate.toISOString().split('T')[0];
-            
-            document.getElementById('subType').onchange = function() {
-                const newEnd = new Date(document.getElementById('subStartDate').value);
-                if (this.value === 'monthly') newEnd.setMonth(newEnd.getMonth() + 1);
-                else newEnd.setDate(newEnd.getDate() + 7);
-                document.getElementById('subEndDate').value = newEnd.toISOString().split('T')[0];
-            };
-            
-            document.getElementById('subscriptionModal').classList.add('active');
-        }
-
-        function closeSubModal() {
-            document.getElementById('subscriptionModal').classList.remove('active');
-        }
-
-        async function saveSubscription() {
-            const userId = document.getElementById('subUserId').value;
-            const subscriptionData = {
-                type: document.getElementById('subType').value,
-                start: document.getElementById('subStartDate').value,
-                expiry: document.getElementById('subEndDate').value,
-                activatedAt: new Date().toISOString()
-            };
-            
-            const success = await updateUserSubscription(userId, subscriptionData);
-            if (success) {
-                showNotification('تم حفظ الاشتراك بنجاح', 'success');
-                closeSubModal();
-                subscriptionsData = await loadSubscriptions();
-                updateSubscriptionsDisplay();
-            } else {
-                showNotification('حدث خطأ أثناء الحفظ', 'error');
-            }
-        }
-
-        async function cancelSubscription(userId) {
-            if (!confirm('هل أنت متأكد من إلغاء هذا الاشتراك؟')) return;
-            const success = await updateUserSubscription(userId, null);
-            if (success) {
-                showNotification('تم إلغاء الاشتراك بنجاح', 'success');
-                subscriptionsData = await loadSubscriptions();
-                updateSubscriptionsDisplay();
-            }
-        }
-
-        // ===== Auth =====
         function validateCredentials(u, p) { try { return btoa(u) === ADMIN_CREDENTIALS.username && btoa(p) === ADMIN_CREDENTIALS.password; } catch(e) { return false; } }
         function checkSession() {
             try {
@@ -914,14 +886,46 @@
             } catch(e) { showLoginScreen(); }
         }
 
-        // ===== UI Functions =====
-        function showNotification(msg, type='success') {
-            const a = document.getElementById('notificationArea');
-            const n = document.createElement('div');
-            n.className = `notification ${type}`;
-            n.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i>${msg}`;
-            a.appendChild(n);
-            setTimeout(() => { n.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => n.remove(), 300); }, 4000);
+        async function initSystem() {
+            try {
+                // Load analytics from JSONBin
+                const d = await db.getData();
+                if (d.analytics) systemData.analytics = d.analytics;
+                if (d.adminData) systemData.adminData = d.adminData;
+                if (!systemData.adminData.systemLogs) systemData.adminData.systemLogs = [];
+
+                // Load problems from Firestore
+                systemData.problems = await loadProblemsFromFirestore();
+                addSystemLog(`تم تحميل ${systemData.problems.length} رسالة من Firestore`, 'success');
+
+                // Update analytics
+                systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
+                systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
+                systemData.analytics.pageViews = (systemData.analytics.pageViews || 0) + 10;
+                if (!systemData.analytics.liveNow) systemData.analytics.liveNow = Math.floor(Math.random() * 80) + 30;
+                if (!localStorage.getItem('visitor_id_admin')) {
+                    localStorage.setItem('visitor_id_admin', 'admin_' + Date.now());
+                    systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
+                }
+                await saveSystemData();
+
+                updateDashboard(); updateMessagesDisplay(); updateVisitorsDisplay(); updatePagesDisplay(); updateRealtimeData(); startRealtimeUpdates();
+                telegramSystem.init();
+                telegramSystem.systemStats.resolvedIssues = systemData.problems.filter(p=>p.solved).length;
+                telegramSystem.systemStats.pendingIssues = systemData.problems.filter(p=>!p.solved).length;
+                telegramSystem.systemStats.messagesToday = systemData.problems.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length;
+                startNewProblemListener();
+            } catch(e) {
+                console.error('initSystem error:', e);
+                addSystemLog('خطأ في تهيئة النظام: ' + e.message, 'error');
+            }
+        }
+
+        async function saveSystemData() {
+            try {
+                // Save only analytics & adminData to JSONBin - problems are in Firestore
+                await db.saveData({ analytics: systemData.analytics, adminData: systemData.adminData, lastUpdate: new Date().toISOString() });
+            } catch(e) { console.error('saveSystemData error:', e); }
         }
 
         // ===== Messages =====
@@ -973,8 +977,6 @@
             document.getElementById('messagesSolved').textContent = solved;
             document.getElementById('messagesToday').textContent = newToday;
             document.getElementById('totalMessages').textContent = total;
-            document.getElementById('pendingMessages').textContent = pending;
-            document.getElementById('solvedMessages').textContent = solved;
             const badge = document.getElementById('newMessagesBadge');
             badge.textContent = newToday; badge.style.display = newToday > 0 ? 'inline-block' : 'none';
             updateRecentMessages();
@@ -987,7 +989,9 @@
             tbody.innerHTML = recent.map(m => `<tr><td>${m.user}</td><td>${m.problem.length>40?m.problem.substring(0,40)+'...':m.problem}</td><td>${getTypeArabic(m.type)}</td><td>${m.solved?'<span class="badge badge-success">تم الحل</span>':'<span class="badge badge-warning">قيد الانتظار</span>'}</td><td>${formatDate(m.date)}</td></tr>`).join('');
         }
 
-        function findMessage(id) { return systemData.problems.find(m => m._docId === id || String(m.id) === String(id) || String(m._docId) === String(id)); }
+        function findMessage(id) {
+            return systemData.problems.find(m => m._docId === id || String(m.id) === String(id) || String(m._docId) === String(id));
+        }
 
         async function viewMessage(id) {
             const message = findMessage(id);
@@ -1031,6 +1035,7 @@
             document.getElementById('replyText').value = '';
             showNotification('تم إرسال الرد بنجاح', 'success');
             updateMessagesDisplay(); updateDashboard();
+            addSystemLog(`تم الرد على رسالة من ${msg.user}`, 'success');
         }
 
         async function markAsSolved() {
@@ -1045,6 +1050,7 @@
             await updateProblemInFirestore(msg);
             closeModal(); updateMessagesDisplay(); updateDashboard();
             showNotification('تم تعيين المشكلة كمحلولة', 'success');
+            addSystemLog(`تم حل رسالة من ${msg.user}`, 'success');
         }
 
         async function deleteMessage(id) {
@@ -1060,21 +1066,14 @@
                 systemData.problems = systemData.problems.filter(m => m._docId !== msg._docId && String(m.id) !== String(msg.id));
                 updateMessagesDisplay(); updateDashboard();
                 showNotification(`تم حذف رسالة ${msg.user} بنجاح`, 'success');
+                addSystemLog(`تم حذف رسالة من ${msg.user}`, 'warning');
             } catch(e) {
+                console.error('Delete error:', e);
                 showNotification('حدث خطأ أثناء الحذف: ' + e.message, 'error');
             }
         }
 
         function closeModal() { document.getElementById('messageModal').classList.remove('active'); document.getElementById('replyText').value = ''; currentMessageId = null; }
-
-        async function updateProblemInFirestore(problem) {
-            try {
-                if (!problem._docId || !window._db_fs) return;
-                const { updateDoc, doc } = window._fs;
-                const { _docId, ...data } = problem;
-                await updateDoc(doc(window._db_fs, 'problems', problem._docId), data);
-            } catch(e) { console.error('Firestore update error:', e); }
-        }
 
         // ===== Dashboard =====
         function updateDashboard() {
@@ -1088,6 +1087,8 @@
             document.getElementById('solvedMessages').textContent = solved.toLocaleString('ar-EG');
             document.getElementById('resolutionRate').textContent = total > 0 ? Math.round(solved/total*100)+'%' : '0%';
             document.getElementById('todayMessages').textContent = today.toLocaleString('ar-EG');
+            if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').textContent = (systemData.analytics.pageViews || 0).toLocaleString('ar-EG');
+            // Pending badge color
             const pendingEl = document.getElementById('pendingMessages');
             if (pendingEl) pendingEl.style.color = pending > 0 ? '#ef4444' : '#10b981';
             updateCharts();
@@ -1180,142 +1181,105 @@
             return d.toLocaleDateString('ar-EG', {day:'numeric',month:'short',year:'numeric'});
         }
         function getTypeArabic(t) { return {network:'شبكة',dhcp:'DHCP',performance:'أداء',hardware:'هاردوير',other:'أخرى'}[t] || t; }
-
-        // ===== Telegram =====
-        async function sendQuickReport() {
-            const total = systemData.problems?.length || 0;
-            const solved = systemData.problems?.filter(p=>p.solved).length || 0;
-            const pending = total - solved;
-            const msg = `⚡ تقرير سريع - MikroTools\n📨 الكلية: ${total}\n✅ محلولة: ${solved}\n⏳ قيد الانتظار: ${pending}`;
-            await telegramSystem.sendTelegramMessage(msg);
-            showNotification('تم إرسال التقرير', 'success');
+        function showNotification(msg, type='success') {
+            const a = document.getElementById('notificationArea');
+            const n = document.createElement('div');
+            n.className = `notification ${type}`;
+            n.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i>${msg}`;
+            a.appendChild(n);
+            setTimeout(() => { n.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => n.remove(), 300); }, 4000);
         }
-        async function sendDetailedReport() {
-            const total = systemData.problems?.length || 0;
-            const msg = `📊 تقرير مفصل\nإجمالي الرسائل: ${total}`;
-            await telegramSystem.sendTelegramMessage(msg);
-            showNotification('تم إرسال التقرير المفصل', 'success');
+        function addSystemLog(msg, type='info') {
+            if (!systemData.adminData.systemLogs) systemData.adminData.systemLogs = [];
+            systemData.adminData.systemLogs.push({ timestamp: new Date().toISOString(), message: msg, type });
+            if (systemData.adminData.systemLogs.length > 100) systemData.adminData.systemLogs.shift();
+            updateSystemLogs();
         }
-        async function testTelegramNotification() {
-            await telegramSystem.sendTelegramMessage('🔔 اختبار من MikroTools - النظام يعمل!');
-            showNotification('تم إرسال الاختبار', 'success');
+        function updateSystemLogs() {
+            const c = document.getElementById('systemLogs');
+            if (!c) return;
+            const logs = (systemData.adminData.systemLogs || []).slice(-10).reverse();
+            if (!logs.length) { c.innerHTML = '<div style="text-align:center;padding:30px;color:#64748b">لا توجد سجلات</div>'; return; }
+            c.innerHTML = logs.map(l => {
+                const tc = l.type==='error'?'badge-danger':l.type==='success'?'badge-success':l.type==='warning'?'badge-warning':'badge-info';
+                const tt = l.type==='error'?'خطأ':l.type==='success'?'نجاح':l.type==='warning'?'تحذير':'معلومات';
+                return `<div style="display:flex;align-items:center;gap:15px;padding:15px;border-bottom:1px solid #e2e8f0"><span class="badge ${tc}" style="min-width:70px;text-align:center">${tt}</span><div style="flex:1"><div style="color:#1e293b;font-size:14px">${l.message}</div><div style="color:#64748b;font-size:12px">${new Date(l.timestamp).toLocaleTimeString('ar-EG')}</div></div></div>`;
+            }).join('');
         }
 
         // ===== Settings =====
         async function updateAdminSettings() {
             const nu = document.getElementById('newUsername').value.trim();
-            if (nu) {
-                document.getElementById('userName').textContent = nu;
-                document.getElementById('currentUsername').value = nu;
-            }
+            const np = document.getElementById('newPassword').value;
+            const cp = document.getElementById('confirmPassword').value;
+            if (!nu && !np) { showNotification('لم تقم بإدخال أي تغييرات', 'error'); return; }
+            if (np && np !== cp) { showNotification('كلمات المرور غير متطابقة', 'error'); return; }
+            if (nu) { document.getElementById('userName').textContent = nu; document.getElementById('currentUsername').value = nu; }
             showNotification('تم حفظ التغييرات', 'success');
-            document.getElementById('newUsername').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
+            document.getElementById('newUsername').value = ''; document.getElementById('newPassword').value = ''; document.getElementById('confirmPassword').value = '';
+            addSystemLog('تم تحديث إعدادات المدير', 'success');
+        }
+        async function backupData() {
+            const dataStr = JSON.stringify({ problems: systemData.problems, analytics: systemData.analytics, timestamp: new Date().toISOString() }, null, 2);
+            const a = document.createElement('a');
+            a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            a.download = `mikrotools_backup_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            showNotification('تم إنشاء نسخة احتياطية', 'success');
+        }
+        async function resetAllData() {
+            if (!confirm('⚠️ هل أنت متأكد من حذف جميع البيانات؟')) return;
+            systemData.analytics = { totalVisits:0, uniqueVisitors:0, todayVisits:0, pageViews:0, liveNow:50 };
+            systemData.adminData.systemLogs = [];
+            await saveSystemData();
+            showNotification('تم حذف البيانات', 'success');
+            initSystem();
         }
         function exportVisitorsData() { showNotification('تم تصدير البيانات', 'success'); }
 
-        // ===== Init =====
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                if (checkSession()) { showDashboard(); initSystem(); }
-                else showLoginScreen();
-            }, 1000);
-            setupEventListeners();
-        });
+        // ===== Telegram globals =====
+        window.setupTelegram = () => telegramSystem.setupTelegram();
+        window.testTelegramNotification = () => telegramSystem.testTelegramNotification();
+        window.sendQuickReport = () => telegramSystem.sendQuickReport();
+        window.sendDetailedReport = () => telegramSystem.sendDetailedReport();
+        window.sendLiveStatsReport = () => telegramSystem.sendLiveStatsReport();
+        window.scheduleDailyReport = () => telegramSystem.scheduleDailyReport();
+        window.scheduleHourlyReport = () => telegramSystem.scheduleHourlyReport();
+        window.stopAllSchedules = () => telegramSystem.stopAllSchedules();
 
-        async function initSystem() {
-            try {
-                const d = await db.getData();
-                if (d.analytics) systemData.analytics = d.analytics;
-                if (d.adminData) systemData.adminData = d.adminData;
-                systemData.problems = await loadProblemsFromFirestore();
-                
-                // NEW: Load subscriptions
-                subscriptionsData = await loadSubscriptions();
-                
-                systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
-                systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
-                if (!localStorage.getItem('visitor_id_admin')) {
-                    localStorage.setItem('visitor_id_admin', 'admin_' + Date.now());
-                    systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
-                }
-                
-                updateDashboard();
-                updateMessagesDisplay();
-                updateVisitorsDisplay();
-                updatePagesDisplay();
-                updateRealtimeData();
-                startRealtimeUpdates();
-                
-                // NEW: Update subscriptions display
-                updateSubscriptionsDisplay();
-            } catch(e) {
-                console.error('initSystem error:', e);
-            }
-        }
-
+        // ===== Event Listeners =====
         function setupEventListeners() {
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-            document.getElementById('menuToggle').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('active');
-                document.getElementById('sidebarOverlay').classList.toggle('active');
-            });
-            document.getElementById('sidebarOverlay').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.remove('active');
-                document.getElementById('sidebarOverlay').classList.remove('active');
-            });
-            
+            document.getElementById('quickReportBtn')?.addEventListener('click', () => telegramSystem.sendQuickReport());
+            document.getElementById('notifyBtn')?.addEventListener('click', () => telegramSystem.testTelegramNotification());
+
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                    const pageMap = {
-                        dashboard: 'dashboardPage',
-                        subscriptions: 'subscriptionsPage',
-                        messages: 'messagesPage',
-                        visitors: 'visitorsPage',
-                        pages: 'pagesPage',
-                        realtime: 'realtimePage',
-                        telegram: 'telegramPage',
-                        settings: 'settingsPage'
-                    };
-                    const pageId = pageMap[this.dataset.page];
-                    if (pageId) {
-                        document.getElementById(pageId).classList.add('active');
-                        if (this.dataset.page === 'subscriptions') updateSubscriptionsDisplay();
-                        if (this.dataset.page === 'messages') updateMessagesDisplay();
-                        if (this.dataset.page === 'visitors') updateVisitorsDisplay();
-                        if (this.dataset.page === 'pages') updatePagesDisplay();
-                        if (this.dataset.page === 'realtime') updateRealtimeData();
-                    }
+                    const page = this.dataset.page;
+                    const pageMap = { dashboard:'dashboardPage', messages:'messagesPage', visitors:'visitorsPage', pages:'pagesPage', realtime:'realtimePage', telegram:'telegramPage', settings:'settingsPage' };
+                    document.getElementById(pageMap[page])?.classList.add('active');
+                    if (page === 'dashboard') updateDashboard();
+                    if (page === 'messages') updateMessagesDisplay();
+                    if (page === 'visitors') updateVisitorsDisplay();
+                    if (page === 'pages') updatePagesDisplay();
+                    if (page === 'realtime') updateRealtimeData();
+                    if (page === 'telegram') { telegramSystem.updateUI(); telegramSystem.updateLogsUI(); }
+                    if (page === 'settings') updateSystemLogs();
                 });
             });
 
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    updateMessagesDisplay();
-                });
-            });
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active'); currentFilter = this.dataset.filter; updateMessagesDisplay();
+            }));
 
-            document.querySelectorAll('[data-sub-filter]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('[data-sub-filter]').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentSubFilter = this.dataset.subFilter;
-                    updateSubscriptionsDisplay();
-                });
-            });
-
-            document.getElementById('searchMessages')?.addEventListener('input', function() { searchQuery = this.value; updateMessagesDisplay(); });
-            document.getElementById('searchSubscriptions')?.addEventListener('input', updateSubscriptionsDisplay);
+            document.getElementById('searchMessages').addEventListener('input', function() { searchQuery = this.value; updateMessagesDisplay(); });
+            document.querySelectorAll('.date-filter').forEach(btn => btn.addEventListener('click', function() { document.querySelectorAll('.date-filter').forEach(b => b.classList.remove('active')); this.classList.add('active'); }));
         }
     </script>
 </body>
