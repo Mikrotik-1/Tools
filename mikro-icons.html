@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  background:transparent !important;
+  width:100px;
+  height:280px;
+  overflow:hidden;
+}
+
+.mikro-icons-wrapper{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  align-items:center;
+  justify-content:flex-end;
+}
+
+.mikro-help-icon{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#10b981);
+  color:white;
+  border:none;
+  cursor:pointer;
+  font-size:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 25px rgba(99,102,241,.5);
+  transition:all .3s ease;
+  animation:mikro-float 3s ease-in-out infinite;
+  position:relative;
+}
+
+.mikro-social-icons{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.mikro-social-icon{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-decoration:none;
+  font-size:26px;
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+@keyframes mikro-float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.mikro-whatsapp{background:#25D366;}
+.mikro-facebook{background:#1877F2;}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="mikro-icons-wrapper">
+
+  <div class="mikro-social-icons">
+    <a href="https://wa.me/201092503391" target="_blank"
+       class="mikro-social-icon mikro-whatsapp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank"
+       class="mikro-social-icon mikro-facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
+
+  <!-- زر الشات -->
+  <button class="mikro-help-icon" onclick="MikroChat.open()">
+    🤖
+  </button>
+
+</div>
+
+<!-- ربط ملف الشات -->
+<script src="mikro-chatbot.js"></script>
+
+</body>
+</html>
