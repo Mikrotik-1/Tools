@@ -130,28 +130,14 @@ body{
     </a>
   </div>
 
-  <button class="mikro-help-icon" onclick="showMikroHelp()" title="مساعد الشبكات">
+  <button class="mikro-help-icon" onclick="MikroNetworkChat.open()" title="مساعد الشبكات">
     🤖
     <span class="mikro-help-text">اسأل مساعد الشبكات</span>
   </button>
 
 </div>
 
-<script>
-function showMikroHelp() {
-  if (window.parent && window.parent.openMikroChatBot) {
-    window.parent.openMikroChatBot();
-    return;
-  }
-
-  if (window.openMikroChatBot) {
-    window.openMikroChatBot();
-    return;
-  }
-
-  window.parent.postMessage('open-mikro-chatbot', '*');
-}
-</script>
+<script src="mikro-network-chatbot.js"></script>
 
 </body>
 </html>
