@@ -185,4 +185,12 @@
       window.MikroChat.open();
     }
   });
+
+  if (new URLSearchParams(window.location.search).get("openChat") === "1") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => window.MikroChat.open(), { once: true });
+    } else {
+      window.MikroChat.open();
+    }
+  }
 })();

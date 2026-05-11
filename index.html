@@ -115,8 +115,32 @@
         .feature-desc { color: var(--gray); margin-bottom: 1.5rem; }
         .feature-link { color: var(--primary); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .tools { padding: 6rem 2rem; background: #f1f5f9; }
+        .tools-dashboard { max-width: 1200px; margin: -1.5rem auto 2rem; background: white; border: 1px solid rgba(99,102,241,0.12); border-radius: 16px; padding: 1rem; box-shadow: 0 18px 40px rgba(15,23,42,0.08); }
+        .tools-toolbar { display: grid; grid-template-columns: minmax(240px, 1fr) auto; gap: 1rem; align-items: center; }
+        .tools-search { position: relative; }
+        .tools-search i { position: absolute; top: 50%; right: 14px; transform: translateY(-50%); color: var(--gray); }
+        body.en .tools-search i { right: auto; left: 14px; }
+        .tools-search input { width: 100%; border: 1px solid #e2e8f0; background: #f8fafc; color: var(--dark); border-radius: 12px; padding: 13px 44px 13px 14px; font-family: inherit; font-size: 0.95rem; outline: none; transition: all 0.2s; }
+        body.en .tools-search input { padding: 13px 14px 13px 44px; }
+        .tools-search input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.12); background: white; }
+        .tools-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end; }
+        .tools-filter { border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; border-radius: 999px; padding: 10px 14px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.86rem; display: inline-flex; align-items: center; gap: 7px; transition: all 0.2s; }
+        .tools-filter:hover, .tools-filter.active { border-color: var(--primary); background: rgba(99,102,241,0.1); color: var(--primary); }
+        .tools-insights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+        .tools-insight { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.75rem; min-height: 72px; }
+        .tools-insight i { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; background: var(--gradient); flex: 0 0 auto; }
+        .tools-insight strong { display: block; color: var(--dark); font-size: 0.95rem; line-height: 1.3; }
+        .tools-insight span { color: var(--gray); font-size: 0.82rem; }
+        .tools-empty { display: none; max-width: 1200px; margin: 1rem auto 0; padding: 1.25rem; text-align: center; color: var(--gray); background: white; border: 1px dashed #cbd5e1; border-radius: 14px; }
+        .tools-empty.show { display: block; }
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
         .tool-card { background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow); transition: all 0.3s; text-decoration: none; color: var(--dark); display: block; position: relative; overflow: hidden; }
+        .tool-card.hidden { display: none !important; }
+        .tool-card::after { content: attr(data-status-label); position: absolute; top: 14px; right: 14px; background: #eef2ff; color: var(--primary); font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px; }
+        body.rtl .tool-card::after { right: auto; left: 14px; }
+        .tool-card.premium::after { display: none; }
+        .tool-action { margin-top: 1.25rem; display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-size: 0.9rem; font-weight: 800; }
+        .tool-action i { font-size: 0.8rem; }
         .tool-card:hover { transform: translateY(-8px); }
         .tool-icon { width: 70px; height: 70px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem; }
         .tool-1 .tool-icon { background: linear-gradient(135deg, #6366f1, #a5b4fc); color: white; }
@@ -128,6 +152,7 @@
         .tool-7 .tool-icon { background: linear-gradient(135deg, #14b8a6, #2dd4bf); color: white; }
         .tool-8 .tool-icon { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; }
         .tool-9 .tool-icon { background: linear-gradient(135deg, #0ea5e9, #38bdf8); color: white; }
+        .tool-10 .tool-icon { background: linear-gradient(135deg, #22c55e, #14b8a6); color: white; }
         .tool-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
         .tool-desc { color: var(--gray); font-size: 0.95rem; margin-bottom: 1.5rem; }
         .tool-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -187,6 +212,10 @@
             .dropdown.active .dropdown-menu { display: block; }
             .nav-cta { width: 100%; text-align: center; justify-content: center; margin-top: 10px; }
             .hero-title { font-size: 2.5rem; }
+            .tools-toolbar { grid-template-columns: 1fr; }
+            .tools-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; }
+            .tools-filter { white-space: nowrap; }
+            .tools-insights { grid-template-columns: 1fr; }
         }
 
         /* NAV AUTH */
@@ -312,10 +341,13 @@
                     <a href="Hotspot Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i><span data-i18n="hotspot_design">تصميم hotspot</span></a>
                     <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i><span data-i18n="card_designer">مصمم الكروت</span></a>
                     <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i><span data-i18n="block_sites">حجب مواقع</span></a>
+                    <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">محلل السجلات</span></a>
                 </div>
             </div>
             <div class="dropdown">
-                <a href="log.html" class="nav-link"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">محلل السجلات</span><span class="new-badge" data-i18n="new">جديد</span></a>
+                <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
+            </div>
+            <div class="dropdown">
             </div>
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">المساعدة</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
@@ -352,6 +384,28 @@
         <h2 class="section-title" data-i18n="our_tools">أدواتنا</h2>
         <p class="section-subtitle" data-i18n="tools_subtitle">اختر الأداة المناسبة وابدأ في إنشاء سكريبتاتك الاحترافية</p>
     </div>
+    <div class="tools-dashboard" id="toolsDashboard">
+        <div class="tools-toolbar">
+            <div class="tools-search">
+                <i class="fas fa-search"></i>
+                <input id="toolsSearch" type="search" placeholder="ابحث عن أداة: دمج، هوت سبوت، حجب، سرعة...">
+            </div>
+            <div class="tools-filters" id="toolsFilters" aria-label="تصنيف الأدوات">
+                <button class="tools-filter active" type="button" data-filter="all"><i class="fas fa-border-all"></i> الكل</button>
+                <button class="tools-filter" type="button" data-filter="free"><i class="fas fa-unlock"></i> مجاني</button>
+                <button class="tools-filter" type="button" data-filter="paid"><i class="fas fa-crown"></i> مدفوع</button>
+                <button class="tools-filter" type="button" data-filter="network"><i class="fas fa-network-wired"></i> شبكة</button>
+                <button class="tools-filter" type="button" data-filter="design"><i class="fas fa-palette"></i> تصميم</button>
+                <button class="tools-filter" type="button" data-filter="support"><i class="fas fa-wrench"></i> دعم</button>
+            </div>
+        </div>
+        <div class="tools-insights">
+            <div class="tools-insight"><i class="fas fa-bolt"></i><div><strong id="toolsCount">10 أدوات جاهزة</strong><span>اختار الأداة حسب المهمة</span></div></div>
+            <div class="tools-insight"><i class="fas fa-clock-rotate-left"></i><div><strong id="lastToolTitle">لا توجد أداة حديثة</strong><span>آخر أداة فتحتها تظهر هنا</span></div></div>
+            <div class="tools-insight"><i class="fas fa-lightbulb"></i><div><strong id="toolSuggestion">ابدأ بالبحث أو الفلتر</strong><span>اقتراح سريع حسب اختيارك</span></div></div>
+        </div>
+    </div>
+    <div class="tools-empty" id="toolsEmpty">لا توجد أدوات مطابقة للبحث الحالي.</div>
     <div class="tools-grid">
         <div class="tool-card tool-1 premium" onclick="openPremiumModal('إعدادات Hotspot+PPP','هذه الأداة أصبحت مدفوعة.')" style="cursor:pointer;">
             <span class="premium-badge"><i class="fas fa-crown"></i> <span data-i18n="paid_tool">مدفوعة</span></span>
@@ -379,10 +433,12 @@
         </div>
         <div onclick="requireAuth('Hotspot%20Editor.html')" class="tool-card auth-locked tool-6" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-paint-brush"></i></div><h3 class="tool-title" data-i18n="hotspot_design_title">تصميم هوت سبوت</h3><p class="tool-desc" data-i18n="hotspot_design_desc">صمم صفحة هوت سبوت احترافية</p><div class="tool-tags"><span class="tag">Design</span><span class="tag">HTML</span></div></div>
         <div onclick="requireAuth('CardEditor.html')" class="tool-card auth-locked tool-9" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-id-card"></i></div><h3 class="tool-title" data-i18n="card_designer_title">مصمم الكروت</h3><p class="tool-desc" data-i18n="card_designer_desc">صمم واطبع كروت WiFi احترافية</p><div class="tool-tags"><span class="tag">Cards</span><span class="tag">WiFi</span></div></div>
-        <div onclick="requireAuth('log.html')" class="tool-card auth-locked tool-8" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-chart-bar"></i></div><h3 class="tool-title" data-i18n="log_analyzer_title">محلل السجلات</h3><p class="tool-desc" data-i18n="log_analyzer_desc">حلل سجلات المايكروتيك بسهولة</p><div class="tool-tags"><span class="tag">Logs</span><span class="tag new-tag" data-i18n="new">جديد</span></div></div>
+        <div onclick="requireAuth('log.html')" class="tool-card auth-locked tool-8" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-chart-bar"></i></div><h3 class="tool-title" data-i18n="log_analyzer_title">محلل السجلات</h3><p class="tool-desc" data-i18n="log_analyzer_desc">حلل سجلات المايكروتيك بسهولة</p><div class="tool-tags"><span class="tag">Logs</span></div></div>
         <div onclick="requireAuth('troubleshooting.html')" class="tool-card auth-locked tool-7" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-question-circle"></i></div><h3 class="tool-title" data-i18n="troubleshooting_title">المشكلات الشائعة</h3><p class="tool-desc" data-i18n="troubleshooting_desc">حلول لأشهر مشاكل ميكروتيك</p><div class="tool-tags"><span class="tag">Solutions</span></div></div>
         <div onclick="requireAuth('block-sites.html')" class="tool-card auth-locked tool-4" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-shield-alt"></i></div><h3 class="tool-title" data-i18n="block_sites_title">حجب المواقع</h3><p class="tool-desc" data-i18n="block_sites_desc">حجب أي موقع باستخدام Layer7 و TLS/SSL</p><div class="tool-tags"><span class="tag">Layer7</span><span class="tag">TLS</span></div></div>
         <div onclick="requireAuth('speed-profiles.html')" class="tool-card auth-locked tool-5" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-tachometer-alt"></i></div><h3 class="tool-title" data-i18n="speed_profiles_title">بروفايلات السرعة</h3><p class="tool-desc" data-i18n="speed_profiles_desc">إنشاء بروفايلات سرعة متعددة</p><div class="tool-tags"><span class="tag">Profiles</span><span class="tag">Speed</span></div></div>
+        <div onclick="window.location.href='capacity-calculator.html'" class="tool-card tool-10" style="cursor:pointer;"><div class="tool-icon"><i class="fas fa-calculator"></i></div><h3 class="tool-title">حاسبة سعة الشبكة</h3><p class="tool-desc">احسب السرعة المناسبة وعدد الخطوط وهل تحتاج دمج أم لا</p><div class="tool-tags"><span class="tag new-tag">جديد</span><span class="tag">Capacity</span><span class="tag">Planning</span></div></div>
+
     </div>
 </section>
 <section class="contact">
@@ -432,6 +488,43 @@ function setLanguage(lang){localStorage.setItem('language',lang);const html=docu
         });
     });
 
+function initToolsDashboard(){
+    const grid=document.querySelector('.tools-grid');
+    if(!grid)return;
+    const cards=[...grid.querySelectorAll('.tool-card')];
+    const meta=[
+        {name:'إعدادات هوت سبوت PPP',status:'paid',cat:'network',keywords:'hotspot ppp pppoe dhcp nat هوت سبوت برودباند سكربت',suggest:'مناسب لتجهيز شبكة كاملة'},
+        {name:'دمج خطوط v6',status:'paid',cat:'network',keywords:'merge v6 load balancing pcc دمج خطوط',suggest:'اختاره لو RouterOS v6'},
+        {name:'دمج خطوط v7',status:'paid',cat:'network',keywords:'merge v7 load balancing دمج خطوط',suggest:'اختاره لو RouterOS v7'},
+        {name:'تصميم هوت سبوت',status:'free',cat:'design',keywords:'design hotspot html login page تصميم صفحة دخول',suggest:'اصنع صفحة دخول جاهزة'},
+        {name:'مصمم الكروت',status:'free',cat:'design',keywords:'cards vouchers wifi كروت طباعة تصميم',suggest:'صمم كروت واي فاي بسرعة'},
+        {name:'محلل السجلات',status:'free',cat:'support',keywords:'log analyzer logs error سجل لوج اخطاء',suggest:'حلل الأخطاء قبل التجربة'},
+        {name:'المشكلات الشائعة',status:'free',cat:'support',keywords:'troubleshooting problems حل مشاكل نت dns ping',suggest:'ابدأ منه عند الأعطال'},
+        {name:'حجب المواقع',status:'free',cat:'network',keywords:'block sites layer7 tls حجب مواقع يوتيوب فيسبوك',suggest:'لمنع المواقع والتطبيقات'},
+        {name:'بروفايلات السرعة',status:'free',cat:'network',keywords:'speed profiles queue سرعة سرعات بروفايل',suggest:'جهز باقات سرعة منظمة'},
+        {name:'حاسبة سعة الشبكة',status:'free',cat:'network',keywords:'capacity calculator bandwidth clients دمج خطوط سرعة عملاء حساب سعة',suggest:'اعرف هل خط واحد يكفي أم تحتاج دمج'}
+    ];
+    cards.forEach((card,i)=>{
+        const item=meta[i]; if(!item)return;
+        card.dataset.name=item.name; card.dataset.status=item.status; card.dataset.category=item.cat; card.dataset.keywords=item.keywords; card.dataset.suggestion=item.suggest;
+        card.dataset.statusLabel=item.status==='paid'?'مدفوع':'مجاني';
+        if(!card.querySelector('.tool-action')){const action=document.createElement('div');action.className='tool-action';action.innerHTML='<span>افتح الأداة</span><i class="fas fa-arrow-left"></i>';card.appendChild(action);}
+        card.addEventListener('click',()=>{localStorage.setItem('lastToolName',item.name);localStorage.setItem('lastToolSuggestion',item.suggest);updateToolsInsights();},{capture:true});
+    });
+    const search=document.getElementById('toolsSearch'),filters=[...document.querySelectorAll('.tools-filter')],empty=document.getElementById('toolsEmpty');
+    let active='all';
+    function apply(){
+        const term=(search?.value||'').trim().toLowerCase();let shown=0,lastSuggestion='';
+        cards.forEach(card=>{const haystack=[card.dataset.name,card.dataset.status,card.dataset.category,card.dataset.keywords,card.textContent].join(' ').toLowerCase();const visible=(active==='all'||card.dataset.status===active||card.dataset.category===active)&&(!term||haystack.includes(term));card.classList.toggle('hidden',!visible);if(visible){shown++;if(!lastSuggestion)lastSuggestion=card.dataset.suggestion||'';}});
+        const count=document.getElementById('toolsCount'),suggestion=document.getElementById('toolSuggestion');
+        if(count)count.textContent=shown+' أدوات ظاهرة'; if(suggestion)suggestion.textContent=lastSuggestion||'غيّر البحث أو الفلتر'; if(empty)empty.classList.toggle('show',shown===0);
+    }
+    filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(b=>b.classList.remove('active'));btn.classList.add('active');active=btn.dataset.filter;apply();}));
+    if(search)search.addEventListener('input',apply);
+    updateToolsInsights();apply();
+}
+function updateToolsInsights(){const last=document.getElementById('lastToolTitle'),suggestion=document.getElementById('toolSuggestion'),lastName=localStorage.getItem('lastToolName'),lastSuggestion=localStorage.getItem('lastToolSuggestion');if(last&&lastName)last.textContent=lastName;if(suggestion&&lastSuggestion)suggestion.textContent=lastSuggestion;}
+initToolsDashboard();
 document.getElementById('langEn').addEventListener('click',()=>setLanguage('en'));
 document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
 setLanguage(localStorage.getItem('language')||'ar');
@@ -499,5 +592,4 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAuthMo
 <script src="mikro-chatbot.js"></script>
 </body>
 </html>
-
 

@@ -120,8 +120,10 @@
 
     <script>
         function openMikroChat() {
-            if (window.parent) {
+            if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: 'mikro-open-chat' }, '*');
+            } else {
+                window.location.href = 'index.html?openChat=1';
             }
         }
     </script>

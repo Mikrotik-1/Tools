@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة سعة الشبكة | MikroTools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary:#6366f1;
+            --secondary:#10b981;
+            --danger:#ef4444;
+            --warning:#f59e0b;
+            --dark:#1e293b;
+            --panel:#111827;
+            --muted:#94a3b8;
+            --light:#f8fafc;
+            --border:rgba(148,163,184,.18);
+            --gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 52%,#d946ef 100%);
+        }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:'Tajawal',system-ui,sans-serif; background:#0f172a; color:white; min-height:100vh; line-height:1.8; }
+        .navbar { position:sticky; top:0; z-index:1000; background:#1e293b; border-bottom:1px solid rgba(255,255,255,.08); box-shadow:0 5px 20px rgba(0,0,0,.12); }
+        .nav-container { max-width:1400px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+        .logo { color:white; text-decoration:none; display:flex; align-items:center; gap:14px; font-weight:800; font-size:24px; white-space:nowrap; }
+        .logo-icon { width:50px; height:50px; border-radius:13px; background:var(--gradient); display:flex; align-items:center; justify-content:center; font-size:22px; }
+        .nav-links { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        .nav-link { color:#cbd5e1; text-decoration:none; padding:9px 14px; border-radius:12px; display:inline-flex; align-items:center; gap:7px; font-weight:700; transition:all .25s; white-space:nowrap; }
+        .nav-link:hover, .nav-link.active { color:white; background:var(--primary); }
+        .nav-link.primary { background:rgba(99,102,241,.18); border:1px solid rgba(99,102,241,.45); color:#c7d2fe; }
+        .nav-link.primary:hover { color:white; background:var(--primary); }
+        .dropdown { position:relative; }
+        .dropdown-menu { position:absolute; top:100%; right:0; min-width:230px; background:#1e293b; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:8px; box-shadow:0 14px 35px rgba(0,0,0,.25); opacity:0; visibility:hidden; transform:translateY(-8px); transition:all .2s; }
+        .dropdown:hover .dropdown-menu { opacity:1; visibility:visible; transform:translateY(0); }
+        .dropdown-item { display:flex; align-items:center; gap:10px; padding:10px 12px; color:#cbd5e1; text-decoration:none; border-radius:9px; white-space:nowrap; }
+        .dropdown-item:hover { color:white; background:rgba(255,255,255,.08); }
+        .new-badge { background:linear-gradient(135deg,#ff416c,#ff4b2b); color:white; font-size:10px; font-weight:800; padding:3px 8px; border-radius:999px; }
+        .hero { background:linear-gradient(135deg,#1e293b,#0f172a); padding:70px 20px 36px; border-bottom:1px solid rgba(255,255,255,.06); }
+        .hero-inner { max-width:1200px; margin:auto; display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; }
+        .badge { display:inline-flex; align-items:center; gap:8px; color:#c7d2fe; background:rgba(99,102,241,.16); border:1px solid rgba(99,102,241,.35); padding:8px 16px; border-radius:999px; margin-bottom:18px; }
+        h1 { font-size:44px; line-height:1.25; margin-bottom:12px; }
+        .lead { color:#cbd5e1; font-size:18px; max-width:680px; }
+        .hero-card { background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:18px; padding:24px; }
+        .hero-card strong { display:block; font-size:34px; color:#a78bfa; }
+        main { max-width:1200px; margin:auto; padding:34px 20px 60px; }
+        .layout { display:grid; grid-template-columns:420px 1fr; gap:22px; align-items:start; }
+        .panel { background:white; color:#0f172a; border-radius:18px; padding:22px; box-shadow:0 24px 60px rgba(0,0,0,.22); }
+        .panel h2 { font-size:22px; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+        .field { margin-bottom:16px; }
+        label { display:flex; justify-content:space-between; gap:12px; font-weight:800; margin-bottom:8px; color:#1e293b; }
+        label span { color:#64748b; font-size:13px; font-weight:600; }
+        input, select { width:100%; border:1px solid #dbe4ef; border-radius:12px; padding:13px 14px; font-family:inherit; font-size:16px; outline:none; background:#f8fafc; }
+        input:focus, select:focus { border-color:var(--primary); box-shadow:0 0 0 4px rgba(99,102,241,.12); background:white; }
+        .inline { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .hint { color:#64748b; font-size:13px; margin-top:6px; }
+        .btn { width:100%; border:0; border-radius:13px; padding:14px; font-family:inherit; font-size:16px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:9px; }
+        .btn-primary { background:var(--gradient); color:white; }
+        .btn-secondary { background:#eef2ff; color:var(--primary); margin-top:10px; }
+        .results { display:grid; gap:16px; }
+        .summary { background:linear-gradient(135deg,#1e293b,#111827); border:1px solid var(--border); border-radius:18px; padding:22px; color:white; }
+        .summary h2 { font-size:24px; margin-bottom:10px; }
+        .verdict { display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:999px; font-weight:800; margin-bottom:14px; }
+        .verdict.good { background:rgba(16,185,129,.16); color:#86efac; border:1px solid rgba(16,185,129,.35); }
+        .verdict.warn { background:rgba(245,158,11,.16); color:#fcd34d; border:1px solid rgba(245,158,11,.35); }
+        .verdict.bad { background:rgba(239,68,68,.16); color:#fca5a5; border:1px solid rgba(239,68,68,.35); }
+        .metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:16px; }
+        .metric { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:15px; }
+        .metric span { color:#cbd5e1; font-size:13px; display:block; margin-bottom:4px; }
+        .metric strong { font-size:24px; color:white; direction:ltr; display:block; }
+        .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+        .info-card { background:white; color:#0f172a; border-radius:16px; padding:18px; border:1px solid #e2e8f0; }
+        .info-card h3 { display:flex; align-items:center; gap:9px; margin-bottom:10px; font-size:18px; }
+        .info-card p, .info-card li { color:#475569; }
+        ul { padding-right:20px; }
+        .script-box { background:#0b1120; color:#dbeafe; border-radius:16px; padding:18px; overflow:auto; border:1px solid rgba(148,163,184,.2); direction:ltr; text-align:left; font-family:Consolas,monospace; font-size:13px; }
+        .copy-row { display:flex; gap:10px; margin-top:12px; }
+        .copy-row .btn { width:auto; padding:11px 15px; font-size:14px; }
+        .notice { background:#fffbeb; border:1px solid #fde68a; color:#92400e; border-radius:14px; padding:14px; margin-top:14px; font-weight:700; }
+        .login-note { display:none; background:#eef2ff; border:1px solid #c7d2fe; color:#3730a3; border-radius:12px; padding:12px 14px; margin-top:12px; font-weight:800; }
+        .login-note.show { display:block; }
+        @media (max-width:900px) {
+            .hero-inner, .layout { grid-template-columns:1fr; }
+            h1 { font-size:34px; }
+            .metrics, .cards { grid-template-columns:1fr 1fr; }
+        }
+        @media (max-width:560px) {
+            .inline, .metrics, .cards { grid-template-columns:1fr; }
+            .nav-container { align-items:flex-start; flex-direction:column; }
+            .nav-links { width:100%; }
+            .nav-link, .dropdown { width:100%; }
+            .dropdown-menu { position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; margin-top:6px; display:none; }
+            .dropdown:hover .dropdown-menu { display:block; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="logo" href="index.html">
+                <span class="logo-icon"><i class="fas fa-bolt"></i></span>
+                <span>MikroTools</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-code-branch"></i> الدمج <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i> دمج خطوط v6</a>
+                        <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i> دمج خطوط v7</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-wifi"></i> الهوت سبوت <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="hotspot.html" class="dropdown-item"><i class="fas fa-cog"></i> اعدادات hotspot+ppp</a>
+                        <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i> بروفايلات السرعة</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-paint-brush"></i> الأدوات <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="Hotspot%20Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i> تصميم هوت سبوت</a>
+                        <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i> مصمم الكروت</a>
+                        <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i> حجب المواقع</a>
+                        <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">محلل السجلات</span></a>
+                    </div>
+                </div>
+                <a href="capacity-calculator.html" class="nav-link active"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-circle-question"></i> المساعدة <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-triangle-exclamation"></i> المشكلات الشائعة</a>
+                        <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i> من نحن</a>
+                        <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-shield-halved"></i> سياسة الخصوصية</a>
+                    </div>
+                </div>
+                <a class="nav-link primary" id="loginStateLink" href="login.html?redirect=capacity-calculator.html"><i class="fas fa-user"></i> تسجيل الدخول</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="badge"><i class="fas fa-gauge-high"></i> تخطيط سرعة الشبكة</div>
+                <h1>حاسبة عدد العملاء والسرعة المناسبة</h1>
+                <p class="lead">احسب السرعة المطلوبة لشبكتك حسب عدد العملاء ومتوسط السرعة ونسبة الاستخدام وقت الذروة، واعرف هل تحتاج دمج خطوط أم خط واحد كفاية.</p>
+            </div>
+            <div class="hero-card">
+                <span>قرار سريع للفني</span>
+                <strong>خط واحد أم دمج؟</strong>
+                <p class="lead" style="font-size:15px;margin-top:8px;">الأداة تضيف هامش أمان وتحسب Down / Up وتطلع توصية عملية.</p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="layout">
+            <section class="panel">
+                <h2><i class="fas fa-sliders"></i> بيانات الشبكة</h2>
+                <div class="field">
+                    <label>عدد العملاء <span>إجمالي المشتركين</span></label>
+                    <input id="customers" type="number" min="1" value="80">
+                </div>
+                <div class="field">
+                    <label>متوسط سرعة العميل <span>Mbps</span></label>
+                    <input id="avgSpeed" type="number" min="0.25" step="0.25" value="2">
+                    <div class="hint">مثال: لو أغلب العملاء باقة 2 ميجا اكتب 2.</div>
+                </div>
+                <div class="inline">
+                    <div class="field">
+                        <label>نسبة الذروة <span>%</span></label>
+                        <input id="peakUsage" type="number" min="5" max="100" value="35">
+                    </div>
+                    <div class="field">
+                        <label>هامش أمان <span>%</span></label>
+                        <input id="headroom" type="number" min="0" max="100" value="25">
+                    </div>
+                </div>
+                <div class="inline">
+                    <div class="field">
+                        <label>نسبة الرفع <span>من الداون</span></label>
+                        <select id="uploadRatio">
+                            <option value="0.2">20% عادي</option>
+                            <option value="0.3" selected>30% متوازن</option>
+                            <option value="0.5">50% استخدام عالي</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>سعة الخط الواحد <span>Mbps</span></label>
+                        <input id="lineCapacity" type="number" min="1" value="100">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>نوع الشبكة <span>يؤثر على النصيحة</span></label>
+                    <select id="networkType">
+                        <option value="hotspot">Hotspot</option>
+                        <option value="pppoe">PPPoE</option>
+                        <option value="mixed" selected>Hotspot + PPPoE</option>
+                        <option value="isp">مزود خدمة صغير</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="calculateBtn" onclick="handleCalculate()"><i class="fas fa-lock"></i> سجّل دخول لحساب السعة</button>
+                <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-rotate-right"></i> قيم مقترحة</button>
+                <div class="login-note show" id="loginNote">يجب تسجيل الدخول أولًا لاستخدام الحاسبة.</div>
+            </section>
+
+            <section class="results">
+                <div class="summary" id="summary">
+                    <span class="verdict good" id="verdict"><i class="fas fa-circle-check"></i> جاهز للحساب</span>
+                    <h2 id="resultTitle">اكتب بيانات الشبكة واضغط احسب</h2>
+                    <p id="resultText">هنحسب سرعة التحميل والرفع المناسبة، وعدد الخطوط المقترح، وهل الدمج مطلوب أم لا.</p>
+                    <div class="metrics">
+                        <div class="metric"><span>Download مطلوب</span><strong id="downNeed">--</strong></div>
+                        <div class="metric"><span>Upload مطلوب</span><strong id="upNeed">--</strong></div>
+                        <div class="metric"><span>العملاء وقت الذروة</span><strong id="activeUsers">--</strong></div>
+                        <div class="metric"><span>عدد الخطوط</span><strong id="linesNeed">--</strong></div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <div class="info-card">
+                        <h3><i class="fas fa-lightbulb"></i> التوصية</h3>
+                        <p id="recommendation">ستظهر هنا النصيحة المناسبة بعد الحساب.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-triangle-exclamation"></i> ملاحظات مهمة</h3>
+                        <ul id="notes">
+                            <li>الحساب تقديري ويحتاج مراجعة حسب الاستخدام الحقيقي.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fas fa-file-lines"></i> تقرير مختصر</h3>
+                    <p id="reportPreview">اضغط احسب لعرض ملخص مناسب للنسخ أو الإرسال.</p>
+                    <div class="copy-row">
+                        <button class="btn btn-primary" onclick="copyReport()"><i class="fas fa-copy"></i> نسخ التقرير</button>
+                    </div>
+                    <div class="notice">مهم: لا تعتمد على الحساب وحده في الشبكات الكبيرة. راقب الاستهلاك الفعلي من Interface و Queues لمدة يومين على الأقل.</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+    <script src="mikro-chatbot.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const app = initializeApp({
+            apiKey: "AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",
+            authDomain: "mikro-tools.firebaseapp.com",
+            projectId: "mikro-tools",
+            storageBucket: "mikro-tools.firebasestorage.app",
+            messagingSenderId: "22698503616",
+            appId: "1:22698503616:web:de7a3802b2fd746cc2ec25"
+        });
+        const auth = getAuth(app);
+        let currentUser = null;
+        let lastReport = "";
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            const calcBtn = document.getElementById("calculateBtn");
+            const loginNote = document.getElementById("loginNote");
+            const loginStateLink = document.getElementById("loginStateLink");
+            if (user) {
+                calcBtn.innerHTML = '<i class="fas fa-calculator"></i> احسب السعة';
+                loginNote.classList.remove("show");
+                loginStateLink.innerHTML = '<i class="fas fa-user-check"></i> ' + (user.email || "مسجل دخول");
+                loginStateLink.href = "#";
+                calculateCapacity();
+            } else {
+                calcBtn.innerHTML = '<i class="fas fa-lock"></i> سجّل دخول لحساب السعة';
+                loginNote.classList.add("show");
+                loginStateLink.innerHTML = '<i class="fas fa-user"></i> تسجيل الدخول';
+                loginStateLink.href = "login.html?redirect=capacity-calculator.html";
+            }
+        });
+
+        function requireLogin() {
+            if (currentUser) return true;
+            window.location.href = "login.html?redirect=capacity-calculator.html";
+            return false;
+        }
+
+        function handleCalculate() {
+            if (!requireLogin()) return;
+            calculateCapacity();
+        }
+
+        function numberValue(id, fallback) {
+            const value = Number(document.getElementById(id).value);
+            return Number.isFinite(value) && value > 0 ? value : fallback;
+        }
+
+        function calculateCapacity() {
+            if (!currentUser) return;
+            const customers = numberValue("customers", 1);
+            const avgSpeed = numberValue("avgSpeed", 1);
+            const peakUsage = Math.min(numberValue("peakUsage", 35), 100) / 100;
+            const headroom = numberValue("headroom", 25) / 100;
+            const uploadRatio = Number(document.getElementById("uploadRatio").value);
+            const lineCapacity = numberValue("lineCapacity", 100);
+            const networkType = document.getElementById("networkType").value;
+
+            const active = Math.ceil(customers * peakUsage);
+            const rawDownload = active * avgSpeed;
+            const download = Math.ceil(rawDownload * (1 + headroom));
+            const upload = Math.ceil(download * uploadRatio);
+            const lineSafeCapacity = lineCapacity * 0.85;
+            const lines = Math.max(1, Math.ceil(download / lineSafeCapacity));
+            const usagePercent = Math.round((download / lineCapacity) * 100);
+
+            let level = "good";
+            let verdictText = "خط واحد غالبًا كفاية";
+            let title = "الشبكة مناسبة بدون دمج";
+            let recommendation = `خط ${lineCapacity}Mbps مناسب، لكن راقب الاستهلاك وقت الذروة.`;
+
+            if (lines === 2) {
+                level = "warn";
+                verdictText = "الدمج مفضل";
+                title = "يفضل دمج خطين";
+                recommendation = `السرعة المطلوبة قريبة من سعة الخط الواحد. الأفضل دمج خطين أو ترقية الخط لتجنب الضغط.`;
+            } else if (lines > 2) {
+                level = "bad";
+                verdictText = "الدمج مطلوب";
+                title = `تحتاج حوالي ${lines} خطوط`;
+                recommendation = `الاستهلاك المتوقع أعلى من خط واحد. استخدم Load Balancing مع ${lines} خطوط أو خط فايبر أكبر.`;
+            } else if (usagePercent > 75) {
+                level = "warn";
+                verdictText = "خط واحد يكفي بصعوبة";
+                title = "الخط الحالي قريب من الضغط";
+                recommendation = `خط واحد ممكن يمشي، لكن نسبة الضغط عالية. ارفع هامش الأمان أو جهز خط احتياطي.`;
+            }
+
+            const typeAdvice = {
+                hotspot: "للهوت سبوت: فعّل Queue أو Profile واضح لكل باقة، وراقب أكثر الأجهزة استهلاكًا.",
+                pppoe: "للـ PPPoE: استخدم Profiles منفصلة للسرعات، وخلي الدمج على RouterOS مناسب للإصدار.",
+                mixed: "للشبكات المختلطة: افصل حسابات Hotspot عن PPPoE في Profiles واضحة.",
+                isp: "لمزود خدمة صغير: الأفضل وجود خط احتياطي ومراقبة يومية للـ interfaces."
+            };
+
+            document.getElementById("verdict").className = `verdict ${level}`;
+            document.getElementById("verdict").innerHTML = `<i class="fas fa-${level === "good" ? "circle-check" : level === "warn" ? "triangle-exclamation" : "circle-exclamation"}"></i> ${verdictText}`;
+            document.getElementById("resultTitle").textContent = title;
+            document.getElementById("resultText").textContent = `عندك تقريبًا ${active} عميل نشط وقت الذروة من أصل ${customers}. الحساب شامل هامش أمان ${Math.round(headroom * 100)}%.`;
+            document.getElementById("downNeed").textContent = `${download}M`;
+            document.getElementById("upNeed").textContent = `${upload}M`;
+            document.getElementById("activeUsers").textContent = active;
+            document.getElementById("linesNeed").textContent = lines;
+            document.getElementById("recommendation").textContent = recommendation;
+
+            const notes = [
+                `الاستهلاك الفعلي المتوقع قبل هامش الأمان: ${Math.ceil(rawDownload)}Mbps.`,
+                `لا تستخدم أكثر من 85% من سعة الخط كقيمة آمنة.`,
+                typeAdvice[networkType],
+            ];
+            if (avgSpeed >= 5 && customers > 100) notes.push("مع السرعات العالية وعدد عملاء كبير، يفضل تقسيم الشبكة ومراقبة الضغط على المعالج.");
+            if (uploadRatio >= 0.5) notes.push("نسبة الرفع عالية، تأكد أن خط الإنترنت يوفر Upload كافي وليس Download فقط.");
+
+            document.getElementById("notes").innerHTML = notes.map((note) => `<li>${note}</li>`).join("");
+
+            lastReport = `تقرير سعة الشبكة
+عدد العملاء: ${customers}
+متوسط سرعة العميل: ${avgSpeed}M
+العملاء وقت الذروة: ${active}
+Download مطلوب: ${download}M
+Upload مطلوب: ${upload}M
+سعة الخط الواحد: ${lineCapacity}M
+عدد الخطوط المقترح: ${lines}
+التوصية: ${recommendation}`;
+            document.getElementById("reportPreview").textContent = lastReport;
+        }
+
+        function copyReport() {
+            if (!requireLogin()) return;
+            if (!lastReport) calculateCapacity();
+            navigator.clipboard.writeText(lastReport);
+        }
+
+        function resetForm() {
+            document.getElementById("customers").value = 80;
+            document.getElementById("avgSpeed").value = 2;
+            document.getElementById("peakUsage").value = 35;
+            document.getElementById("headroom").value = 25;
+            document.getElementById("uploadRatio").value = 0.3;
+            document.getElementById("lineCapacity").value = 100;
+            document.getElementById("networkType").value = "mixed";
+            if (currentUser) calculateCapacity();
+        }
+
+        window.handleCalculate = handleCalculate;
+        window.calculateCapacity = calculateCapacity;
+        window.copyReport = copyReport;
+        window.resetForm = resetForm;
+    </script>
+</body>
+</html>
