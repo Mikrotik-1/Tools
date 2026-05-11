@@ -327,8 +327,7 @@
             </div>
             <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> <span data-i18n="login_btn">تسجيل الدخول</span></button>
             <div style="position:relative;display:flex;align-items:center;"><button id="navUserBtn" onclick="toggleUserDropdown()"></button><div class="user-dropdown" id="userDropdown"><div class="user-dropdown-email"><strong>مرحباً 👋</strong><span id="userEmailDisplay"></span></div><button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout_btn">تسجيل الخروج</span></button></div></div>
-            <a href="https://wa.me/201092503391" target="_blank" rel="noopener" class="nav-cta"><i class="fab fa-whatsapp"></i><span data-i18n="contact_us">تواصل معنا</span></a>
-        </div>
+            </div>
     </div>
 </nav>
 <section class="hero">
@@ -497,6 +496,7 @@ document.getElementById('authClose').addEventListener('click',closeAuthModal);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAuthModal();var dd=document.getElementById('userDropdown');if(dd)dd.classList.remove('open');}});
 </script>
 
+<script src="mikro-chatbot.js"></script>
 </body>
 </html>
 

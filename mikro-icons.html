@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <style>
-        /* تأكد من أن الصفحة شفافة */
         body {
             margin: 0;
             padding: 0;
@@ -11,9 +10,9 @@
             width: 100px;
             height: 280px;
             overflow: hidden;
+            font-family: Tahoma, Arial, sans-serif;
         }
-        
-        /* الحاوية الرئيسية */
+
         .mikro-icons-wrapper {
             width: 100%;
             height: 100%;
@@ -21,82 +20,64 @@
             flex-direction: column;
             gap: 20px;
             align-items: center;
-            justify-content: flex-end; /* يبدأ من الأسفل */
+            justify-content: flex-end;
         }
-        
-        /* أيقونة المساعدة - في الأسفل */
-        .mikro-help-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
-            transition: all 0.3s ease;
-            animation: mikro-float 3s ease-in-out infinite;
-            position: relative;
-            order: 3; /* تكون الأخيرة */
-        }
-        
-        /* أيقونات التواصل - في الأعلى */
+
         .mikro-social-icons {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            order: 1; /* تكون أولاً */
+            order: 1;
         }
-        
+
+        .mikro-help-icon,
         .mikro-social-icon {
-            width: 60px;
-            height: 60px;
             border-radius: 50%;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-size: 26px;
-            transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
             animation: mikro-float 3s ease-in-out infinite;
         }
-        
-        .mikro-social-icon:nth-child(1) {
-            animation-delay: 0.5s;
+
+        .mikro-social-icon {
+            width: 60px;
+            height: 60px;
+            text-decoration: none;
+            font-size: 26px;
         }
-        
-        .mikro-social-icon:nth-child(2) {
-            animation-delay: 1s;
+
+        .mikro-help-icon {
+            width: 65px;
+            height: 65px;
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+            position: relative;
+            order: 3;
         }
-        
-        /* تأثير الطفو */
+
+        .mikro-social-icon:nth-child(1) { animation-delay: 0.5s; }
+        .mikro-social-icon:nth-child(2) { animation-delay: 1s; }
+
         @keyframes mikro-float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-10px) rotate(5deg); }
         }
-        
+
         .mikro-help-icon:hover,
         .mikro-social-icon:hover {
             transform: scale(1.15);
             box-shadow: 0 12px 35px rgba(0,0,0,0.4);
         }
-        
-        /* ألوان */
-        .mikro-whatsapp {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-        }
-        
-        .mikro-facebook {
-            background: linear-gradient(135deg, #1877F2, #0A5BC4);
-        }
-        
-        /* نص المساعدة */
+
+        .mikro-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .mikro-facebook { background: linear-gradient(135deg, #1877F2, #0A5BC4); }
+
         .mikro-help-text {
             position: absolute;
             right: 75px;
@@ -115,40 +96,33 @@
             pointer-events: none;
             border-left: 4px solid #8b5cf6;
         }
-        
-        .mikro-help-icon:hover .mikro-help-text {
-            opacity: 1;
-        }
+
+        .mikro-help-icon:hover .mikro-help-text { opacity: 1; }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- الترتيب: التواصل أولاً ثم المساعدة -->
     <div class="mikro-icons-wrapper">
-        <!-- 1. التواصل (أعلى) -->
         <div class="mikro-social-icons">
-            <a href="https://wa.me/201092503391" target="_blank" 
-               class="mikro-social-icon mikro-whatsapp" 
-               title="واتساب">
+            <a href="https://wa.me/201092503391" target="_blank" class="mikro-social-icon mikro-whatsapp" title="واتساب">
                 <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" 
-               class="mikro-social-icon mikro-facebook" 
-               title="فيسبوك">
+            <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="mikro-social-icon mikro-facebook" title="فيسبوك">
                 <i class="fab fa-facebook-f"></i>
             </a>
         </div>
-        
-        <!-- 2. المساعدة (أسفل) -->
-        <button class="mikro-help-icon" onclick="showMikroHelp()">
-            ❓
-            <span class="mikro-help-text">مساعدة هذه الصفحة</span>
+
+        <button class="mikro-help-icon" type="button" onclick="openMikroChat()" title="مساعد MikroTools">
+            <i class="fas fa-robot"></i>
+            <span class="mikro-help-text">مساعد ذكي</span>
         </button>
     </div>
-    
+
     <script>
-        function showMikroHelp() {
-            alert('🎯 MikroTools - أدوات ميكروتيك مجانية\n\n📞 للتواصل والدعم:\n01092503391\n\nSameh El-Sayed');
+        function openMikroChat() {
+            if (window.parent) {
+                window.parent.postMessage({ type: 'mikro-open-chat' }, '*');
+            }
         }
     </script>
 </body>
