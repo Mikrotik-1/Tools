@@ -12,6 +12,7 @@
     var SESSION_KEY = 'mikrotools_session_id';
     var HEARTBEAT_INTERVAL = 45000;
     var ONLINE_TIMEOUT = 120000;
+    var REQUEST_TIMEOUT = 6000;
     var heartbeatTimer = null;
     var isSending = false;
 
@@ -54,6 +55,8 @@
     async function heartbeat(active) {
         if (isSending) return;
         isSending = true;
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT);
         var now = Date.now();
         var nowIso = new Date(now).toISOString();
         var visitorId = getOrCreate(VISITOR_KEY, 'visitor');
@@ -62,7 +65,8 @@
         try {
             var response = await fetch(API_URL + '/latest', {
                 headers: { 'X-Master-Key': API_KEY },
-                cache: 'no-cache'
+                cache: 'no-cache',
+                signal: controller.signal
             });
             if (!response.ok) throw new Error('HTTP ' + response.status);
             var data = await response.json();
@@ -107,17 +111,19 @@
                     'X-Bin-Versioning': 'false'
                 },
                 body: JSON.stringify(record),
-                keepalive: active === false
+                keepalive: active === false,
+                signal: active === false ? undefined : controller.signal
             });
         } catch (error) {
             if (window.console) console.warn('MikroTools presence skipped:', error.message);
         } finally {
+            clearTimeout(timeoutId);
             isSending = false;
         }
     }
 
     function startPresence() {
-        heartbeat(true);
+        setTimeout(function () { heartbeat(true); }, 2500);
         heartbeatTimer = setInterval(function () { heartbeat(true); }, HEARTBEAT_INTERVAL);
     }
 
@@ -127,10 +133,10 @@
     window.addEventListener('pagehide', function () { heartbeat(false); });
     window.addEventListener('beforeunload', function () { heartbeat(false); });
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startPresence);
-    } else {
+    if (document.readyState === 'complete') {
         startPresence();
+    } else {
+        window.addEventListener('load', startPresence, { once: true });
     }
 
     window.MikroToolsPresence = {

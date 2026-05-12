@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
@@ -10,10 +10,10 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ط¢ط®ط± ط§ظ„طھط­ط¯ظٹط«ط§طھ | MikroTools</title>
+    <title>آخر التحديثات | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ظ†ظپط³ ط§ظ„ط£ظ†ظ…ط§ط· ط§ظ„ط£ط³ط§ط³ظٹط© ظ…ظ† ط§ظ„طµظپط­ط§طھ ط§ظ„ط³ط§ط¨ظ‚ط© */
+        /* نفس الأنماط الأساسية من الصفحات السابقة */
         :root {
             --nav-bg: #1e293b;
             --nav-text: #ffffff;
@@ -44,7 +44,7 @@
             min-height: 100vh;
         }
 
-        /* ===== ط§ظ„ط´ط±ظٹط· ط§ظ„ط¬ط§ظ†ط¨ظٹ ===== */
+        /* ===== الشريط الجانبي ===== */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--nav-bg);
@@ -108,7 +108,7 @@
             margin-top: 5px;
         }
 
-        /* ظ‚ط§ط¦ظ…ط© ط§ظ„طھظ†ظ‚ظ„ ظپظٹ ط§ظ„ط´ط±ظٹط· ط§ظ„ط¬ط§ظ†ط¨ظٹ */
+        /* قائمة التنقل في الشريط الجانبي */
         .sidebar-nav {
             flex: 1;
             padding: 25px 0;
@@ -151,14 +151,14 @@
             font-weight: 500;
         }
 
-        /* ط§ظ„ظ…ط­طھظˆظ‰ ط§ظ„ط±ط¦ظٹط³ظٹ */
+        /* المحتوى الرئيسي */
         .main-content {
             margin-right: var(--sidebar-width);
             padding: 40px;
             min-height: 100vh;
         }
 
-        /* ظƒط±ظˆطھ ط§ظ„ط£ط¯ظˆط§طھ */
+        /* كروت الأدوات */
         .tool-card {
             background: var(--card-bg);
             padding: 40px;
@@ -215,7 +215,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* ===== ط£ظ†ظ…ط§ط· طµظپط­ط© ط§ظ„طھط­ط¯ظٹط«ط§طھ ===== */
+        /* ===== أنماط صفحة التحديثات ===== */
         .updates-timeline {
             position: relative;
             padding-right: 30px;
@@ -291,7 +291,7 @@
         }
 
         .update-features li:before {
-            content: "âœ“";
+            content: "✓";
             color: var(--primary);
             font-weight: bold;
             display: inline-block;
@@ -309,7 +309,7 @@
             margin-right: 10px;
         }
 
-        /* طھط°ظٹظٹظ„ ط§ظ„طھظˆط§طµظ„ */
+        /* تذييل التواصل */
         .contact-footer {
             background: #1e293b;
             color: white;
@@ -351,7 +351,7 @@
             background: linear-gradient(135deg, #1877F2, #0A5BC4);
         }
 
-        /* ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„ط§طھطµط§ظ„ ظپظٹ ط§ظ„ط´ط±ظٹط· ط§ظ„ط¬ط§ظ†ط¨ظٹ */
+        /* معلومات الاتصال في الشريط الجانبي */
         .sidebar-footer {
             padding: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -393,7 +393,7 @@
             font-size: 22px;
         }
 
-        /* ط²ط± ط§ظ„ظ‚ط§ط¦ظ…ط© ط§ظ„ظ…طھظ†ظ‚ظ„ط© */
+        /* زر القائمة المتنقلة */
         .menu-toggle {
             display: none;
             position: fixed;
@@ -410,7 +410,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* ===== ط§ظ„طھط¬ط§ظˆط¨ ===== */
+        /* ===== التجاوب ===== */
         @media (max-width: 1024px) {
             :root {
                 --sidebar-width: 250px;
@@ -478,84 +478,84 @@
     </style>
 </head>
 <body>
-    <!-- ط²ط± ط§ظ„ظ‚ط§ط¦ظ…ط© ط§ظ„ظ…طھظ†ظ‚ظ„ط© -->
-    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="ظپطھط­/ط¥ط؛ظ„ط§ظ‚ ط§ظ„ظ‚ط§ط¦ظ…ط©">
-        âک°
+    <!-- زر القائمة المتنقلة -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="فتح/إغلاق القائمة">
+        ☰
     </button>
 
-    <!-- ط§ظ„ط´ط±ظٹط· ط§ظ„ط¬ط§ظ†ط¨ظٹ -->
+    <!-- الشريط الجانبي -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href="index.html" class="logo">
-                <div class="logo-icon">âڑ،</div>
+                <div class="logo-icon">⚡</div>
                 <div>
                     <div class="logo-text">MikroTools</div>
-                    <div class="logo-subtitle">ط£ط¯ظˆط§طھ ظ…ظٹظƒط±ظˆطھظٹظƒ ظ…ط¬ط§ظ†ظٹط©</div>
+                    <div class="logo-subtitle">أدوات ميكروتيك مجانية</div>
                 </div>
             </a>
         </div>
 
-        <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„طھظ†ظ‚ظ„ -->
+        <!-- قائمة التنقل -->
         <nav class="sidebar-nav">
             <a href="hotspot.html" class="nav-item">
-                <div class="nav-icon">âڑ™ï¸ڈ</div>
-                <div class="nav-text">ط¥ط¹ط¯ط§ط¯ط§طھ ط£ط³ط§ط³ظٹط©</div>
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-text">إعدادات أساسية</div>
             </a>
             
             <a href="merge-v6.html" class="nav-item">
-                <div class="nav-icon">ًں”€</div>
-                <div class="nav-text">ط¯ظ…ط¬ ط®ط·ظˆط· v6</div>
+                <div class="nav-icon">🔀</div>
+                <div class="nav-text">دمج خطوط v6</div>
             </a>
             
             <a href="merge-v7.html" class="nav-item">
-                <div class="nav-icon">ًںڑ€</div>
-                <div class="nav-text">ط¯ظ…ط¬ ط®ط·ظˆط· v7</div>
+                <div class="nav-icon">🚀</div>
+                <div class="nav-text">دمج خطوط v7</div>
             </a>
             
             <a href="block-sites.html" class="nav-item">
-                <div class="nav-icon">ًں”’</div>
-                <div class="nav-text">ط­ط¬ط¨ ط§ظ„ظ…ظˆط§ظ‚ط¹</div>
+                <div class="nav-icon">🔒</div>
+                <div class="nav-text">حجب المواقع</div>
             </a>
             
             <a href="speed-profiles.html" class="nav-item">
-                <div class="nav-icon">âڑ،</div>
-                <div class="nav-text">ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط§ظ„ط³ط±ط¹ط©</div>
+                <div class="nav-icon">⚡</div>
+                <div class="nav-text">بروفايلات السرعة</div>
             </a>
             
             <a href="capacity-calculator.html" class="nav-item">
-                <div class="nav-icon">ًں§®</div>
-                <div class="nav-text">ط­ط§ط³ط¨ط© ط³ط¹ط© ط§ظ„ط´ط¨ظƒط© <span class="new-badge">ط¬ط¯ظٹط¯</span></div>
+                <div class="nav-icon">🧮</div>
+                <div class="nav-text">حاسبة سعة الشبكة <span class="new-badge">جديد</span></div>
             </a>
             
             <a href="about.html" class="nav-item">
-                <div class="nav-icon">ًں‘¥</div>
-                <div class="nav-text">ظ…ظ† ظ†ط­ظ†</div>
+                <div class="nav-icon">👥</div>
+                <div class="nav-text">من نحن</div>
             </a>
             
             <a href="updates.html" class="nav-item active">
-                <div class="nav-icon">ًں“‌</div>
-                <div class="nav-text">ط¢ط®ط± ط§ظ„طھط­ط¯ظٹط«ط§طھ</div>
+                <div class="nav-icon">📝</div>
+                <div class="nav-text">آخر التحديثات</div>
             </a>
             
             <a href="privacy-policy.html" class="nav-item">
-                <div class="nav-icon">ًں”ڈ</div>
-                <div class="nav-text">ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط©</div>
+                <div class="nav-icon">🔏</div>
+                <div class="nav-text">سياسة الخصوصية</div>
             </a>
         </nav>
 
-        <!-- ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„ط§طھطµط§ظ„ -->
+        <!-- معلومات الاتصال -->
         <div class="sidebar-footer">
             <div class="contact-sidebar">
-                <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">ًں“‍ ظ„ظ„طھظˆط§طµظ„ ط§ظ„ط³ط±ظٹط¹</div>
+                <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">📞 للتواصل السريع</div>
                 <div class="phone-sidebar">01092503391</div>
                 <div style="font-size: 12px; color: #64748b; margin-top: 5px;">Sameh El-Sayed</div>
                 
-                <!-- ط£ظٹظ‚ظˆظ†ط§طھ ط§ظ„طھظˆط§طµظ„ ط§ظ„ط§ط¬طھظ…ط§ط¹ظٹ ظپظٹ ط§ظ„ط´ط±ظٹط· ط§ظ„ط¬ط§ظ†ط¨ظٹ -->
+                <!-- أيقونات التواصل الاجتماعي في الشريط الجانبي -->
                 <div class="sidebar-social">
-                    <a href="http://wa.me/201092503391" target="_blank" class="sidebar-social-icon whatsapp-icon" title="طھظˆط§طµظ„ ط¹ط¨ط± ظˆط§طھط³ط§ط¨">
+                    <a href="http://wa.me/201092503391" target="_blank" class="sidebar-social-icon whatsapp-icon" title="تواصل عبر واتساب">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="sidebar-social-icon facebook-icon" title="طھط§ط¨ط¹ظ†ط§ ط¹ظ„ظ‰ ظپظٹط³ط¨ظˆظƒ">
+                    <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="sidebar-social-icon facebook-icon" title="تابعنا على فيسبوك">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                 </div>
@@ -563,159 +563,159 @@
         </div>
     </aside>
 
-    <!-- ط§ظ„ظ…ط­طھظˆظ‰ ط§ظ„ط±ط¦ظٹط³ظٹ -->
+    <!-- المحتوى الرئيسي -->
     <div class="main-content">
         <div class="tool-card">
-            <h2 class="tool-title">ًں“‌ ط¢ط®ط± ط§ظ„طھط­ط¯ظٹط«ط§طھ ظˆط§ظ„ظ…ظ…ظٹط²ط§طھ</h2>
+            <h2 class="tool-title">📝 آخر التحديثات والمميزات</h2>
             
             <div class="updates-timeline">
-                <!-- طھط­ط¯ظٹط« ظٹظ†ط§ظٹط± 2024 -->
+                <!-- تحديث يناير 2024 -->
                 <div class="update-item">
-                    <div class="update-date">ظٹظ†ط§ظٹط± 2024</div>
+                    <div class="update-date">يناير 2024</div>
                     <div class="update-content">
-                        <h4><span class="version-badge">v2.0</span> <span>ًںڑ€ ط¥ط·ظ„ط§ظ‚ ط§ظ„ظ…ظˆظ‚ط¹ ظ…طھط¹ط¯ط¯ ط§ظ„طµظپط­ط§طھ</span></h4>
-                        <p>طھظ… طھط­ظˆظٹظ„ ط§ظ„ظ…ظˆظ‚ط¹ ظ…ظ† طµظپط­ط© ظˆط§ط­ط¯ط© ط¥ظ„ظ‰ ظ†ط¸ط§ظ… ظ…طھط¹ط¯ط¯ ط§ظ„طµظپط­ط§طھ ظ„طھط­ط³ظٹظ† ط§ظ„ط£ط¯ط§ط، ظˆ SEO.</p>
+                        <h4><span class="version-badge">v2.0</span> <span>🚀 إطلاق الموقع متعدد الصفحات</span></h4>
+                        <p>تم تحويل الموقع من صفحة واحدة إلى نظام متعدد الصفحات لتحسين الأداء و SEO.</p>
                         <ul class="update-features">
-                            <li>ط¥ظ†ط´ط§ط، 8 طµظپط­ط§طھ HTML ظ…ط³طھظ‚ظ„ط©</li>
-                            <li>طھط­ط³ظٹظ† ط³ط±ط¹ط© طھط­ظ…ظٹظ„ ط§ظ„طµظپط­ط§طھ</li>
-                            <li>طھط­ط³ظٹظ† طھطµظ†ظٹظپ ظ…ط­ط±ظƒط§طھ ط§ظ„ط¨ط­ط«</li>
-                            <li>طھطµظ…ظٹظ… ظ…طھط¬ط§ظˆط¨ ظ„ظƒظ„ ط§ظ„طµظپط­ط§طھ</li>
+                            <li>إنشاء 8 صفحات HTML مستقلة</li>
+                            <li>تحسين سرعة تحميل الصفحات</li>
+                            <li>تحسين تصنيف محركات البحث</li>
+                            <li>تصميم متجاوب لكل الصفحات</li>
                         </ul>
                     </div>
                 </div>
                 
-                <!-- طھط­ط¯ظٹط« ط¯ظٹط³ظ…ط¨ط± 2023 -->
+                <!-- تحديث ديسمبر 2023 -->
                 <div class="update-item">
-                    <div class="update-date">ط¯ظٹط³ظ…ط¨ط± 2023</div>
+                    <div class="update-date">ديسمبر 2023</div>
                     <div class="update-content">
-                        <h4><span class="version-badge">v1.5</span> <span>âڑ، ط¥ط¶ط§ظپط© ط£ط¯ط§ط© ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط§ظ„ط³ط±ط¹ط©</span></h4>
-                        <p>ط¥ط·ظ„ط§ظ‚ ط£ط¯ط§ط© ط¬ط¯ظٹط¯ط© ظ„ط¥ظ†ط´ط§ط، ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط³ط±ط¹ط© ظ„ظ„ظ‡ظˆطھط³ط¨ظˆطھ ظˆط§ظ„ط¨ط±ظˆط¯ط¨ط§ظ†ط¯.</p>
+                        <h4><span class="version-badge">v1.5</span> <span>⚡ إضافة أداة بروفايلات السرعة</span></h4>
+                        <p>إطلاق أداة جديدة لإنشاء بروفايلات سرعة للهوتسبوت والبرودباند.</p>
                         <ul class="update-features">
-                            <li>ظ…ظˆظ„ط¯ ط¨ط±ظˆظپط§ظٹظ„ط§طھ ظ‡ظˆطھط³ط¨ظˆطھ</li>
-                            <li>ظ…ظˆظ„ط¯ ظ‚ظˆط§ط¦ظ… ط§ظ†طھط¸ط§ط± ط¨ط±ظˆط¯ط¨ط§ظ†ط¯</li>
-                            <li>ط¨ط§ظ‚ط§طھ ط³ط±ط¹ط§طھ ظ…ط³ط¨ظ‚ط©</li>
-                            <li>ط¥ط¹ط¯ط§ط¯ط§طھ Burst ظ…طھظ‚ط¯ظ…ط©</li>
+                            <li>مولد بروفايلات هوتسبوت</li>
+                            <li>مولد قوائم انتظار برودباند</li>
+                            <li>باقات سرعات مسبقة</li>
+                            <li>إعدادات Burst متقدمة</li>
                         </ul>
                     </div>
                 </div>
                 
-                <!-- طھط­ط¯ظٹط« ظ†ظˆظپظ…ط¨ط± 2023 -->
+                <!-- تحديث نوفمبر 2023 -->
                 <div class="update-item">
-                    <div class="update-date">ظ†ظˆظپظ…ط¨ط± 2023</div>
+                    <div class="update-date">نوفمبر 2023</div>
                     <div class="update-content">
-                        <h4><span class="version-badge">v1.3</span> <span>ًں”’ طھط­ط³ظٹظ†ط§طھ ط£ط¯ط§ط© ط­ط¬ط¨ ط§ظ„ظ…ظˆط§ظ‚ط¹</span></h4>
-                        <p>طھط­ط¯ظٹط«ط§طھ ظƒط¨ظٹط±ط© ط¹ظ„ظ‰ ط£ط¯ط§ط© ط­ط¬ط¨ ط§ظ„ظ…ظˆط§ظ‚ط¹ ظ…ط¹ ظ…ظٹط²ط§طھ ط¬ط¯ظٹط¯ط©.</p>
+                        <h4><span class="version-badge">v1.3</span> <span>🔒 تحسينات أداة حجب المواقع</span></h4>
+                        <p>تحديثات كبيرة على أداة حجب المواقع مع ميزات جديدة.</p>
                         <ul class="update-features">
-                            <li>ط¥ط¶ط§ظپط© ط­ط¬ط¨ TLS/SSL</li>
-                            <li>ظ…ظˆط§ظ‚ط¹ ط¬ط§ظ‡ط²ط© ظ„ظ„ط§ط®طھظٹط§ط± ط§ظ„ط³ط±ظٹط¹</li>
-                            <li>طھط­ط³ظٹظ† ط§ظ„ظ€ Regex patterns</li>
-                            <li>ط¯ط¹ظ… ط­ط¬ط¨ QUIC</li>
+                            <li>إضافة حجب TLS/SSL</li>
+                            <li>مواقع جاهزة للاختيار السريع</li>
+                            <li>تحسين الـ Regex patterns</li>
+                            <li>دعم حجب QUIC</li>
                         </ul>
                     </div>
                 </div>
                 
-                <!-- طھط­ط¯ظٹط« ط£ظƒطھظˆط¨ط± 2023 -->
+                <!-- تحديث أكتوبر 2023 -->
                 <div class="update-item">
-                    <div class="update-date">ط£ظƒطھظˆط¨ط± 2023</div>
+                    <div class="update-date">أكتوبر 2023</div>
                     <div class="update-content">
-                        <h4><span class="version-badge">v1.2</span> <span>ًں”€ طھط­ط¯ظٹط« ط£ط¯ظˆط§طھ ط¯ظ…ط¬ ط§ظ„ط®ط·ظˆط·</span></h4>
-                        <p>ط¥ط¶ط§ظپط© ظ…ظٹط²ط§طھ ط¬ط¯ظٹط¯ط© ظ„ط£ط¯ظˆط§طھ ط¯ظ…ط¬ ط§ظ„ط®ط·ظˆط· v6 ظˆ v7.</p>
+                        <h4><span class="version-badge">v1.2</span> <span>🔀 تحديث أدوات دمج الخطوط</span></h4>
+                        <p>إضافة ميزات جديدة لأدوات دمج الخطوط v6 و v7.</p>
                         <ul class="update-features">
-                            <li>ط¯ط¹ظ… ط­طھظ‰ 20 ط®ط· ظ„ظ„ط¯ظ…ط¬</li>
-                            <li>ظˆط§ط¬ظ‡ط© ط§ط®طھظٹط§ط± ط¹ط¯ط¯ ط§ظ„ط®ط·ظˆط·</li>
-                            <li>طھط­ط³ظٹظ† ط®ظˆط§ط±ط²ظ…ظٹط§طھ ط§ظ„طھظˆط²ظٹط¹</li>
-                            <li>ط¥ط¶ط§ظپط© Gateway checking</li>
+                            <li>دعم حتى 20 خط للدمج</li>
+                            <li>واجهة اختيار عدد الخطوط</li>
+                            <li>تحسين خوارزميات التوزيع</li>
+                            <li>إضافة Gateway checking</li>
                         </ul>
                     </div>
                 </div>
                 
-                <!-- طھط­ط¯ظٹط« ط³ط¨طھظ…ط¨ط± 2023 -->
+                <!-- تحديث سبتمبر 2023 -->
                 <div class="update-item">
-                    <div class="update-date">ط³ط¨طھظ…ط¨ط± 2023</div>
+                    <div class="update-date">سبتمبر 2023</div>
                     <div class="update-content">
-                        <h4><span class="version-badge">v1.1</span> <span>ًںŒگ ط¥ط¶ط§ظپط© ط§ط®طھظٹط§ط± Subnet ظ„ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ</span></h4>
-                        <p>طھط­ط¯ظٹط« ط£ط¯ط§ط© ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ ظ…ط¹ ظ†ط¸ط§ظ… ط§ط®طھظٹط§ط± ط­ط¬ظ… ط§ظ„ط´ط¨ظƒط©.</p>
+                        <h4><span class="version-badge">v1.1</span> <span>🌐 إضافة اختيار Subnet للهوت سبوت</span></h4>
+                        <p>تحديث أداة الهوت سبوت مع نظام اختيار حجم الشبكة.</p>
                         <ul class="update-features">
-                            <li>ظ†ط¸ط§ظ… ط§ط®طھظٹط§ط± Subnet ظ…طµط؛ط±</li>
-                            <li>4 ط£ط­ط¬ط§ظ… ط´ط¨ظƒط§طھ ظ…ط®طھظ„ظپط©</li>
-                            <li>ط­ط³ط§ط¨ طھظ„ظ‚ط§ط¦ظٹ ظ„ظ€ IP ranges</li>
-                            <li>ط¥ط¶ط§ظپط© DHCP Client طھظ„ظ‚ط§ط¦ظٹ</li>
+                            <li>نظام اختيار Subnet مصغر</li>
+                            <li>4 أحجام شبكات مختلفة</li>
+                            <li>حساب تلقائي لـ IP ranges</li>
+                            <li>إضافة DHCP Client تلقائي</li>
                         </ul>
                     </div>
                 </div>
                 
-                <!-- طھط­ط¯ظٹط« ط£ط؛ط³ط·ط³ 2023 -->
+                <!-- تحديث أغسطس 2023 -->
                 <div class="update-item">
-                    <div class="update-date">ط£ط؛ط³ط·ط³ 2023</div>
+                    <div class="update-date">أغسطس 2023</div>
                     <div class="update-content">
-                        <h4><span class="version-badge">v1.0</span> <span>ًںژ‰ ط§ظ„ط¥ط·ظ„ط§ظ‚ ط§ظ„ط£ظˆظ„ظٹ ظ„ظ„ظ…ظˆظ‚ط¹</span></h4>
-                        <p>ط§ظ„ط¥ط·ظ„ط§ظ‚ ط§ظ„ط£ظˆظ„ظٹ ظ„ظ€ MikroTools ظ…ط¹ 5 ط£ط¯ظˆط§طھ ط£ط³ط§ط³ظٹط©.</p>
+                        <h4><span class="version-badge">v1.0</span> <span>🎉 الإطلاق الأولي للموقع</span></h4>
+                        <p>الإطلاق الأولي لـ MikroTools مع 5 أدوات أساسية.</p>
                         <ul class="update-features">
-                            <li>ظ…ظˆظ„ط¯ ط³ظƒط±ط¨طھط§طھ ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ</li>
-                            <li>ط¯ظ…ط¬ ط®ط·ظˆط· v6</li>
-                            <li>ط¯ظ…ط¬ ط®ط·ظˆط· v7</li>
-                            <li>ط­ط¬ط¨ ط§ظ„ظ…ظˆط§ظ‚ط¹</li>
-                            <li>ط¯ط¹ظ… ط¹ط¨ط± ظˆط§طھط³ط§ط¨</li>
+                            <li>مولد سكربتات الهوت سبوت</li>
+                            <li>دمج خطوط v6</li>
+                            <li>دمج خطوط v7</li>
+                            <li>حجب المواقع</li>
+                            <li>دعم عبر واتساب</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„ظ…ظ‡ط§ظ… ط§ظ„ظ…ط³طھظ‚ط¨ظ„ظٹط© -->
+            <!-- قائمة المهام المستقبلية -->
             <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 25px; border-radius: 15px; margin-top: 40px; border: 2px solid #bae6fd;">
                 <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                    <span>ًں”®</span> ظ‚ط§ط¯ظ… ظ‚ط±ظٹط¨ط§ظ‹
+                    <span>🔮</span> قادم قريباً
                 </h3>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
-                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">ًں“±</div>
-                        <div style="font-weight: 600; color: var(--text-main);">طھط·ط¨ظٹظ‚ ظ…ظˆط¨ط§ظٹظ„</div>
-                        <div style="font-size: 12px; color: #64748b;">ظ‚ط±ظٹط¨ط§ظ‹</div>
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">📱</div>
+                        <div style="font-weight: 600; color: var(--text-main);">تطبيق موبايل</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
                     </div>
                     
                     <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
-                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">ًںŒچ</div>
-                        <div style="font-weight: 600; color: var(--text-main);">ظ†ط³ط®ط© ط¥ظ†ط¬ظ„ظٹط²ظٹط©</div>
-                        <div style="font-size: 12px; color: #64748b;">ظ‚ط±ظٹط¨ط§ظ‹</div>
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">🌍</div>
+                        <div style="font-weight: 600; color: var(--text-main);">نسخة إنجليزية</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
                     </div>
                     
                     <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
-                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">ًں“ٹ</div>
-                        <div style="font-weight: 600; color: var(--text-main);">طھط­ظ„ظٹظ„ط§طھ ظ…طھظ‚ط¯ظ…ط©</div>
-                        <div style="font-size: 12px; color: #64748b;">ظ‚ط±ظٹط¨ط§ظ‹</div>
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">📊</div>
+                        <div style="font-weight: 600; color: var(--text-main);">تحليلات متقدمة</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
                     </div>
                     
                     <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
-                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">ًں”§</div>
-                        <div style="font-weight: 600; color: var(--text-main);">ط£ط¯ظˆط§طھ ط¥ط¶ط§ظپظٹط©</div>
-                        <div style="font-size: 12px; color: #64748b;">ظ‚ط±ظٹط¨ط§ظ‹</div>
+                        <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">🔧</div>
+                        <div style="font-weight: 600; color: var(--text-main);">أدوات إضافية</div>
+                        <div style="font-size: 12px; color: #64748b;">قريباً</div>
                     </div>
                 </div>
             </div>
             
             <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color);">
-                <h3 style="color: var(--primary); margin-bottom: 20px;">ًں’، ط§ظ‚طھط±ط§ط­ط§طھ ظˆطھط­ط³ظٹظ†ط§طھ</h3>
+                <h3 style="color: var(--primary); margin-bottom: 20px;">💡 اقتراحات وتحسينات</h3>
                 <p style="color: #64748b; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    ظ„ط¯ظٹظƒ ط§ظ‚طھط±ط§ط­ ظ„طھط·ظˆظٹط± ط§ظ„ظ…ظˆظ‚ط¹ ط£ظˆ ط¥ط¶ط§ظپط© ط£ط¯ط§ط© ط¬ط¯ظٹط¯ط©طں 
-                    طھظˆط§طµظ„ ظ…ط¹ظ†ط§ ط¹ط¨ط± ظˆط§طھط³ط§ط¨ ظˆط´ط§ط±ظƒظ†ط§ ط£ظپظƒط§ط±ظƒ.
+                    لديك اقتراح لتطوير الموقع أو إضافة أداة جديدة؟ 
+                    تواصل معنا عبر واتساب وشاركنا أفكارك.
                 </p>
                 <a href="http://wa.me/201092503391" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-whatsapp"></i> طھظˆط§طµظ„ ظ…ط¹ظ†ط§ ط¹ط¨ط± ظˆط§طھط³ط§ط¨
+                    <i class="fab fa-whatsapp"></i> تواصل معنا عبر واتساب
                 </a>
             </div>
         </div>
         
-        <!-- طھط°ظٹظٹظ„ ط§ظ„طھظˆط§طµظ„ -->
+        <!-- تذييل التواصل -->
         <div class="contact-footer">
-            ًں“‍ ظ„ظ„طھظˆط§طµظ„ ظˆط§ظ„ط§ط³طھظپط³ط§ط±: 01092503391 - Sameh El-Sayed
+            📞 للتواصل والاستفسار: 01092503391 - Sameh El-Sayed
             
-            <!-- ط£ظٹظ‚ظˆظ†ط§طھ ط§ظ„طھظˆط§طµظ„ ظپظٹ ط§ظ„طھط°ظٹظٹظ„ -->
+            <!-- أيقونات التواصل في التذييل -->
             <div class="social-icons-small">
-                <a href="http://wa.me/201092503391" target="_blank" class="social-icon-small whatsapp-icon" title="طھظˆط§طµظ„ ط¹ط¨ط± ظˆط§طھط³ط§ط¨">
+                <a href="http://wa.me/201092503391" target="_blank" class="social-icon-small whatsapp-icon" title="تواصل عبر واتساب">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon-small facebook-icon" title="طھط§ط¨ط¹ظ†ط§ ط¹ظ„ظ‰ ظپظٹط³ط¨ظˆظƒ">
+                <a href="https://www.facebook.com/share/1CBhsFePt3/?mibextid=wwXIfr" target="_blank" class="social-icon-small facebook-icon" title="تابعنا على فيسبوك">
                     <i class="fab fa-facebook-f"></i>
                 </a>
             </div>
@@ -723,13 +723,13 @@
     </div>
 
     <script>
-        // ========== ظˆط¸ظٹظپط© طھط¨ط¯ظٹظ„ ط§ظ„ظ‚ط§ط¦ظ…ط© ط§ظ„ط¬ط§ظ†ط¨ظٹط© ==========
+        // ========== وظيفة تبديل القائمة الجانبية ==========
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
 
-        // ========== ط¥ط؛ظ„ط§ظ‚ ط§ظ„ظ‚ط§ط¦ظ…ط© ط¹ظ†ط¯ ط§ظ„ظ†ظ‚ط± ط®ط§ط±ط¬ظ‡ط§ ==========
+        // ========== إغلاق القائمة عند النقر خارجها ==========
         document.addEventListener('click', function(event) {
             const sidebar = document.getElementById('sidebar');
             const menuToggle = document.querySelector('.menu-toggle');
@@ -742,7 +742,7 @@
             }
         });
 
-        // ========== ط¥ط؛ظ„ط§ظ‚ ط§ظ„ظ‚ط§ط¦ظ…ط© ط¨ط²ط± Escape ==========
+        // ========== إغلاق القائمة بزر Escape ==========
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const sidebar = document.getElementById('sidebar');
@@ -752,9 +752,9 @@
             }
         });
     </script>
-<!-- طھط¶ظ…ظٹظ† ط£ظٹظ‚ظˆظ†ط§طھ MikroTools -->
+<!-- تضمين أيقونات MikroTools -->
 <iframe class="mikro-icons-frame" src="mikro-icons.html" style="position:fixed;left:16px;bottom:16px;width:76px;height:230px;border:none;z-index:1000000;background:transparent;pointer-events:auto;"></iframe>
-      <!-- ظƒظˆط¯ طھطھط¨ط¹ MikroTools Analytics - ظ†ط³ط® ظˆظ„طµظ‚ ظ…ط¨ط§ط´ط± -->
+      <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
 <script>
 (function() {
     const BIN_ID = '6984fe4d43b1c97be9684aa8';

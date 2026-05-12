@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     
@@ -56,7 +56,7 @@
             --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.15);
             --border-radius: 16px;
             
-            /* ظ„ظˆظ† ط¹ظ„ط§ظ…ط© ط¬ط¯ظٹط¯ */
+            /* لون علامة جديد */
             --new-badge-start: #ff416c;
             --new-badge-end: #ff4b2b;
             --new-badge-glow: rgba(255, 65, 108, 0.5);
@@ -81,7 +81,7 @@
             font-family: 'Tajawal', sans-serif;
         }
 
-        /* ===== ظ‚ط§ط¦ظ…ط© ط§ظ„طھظ†ظ‚ظ„ ط§ظ„ط¹ظ„ظˆظٹط© ===== */
+        /* ===== قائمة التنقل العلوية ===== */
         .navbar {
             background: var(--dark);
             padding: 1rem 2rem;
@@ -205,7 +205,7 @@
             cursor: pointer;
         }
 
-        /* ===== ط£ط²ط±ط§ط± طھط¨ط¯ظٹظ„ ط§ظ„ظ„ط؛ط© ===== */
+        /* ===== أزرار تبديل اللغة ===== */
         .lang-switcher {
             display: flex;
             gap: 5px;
@@ -246,7 +246,7 @@
             box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
         }
 
-        /* ===== ط§ظ„ظ‚ظˆط§ط¦ظ… ط§ظ„ظ…ظ†ط³ط¯ظ„ط© ظ„ظ„ظ€ navbar ===== */
+        /* ===== القوائم المنسدلة للـ navbar ===== */
         .navbar-dropdown {
             position: relative;
             display: inline-block;
@@ -329,7 +329,7 @@
             color: white;
         }
 
-        /* ===== ط¹ظ„ط§ظ…ط© ط¬ط¯ظٹط¯ ط§ظ„ظ…ظ…ظٹط²ط© ===== */
+        /* ===== علامة جديد المميزة ===== */
         .new-badge {
             background: linear-gradient(135deg, #ff416c, #ff4b2b);
             color: white;
@@ -364,7 +364,7 @@
             }
         }
 
-        /* طھظ†ط³ظٹظ‚ ط®ط§طµ ظ„ظ„ط؛ط© ط§ظ„ط¹ط±ط¨ظٹط© */
+        /* تنسيق خاص للغة العربية */
         body.rtl .new-badge {
             margin-right: 5px;
             margin-left: 0;
@@ -386,7 +386,7 @@
             transform: translateX(5px);
         }
 
-        /* ===== ط§ظ„ظ‡ظٹط±ظˆ ط§ظ„ط±ط¦ظٹط³ظٹ ===== */
+        /* ===== الهيرو الرئيسي ===== */
         .hero {
             background: var(--gradient-dark);
             min-height: 50vh;
@@ -474,14 +474,14 @@
             box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
         }
 
-        /* ===== ط§ظ„ظ…ط­طھظˆظ‰ ط§ظ„ط±ط¦ظٹط³ظٹ ===== */
+        /* ===== المحتوى الرئيسي ===== */
         .privacy-container {
             max-width: 1200px;
             margin: 4rem auto;
             padding: 0 2rem;
         }
 
-        /* ظپظ‡ط±ط³ ط§ظ„ظ…ط­طھظˆظٹط§طھ */
+        /* فهرس المحتويات */
         .toc-section {
             background: var(--gradient-card);
             padding: 2.5rem;
@@ -539,7 +539,7 @@
             font-size: 1.5rem;
         }
 
-        /* ط§ظ„ط£ظ‚ط³ط§ظ… ط§ظ„ط±ط¦ظٹط³ظٹط© */
+        /* الأقسام الرئيسية */
         .privacy-section {
             background: var(--gradient-card);
             padding: 2.5rem;
@@ -659,7 +659,7 @@
         }
 
         ul li:before {
-            content: "â€¢";
+            content: "•";
             color: var(--primary);
             font-size: 1.5rem;
             position: absolute;
@@ -673,7 +673,7 @@
             left: auto;
         }
 
-        /* ظ‚ط³ظ… ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ط§ظ„ظ…ظ…ظٹط² */
+        /* قسم الإعلانات المميز */
         .ad-section {
             background: linear-gradient(135deg, #f5f3ff, #ede9fe);
             border: 2px solid #8b5cf6;
@@ -712,7 +712,7 @@
             margin-left: 10px;
         }
 
-        /* ظ‚ط³ظ… ط§ظ„ط§طھطµط§ظ„ */
+        /* قسم الاتصال */
         .contact-section {
             background: var(--gradient-dark);
             color: white;
@@ -789,7 +789,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* ===== ط§ظ„طھط°ظٹظٹظ„ ===== */
+        /* ===== التذييل ===== */
         .footer {
             background: #0f172a;
             color: #94a3b8;
@@ -835,7 +835,7 @@
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
         }
 
-        /* ط´ط±ظٹط· ط§ظ„طھظ‚ط¯ظ… */
+        /* شريط التقدم */
         .progress-bar {
             position: fixed;
             top: 0;
@@ -853,7 +853,7 @@
             transition: width 0.3s ease;
         }
 
-        /* ط²ط± ط§ظ„ط¹ظˆط¯ط© ط§ظ„ط¹ط§ط¦ظ… */
+        /* زر العودة العائم */
         .sticky-back {
             position: fixed;
             bottom: 30px;
@@ -887,7 +887,7 @@
             box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
         }
 
-        /* ===== ط§ظ„طھط¬ط§ظˆط¨ ===== */
+        /* ===== التجاوب ===== */
         @media (max-width: 1024px) {
             .hero-title {
                 font-size: 3rem;
@@ -1044,12 +1044,12 @@
     </style>
 </head>
 <body>
-    <!-- ط´ط±ظٹط· ط§ظ„طھظ‚ط¯ظ… -->
+    <!-- شريط التقدم -->
     <div class="progress-bar">
         <div class="progress" id="progress"></div>
     </div>
 
-    <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„طھظ†ظ‚ظ„ ط§ظ„ط¹ظ„ظˆظٹط© ظ…ط¹ ط§ظ„ظ‚ظˆط§ط¦ظ… ط§ظ„ظ…ظ†ط³ط¯ظ„ط© -->
+    <!-- قائمة التنقل العلوية مع القوائم المنسدلة -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -1064,7 +1064,7 @@
             </button>
             
             <div class="nav-links" id="navLinks">
-                <!-- ط£ط²ط±ط§ط± طھط¨ط¯ظٹظ„ ط§ظ„ظ„ط؛ط© -->
+                <!-- أزرار تبديل اللغة -->
                 <div class="lang-switcher">
                     <button class="lang-btn active" id="langEn">
                         <i class="fas fa-globe"></i>
@@ -1076,13 +1076,13 @@
                     </button>
                 </div>
                 
-                <!-- ط§ظ„ط±ط¦ظٹط³ظٹط© -->
+                <!-- الرئيسية -->
                 <a href="index.html" class="nav-link" data-i18n="home">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
                 
-                <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„ط¯ظ…ط¬ ط§ظ„ظ…ظ†ط³ط¯ظ„ط© -->
+                <!-- قائمة الدمج المنسدلة -->
                 <div class="navbar-dropdown">
                     <a href="#" class="nav-link navbar-dropdown-toggle">
                         <i class="fas fa-code-branch"></i>
@@ -1101,7 +1101,7 @@
                     </div>
                 </div>
                 
-                <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ ط§ظ„ظ…ظ†ط³ط¯ظ„ط© -->
+                <!-- قائمة الهوت سبوت المنسدلة -->
                 <div class="navbar-dropdown">
                     <a href="#" class="nav-link navbar-dropdown-toggle">
                         <i class="fas fa-wifi"></i>
@@ -1120,7 +1120,7 @@
                     </div>
                 </div>
                 
-                <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ط­ط¬ط¨ ط§ظ„ظ…ظ†ط³ط¯ظ„ط© -->
+                <!-- قائمة التصميم والحجب المنسدلة -->
                 <div class="navbar-dropdown">
                     <a href="#" class="nav-link navbar-dropdown-toggle">
                         <i class="fas fa-paint-brush"></i>
@@ -1140,12 +1140,12 @@
                     </div>
                 </div>
                 
-                <!-- ظ…ط­ظ„ظ„ ط§ظ„ط³ط¬ظ„ط§طھ ظ…ط¹ ط¹ظ„ط§ظ…ط© ط¬ط¯ظٹط¯ -->
+                <!-- محلل السجلات مع علامة جديد -->
                 <div class="navbar-dropdown">
-                    <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>ط­ط§ط³ط¨ط© ط§ظ„ط³ط¹ط©</span><span class="new-badge">ط¬ط¯ظٹط¯</span></a>
+                    <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
                 </div>
                 
-                <!-- ظ‚ط§ط¦ظ…ط© ط§ظ„ظ…ط³ط§ط¹ط¯ط© ط§ظ„ظ…ظ†ط³ط¯ظ„ط© -->
+                <!-- قائمة المساعدة المنسدلة -->
                 <div class="navbar-dropdown">
                     <a href="#" class="nav-link navbar-dropdown-toggle">
                         <i class="fas fa-question-circle"></i>
@@ -1168,12 +1168,12 @@
                     </div>
                 </div>
                 
-                <!-- ظˆط§طھط³ط§ط¨ -->
+                <!-- واتساب -->
                 </div>
         </div>
     </nav>
 
-    <!-- ط§ظ„ظ‡ظٹط±ظˆ ط§ظ„ط±ط¦ظٹط³ظٹ -->
+    <!-- الهيرو الرئيسي -->
     <section class="hero">
         <div class="hero-content">
             <span class="hero-badge">
@@ -1196,9 +1196,9 @@
         </div>
     </section>
 
-    <!-- ط§ظ„ظ…ط­طھظˆظ‰ ط§ظ„ط±ط¦ظٹط³ظٹ -->
+    <!-- المحتوى الرئيسي -->
     <main class="privacy-container">
-        <!-- ظپظ‡ط±ط³ ط§ظ„ظ…ط­طھظˆظٹط§طھ -->
+        <!-- فهرس المحتويات -->
         <section class="toc-section" id="toc">
             <h2 class="toc-title">
                 <i class="fas fa-bookmark"></i>
@@ -1206,11 +1206,11 @@
             </h2>
             
             <div class="toc-grid" id="tocGrid">
-                <!-- ط³ظٹطھظ… طھط¹ط¨ط¦طھظ‡ ط¨ط§ظ„ط¬ط§ظپط§ط³ظƒط±ظٹط¨طھ -->
+                <!-- سيتم تعبئته بالجافاسكريبت -->
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 1: ظ…ظ‚ط¯ظ…ط© -->
+        <!-- القسم 1: مقدمة -->
         <section class="privacy-section" id="introduction">
             <div class="section-header">
                 <div class="section-number">1</div>
@@ -1241,7 +1241,7 @@
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 2: ط§ظ„ط¨ظٹط§ظ†ط§طھ ط§ظ„ظ…ط¬ظ…ط¹ط© -->
+        <!-- القسم 2: البيانات المجمعة -->
         <section class="privacy-section" id="data-collection">
             <div class="section-header">
                 <div class="section-number">2</div>
@@ -1266,13 +1266,13 @@
                         <i class="fas fa-project-diagram"></i>
                         <span data-i18n="flow_title">Data Flow in MikroTools</span>
                     </div>
-                    <p data-i18n="flow_text">User â†’ Browser â†’ Direct Download</p>
+                    <p data-i18n="flow_text">User → Browser → Direct Download</p>
                     <p style="margin-top: 10px; color: var(--primary);"><i class="fas fa-check-circle"></i> <strong data-i18n="flow_note">No intermediary servers - All processing is local</strong></p>
                 </div>
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 3: ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ -->
+        <!-- القسم 3: الإعلانات -->
         <section class="privacy-section ad-section" id="advertising">
             <div class="section-header">
                 <div class="section-number">3</div>
@@ -1317,7 +1317,7 @@
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 4: ظƒظٹظپظٹط© ط§ط³طھط®ط¯ط§ظ… ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ -->
+        <!-- القسم 4: كيفية استخدام المعلومات -->
         <section class="privacy-section" id="data-usage">
             <div class="section-header">
                 <div class="section-number">4</div>
@@ -1353,7 +1353,7 @@
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 5: ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط· -->
+        <!-- القسم 5: ملفات تعريف الارتباط -->
         <section class="privacy-section" id="cookies">
             <div class="section-header">
                 <div class="section-number">5</div>
@@ -1380,16 +1380,16 @@
                     </div>
                     <p data-i18n="cookies_manage_text">You can manage cookies through your browser settings:</p>
                     <ul>
-                        <li data-i18n="cookies_chrome"><strong>Chrome:</strong> Settings â†’ Privacy and Security â†’ Cookies</li>
-                        <li data-i18n="cookies_firefox"><strong>Firefox:</strong> Options â†’ Privacy & Security â†’ Cookies</li>
-                        <li data-i18n="cookies_safari"><strong>Safari:</strong> Preferences â†’ Privacy â†’ Manage Website Data</li>
+                        <li data-i18n="cookies_chrome"><strong>Chrome:</strong> Settings → Privacy and Security → Cookies</li>
+                        <li data-i18n="cookies_firefox"><strong>Firefox:</strong> Options → Privacy & Security → Cookies</li>
+                        <li data-i18n="cookies_safari"><strong>Safari:</strong> Preferences → Privacy → Manage Website Data</li>
                     </ul>
                     <p style="margin-top: 10px; color: var(--accent);"><i class="fas fa-exclamation-triangle"></i> <span data-i18n="cookies_warning">Disabling cookies may affect the functionality of some parts of the site.</span></p>
                 </div>
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 6: ط£ظ…ط§ظ† ط§ظ„ط¨ظٹط§ظ†ط§طھ -->
+        <!-- القسم 6: أمان البيانات -->
         <section class="privacy-section" id="security">
             <div class="section-header">
                 <div class="section-number">6</div>
@@ -1435,7 +1435,7 @@
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 7: ط­ظ‚ظˆظ‚ ط§ظ„ظ…ط³طھط®ط¯ظ… -->
+        <!-- القسم 7: حقوق المستخدم -->
         <section class="privacy-section" id="rights">
             <div class="section-header">
                 <div class="section-number">7</div>
@@ -1473,7 +1473,7 @@
             </div>
         </section>
 
-        <!-- ط§ظ„ظ‚ط³ظ… 8: طھط­ط¯ظٹط«ط§طھ ط§ظ„ط³ظٹط§ط³ط© -->
+        <!-- القسم 8: تحديثات السياسة -->
         <section class="privacy-section" id="updates">
             <div class="section-header">
                 <div class="section-number">8</div>
@@ -1501,7 +1501,7 @@
             </div>
         </section>
 
-        <!-- ظ‚ط³ظ… ط§ظ„ط§طھطµط§ظ„ -->
+        <!-- قسم الاتصال -->
         <section class="contact-section" id="contact">
             <h3 class="contact-title">
                 <i class="fas fa-headset"></i>
@@ -1533,7 +1533,7 @@
         </section>
     </main>
 
-    <!-- ط§ظ„طھط°ظٹظٹظ„ -->
+    <!-- التذييل -->
     <footer class="footer">
         <div class="footer-content">
             <p class="footer-text">
@@ -1549,7 +1549,7 @@
             </div>
             
             <p class="copyright">
-                آ© 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span><br>
+                © 2024 MikroTools. <span data-i18n="copyright">All rights reserved.</span><br>
                 <span data-i18n="last_updated">Last updated: </span><span id="current-date"></span>
             </p>
             
@@ -1560,16 +1560,16 @@
         </div>
     </footer>
 
-    <!-- ط²ط± ط§ظ„ط¹ظˆط¯ط© ط§ظ„ط¹ط§ط¦ظ… -->
+    <!-- زر العودة العائم -->
     <a href="index.html" class="sticky-back" id="stickyBack" title="Back to Home">
         <i class="fas fa-home"></i>
     </a>
 
-    <!-- ط£ظٹظ‚ظˆظ†ط§طھ ط§ظ„طھظˆط§طµظ„ ط§ظ„ط¹ط§ط¦ظ…ط© -->
+    <!-- أيقونات التواصل العائمة -->
     <iframe class="mikro-icons-frame" src="mikro-icons.html" style="position:fixed;left:16px;bottom:16px;width:76px;height:230px;border:none;z-index:1000000;background:transparent;pointer-events:auto;"></iframe>
 
     <script>
-        // ظ†ط¸ط§ظ… ط§ظ„طھط±ط¬ظ…ط©
+        // نظام الترجمة
         const translations = {
             en: {
                 home: "Home",
@@ -1607,7 +1607,7 @@
                 collection_item3: "<strong>Cookies:</strong> To improve user experience and remember basic preferences.",
                 collection_item4: "<strong>Form data:</strong> Information you enter in script generation tools <strong>remains on your device only</strong>.",
                 flow_title: "Data Flow in MikroTools",
-                flow_text: "User â†’ Browser â†’ Direct Download",
+                flow_text: "User → Browser → Direct Download",
                 flow_note: "No intermediary servers - All processing is local",
                 ads_title: "Advertising and Third Parties",
                 ads_statement: "Advertising Statement",
@@ -1649,9 +1649,9 @@
                 cookies_item4: "<strong>Advertising:</strong> Advertising-specific cookies (optional)",
                 cookies_manage: "Managing Cookies",
                 cookies_manage_text: "You can manage cookies through your browser settings:",
-                cookies_chrome: "<strong>Chrome:</strong> Settings â†’ Privacy and Security â†’ Cookies",
-                cookies_firefox: "<strong>Firefox:</strong> Options â†’ Privacy & Security â†’ Cookies",
-                cookies_safari: "<strong>Safari:</strong> Preferences â†’ Privacy â†’ Manage Website Data",
+                cookies_chrome: "<strong>Chrome:</strong> Settings → Privacy and Security → Cookies",
+                cookies_firefox: "<strong>Firefox:</strong> Options → Privacy & Security → Cookies",
+                cookies_safari: "<strong>Safari:</strong> Preferences → Privacy → Manage Website Data",
                 cookies_warning: "Disabling cookies may affect the functionality of some parts of the site.",
                 security_title: "Data Security",
                 security_text: "We are committed to protecting your personal information and use appropriate technical and administrative security measures:",
@@ -1702,138 +1702,138 @@
                 back_to_home: "Back to Main Site"
             },
             ar: {
-                home: "ط§ظ„ط±ط¦ظٹط³ظٹط©",
-                merge: "ط§ظ„ط¯ظ…ط¬",
-                hotspot: "ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ",
-                design_block: "ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ط­ط¬ط¨",
-                help: "ط§ظ„ظ…ط³ط§ط¹ط¯ط©",
-                merge_v6: "ط¯ظ…ط¬ ط®ط·ظˆط· v6",
-                merge_v7: "ط¯ظ…ط¬ ط®ط·ظˆط· v7",
-                hotspot_settings: "ط§ط¹ط¯ط§ط¯ط§طھ hotspot+ppp",
-                speed_profiles: "ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط§ظ„ط³ط±ط¹ط©",
-                hotspot_design: "طھطµظ…ظٹظ… hotspot",
-                block_sites: "ط­ط¬ط¨ ظ…ظˆط§ظ‚ط¹",
-                log_analyzer: "ظ…ط­ظ„ظ„ ط§ظ„ط³ط¬ظ„ط§طھ",
-                new: "ط¬ط¯ظٹط¯",
-                troubleshooting: "ط§ظ„ظ…ط´ظƒظ„ط§طھ ط§ظ„ط´ط§ط¦ط¹ط©",
-                about: "ظ…ظ† ظ†ط­ظ†",
-                privacy: "ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط©",
-                contact_us: "طھظˆط§طµظ„ ظ…ط¹ظ†ط§",
-                hero_badge: "ط­ظ…ط§ظٹط© ط®طµظˆطµظٹطھظƒ ط£ظˆظ„ظˆظٹطھظ†ط§",
-                hero_title: "ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط©",
-                hero_subtitle: "ظ†ط­ظ† ظ†ط­ط±طµ ط¹ظ„ظ‰ ط­ظ…ط§ظٹط© ط®طµظˆطµظٹطھظƒ ظˆط¨ظٹط§ظ†ط§طھظƒ ط§ظ„ط´ط®طµظٹط©. ط§ظ‚ط±ط£ ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط© ط§ظ„ط´ط§ظ…ظ„ط© ظ„ظ…ط¹ط±ظپط© ظƒظٹظپظٹط© طھط¹ط§ظ…ظ„ظ†ط§ ظ…ط¹ ظ…ط¹ظ„ظˆظ…ط§طھظƒ",
-                start_reading: "ط§ط¨ط¯ط£ ط§ظ„ظ‚ط±ط§ط،ط©",
-                toc_title: "ظپظ‡ط±ط³ ط§ظ„ظ…ط­طھظˆظٹط§طھ",
-                intro_title: "ظ…ظ‚ط¯ظ…ط©",
-                intro_text: "ظ…ط±ط­ط¨ط§ظ‹ ط¨ظƒ ظپظٹ <strong>MikroTools</strong>. ظ†ط­ظ† ظ†ط¹طھط¨ط± ط®طµظˆطµظٹطھظƒ ط£ظ…ط±ط§ظ‹ ط¨ط§ظ„ط؛ ط§ظ„ط£ظ‡ظ…ظٹط©. طھط´ط±ط­ ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط© ظ‡ط°ظ‡ ظƒظٹظپظٹط© ط¬ظ…ط¹ ظˆط§ط³طھط®ط¯ط§ظ… ظˆط­ظ…ط§ظٹط© ظ…ط¹ظ„ظˆظ…ط§طھظƒ ط§ظ„ط´ط®طµظٹط© ط¹ظ†ط¯ظ…ط§ طھط³طھط®ط¯ظ… ظ…ظˆظ‚ط¹ظ†ط§ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ.",
-                note_title: "ط§ظ„ظ…ظ„ط§ط­ط¸ط© ط§ظ„ط£ظ‡ظ…",
-                note_text: "<strong>ط¬ظ…ظٹط¹ ط£ط¯ظˆط§طھظ†ط§ طھط¹ظ…ظ„ ظ…ط­ظ„ظٹط§ظ‹ ط¹ظ„ظ‰ ظ…طھطµظپط­ظƒ!</strong> ظ„ط§ ظٹطھظ… ط¥ط±ط³ط§ظ„ ط£ظٹ ط¨ظٹط§ظ†ط§طھ ط¥ظ„ظ‰ ط®ظˆط§ط¯ظ…ظ†ط§. ط³ظƒط±ط¨طھط§طھ ظ…ظٹظƒط±ظˆطھظٹظƒ ظٹطھظ… طھظˆظ„ظٹط¯ظ‡ط§ ظˆطھظ†ط²ظٹظ„ظ‡ط§ ظ…ط¨ط§ط´ط±ط© ظ…ظ† ط¬ظ‡ط§ط²ظƒ.",
-                consent_title: "ط§ظ„ظ…ظˆط§ظپظ‚ط© ظˆط§ظ„ط§ط³طھط®ط¯ط§ظ…",
-                consent_text: "ط¨ط§ط³طھط®ط¯ط§ظ…ظƒ ظ„ظ…ظˆظ‚ط¹ظ†ط§طŒ ظپط¥ظ†ظƒ طھظˆط§ظپظ‚ ط¹ظ„ظ‰ ط´ط±ظˆط· ظˆط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط© ط§ظ„ظ…ط°ظƒظˆط±ط© ظ‡ظ†ط§. ط¥ط°ط§ ظƒظ†طھ ظ„ط§ طھظˆط§ظپظ‚ ط¹ظ„ظ‰ ظ‡ط°ظ‡ ط§ظ„ط³ظٹط§ط³ط©طŒ ظٹط±ط¬ظ‰ ط¹ط¯ظ… ط§ط³طھط®ط¯ط§ظ… ظ…ظˆظ‚ط¹ظ†ط§.",
-                collection_title: "ط§ظ„ط¨ظٹط§ظ†ط§طھ ط§ظ„ظ…ط¬ظ…ط¹ط©",
-                collection_text: "ظ†طھط¹ظ‡ط¯ ط¨ط¬ظ…ط¹ ط§ظ„ط­ط¯ ط§ظ„ط£ط¯ظ†ظ‰ ظ…ظ† ط§ظ„ط¨ظٹط§ظ†ط§طھ ط§ظ„ط¶ط±ظˆط±ظٹط© ظپظ‚ط· ظ„طھط´ط؛ظٹظ„ ط£ط¯ظˆط§طھظ†ط§:",
-                collection_item1: "<strong>ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„طھظٹ طھظ‚ط¯ظ…ظ‡ط§ ط·ظˆط¹ط§ظ‹:</strong> ظ…ط«ظ„ ط§ظ„ط§ط³ظ… ظˆط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط¹ظ†ط¯ ط§ظ„طھظˆط§طµظ„ ظ…ط¹ظ†ط§ ظپظ‚ط·.",
-                collection_item2: "<strong>ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„ط§ط³طھط®ط¯ط§ظ… ط§ظ„طھظ‚ظ†ظٹط©:</strong> ظ…ط«ظ„ ظ†ظˆط¹ ط§ظ„ظ…طھطµظپط­ ظˆظ†ط¸ط§ظ… ط§ظ„طھط´ط؛ظٹظ„ ظ„ط£ط؛ط±ط§ط¶ ط§ظ„طھط­ط³ظٹظ† ظپظ‚ط·.",
-                collection_item3: "<strong>ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط· (Cookies):</strong> ظ„طھط­ط³ظٹظ† طھط¬ط±ط¨ط© ط§ظ„ظ…ط³طھط®ط¯ظ… ظˆطھط°ظƒط± ط§ظ„طھظپط¶ظٹظ„ط§طھ ط§ظ„ط£ط³ط§ط³ظٹط©.",
-                collection_item4: "<strong>ط¨ظٹط§ظ†ط§طھ ط§ظ„ظ†ظ…ط§ط°ط¬:</strong> ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„طھظٹ طھط¯ط®ظ„ظ‡ط§ ظپظٹ ط£ط¯ظˆط§طھ طھظˆظ„ظٹط¯ ط§ظ„ط³ظƒط±ط¨طھط§طھ <strong>طھط¸ظ„ ط¹ظ„ظ‰ ط¬ظ‡ط§ط²ظƒ ظپظ‚ط·</strong>.",
-                flow_title: "طھط¯ظپظ‚ ط§ظ„ط¨ظٹط§ظ†ط§طھ ظپظٹ MikroTools",
-                flow_text: "ط§ظ„ظ…ط³طھط®ط¯ظ… â†’ ط§ظ„ظ…طھطµظپط­ â†’ ط§ظ„طھظ†ط²ظٹظ„ ط§ظ„ظ…ط¨ط§ط´ط±",
-                flow_note: "ظ„ط§ طھظˆط¬ط¯ ط®ظˆط§ط¯ظ… ظˆط³ظٹط·ط© - ط§ظ„ط¹ظ…ظ„ظٹط© ظƒظ„ظ‡ط§ ظ…ط­ظ„ظٹط©",
-                ads_title: "ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ظˆط§ظ„ط´ط±ظƒط§ط، ط§ظ„ط®ط§ط±ط¬ظٹظˆظ†",
-                ads_statement: "ط¨ظٹط§ظ† ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ",
-                ads_text: "<strong>ظ†ط­ظ† ظ†ط³طھط®ط¯ظ… ط´ط±ظƒط§طھ ط¥ط¹ظ„ط§ظ†ط§طھ ط®ط§ط±ط¬ظٹط© (ظ…ط«ظ„ Google AdSense) ظ„ط¹ط±ط¶ ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ط¹ظ†ط¯ ط²ظٹط§ط±طھظƒ ظ„ظ…ظˆظ‚ط¹ظ†ط§. ظ‚ط¯ طھط³طھط®ط¯ظ… ظ‡ط°ظ‡ ط§ظ„ط´ط±ظƒط§طھ ظ…ط¹ظ„ظˆظ…ط§طھ ط­ظˆظ„ ط²ظٹط§ط±ط§طھظƒ ظ„ظ‡ط°ط§ ط§ظ„ظ…ظˆظ‚ط¹ (ظ„ط§ طھط´ظ…ظ„ ط§ط³ظ…ظƒ ط£ظˆ ط¹ظ†ظˆط§ظ†ظƒ ط£ظˆ ط¨ط±ظٹط¯ظƒ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ) ظ…ظ† ط£ط¬ظ„ طھظ‚ط¯ظٹظ… ط¥ط¹ظ„ط§ظ†ط§طھ ط­ظˆظ„ ط§ظ„ط³ظ„ط¹ ظˆط§ظ„ط®ط¯ظ…ط§طھ ط§ظ„طھظٹ طھظ‡ظ…ظƒ.</strong>",
-                ads_clarify: "طھظˆط¶ظٹط­ط§طھ ط¥ط¶ط§ظپظٹط© ط­ظˆظ„ ظ…ظ…ط§ط±ط³ط§طھ ط§ظ„ط¥ط¹ظ„ط§ظ†:",
-                ads_badge1: "ط®طµظˆطµظٹط© ظ…ط­ظ…ظٹط©",
-                ads_item1: "ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„ظ…ط³طھط®ط¯ظ…ط© ظ„ظ„ط¥ط¹ظ„ط§ظ†ط§طھ <strong>ظ…ط¬ظ‡ظˆظ„ط© طھظ…ط§ظ…ط§ظ‹</strong> ظˆظ„ط§ طھطھط¶ظ…ظ† ط£ظٹ ط¨ظٹط§ظ†ط§طھ ط´ط®طµظٹط© طھط¹ط±ظٹظپظٹط©",
-                ads_badge2: "طھطھط¨ط¹ ظ…ط­ط¯ظˆط¯",
-                ads_item2: "ظ‚ط¯ طھط³طھط®ط¯ظ… ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ط±طھط¨ط§ط· (cookies) ط®ط§طµط© ط¨ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ظ„طھط°ظƒط± ط§ظ‡طھظ…ط§ظ…ط§طھظƒ ط§ظ„ط¹ط§ظ…ط©",
-                ads_badge3: "ط£ظ…ط§ظ† ظ…ط¶ظ…ظˆظ†",
-                ads_item3: "ظ†طھط¹ط§ظ…ظ„ ظپظ‚ط· ظ…ط¹ ط´ط±ظƒط§طھ ط¥ط¹ظ„ط§ظ†ط§طھ ظ…ظ„طھط²ظ…ط© ط¨ظ…ط¹ط§ظٹظٹط± ط§ظ„ط®طµظˆطµظٹط© ط§ظ„ط¹ط§ظ„ظٹط©",
-                ads_badge4: "طھط­ظƒظ… ظƒط§ظ…ظ„",
-                ads_item4: "ظٹظ…ظƒظ†ظƒ ط¥ط¯ط§ط±ط© ط£ظˆ طھط¹ط·ظٹظ„ ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ط§ظ„ظ…ظˆط¬ظ‡ط© ظپظٹ ط£ظٹ ظˆظ‚طھ",
-                ads_control: "ظƒظٹظپظٹط© ط§ظ„طھط­ظƒظ… ظپظٹ ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ط§ظ„ظ…ظˆط¬ظ‡ط© ظ„ظƒ",
-                ads_control1: "ظ„ط¥ط¯ط§ط±ط© ط¥ط¹ظ„ط§ظ†ط§طھ Google:",
-                ads_control_link1: "ط¥ط¹ط¯ط§ط¯ط§طھ ط¥ط¹ظ„ط§ظ†ط§طھ Google",
-                ads_control2: "ظپظٹ ظ…طھطµظپط­ظƒ:",
-                ads_control_text2: "ط§ط³طھط®ط¯ط§ظ… ظˆط¶ط¹ ط§ظ„طھطµظپط­ ط§ظ„ط®ط§طµ ط£ظˆ ط¥ط¶ط§ظپط© ظ…ط§ظ†ط¹ ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ",
-                ads_control3: "ط®ظٹط§ط±ط§طھ ط£ط®ط±ظ‰:",
-                ads_control_text3: "ط²ظٹط§ط±ط© <a href=\"https://www.aboutads.info/choices/\" target=\"_blank\" style=\"color: #8b5cf6; font-weight: 600;\">Your Online Choices</a> ظ„ظ„ظ…ط²ظٹط¯ ظ…ظ† ط§ظ„ط®ظٹط§ط±ط§طھ",
-                ads_note: "ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ طھط³ط§ط¹ط¯ظ†ط§ ظپظٹ ط§ظ„ط­ظپط§ط¸ ط¹ظ„ظ‰ ط®ط¯ظ…ط§طھظ†ط§ ظ…ط¬ط§ظ†ظٹط© ظ„ظ„ط¬ظ…ظٹط¹ ظˆط¯ط¹ظ… طھط·ظˆظٹط± ط£ط¯ظˆط§طھ ط¬ط¯ظٹط¯ط©.",
-                usage_title: "ظƒظٹظپظٹط© ط§ط³طھط®ط¯ط§ظ… ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ",
-                usage_text: "ظ†ط³طھط®ط¯ظ… ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„طھظٹ ظ†ط¬ظ…ط¹ظ‡ط§ <strong>ط­طµط±ظٹط§ظ‹</strong> ظ„ظ„ط£ط؛ط±ط§ط¶ ط§ظ„طھط§ظ„ظٹط©:",
-                usage_item1: "طھظˆظپظٹط± ظˆطھط­ط³ظٹظ† ط®ط¯ظ…ط§طھ ظˆط£ط¯ظˆط§طھ ظ…ظˆظ‚ط¹ظ†ط§",
-                usage_item2: "طھط­ظ„ظٹظ„ ط§ط³طھط®ط¯ط§ظ… ط§ظ„ظ…ظˆظ‚ط¹ ظ„طھط­ط³ظٹظ† طھط¬ط±ط¨ط© ط§ظ„ظ…ط³طھط®ط¯ظ…",
-                usage_item3: "ط§ظ„ط±ط¯ ط¹ظ„ظ‰ ط§ط³طھظپط³ط§ط±ط§طھظƒ ظˆط·ظ„ط¨ط§طھظƒ",
-                usage_item4: "طھط·ظˆظٹط± ط£ط¯ظˆط§طھ ط¬ط¯ظٹط¯ط© ظˆطھط­ط¯ظٹط« ط§ظ„ط£ط¯ظˆط§طھ ط§ظ„ط­ط§ظ„ظٹط©",
-                usage_item5: "ط¶ظ…ط§ظ† ط£ظ…ط§ظ† ظˆط§ط³طھظ‚ط±ط§ط± ط§ظ„ظ…ظˆظ‚ط¹",
-                not_do_title: "ظ…ط§ ظ„ظ† ظ†ظپط¹ظ„ظ‡ ط¨ط¨ظٹط§ظ†ط§طھظƒ",
-                not_do_item1: "ظ„ط§ ظ†ط¨ظٹط¹ ط£ظˆ ظ†ط¤ط¬ط± ط£ظˆ ظ†ط´ط§ط±ظƒ ظ…ط¹ظ„ظˆظ…ط§طھظƒ ط§ظ„ط´ط®طµظٹط© ظ…ط¹ ط£ط·ط±ط§ظپ ط«ط§ظ„ط«ط©",
-                not_do_item2: "ظ„ط§ ظ†ط³طھط®ط¯ظ… ط¨ظٹط§ظ†ط§طھظƒ ظ„ط£ط؛ط±ط§ط¶ طھط³ظˆظٹظ‚ظٹط© ط¯ظˆظ† ظ…ظˆط§ظپظ‚طھظƒ ط§ظ„طµط±ظٹط­ط©",
-                not_do_item3: "ظ„ط§ ظ†ط®ط²ظ† ط¨ظٹط§ظ†ط§طھ ط£ط¯ظˆط§طھظƒ ط¨ط¹ط¯ ط¥ط؛ظ„ط§ظ‚ ط§ظ„طµظپط­ط©",
-                not_do_item4: "ظ„ط§ ظ†ط±ط³ظ„ ط¥ط´ط¹ط§ط±ط§طھ ظ…ط²ط¹ط¬ط©",
-                cookies_title: "ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط·",
-                cookies_text: "ظ†ط³طھط®ط¯ظ… ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط· <strong>ط§ظ„ط¶ط±ظˆط±ظٹط© ظپظ‚ط·</strong> ظ„طھط­ط³ظٹظ† طھط¬ط±ط¨ط© ط§ط³طھط®ط¯ط§ظ… ظ…ظˆظ‚ط¹ظ†ط§:",
-                cookies_item1: "<strong>ط¬ظ„ط³ط© ط§ظ„ط¹ظ…ظ„:</strong> ظ„طھط°ظƒط± ط¥ط¹ط¯ط§ط¯ط§طھظƒ ط£ط«ظ†ط§ط، ط§ط³طھط®ط¯ط§ظ… ط§ظ„ظ…ظˆظ‚ط¹",
-                cookies_item2: "<strong>ط§ظ„ط£ط¯ط§ط،:</strong> ظ„طھط­ط³ظٹظ† ط³ط±ط¹ط© ظˆط£ط¯ط§ط، ط§ظ„ظ…ظˆظ‚ط¹",
-                cookies_item3: "<strong>ط§ظ„ظˆط¸ط§ط¦ظپ:</strong> ظ„طھظ…ظƒظٹظ† ط¹ظ…ظ„ ط§ظ„ط£ط¯ظˆط§طھ ط¨ط´ظƒظ„ طµط­ظٹط­",
-                cookies_item4: "<strong>ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ:</strong> ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ط±طھط¨ط§ط· ط®ط§طµط© ط¨ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ (ط§ط®طھظٹط§ط±ظٹط©)",
-                cookies_manage: "ط¥ط¯ط§ط±ط© ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط·",
-                cookies_manage_text: "ظٹظ…ظƒظ†ظƒ ط¥ط¯ط§ط±ط© ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط· ظ…ظ† ط®ظ„ط§ظ„ ط¥ط¹ط¯ط§ط¯ط§طھ ظ…طھطµظپط­ظƒ:",
-                cookies_chrome: "<strong>Chrome:</strong> ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ â†’ ط§ظ„ط®طµظˆطµظٹط© ظˆط§ظ„ط£ظ…ط§ظ† â†’ ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط·",
-                cookies_firefox: "<strong>Firefox:</strong> ط§ظ„ط®ظٹط§ط±ط§طھ â†’ ط§ظ„ط®طµظˆطµظٹط© ظˆط§ظ„ط£ظ…ط§ظ† â†’ ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط·",
-                cookies_safari: "<strong>Safari:</strong> ط§ظ„طھظپط¶ظٹظ„ط§طھ â†’ ط§ظ„ط®طµظˆطµظٹط© â†’ ط¥ط¯ط§ط±ط© ط¨ظٹط§ظ†ط§طھ ط§ظ„ظ…ظˆظ‚ط¹",
-                cookies_warning: "طھط¹ط·ظٹظ„ ظ…ظ„ظپط§طھ طھط¹ط±ظٹظپ ط§ظ„ط§ط±طھط¨ط§ط· ظ‚ط¯ ظٹط¤ط«ط± ط¹ظ„ظ‰ ظˆط¸ط§ط¦ظپ ط¨ط¹ط¶ ط£ط¬ط²ط§ط، ط§ظ„ظ…ظˆظ‚ط¹.",
-                security_title: "ط£ظ…ط§ظ† ط§ظ„ط¨ظٹط§ظ†ط§طھ",
-                security_text: "ظ†ط­ظ† ظ†ظ„طھط²ظ… ط¨ط­ظ…ط§ظٹط© ظ…ط¹ظ„ظˆظ…ط§طھظƒ ط§ظ„ط´ط®طµظٹط© ظˆظ†ط³طھط®ط¯ظ… ط¥ط¬ط±ط§ط،ط§طھ ط£ظ…ظ†ظٹط© طھظ‚ظ†ظٹط© ظˆط¥ط¯ط§ط±ظٹط© ظ…ظ†ط§ط³ط¨ط©:",
-                security_item1: "ط¬ظ…ظٹط¹ ط§ظ„ط³ظƒط±ط¨طھط§طھ طھطھظ… ظ…ط¹ط§ظ„ط¬طھظ‡ط§ ظ…ط­ظ„ظٹط§ظ‹ ظپظٹ ظ…طھطµظپط­ظƒ",
-                security_item2: "ط§طھطµط§ظ„ ط¢ظ…ظ† ط¹ط¨ط± ط¨ط±ظˆطھظˆظƒظˆظ„ HTTPS ط§ظ„ظ…ط´ظپط±",
-                security_item3: "ط­ظ…ط§ظٹط© ط¶ط¯ ظ‡ط¬ظ…ط§طھ ط§ظ„ظˆظٹط¨ ط§ظ„ط´ط§ط¦ط¹ط©",
-                security_item4: "طھط­ط¯ظٹط«ط§طھ ط£ظ…ظ†ظٹط© ظ…ظ†طھط¸ظ…ط© ظ„ظ„ظ…ظˆظ‚ط¹",
-                security_item5: "ظ…ط±ط§ظ‚ط¨ط© ظ…ط³طھظ…ط±ط© ظ„ط³ظ„ط§ظ…ط© ط§ظ„ظ†ط¸ط§ظ…",
-                security_features: "ظ…ظٹط²ط§طھ ط§ظ„ط£ظ…ط§ظ† ط§ظ„ظپط±ظٹط¯ط©",
-                local_processing: "ط§ظ„ظ…ط¹ط§ظ„ط¬ط© ط§ظ„ظ…ط­ظ„ظٹط©",
-                local_processing_text: "ط¬ظ…ظٹط¹ ط£ط¯ظˆط§طھظ†ط§ طھط¹ظ…ظ„ 100% ظپظٹ ظ…طھطµظپط­ظƒ. ط§ظ„ط¨ظٹط§ظ†ط§طھ ط§ظ„طھظٹ طھط¯ط®ظ„ظ‡ط§ ظ„ط§ طھط®ط±ط¬ ظ…ظ† ط¬ظ‡ط§ط²ظƒ.",
-                no_storage: "ظ„ط§ ظٹظˆط¬ط¯ طھط®ط²ظٹظ†",
-                no_storage_text: "ط¨ظ…ط¬ط±ط¯ ط¥ط؛ظ„ط§ظ‚ ط§ظ„طµظپط­ط©طŒ ظٹطھظ… ظ…ط³ط­ ط¬ظ…ظٹط¹ ط¨ظٹط§ظ†ط§طھ ط§ظ„ط¥ط¯ط®ط§ظ„ طھظ„ظ‚ط§ط¦ظٹط§ظ‹.",
-                rights_title: "ط­ظ‚ظˆظ‚ ط§ظ„ظ…ط³طھط®ط¯ظ…",
-                rights_text: "ظƒظ…ط³طھط®ط¯ظ… ظ„ظ…ظˆظ‚ط¹ MikroToolsطŒ ظ„ط¯ظٹظƒ ط§ظ„ط­ظ‚ ظپظٹ:",
-                rights_item1: "<strong>ط­ظ‚ ط§ظ„ظ…ط¹ط±ظپط©:</strong> ظ…ط¹ط±ظپط© ط£ظٹ ط¨ظٹط§ظ†ط§طھ ظ†ط¬ظ…ط¹ظ‡ط§ ظˆظ„ظ…ط§ط°ط§",
-                rights_item2: "<strong>ط­ظ‚ ط§ظ„ظˆطµظˆظ„:</strong> ط·ظ„ط¨ ظ†ط³ط®ط© ظ…ظ† ط¨ظٹط§ظ†ط§طھظƒ ط§ظ„ط´ط®طµظٹط©",
-                rights_item3: "<strong>ط­ظ‚ ط§ظ„طھطµط­ظٹط­:</strong> ط·ظ„ط¨ طھطµط­ظٹط­ ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ ط؛ظٹط± ط§ظ„ط¯ظ‚ظٹظ‚ط©",
-                rights_item4: "<strong>ط­ظ‚ ط§ظ„ط­ط°ظپ:</strong> ط·ظ„ط¨ ط­ط°ظپ ظ…ط¹ظ„ظˆظ…ط§طھظƒ ط§ظ„ط´ط®طµظٹط©",
-                rights_item5: "<strong>ط­ظ‚ ط§ظ„ط§ط¹طھط±ط§ط¶:</strong> ط±ظپط¶ ظ…ط¹ط§ظ„ط¬ط© ط¨ظٹط§ظ†ط§طھظƒ",
-                rights_item6: "<strong>ط­ظ‚ ط¥ط¯ط§ط±ط© ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ:</strong> ط§ظ„طھط­ظƒظ… ظپظٹ طھظپط¶ظٹظ„ط§طھ ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ط§ظ„ظ…ظˆط¬ظ‡ط©",
-                how_to_exercise: "ظƒظٹظپظٹط© ظ…ظ…ط§ط±ط³ط© ط­ظ‚ظˆظ‚ظƒ",
-                exercise_text: "ظ„ظ…ظ…ط§ط±ط³ط© ط£ظٹ ظ…ظ† ظ‡ط°ظ‡ ط§ظ„ط­ظ‚ظˆظ‚طŒ ظٹظƒظپظٹ ط£ظ† طھطھظˆط§طµظ„ ظ…ط¹ظ†ط§ ط¹ط¨ط±:",
-                exercise_phone: "ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ ط§ظ„ظ…ط¨ط§ط´ط±",
-                exercise_whatsapp: "ط§ظ„ظˆط§طھط³ط§ط¨",
-                exercise_facebook: "طµظپط­طھظ†ط§ ط¹ظ„ظ‰ ظپظٹط³ط¨ظˆظƒ",
-                exercise_response: "ظ†ظ„طھط²ظ… ط¨ط§ظ„ط±ط¯ ط¹ظ„ظ‰ ط¬ظ…ظٹط¹ ط§ظ„ط·ظ„ط¨ط§طھ ط®ظ„ط§ظ„ <strong>72 ط³ط§ط¹ط©</strong> ط¹ظ…ظ„ ظƒط­ط¯ ط£ظ‚طµظ‰.",
-                updates_title: "طھط­ط¯ظٹط«ط§طھ ط§ظ„ط³ظٹط§ط³ط©",
-                updates_text: "ظ‚ط¯ ظ†ظ‚ظˆظ… ط¨طھط­ط¯ظٹط« ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط© ظ‡ط°ظ‡ ظ…ظ† ظˆظ‚طھ ظ„ط¢ط®ط± ظ„طھط¹ظƒط³ ط§ظ„طھط؛ظٹظٹط±ط§طھ ظپظٹ ظ…ظ…ط§ط±ط³ط§طھظ†ط§ ط£ظˆ ظ„ط£ط³ط¨ط§ط¨ طھط´ط؛ظٹظ„ظٹط© ط£ظˆ ظ‚ط§ظ†ظˆظ†ظٹط©.",
-                how_notified: "ظƒظٹظپ ظ†ط¹ظ„ظ…ظƒ ط¨ط§ظ„طھط­ط¯ظٹط«ط§طھ",
-                notify_item1: "طھط§ط±ظٹط® ط¢ط®ط± طھط­ط¯ظٹط« ظٹط¸ظ‡ط± ظپظٹ ط£ط³ظپظ„ ظ‡ط°ظ‡ ط§ظ„طµظپط­ط©",
-                notify_item2: "ط¥ط´ط¹ط§ط± ط¨ط§ط±ط² ط¹ظ„ظ‰ ط§ظ„طµظپط­ط© ط§ظ„ط±ط¦ظٹط³ظٹط© ظ„ظ„طھط؛ظٹظٹط±ط§طھ ط§ظ„ظ…ظ‡ظ…ط©",
-                notify_item3: "طھط­ط¯ظٹط« ط±ط§ط¨ط· \"ط¢ط®ط± طھط­ط¯ظٹط«\" طھظ„ظ‚ط§ط¦ظٹط§ظ‹",
-                notify_item4: "ط§ظ„ط¥ط¨ظ‚ط§ط، ط¹ظ„ظ‰ ط§ظ„ظ†ط³ط® ط§ظ„ظ‚ط¯ظٹظ…ط© ظ…طھط§ط­ط© ظ„ظ„ظ…ط±ط§ط¬ط¹ط©",
-                contact_title: "ظ„ظ„طھظˆط§طµظ„ ظˆط§ظ„ط§ط³طھظپط³ط§ط±ط§طھ",
-                contact_text: "ط¥ط°ط§ ظƒط§ظ† ظ„ط¯ظٹظƒ ط£ظٹ ط§ط³طھظپط³ط§ط±ط§طھ ط­ظˆظ„ ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط© ظ‡ط°ظ‡ ط£ظˆ ظ…ظ…ط§ط±ط³ط§طھظ†ط§طŒ ظٹط±ط¬ظ‰ ط§ظ„طھظˆط§طµظ„ ظ…ط¹ظ†ط§:",
+                home: "الرئيسية",
+                merge: "الدمج",
+                hotspot: "الهوت سبوت",
+                design_block: "التصميم والحجب",
+                help: "المساعدة",
+                merge_v6: "دمج خطوط v6",
+                merge_v7: "دمج خطوط v7",
+                hotspot_settings: "اعدادات hotspot+ppp",
+                speed_profiles: "بروفايلات السرعة",
+                hotspot_design: "تصميم hotspot",
+                block_sites: "حجب مواقع",
+                log_analyzer: "محلل السجلات",
+                new: "جديد",
+                troubleshooting: "المشكلات الشائعة",
+                about: "من نحن",
+                privacy: "سياسة الخصوصية",
+                contact_us: "تواصل معنا",
+                hero_badge: "حماية خصوصيتك أولويتنا",
+                hero_title: "سياسة الخصوصية",
+                hero_subtitle: "نحن نحرص على حماية خصوصيتك وبياناتك الشخصية. اقرأ سياسة الخصوصية الشاملة لمعرفة كيفية تعاملنا مع معلوماتك",
+                start_reading: "ابدأ القراءة",
+                toc_title: "فهرس المحتويات",
+                intro_title: "مقدمة",
+                intro_text: "مرحباً بك في <strong>MikroTools</strong>. نحن نعتبر خصوصيتك أمراً بالغ الأهمية. تشرح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية معلوماتك الشخصية عندما تستخدم موقعنا الإلكتروني.",
+                note_title: "الملاحظة الأهم",
+                note_text: "<strong>جميع أدواتنا تعمل محلياً على متصفحك!</strong> لا يتم إرسال أي بيانات إلى خوادمنا. سكربتات ميكروتيك يتم توليدها وتنزيلها مباشرة من جهازك.",
+                consent_title: "الموافقة والاستخدام",
+                consent_text: "باستخدامك لموقعنا، فإنك توافق على شروط وسياسة الخصوصية المذكورة هنا. إذا كنت لا توافق على هذه السياسة، يرجى عدم استخدام موقعنا.",
+                collection_title: "البيانات المجمعة",
+                collection_text: "نتعهد بجمع الحد الأدنى من البيانات الضرورية فقط لتشغيل أدواتنا:",
+                collection_item1: "<strong>المعلومات التي تقدمها طوعاً:</strong> مثل الاسم والبريد الإلكتروني عند التواصل معنا فقط.",
+                collection_item2: "<strong>معلومات الاستخدام التقنية:</strong> مثل نوع المتصفح ونظام التشغيل لأغراض التحسين فقط.",
+                collection_item3: "<strong>ملفات تعريف الارتباط (Cookies):</strong> لتحسين تجربة المستخدم وتذكر التفضيلات الأساسية.",
+                collection_item4: "<strong>بيانات النماذج:</strong> المعلومات التي تدخلها في أدوات توليد السكربتات <strong>تظل على جهازك فقط</strong>.",
+                flow_title: "تدفق البيانات في MikroTools",
+                flow_text: "المستخدم → المتصفح → التنزيل المباشر",
+                flow_note: "لا توجد خوادم وسيطة - العملية كلها محلية",
+                ads_title: "الإعلانات والشركاء الخارجيون",
+                ads_statement: "بيان الإعلانات",
+                ads_text: "<strong>نحن نستخدم شركات إعلانات خارجية (مثل Google AdSense) لعرض الإعلانات عند زيارتك لموقعنا. قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع (لا تشمل اسمك أو عنوانك أو بريدك الإلكتروني) من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.</strong>",
+                ads_clarify: "توضيحات إضافية حول ممارسات الإعلان:",
+                ads_badge1: "خصوصية محمية",
+                ads_item1: "المعلومات المستخدمة للإعلانات <strong>مجهولة تماماً</strong> ولا تتضمن أي بيانات شخصية تعريفية",
+                ads_badge2: "تتبع محدود",
+                ads_item2: "قد تستخدم ملفات تعريف ارتباط (cookies) خاصة بالإعلانات لتذكر اهتماماتك العامة",
+                ads_badge3: "أمان مضمون",
+                ads_item3: "نتعامل فقط مع شركات إعلانات ملتزمة بمعايير الخصوصية العالية",
+                ads_badge4: "تحكم كامل",
+                ads_item4: "يمكنك إدارة أو تعطيل الإعلانات الموجهة في أي وقت",
+                ads_control: "كيفية التحكم في الإعلانات الموجهة لك",
+                ads_control1: "لإدارة إعلانات Google:",
+                ads_control_link1: "إعدادات إعلانات Google",
+                ads_control2: "في متصفحك:",
+                ads_control_text2: "استخدام وضع التصفح الخاص أو إضافة مانع الإعلانات",
+                ads_control3: "خيارات أخرى:",
+                ads_control_text3: "زيارة <a href=\"https://www.aboutads.info/choices/\" target=\"_blank\" style=\"color: #8b5cf6; font-weight: 600;\">Your Online Choices</a> للمزيد من الخيارات",
+                ads_note: "الإعلانات تساعدنا في الحفاظ على خدماتنا مجانية للجميع ودعم تطوير أدوات جديدة.",
+                usage_title: "كيفية استخدام المعلومات",
+                usage_text: "نستخدم المعلومات التي نجمعها <strong>حصرياً</strong> للأغراض التالية:",
+                usage_item1: "توفير وتحسين خدمات وأدوات موقعنا",
+                usage_item2: "تحليل استخدام الموقع لتحسين تجربة المستخدم",
+                usage_item3: "الرد على استفساراتك وطلباتك",
+                usage_item4: "تطوير أدوات جديدة وتحديث الأدوات الحالية",
+                usage_item5: "ضمان أمان واستقرار الموقع",
+                not_do_title: "ما لن نفعله ببياناتك",
+                not_do_item1: "لا نبيع أو نؤجر أو نشارك معلوماتك الشخصية مع أطراف ثالثة",
+                not_do_item2: "لا نستخدم بياناتك لأغراض تسويقية دون موافقتك الصريحة",
+                not_do_item3: "لا نخزن بيانات أدواتك بعد إغلاق الصفحة",
+                not_do_item4: "لا نرسل إشعارات مزعجة",
+                cookies_title: "ملفات تعريف الارتباط",
+                cookies_text: "نستخدم ملفات تعريف الارتباط <strong>الضرورية فقط</strong> لتحسين تجربة استخدام موقعنا:",
+                cookies_item1: "<strong>جلسة العمل:</strong> لتذكر إعداداتك أثناء استخدام الموقع",
+                cookies_item2: "<strong>الأداء:</strong> لتحسين سرعة وأداء الموقع",
+                cookies_item3: "<strong>الوظائف:</strong> لتمكين عمل الأدوات بشكل صحيح",
+                cookies_item4: "<strong>الإعلانات:</strong> ملفات تعريف ارتباط خاصة بالإعلانات (اختيارية)",
+                cookies_manage: "إدارة ملفات تعريف الارتباط",
+                cookies_manage_text: "يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات متصفحك:",
+                cookies_chrome: "<strong>Chrome:</strong> الإعدادات → الخصوصية والأمان → ملفات تعريف الارتباط",
+                cookies_firefox: "<strong>Firefox:</strong> الخيارات → الخصوصية والأمان → ملفات تعريف الارتباط",
+                cookies_safari: "<strong>Safari:</strong> التفضيلات → الخصوصية → إدارة بيانات الموقع",
+                cookies_warning: "تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الموقع.",
+                security_title: "أمان البيانات",
+                security_text: "نحن نلتزم بحماية معلوماتك الشخصية ونستخدم إجراءات أمنية تقنية وإدارية مناسبة:",
+                security_item1: "جميع السكربتات تتم معالجتها محلياً في متصفحك",
+                security_item2: "اتصال آمن عبر بروتوكول HTTPS المشفر",
+                security_item3: "حماية ضد هجمات الويب الشائعة",
+                security_item4: "تحديثات أمنية منتظمة للموقع",
+                security_item5: "مراقبة مستمرة لسلامة النظام",
+                security_features: "ميزات الأمان الفريدة",
+                local_processing: "المعالجة المحلية",
+                local_processing_text: "جميع أدواتنا تعمل 100% في متصفحك. البيانات التي تدخلها لا تخرج من جهازك.",
+                no_storage: "لا يوجد تخزين",
+                no_storage_text: "بمجرد إغلاق الصفحة، يتم مسح جميع بيانات الإدخال تلقائياً.",
+                rights_title: "حقوق المستخدم",
+                rights_text: "كمستخدم لموقع MikroTools، لديك الحق في:",
+                rights_item1: "<strong>حق المعرفة:</strong> معرفة أي بيانات نجمعها ولماذا",
+                rights_item2: "<strong>حق الوصول:</strong> طلب نسخة من بياناتك الشخصية",
+                rights_item3: "<strong>حق التصحيح:</strong> طلب تصحيح المعلومات غير الدقيقة",
+                rights_item4: "<strong>حق الحذف:</strong> طلب حذف معلوماتك الشخصية",
+                rights_item5: "<strong>حق الاعتراض:</strong> رفض معالجة بياناتك",
+                rights_item6: "<strong>حق إدارة الإعلانات:</strong> التحكم في تفضيلات الإعلانات الموجهة",
+                how_to_exercise: "كيفية ممارسة حقوقك",
+                exercise_text: "لممارسة أي من هذه الحقوق، يكفي أن تتواصل معنا عبر:",
+                exercise_phone: "رقم الهاتف المباشر",
+                exercise_whatsapp: "الواتساب",
+                exercise_facebook: "صفحتنا على فيسبوك",
+                exercise_response: "نلتزم بالرد على جميع الطلبات خلال <strong>72 ساعة</strong> عمل كحد أقصى.",
+                updates_title: "تحديثات السياسة",
+                updates_text: "قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر لتعكس التغييرات في ممارساتنا أو لأسباب تشغيلية أو قانونية.",
+                how_notified: "كيف نعلمك بالتحديثات",
+                notify_item1: "تاريخ آخر تحديث يظهر في أسفل هذه الصفحة",
+                notify_item2: "إشعار بارز على الصفحة الرئيسية للتغييرات المهمة",
+                notify_item3: "تحديث رابط \"آخر تحديث\" تلقائياً",
+                notify_item4: "الإبقاء على النسخ القديمة متاحة للمراجعة",
+                contact_title: "للتواصل والاستفسارات",
+                contact_text: "إذا كان لديك أي استفسارات حول سياسة الخصوصية هذه أو ممارساتنا، يرجى التواصل معنا:",
                 data_controller: "Sameh El-Sayed",
-                data_controller_title: "ظ…ط¯ظٹط± ط§ظ„ط®طµظˆطµظٹط© ظˆط­ظ…ط§ظٹط© ط§ظ„ط¨ظٹط§ظ†ط§طھ",
-                technical_support: "ط§ظ„ط¯ط¹ظ… ط§ظ„ظپظ†ظٹ",
-                support_hours: "ظ…طھط§ط­ 24/7 ظ„ظ„ط¥ط¬ط§ط¨ط© ط¹ظ„ظ‰ ط§ط³طھظپط³ط§ط±ط§طھ ط§ظ„ط®طµظˆطµظٹط©",
-                footer_contact: "ظ„ظ„طھظˆط§طµظ„ ظˆط§ظ„ط§ط³طھظپط³ط§ط±: 01092503391 - Sameh El-Sayed",
-                badge1: "100% ظ…ط¹ط§ظ„ط¬ط© ظ…ط­ظ„ظٹط©",
-                badge2: "ظ„ط§ طھط®ط²ظٹظ† ط¨ظٹط§ظ†ط§طھ",
-                badge3: "HTTPS ط¢ظ…ظ†",
-                badge4: "ظ…طھظˆط§ظپظ‚ ظ…ط¹ AdSense",
-                copyright: "ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ‚ ظ…ط­ظپظˆط¸ط©.",
-                last_updated: "ط¢ط®ط± طھط­ط¯ظٹط«:",
-                back_to_home: "ط§ظ„ط¹ظˆط¯ط© ط¥ظ„ظ‰ ط§ظ„ظ…ظˆظ‚ط¹ ط§ظ„ط±ط¦ظٹط³ظٹ"
+                data_controller_title: "مدير الخصوصية وحماية البيانات",
+                technical_support: "الدعم الفني",
+                support_hours: "متاح 24/7 للإجابة على استفسارات الخصوصية",
+                footer_contact: "للتواصل والاستفسار: 01092503391 - Sameh El-Sayed",
+                badge1: "100% معالجة محلية",
+                badge2: "لا تخزين بيانات",
+                badge3: "HTTPS آمن",
+                badge4: "متوافق مع AdSense",
+                copyright: "جميع الحقوق محفوظة.",
+                last_updated: "آخر تحديث:",
+                back_to_home: "العودة إلى الموقع الرئيسي"
             }
         };
 
-        // طھط¨ط¯ظٹظ„ ط§ظ„ظ„ط؛ط©
+        // تبديل اللغة
         function setLanguage(lang) {
             localStorage.setItem('language', lang);
             
@@ -1868,11 +1868,11 @@
             document.getElementById('langEn').classList.toggle('active', lang === 'en');
             document.getElementById('langAr').classList.toggle('active', lang === 'ar');
             
-            // ط¥ط¹ط§ط¯ط© ط¥ظ†ط´ط§ط، ظپظ‡ط±ط³ ط§ظ„ظ…ط­طھظˆظٹط§طھ ظ„طھط­ط¯ظٹط« ط§ظ„ظ†طµظˆطµ
+            // إعادة إنشاء فهرس المحتويات لتحديث النصوص
             createTOC();
         }
 
-        // طھط¨ط¯ظٹظ„ ظ‚ط§ط¦ظ…ط© ط§ظ„ط¬ظˆط§ظ„
+        // تبديل قائمة الجوال
         document.getElementById('menuToggle').addEventListener('click', function() {
             const navLinks = document.getElementById('navLinks');
             const icon = this.querySelector('i');
@@ -1883,7 +1883,7 @@
                 : 'fas fa-bars';
         });
 
-        // ط¥ط؛ظ„ط§ظ‚ ط§ظ„ظ‚ط§ط¦ظ…ط© ط¹ظ†ط¯ ط§ظ„ظ†ظ‚ط± ط¹ظ„ظ‰ ط±ط§ط¨ط·
+        // إغلاق القائمة عند النقر على رابط
         document.querySelectorAll('.nav-link, .navbar-dropdown-item').forEach(link => {
             link.addEventListener('click', () => {
                 if (!link.classList.contains('navbar-dropdown-toggle')) {
@@ -1893,7 +1893,7 @@
             });
         });
 
-        // طھظپط¹ظٹظ„ ط§ظ„ظ‚ظˆط§ط¦ظ… ط§ظ„ظ…ظ†ط³ط¯ظ„ط© ظپظٹ ط§ظ„ط¬ظˆط§ظ„
+        // تفعيل القوائم المنسدلة في الجوال
         document.querySelectorAll('.navbar-dropdown-toggle').forEach(toggle => {
             toggle.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
@@ -1911,20 +1911,20 @@
             });
         });
 
-        // ط£ط­ط¯ط§ط« ط£ط²ط±ط§ط± ط§ظ„ظ„ط؛ط©
+        // أحداث أزرار اللغة
         document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
         document.getElementById('langAr').addEventListener('click', () => setLanguage('ar'));
 
-        // طھط­ظ…ظٹظ„ ط§ظ„ظ„ط؛ط© ط§ظ„ظ…ط­ظپظˆط¸ط© ط£ظˆ ط§ط³طھط®ط¯ط§ظ… ط§ظ„ط¥ظ†ط¬ظ„ظٹط²ظٹط© ظƒط§ظپطھط±ط§ط¶ظٹط©
+        // تحميل اللغة المحفوظة أو استخدام الإنجليزية كافتراضية
         const savedLanguage = localStorage.getItem('language') || 'en';
         
-        // ط¥ظ†ط´ط§ط، ظپظ‡ط±ط³ ط§ظ„ظ…ط­طھظˆظٹط§طھ
+        // إنشاء فهرس المحتويات
         function createTOC() {
             const sections = document.querySelectorAll('.privacy-section, .contact-section');
             const tocGrid = document.getElementById('tocGrid');
             tocGrid.innerHTML = '';
             
-            // ط¨ظٹط§ظ†ط§طھ ط§ظ„ط£ظٹظ‚ظˆظ†ط§طھ ظ„ظƒظ„ ظ‚ط³ظ…
+            // بيانات الأيقونات لكل قسم
             const icons = {
                 'introduction': 'info-circle',
                 'data-collection': 'database',
@@ -1939,7 +1939,7 @@
             
             const lang = document.documentElement.lang;
             
-            // ط¥ط¶ط§ظپط© ط¹ظ†ط§طµط± ط§ظ„ظپظ‡ط±ط³
+            // إضافة عناصر الفهرس
             sections.forEach((section, index) => {
                 const id = section.id;
                 const titleElement = section.querySelector('.section-title');
@@ -1957,7 +1957,7 @@
                         </div>
                         <div>
                             <div style="font-weight: 600; color: var(--dark);">${title}</div>
-                            <div style="font-size: 0.9rem; color: var(--gray);">${lang === 'ar' ? 'ط§ظ„ظ‚ط³ظ…' : 'Section'} ${index + 1}</div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">${lang === 'ar' ? 'القسم' : 'Section'} ${index + 1}</div>
                         </div>
                     `;
                     
@@ -1971,11 +1971,11 @@
             });
         }
 
-        // طھظ‡ظٹط¦ط© ط§ظ„طµظپط­ط©
+        // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             setLanguage(savedLanguage);
             
-            // طھط§ط±ظٹط® ط§ظ„طھط­ط¯ظٹط« ط§ظ„طھظ„ظ‚ط§ط¦ظٹ
+            // تاريخ التحديث التلقائي
             const updateDate = document.getElementById('current-date');
             if (updateDate) {
                 const today = new Date();
@@ -1984,7 +1984,7 @@
                 updateDate.textContent = dateString;
             }
             
-            // طھط£ط«ظٹط±ط§طھ ط¹ظ†ط¯ ط§ظ„طھظ…ط±ظٹط± ظ„ظ„ط£ظ‚ط³ط§ظ…
+            // تأثيرات عند التمرير للأقسام
             const sections = document.querySelectorAll('.privacy-section, .contact-section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2002,7 +2002,7 @@
                 observer.observe(section);
             });
             
-            // ط§ظ„طھط£ظƒط¯ ظ…ظ† ط¥ط¸ظ‡ط§ط± ط§ظ„ط£ظ‚ط³ط§ظ… ط§ظ„ظ…ط±ط¦ظٹط© ط­ط§ظ„ظٹط§ظ‹
+            // التأكد من إظهار الأقسام المرئية حالياً
             sections.forEach(el => {
                 const rect = el.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
@@ -2012,7 +2012,7 @@
             });
         });
 
-        // طھط­ط¯ظٹط« ط´ط±ظٹط· ط§ظ„طھظ‚ط¯ظ…
+        // تحديث شريط التقدم
         const progressBar = document.getElementById('progress');
         
         function updateProgress() {
@@ -2022,7 +2022,7 @@
             const progress = (scrolled / documentHeight) * 100;
             progressBar.style.width = `${progress}%`;
             
-            // ط¥ط¸ظ‡ط§ط±/ط¥ط®ظپط§ط، ط²ط± ط§ظ„ط¹ظˆط¯ط© ط§ظ„ط¹ط§ط¦ظ…
+            // إظهار/إخفاء زر العودة العائم
             const stickyBack = document.getElementById('stickyBack');
             if (scrolled > 300) {
                 stickyBack.classList.add('visible');
@@ -2034,7 +2034,7 @@
         window.addEventListener('scroll', updateProgress);
         window.addEventListener('resize', updateProgress);
         
-        // ط¥ط¶ط§ظپط© طھط£ط«ظٹط± ط¹ظ„ظ‰ ط§ظ„ط±ظˆط§ط¨ط· ط§ظ„ط¯ط§ط®ظ„ظٹط©
+        // إضافة تأثير على الروابط الداخلية
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -2051,7 +2051,7 @@
             });
         });
     </script>
-   <!-- ظƒظˆط¯ طھطھط¨ط¹ MikroTools Analytics - ظ†ط³ط® ظˆظ„طµظ‚ ظ…ط¨ط§ط´ط± -->
+   <!-- كود تتبع MikroTools Analytics - نسخ ولصق مباشر -->
 <script>
 (function() {
     const BIN_ID = '6984fe4d43b1c97be9684aa8';

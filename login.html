@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„ - MikroTools</title>
+  <title>تسجيل الدخول - MikroTools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -222,74 +222,74 @@
     <span class="logo-name">MikroTools</span>
   </div>
 
-  <!-- Tabs: طھط³ط¬ظٹظ„ ط¯ط®ظˆظ„ / ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨ -->
+  <!-- Tabs: تسجيل دخول / إنشاء حساب -->
   <div class="tabs">
-    <button class="tab active" id="tabLogin" onclick="switchTab('login')">طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
-    <button class="tab" id="tabRegister" onclick="switchTab('register')">ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨</button>
+    <button class="tab active" id="tabLogin" onclick="switchTab('login')">تسجيل الدخول</button>
+    <button class="tab" id="tabRegister" onclick="switchTab('register')">إنشاء حساب</button>
   </div>
 
-  <!-- ===== طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„ ===== -->
+  <!-- ===== تسجيل الدخول ===== -->
   <div class="form-section active" id="sectionLogin">
     <div class="form-group">
-      <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
+      <label>البريد الإلكتروني</label>
       <div class="input-wrap">
         <input type="email" id="loginEmail" placeholder="example@gmail.com" autocomplete="email" />
         <i class="fas fa-envelope ico"></i>
       </div>
     </div>
     <div class="form-group">
-      <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
+      <label>كلمة المرور</label>
       <div class="input-wrap">
-        <input type="password" id="loginPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password" />
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
         <i class="fas fa-lock ico"></i>
         <i class="fas fa-eye toggle-pass" id="toggleLoginPass"></i>
       </div>
-      <div class="forgot"><a href="#" id="forgotLink">ظ†ط³ظٹطھ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±طں</a></div>
+      <div class="forgot"><a href="#" id="forgotLink">نسيت كلمة المرور؟</a></div>
     </div>
     <button class="btn-main" id="loginBtn">
       <div class="spinner"></div>
-      <span class="btn-text"><i class="fas fa-sign-in-alt"></i> ط¯ط®ظˆظ„</span>
+      <span class="btn-text"><i class="fas fa-sign-in-alt"></i> دخول</span>
     </button>
     <div class="alert error" id="loginError"><i class="fas fa-exclamation-circle"></i><span id="loginErrText"></span></div>
   </div>
 
-  <!-- ===== ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨ ===== -->
+  <!-- ===== إنشاء حساب ===== -->
   <div class="form-section" id="sectionRegister">
     <div class="form-group">
-      <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
+      <label>البريد الإلكتروني</label>
       <div class="input-wrap">
         <input type="email" id="regEmail" placeholder="example@gmail.com" autocomplete="email" />
         <i class="fas fa-envelope ico"></i>
       </div>
     </div>
     <div class="form-group">
-      <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
+      <label>كلمة المرور</label>
       <div class="input-wrap">
-        <input type="password" id="regPass" placeholder="ط¹ظ„ظ‰ ط§ظ„ط£ظ‚ظ„ 6 ط£ط­ط±ظپ" autocomplete="new-password" />
+        <input type="password" id="regPass" placeholder="على الأقل 6 أحرف" autocomplete="new-password" />
         <i class="fas fa-lock ico"></i>
         <i class="fas fa-eye toggle-pass" id="toggleRegPass"></i>
       </div>
     </div>
     <div class="form-group">
-      <label>طھط£ظƒظٹط¯ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
+      <label>تأكيد كلمة المرور</label>
       <div class="input-wrap">
-        <input type="password" id="regPassConfirm" placeholder="ط£ط¹ط¯ ظƒطھط§ط¨ط© ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±" autocomplete="new-password" />
+        <input type="password" id="regPassConfirm" placeholder="أعد كتابة كلمة المرور" autocomplete="new-password" />
         <i class="fas fa-lock ico"></i>
       </div>
     </div>
     <button class="btn-main" id="registerBtn">
       <div class="spinner"></div>
-      <span class="btn-text"><i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨</span>
+      <span class="btn-text"><i class="fas fa-user-plus"></i> إنشاء حساب</span>
     </button>
     <div class="alert error"   id="regError"><i class="fas fa-exclamation-circle"></i><span id="regErrText"></span></div>
     <div class="alert success" id="regSuccess"><i class="fas fa-check-circle"></i><span id="regSuccessText"></span></div>
   </div>
 
   <!-- Divider + Google -->
-  <div class="divider"><span>ط£ظˆ</span></div>
+  <div class="divider"><span>أو</span></div>
   <button class="btn-google" id="googleBtn">
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-    ط§ظ„ط¯ط®ظˆظ„ ط¨ط­ط³ط§ط¨ Google
+    الدخول بحساب Google
   </button>
 </div>
 
@@ -318,7 +318,7 @@
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
 
-  // ظ„ظˆ ظ…ط³ط¬ظ„ ط¯ط®ظˆظ„ â†’ ط±ظˆظ‘ط­ظ‡
+  // لو مسجل دخول → روّحه
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const params = new URLSearchParams(window.location.search);
@@ -326,19 +326,19 @@
     }
   });
 
-  // طھط±ط¬ظ…ط© ط£ط®ط·ط§ط، Firebase
+  // ترجمة أخطاء Firebase
   function getErrMsg(code) {
     const map = {
-      "auth/user-not-found":      "ط§ظ„ط¥ظٹظ…ظٹظ„ ط¯ظ‡ ظ…ط´ ظ…ظˆط¬ظˆط¯طŒ ط³ط¬ظ‘ظ„ ط­ط³ط§ط¨ ط¬ط¯ظٹط¯",
-      "auth/wrong-password":      "ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظ„ط·",
-      "auth/invalid-credential":  "ط§ظ„ط¥ظٹظ…ظٹظ„ ط£ظˆ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظ„ط·",
-      "auth/email-already-in-use":"ط§ظ„ط¥ظٹظ…ظٹظ„ ط¯ظ‡ ظ…ط³ط¬ظ„ ظ‚ط¨ظ„ ظƒط¯ظ‡طŒ ط³ط¬ظ‘ظ„ ط¯ط®ظˆظ„",
-      "auth/weak-password":       "ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط¶ط¹ظٹظپط© â€” ط¹ظ„ظ‰ ط§ظ„ط£ظ‚ظ„ 6 ط£ط­ط±ظپ",
-      "auth/invalid-email":       "ط§ظ„ط¥ظٹظ…ظٹظ„ ط؛ظٹط± طµط­ظٹط­",
-      "auth/too-many-requests":   "ظ…ط­ط§ظˆظ„ط§طھ ظƒطھظٹط±طŒ ط§ط³طھظ†ظ‰ ط´ظˆظٹط© ظˆط­ط§ظˆظ„ طھط§ظ†ظٹ",
-      "auth/popup-closed-by-user":"طھظ… ط¥ط؛ظ„ط§ظ‚ ظ†ط§ظپط°ط© ط¬ظˆط¬ظ„",
+      "auth/user-not-found":      "الإيميل ده مش موجود، سجّل حساب جديد",
+      "auth/wrong-password":      "كلمة المرور غلط",
+      "auth/invalid-credential":  "الإيميل أو كلمة المرور غلط",
+      "auth/email-already-in-use":"الإيميل ده مسجل قبل كده، سجّل دخول",
+      "auth/weak-password":       "كلمة المرور ضعيفة — على الأقل 6 أحرف",
+      "auth/invalid-email":       "الإيميل غير صحيح",
+      "auth/too-many-requests":   "محاولات كتير، استنى شوية وحاول تاني",
+      "auth/popup-closed-by-user":"تم إغلاق نافذة جوجل",
     };
-    return map[code] || "ط­ط¯ط« ط®ط·ط£طŒ ط­ط§ظˆظ„ طھط§ظ†ظٹ";
+    return map[code] || "حدث خطأ، حاول تاني";
   }
 
   function setLoading(btn, loading) {
@@ -359,7 +359,7 @@
     const pass  = document.getElementById("loginPass").value;
     const btn   = document.getElementById("loginBtn");
     hideAlert("loginError");
-    if (!email || !pass) { showError("loginError","loginErrText","ظ…ظ† ظپط¶ظ„ظƒ ط§ط¯ط®ظ„ ط§ظ„ط¥ظٹظ…ظٹظ„ ظˆظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±"); return; }
+    if (!email || !pass) { showError("loginError","loginErrText","من فضلك ادخل الإيميل وكلمة المرور"); return; }
     setLoading(btn, true);
     try {
       await signInWithEmailAndPassword(auth, email, pass);
@@ -376,13 +376,13 @@
     const confirm = document.getElementById("regPassConfirm").value;
     const btn     = document.getElementById("registerBtn");
     hideAlert("regError"); hideAlert("regSuccess");
-    if (!email || !pass) { showError("regError","regErrText","ظ…ظ† ظپط¶ظ„ظƒ ط§ط¯ط®ظ„ ط§ظ„ط¥ظٹظ…ظٹظ„ ظˆظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±"); return; }
-    if (pass !== confirm) { showError("regError","regErrText","ظƒظ„ظ…طھط§ ط§ظ„ظ…ط±ظˆط± ظ…ط´ ظ…طھط·ط§ط¨ظ‚طھظٹظ†"); return; }
-    if (pass.length < 6)  { showError("regError","regErrText","ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط¹ظ„ظ‰ ط§ظ„ط£ظ‚ظ„ 6 ط£ط­ط±ظپ"); return; }
+    if (!email || !pass) { showError("regError","regErrText","من فضلك ادخل الإيميل وكلمة المرور"); return; }
+    if (pass !== confirm) { showError("regError","regErrText","كلمتا المرور مش متطابقتين"); return; }
+    if (pass.length < 6)  { showError("regError","regErrText","كلمة المرور على الأقل 6 أحرف"); return; }
     setLoading(btn, true);
     try {
       await createUserWithEmailAndPassword(auth, email, pass);
-      // onAuthStateChanged ظ‡ظٹط±ظˆظ‘ط­ظ‡ ط£ظˆطھظˆظ…ط§طھظٹظƒ
+      // onAuthStateChanged هيروّحه أوتوماتيك
     } catch(e) {
       showError("regError","regErrText", getErrMsg(e.code));
       setLoading(btn, false);
@@ -402,13 +402,13 @@
   document.getElementById("forgotLink").addEventListener("click", async (e) => {
     e.preventDefault();
     const email = document.getElementById("loginEmail").value.trim();
-    if (!email) { showError("loginError","loginErrText","ط§ط¯ط®ظ„ ط¥ظٹظ…ظٹظ„ظƒ ط§ظ„ط£ظˆظ„ ط¹ط´ط§ظ† ظ†ط¨ط¹طھظ„ظƒ ط±ط§ط¨ط· ط¥ط¹ط§ط¯ط© طھط¹ظٹظٹظ†"); return; }
+    if (!email) { showError("loginError","loginErrText","ادخل إيميلك الأول عشان نبعتلك رابط إعادة تعيين"); return; }
     try {
       await sendPasswordResetEmail(auth, email);
       hideAlert("loginError");
       const s = document.getElementById("loginError");
       s.className = "alert success";
-      document.getElementById("loginErrText").textContent = "طھظ… ط§ظ„ط¥ط±ط³ط§ظ„! ط§ظپطھط­ ط¥ظٹظ…ظٹظ„ظƒ ظˆط§طھط¨ط¹ ط§ظ„طھط¹ظ„ظٹظ…ط§طھ";
+      document.getElementById("loginErrText").textContent = "تم الإرسال! افتح إيميلك واتبع التعليمات";
       s.style.display = "flex";
     } catch(e) {
       showError("loginError","loginErrText", getErrMsg(e.code));
@@ -447,7 +447,7 @@
 </script>
 
 <script>
-  // ظ†ظ‚ط§ط· ط§ظ„ط®ظ„ظپظٹط©
+  // نقاط الخلفية
   const c = document.getElementById("bgDots");
   for(let i=0;i<15;i++){
     const d=document.createElement("div");

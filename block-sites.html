@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -230,27 +230,27 @@
             <span class="auth-logo-text">MikroTools</span>
         </div>
         <div class="auth-tabs">
-            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
-            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨</button>
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب</button>
         </div>
         <div class="auth-form active" id="formLogin">
             <div class="auth-error" id="loginError"></div>
             <div class="auth-success" id="loginSuccess"></div>
-            <div class="auth-field"><label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label><input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com"></div>
-            <div class="auth-field"><label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="loginPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;"><button class="auth-eye" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button></div></div>
-            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">ظ†ط³ظٹطھ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±طں</a></div>
-            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
-            <div class="auth-divider">ط£ظˆ</div>
-            <button class="auth-google" onclick="doGoogle()"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google</button>
+            <div class="auth-field"><label>البريد الإلكتروني</label><input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com"></div>
+            <div class="auth-field"><label>كلمة المرور</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="loginPass" placeholder="••••••••" style="padding-right:44px;"><button class="auth-eye" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button></div></div>
+            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">نسيت كلمة المرور؟</a></div>
+            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+            <div class="auth-divider">أو</div>
+            <button class="auth-google" onclick="doGoogle()"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>الدخول بـ Google</button>
         </div>
         <div class="auth-form" id="formRegister">
             <div class="auth-error" id="registerError"></div>
-            <div class="auth-field"><label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label><input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com"></div>
-            <div class="auth-field"><label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="regPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;"><button class="auth-eye" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button></div></div>
-            <div class="auth-field"><label>طھط£ظƒظٹط¯ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="regPass2" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;"><button class="auth-eye" onclick="togglePass('regPass2',this)"><i class="fas fa-eye"></i></button></div></div>
-            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨</button>
-            <div class="auth-divider">ط£ظˆ</div>
-            <button class="auth-google" onclick="doGoogle()"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google</button>
+            <div class="auth-field"><label>البريد الإلكتروني</label><input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com"></div>
+            <div class="auth-field"><label>كلمة المرور</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="regPass" placeholder="••••••••" style="padding-right:44px;"><button class="auth-eye" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button></div></div>
+            <div class="auth-field"><label>تأكيد كلمة المرور</label><div class="auth-input-wrap"><input type="password" class="auth-input" id="regPass2" placeholder="••••••••" style="padding-right:44px;"><button class="auth-eye" onclick="togglePass('regPass2',this)"><i class="fas fa-eye"></i></button></div></div>
+            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+            <div class="auth-divider">أو</div>
+            <button class="auth-google" onclick="doGoogle()"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>الدخول بـ Google</button>
         </div>
     </div>
 </div>
@@ -288,7 +288,7 @@
                     <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">Log Analyzer</span></a>
                 </div>
             </div>
-            <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>ط­ط§ط³ط¨ط© ط§ظ„ط³ط¹ط©</span><span class="new-badge">ط¬ط¯ظٹط¯</span></a>
+            <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -298,12 +298,12 @@
                 </div>
             </div>
             <!-- AUTH -->
-            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> تسجيل الدخول</button>
             <div style="position:relative;">
                 <button id="navUserBtn" onclick="toggleUserDropdown()"></button>
                 <div class="user-dropdown" id="userDropdown">
-                    <div class="user-dropdown-email"><strong>ظ…ط±ط­ط¨ط§ظ‹ ًں‘‹</strong><span id="userEmailDisplay"></span></div>
-                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬</button>
+                    <div class="user-dropdown-email"><strong>مرحباً 👋</strong><span id="userEmailDisplay"></span></div>
+                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
                 </div>
             </div>
             </div>
@@ -324,11 +324,11 @@
 
         <div class="version-tabs-wrapper">
             <button class="version-tab v6 active" onclick="switchVersion('v6',this)">
-                <span>ًں”µ</span>
+                <span>🔵</span>
                 <div><span class="tab-label">RouterOS v6</span><span class="tab-sub" data-i18n="tab_v6_sub">Stable / 6.x</span></div>
             </button>
             <button class="version-tab v7" onclick="switchVersion('v7',this)">
-                <span>ًںں£</span>
+                <span>🟣</span>
                 <div><span class="tab-label">RouterOS v7</span><span class="tab-sub" data-i18n="tab_v7_sub">Latest / 7.x</span></div>
                 <span class="version-badge">NEW</span>
             </button>
@@ -348,35 +348,35 @@
             <div class="sites-section">
                 <h3 class="section-title"><i class="fas fa-bolt"></i> <span data-i18n="ready_sites">Ready Sites</span></h3>
                 <div class="sites-grid" id="sitesGrid-v6">
-                    <div class="site-card" onclick="selectSite('youtube.com','YouTube','v6')"><div class="site-icon">ًںژ¥</div><div class="site-name" data-i18n="site_youtube">YouTube</div><div class="site-url">youtube.com</div></div>
-                    <div class="site-card" onclick="selectSite('facebook.com','Facebook','v6')"><div class="site-icon">ًں‘¥</div><div class="site-name" data-i18n="site_facebook">Facebook</div><div class="site-url">facebook.com</div></div>
-                    <div class="site-card" onclick="selectSite('instagram.com','Instagram','v6')"><div class="site-icon">ًں“·</div><div class="site-name" data-i18n="site_instagram">Instagram</div><div class="site-url">instagram.com</div></div>
-                    <div class="site-card" onclick="selectSite('tiktok.com','TikTok','v6')"><div class="site-icon">ًںژµ</div><div class="site-name" data-i18n="site_tiktok">TikTok</div><div class="site-url">tiktok.com</div></div>
-                    <div class="site-card" onclick="selectSite('twitter.com','Twitter','v6')"><div class="site-icon">ًںگ¦</div><div class="site-name" data-i18n="site_twitter">Twitter</div><div class="site-url">twitter.com</div></div>
-                    <div class="site-card" onclick="selectSite('snapchat.com','Snapchat','v6')"><div class="site-icon">ًں‘»</div><div class="site-name" data-i18n="site_snapchat">Snapchat</div><div class="site-url">snapchat.com</div></div>
-                    <div class="site-card" onclick="selectSite('whatsapp.com','WhatsApp','v6')"><div class="site-icon">ًں’¬</div><div class="site-name" data-i18n="site_whatsapp">WhatsApp</div><div class="site-url">whatsapp.com</div></div>
-                    <div class="site-card" onclick="selectSite('telegram.org','Telegram','v6')"><div class="site-icon">âœˆï¸ڈ</div><div class="site-name" data-i18n="site_telegram">Telegram</div><div class="site-url">telegram.org</div></div>
+                    <div class="site-card" onclick="selectSite('youtube.com','YouTube','v6')"><div class="site-icon">🎥</div><div class="site-name" data-i18n="site_youtube">YouTube</div><div class="site-url">youtube.com</div></div>
+                    <div class="site-card" onclick="selectSite('facebook.com','Facebook','v6')"><div class="site-icon">👥</div><div class="site-name" data-i18n="site_facebook">Facebook</div><div class="site-url">facebook.com</div></div>
+                    <div class="site-card" onclick="selectSite('instagram.com','Instagram','v6')"><div class="site-icon">📷</div><div class="site-name" data-i18n="site_instagram">Instagram</div><div class="site-url">instagram.com</div></div>
+                    <div class="site-card" onclick="selectSite('tiktok.com','TikTok','v6')"><div class="site-icon">🎵</div><div class="site-name" data-i18n="site_tiktok">TikTok</div><div class="site-url">tiktok.com</div></div>
+                    <div class="site-card" onclick="selectSite('twitter.com','Twitter','v6')"><div class="site-icon">🐦</div><div class="site-name" data-i18n="site_twitter">Twitter</div><div class="site-url">twitter.com</div></div>
+                    <div class="site-card" onclick="selectSite('snapchat.com','Snapchat','v6')"><div class="site-icon">👻</div><div class="site-name" data-i18n="site_snapchat">Snapchat</div><div class="site-url">snapchat.com</div></div>
+                    <div class="site-card" onclick="selectSite('whatsapp.com','WhatsApp','v6')"><div class="site-icon">💬</div><div class="site-name" data-i18n="site_whatsapp">WhatsApp</div><div class="site-url">whatsapp.com</div></div>
+                    <div class="site-card" onclick="selectSite('telegram.org','Telegram','v6')"><div class="site-icon">✈️</div><div class="site-name" data-i18n="site_telegram">Telegram</div><div class="site-url">telegram.org</div></div>
                 </div>
                 <div id="siteAlert-v6"></div>
             </div>
             <div class="sites-section">
                 <h3 class="section-title"><i class="fas fa-filter"></i> <span data-i18n="block_type">Choose Blocking Method</span></h3>
                 <div class="block-types" id="blockTypes-v6">
-                    <div class="type-btn active" onclick="selectBlockType('layer7','v6',this)"><div class="type-icon">ًں”چ</div><div class="type-name" data-i18n="type_layer7">Layer7</div><div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div></div>
-                    <div class="type-btn" onclick="selectBlockType('tls','v6',this)"><div class="type-icon">ًں”گ</div><div class="type-name" data-i18n="type_tls">TLS/SSL</div><div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div></div>
-                    <div class="type-btn" onclick="selectBlockType('both','v6',this)"><div class="type-icon">ًں›،ï¸ڈ</div><div class="type-name" data-i18n="type_both">Both</div><div class="type-desc" data-i18n="type_both_desc">Maximum protection</div></div>
+                    <div class="type-btn active" onclick="selectBlockType('layer7','v6',this)"><div class="type-icon">🔍</div><div class="type-name" data-i18n="type_layer7">Layer7</div><div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('tls','v6',this)"><div class="type-icon">🔐</div><div class="type-name" data-i18n="type_tls">TLS/SSL</div><div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('both','v6',this)"><div class="type-icon">🛡️</div><div class="type-name" data-i18n="type_both">Both</div><div class="type-desc" data-i18n="type_both_desc">Maximum protection</div></div>
                 </div>
                 <div id="typeAlert-v6"></div>
             </div>
             <!-- Lock hint v6 -->
-            <div class="generate-lock-hint" id="lockHint-v6"><i class="fas fa-lock"></i><span>ط³ط¬ظ‘ظ„ ط¯ط®ظˆظ„ظƒ ظ„طھظˆظ„ظٹط¯ ط§ظ„ط³ظƒط±ط¨طھ</span></div>
+            <div class="generate-lock-hint" id="lockHint-v6"><i class="fas fa-lock"></i><span>سجّل دخولك لتوليد السكربت</span></div>
             <div class="btn-group">
                 <button class="btn btn-primary" onclick="handleGenerate('v6')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
                 <button class="btn btn-secondary" onclick="resetForm('v6')"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
             </div>
             <div id="resultSection-v6" class="result-section">
                 <div class="result-header">
-                    <h3 class="result-title"><i class="fas fa-code"></i> ًں”µ RouterOS v6 â€” <span data-i18n="result_title">Generated Script</span></h3>
+                    <h3 class="result-title"><i class="fas fa-code"></i> 🔵 RouterOS v6 — <span data-i18n="result_title">Generated Script</span></h3>
                     <button class="btn btn-secondary" onclick="copyScript('v6')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
                 </div>
                 <textarea id="outputScript-v6" class="script-output" readonly></textarea>
@@ -397,35 +397,35 @@
             <div class="sites-section">
                 <h3 class="section-title"><i class="fas fa-bolt"></i> <span data-i18n="ready_sites">Ready Sites</span></h3>
                 <div class="sites-grid" id="sitesGrid-v7">
-                    <div class="site-card" onclick="selectSite('youtube.com','YouTube','v7')"><div class="site-icon">ًںژ¥</div><div class="site-name" data-i18n="site_youtube">YouTube</div><div class="site-url">youtube.com</div></div>
-                    <div class="site-card" onclick="selectSite('facebook.com','Facebook','v7')"><div class="site-icon">ًں‘¥</div><div class="site-name" data-i18n="site_facebook">Facebook</div><div class="site-url">facebook.com</div></div>
-                    <div class="site-card" onclick="selectSite('instagram.com','Instagram','v7')"><div class="site-icon">ًں“·</div><div class="site-name" data-i18n="site_instagram">Instagram</div><div class="site-url">instagram.com</div></div>
-                    <div class="site-card" onclick="selectSite('tiktok.com','TikTok','v7')"><div class="site-icon">ًںژµ</div><div class="site-name" data-i18n="site_tiktok">TikTok</div><div class="site-url">tiktok.com</div></div>
-                    <div class="site-card" onclick="selectSite('twitter.com','Twitter','v7')"><div class="site-icon">ًںگ¦</div><div class="site-name" data-i18n="site_twitter">Twitter</div><div class="site-url">twitter.com</div></div>
-                    <div class="site-card" onclick="selectSite('snapchat.com','Snapchat','v7')"><div class="site-icon">ًں‘»</div><div class="site-name" data-i18n="site_snapchat">Snapchat</div><div class="site-url">snapchat.com</div></div>
-                    <div class="site-card" onclick="selectSite('whatsapp.com','WhatsApp','v7')"><div class="site-icon">ًں’¬</div><div class="site-name" data-i18n="site_whatsapp">WhatsApp</div><div class="site-url">whatsapp.com</div></div>
-                    <div class="site-card" onclick="selectSite('telegram.org','Telegram','v7')"><div class="site-icon">âœˆï¸ڈ</div><div class="site-name" data-i18n="site_telegram">Telegram</div><div class="site-url">telegram.org</div></div>
+                    <div class="site-card" onclick="selectSite('youtube.com','YouTube','v7')"><div class="site-icon">🎥</div><div class="site-name" data-i18n="site_youtube">YouTube</div><div class="site-url">youtube.com</div></div>
+                    <div class="site-card" onclick="selectSite('facebook.com','Facebook','v7')"><div class="site-icon">👥</div><div class="site-name" data-i18n="site_facebook">Facebook</div><div class="site-url">facebook.com</div></div>
+                    <div class="site-card" onclick="selectSite('instagram.com','Instagram','v7')"><div class="site-icon">📷</div><div class="site-name" data-i18n="site_instagram">Instagram</div><div class="site-url">instagram.com</div></div>
+                    <div class="site-card" onclick="selectSite('tiktok.com','TikTok','v7')"><div class="site-icon">🎵</div><div class="site-name" data-i18n="site_tiktok">TikTok</div><div class="site-url">tiktok.com</div></div>
+                    <div class="site-card" onclick="selectSite('twitter.com','Twitter','v7')"><div class="site-icon">🐦</div><div class="site-name" data-i18n="site_twitter">Twitter</div><div class="site-url">twitter.com</div></div>
+                    <div class="site-card" onclick="selectSite('snapchat.com','Snapchat','v7')"><div class="site-icon">👻</div><div class="site-name" data-i18n="site_snapchat">Snapchat</div><div class="site-url">snapchat.com</div></div>
+                    <div class="site-card" onclick="selectSite('whatsapp.com','WhatsApp','v7')"><div class="site-icon">💬</div><div class="site-name" data-i18n="site_whatsapp">WhatsApp</div><div class="site-url">whatsapp.com</div></div>
+                    <div class="site-card" onclick="selectSite('telegram.org','Telegram','v7')"><div class="site-icon">✈️</div><div class="site-name" data-i18n="site_telegram">Telegram</div><div class="site-url">telegram.org</div></div>
                 </div>
                 <div id="siteAlert-v7"></div>
             </div>
             <div class="sites-section">
                 <h3 class="section-title"><i class="fas fa-filter"></i> <span data-i18n="block_type">Choose Blocking Method</span></h3>
                 <div class="block-types" id="blockTypes-v7">
-                    <div class="type-btn active" onclick="selectBlockType('layer7','v7',this)"><div class="type-icon">ًں”چ</div><div class="type-name" data-i18n="type_layer7">Layer7</div><div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div></div>
-                    <div class="type-btn" onclick="selectBlockType('tls','v7',this)"><div class="type-icon">ًں”گ</div><div class="type-name" data-i18n="type_tls">TLS/SSL</div><div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div></div>
-                    <div class="type-btn" onclick="selectBlockType('both','v7',this)"><div class="type-icon">ًں›،ï¸ڈ</div><div class="type-name" data-i18n="type_both">Both</div><div class="type-desc" data-i18n="type_both_desc">Maximum protection</div></div>
+                    <div class="type-btn active" onclick="selectBlockType('layer7','v7',this)"><div class="type-icon">🔍</div><div class="type-name" data-i18n="type_layer7">Layer7</div><div class="type-desc" data-i18n="type_layer7_desc">For regular websites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('tls','v7',this)"><div class="type-icon">🔐</div><div class="type-name" data-i18n="type_tls">TLS/SSL</div><div class="type-desc" data-i18n="type_tls_desc">For encrypted sites</div></div>
+                    <div class="type-btn" onclick="selectBlockType('both','v7',this)"><div class="type-icon">🛡️</div><div class="type-name" data-i18n="type_both">Both</div><div class="type-desc" data-i18n="type_both_desc">Maximum protection</div></div>
                 </div>
                 <div id="typeAlert-v7"></div>
             </div>
             <!-- Lock hint v7 -->
-            <div class="generate-lock-hint" id="lockHint-v7"><i class="fas fa-lock"></i><span>ط³ط¬ظ‘ظ„ ط¯ط®ظˆظ„ظƒ ظ„طھظˆظ„ظٹط¯ ط§ظ„ط³ظƒط±ط¨طھ</span></div>
+            <div class="generate-lock-hint" id="lockHint-v7"><i class="fas fa-lock"></i><span>سجّل دخولك لتوليد السكربت</span></div>
             <div class="btn-group">
                 <button class="btn btn-primary" onclick="handleGenerate('v7')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
                 <button class="btn btn-secondary" onclick="resetForm('v7')"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
             </div>
             <div id="resultSection-v7" class="result-section">
                 <div class="result-header">
-                    <h3 class="result-title"><i class="fas fa-code"></i> ًںں£ RouterOS v7 â€” <span data-i18n="result_title">Generated Script</span></h3>
+                    <h3 class="result-title"><i class="fas fa-code"></i> 🟣 RouterOS v7 — <span data-i18n="result_title">Generated Script</span></h3>
                     <button class="btn btn-secondary" onclick="copyScript('v7')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
                 </div>
                 <textarea id="outputScript-v7" class="script-output" readonly></textarea>
@@ -448,7 +448,7 @@
 <footer class="footer">
     <div class="footer-content">
         <p class="footer-text"><i class="fas fa-phone-alt"></i> <span data-i18n="footer_contact">Contact: 01092503391 - Sameh El-Sayed</span></p>
-        <p class="copyright">آ© 2026 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
+        <p class="copyright">© 2026 MikroTools. <span data-i18n="copyright">All rights reserved.</span></p>
     </div>
 </footer>
 
@@ -484,7 +484,7 @@ onAuthStateChanged(auth, (user) => {
 </script>
 
 <script>
-var translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",new:"NEW",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Complete Protection System",hero_title:"Block Websites & Applications",hero_subtitle:"Block any website using Layer7 and TLS/SSL",tool_title:"Website Blocking Settings",block_settings:"Block Settings",sites_input:"Sites to block (comma separated):",sites_input_desc:"You can enter multiple sites separated by commas",group_name:"Group name (optional):",interface:"Out Interface:",ready_sites:"Ready Sites for Quick Selection",block_type:"Choose Blocking Method",type_layer7:"Layer7",type_layer7_desc:"For regular websites",type_tls:"TLS/SSL",type_tls_desc:"For encrypted sites",type_both:"Both",type_both_desc:"Maximum protection",generate_btn:"Generate Block Script",reset_btn:"Reset",result_title:"Generated Script",copy_btn:"Copy Script",need_help:"Need Help?",contact_desc:"Technical support team is available 24/7",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved.",tab_v6_sub:"Stable / 6.x",tab_v7_sub:"Latest / 7.x",v6_notice_title:"RouterOS v6 Script Notes:",v6_note1:"Layer7 regexp: keyword only â€” NO backslash, NO ^, NO $",v6_note2:"Each CDN domain = separate add line",v6_note3:"TLS uses tls-host in filter chain=forward",v6_note4:"Mangle uses chain=prerouting",v7_notice_title:"RouterOS v7 Script Notes:",v7_note1:"Uses new path syntax: /ip/firewall/",v7_note2:"TLS filter: add dst-port=443",v7_note3:"Mangle: chain=prerouting + dst-port=443",v7_note4:"Layer7 regexp: keyword only"},ar:{home:"ط§ظ„ط±ط¦ظٹط³ظٹط©",merge:"ط§ظ„ط¯ظ…ط¬",hotspot:"ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ",design_block:"ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ط­ط¬ط¨",help:"ط§ظ„ظ…ط³ط§ط¹ط¯ط©",merge_v6:"ط¯ظ…ط¬ ط®ط·ظˆط· v6",merge_v7:"ط¯ظ…ط¬ ط®ط·ظˆط· v7",hotspot_settings:"ط§ط¹ط¯ط§ط¯ط§طھ hotspot+ppp",speed_profiles:"ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط§ظ„ط³ط±ط¹ط©",hotspot_design:"طھطµظ…ظٹظ… hotspot",card_designer:"ظ…طµظ…ظ… ط§ظ„ظƒط±ظˆطھ",block_sites:"ط­ط¬ط¨ ظ…ظˆط§ظ‚ط¹",log_analyzer:"ظ…ط­ظ„ظ„ ط§ظ„ط³ط¬ظ„ط§طھ",new:"ط¬ط¯ظٹط¯",troubleshooting:"ط§ظ„ظ…ط´ظƒظ„ط§طھ ط§ظ„ط´ط§ط¦ط¹ط©",about:"ظ…ظ† ظ†ط­ظ†",privacy:"ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط©",contact_us:"طھظˆط§طµظ„ ظ…ط¹ظ†ط§",hero_badge:"ظ†ط¸ط§ظ… ط­ظ…ط§ظٹط© ظ…طھظƒط§ظ…ظ„",hero_title:"ط­ط¬ط¨ ط§ظ„ظ…ظˆط§ظ‚ط¹ ظˆط§ظ„ط¨ط±ط§ظ…ط¬",hero_subtitle:"ط­ط¬ط¨ ط£ظٹ ظ…ظˆظ‚ط¹ ط¨ط§ط³طھط®ط¯ط§ظ… Layer7 ظˆ TLS/SSL",tool_title:"ط¥ط¹ط¯ط§ط¯ط§طھ ط­ط¬ط¨ ط§ظ„ظ…ظˆط§ظ‚ط¹",block_settings:"ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط­ط¬ط¨",sites_input:"ظ…ظˆط§ظ‚ط¹ ظ„ظ„ط­ط¬ط¨ (ظ…ظپطµظˆظ„ط© ط¨ظپط§طµظ„ط©):",sites_input_desc:"ظٹظ…ظƒظ† ط¥ط¯ط®ط§ظ„ ط£ظƒط«ط± ظ…ظ† ظ…ظˆظ‚ط¹ ط¨ظپط§طµظ„ط©",group_name:"ط§ط³ظ… ط§ظ„ظ…ط¬ظ…ظˆط¹ط© (ط§ط®طھظٹط§ط±ظٹ):",interface:"ظƒط§ط±طھ ط§ظ„ط®ط±ظˆط¬:",ready_sites:"ظ…ظˆط§ظ‚ط¹ ط¬ط§ظ‡ط²ط© ظ„ظ„ط§ط®طھظٹط§ط± ط§ظ„ط³ط±ظٹط¹",block_type:"ط§ط®طھط± ط·ط±ظٹظ‚ط© ط§ظ„ط­ط¬ط¨",type_layer7:"Layer7",type_layer7_desc:"ظ„ظ„ظ…ظˆط§ظ‚ط¹ ط§ظ„ط¹ط§ط¯ظٹط©",type_tls:"TLS/SSL",type_tls_desc:"ظ„ظ„ظ…ظˆط§ظ‚ط¹ ط§ظ„ظ…ط´ظپط±ط©",type_both:"ظƒظ„ط§ظ‡ظ…ط§",type_both_desc:"ط£ظ‚طµظ‰ ط­ظ…ط§ظٹط©",generate_btn:"طھظˆظ„ظٹط¯ ط³ظƒط±ط¨طھ ط§ظ„ط­ط¬ط¨",reset_btn:"ط¥ط¹ط§ط¯ط© طھط¹ظٹظٹظ†",result_title:"ط§ظ„ط³ظƒط±ط¨طھ ط§ظ„ظ†ط§طھط¬",copy_btn:"ظ†ط³ط® ط§ظ„ط³ظƒط±ط¨طھ",need_help:"ظ‡ظ„ طھط­طھط§ط¬ ظ…ط³ط§ط¹ط¯ط©طں",contact_desc:"ظپط±ظٹظ‚ ط§ظ„ط¯ط¹ظ… ط§ظ„ظپظ†ظٹ ظ…طھط§ط­ ط¹ظ„ظ‰ ظ…ط¯ط§ط± ط§ظ„ط³ط§ط¹ط©",contact_support:"ظ„ظ„طھظˆط§طµظ„ ظˆط§ظ„ط¯ط¹ظ… ط§ظ„ظپظ†ظٹ",contact_whatsapp:"طھظˆط§طµظ„ ط¹ط¨ط± ظˆط§طھط³ط§ط¨",footer_contact:"ظ„ظ„طھظˆط§طµظ„: 01092503391 - Sameh El-Sayed",copyright:"ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ‚ ظ…ط­ظپظˆط¸ط©.",tab_v6_sub:"ظ…ط³طھظ‚ط± / 6.x",tab_v7_sub:"ط§ظ„ط£ط­ط¯ط« / 7.x",v6_notice_title:"ظ…ظ„ط§ط­ط¸ط§طھ ط³ظƒط±ظٹط¨طھ RouterOS v6:",v6_note1:"Layer7 regexp: keyword ظپظ‚ط·",v6_note2:"ظƒظ„ CDN ظپظٹ ط³ط·ط± add ظ…ظ†ظپطµظ„",v6_note3:"TLS ظٹط³طھط®ط¯ظ… tls-host ظپظٹ filter chain=forward",v6_note4:"Mangle ظٹط³طھط®ط¯ظ… chain=prerouting",v7_notice_title:"ظ…ظ„ط§ط­ط¸ط§طھ ط³ظƒط±ظٹط¨طھ RouterOS v7:",v7_note1:"ظٹط³طھط®ط¯ظ… ظ…ط³ط§ط± ط¬ط¯ظٹط¯: /ip/firewall/",v7_note2:"TLS ظپظ„طھط±: ط£ط¶ظپ dst-port=443",v7_note3:"Mangle: chain=prerouting + dst-port=443",v7_note4:"Layer7 regexp: keyword ظپظ‚ط·"}};
+var translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",new:"NEW",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Complete Protection System",hero_title:"Block Websites & Applications",hero_subtitle:"Block any website using Layer7 and TLS/SSL",tool_title:"Website Blocking Settings",block_settings:"Block Settings",sites_input:"Sites to block (comma separated):",sites_input_desc:"You can enter multiple sites separated by commas",group_name:"Group name (optional):",interface:"Out Interface:",ready_sites:"Ready Sites for Quick Selection",block_type:"Choose Blocking Method",type_layer7:"Layer7",type_layer7_desc:"For regular websites",type_tls:"TLS/SSL",type_tls_desc:"For encrypted sites",type_both:"Both",type_both_desc:"Maximum protection",generate_btn:"Generate Block Script",reset_btn:"Reset",result_title:"Generated Script",copy_btn:"Copy Script",need_help:"Need Help?",contact_desc:"Technical support team is available 24/7",contact_support:"Contact Support",contact_whatsapp:"Contact via WhatsApp",footer_contact:"Contact: 01092503391 - Sameh El-Sayed",copyright:"All rights reserved.",tab_v6_sub:"Stable / 6.x",tab_v7_sub:"Latest / 7.x",v6_notice_title:"RouterOS v6 Script Notes:",v6_note1:"Layer7 regexp: keyword only — NO backslash, NO ^, NO $",v6_note2:"Each CDN domain = separate add line",v6_note3:"TLS uses tls-host in filter chain=forward",v6_note4:"Mangle uses chain=prerouting",v7_notice_title:"RouterOS v7 Script Notes:",v7_note1:"Uses new path syntax: /ip/firewall/",v7_note2:"TLS filter: add dst-port=443",v7_note3:"Mangle: chain=prerouting + dst-port=443",v7_note4:"Layer7 regexp: keyword only"},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",new:"جديد",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_badge:"نظام حماية متكامل",hero_title:"حجب المواقع والبرامج",hero_subtitle:"حجب أي موقع باستخدام Layer7 و TLS/SSL",tool_title:"إعدادات حجب المواقع",block_settings:"إعدادات الحجب",sites_input:"مواقع للحجب (مفصولة بفاصلة):",sites_input_desc:"يمكن إدخال أكثر من موقع بفاصلة",group_name:"اسم المجموعة (اختياري):",interface:"كارت الخروج:",ready_sites:"مواقع جاهزة للاختيار السريع",block_type:"اختر طريقة الحجب",type_layer7:"Layer7",type_layer7_desc:"للمواقع العادية",type_tls:"TLS/SSL",type_tls_desc:"للمواقع المشفرة",type_both:"كلاهما",type_both_desc:"أقصى حماية",generate_btn:"توليد سكربت الحجب",reset_btn:"إعادة تعيين",result_title:"السكربت الناتج",copy_btn:"نسخ السكربت",need_help:"هل تحتاج مساعدة؟",contact_desc:"فريق الدعم الفني متاح على مدار الساعة",contact_support:"للتواصل والدعم الفني",contact_whatsapp:"تواصل عبر واتساب",footer_contact:"للتواصل: 01092503391 - Sameh El-Sayed",copyright:"جميع الحقوق محفوظة.",tab_v6_sub:"مستقر / 6.x",tab_v7_sub:"الأحدث / 7.x",v6_notice_title:"ملاحظات سكريبت RouterOS v6:",v6_note1:"Layer7 regexp: keyword فقط",v6_note2:"كل CDN في سطر add منفصل",v6_note3:"TLS يستخدم tls-host في filter chain=forward",v6_note4:"Mangle يستخدم chain=prerouting",v7_notice_title:"ملاحظات سكريبت RouterOS v7:",v7_note1:"يستخدم مسار جديد: /ip/firewall/",v7_note2:"TLS فلتر: أضف dst-port=443",v7_note3:"Mangle: chain=prerouting + dst-port=443",v7_note4:"Layer7 regexp: keyword فقط"}};
 
 var SIGNATURE="By Same7_01092503391";
 var state={v6:{blockType:'layer7'},v7:{blockType:'layer7'}};
@@ -504,15 +504,15 @@ function switchAuthTab(tab){document.getElementById('tabLogin').classList.toggle
 window.switchAuthTab=switchAuthTab;
 function togglePass(id,btn){var inp=document.getElementById(id);var show=inp.type==='password';inp.type=show?'text':'password';btn.querySelector('i').className=show?'fas fa-eye-slash':'fas fa-eye';}
 window.togglePass=togglePass;
-function getErrMsg(code){var m={'auth/invalid-email':'ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط؛ظٹط± طµط­ظٹط­','auth/user-not-found':'ظ„ط§ ظٹظˆط¬ط¯ ط­ط³ط§ط¨ ط¨ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯','auth/wrong-password':'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©','auth/invalid-credential':'ط§ظ„ط¨ط±ظٹط¯ ط£ظˆ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©','auth/email-already-in-use':'ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯ ظ…ط³ط¬ظ‘ظ„ ظ…ط³ط¨ظ‚ط§ظ‹','auth/weak-password':'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط¶ط¹ظٹظپط© (6 ط£ط­ط±ظپ ط¹ظ„ظ‰ ط§ظ„ط£ظ‚ظ„)','auth/too-many-requests':'ظ…ط­ط§ظˆظ„ط§طھ ظƒط«ظٹط±ط©طŒ ط­ط§ظˆظ„ ظ„ط§ط­ظ‚ط§ظ‹','auth/popup-closed-by-user':'طھظ… ط¥ط؛ظ„ط§ظ‚ ظ†ط§ظپط°ط© Google'};return m[code]||'ط­ط¯ط« ط®ط·ط£طŒ ط­ط§ظˆظ„ ظ…ط±ط© ط£ط®ط±ظ‰';}
+function getErrMsg(code){var m={'auth/invalid-email':'البريد الإلكتروني غير صحيح','auth/user-not-found':'لا يوجد حساب بهذا البريد','auth/wrong-password':'كلمة المرور غير صحيحة','auth/invalid-credential':'البريد أو كلمة المرور غير صحيحة','auth/email-already-in-use':'هذا البريد مسجّل مسبقاً','auth/weak-password':'كلمة المرور ضعيفة (6 أحرف على الأقل)','auth/too-many-requests':'محاولات كثيرة، حاول لاحقاً','auth/popup-closed-by-user':'تم إغلاق نافذة Google'};return m[code]||'حدث خطأ، حاول مرة أخرى';}
 function showAuthErr(id,msg){var el=document.getElementById(id);el.textContent=msg;el.classList.add('show');}
-async function doLogin(){var email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPass').value;document.getElementById('loginError').classList.remove('show');document.getElementById('loginSuccess').classList.remove('show');if(!email||!pass){showAuthErr('loginError','ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„');return;}var btn=document.getElementById('loginBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¯ط®ظˆظ„...';try{await window._signInWithEmailAndPassword(window._auth,email,pass);}catch(e){showAuthErr('loginError',getErrMsg(e.code));}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„';}}
+async function doLogin(){var email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPass').value;document.getElementById('loginError').classList.remove('show');document.getElementById('loginSuccess').classList.remove('show');if(!email||!pass){showAuthErr('loginError','يرجى ملء جميع الحقول');return;}var btn=document.getElementById('loginBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الدخول...';try{await window._signInWithEmailAndPassword(window._auth,email,pass);}catch(e){showAuthErr('loginError',getErrMsg(e.code));}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';}}
 window.doLogin=doLogin;
-async function doRegister(){var email=document.getElementById('regEmail').value.trim(),pass=document.getElementById('regPass').value,pass2=document.getElementById('regPass2').value;document.getElementById('registerError').classList.remove('show');if(!email||!pass||!pass2){showAuthErr('registerError','ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„');return;}if(pass!==pass2){showAuthErr('registerError','ظƒظ„ظ…طھط§ ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± ظ…طھط·ط§ط¨ظ‚طھظٹظ†');return;}var btn=document.getElementById('registerBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¥ظ†ط´ط§ط،...';try{await window._createUserWithEmailAndPassword(window._auth,email,pass);}catch(e){showAuthErr('registerError',getErrMsg(e.code));}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨';}}
+async function doRegister(){var email=document.getElementById('regEmail').value.trim(),pass=document.getElementById('regPass').value,pass2=document.getElementById('regPass2').value;document.getElementById('registerError').classList.remove('show');if(!email||!pass||!pass2){showAuthErr('registerError','يرجى ملء جميع الحقول');return;}if(pass!==pass2){showAuthErr('registerError','كلمتا المرور غير متطابقتين');return;}var btn=document.getElementById('registerBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الإنشاء...';try{await window._createUserWithEmailAndPassword(window._auth,email,pass);}catch(e){showAuthErr('registerError',getErrMsg(e.code));}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-user-plus"></i> إنشاء الحساب';}}
 window.doRegister=doRegister;
 async function doGoogle(){try{await window._signInWithPopup(window._auth,window._provider);}catch(e){showAuthErr('loginError',getErrMsg(e.code));document.getElementById('loginError').classList.add('show');}}
 window.doGoogle=doGoogle;
-async function forgotPassword(e){e.preventDefault();var email=document.getElementById('loginEmail').value.trim();document.getElementById('loginError').classList.remove('show');document.getElementById('loginSuccess').classList.remove('show');if(!email){showAuthErr('loginError','ط£ط¯ط®ظ„ ط¨ط±ظٹط¯ظƒ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط£ظˆظ„ط§ظ‹');return;}try{await window._sendPasswordResetEmail(window._auth,email);var s=document.getElementById('loginSuccess');s.textContent='طھظ… ط¥ط±ط³ط§ظ„ ط±ط§ط¨ط· ط§ظ„ط§ط³طھط¹ط§ط¯ط© âœ…';s.classList.add('show');}catch(e){showAuthErr('loginError',getErrMsg(e.code));}}
+async function forgotPassword(e){e.preventDefault();var email=document.getElementById('loginEmail').value.trim();document.getElementById('loginError').classList.remove('show');document.getElementById('loginSuccess').classList.remove('show');if(!email){showAuthErr('loginError','أدخل بريدك الإلكتروني أولاً');return;}try{await window._sendPasswordResetEmail(window._auth,email);var s=document.getElementById('loginSuccess');s.textContent='تم إرسال رابط الاستعادة ✅';s.classList.add('show');}catch(e){showAuthErr('loginError',getErrMsg(e.code));}}
 window.forgotPassword=forgotPassword;
 async function doLogout(){await window._signOut(window._auth);document.getElementById('userDropdown').classList.remove('open');}
 window.doLogout=doLogout;
@@ -540,18 +540,18 @@ document.querySelectorAll('.dropdown-toggle').forEach(function(toggle){toggle.ad
 function switchVersion(ver,btn){document.querySelectorAll('.version-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.version-tab').forEach(function(t){t.classList.remove('active');});document.getElementById('panel-'+ver).classList.add('active');btn.classList.add('active');}
 window.switchVersion=switchVersion;
 
-function selectSite(url,name,ver){var input=document.getElementById('sitesInput-'+ver);var current=input.value.trim();var existing=current?current.split(',').map(function(s){return s.trim();}):[];if(!existing.includes(url)){input.value=current?current+', '+url:url;showAlert('siteAlert-'+ver,'âœ… '+name+' added','linear-gradient(135deg,#10b981,#059669)');}updateSiteCards(ver);}
+function selectSite(url,name,ver){var input=document.getElementById('sitesInput-'+ver);var current=input.value.trim();var existing=current?current.split(',').map(function(s){return s.trim();}):[];if(!existing.includes(url)){input.value=current?current+', '+url:url;showAlert('siteAlert-'+ver,'✅ '+name+' added','linear-gradient(135deg,#10b981,#059669)');}updateSiteCards(ver);}
 window.selectSite=selectSite;
 function updateSiteCards(ver){var val=document.getElementById('sitesInput-'+ver).value;var sites=val?val.split(',').map(function(s){return s.trim();}).filter(Boolean):[];document.querySelectorAll('#sitesGrid-'+ver+' .site-card').forEach(function(card){var url=card.querySelector('.site-url').textContent.trim();card.classList.toggle('active',sites.includes(url));});}
 window.updateSiteCards=updateSiteCards;
-function selectBlockType(type,ver,el){state[ver].blockType=type;document.querySelectorAll('#blockTypes-'+ver+' .type-btn').forEach(function(btn){btn.classList.remove('active');});el.classList.add('active');var names={layer7:'Layer7 Protocol',tls:'TLS/SSL Host',both:'Layer7 + TLS/SSL'};showAlert('typeAlert-'+ver,'ًں›،ï¸ڈ Selected: '+names[type],'linear-gradient(135deg,#ef4444,#dc2626)');}
+function selectBlockType(type,ver,el){state[ver].blockType=type;document.querySelectorAll('#blockTypes-'+ver+' .type-btn').forEach(function(btn){btn.classList.remove('active');});el.classList.add('active');var names={layer7:'Layer7 Protocol',tls:'TLS/SSL Host',both:'Layer7 + TLS/SSL'};showAlert('typeAlert-'+ver,'🛡️ Selected: '+names[type],'linear-gradient(135deg,#ef4444,#dc2626)');}
 window.selectBlockType=selectBlockType;
 function showAlert(id,msg,bg){var container=document.getElementById(id);container.innerHTML='';var div=document.createElement('div');div.className='alert-msg';div.style.background=bg;div.textContent=msg;container.appendChild(div);setTimeout(function(){div.style.opacity='0';div.style.transition='opacity .5s';setTimeout(function(){if(container.contains(div))container.removeChild(div);},500);},3000);}
 function generateScript(ver){var sitesInput=document.getElementById('sitesInput-'+ver).value.trim();var groupName=document.getElementById('groupName-'+ver).value.trim();var iface=document.getElementById('interfaceName-'+ver).value.trim()||'OUT';if(!sitesInput){alert('Please enter at least one site to block');return;}var sites=sitesInput.split(',').map(function(s){return s.trim();}).filter(Boolean);var group=groupName||'Blocked Sites';var bt=state[ver].blockType;var script=(ver==='v6')?generateScriptV6(sites,group,iface,bt):generateScriptV7(sites,group,iface,bt);document.getElementById('outputScript-'+ver).value=script;document.getElementById('resultSection-'+ver).style.display='block';setTimeout(function(){document.getElementById('resultSection-'+ver).scrollIntoView({behavior:'smooth',block:'start'});},100);}
 window.generateScript=generateScript;
-function copyScript(ver){var el=document.getElementById('outputScript-'+ver);if(!el.value){alert('No script to copy');return;}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(el.value).then(function(){alert('Script copied successfully! âœ…');}).catch(function(){fallbackCopy(el);});}else{fallbackCopy(el);}}
+function copyScript(ver){var el=document.getElementById('outputScript-'+ver);if(!el.value){alert('No script to copy');return;}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(el.value).then(function(){alert('Script copied successfully! ✅');}).catch(function(){fallbackCopy(el);});}else{fallbackCopy(el);}}
 window.copyScript=copyScript;
-function fallbackCopy(el){el.select();el.setSelectionRange(0,99999);document.execCommand('copy');alert('Script copied successfully! âœ…');}
+function fallbackCopy(el){el.select();el.setSelectionRange(0,99999);document.execCommand('copy');alert('Script copied successfully! ✅');}
 function resetForm(ver){document.getElementById('sitesInput-'+ver).value='';document.getElementById('groupName-'+ver).value='';document.getElementById('interfaceName-'+ver).value='OUT';document.getElementById('outputScript-'+ver).value='';document.getElementById('resultSection-'+ver).style.display='none';document.getElementById('siteAlert-'+ver).innerHTML='';document.getElementById('typeAlert-'+ver).innerHTML='';document.querySelectorAll('#sitesGrid-'+ver+' .site-card').forEach(function(c){c.classList.remove('active');});document.querySelectorAll('#blockTypes-'+ver+' .type-btn').forEach(function(b){b.classList.remove('active');});document.querySelector('#blockTypes-'+ver+' .type-btn').classList.add('active');state[ver].blockType='layer7';}
 window.resetForm=resetForm;
 
