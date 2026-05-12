@@ -30,10 +30,14 @@
         .menu-toggle { display:none; background:transparent; border:0; color:white; font-size:24px; cursor:pointer; padding:9px 10px; border-radius:10px; }
         .menu-toggle:hover { background:rgba(255,255,255,.08); }
         .nav-links { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        .lang-switcher { display:flex; gap:5px; background:rgba(255,255,255,.06); padding:4px; border-radius:999px; border:1px solid rgba(255,255,255,.1); }
+        .lang-btn { border:0; background:transparent; color:#cbd5e1; padding:7px 12px; border-radius:999px; cursor:pointer; font-family:inherit; font-weight:800; display:inline-flex; align-items:center; gap:6px; }
+        .lang-btn.active { background:var(--primary); color:white; }
         .nav-link { color:#cbd5e1; text-decoration:none; padding:9px 14px; border-radius:12px; display:inline-flex; align-items:center; gap:7px; font-weight:700; transition:all .25s; white-space:nowrap; }
         .nav-link:hover, .nav-link.active { color:white; background:var(--primary); }
         .nav-link.primary { background:rgba(99,102,241,.18); border:1px solid rgba(99,102,241,.45); color:#c7d2fe; }
         .nav-link.primary:hover { color:white; background:var(--primary); }
+        .user-initial { width:24px; height:24px; border-radius:50%; background:rgba(255,255,255,.18); display:inline-flex; align-items:center; justify-content:center; font-weight:900; direction:ltr; text-transform:uppercase; }
         .dropdown { position:relative; }
         .dropdown-menu { position:absolute; top:100%; right:0; min-width:230px; background:#1e293b; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:8px; box-shadow:0 14px 35px rgba(0,0,0,.25); opacity:0; visibility:hidden; transform:translateY(-8px); transition:all .2s; }
         .dropdown:hover .dropdown-menu { opacity:1; visibility:visible; transform:translateY(0); }
@@ -96,6 +100,8 @@
             .nav-links.active { display:flex; }
             .nav-link, .dropdown { width:100%; }
             .nav-link { justify-content:center; }
+            .lang-switcher { width:100%; justify-content:center; }
+            .lang-btn { flex:1; justify-content:center; }
             .dropdown-menu { position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; margin-top:6px; display:none; }
             .dropdown:hover .dropdown-menu { display:none; }
             .dropdown.active .dropdown-menu { display:block; }
@@ -112,40 +118,44 @@
             </a>
             <button class="menu-toggle" id="menuToggle" type="button" aria-label="فتح القائمة"><i class="fas fa-bars"></i></button>
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="langAr" type="button"><i class="fas fa-globe"></i> AR</button>
+                    <button class="lang-btn" id="langEn" type="button"><i class="fas fa-globe"></i> EN</button>
+                </div>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span data-cap-i18n="home">الرئيسية</span></a>
                 <div class="dropdown">
-                    <a href="#" class="nav-link"><i class="fas fa-code-branch"></i> الدمج <i class="fas fa-chevron-down"></i></a>
+                    <a href="#" class="nav-link"><i class="fas fa-code-branch"></i> <span data-cap-i18n="merge">الدمج</span> <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-menu">
-                        <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i> دمج خطوط v6</a>
-                        <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i> دمج خطوط v7</a>
+                        <a href="merge-v6.html" class="dropdown-item"><i class="fas fa-network-wired"></i> <span data-cap-i18n="merge_v6">دمج خطوط v6</span></a>
+                        <a href="merge-v7.html" class="dropdown-item"><i class="fas fa-rocket"></i> <span data-cap-i18n="merge_v7">دمج خطوط v7</span></a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a href="#" class="nav-link"><i class="fas fa-wifi"></i> الهوت سبوت <i class="fas fa-chevron-down"></i></a>
+                    <a href="#" class="nav-link"><i class="fas fa-wifi"></i> <span data-cap-i18n="hotspot">الهوت سبوت</span> <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-menu">
-                        <a href="hotspot.html" class="dropdown-item"><i class="fas fa-cog"></i> اعدادات hotspot+ppp</a>
-                        <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i> بروفايلات السرعة</a>
+                        <a href="hotspot.html" class="dropdown-item"><i class="fas fa-cog"></i> <span data-cap-i18n="hotspot_settings">اعدادات hotspot+ppp</span></a>
+                        <a href="speed-profiles.html" class="dropdown-item"><i class="fas fa-tachometer-alt"></i> <span data-cap-i18n="speed_profiles">بروفايلات السرعة</span></a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a href="#" class="nav-link"><i class="fas fa-paint-brush"></i> الأدوات <i class="fas fa-chevron-down"></i></a>
+                    <a href="#" class="nav-link"><i class="fas fa-paint-brush"></i> <span data-cap-i18n="tools">الأدوات</span> <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-menu">
-                        <a href="Hotspot%20Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i> تصميم هوت سبوت</a>
-                        <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i> مصمم الكروت</a>
-                        <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i> حجب المواقع</a>
-                        <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">محلل السجلات</span></a>
+                        <a href="Hotspot%20Editor.html" class="dropdown-item"><i class="fas fa-paint-brush"></i> <span data-cap-i18n="hotspot_design">تصميم هوت سبوت</span></a>
+                        <a href="CardEditor.html" class="dropdown-item"><i class="fas fa-id-card"></i> <span data-cap-i18n="card_designer">مصمم الكروت</span></a>
+                        <a href="block-sites.html" class="dropdown-item"><i class="fas fa-shield-alt"></i> <span data-cap-i18n="block_sites">حجب المواقع</span></a>
+                        <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-cap-i18n="log_analyzer">محلل السجلات</span></a>
                     </div>
                 </div>
-                <a href="capacity-calculator.html" class="nav-link active"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
+                <a href="capacity-calculator.html" class="nav-link active"><i class="fas fa-calculator"></i><span data-cap-i18n="capacity_short">حاسبة السعة</span><span class="new-badge" data-cap-i18n="new">جديد</span></a>
                 <div class="dropdown">
-                    <a href="#" class="nav-link"><i class="fas fa-circle-question"></i> المساعدة <i class="fas fa-chevron-down"></i></a>
+                    <a href="#" class="nav-link"><i class="fas fa-circle-question"></i> <span data-cap-i18n="help">المساعدة</span> <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-menu">
-                        <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-triangle-exclamation"></i> المشكلات الشائعة</a>
-                        <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i> من نحن</a>
-                        <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-shield-halved"></i> سياسة الخصوصية</a>
+                        <a href="troubleshooting.html" class="dropdown-item"><i class="fas fa-triangle-exclamation"></i> <span data-cap-i18n="troubleshooting">المشكلات الشائعة</span></a>
+                        <a href="about.html" class="dropdown-item"><i class="fas fa-users"></i> <span data-cap-i18n="about">من نحن</span></a>
+                        <a href="privacy-policy.html" class="dropdown-item"><i class="fas fa-shield-halved"></i> <span data-cap-i18n="privacy">سياسة الخصوصية</span></a>
                     </div>
                 </div>
-                <a class="nav-link primary" id="loginStateLink" href="login.html?redirect=capacity-calculator.html"><i class="fas fa-user"></i> تسجيل الدخول</a>
+                <a class="nav-link primary" id="loginStateLink" href="login.html?redirect=capacity-calculator.html"><i class="fas fa-user"></i> <span data-cap-i18n="login">تسجيل الدخول</span></a>
             </div>
         </div>
     </nav>
@@ -257,6 +267,124 @@
     <iframe class="mikro-icons-frame" src="mikro-icons.html" style="position:fixed;left:16px;bottom:16px;width:76px;height:230px;border:none;z-index:1000000;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
     <script src="mikro-chatbot.js"></script>
     <script>
+        const CAPACITY_I18N = {
+            ar: {
+                title: "حاسبة سعة الشبكة | MikroTools",
+                home: "الرئيسية", merge: "الدمج", merge_v6: "دمج خطوط v6", merge_v7: "دمج خطوط v7",
+                hotspot: "الهوت سبوت", hotspot_settings: "اعدادات hotspot+ppp", speed_profiles: "بروفايلات السرعة",
+                tools: "الأدوات", hotspot_design: "تصميم هوت سبوت", card_designer: "مصمم الكروت", block_sites: "حجب المواقع", log_analyzer: "محلل السجلات",
+                capacity_short: "حاسبة السعة", new: "جديد", help: "المساعدة", troubleshooting: "المشكلات الشائعة", about: "من نحن", privacy: "سياسة الخصوصية", login: "تسجيل الدخول",
+                badge: "تخطيط سرعة الشبكة", h1: "حاسبة عدد العملاء والسرعة المناسبة",
+                lead: "احسب السرعة المطلوبة لشبكتك حسب عدد العملاء ومتوسط السرعة ونسبة الاستخدام وقت الذروة، واعرف هل تحتاج دمج خطوط أم خط واحد كفاية.",
+                quick: "قرار سريع للفني", quickStrong: "خط واحد أم دمج؟", quickLead: "الأداة تضيف هامش أمان وتحسب Down / Up وتطلع توصية عملية.",
+                panelTitle: "بيانات الشبكة", customers: "عدد العملاء", customersHint: "إجمالي المشتركين", avgSpeed: "متوسط سرعة العميل", avgHint: "مثال: لو أغلب العملاء باقة 2 ميجا اكتب 2.",
+                peak: "نسبة الذروة", headroom: "هامش أمان", uploadRatio: "نسبة الرفع", fromDown: "من الداون", lineCapacity: "سعة الخط الواحد",
+                networkType: "نوع الشبكة", adviceHint: "يؤثر على النصيحة", normal: "20% عادي", balanced: "30% متوازن", high: "50% استخدام عالي", smallIsp: "مزود خدمة صغير",
+                calcLogin: "سجّل دخول لحساب السعة", calcNow: "احسب السعة", defaults: "قيم مقترحة", loginNote: "يجب تسجيل الدخول أولًا لاستخدام الحاسبة.",
+                ready: "جاهز للحساب", resultTitle: "اكتب بيانات الشبكة واضغط احسب", resultText: "هنحسب سرعة التحميل والرفع المناسبة، وعدد الخطوط المقترح، وهل الدمج مطلوب أم لا.",
+                down: "Download مطلوب", up: "Upload مطلوب", activeUsers: "العملاء وقت الذروة", lines: "عدد الخطوط", recommendation: "التوصية", recEmpty: "ستظهر هنا النصيحة المناسبة بعد الحساب.",
+                notesTitle: "ملاحظات مهمة", noteEmpty: "الحساب تقديري ويحتاج مراجعة حسب الاستخدام الحقيقي.", reportTitle: "تقرير مختصر", reportEmpty: "اضغط احسب لعرض ملخص مناسب للنسخ أو الإرسال.",
+                copyReport: "نسخ التقرير", notice: "مهم: لا تعتمد على الحساب وحده في الشبكات الكبيرة. راقب الاستهلاك الفعلي من Interface و Queues لمدة يومين على الأقل.",
+                signedFallback: "مسجل", oneLine: "خط واحد غالبًا كفاية", noMerge: "الشبكة مناسبة بدون دمج", noMergeRec: (cap) => `خط ${cap}Mbps مناسب، لكن راقب الاستهلاك وقت الذروة.`,
+                mergeBetter: "الدمج مفضل", twoLines: "يفضل دمج خطين", twoRec: "السرعة المطلوبة قريبة من سعة الخط الواحد. الأفضل دمج خطين أو ترقية الخط لتجنب الضغط.",
+                mergeRequired: "الدمج مطلوب", needLines: (lines) => `تحتاج حوالي ${lines} خطوط`, manyRec: (lines) => `الاستهلاك المتوقع أعلى من خط واحد. استخدم Load Balancing مع ${lines} خطوط أو خط فايبر أكبر.`,
+                tightLine: "خط واحد يكفي بصعوبة", nearLoad: "الخط الحالي قريب من الضغط", tightRec: "خط واحد ممكن يمشي، لكن نسبة الضغط عالية. ارفع هامش الأمان أو جهز خط احتياطي.",
+                activeResult: (active, customers, headroom) => `عندك تقريبًا ${active} عميل نشط وقت الذروة من أصل ${customers}. الحساب شامل هامش أمان ${headroom}%.`,
+                report: "تقرير سعة الشبكة", avgReport: "متوسط سرعة العميل", peakReport: "العملاء وقت الذروة", downReport: "Download مطلوب", upReport: "Upload مطلوب", capReport: "سعة الخط الواحد", linesReport: "عدد الخطوط المقترح", recReport: "التوصية"
+            },
+            en: {
+                title: "Network Capacity Calculator | MikroTools",
+                home: "Home", merge: "Merge", merge_v6: "Load Balancing v6", merge_v7: "Load Balancing v7",
+                hotspot: "Hotspot", hotspot_settings: "Hotspot+PPP Settings", speed_profiles: "Speed Profiles",
+                tools: "Tools", hotspot_design: "Hotspot Design", card_designer: "Card Designer", block_sites: "Block Sites", log_analyzer: "Log Analyzer",
+                capacity_short: "Capacity", new: "NEW", help: "Help", troubleshooting: "Troubleshooting", about: "About Us", privacy: "Privacy Policy", login: "Login",
+                badge: "Network speed planning", h1: "Customer and bandwidth capacity calculator",
+                lead: "Estimate the right bandwidth from customer count, average package speed, peak usage, and whether one line is enough or load balancing is needed.",
+                quick: "Fast decision for technicians", quickStrong: "One line or merge?", quickLead: "Adds safety headroom, calculates Down / Up, and gives a practical recommendation.",
+                panelTitle: "Network data", customers: "Customers", customersHint: "Total subscribers", avgSpeed: "Average customer speed", avgHint: "Example: if most plans are 2 Mbps, enter 2.",
+                peak: "Peak usage", headroom: "Safety headroom", uploadRatio: "Upload ratio", fromDown: "of download", lineCapacity: "Single line capacity",
+                networkType: "Network type", adviceHint: "Affects the advice", normal: "20% normal", balanced: "30% balanced", high: "50% heavy use", smallIsp: "Small ISP",
+                calcLogin: "Login to calculate capacity", calcNow: "Calculate capacity", defaults: "Suggested values", loginNote: "You must log in first to use the calculator.",
+                ready: "Ready to calculate", resultTitle: "Enter network data and calculate", resultText: "We will calculate suitable download/upload bandwidth, suggested line count, and whether merging is needed.",
+                down: "Required download", up: "Required upload", activeUsers: "Peak active users", lines: "Lines", recommendation: "Recommendation", recEmpty: "The recommendation will appear here after calculation.",
+                notesTitle: "Important notes", noteEmpty: "This is an estimate and should be reviewed against real usage.", reportTitle: "Short report", reportEmpty: "Calculate to show a report suitable for copying or sending.",
+                copyReport: "Copy report", notice: "Important: for large networks, do not rely on calculation alone. Monitor real Interface and Queue usage for at least two days.",
+                signedFallback: "Signed in", oneLine: "One line is probably enough", noMerge: "Network is suitable without merging", noMergeRec: (cap) => `${cap}Mbps line is suitable, but monitor peak usage.`,
+                mergeBetter: "Merging is recommended", twoLines: "Two lines are recommended", twoRec: "Required speed is close to one line capacity. Merge two lines or upgrade the line to avoid pressure.",
+                mergeRequired: "Merging is required", needLines: (lines) => `You need about ${lines} lines`, manyRec: (lines) => `Expected usage is higher than one line. Use Load Balancing with ${lines} lines or a larger fiber line.`,
+                tightLine: "One line may be tight", nearLoad: "Current line is close to pressure", tightRec: "One line can work, but pressure is high. Increase headroom or prepare a backup line.",
+                activeResult: (active, customers, headroom) => `About ${active} users are active at peak out of ${customers}. Calculation includes ${headroom}% safety headroom.`,
+                report: "Network capacity report", avgReport: "Average customer speed", peakReport: "Peak active users", downReport: "Required download", upReport: "Required upload", capReport: "Single line capacity", linesReport: "Suggested lines", recReport: "Recommendation"
+            }
+        };
+        let capacityLang = localStorage.getItem("capacityLang") || localStorage.getItem("language") || "ar";
+        if (!["ar", "en"].includes(capacityLang)) capacityLang = "ar";
+        function capText(key) { return CAPACITY_I18N[capacityLang][key]; }
+        window.CAPACITY_I18N = CAPACITY_I18N;
+        window.getCapacityLang = () => capacityLang;
+        window.capText = capText;
+        function applyCapacityLanguage() {
+            const tr = CAPACITY_I18N[capacityLang];
+            document.documentElement.lang = capacityLang;
+            document.documentElement.dir = capacityLang === "ar" ? "rtl" : "ltr";
+            document.title = tr.title;
+            document.querySelectorAll("[data-cap-i18n]").forEach((el) => {
+                const key = el.getAttribute("data-cap-i18n");
+                if (tr[key]) el.textContent = tr[key];
+            });
+            document.getElementById("langAr").classList.toggle("active", capacityLang === "ar");
+            document.getElementById("langEn").classList.toggle("active", capacityLang === "en");
+            const set = (selector, value) => { const el = document.querySelector(selector); if (el) el.textContent = value; };
+            set(".badge", tr.badge);
+            set("h1", tr.h1);
+            set(".lead", tr.lead);
+            set(".hero-card span", tr.quick);
+            set(".hero-card strong", tr.quickStrong);
+            set(".hero-card .lead", tr.quickLead);
+            set(".panel h2", tr.panelTitle);
+            const labels = document.querySelectorAll(".panel label");
+            const labelData = [[tr.customers,tr.customersHint],[tr.avgSpeed,"Mbps"],[tr.peak,"%"],[tr.headroom,"%"],[tr.uploadRatio,tr.fromDown],[tr.lineCapacity,"Mbps"],[tr.networkType,tr.adviceHint]];
+            labels.forEach((label, index) => { if(labelData[index]) label.innerHTML = `${labelData[index][0]} <span>${labelData[index][1]}</span>`; });
+            set(".hint", tr.avgHint);
+            const options = document.querySelectorAll("#uploadRatio option");
+            if (options[0]) options[0].textContent = tr.normal;
+            if (options[1]) options[1].textContent = tr.balanced;
+            if (options[2]) options[2].textContent = tr.high;
+            const networkOptions = document.querySelectorAll("#networkType option");
+            if (networkOptions[3]) networkOptions[3].textContent = tr.smallIsp;
+            document.querySelector(".btn-secondary").innerHTML = `<i class="fas fa-rotate-right"></i> ${tr.defaults}`;
+            document.getElementById("loginNote").textContent = tr.loginNote;
+            if (!window.capacityCurrentUser) document.getElementById("calculateBtn").innerHTML = `<i class="fas fa-lock"></i> ${tr.calcLogin}`;
+            set("#verdict", tr.ready);
+            document.getElementById("verdict").innerHTML = `<i class="fas fa-circle-check"></i> ${tr.ready}`;
+            set("#resultTitle", tr.resultTitle);
+            set("#resultText", tr.resultText);
+            const metricLabels = document.querySelectorAll(".metric span");
+            [tr.down, tr.up, tr.activeUsers, tr.lines].forEach((value, index) => { if(metricLabels[index]) metricLabels[index].textContent = value; });
+            const infoTitles = document.querySelectorAll(".info-card h3");
+            if (infoTitles[0]) infoTitles[0].innerHTML = `<i class="fas fa-lightbulb"></i> ${tr.recommendation}`;
+            if (infoTitles[1]) infoTitles[1].innerHTML = `<i class="fas fa-triangle-exclamation"></i> ${tr.notesTitle}`;
+            if (infoTitles[2]) infoTitles[2].innerHTML = `<i class="fas fa-file-lines"></i> ${tr.reportTitle}`;
+            set("#recommendation", tr.recEmpty);
+            document.getElementById("notes").innerHTML = `<li>${tr.noteEmpty}</li>`;
+            set("#reportPreview", tr.reportEmpty);
+            document.querySelector(".copy-row .btn").innerHTML = `<i class="fas fa-copy"></i> ${tr.copyReport}`;
+            set(".notice", tr.notice);
+            const loginStateLink = document.getElementById("loginStateLink");
+            if (loginStateLink && !window.capacityCurrentUser) {
+                loginStateLink.innerHTML = `<i class="fas fa-user"></i> ${tr.login}`;
+                loginStateLink.href = "login.html?redirect=capacity-calculator.html";
+            }
+            if (loginStateLink && window.capacityCurrentUser) {
+                const email = window.capacityCurrentUser.email || "";
+                const initial = (email.trim().charAt(0) || tr.signedFallback.charAt(0)).toUpperCase();
+                loginStateLink.innerHTML = `<i class="fas fa-user-check"></i><span class="user-initial" title="${email || tr.signedFallback}">${initial}</span>`;
+                loginStateLink.href = "#";
+            }
+        }
+        document.getElementById("langAr").addEventListener("click", () => { capacityLang = "ar"; localStorage.setItem("capacityLang", "ar"); localStorage.setItem("language", "ar"); applyCapacityLanguage(); if (window.capacityCurrentUser && window.calculateCapacity) window.calculateCapacity(); });
+        document.getElementById("langEn").addEventListener("click", () => { capacityLang = "en"; localStorage.setItem("capacityLang", "en"); localStorage.setItem("language", "en"); applyCapacityLanguage(); if (window.capacityCurrentUser && window.calculateCapacity) window.calculateCapacity(); });
+        applyCapacityLanguage();
         const menuToggleBtn = document.getElementById("menuToggle");
         const navLinksEl = document.getElementById("navLinks");
         function closeMobileMenu() {
@@ -313,24 +441,31 @@
         });
         const auth = getAuth(app);
         let currentUser = null;
+        window.capacityCurrentUser = null;
         let lastReport = "";
 
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
+            window.capacityCurrentUser = user;
             const calcBtn = document.getElementById("calculateBtn");
             const loginNote = document.getElementById("loginNote");
             const loginStateLink = document.getElementById("loginStateLink");
+            const tr = window.CAPACITY_I18N[window.getCapacityLang()];
             if (user) {
-                calcBtn.innerHTML = '<i class="fas fa-calculator"></i> احسب السعة';
+                window.applyCapacityLanguage();
+                calcBtn.innerHTML = `<i class="fas fa-calculator"></i> ${tr.calcNow}`;
                 loginNote.classList.remove("show");
-                loginStateLink.innerHTML = '<i class="fas fa-user-check"></i> ' + (user.email || "مسجل دخول");
+                const email = user.email || "";
+                const initial = (email.trim().charAt(0) || tr.signedFallback.charAt(0)).toUpperCase();
+                loginStateLink.innerHTML = `<i class="fas fa-user-check"></i><span class="user-initial" title="${email || tr.signedFallback}">${initial}</span>`;
                 loginStateLink.href = "#";
                 calculateCapacity();
             } else {
-                calcBtn.innerHTML = '<i class="fas fa-lock"></i> سجّل دخول لحساب السعة';
+                calcBtn.innerHTML = `<i class="fas fa-lock"></i> ${tr.calcLogin}`;
                 loginNote.classList.add("show");
-                loginStateLink.innerHTML = '<i class="fas fa-user"></i> تسجيل الدخول';
+                loginStateLink.innerHTML = `<i class="fas fa-user"></i> ${tr.login}`;
                 loginStateLink.href = "login.html?redirect=capacity-calculator.html";
+                window.applyCapacityLanguage();
             }
         });
 
@@ -352,6 +487,7 @@
 
         function calculateCapacity() {
             if (!currentUser) return;
+            const tr = window.CAPACITY_I18N[window.getCapacityLang()];
             const customers = numberValue("customers", 1);
             const avgSpeed = numberValue("avgSpeed", 1);
             const peakUsage = Math.min(numberValue("peakUsage", 35), 100) / 100;
@@ -369,38 +505,38 @@
             const usagePercent = Math.round((download / lineCapacity) * 100);
 
             let level = "good";
-            let verdictText = "خط واحد غالبًا كفاية";
-            let title = "الشبكة مناسبة بدون دمج";
-            let recommendation = `خط ${lineCapacity}Mbps مناسب، لكن راقب الاستهلاك وقت الذروة.`;
+            let verdictText = tr.oneLine;
+            let title = tr.noMerge;
+            let recommendation = tr.noMergeRec(lineCapacity);
 
             if (lines === 2) {
                 level = "warn";
-                verdictText = "الدمج مفضل";
-                title = "يفضل دمج خطين";
-                recommendation = `السرعة المطلوبة قريبة من سعة الخط الواحد. الأفضل دمج خطين أو ترقية الخط لتجنب الضغط.`;
+                verdictText = tr.mergeBetter;
+                title = tr.twoLines;
+                recommendation = tr.twoRec;
             } else if (lines > 2) {
                 level = "bad";
-                verdictText = "الدمج مطلوب";
-                title = `تحتاج حوالي ${lines} خطوط`;
-                recommendation = `الاستهلاك المتوقع أعلى من خط واحد. استخدم Load Balancing مع ${lines} خطوط أو خط فايبر أكبر.`;
+                verdictText = tr.mergeRequired;
+                title = tr.needLines(lines);
+                recommendation = tr.manyRec(lines);
             } else if (usagePercent > 75) {
                 level = "warn";
-                verdictText = "خط واحد يكفي بصعوبة";
-                title = "الخط الحالي قريب من الضغط";
-                recommendation = `خط واحد ممكن يمشي، لكن نسبة الضغط عالية. ارفع هامش الأمان أو جهز خط احتياطي.`;
+                verdictText = tr.tightLine;
+                title = tr.nearLoad;
+                recommendation = tr.tightRec;
             }
 
             const typeAdvice = {
-                hotspot: "للهوت سبوت: فعّل Queue أو Profile واضح لكل باقة، وراقب أكثر الأجهزة استهلاكًا.",
-                pppoe: "للـ PPPoE: استخدم Profiles منفصلة للسرعات، وخلي الدمج على RouterOS مناسب للإصدار.",
-                mixed: "للشبكات المختلطة: افصل حسابات Hotspot عن PPPoE في Profiles واضحة.",
-                isp: "لمزود خدمة صغير: الأفضل وجود خط احتياطي ومراقبة يومية للـ interfaces."
+                hotspot: window.getCapacityLang() === "ar" ? "للهوت سبوت: فعّل Queue أو Profile واضح لكل باقة، وراقب أكثر الأجهزة استهلاكًا." : "For Hotspot: use clear Queues or Profiles per package and monitor top consuming devices.",
+                pppoe: window.getCapacityLang() === "ar" ? "للـ PPPoE: استخدم Profiles منفصلة للسرعات، وخلي الدمج على RouterOS مناسب للإصدار." : "For PPPoE: use separate speed profiles and match load balancing to your RouterOS version.",
+                mixed: window.getCapacityLang() === "ar" ? "للشبكات المختلطة: افصل حسابات Hotspot عن PPPoE في Profiles واضحة." : "For mixed networks: separate Hotspot and PPPoE accounts into clear profiles.",
+                isp: window.getCapacityLang() === "ar" ? "لمزود خدمة صغير: الأفضل وجود خط احتياطي ومراقبة يومية للـ interfaces." : "For a small ISP: keep a backup line and monitor interfaces daily."
             };
 
             document.getElementById("verdict").className = `verdict ${level}`;
             document.getElementById("verdict").innerHTML = `<i class="fas fa-${level === "good" ? "circle-check" : level === "warn" ? "triangle-exclamation" : "circle-exclamation"}"></i> ${verdictText}`;
             document.getElementById("resultTitle").textContent = title;
-            document.getElementById("resultText").textContent = `عندك تقريبًا ${active} عميل نشط وقت الذروة من أصل ${customers}. الحساب شامل هامش أمان ${Math.round(headroom * 100)}%.`;
+            document.getElementById("resultText").textContent = tr.activeResult(active, customers, Math.round(headroom * 100));
             document.getElementById("downNeed").textContent = `${download}M`;
             document.getElementById("upNeed").textContent = `${upload}M`;
             document.getElementById("activeUsers").textContent = active;
@@ -408,24 +544,24 @@
             document.getElementById("recommendation").textContent = recommendation;
 
             const notes = [
-                `الاستهلاك الفعلي المتوقع قبل هامش الأمان: ${Math.ceil(rawDownload)}Mbps.`,
-                `لا تستخدم أكثر من 85% من سعة الخط كقيمة آمنة.`,
+                window.getCapacityLang() === "ar" ? `الاستهلاك الفعلي المتوقع قبل هامش الأمان: ${Math.ceil(rawDownload)}Mbps.` : `Expected usage before headroom: ${Math.ceil(rawDownload)}Mbps.`,
+                window.getCapacityLang() === "ar" ? `لا تستخدم أكثر من 85% من سعة الخط كقيمة آمنة.` : `Use 85% of the line capacity as a safer planning value.`,
                 typeAdvice[networkType],
             ];
-            if (avgSpeed >= 5 && customers > 100) notes.push("مع السرعات العالية وعدد عملاء كبير، يفضل تقسيم الشبكة ومراقبة الضغط على المعالج.");
-            if (uploadRatio >= 0.5) notes.push("نسبة الرفع عالية، تأكد أن خط الإنترنت يوفر Upload كافي وليس Download فقط.");
+            if (avgSpeed >= 5 && customers > 100) notes.push(window.getCapacityLang() === "ar" ? "مع السرعات العالية وعدد عملاء كبير، يفضل تقسيم الشبكة ومراقبة الضغط على المعالج." : "With high speeds and many customers, segment the network and monitor CPU pressure.");
+            if (uploadRatio >= 0.5) notes.push(window.getCapacityLang() === "ar" ? "نسبة الرفع عالية، تأكد أن خط الإنترنت يوفر Upload كافي وليس Download فقط." : "Upload ratio is high, make sure the line provides enough upload, not only download.");
 
             document.getElementById("notes").innerHTML = notes.map((note) => `<li>${note}</li>`).join("");
 
-            lastReport = `تقرير سعة الشبكة
-عدد العملاء: ${customers}
-متوسط سرعة العميل: ${avgSpeed}M
-العملاء وقت الذروة: ${active}
-Download مطلوب: ${download}M
-Upload مطلوب: ${upload}M
-سعة الخط الواحد: ${lineCapacity}M
-عدد الخطوط المقترح: ${lines}
-التوصية: ${recommendation}`;
+            lastReport = `${tr.report}
+${tr.customers}: ${customers}
+${tr.avgReport}: ${avgSpeed}M
+${tr.peakReport}: ${active}
+${tr.downReport}: ${download}M
+${tr.upReport}: ${upload}M
+${tr.capReport}: ${lineCapacity}M
+${tr.linesReport}: ${lines}
+${tr.recReport}: ${recommendation}`;
             document.getElementById("reportPreview").textContent = lastReport;
         }
 
