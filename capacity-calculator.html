@@ -27,6 +27,8 @@
         .nav-container { max-width:1400px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
         .logo { color:white; text-decoration:none; display:flex; align-items:center; gap:14px; font-weight:800; font-size:24px; white-space:nowrap; }
         .logo-icon { width:50px; height:50px; border-radius:13px; background:var(--gradient); display:flex; align-items:center; justify-content:center; font-size:22px; }
+        .menu-toggle { display:none; background:transparent; border:0; color:white; font-size:24px; cursor:pointer; padding:9px 10px; border-radius:10px; }
+        .menu-toggle:hover { background:rgba(255,255,255,.08); }
         .nav-links { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
         .nav-link { color:#cbd5e1; text-decoration:none; padding:9px 14px; border-radius:12px; display:inline-flex; align-items:center; gap:7px; font-weight:700; transition:all .25s; white-space:nowrap; }
         .nav-link:hover, .nav-link.active { color:white; background:var(--primary); }
@@ -88,11 +90,16 @@
         }
         @media (max-width:560px) {
             .inline, .metrics, .cards { grid-template-columns:1fr; }
-            .nav-container { align-items:flex-start; flex-direction:column; }
-            .nav-links { width:100%; }
+            .nav-container { position:relative; align-items:center; flex-direction:row; }
+            .menu-toggle { display:inline-flex; align-items:center; justify-content:center; }
+            .nav-links { display:none; position:absolute; top:100%; right:0; left:0; width:100%; background:#1e293b; padding:1rem 1rem 1rem 108px; flex-direction:column; align-items:stretch; max-height:calc(100vh - 82px); overflow-y:auto; overscroll-behavior:contain; border-top:1px solid rgba(255,255,255,.08); box-shadow:0 18px 45px rgba(0,0,0,.32); z-index:1001; }
+            .nav-links.active { display:flex; }
             .nav-link, .dropdown { width:100%; }
+            .nav-link { justify-content:center; }
             .dropdown-menu { position:static; opacity:1; visibility:visible; transform:none; box-shadow:none; margin-top:6px; display:none; }
-            .dropdown:hover .dropdown-menu { display:block; }
+            .dropdown:hover .dropdown-menu { display:none; }
+            .dropdown.active .dropdown-menu { display:block; }
+            .mikro-icons-frame { left:12px !important; bottom:12px !important; width:78px !important; height:250px !important; z-index:1000000 !important; }
         }
     </style>
 </head>
@@ -103,7 +110,8 @@
                 <span class="logo-icon"><i class="fas fa-bolt"></i></span>
                 <span>MikroTools</span>
             </a>
-            <div class="nav-links">
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="فتح القائمة"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
                 <div class="dropdown">
                     <a href="#" class="nav-link"><i class="fas fa-code-branch"></i> الدمج <i class="fas fa-chevron-down"></i></a>
@@ -246,8 +254,51 @@
         </div>
     </main>
 
-    <iframe src="mikro-icons.html" style="position:fixed;left:20px;bottom:20px;width:90px;height:280px;border:none;z-index:99999;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+    <iframe class="mikro-icons-frame" src="mikro-icons.html" style="position:fixed;left:16px;bottom:16px;width:76px;height:230px;border:none;z-index:1000000;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
     <script src="mikro-chatbot.js"></script>
+    <script>
+        const menuToggleBtn = document.getElementById("menuToggle");
+        const navLinksEl = document.getElementById("navLinks");
+        function closeMobileMenu() {
+            if (!menuToggleBtn || !navLinksEl) return;
+            navLinksEl.classList.remove("active");
+            menuToggleBtn.querySelector("i").className = "fas fa-bars";
+            document.querySelectorAll(".dropdown.active").forEach((item) => item.classList.remove("active"));
+        }
+        function openMobileMenu() {
+            if (!menuToggleBtn || !navLinksEl) return;
+            navLinksEl.classList.add("active");
+            menuToggleBtn.querySelector("i").className = "fas fa-times";
+        }
+        closeMobileMenu();
+        menuToggleBtn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (navLinksEl.classList.contains("active")) closeMobileMenu();
+            else openMobileMenu();
+        });
+        document.querySelectorAll(".dropdown > .nav-link").forEach((toggle) => {
+            toggle.addEventListener("click", (event) => {
+                if (window.innerWidth > 560 || toggle.getAttribute("href") !== "#") return;
+                event.preventDefault();
+                event.stopPropagation();
+                const current = toggle.closest(".dropdown");
+                document.querySelectorAll(".dropdown.active").forEach((item) => {
+                    if (item !== current) item.classList.remove("active");
+                });
+                current.classList.toggle("active");
+            });
+        });
+        navLinksEl.addEventListener("click", (event) => {
+            const link = event.target.closest("a");
+            if (window.innerWidth <= 560 && link && link.getAttribute("href") && link.getAttribute("href") !== "#") closeMobileMenu();
+        });
+        document.addEventListener("click", (event) => {
+            if (window.innerWidth <= 560 && navLinksEl.classList.contains("active") && !navLinksEl.contains(event.target) && !menuToggleBtn.contains(event.target)) closeMobileMenu();
+        });
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 560) closeMobileMenu();
+        });
+    </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";

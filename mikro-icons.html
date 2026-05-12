@@ -7,8 +7,8 @@
             margin: 0;
             padding: 0;
             background: transparent !important;
-            width: 100px;
-            height: 280px;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
             font-family: Tahoma, Arial, sans-serif;
         }
@@ -18,15 +18,17 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
             align-items: center;
             justify-content: flex-end;
+            padding: 6px 4px;
+            box-sizing: border-box;
         }
 
         .mikro-social-icons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             order: 1;
         }
 
@@ -43,18 +45,18 @@
         }
 
         .mikro-social-icon {
-            width: 60px;
-            height: 60px;
+            width: clamp(48px, 72vw, 58px);
+            height: clamp(48px, 72vw, 58px);
             text-decoration: none;
-            font-size: 26px;
+            font-size: clamp(21px, 34vw, 25px);
         }
 
         .mikro-help-icon {
-            width: 65px;
-            height: 65px;
+            width: clamp(52px, 76vw, 62px);
+            height: clamp(52px, 76vw, 62px);
             border: none;
             cursor: pointer;
-            font-size: 28px;
+            font-size: clamp(22px, 36vw, 27px);
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
             position: relative;
@@ -66,7 +68,7 @@
 
         @keyframes mikro-float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(-6px) rotate(4deg); }
         }
 
         .mikro-help-icon:hover,
@@ -98,6 +100,12 @@
         }
 
         .mikro-help-icon:hover .mikro-help-text { opacity: 1; }
+
+        @media (max-width: 80px), (max-height: 245px) {
+            .mikro-icons-wrapper { gap: 8px; padding: 5px 3px; }
+            .mikro-social-icons { gap: 8px; }
+            .mikro-help-text { display: none; }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
