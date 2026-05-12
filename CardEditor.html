@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -207,58 +207,58 @@
             <span class="auth-logo-text">MikroTools</span>
         </div>
         <div class="auth-tabs">
-            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
-            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب</button>
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨</button>
         </div>
         <!-- LOGIN FORM -->
         <div class="auth-form active" id="formLogin">
             <div class="auth-error" id="loginError"></div>
             <div class="auth-success" id="loginSuccess"></div>
             <div class="auth-field">
-                <label>البريد الإلكتروني</label>
+                <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
                 <input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com">
             </div>
             <div class="auth-field">
-                <label>كلمة المرور</label>
+                <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                 <div class="auth-input-wrap">
-                    <input type="password" class="auth-input" id="loginPass" placeholder="••••••••" style="padding-right:44px;">
+                    <input type="password" class="auth-input" id="loginPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;">
                     <button class="auth-eye" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
-            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">نسيت كلمة المرور؟</a></div>
-            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
-            <div class="auth-divider">أو</div>
+            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">ظ†ط³ظٹطھ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±طں</a></div>
+            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+            <div class="auth-divider">ط£ظˆ</div>
             <button class="auth-google" onclick="doGoogle()">
                 <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                الدخول بـ Google
+                ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google
             </button>
         </div>
         <!-- REGISTER FORM -->
         <div class="auth-form" id="formRegister">
             <div class="auth-error" id="registerError"></div>
             <div class="auth-field">
-                <label>البريد الإلكتروني</label>
+                <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
                 <input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com">
             </div>
             <div class="auth-field">
-                <label>كلمة المرور</label>
+                <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                 <div class="auth-input-wrap">
-                    <input type="password" class="auth-input" id="regPass" placeholder="••••••••" style="padding-right:44px;">
+                    <input type="password" class="auth-input" id="regPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;">
                     <button class="auth-eye" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
             <div class="auth-field">
-                <label>تأكيد كلمة المرور</label>
+                <label>طھط£ظƒظٹط¯ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                 <div class="auth-input-wrap">
-                    <input type="password" class="auth-input" id="regPass2" placeholder="••••••••" style="padding-right:44px;">
+                    <input type="password" class="auth-input" id="regPass2" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;">
                     <button class="auth-eye" onclick="togglePass('regPass2',this)"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
-            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
-            <div class="auth-divider">أو</div>
+            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨</button>
+            <div class="auth-divider">ط£ظˆ</div>
             <button class="auth-google" onclick="doGoogle()">
                 <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                الدخول بـ Google
+                ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google
             </button>
         </div>
     </div>
@@ -297,7 +297,7 @@
                     <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">Log Analyzer</span></a>
                 </div>
             </div>
-            <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
+            <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>ط­ط§ط³ط¨ط© ط§ظ„ط³ط¹ط©</span><span class="new-badge">ط¬ط¯ظٹط¯</span></a>
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -307,12 +307,12 @@
                 </div>
             </div>
             <!-- AUTH BUTTONS IN NAV -->
-            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> تسجيل الدخول</button>
+            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
             <div style="position:relative;">
                 <button id="navUserBtn" onclick="toggleUserDropdown()"></button>
                 <div class="user-dropdown" id="userDropdown">
-                    <div class="user-dropdown-email"><strong>مرحباً 👋</strong><span id="userEmailDisplay"></span></div>
-                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                    <div class="user-dropdown-email"><strong>ظ…ط±ط­ط¨ط§ظ‹ ًں‘‹</strong><span id="userEmailDisplay"></span></div>
+                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬</button>
                 </div>
             </div>
             </div>
@@ -338,11 +338,11 @@
             <div class="section-title"><i class="fas fa-palette"></i><span data-i18n="design_title">Card Design</span></div>
             <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
                 <div class="card-mode-btn active" data-mode="voucher" onclick="setCardMode('voucher')" style="flex:1;min-width:200px;background:rgba(99,102,241,0.2);border:2px solid var(--primary);border-radius:12px;padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.3s;">
-                    <span style="font-size:28px;">🎫</span>
+                    <span style="font-size:28px;">ًںژ«</span>
                     <div><div style="color:white;font-weight:700;font-size:15px;" data-i18n="mode_voucher">Card Number (Voucher)</div><div style="color:#94a3b8;font-size:12px;" data-i18n="mode_voucher_desc">Auto-generated random number</div></div>
                 </div>
                 <div class="card-mode-btn" data-mode="userpass" onclick="setCardMode('userpass')" style="flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.3s;">
-                    <span style="font-size:28px;">👤</span>
+                    <span style="font-size:28px;">ًں‘¤</span>
                     <div><div style="color:white;font-weight:700;font-size:15px;" data-i18n="mode_userpass">Username / Password</div><div style="color:#94a3b8;font-size:12px;" data-i18n="mode_userpass_desc">Show user &amp; password on card</div></div>
                 </div>
             </div>
@@ -428,7 +428,7 @@
                         <!-- Lock hint shown when not logged in -->
                         <div class="dl-lock-hint" id="dlLockHint">
                             <i class="fas fa-lock"></i>
-                            <span>سجّل دخولك لتحميل الكارت</span>
+                            <span>ط³ط¬ظ‘ظ„ ط¯ط®ظˆظ„ظƒ ظ„طھط­ظ…ظٹظ„ ط§ظ„ظƒط§ط±طھ</span>
                         </div>
                         <div class="dl-opts">
                             <div class="dl-opt sel" id="dlOptPng" onclick="selectDlOpt('fmt','png',this)"><i class="fas fa-file-image"></i> PNG</div>
@@ -524,7 +524,7 @@ onAuthStateChanged(auth, (user) => {
 </script>
 
 <script>
-const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Professional WiFi Card Designer",hero_title:"WiFi Card Designer",hero_subtitle:"Design, generate & print professional WiFi voucher cards",live_preview:"Live Preview",tab_design:"Design",tab_print:"Print",design_title:"Card Design",mode_voucher:"Card Number (Voucher)",mode_voucher_desc:"Auto-generated random number",mode_userpass:"Username / Password",mode_userpass_desc:"Show user & password on card",card_style:"Card Style",color_theme:"Color Theme",color1:"Color 1",color2:"Color 2",optional:"(optional)",upload_logo:"Upload Logo (replaces brand text)",png_rec:"PNG transparent recommended",remove_logo:"Remove",brand:"Brand / ISP Name",card_title_lbl:"Card Title",show_qr:"Show QR Code",show_speed:"Show Speed",show_expiry:"Show Expiry",sample_voucher_title:"Sample Voucher Data",speed:"Speed",expiry:"Expiry Date",sample_userpass_title:"Sample Data (Preview)",username:"Username",password:"Password",front_side:"Front Side",back_side:"Back Side",back_terms:"This card grants internet access. Keep credentials safe. Contact support for issues. Non-transferable.",save_card:"Save Card as Image",download_image:"Download Card Image",print_title:"Print Cards",print_settings:"Print Settings",cards_per_row:"Cards per Row",paper_size:"Paper Size",print_now:"Print Now",download_cards:"Download Cards HTML",print_preview_label:"Print Preview",logo_image:"Logo Image"},ar:{home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hero_badge:"مصمم كروت WiFi الاحترافي",hero_title:"مصمم كروت WiFi",hero_subtitle:"صمم، أنشئ واطبع كروت إنترنت احترافية",live_preview:"معاينة مباشرة",tab_design:"التصميم",tab_print:"طباعة",design_title:"تصميم الكارت",mode_voucher:"رقم الكارت (فاوتشر)",mode_voucher_desc:"أرقام عشوائية تلقائية",mode_userpass:"يوزر / باسورد",mode_userpass_desc:"عرض اليوزر والباسورد على الكارت",card_style:"شكل الكارت",color_theme:"لون الكارت",color1:"اللون الأول",color2:"اللون الثاني",optional:"(اختياري)",upload_logo:"ارفع اللوجو (يستبدل اسم الشركة)",png_rec:"PNG شفاف أفضل",remove_logo:"إزالة",brand:"اسم الشركة / المزود",card_title_lbl:"عنوان الكارت",show_qr:"إظهار QR Code",show_speed:"إظهار السرعة",show_expiry:"إظهار تاريخ الانتهاء",sample_voucher_title:"بيانات فاوتشر تجريبية",speed:"السرعة",expiry:"تاريخ الانتهاء",sample_userpass_title:"بيانات تجريبية (معاينة)",username:"اسم المستخدم",password:"كلمة المرور",front_side:"الوجه الأمامي",back_side:"الوجه الخلفي",back_terms:"هذا الكارت يمنح صلاحية الوصول للإنترنت. احتفظ ببياناتك في مكان آمن. للدعم تواصل معنا. غير قابل للتحويل.",save_card:"حفظ الكارت كصورة",download_image:"تحميل الكارت كصورة",print_title:"طباعة الكروت",print_settings:"إعدادات الطباعة",cards_per_row:"عدد الكروت في الصف",paper_size:"حجم الورقة",print_now:"طباعة الآن",download_cards:"تحميل الكروت HTML",print_preview_label:"معاينة الطباعة",logo_image:"صورة اللوجو"}};
+const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hero_badge:"Professional WiFi Card Designer",hero_title:"WiFi Card Designer",hero_subtitle:"Design, generate & print professional WiFi voucher cards",live_preview:"Live Preview",tab_design:"Design",tab_print:"Print",design_title:"Card Design",mode_voucher:"Card Number (Voucher)",mode_voucher_desc:"Auto-generated random number",mode_userpass:"Username / Password",mode_userpass_desc:"Show user & password on card",card_style:"Card Style",color_theme:"Color Theme",color1:"Color 1",color2:"Color 2",optional:"(optional)",upload_logo:"Upload Logo (replaces brand text)",png_rec:"PNG transparent recommended",remove_logo:"Remove",brand:"Brand / ISP Name",card_title_lbl:"Card Title",show_qr:"Show QR Code",show_speed:"Show Speed",show_expiry:"Show Expiry",sample_voucher_title:"Sample Voucher Data",speed:"Speed",expiry:"Expiry Date",sample_userpass_title:"Sample Data (Preview)",username:"Username",password:"Password",front_side:"Front Side",back_side:"Back Side",back_terms:"This card grants internet access. Keep credentials safe. Contact support for issues. Non-transferable.",save_card:"Save Card as Image",download_image:"Download Card Image",print_title:"Print Cards",print_settings:"Print Settings",cards_per_row:"Cards per Row",paper_size:"Paper Size",print_now:"Print Now",download_cards:"Download Cards HTML",print_preview_label:"Print Preview",logo_image:"Logo Image"},ar:{home:"ط§ظ„ط±ط¦ظٹط³ظٹط©",merge:"ط§ظ„ط¯ظ…ط¬",hotspot:"ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ",design_block:"ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ط­ط¬ط¨",help:"ط§ظ„ظ…ط³ط§ط¹ط¯ط©",merge_v6:"ط¯ظ…ط¬ ط®ط·ظˆط· v6",merge_v7:"ط¯ظ…ط¬ ط®ط·ظˆط· v7",hotspot_settings:"ط§ط¹ط¯ط§ط¯ط§طھ hotspot+ppp",speed_profiles:"ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط§ظ„ط³ط±ط¹ط©",hotspot_design:"طھطµظ…ظٹظ… hotspot",card_designer:"ظ…طµظ…ظ… ط§ظ„ظƒط±ظˆطھ",block_sites:"ط­ط¬ط¨ ظ…ظˆط§ظ‚ط¹",log_analyzer:"ظ…ط­ظ„ظ„ ط§ظ„ط³ط¬ظ„ط§طھ",troubleshooting:"ط§ظ„ظ…ط´ظƒظ„ط§طھ ط§ظ„ط´ط§ط¦ط¹ط©",about:"ظ…ظ† ظ†ط­ظ†",privacy:"ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط©",contact_us:"طھظˆط§طµظ„ ظ…ط¹ظ†ط§",hero_badge:"ظ…طµظ…ظ… ظƒط±ظˆطھ WiFi ط§ظ„ط§ط­طھط±ط§ظپظٹ",hero_title:"ظ…طµظ…ظ… ظƒط±ظˆطھ WiFi",hero_subtitle:"طµظ…ظ…طŒ ط£ظ†ط´ط¦ ظˆط§ط·ط¨ط¹ ظƒط±ظˆطھ ط¥ظ†طھط±ظ†طھ ط§ط­طھط±ط§ظپظٹط©",live_preview:"ظ…ط¹ط§ظٹظ†ط© ظ…ط¨ط§ط´ط±ط©",tab_design:"ط§ظ„طھطµظ…ظٹظ…",tab_print:"ط·ط¨ط§ط¹ط©",design_title:"طھطµظ…ظٹظ… ط§ظ„ظƒط§ط±طھ",mode_voucher:"ط±ظ‚ظ… ط§ظ„ظƒط§ط±طھ (ظپط§ظˆطھط´ط±)",mode_voucher_desc:"ط£ط±ظ‚ط§ظ… ط¹ط´ظˆط§ط¦ظٹط© طھظ„ظ‚ط§ط¦ظٹط©",mode_userpass:"ظٹظˆط²ط± / ط¨ط§ط³ظˆط±ط¯",mode_userpass_desc:"ط¹ط±ط¶ ط§ظ„ظٹظˆط²ط± ظˆط§ظ„ط¨ط§ط³ظˆط±ط¯ ط¹ظ„ظ‰ ط§ظ„ظƒط§ط±طھ",card_style:"ط´ظƒظ„ ط§ظ„ظƒط§ط±طھ",color_theme:"ظ„ظˆظ† ط§ظ„ظƒط§ط±طھ",color1:"ط§ظ„ظ„ظˆظ† ط§ظ„ط£ظˆظ„",color2:"ط§ظ„ظ„ظˆظ† ط§ظ„ط«ط§ظ†ظٹ",optional:"(ط§ط®طھظٹط§ط±ظٹ)",upload_logo:"ط§ط±ظپط¹ ط§ظ„ظ„ظˆط¬ظˆ (ظٹط³طھط¨ط¯ظ„ ط§ط³ظ… ط§ظ„ط´ط±ظƒط©)",png_rec:"PNG ط´ظپط§ظپ ط£ظپط¶ظ„",remove_logo:"ط¥ط²ط§ظ„ط©",brand:"ط§ط³ظ… ط§ظ„ط´ط±ظƒط© / ط§ظ„ظ…ط²ظˆط¯",card_title_lbl:"ط¹ظ†ظˆط§ظ† ط§ظ„ظƒط§ط±طھ",show_qr:"ط¥ط¸ظ‡ط§ط± QR Code",show_speed:"ط¥ط¸ظ‡ط§ط± ط§ظ„ط³ط±ط¹ط©",show_expiry:"ط¥ط¸ظ‡ط§ط± طھط§ط±ظٹط® ط§ظ„ط§ظ†طھظ‡ط§ط،",sample_voucher_title:"ط¨ظٹط§ظ†ط§طھ ظپط§ظˆطھط´ط± طھط¬ط±ظٹط¨ظٹط©",speed:"ط§ظ„ط³ط±ط¹ط©",expiry:"طھط§ط±ظٹط® ط§ظ„ط§ظ†طھظ‡ط§ط،",sample_userpass_title:"ط¨ظٹط§ظ†ط§طھ طھط¬ط±ظٹط¨ظٹط© (ظ…ط¹ط§ظٹظ†ط©)",username:"ط§ط³ظ… ط§ظ„ظ…ط³طھط®ط¯ظ…",password:"ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±",front_side:"ط§ظ„ظˆط¬ظ‡ ط§ظ„ط£ظ…ط§ظ…ظٹ",back_side:"ط§ظ„ظˆط¬ظ‡ ط§ظ„ط®ظ„ظپظٹ",back_terms:"ظ‡ط°ط§ ط§ظ„ظƒط§ط±طھ ظٹظ…ظ†ط­ طµظ„ط§ط­ظٹط© ط§ظ„ظˆطµظˆظ„ ظ„ظ„ط¥ظ†طھط±ظ†طھ. ط§ط­طھظپط¸ ط¨ط¨ظٹط§ظ†ط§طھظƒ ظپظٹ ظ…ظƒط§ظ† ط¢ظ…ظ†. ظ„ظ„ط¯ط¹ظ… طھظˆط§طµظ„ ظ…ط¹ظ†ط§. ط؛ظٹط± ظ‚ط§ط¨ظ„ ظ„ظ„طھط­ظˆظٹظ„.",save_card:"ط­ظپط¸ ط§ظ„ظƒط§ط±طھ ظƒطµظˆط±ط©",download_image:"طھط­ظ…ظٹظ„ ط§ظ„ظƒط§ط±طھ ظƒطµظˆط±ط©",print_title:"ط·ط¨ط§ط¹ط© ط§ظ„ظƒط±ظˆطھ",print_settings:"ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط·ط¨ط§ط¹ط©",cards_per_row:"ط¹ط¯ط¯ ط§ظ„ظƒط±ظˆطھ ظپظٹ ط§ظ„طµظپ",paper_size:"ط­ط¬ظ… ط§ظ„ظˆط±ظ‚ط©",print_now:"ط·ط¨ط§ط¹ط© ط§ظ„ط¢ظ†",download_cards:"طھط­ظ…ظٹظ„ ط§ظ„ظƒط±ظˆطھ HTML",print_preview_label:"ظ…ط¹ط§ظٹظ†ط© ط§ظ„ط·ط¨ط§ط¹ط©",logo_image:"طµظˆط±ط© ط§ظ„ظ„ظˆط¬ظˆ"}};
 
 let currentLang=localStorage.getItem('language')||'en';
 let cardMode='voucher';
@@ -557,25 +557,25 @@ function showErr(id,msg){const el=document.getElementById(id);el.textContent=msg
 function hideErr(id){document.getElementById(id).classList.remove('show');}
 
 function getErrMsg(code){const m={
-    'auth/invalid-email':'البريد الإلكتروني غير صحيح',
-    'auth/user-not-found':'لا يوجد حساب بهذا البريد',
-    'auth/wrong-password':'كلمة المرور غير صحيحة',
-    'auth/invalid-credential':'البريد أو كلمة المرور غير صحيحة',
-    'auth/email-already-in-use':'هذا البريد مسجّل مسبقاً',
-    'auth/weak-password':'كلمة المرور ضعيفة (6 أحرف على الأقل)',
-    'auth/too-many-requests':'محاولات كثيرة، حاول لاحقاً',
-    'auth/popup-closed-by-user':'تم إغلاق نافذة Google'
-};return m[code]||'حدث خطأ، حاول مرة أخرى';}
+    'auth/invalid-email':'ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط؛ظٹط± طµط­ظٹط­',
+    'auth/user-not-found':'ظ„ط§ ظٹظˆط¬ط¯ ط­ط³ط§ط¨ ط¨ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯',
+    'auth/wrong-password':'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©',
+    'auth/invalid-credential':'ط§ظ„ط¨ط±ظٹط¯ ط£ظˆ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©',
+    'auth/email-already-in-use':'ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯ ظ…ط³ط¬ظ‘ظ„ ظ…ط³ط¨ظ‚ط§ظ‹',
+    'auth/weak-password':'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط¶ط¹ظٹظپط© (6 ط£ط­ط±ظپ ط¹ظ„ظ‰ ط§ظ„ط£ظ‚ظ„)',
+    'auth/too-many-requests':'ظ…ط­ط§ظˆظ„ط§طھ ظƒط«ظٹط±ط©طŒ ط­ط§ظˆظ„ ظ„ط§ط­ظ‚ط§ظ‹',
+    'auth/popup-closed-by-user':'طھظ… ط¥ط؛ظ„ط§ظ‚ ظ†ط§ظپط°ط© Google'
+};return m[code]||'ط­ط¯ط« ط®ط·ط£طŒ ط­ط§ظˆظ„ ظ…ط±ط© ط£ط®ط±ظ‰';}
 
 async function doLogin(){
     const email=document.getElementById('loginEmail').value.trim();
     const pass=document.getElementById('loginPass').value;
     hideErr('loginError');hideErr('loginSuccess');
-    if(!email||!pass){showErr('loginError','يرجى ملء جميع الحقول');return;}
-    const btn=document.getElementById('loginBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الدخول...';
+    if(!email||!pass){showErr('loginError','ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„');return;}
+    const btn=document.getElementById('loginBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¯ط®ظˆظ„...';
     try{await window._signInWithEmailAndPassword(window._auth,email,pass);}
     catch(e){showErr('loginError',getErrMsg(e.code));}
-    finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';}
+    finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„';}
 }
 window.doLogin=doLogin;
 
@@ -584,12 +584,12 @@ async function doRegister(){
     const pass=document.getElementById('regPass').value;
     const pass2=document.getElementById('regPass2').value;
     hideErr('registerError');
-    if(!email||!pass||!pass2){showErr('registerError','يرجى ملء جميع الحقول');return;}
-    if(pass!==pass2){showErr('registerError','كلمتا المرور غير متطابقتين');return;}
-    const btn=document.getElementById('registerBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الإنشاء...';
+    if(!email||!pass||!pass2){showErr('registerError','ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„');return;}
+    if(pass!==pass2){showErr('registerError','ظƒظ„ظ…طھط§ ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± ظ…طھط·ط§ط¨ظ‚طھظٹظ†');return;}
+    const btn=document.getElementById('registerBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¥ظ†ط´ط§ط،...';
     try{await window._createUserWithEmailAndPassword(window._auth,email,pass);}
     catch(e){showErr('registerError',getErrMsg(e.code));}
-    finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-user-plus"></i> إنشاء الحساب';}
+    finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨';}
 }
 window.doRegister=doRegister;
 
@@ -603,8 +603,8 @@ async function forgotPassword(e){
     e.preventDefault();
     const email=document.getElementById('loginEmail').value.trim();
     hideErr('loginError');hideErr('loginSuccess');
-    if(!email){showErr('loginError','أدخل بريدك الإلكتروني أولاً');return;}
-    try{await window._sendPasswordResetEmail(window._auth,email);const s=document.getElementById('loginSuccess');s.textContent='تم إرسال رابط الاستعادة لبريدك ✅';s.classList.add('show');}
+    if(!email){showErr('loginError','ط£ط¯ط®ظ„ ط¨ط±ظٹط¯ظƒ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط£ظˆظ„ط§ظ‹');return;}
+    try{await window._sendPasswordResetEmail(window._auth,email);const s=document.getElementById('loginSuccess');s.textContent='طھظ… ط¥ط±ط³ط§ظ„ ط±ط§ط¨ط· ط§ظ„ط§ط³طھط¹ط§ط¯ط© ظ„ط¨ط±ظٹط¯ظƒ âœ…';s.classList.add('show');}
     catch(e){showErr('loginError',getErrMsg(e.code));}
 }
 window.forgotPassword=forgotPassword;
@@ -612,7 +612,7 @@ window.forgotPassword=forgotPassword;
 async function doLogout(){
     await window._signOut(window._auth);
     document.getElementById('userDropdown').classList.remove('open');
-    showNotif(currentLang==='ar'?'تم تسجيل الخروج 👋':'Logged out 👋');
+    showNotif(currentLang==='ar'?'طھظ… طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬ ًں‘‹':'Logged out ًں‘‹');
 }
 window.doLogout=doLogout;
 
@@ -684,17 +684,17 @@ function updateCardPreview(){
     const g=id=>{const el=document.getElementById(id);return el?el.value:'';};
     if(cardMode==='voucher'){
         const voucher=generateVoucherNumber(),speed=g('cd_sample_speed'),expiry=g('cd_sample_expiry');
-        const sTag=showSpeed&&speed?'<span class="wc-extra-tag">⚡ '+speed+'</span>':'';
-        const eTag=showExpiry&&expiry?'<span class="wc-extra-tag">📅 '+expiry+'</span>':'';
+        const sTag=showSpeed&&speed?'<span class="wc-extra-tag">âڑ، '+speed+'</span>':'';
+        const eTag=showExpiry&&expiry?'<span class="wc-extra-tag">ًں“… '+expiry+'</span>':'';
         const qrHTML=showQR?'<div class="wc-qr"><canvas id="prev_qr_canvas" width="46" height="46"></canvas></div>':'';
-        content.innerHTML='<div class="wc-top"><div class="wc-logo-area">'+brandHTML+'</div><div class="wc-wifi-icon">📶</div></div><div style="text-align:center;"><div class="wc-title" style="margin-bottom:6px;">'+title+'</div></div><div class="wc-bottom"><div class="wc-extras">'+sTag+eTag+'</div>'+qrHTML+'</div><div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:4;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;pointer-events:none;">mikro-tools.com</div>';
+        content.innerHTML='<div class="wc-top"><div class="wc-logo-area">'+brandHTML+'</div><div class="wc-wifi-icon">ًں“¶</div></div><div style="text-align:center;"><div class="wc-title" style="margin-bottom:6px;">'+title+'</div></div><div class="wc-bottom"><div class="wc-extras">'+sTag+eTag+'</div>'+qrHTML+'</div><div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:4;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;pointer-events:none;">mikro-tools.com</div>';
         if(showQR){const canvas=content.querySelector('#prev_qr_canvas');if(canvas)drawSimpleQR(canvas,voucher,46);}
     }else{
         const user=g('cd_sample_user')||'user2024',pass=g('cd_sample_pass')||'pass@1234',speed=g('cd_sample_speed2'),expiry=g('cd_sample_expiry2');
-        const sTag=showSpeed&&speed?'<span class="wc-extra-tag">⚡ '+speed+'</span>':'';
-        const eTag=showExpiry&&expiry?'<span class="wc-extra-tag">📅 '+expiry+'</span>':'';
+        const sTag=showSpeed&&speed?'<span class="wc-extra-tag">âڑ، '+speed+'</span>':'';
+        const eTag=showExpiry&&expiry?'<span class="wc-extra-tag">ًں“… '+expiry+'</span>':'';
         const qrHTML=showQR?'<div class="wc-qr"><canvas id="prev_qr_canvas" width="46" height="46"></canvas></div>':'';
-        content.innerHTML='<div class="wc-top"><div class="wc-logo-area">'+brandHTML+'</div><div class="wc-wifi-icon">📶</div></div><div><div class="wc-title">'+title+'</div><div class="wc-creds"><div class="wc-cred-row"><span class="wc-cred-icon">👤</span><span class="wc-cred-label">Username:</span><span class="wc-cred-val">'+user+'</span></div><div class="wc-cred-row"><span class="wc-cred-icon">🔑</span><span class="wc-cred-label">Password:</span><span class="wc-cred-val">'+pass+'</span></div></div></div><div class="wc-bottom"><div class="wc-extras">'+sTag+eTag+'</div>'+qrHTML+'</div><div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:4;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;pointer-events:none;">mikro-tools.com</div>';
+        content.innerHTML='<div class="wc-top"><div class="wc-logo-area">'+brandHTML+'</div><div class="wc-wifi-icon">ًں“¶</div></div><div><div class="wc-title">'+title+'</div><div class="wc-creds"><div class="wc-cred-row"><span class="wc-cred-icon">ًں‘¤</span><span class="wc-cred-label">Username:</span><span class="wc-cred-val">'+user+'</span></div><div class="wc-cred-row"><span class="wc-cred-icon">ًں”‘</span><span class="wc-cred-label">Password:</span><span class="wc-cred-val">'+pass+'</span></div></div></div><div class="wc-bottom"><div class="wc-extras">'+sTag+eTag+'</div>'+qrHTML+'</div><div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:4;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;pointer-events:none;">mikro-tools.com</div>';
         if(showQR){const canvas=content.querySelector('#prev_qr_canvas');if(canvas)drawSimpleQR(canvas,user+':'+pass,46);}
     }
 }
@@ -719,8 +719,8 @@ function downloadCardAsImage(){
     const ext=dlFmt==='jpg'?'jpg':'png';
     html2canvas(card,{scale:parseInt(dlScale),useCORS:true,allowTaint:true,backgroundColor:null,logging:false}).then(canvas=>{
         const a=document.createElement('a');a.download='wifi-card-'+Date.now()+'.'+ext;a.href=canvas.toDataURL(mime,0.95);document.body.appendChild(a);a.click();document.body.removeChild(a);
-        showNotif(currentLang==='ar'?'✅ تم تحميل الكارت!':'✅ Card downloaded!');
-    }).catch(()=>showNotif(currentLang==='ar'?'❌ فشل التحميل':'❌ Download failed')).finally(()=>{card.style.transform='';card.style.transition='';});
+        showNotif(currentLang==='ar'?'âœ… طھظ… طھط­ظ…ظٹظ„ ط§ظ„ظƒط§ط±طھ!':'âœ… Card downloaded!');
+    }).catch(()=>showNotif(currentLang==='ar'?'â‌Œ ظپط´ظ„ ط§ظ„طھط­ظ…ظٹظ„':'â‌Œ Download failed')).finally(()=>{card.style.transform='';card.style.transition='';});
 }
 window.downloadCardAsImage=downloadCardAsImage;
 
@@ -731,16 +731,16 @@ function buildCardHTML(cardData){
     const brand=g('cd_brand')||'WiFi',title=g('cd_card_title')||'Internet Access Card';
     const showSpeed=gb('cd_show_speed'),showExpiry=gb('cd_show_expiry'),showQR=gb('cd_show_qr');
     const speed=cardData.speed||'',expiry=cardData.expiry||'';
-    const sTag=showSpeed&&speed?'<span class="wc-extra-tag">⚡ '+speed+'</span>':'';
-    const eTag=showExpiry&&expiry?'<span class="wc-extra-tag">📅 '+expiry+'</span>':'';
+    const sTag=showSpeed&&speed?'<span class="wc-extra-tag">âڑ، '+speed+'</span>':'';
+    const eTag=showExpiry&&expiry?'<span class="wc-extra-tag">ًں“… '+expiry+'</span>':'';
     const bgStyle='linear-gradient(135deg,'+c1+','+c2+')';
     const logoHTML=logoImageDataURL?'<img src="'+logoImageDataURL+'" style="position:absolute;top:14px;left:18px;z-index:3;max-width:72px;max-height:42px;object-fit:contain;" />':'';
     const brandHTML=logoImageDataURL?'':brand;
     let midHTML='',qrText='';
     if(cardMode==='voucher'){const num=cardData.voucher||'';qrText=num;midHTML='<div style="text-align:center;"><div class="wc-title" style="margin-bottom:5px;">'+title+'</div></div>';}
-    else{const user=cardData.user||'',pass=cardData.pass||'';qrText=user+':'+pass;midHTML='<div><div class="wc-title">'+title+'</div><div class="wc-creds"><div class="wc-cred-row"><span class="wc-cred-icon">👤</span><span class="wc-cred-label">Username:</span><span class="wc-cred-val">'+user+'</span></div><div class="wc-cred-row"><span class="wc-cred-icon">🔑</span><span class="wc-cred-label">Password:</span><span class="wc-cred-val">'+pass+'</span></div></div></div>';}
+    else{const user=cardData.user||'',pass=cardData.pass||'';qrText=user+':'+pass;midHTML='<div><div class="wc-title">'+title+'</div><div class="wc-creds"><div class="wc-cred-row"><span class="wc-cred-icon">ًں‘¤</span><span class="wc-cred-label">Username:</span><span class="wc-cred-val">'+user+'</span></div><div class="wc-cred-row"><span class="wc-cred-icon">ًں”‘</span><span class="wc-cred-label">Password:</span><span class="wc-cred-val">'+pass+'</span></div></div></div>';}
     const qrHTML=showQR?'<div class="wc-qr"><canvas class="qr-canvas" data-text="'+qrText+'" width="46" height="46"></canvas></div>':'';
-    return '<div class="wifi-card" style="position:relative;"><div class="wifi-card-bg" style="background:'+bgStyle+';"></div><div class="wifi-card-shine"></div><div class="wifi-card-pattern"></div>'+logoHTML+'<div class="wifi-card-content"><div class="wc-top"><div class="wc-logo-area">'+brandHTML+'</div><div class="wc-wifi-icon">📶</div></div>'+midHTML+'<div class="wc-bottom"><div class="wc-extras">'+sTag+eTag+'</div>'+qrHTML+'</div></div><div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:4;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;pointer-events:none;">mikro-tools.com</div></div>';
+    return '<div class="wifi-card" style="position:relative;"><div class="wifi-card-bg" style="background:'+bgStyle+';"></div><div class="wifi-card-shine"></div><div class="wifi-card-pattern"></div>'+logoHTML+'<div class="wifi-card-content"><div class="wc-top"><div class="wc-logo-area">'+brandHTML+'</div><div class="wc-wifi-icon">ًں“¶</div></div>'+midHTML+'<div class="wc-bottom"><div class="wc-extras">'+sTag+eTag+'</div>'+qrHTML+'</div></div><div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:4;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;pointer-events:none;">mikro-tools.com</div></div>';
 }
 
 function renderQRsInContainer(c){c.querySelectorAll('.qr-canvas').forEach(cv=>{drawSimpleQR(cv,cv.dataset.text||'',46);});}
@@ -780,13 +780,13 @@ function downloadCardsHTML(){
     const brandHTML=logoImageDataURL?'':brand;
     const cardsHTML=src.map(card=>{
         const speed=card.speed||'',expiry=card.expiry||'';
-        const sTag=showSpeed&&speed?'<span class="extra-tag">⚡ '+speed+'</span>':'';
-        const eTag=showExpiry&&expiry?'<span class="extra-tag">📅 '+expiry+'</span>':'';
+        const sTag=showSpeed&&speed?'<span class="extra-tag">âڑ، '+speed+'</span>':'';
+        const eTag=showExpiry&&expiry?'<span class="extra-tag">ًں“… '+expiry+'</span>':'';
         let midHTML='',qrText='';
         if(cardMode==='voucher'){qrText=card.voucher||'';midHTML='<div style="text-align:center;"><div class="ctitle">'+title+'</div></div>';}
-        else{qrText=(card.user||'')+':'+(card.pass||'');midHTML='<div><div class="ctitle">'+title+'</div><div class="creds"><div class="row"><span class="icon">👤</span><span class="lbl">Username:</span><span class="val">'+card.user+'</span></div><div class="row"><span class="icon">🔑</span><span class="lbl">Password:</span><span class="val">'+card.pass+'</span></div></div></div>';}
+        else{qrText=(card.user||'')+':'+(card.pass||'');midHTML='<div><div class="ctitle">'+title+'</div><div class="creds"><div class="row"><span class="icon">ًں‘¤</span><span class="lbl">Username:</span><span class="val">'+card.user+'</span></div><div class="row"><span class="icon">ًں”‘</span><span class="lbl">Password:</span><span class="val">'+card.pass+'</span></div></div></div>';}
         const qrHTML=showQR?'<div class="qr-box"><canvas class="qr-c" data-text="'+qrText+'" width="40" height="40"></canvas></div>':'';
-        return '<div class="card"><div class="card-bg"></div><div class="card-shine"></div>'+logoHTML+'<div class="card-content"><div class="top"><div class="logo">'+brandHTML+'</div><span>📶</span></div>'+midHTML+'<div class="bottom"><div class="extras">'+sTag+eTag+'</div>'+qrHTML+'</div></div><div style="position:absolute;bottom:2mm;left:50%;transform:translateX(-50%);z-index:4;font-size:5pt;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;">mikro-tools.com</div></div>';
+        return '<div class="card"><div class="card-bg"></div><div class="card-shine"></div>'+logoHTML+'<div class="card-content"><div class="top"><div class="logo">'+brandHTML+'</div><span>ًں“¶</span></div>'+midHTML+'<div class="bottom"><div class="extras">'+sTag+eTag+'</div>'+qrHTML+'</div></div><div style="position:absolute;bottom:2mm;left:50%;transform:translateX(-50%);z-index:4;font-size:5pt;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.5px;white-space:nowrap;">mikro-tools.com</div></div>';
     }).join('');
     const qrScript='function dQ(c,t){var ctx=c.getContext("2d"),s=40;ctx.fillStyle="#fff";ctx.fillRect(0,0,s,s);ctx.fillStyle="#000";var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;var n=11,cl=s/n,m=0.7;for(var r=0;r<n;r++)for(var c2=0;c2<n;c2++){var sd=(h*(r*n+c2+1)*1103515245+12345)&0x7fffffff;if(sd%3!==0)ctx.fillRect(c2*cl+m,r*cl+m,cl-m*2,cl-m*2);}function f(x,y){ctx.fillStyle="#000";ctx.fillRect(x,y,cl*3,cl*3);ctx.fillStyle="#fff";ctx.fillRect(x+cl*.5,y+cl*.5,cl*2,cl*2);ctx.fillStyle="#000";ctx.fillRect(x+cl,y+cl,cl,cl);}f(0,0);f(s-cl*3,0);f(0,s-cl*3);}document.querySelectorAll(".qr-c").forEach(function(c){dQ(c,c.dataset.text||"");});';
     const html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+brand+' - WiFi Cards</title>'
@@ -795,12 +795,15 @@ function downloadCardsHTML(){
         +'</head><body><div class="cards-grid">'+cardsHTML+'</div><script>'+qrScript+'<\/script><\/body><\/html>';
     const blob=new Blob([html],{type:'text/html'});
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wifi-cards.html';document.body.appendChild(a);a.click();document.body.removeChild(a);
-    showNotif(currentLang==='ar'?'تم تحميل الكروت ✅':'Cards downloaded ✅');
+    showNotif(currentLang==='ar'?'طھظ… طھط­ظ…ظٹظ„ ط§ظ„ظƒط±ظˆطھ âœ…':'Cards downloaded âœ…');
 }
 window.downloadCardsHTML=downloadCardsHTML;
 
 let notifTimer=null;
 function showNotif(msg){const n=document.getElementById('notification');document.getElementById('notifMsg').textContent=msg;n.classList.add('show');clearTimeout(notifTimer);notifTimer=setTimeout(()=>n.classList.remove('show'),3000);}
 </script>
+<script src="mikro-presence.js"></script>
 </body>
 </html>
+
+

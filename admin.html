@@ -10,7 +10,7 @@
     <!-- Firebase Firestore Module -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-        import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+        import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
         const firebaseConfig = {
             apiKey:"AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",
             authDomain:"mikro-tools.firebaseapp.com",
@@ -21,7 +21,7 @@
         };
         const fbApp = initializeApp(firebaseConfig);
         window._db_fs = getFirestore(fbApp);
-        window._fs = { collection, getDocs, updateDoc, deleteDoc, doc, orderBy, query };
+        window._fs = { collection, getDocs, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot };
         window._firestoreReady = true;
         document.dispatchEvent(new Event('firestoreReady'));
     </script>
@@ -111,6 +111,18 @@
         .stat-change.negative { color: var(--danger); }
         .table-container { background: var(--light-bg); border: 1px solid var(--light-border); border-radius: 16px; padding: 25px; margin-bottom: 30px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
         .table-title { color: var(--light-text); font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .site-overview-grid { display:grid; grid-template-columns: minmax(0,1.15fr) minmax(320px,0.85fr); gap:20px; margin-bottom:30px; }
+        .summary-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap:14px; }
+        .summary-card { background:var(--light-card); border:1px solid var(--light-border); border-radius:12px; padding:16px; }
+        .summary-card .label { color:var(--light-gray); font-size:13px; margin-bottom:8px; }
+        .summary-card .value { color:var(--light-text); font-size:24px; font-weight:800; line-height:1.1; }
+        .summary-card .hint { color:var(--light-gray); font-size:12px; margin-top:8px; }
+        .sync-list { display:grid; gap:12px; }
+        .sync-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; background:var(--light-card); border:1px solid var(--light-border); border-radius:12px; }
+        .sync-row strong { color:var(--light-text); font-size:14px; }
+        .sync-row span { color:var(--light-gray); font-size:13px; text-align:left; direction:ltr; }
+        .page-path { color:var(--light-gray); font-size:12px; direction:ltr; text-align:left; display:block; margin-top:4px; }
+        .health-dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-left:8px; background:var(--success); box-shadow:0 0 0 4px rgba(16,185,129,0.12); }
         .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
         th { background: var(--light-card); color: var(--light-gray); padding: 18px 15px; text-align: right; font-weight: 600; border-bottom: 2px solid var(--light-border); font-size: 14px; white-space: nowrap; }
@@ -148,7 +160,7 @@
         .tab-btn { padding: 12px 22px; background: var(--light-card); border: 1px solid var(--light-border); border-radius: 10px; color: var(--light-gray); cursor: pointer; transition: all 0.3s; font-size: 14px; font-weight: 500; flex: 1; min-width: 140px; }
         .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
         @media (max-width: 1024px) { .sidebar{width:250px} .main-content{margin-right:250px;padding:20px} .stats-grid{grid-template-columns:repeat(2,1fr)} }
-        @media (max-width: 768px) { .menu-toggle{display:block} .sidebar{transform:translateX(100%);width:280px} .main-content{margin-right:0;padding:15px} .notification-buttons{display:none} .user-name{display:none} .charts-grid{grid-template-columns:1fr} }
+        @media (max-width: 768px) { .menu-toggle{display:block} .sidebar{transform:translateX(100%);width:280px} .main-content{margin-right:0;padding:15px} .notification-buttons{display:none} .user-name{display:none} .charts-grid{grid-template-columns:1fr} .site-overview-grid{grid-template-columns:1fr} }
         @media (max-width: 480px) { .stats-grid{grid-template-columns:1fr} }
         .notification { position: fixed; top: 90px; right: 20px; padding: 18px 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000; display: flex; align-items: center; gap: 15px; animation: slideInRight 0.4s cubic-bezier(0.68,-0.55,0.265,1.55); max-width: 350px; background: white; border-left: 4px solid; }
         @keyframes slideInRight { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
@@ -333,6 +345,25 @@
                             </div>
                             <div class="stat-icon blue"><i class="fas fa-calendar-day"></i></div>
                         </div>
+                    </div>
+                </div>
+                <div class="site-overview-grid">
+                    <div class="table-container" style="margin-bottom:0">
+                        <div class="table-title"><i class="fas fa-layer-group"></i> بانل شامل للموقع</div>
+                        <div class="summary-grid" id="siteOverviewGrid"></div>
+                    </div>
+                    <div class="table-container" style="margin-bottom:0">
+                        <div class="table-title"><i class="fas fa-signal"></i> حالة المزامنة المباشرة</div>
+                        <div class="sync-list" id="siteSyncDetails"></div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="table-title"><i class="fas fa-toolbox"></i> تفاصيل الأدوات والصفحات</div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>الأداة / الصفحة</th><th>القسم</th><th>النوع</th><th>المشاهدات</th><th>الحالة</th></tr></thead>
+                            <tbody id="siteDetailsBody"></tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="charts-grid">
@@ -595,7 +626,7 @@
                 this.enabled = true;
                 this.scheduledJobs = {};
                 this.notificationLogs = JSON.parse(localStorage.getItem('telegram_logs') || '[]');
-                this.systemStats = { liveVisitors: 50, activeUsers: [], pageViews: 3000, serverLoad: 25, messagesToday: 5, resolvedIssues: 0, pendingIssues: 0 };
+                this.systemStats = { liveVisitors: 0, activeUsers: [], pageViews: 0, serverLoad: 0, messagesToday: 0, resolvedIssues: 0, pendingIssues: 0 };
             }
             init() { this.updateUI(); this.logActivity('تم تهيئة نظام Telegram'); }
             updateUI() {
@@ -746,9 +777,84 @@ ${typesText}
 
         // ===== Globals =====
         let db = new DatabaseService();
-        let systemData = { problems: [], analytics: { totalVisits: 0, uniqueVisitors: 0, todayVisits: 0, pageViews: 0, liveNow: 50 }, adminData: { systemLogs: [], settings: {} } };
+        let systemData = { problems: [], analytics: { totalVisits: 0, uniqueVisitors: 0, todayVisits: 0, pageViews: 0, liveNow: 0, pages: {}, daily: {} }, adminData: { systemLogs: [], settings: {} } };
         const telegramSystem = new TelegramNotificationSystem();
-        let currentFilter = 'all', searchQuery = '', currentMessageId = null, realtimeInterval = null, sidebarOpen = false;
+        let currentFilter = 'all', searchQuery = '', currentMessageId = null, realtimeInterval = null, sidebarOpen = false, lastAnalyticsSync = null, lastProblemsSync = null;
+        const SITE_ITEMS = [
+            { name:'الرئيسية', path:'index.html', section:'عام', type:'صفحة' },
+            { name:'إعدادات Hotspot + PPP', path:'hotspot.html', section:'Hotspot', type:'مجانية' },
+            { name:'دمج خطوط v6', path:'merge-v6.html', section:'دمج', type:'مجانية' },
+            { name:'دمج خطوط v7', path:'merge-v7.html', section:'دمج', type:'مجانية' },
+            { name:'تصميم هوت سبوت', path:'Hotspot Editor.html', section:'تصميم', type:'مدفوعة' },
+            { name:'مصمم الكروت', path:'CardEditor.html', section:'تصميم', type:'مدفوعة' },
+            { name:'حجب المواقع', path:'block-sites.html', section:'حجب', type:'مجانية' },
+            { name:'بروفايلات السرعة', path:'speed-profiles.html', section:'Hotspot', type:'مجانية' },
+            { name:'محلل السجلات', path:'log.html', section:'أدوات', type:'مدفوعة' },
+            { name:'المشكلات الشائعة', path:'troubleshooting.html', section:'دعم', type:'مجانية' },
+            { name:'حاسبة سعة الشبكة', path:'capacity-calculator.html', section:'أدوات', type:'مجانية' },
+            { name:'من نحن', path:'about.html', section:'عام', type:'صفحة' },
+            { name:'الأسعار', path:'pricing.html', section:'عام', type:'صفحة' },
+            { name:'التحديثات', path:'updates.html', section:'عام', type:'صفحة' },
+            { name:'سياسة الخصوصية', path:'privacy-policy.html', section:'عام', type:'صفحة' },
+            { name:'تسجيل الدخول', path:'login.html', section:'نظام', type:'صفحة' }
+        ];
+
+        function getAnalyticsValue(...keys) {
+            for (const key of keys) {
+                const value = systemData.analytics?.[key];
+                if (Number.isFinite(Number(value))) return Number(value);
+            }
+            return 0;
+        }
+        function getPagesMap() {
+            return systemData.analytics?.pages || systemData.analytics?.pageStats || {};
+        }
+        function getDailyMap() {
+            return systemData.analytics?.daily || systemData.analytics?.dailyVisits || {};
+        }
+        function getActiveSessions() {
+            const sessions = systemData.analytics?.activeSessions || {};
+            const now = Date.now();
+            return Object.values(sessions).filter(session => {
+                const lastSeen = new Date(session.lastSeen || 0).getTime();
+                return lastSeen && now - lastSeen <= 120000;
+            });
+        }
+        function hasPresenceTracking() {
+            return !!(systemData.analytics && (
+                systemData.analytics.activeSessions ||
+                systemData.analytics.lastPresenceUpdate ||
+                systemData.analytics.currentPages ||
+                systemData.analytics.liveActivity
+            ));
+        }
+        function getLiveVisitorsCount() {
+            if (hasPresenceTracking()) return getActiveSessions().length;
+            return getAnalyticsValue('liveNow', 'currentOnline', 'activeVisitors');
+        }
+        function getPageViewsFor(item) {
+            const pages = getPagesMap();
+            const candidates = [item.name, item.path, `/${item.path}`, location.origin + '/' + item.path];
+            const found = candidates.reduce((sum, key) => sum + Number(pages[key] || 0), 0);
+            return found || 0;
+        }
+        function getTotalPageViews() {
+            const fromField = getAnalyticsValue('pageViews', 'totalPageViews');
+            const fromPages = Object.values(getPagesMap()).reduce((sum, value) => sum + Number(value || 0), 0);
+            return Math.max(fromField, fromPages);
+        }
+        function isSameDay(value, date = new Date()) {
+            const d = new Date(value);
+            return !Number.isNaN(d.getTime()) && d.toDateString() === date.toDateString();
+        }
+        function syncTelegramStats() {
+            const solved = systemData.problems.filter(p=>p.solved).length;
+            telegramSystem.systemStats.liveVisitors = getLiveVisitorsCount();
+            telegramSystem.systemStats.pageViews = getTotalPageViews();
+            telegramSystem.systemStats.resolvedIssues = solved;
+            telegramSystem.systemStats.pendingIssues = systemData.problems.length - solved;
+            telegramSystem.systemStats.messagesToday = systemData.problems.filter(p => isSameDay(p.date)).length;
+        }
 
         // ===== Wait for Firestore =====
         function waitForFirestore() {
@@ -779,40 +885,62 @@ ${typesText}
         // ===== Firestore Real-time listener for new problems =====
         let _knownDocIds = new Set();
         let _listenerStarted = false;
+        let _initialSnapshotLoaded = false;
         async function startNewProblemListener() {
             if (_listenerStarted) return;
             _listenerStarted = true;
             await waitForFirestore();
             if (!window._db_fs || !window._fs) return;
-            // Mark existing problems as known
             systemData.problems.forEach(p => { if (p._docId) _knownDocIds.add(p._docId); });
 
-            // Poll every 30 seconds for new problems
-            setInterval(async () => {
-                try {
-                    const { collection, getDocs, orderBy, query } = window._fs;
-                    const q = query(collection(window._db_fs, 'problems'), orderBy('date', 'desc'));
-                    const snap = await getDocs(q);
+            const applyProblemsSnapshot = (problems, newProblems = []) => {
+                systemData.problems = problems;
+                _knownDocIds = new Set(problems.map(p => p._docId).filter(Boolean));
+                lastProblemsSync = new Date();
+                syncTelegramStats();
+                updateMessagesDisplay();
+                updateDashboard();
+                updateRealtimeData();
+                if (newProblems.length > 0) {
+                    newProblems.forEach(p => telegramSystem.sendNewProblemAlert(p));
+                    showNotification(`تم استقبال ${newProblems.length} رسالة جديدة`, 'success');
+                    addSystemLog(`تم استقبال ${newProblems.length} رسالة جديدة من Firestore`, 'info');
+                }
+            };
+
+            const startPollingFallback = () => {
+                setInterval(async () => {
+                    try {
+                        const problems = await loadProblemsFromFirestore();
+                        const newProblems = problems.filter(p => p._docId && !_knownDocIds.has(p._docId));
+                        applyProblemsSnapshot(problems, newProblems);
+                    } catch(e) { console.error('Listener poll error:', e); }
+                }, 30000);
+            };
+
+            try {
+                const { collection, orderBy, query, onSnapshot } = window._fs;
+                const q = query(collection(window._db_fs, 'problems'), orderBy('date', 'desc'));
+                if (typeof onSnapshot !== 'function') { startPollingFallback(); return; }
+                onSnapshot(q, snap => {
+                    const problems = [];
                     const newProblems = [];
                     snap.forEach(d => {
-                        if (!_knownDocIds.has(d.id)) {
-                            newProblems.push({ ...d.data(), _docId: d.id });
-                            _knownDocIds.add(d.id);
-                        }
+                        const p = { ...d.data(), _docId: d.id };
+                        problems.push(p);
+                        if (_initialSnapshotLoaded && !_knownDocIds.has(d.id)) newProblems.push(p);
                     });
-                    if (newProblems.length > 0) {
-                        newProblems.forEach(p => {
-                            systemData.problems.unshift(p);
-                            // Send telegram alert for each new problem
-                            telegramSystem.sendNewProblemAlert(p);
-                        });
-                        updateMessagesDisplay();
-                        updateDashboard();
-                        showNotification(`🆕 ${newProblems.length} مشكلة جديدة!`, 'success');
-                        addSystemLog(`تم استقبال ${newProblems.length} مشكلة جديدة`, 'info');
-                    }
-                } catch(e) { console.error('Listener poll error:', e); }
-            }, 30000);
+                    applyProblemsSnapshot(problems, newProblems);
+                    _initialSnapshotLoaded = true;
+                }, err => {
+                    console.error('Firestore realtime error:', err);
+                    addSystemLog('تعذر تشغيل التحديث المباشر للرسائل، تم استخدام التحديث الدوري', 'warning');
+                    startPollingFallback();
+                });
+            } catch(e) {
+                console.error('Listener start error:', e);
+                startPollingFallback();
+            }
         }
 
         // ===== Update Problem in Firestore =====
@@ -898,22 +1026,15 @@ ${typesText}
                 systemData.problems = await loadProblemsFromFirestore();
                 addSystemLog(`تم تحميل ${systemData.problems.length} رسالة من Firestore`, 'success');
 
-                // Update analytics
-                systemData.analytics.todayVisits = (systemData.analytics.todayVisits || 0) + 1;
-                systemData.analytics.totalVisits = (systemData.analytics.totalVisits || 0) + 1;
-                systemData.analytics.pageViews = (systemData.analytics.pageViews || 0) + 10;
-                if (!systemData.analytics.liveNow) systemData.analytics.liveNow = Math.floor(Math.random() * 80) + 30;
-                if (!localStorage.getItem('visitor_id_admin')) {
-                    localStorage.setItem('visitor_id_admin', 'admin_' + Date.now());
-                    systemData.analytics.uniqueVisitors = (systemData.analytics.uniqueVisitors || 0) + 1;
-                }
+                // Keep analytics real: admin visits must not inflate public counters.
+                systemData.analytics = { pages: {}, daily: {}, ...systemData.analytics };
+                systemData.adminData.lastAdminOpen = new Date().toISOString();
+                lastAnalyticsSync = new Date();
                 await saveSystemData();
 
                 updateDashboard(); updateMessagesDisplay(); updateVisitorsDisplay(); updatePagesDisplay(); updateRealtimeData(); startRealtimeUpdates();
                 telegramSystem.init();
-                telegramSystem.systemStats.resolvedIssues = systemData.problems.filter(p=>p.solved).length;
-                telegramSystem.systemStats.pendingIssues = systemData.problems.filter(p=>!p.solved).length;
-                telegramSystem.systemStats.messagesToday = systemData.problems.filter(p => new Date(p.date).toDateString() === new Date().toDateString()).length;
+                syncTelegramStats();
                 startNewProblemListener();
             } catch(e) {
                 console.error('initSystem error:', e);
@@ -1080,97 +1201,200 @@ ${typesText}
             const total = systemData.problems.length;
             const solved = systemData.problems.filter(m=>m.solved).length;
             const pending = total - solved;
-            const today = systemData.problems.filter(m => new Date(m.date).toDateString() === new Date().toDateString()).length;
-            document.getElementById('totalVisitors').textContent = (systemData.analytics.uniqueVisitors || 0).toLocaleString('ar-EG');
+            const today = systemData.problems.filter(m => isSameDay(m.date)).length;
+            const visitors = Math.max(getAnalyticsValue('uniqueVisitors'), getAnalyticsValue('totalVisits'));
+            document.getElementById('totalVisitors').textContent = visitors.toLocaleString('ar-EG');
             document.getElementById('totalMessages').textContent = total.toLocaleString('ar-EG');
             document.getElementById('pendingMessages').textContent = pending.toLocaleString('ar-EG');
             document.getElementById('solvedMessages').textContent = solved.toLocaleString('ar-EG');
             document.getElementById('resolutionRate').textContent = total > 0 ? Math.round(solved/total*100)+'%' : '0%';
             document.getElementById('todayMessages').textContent = today.toLocaleString('ar-EG');
-            if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').textContent = (systemData.analytics.pageViews || 0).toLocaleString('ar-EG');
-            // Pending badge color
+            if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').textContent = getTotalPageViews().toLocaleString('ar-EG');
             const pendingEl = document.getElementById('pendingMessages');
             if (pendingEl) pendingEl.style.color = pending > 0 ? '#ef4444' : '#10b981';
+            syncTelegramStats();
+            updateSiteOverview();
             updateCharts();
         }
 
+        function getLastSevenDays() {
+            return Array.from({length:7},(_,i)=>{ const d = new Date(); d.setDate(d.getDate()-(6-i)); return d; });
+        }
+
+        function getDailyVisitsSeries() {
+            const daily = getDailyMap();
+            return getLastSevenDays().map(d => {
+                const keys = [d.toDateString(), d.toISOString().slice(0,10), d.toLocaleDateString('ar-EG')];
+                return keys.reduce((sum,key)=>sum + Number(daily[key] || 0), 0);
+            });
+        }
+
+        function getProblemCountsByType() {
+            const types = ['network','performance','dhcp','hardware','other'];
+            return types.map(t => systemData.problems.filter(m=>m.type===t).length);
+        }
+
         function updateCharts() {
+            const days = getLastSevenDays().map(d => d.toLocaleDateString('ar-EG',{weekday:'short'}));
+            const visits = getDailyVisitsSeries();
             const vc = document.getElementById('visitorsChart');
-            if (vc && !vc._chartInstance) {
-                const days = Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return d.toLocaleDateString('ar-EG',{weekday:'short'});});
-                const base = systemData.analytics.todayVisits || 45;
-                vc._chartInstance = new Chart(vc, { type:'line', data:{labels:days,datasets:[{label:'الزوار',data:days.map(()=>Math.floor(base*(0.6+Math.random()*0.8))),borderColor:'#4361ee',backgroundColor:'rgba(67,97,238,0.1)',borderWidth:3,fill:true,tension:0.4,pointBackgroundColor:'#4361ee',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748b'}}},scales:{x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(226,232,240,0.8)'}},y:{ticks:{color:'#94a3b8'},grid:{color:'rgba(226,232,240,0.8)'}}}} });
+            if (vc) {
+                if (!vc._chartInstance) {
+                    vc._chartInstance = new Chart(vc, { type:'line', data:{labels:days,datasets:[{label:'الزوار',data:visits,borderColor:'#4361ee',backgroundColor:'rgba(67,97,238,0.1)',borderWidth:3,fill:true,tension:0.35,pointBackgroundColor:'#4361ee',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748b'}}},scales:{x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(226,232,240,0.8)'}},y:{beginAtZero:true,ticks:{color:'#94a3b8',precision:0},grid:{color:'rgba(226,232,240,0.8)'}}}} });
+                } else {
+                    vc._chartInstance.data.labels = days;
+                    vc._chartInstance.data.datasets[0].data = visits;
+                    vc._chartInstance.update();
+                }
             }
             const pc = document.getElementById('problemsChart');
-            if (pc && !pc._chartInstance) {
-                const types = ['network','performance','dhcp','hardware','other'];
-                const counts = types.map(t => systemData.problems.filter(m=>m.type===t).length);
-                pc._chartInstance = new Chart(pc, { type:'doughnut', data:{labels:['شبكة','أداء','DHCP','هاردوير','أخرى'],datasets:[{data:counts,backgroundColor:['#4361ee','#10b981','#f59e0b','#ef4444','#3b82f6'],borderWidth:2,borderColor:'#fff'}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#475569',padding:15}}}} });
+            const counts = getProblemCountsByType();
+            if (pc) {
+                if (!pc._chartInstance) {
+                    pc._chartInstance = new Chart(pc, { type:'doughnut', data:{labels:['شبكة','أداء','DHCP','هاردوير','أخرى'],datasets:[{data:counts,backgroundColor:['#4361ee','#10b981','#f59e0b','#ef4444','#3b82f6'],borderWidth:2,borderColor:'#fff'}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#475569',padding:15}}}} });
+                } else {
+                    pc._chartInstance.data.datasets[0].data = counts;
+                    pc._chartInstance.update();
+                }
+            }
+        }
+
+        function updateSiteOverview() {
+            const overview = document.getElementById('siteOverviewGrid');
+            const sync = document.getElementById('siteSyncDetails');
+            const details = document.getElementById('siteDetailsBody');
+            const total = systemData.problems.length;
+            const solved = systemData.problems.filter(p=>p.solved).length;
+            const pending = total - solved;
+            const tools = SITE_ITEMS.filter(i => i.type === 'مجانية' || i.type === 'مدفوعة');
+            const freeTools = SITE_ITEMS.filter(i => i.type === 'مجانية').length;
+            const paidTools = SITE_ITEMS.filter(i => i.type === 'مدفوعة').length;
+            const topTypeEntry = Object.entries(systemData.problems.reduce((acc,p)=>{ const key = p.type || 'other'; acc[key]=(acc[key]||0)+1; return acc; },{})).sort((a,b)=>b[1]-a[1])[0];
+            const totalViews = getTotalPageViews();
+            const live = getLiveVisitorsCount();
+            if (overview) {
+                overview.innerHTML = [
+                    ['إجمالي الأدوات', tools.length, `${freeTools} مجانية / ${paidTools} مدفوعة`],
+                    ['صفحات الموقع', SITE_ITEMS.length, 'صفحات عامة وأدوات ونظام'],
+                    ['مشاهدات الصفحات', totalViews.toLocaleString('ar-EG'), 'من JSONBin الحقيقي'],
+                    ['زوار مباشرون', live.toLocaleString('ar-EG'), 'حسب آخر قراءة متاحة'],
+                    ['رسائل تنتظر رد', pending.toLocaleString('ar-EG'), total ? `${Math.round((solved/total)*100)}% معدل حل` : 'لا توجد رسائل بعد'],
+                    ['أكثر نوع مشكلة', topTypeEntry ? getTypeArabic(topTypeEntry[0]) : '-', topTypeEntry ? `${topTypeEntry[1]} رسالة` : 'لا توجد بيانات']
+                ].map(([label,value,hint]) => `<div class="summary-card"><div class="label">${label}</div><div class="value">${value}</div><div class="hint">${hint}</div></div>`).join('');
+            }
+            if (sync) {
+                sync.innerHTML = [
+                    ['Firestore الرسائل', lastProblemsSync ? lastProblemsSync.toLocaleTimeString('ar-EG') : 'لم يتم بعد', 'متصل'],
+                    ['JSONBin التحليلات', lastAnalyticsSync ? lastAnalyticsSync.toLocaleTimeString('ar-EG') : 'لم يتم بعد', 'متصل'],
+                    ['Telegram', telegramSystem.enabled ? 'مفعل' : 'متوقف', telegramSystem.chatId],
+                    ['نظام الردود', 'محفوظ', 'Firestore replies']
+                ].map(([label,time,status]) => `<div class="sync-row"><strong><span class="health-dot"></span>${label}</strong><span>${time}<br>${status}</span></div>`).join('');
+            }
+            if (details) {
+                const maxViews = Math.max(...SITE_ITEMS.map(getPageViewsFor), 1);
+                details.innerHTML = SITE_ITEMS.map(item => {
+                    const views = getPageViewsFor(item);
+                    const badge = item.type === 'مدفوعة' ? 'badge-warning' : item.type === 'مجانية' ? 'badge-success' : 'badge-info';
+                    const popularity = views === 0 ? 'لا توجد بيانات' : views >= maxViews * 0.7 ? 'عالية' : views >= maxViews * 0.3 ? 'متوسطة' : 'هادئة';
+                    return `<tr><td><strong>${item.name}</strong><span class="page-path">${item.path}</span></td><td>${item.section}</td><td><span class="badge ${badge}">${item.type}</span></td><td>${views.toLocaleString('ar-EG')}</td><td><span class="badge badge-primary">${popularity}</span></td></tr>`;
+                }).join('');
+            }
+        }
+
+        async function refreshAnalyticsData(silent = false) {
+            try {
+                const d = await db.getData();
+                if (d.analytics) systemData.analytics = { pages: {}, daily: {}, ...d.analytics };
+                if (d.adminData) systemData.adminData = { ...systemData.adminData, ...d.adminData };
+                if (!systemData.adminData.systemLogs) systemData.adminData.systemLogs = [];
+                lastAnalyticsSync = new Date();
+                syncTelegramStats();
+                updateDashboard();
+                updateVisitorsDisplay();
+                updatePagesDisplay();
+                updateRealtimeData();
+                if (!silent) showNotification('تم تحديث البيانات الحقيقية', 'success');
+            } catch(e) {
+                console.error('Analytics refresh error:', e);
+                if (!silent) showNotification('تعذر تحديث التحليلات الآن', 'error');
             }
         }
 
         // ===== Realtime =====
         function updateRealtimeData() {
-            const live = systemData.analytics?.liveNow || Math.floor(Math.random()*80)+20;
-            document.getElementById('liveVisitors').textContent = live;
+            const live = getLiveVisitorsCount();
+            const activeSessions = getActiveSessions();
+            const activePagesList = systemData.analytics?.activePages || systemData.analytics?.currentPages || activeSessions.reduce((acc, item) => {
+                acc[item.path || item.page || 'unknown'] = true;
+                return acc;
+            }, {});
+            const newToday = getDailyVisitsSeries().slice(-1)[0] || getAnalyticsValue('todayVisits');
+            document.getElementById('liveVisitors').textContent = live.toLocaleString('ar-EG');
             document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ar-EG');
-            document.getElementById('activePages').textContent = Math.floor(live/15)+3;
-            document.getElementById('activeSessions').textContent = live;
-            document.getElementById('avgLiveDuration').textContent = Math.floor(Math.random()*8)+3+' دقيقة';
-            document.getElementById('newVisits').textContent = Math.floor(live*0.2)+2;
+            document.getElementById('activePages').textContent = Array.isArray(activePagesList) ? activePagesList.length : Object.keys(activePagesList || {}).length;
+            document.getElementById('activeSessions').textContent = live.toLocaleString('ar-EG');
+            document.getElementById('avgLiveDuration').textContent = systemData.analytics?.avgDuration || systemData.analytics?.averageDuration || 'غير متاح';
+            document.getElementById('newVisits').textContent = Number(newToday || 0).toLocaleString('ar-EG');
             updateLiveActivity(live);
         }
 
         function updateLiveActivity(liveCount) {
             const c = document.getElementById('liveActivity');
-            const pages = ['الصفحة الرئيسية','المشكلات الشائعة','هوت سبوت','دمج v6','حجب مواقع'];
-            const actions = ['يشاهد','يتصفح','يقرأ','يزور'];
-            const devices = ['موبايل','كمبيوتر','تابلت'];
-            const count = Math.min(Math.max(Math.floor(liveCount/4),5),12);
-            c.innerHTML = Array.from({length:count},(_,i) => `
-                <div style="display:flex;align-items:center;gap:15px;padding:15px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0">
-                    <div style="width:45px;height:45px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;font-size:18px"><i class="fas fa-user"></i></div>
-                    <div style="flex:1">
-                        <div style="color:#1e293b;font-weight:600">زائر_${1000+i}</div>
-                        <div style="color:#64748b;font-size:13px">${actions[Math.floor(Math.random()*actions.length)]} ${pages[Math.floor(Math.random()*pages.length)]} - ${devices[Math.floor(Math.random()*devices.length)]}</div>
-                    </div>
-                    <div style="font-size:12px;color:#64748b;background:#f1f5f9;padding:6px 12px;border-radius:20px">منذ ${Math.floor(Math.random()*8)+1} دقيقة</div>
-                </div>`).join('');
+            if (!c) return;
+            const activeSessions = getActiveSessions();
+            const activity = activeSessions.length ? activeSessions : (hasPresenceTracking() ? [] : (systemData.analytics?.liveActivity || systemData.analytics?.sessions || []));
+            if (Array.isArray(activity) && activity.length) {
+                c.innerHTML = activity.slice(0,12).map((a,i) => `
+                    <div style="display:flex;align-items:center;gap:15px;padding:15px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0">
+                        <div style="width:45px;height:45px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;font-size:18px"><i class="fas fa-user"></i></div>
+                        <div style="flex:1"><div style="color:#1e293b;font-weight:600">${a.id || a.visitorId || 'زائر_' + (i+1)}</div><div style="color:#64748b;font-size:13px">${a.page || a.path || 'صفحة غير محددة'} - ${a.device || 'غير متاح'}</div></div>
+                        <div style="font-size:12px;color:#64748b;background:#f1f5f9;padding:6px 12px;border-radius:20px">${a.time ? formatDate(a.time) : 'نشط الآن'}</div>
+                    </div>`).join('');
+                return;
+            }
+            c.innerHTML = `<div class="empty-state"><i class="fas fa-satellite-dish"></i><h4>لا توجد جلسات مفصلة الآن</h4><p>العدد المباشر الحالي: ${Number(liveCount || 0).toLocaleString('ar-EG')} حسب آخر قراءة من التحليلات.</p></div>`;
         }
 
-        function refreshLiveData() { updateRealtimeData(); showNotification('تم تحديث البيانات', 'success'); }
+        function refreshLiveData() { refreshAnalyticsData(false); }
 
         function startRealtimeUpdates() {
             if (realtimeInterval) clearInterval(realtimeInterval);
-            realtimeInterval = setInterval(() => {
-                updateRealtimeData();
-                if (systemData.analytics) { systemData.analytics.pageViews = (systemData.analytics.pageViews||0) + Math.floor(Math.random()*5)+2; systemData.analytics.liveNow = Math.floor(Math.random()*50)+20; }
-            }, 10000);
+            realtimeInterval = setInterval(() => refreshAnalyticsData(true), 30000);
         }
 
         // ===== Visitors/Pages =====
         function updateVisitorsDisplay() {
             const tbody = document.getElementById('visitorsTableBody');
-            const demo = Array.from({length:8},(_,i) => ({ id:`زائر_${1000+i}`, firstVisit:new Date(Date.now()-Math.random()*30*86400000).toISOString(), lastVisit:new Date().toISOString(), visits:Math.floor(Math.random()*20)+1, pages:['الصفحة الرئيسية','المشكلات الشائعة'].slice(0,Math.floor(Math.random()*2)+1), location:['القاهرة','الرياض','دبي','المنصورة'][Math.floor(Math.random()*4)], device:['موبايل','كمبيوتر','تابلت'][Math.floor(Math.random()*3)] }));
-            tbody.innerHTML = demo.map((v,i) => `<tr><td>${i+1}</td><td><div style="font-weight:600">${v.id}</div><div style="font-size:12px;color:#64748b">${v.location} - ${v.device}</div></td><td>${formatDate(v.firstVisit)}</td><td>${formatDate(v.lastVisit)}</td><td>${v.visits}</td><td>${v.pages.join(', ')}</td><td><span class="badge badge-success">نشط</span></td></tr>`).join('');
-            document.getElementById('uniqueVisitors').textContent = systemData.analytics.uniqueVisitors || 0;
-            document.getElementById('totalVisits').textContent = systemData.analytics.totalVisits || 0;
-            document.getElementById('avgDuration').textContent = '5 دقائق';
-            document.getElementById('bounceRate').textContent = '35%';
+            const visitors = systemData.analytics?.visitors || systemData.analytics?.visitorList || getActiveSessions();
+            if (tbody) {
+                if (Array.isArray(visitors) && visitors.length) {
+                    tbody.innerHTML = visitors.slice(0,100).map((v,i) => `<tr><td>${i+1}</td><td><div style="font-weight:600">${v.id || v.visitorId || 'زائر'}</div><div style="font-size:12px;color:#64748b">${v.location || '-'} - ${v.device || '-'}</div></td><td>${v.firstVisit ? formatDate(v.firstVisit) : (v.firstSeen ? formatDate(v.firstSeen) : '-')}</td><td>${v.lastVisit ? formatDate(v.lastVisit) : (v.lastSeen ? formatDate(v.lastSeen) : '-')}</td><td>${Number(v.visits || 1).toLocaleString('ar-EG')}</td><td>${Array.isArray(v.pages) ? v.pages.join(', ') : (v.path || v.page || '-')}</td><td><span class="badge badge-success">حقيقي</span></td></tr>`).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;padding:30px">لا توجد قائمة زوار مفصلة في ملف التحليلات حاليا، الأرقام بالأعلى من إجمالي JSONBin الحقيقي.</td></tr>';
+                }
+            }
+            document.getElementById('uniqueVisitors').textContent = Math.max(getAnalyticsValue('uniqueVisitors'), getAnalyticsValue('totalVisits')).toLocaleString('ar-EG');
+            document.getElementById('totalVisits').textContent = getAnalyticsValue('totalVisits').toLocaleString('ar-EG');
+            document.getElementById('avgDuration').textContent = systemData.analytics?.avgDuration || systemData.analytics?.averageDuration || 'غير متاح';
+            document.getElementById('bounceRate').textContent = systemData.analytics?.bounceRate || 'غير متاح';
         }
 
         function updatePagesDisplay() {
             const tbody = document.getElementById('pagesTableBody');
-            const pages = [
-                {name:'الرئيسية',views:Math.floor(Math.random()*300)+200},{name:'المشكلات الشائعة',views:Math.floor(Math.random()*250)+180},
-                {name:'هوت سبوت',views:Math.floor(Math.random()*150)+100},{name:'دمج v6',views:Math.floor(Math.random()*120)+80},
-                {name:'دمج v7',views:Math.floor(Math.random()*130)+90},{name:'حجب مواقع',views:Math.floor(Math.random()*100)+70},
-                {name:'بروفايلات السرعة',views:Math.floor(Math.random()*110)+75},{name:'من نحن',views:Math.floor(Math.random()*80)+40}
-            ].sort((a,b) => b.views-a.views);
-            document.getElementById('totalViews').textContent = pages.reduce((s,p)=>s+p.views,0);
-            document.getElementById('avgViews').textContent = Math.round(pages.reduce((s,p)=>s+p.views,0)/pages.length);
-            document.getElementById('topPage').textContent = pages[0].name;
-            tbody.innerHTML = pages.map(p => `<tr><td><i class="fas fa-file" style="color:#4361ee;margin-left:10px"></i>${p.name}</td><td>${p.views}</td><td>${Math.floor(p.views*0.7)}</td><td>${Math.floor(Math.random()*60)+60} ثانية</td><td><span class="badge ${p.views>250?'badge-success':p.views>150?'badge-warning':'badge-info'}">${p.views>250?'عالية جداً':p.views>150?'عالية':'متوسطة'}</span></td></tr>`).join('');
+            const pages = SITE_ITEMS.map(item => ({ ...item, views:getPageViewsFor(item) })).sort((a,b) => b.views-a.views);
+            const totalViews = getTotalPageViews();
+            document.getElementById('totalPages').textContent = SITE_ITEMS.length.toLocaleString('ar-EG');
+            document.getElementById('totalViews').textContent = totalViews.toLocaleString('ar-EG');
+            document.getElementById('avgViews').textContent = pages.length ? Math.round(totalViews/pages.length).toLocaleString('ar-EG') : '0';
+            document.getElementById('topPage').textContent = pages[0]?.views ? pages[0].name : '-';
+            if (tbody) {
+                const maxViews = Math.max(...pages.map(p=>p.views), 1);
+                tbody.innerHTML = pages.map(p => {
+                    const level = p.views === 0 ? 'لا توجد بيانات' : p.views >= maxViews * 0.7 ? 'عالية جدا' : p.views >= maxViews * 0.3 ? 'عالية' : 'متوسطة';
+                    const badge = p.views === 0 ? 'badge-info' : p.views >= maxViews * 0.7 ? 'badge-success' : p.views >= maxViews * 0.3 ? 'badge-warning' : 'badge-info';
+                    return `<tr><td><i class="fas fa-file" style="color:#4361ee;margin-left:10px"></i>${p.name}<span class="page-path">${p.path}</span></td><td>${p.views.toLocaleString('ar-EG')}</td><td>غير متاح</td><td>غير متاح</td><td><span class="badge ${badge}">${level}</span></td></tr>`;
+                }).join('');
+            }
         }
 
         // ===== Helpers =====
@@ -1229,7 +1453,7 @@ ${typesText}
         }
         async function resetAllData() {
             if (!confirm('⚠️ هل أنت متأكد من حذف جميع البيانات؟')) return;
-            systemData.analytics = { totalVisits:0, uniqueVisitors:0, todayVisits:0, pageViews:0, liveNow:50 };
+            systemData.analytics = { totalVisits:0, uniqueVisitors:0, todayVisits:0, pageViews:0, liveNow:0, pages:{}, daily:{} };
             systemData.adminData.systemLogs = [];
             await saveSystemData();
             showNotification('تم حذف البيانات', 'success');

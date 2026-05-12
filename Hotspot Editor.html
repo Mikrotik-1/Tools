@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -227,56 +227,56 @@
             <span class="auth-logo-text">MikroTools</span>
         </div>
         <div class="auth-tabs">
-            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
-            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب</button>
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨</button>
         </div>
         <div class="auth-form active" id="formLogin">
             <div class="auth-error" id="loginError"></div>
             <div class="auth-success" id="loginSuccess"></div>
             <div class="auth-field">
-                <label>البريد الإلكتروني</label>
+                <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
                 <input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com">
             </div>
             <div class="auth-field">
-                <label>كلمة المرور</label>
+                <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                 <div class="auth-input-wrap">
-                    <input type="password" class="auth-input" id="loginPass" placeholder="••••••••" style="padding-right:44px;">
+                    <input type="password" class="auth-input" id="loginPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;">
                     <button class="auth-eye" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
-            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">نسيت كلمة المرور؟</a></div>
-            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
-            <div class="auth-divider">أو</div>
+            <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">ظ†ط³ظٹطھ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±طں</a></div>
+            <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+            <div class="auth-divider">ط£ظˆ</div>
             <button class="auth-google" onclick="doGoogle()">
                 <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                الدخول بـ Google
+                ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google
             </button>
         </div>
         <div class="auth-form" id="formRegister">
             <div class="auth-error" id="registerError"></div>
             <div class="auth-field">
-                <label>البريد الإلكتروني</label>
+                <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
                 <input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com">
             </div>
             <div class="auth-field">
-                <label>كلمة المرور</label>
+                <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                 <div class="auth-input-wrap">
-                    <input type="password" class="auth-input" id="regPass" placeholder="••••••••" style="padding-right:44px;">
+                    <input type="password" class="auth-input" id="regPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;">
                     <button class="auth-eye" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
             <div class="auth-field">
-                <label>تأكيد كلمة المرور</label>
+                <label>طھط£ظƒظٹط¯ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                 <div class="auth-input-wrap">
-                    <input type="password" class="auth-input" id="regPass2" placeholder="••••••••" style="padding-right:44px;">
+                    <input type="password" class="auth-input" id="regPass2" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-right:44px;">
                     <button class="auth-eye" onclick="togglePass('regPass2',this)"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
-            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
-            <div class="auth-divider">أو</div>
+            <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨</button>
+            <div class="auth-divider">ط£ظˆ</div>
             <button class="auth-google" onclick="doGoogle()">
                 <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                الدخول بـ Google
+                ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google
             </button>
         </div>
     </div>
@@ -318,7 +318,7 @@
                     <a href="log.html" class="dropdown-item"><i class="fas fa-chart-bar"></i><span data-i18n="log_analyzer">Log Analyzer</span></a>
                 </div>
             </div>
-            <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>حاسبة السعة</span><span class="new-badge">جديد</span></a>
+            <a href="capacity-calculator.html" class="nav-link"><i class="fas fa-calculator"></i><span>ط­ط§ط³ط¨ط© ط§ظ„ط³ط¹ط©</span><span class="new-badge">ط¬ط¯ظٹط¯</span></a>
             <div class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle"><i class="fas fa-question-circle"></i><span data-i18n="help">Help</span><i class="fas fa-chevron-down dropdown-arrow"></i></a>
                 <div class="dropdown-menu">
@@ -328,12 +328,12 @@
                 </div>
             </div>
             <!-- AUTH BUTTONS -->
-            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> تسجيل الدخول</button>
+            <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
             <div style="position:relative;">
                 <button id="navUserBtn" onclick="toggleUserDropdown()"></button>
                 <div class="user-dropdown" id="userDropdown">
-                    <div class="user-dropdown-email"><strong>مرحباً 👋</strong><span id="userEmailDisplay"></span></div>
-                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                    <div class="user-dropdown-email"><strong>ظ…ط±ط­ط¨ط§ظ‹ ًں‘‹</strong><span id="userEmailDisplay"></span></div>
+                    <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬</button>
                 </div>
             </div>
             </div>
@@ -419,7 +419,7 @@
                         <div class="img-preview" id="logoPreview">
                             <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
                                 <img id="logoPreviewImg" src="" alt="Logo Preview" style="height:60px;object-fit:contain;border-radius:8px;border:2px solid #e2e8f0;">
-                                <button class="remove-btn" onclick="removeLogo()">✕ Remove</button>
+                                <button class="remove-btn" onclick="removeLogo()">âœ• Remove</button>
                             </div>
                         </div>
                     </div>
@@ -440,7 +440,7 @@
                     <div class="form-group"><label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="username_placeholder">Username Field Text</span></label><input type="text" id="usernamePlaceholder" class="form-control" value="Username"></div>
                     <div class="form-group"><label class="form-label"><i class="fas fa-keyboard"></i> <span data-i18n="password_placeholder">Password Field Text</span></label><input type="text" id="passwordPlaceholder" class="form-control" value="Password"></div>
                     <div class="form-group"><label class="form-label"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login_button">Login Button Text</span></label><input type="text" id="loginButtonText" class="form-control" value="Login"></div>
-                    <div class="form-group"><label class="form-label"><i class="fas fa-info-circle"></i> <span data-i18n="footer_text">Footer Text</span></label><input type="text" id="footerText" class="form-control" value="© mikro-tools.com All rights reserved"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-info-circle"></i> <span data-i18n="footer_text">Footer Text</span></label><input type="text" id="footerText" class="form-control" value="آ© mikro-tools.com All rights reserved"></div>
                 </div>
             </div>
             <div class="action-buttons">
@@ -513,7 +513,7 @@
                             <option value="tablet" data-i18n="tablet">Tablet</option>
                             <option value="mobile" data-i18n="mobile">Mobile</option>
                         </select>
-                        <button class="btn btn-success" onclick="buildPreview(); showNotif('Refreshed ✅')" style="padding:10px 20px;"><i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span></button>
+                        <button class="btn btn-success" onclick="buildPreview(); showNotif('Refreshed âœ…')" style="padding:10px 20px;"><i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span></button>
                     </div>
                 </div>
                 <div id="livePreview"></div>
@@ -608,7 +608,7 @@ onAuthStateChanged(auth, (user) => {
 <script>
 const translations = {
     en: { home:"Home",merge:"Merge",hotspot:"Hotspot",design_block:"Design & Block",help:"Help",merge_v6:"Load Balancing v6",merge_v7:"Load Balancing v7",hotspot_settings:"Hotspot+PPP Settings",speed_profiles:"Speed Profiles",hotspot_design:"Hotspot Design",card_designer:"Card Designer",block_sites:"Block Sites",log_analyzer:"Log Analyzer",troubleshooting:"Troubleshooting",about:"About Us",privacy:"Privacy Policy",contact_us:"Contact Us",hotspot_badge:"Complete System - Preview All Login Methods",hotspot_title:"Hotspot Page Editor",hotspot_subtitle:"Complete system to edit and customize the login page",live_preview:"Live Preview",tab_design:"Design & Text",tab_login:"Login System",tab_preview:"Preview",tab_save:"Save & Download",design_title:"Design & Text",bg_settings:"Background Settings",bg_type:"Background Type",bg_color:"Solid Color",bg_gradient:"Gradient",bg_image:"Image",bg_color_label:"Background Color",gradient_color1:"First Color",gradient_color2:"Second Color",upload_bg:"Click to upload background image",ready_bg:"Ready Backgrounds",bg_blue:"Blue Gradient",bg_pink:"Pink Gradient",bg_dark_blue:"Dark Blue",logo_settings:"Logo Settings",upload_logo:"Upload New Logo",click_upload_logo:"Click to upload new logo",logo_text:"Logo Text (if no image)",logo_color:"Logo Color (if no image)",logo_size:"Logo Size",small:"Small",medium:"Medium",large:"Large",text_settings:"Text Settings",page_title:"Page Title",welcome_msg:"Welcome Message",username_placeholder:"Username Field Text",password_placeholder:"Password Field Text",login_button:"Login Button Text",footer_text:"Footer Text",update_preview:"Update Preview",login_system:"Login System",login_desc:"Choose the appropriate login system or use the mixed system",method_userpass:"Username & Password",method_userpass_desc:"Traditional method using username and password",method_cards:"Cards System",method_cards_desc:"Login using prepaid cards - card number only",method_barcode:"Barcode System",method_barcode_desc:"Scan barcode using camera or scanner",method_mixed:"Mixed System",method_mixed_desc:"Combine all three methods in one page",show_password:"Show/Hide Password",remember_login:"Remember Login",enable_cards:"Enable Cards System",card_placeholder_label:"Card Placeholder Text",enable_barcode:"Enable Barcode System",barcode_placeholder:"Barcode Field Text",enable_userpass:"Enable User/Pass",allow_switch:"Allow Switching",page_preview:"Page Preview",live_preview_desc:"Changes appear instantly",desktop:"Desktop",tablet:"Tablet",mobile:"Mobile",refresh:"Refresh",reset:"Reset to Default",save_all:"Save All",download_html:"Download HTML File",save_download:"Save & Download",save_settings:"Save Settings",save_current:"Save Current Settings",save_desc:"Download final HTML file with your current settings",restore:"Restore Versions",default_settings:"Default Settings",can_restore:"You can restore default settings",restore_default:"Restore Default Settings",dl_userpass_tab:"User/Pass",dl_cards_tab:"Cards",dl_barcode_tab:"Barcode",dl_activate_card:"Activate Card",dl_scan_barcode:"Scan Barcode",dl_cards_title:"Prepaid Cards System",dl_barcode_title:"Scan QR code to login" },
-    ar: { home:"الرئيسية",merge:"الدمج",hotspot:"الهوت سبوت",design_block:"التصميم والحجب",help:"المساعدة",merge_v6:"دمج خطوط v6",merge_v7:"دمج خطوط v7",hotspot_settings:"اعدادات hotspot+ppp",speed_profiles:"بروفايلات السرعة",hotspot_design:"تصميم hotspot",card_designer:"مصمم الكروت",block_sites:"حجب مواقع",log_analyzer:"محلل السجلات",troubleshooting:"المشكلات الشائعة",about:"من نحن",privacy:"سياسة الخصوصية",contact_us:"تواصل معنا",hotspot_badge:"نظام متكامل - معاينة جميع أنظمة الدخول",hotspot_title:"نظام تعديل صفحة Hotspot",hotspot_subtitle:"نظام متكامل لتعديل وتخصيص صفحة الدخول",live_preview:"المعاينة مباشرة",tab_design:"التصميم والنصوص",tab_login:"نظام الدخول",tab_preview:"المعاينة",tab_save:"الحفظ والتحميل",design_title:"التصميم والنصوص",bg_settings:"إعدادات الخلفية",bg_type:"نوع الخلفية",bg_color:"لون واحد",bg_gradient:"تدرج لوني",bg_image:"صورة",bg_color_label:"لون الخلفية",gradient_color1:"اللون الأول",gradient_color2:"اللون الثاني",upload_bg:"اضغط لرفع صورة خلفية",ready_bg:"خلفيات جاهزة",bg_blue:"تدرج أزرق",bg_pink:"تدرج وردي",bg_dark_blue:"أزرق داكن",logo_settings:"إعدادات الشعار",upload_logo:"رفع شعار جديد",click_upload_logo:"اضغط لرفع شعار جديد",logo_text:"نص الشعار (إذا لم ترفع صورة)",logo_color:"لون الشعار (إذا لم ترفع صورة)",logo_size:"حجم الشعار",small:"صغير",medium:"وسط",large:"كبير",text_settings:"تعديل النصوص",page_title:"عنوان الصفحة",welcome_msg:"رسالة الترحيب",username_placeholder:"نص حقل اسم المستخدم",password_placeholder:"نص حقل كلمة المرور",login_button:"نص زر الدخول",footer_text:"نص التذييل",update_preview:"تحديث المعاينة",login_system:"نظام الدخول",login_desc:"اختر نظام الدخول المناسب أو استخدم النظام المختلط",method_userpass:"اسم المستخدم وكلمة المرور",method_userpass_desc:"الطريقة التقليدية",method_cards:"نظام الكروت",method_cards_desc:"الدخول باستخدام بطاقات مسبقة الدفع",method_barcode:"نظام الباركود",method_barcode_desc:"المسح الضوئي للباركود",method_mixed:"نظام مختلط",method_mixed_desc:"دمج الأنظمة الثلاثة معاً",show_password:"إظهار/إخفاء كلمة المرور",remember_login:"تذكر الدخول",enable_cards:"تفعيل نظام الكروت",card_placeholder_label:"نص حقل الكارت",enable_barcode:"تفعيل نظام الباركود",barcode_placeholder:"نص حقل الباركود",enable_userpass:"تفعيل اليوزر/باس",allow_switch:"السماح بالتبديل",page_preview:"معاينة الصفحة",live_preview_desc:"التعديلات تظهر مباشرة",desktop:"كمبيوتر",tablet:"تابلت",mobile:"موبايل",refresh:"تحديث",reset:"إعادة التعيين",save_all:"حفظ الكل",download_html:"تحميل HTML نهائي",save_download:"الحفظ والتحميل",save_settings:"حفظ الإعدادات",save_current:"حفظ الإعدادات الحالية",save_desc:"تحميل ملف HTML نهائي بالتعديلات الحالية",restore:"استعادة النسخ",default_settings:"الإعدادات الافتراضية",can_restore:"يمكنك استعادة الإعدادات الافتراضية",restore_default:"استعادة الافتراضي",dl_userpass_tab:"يوزر/باس",dl_cards_tab:"كروت",dl_barcode_tab:"باركود",dl_activate_card:"تفعيل الكارت",dl_scan_barcode:"مسح الباركود",dl_cards_title:"نظام البطاقات المسبقة الدفع",dl_barcode_title:"امسح رمز QR لتسجيل الدخول" }
+    ar: { home:"ط§ظ„ط±ط¦ظٹط³ظٹط©",merge:"ط§ظ„ط¯ظ…ط¬",hotspot:"ط§ظ„ظ‡ظˆطھ ط³ط¨ظˆطھ",design_block:"ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ط­ط¬ط¨",help:"ط§ظ„ظ…ط³ط§ط¹ط¯ط©",merge_v6:"ط¯ظ…ط¬ ط®ط·ظˆط· v6",merge_v7:"ط¯ظ…ط¬ ط®ط·ظˆط· v7",hotspot_settings:"ط§ط¹ط¯ط§ط¯ط§طھ hotspot+ppp",speed_profiles:"ط¨ط±ظˆظپط§ظٹظ„ط§طھ ط§ظ„ط³ط±ط¹ط©",hotspot_design:"طھطµظ…ظٹظ… hotspot",card_designer:"ظ…طµظ…ظ… ط§ظ„ظƒط±ظˆطھ",block_sites:"ط­ط¬ط¨ ظ…ظˆط§ظ‚ط¹",log_analyzer:"ظ…ط­ظ„ظ„ ط§ظ„ط³ط¬ظ„ط§طھ",troubleshooting:"ط§ظ„ظ…ط´ظƒظ„ط§طھ ط§ظ„ط´ط§ط¦ط¹ط©",about:"ظ…ظ† ظ†ط­ظ†",privacy:"ط³ظٹط§ط³ط© ط§ظ„ط®طµظˆطµظٹط©",contact_us:"طھظˆط§طµظ„ ظ…ط¹ظ†ط§",hotspot_badge:"ظ†ط¸ط§ظ… ظ…طھظƒط§ظ…ظ„ - ظ…ط¹ط§ظٹظ†ط© ط¬ظ…ظٹط¹ ط£ظ†ط¸ظ…ط© ط§ظ„ط¯ط®ظˆظ„",hotspot_title:"ظ†ط¸ط§ظ… طھط¹ط¯ظٹظ„ طµظپط­ط© Hotspot",hotspot_subtitle:"ظ†ط¸ط§ظ… ظ…طھظƒط§ظ…ظ„ ظ„طھط¹ط¯ظٹظ„ ظˆطھط®طµظٹطµ طµظپط­ط© ط§ظ„ط¯ط®ظˆظ„",live_preview:"ط§ظ„ظ…ط¹ط§ظٹظ†ط© ظ…ط¨ط§ط´ط±ط©",tab_design:"ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ظ†طµظˆطµ",tab_login:"ظ†ط¸ط§ظ… ط§ظ„ط¯ط®ظˆظ„",tab_preview:"ط§ظ„ظ…ط¹ط§ظٹظ†ط©",tab_save:"ط§ظ„ط­ظپط¸ ظˆط§ظ„طھط­ظ…ظٹظ„",design_title:"ط§ظ„طھطµظ…ظٹظ… ظˆط§ظ„ظ†طµظˆطµ",bg_settings:"ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط®ظ„ظپظٹط©",bg_type:"ظ†ظˆط¹ ط§ظ„ط®ظ„ظپظٹط©",bg_color:"ظ„ظˆظ† ظˆط§ط­ط¯",bg_gradient:"طھط¯ط±ط¬ ظ„ظˆظ†ظٹ",bg_image:"طµظˆط±ط©",bg_color_label:"ظ„ظˆظ† ط§ظ„ط®ظ„ظپظٹط©",gradient_color1:"ط§ظ„ظ„ظˆظ† ط§ظ„ط£ظˆظ„",gradient_color2:"ط§ظ„ظ„ظˆظ† ط§ظ„ط«ط§ظ†ظٹ",upload_bg:"ط§ط¶ط؛ط· ظ„ط±ظپط¹ طµظˆط±ط© ط®ظ„ظپظٹط©",ready_bg:"ط®ظ„ظپظٹط§طھ ط¬ط§ظ‡ط²ط©",bg_blue:"طھط¯ط±ط¬ ط£ط²ط±ظ‚",bg_pink:"طھط¯ط±ط¬ ظˆط±ط¯ظٹ",bg_dark_blue:"ط£ط²ط±ظ‚ ط¯ط§ظƒظ†",logo_settings:"ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط´ط¹ط§ط±",upload_logo:"ط±ظپط¹ ط´ط¹ط§ط± ط¬ط¯ظٹط¯",click_upload_logo:"ط§ط¶ط؛ط· ظ„ط±ظپط¹ ط´ط¹ط§ط± ط¬ط¯ظٹط¯",logo_text:"ظ†طµ ط§ظ„ط´ط¹ط§ط± (ط¥ط°ط§ ظ„ظ… طھط±ظپط¹ طµظˆط±ط©)",logo_color:"ظ„ظˆظ† ط§ظ„ط´ط¹ط§ط± (ط¥ط°ط§ ظ„ظ… طھط±ظپط¹ طµظˆط±ط©)",logo_size:"ط­ط¬ظ… ط§ظ„ط´ط¹ط§ط±",small:"طµط؛ظٹط±",medium:"ظˆط³ط·",large:"ظƒط¨ظٹط±",text_settings:"طھط¹ط¯ظٹظ„ ط§ظ„ظ†طµظˆطµ",page_title:"ط¹ظ†ظˆط§ظ† ط§ظ„طµظپط­ط©",welcome_msg:"ط±ط³ط§ظ„ط© ط§ظ„طھط±ط­ظٹط¨",username_placeholder:"ظ†طµ ط­ظ‚ظ„ ط§ط³ظ… ط§ظ„ظ…ط³طھط®ط¯ظ…",password_placeholder:"ظ†طµ ط­ظ‚ظ„ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±",login_button:"ظ†طµ ط²ط± ط§ظ„ط¯ط®ظˆظ„",footer_text:"ظ†طµ ط§ظ„طھط°ظٹظٹظ„",update_preview:"طھط­ط¯ظٹط« ط§ظ„ظ…ط¹ط§ظٹظ†ط©",login_system:"ظ†ط¸ط§ظ… ط§ظ„ط¯ط®ظˆظ„",login_desc:"ط§ط®طھط± ظ†ط¸ط§ظ… ط§ظ„ط¯ط®ظˆظ„ ط§ظ„ظ…ظ†ط§ط³ط¨ ط£ظˆ ط§ط³طھط®ط¯ظ… ط§ظ„ظ†ط¸ط§ظ… ط§ظ„ظ…ط®طھظ„ط·",method_userpass:"ط§ط³ظ… ط§ظ„ظ…ط³طھط®ط¯ظ… ظˆظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±",method_userpass_desc:"ط§ظ„ط·ط±ظٹظ‚ط© ط§ظ„طھظ‚ظ„ظٹط¯ظٹط©",method_cards:"ظ†ط¸ط§ظ… ط§ظ„ظƒط±ظˆطھ",method_cards_desc:"ط§ظ„ط¯ط®ظˆظ„ ط¨ط§ط³طھط®ط¯ط§ظ… ط¨ط·ط§ظ‚ط§طھ ظ…ط³ط¨ظ‚ط© ط§ظ„ط¯ظپط¹",method_barcode:"ظ†ط¸ط§ظ… ط§ظ„ط¨ط§ط±ظƒظˆط¯",method_barcode_desc:"ط§ظ„ظ…ط³ط­ ط§ظ„ط¶ظˆط¦ظٹ ظ„ظ„ط¨ط§ط±ظƒظˆط¯",method_mixed:"ظ†ط¸ط§ظ… ظ…ط®طھظ„ط·",method_mixed_desc:"ط¯ظ…ط¬ ط§ظ„ط£ظ†ط¸ظ…ط© ط§ظ„ط«ظ„ط§ط«ط© ظ…ط¹ط§ظ‹",show_password:"ط¥ط¸ظ‡ط§ط±/ط¥ط®ظپط§ط، ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±",remember_login:"طھط°ظƒط± ط§ظ„ط¯ط®ظˆظ„",enable_cards:"طھظپط¹ظٹظ„ ظ†ط¸ط§ظ… ط§ظ„ظƒط±ظˆطھ",card_placeholder_label:"ظ†طµ ط­ظ‚ظ„ ط§ظ„ظƒط§ط±طھ",enable_barcode:"طھظپط¹ظٹظ„ ظ†ط¸ط§ظ… ط§ظ„ط¨ط§ط±ظƒظˆط¯",barcode_placeholder:"ظ†طµ ط­ظ‚ظ„ ط§ظ„ط¨ط§ط±ظƒظˆط¯",enable_userpass:"طھظپط¹ظٹظ„ ط§ظ„ظٹظˆط²ط±/ط¨ط§ط³",allow_switch:"ط§ظ„ط³ظ…ط§ط­ ط¨ط§ظ„طھط¨ط¯ظٹظ„",page_preview:"ظ…ط¹ط§ظٹظ†ط© ط§ظ„طµظپط­ط©",live_preview_desc:"ط§ظ„طھط¹ط¯ظٹظ„ط§طھ طھط¸ظ‡ط± ظ…ط¨ط§ط´ط±ط©",desktop:"ظƒظ…ط¨ظٹظˆطھط±",tablet:"طھط§ط¨ظ„طھ",mobile:"ظ…ظˆط¨ط§ظٹظ„",refresh:"طھط­ط¯ظٹط«",reset:"ط¥ط¹ط§ط¯ط© ط§ظ„طھط¹ظٹظٹظ†",save_all:"ط­ظپط¸ ط§ظ„ظƒظ„",download_html:"طھط­ظ…ظٹظ„ HTML ظ†ظ‡ط§ط¦ظٹ",save_download:"ط§ظ„ط­ظپط¸ ظˆط§ظ„طھط­ظ…ظٹظ„",save_settings:"ط­ظپط¸ ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ",save_current:"ط­ظپط¸ ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط­ط§ظ„ظٹط©",save_desc:"طھط­ظ…ظٹظ„ ظ…ظ„ظپ HTML ظ†ظ‡ط§ط¦ظٹ ط¨ط§ظ„طھط¹ط¯ظٹظ„ط§طھ ط§ظ„ط­ط§ظ„ظٹط©",restore:"ط§ط³طھط¹ط§ط¯ط© ط§ظ„ظ†ط³ط®",default_settings:"ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط§ظپطھط±ط§ط¶ظٹط©",can_restore:"ظٹظ…ظƒظ†ظƒ ط§ط³طھط¹ط§ط¯ط© ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط§ظپطھط±ط§ط¶ظٹط©",restore_default:"ط§ط³طھط¹ط§ط¯ط© ط§ظ„ط§ظپطھط±ط§ط¶ظٹ",dl_userpass_tab:"ظٹظˆط²ط±/ط¨ط§ط³",dl_cards_tab:"ظƒط±ظˆطھ",dl_barcode_tab:"ط¨ط§ط±ظƒظˆط¯",dl_activate_card:"طھظپط¹ظٹظ„ ط§ظ„ظƒط§ط±طھ",dl_scan_barcode:"ظ…ط³ط­ ط§ظ„ط¨ط§ط±ظƒظˆط¯",dl_cards_title:"ظ†ط¸ط§ظ… ط§ظ„ط¨ط·ط§ظ‚ط§طھ ط§ظ„ظ…ط³ط¨ظ‚ط© ط§ظ„ط¯ظپط¹",dl_barcode_title:"ط§ظ…ط³ط­ ط±ظ…ط² QR ظ„طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„" }
 };
 let currentLang = localStorage.getItem('language') || 'en';
 
@@ -632,30 +632,30 @@ window.switchAuthTab = switchAuthTab;
 function togglePass(id, btn) { const inp=document.getElementById(id); const show=inp.type==='password'; inp.type=show?'text':'password'; btn.querySelector('i').className=show?'fas fa-eye-slash':'fas fa-eye'; }
 window.togglePass = togglePass;
 
-function getErrMsg(code) { const m={'auth/invalid-email':'البريد الإلكتروني غير صحيح','auth/user-not-found':'لا يوجد حساب بهذا البريد','auth/wrong-password':'كلمة المرور غير صحيحة','auth/invalid-credential':'البريد أو كلمة المرور غير صحيحة','auth/email-already-in-use':'هذا البريد مسجّل مسبقاً','auth/weak-password':'كلمة المرور ضعيفة (6 أحرف على الأقل)','auth/too-many-requests':'محاولات كثيرة، حاول لاحقاً','auth/popup-closed-by-user':'تم إغلاق نافذة Google'}; return m[code]||'حدث خطأ، حاول مرة أخرى'; }
+function getErrMsg(code) { const m={'auth/invalid-email':'ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط؛ظٹط± طµط­ظٹط­','auth/user-not-found':'ظ„ط§ ظٹظˆط¬ط¯ ط­ط³ط§ط¨ ط¨ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯','auth/wrong-password':'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©','auth/invalid-credential':'ط§ظ„ط¨ط±ظٹط¯ ط£ظˆ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©','auth/email-already-in-use':'ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯ ظ…ط³ط¬ظ‘ظ„ ظ…ط³ط¨ظ‚ط§ظ‹','auth/weak-password':'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط¶ط¹ظٹظپط© (6 ط£ط­ط±ظپ ط¹ظ„ظ‰ ط§ظ„ط£ظ‚ظ„)','auth/too-many-requests':'ظ…ط­ط§ظˆظ„ط§طھ ظƒط«ظٹط±ط©طŒ ط­ط§ظˆظ„ ظ„ط§ط­ظ‚ط§ظ‹','auth/popup-closed-by-user':'طھظ… ط¥ط؛ظ„ط§ظ‚ ظ†ط§ظپط°ط© Google'}; return m[code]||'ط­ط¯ط« ط®ط·ط£طŒ ط­ط§ظˆظ„ ظ…ط±ط© ط£ط®ط±ظ‰'; }
 function showErr(id, msg) { const el=document.getElementById(id); el.textContent=msg; el.classList.add('show'); }
 function hideErr(id) { document.getElementById(id).classList.remove('show'); }
 
 async function doLogin() {
     const email=document.getElementById('loginEmail').value.trim(), pass=document.getElementById('loginPass').value;
     hideErr('loginError'); hideErr('loginSuccess');
-    if (!email||!pass) { showErr('loginError','يرجى ملء جميع الحقول'); return; }
-    const btn=document.getElementById('loginBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الدخول...';
+    if (!email||!pass) { showErr('loginError','ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„'); return; }
+    const btn=document.getElementById('loginBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¯ط®ظˆظ„...';
     try { await window._signInWithEmailAndPassword(window._auth,email,pass); }
     catch(e) { showErr('loginError',getErrMsg(e.code)); }
-    finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> تسجيل الدخول'; }
+    finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„'; }
 }
 window.doLogin = doLogin;
 
 async function doRegister() {
     const email=document.getElementById('regEmail').value.trim(), pass=document.getElementById('regPass').value, pass2=document.getElementById('regPass2').value;
     hideErr('registerError');
-    if (!email||!pass||!pass2) { showErr('registerError','يرجى ملء جميع الحقول'); return; }
-    if (pass!==pass2) { showErr('registerError','كلمتا المرور غير متطابقتين'); return; }
-    const btn=document.getElementById('registerBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> جارٍ الإنشاء...';
+    if (!email||!pass||!pass2) { showErr('registerError','ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„'); return; }
+    if (pass!==pass2) { showErr('registerError','ظƒظ„ظ…طھط§ ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± ظ…طھط·ط§ط¨ظ‚طھظٹظ†'); return; }
+    const btn=document.getElementById('registerBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¥ظ†ط´ط§ط،...';
     try { await window._createUserWithEmailAndPassword(window._auth,email,pass); }
     catch(e) { showErr('registerError',getErrMsg(e.code)); }
-    finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-user-plus"></i> إنشاء الحساب'; }
+    finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨'; }
 }
 window.doRegister = doRegister;
 
@@ -669,8 +669,8 @@ async function forgotPassword(e) {
     e.preventDefault();
     const email=document.getElementById('loginEmail').value.trim();
     hideErr('loginError'); hideErr('loginSuccess');
-    if (!email) { showErr('loginError','أدخل بريدك الإلكتروني أولاً'); return; }
-    try { await window._sendPasswordResetEmail(window._auth,email); const s=document.getElementById('loginSuccess'); s.textContent='تم إرسال رابط الاستعادة ✅'; s.classList.add('show'); }
+    if (!email) { showErr('loginError','ط£ط¯ط®ظ„ ط¨ط±ظٹط¯ظƒ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط£ظˆظ„ط§ظ‹'); return; }
+    try { await window._sendPasswordResetEmail(window._auth,email); const s=document.getElementById('loginSuccess'); s.textContent='طھظ… ط¥ط±ط³ط§ظ„ ط±ط§ط¨ط· ط§ظ„ط§ط³طھط¹ط§ط¯ط© âœ…'; s.classList.add('show'); }
     catch(e) { showErr('loginError',getErrMsg(e.code)); }
 }
 window.forgotPassword = forgotPassword;
@@ -678,7 +678,7 @@ window.forgotPassword = forgotPassword;
 async function doLogout() {
     await window._signOut(window._auth);
     document.getElementById('userDropdown').classList.remove('open');
-    showNotif(currentLang==='ar'?'تم تسجيل الخروج 👋':'Logged out 👋');
+    showNotif(currentLang==='ar'?'طھظ… طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬ ًں‘‹':'Logged out ًں‘‹');
 }
 window.doLogout = doLogout;
 
@@ -705,7 +705,7 @@ function handlePreviewTab() {
     }
     switchTab('preview');
     buildPreview();
-    showNotif('Preview updated ✅');
+    showNotif('Preview updated âœ…');
 }
 window.handlePreviewTab = handlePreviewTab;
 
@@ -778,13 +778,13 @@ document.querySelectorAll('.bg-item').forEach(item => {
 document.getElementById('bgImageInput').addEventListener('change', function(e) {
     const file=e.target.files[0]; if(!file) return;
     const reader=new FileReader();
-    reader.onload=function(ev){document.getElementById('bgPreviewImg').src=ev.target.result;document.getElementById('bgPreview').classList.add('show');document.getElementById('bgType').value='image';showBgOptions('image');buildPreview();showNotif('Background uploaded ✅');};
+    reader.onload=function(ev){document.getElementById('bgPreviewImg').src=ev.target.result;document.getElementById('bgPreview').classList.add('show');document.getElementById('bgType').value='image';showBgOptions('image');buildPreview();showNotif('Background uploaded âœ…');};
     reader.readAsDataURL(file);
 });
 document.getElementById('logoImageInput').addEventListener('change', function(e) {
     const file=e.target.files[0]; if(!file) return;
     const reader=new FileReader();
-    reader.onload=function(ev){document.getElementById('logoPreviewImg').src=ev.target.result;document.getElementById('logoPreview').classList.add('show');updateLogoDisplay();buildPreview();showNotif('Logo uploaded ✅');};
+    reader.onload=function(ev){document.getElementById('logoPreviewImg').src=ev.target.result;document.getElementById('logoPreview').classList.add('show');updateLogoDisplay();buildPreview();showNotif('Logo uploaded âœ…');};
     reader.readAsDataURL(file);
 });
 function removeLogo(){document.getElementById('logoPreviewImg').src='';document.getElementById('logoPreview').classList.remove('show');document.getElementById('logoImageInput').value='';updateLogoDisplay();buildPreview();}
@@ -846,17 +846,17 @@ function buildPreview() {
     const btnGreen=`style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#10b981,#34d399);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
     const btnYellow=`style="display:block;width:100%;margin-top:8px;padding:15px;background:linear-gradient(135deg,#f59e0b,#fbbf24);border:none;border-radius:10px;color:white;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;"`;
     if(activeMethod==='userpass'){loginHTML=`<input type="text" placeholder="${userPH}" ${inputStyle} disabled><input type="password" placeholder="${passPH}" ${inputStyle} disabled><button ${btnBlue}>${loginBtn}</button>`;}
-    else if(activeMethod==='cards'){loginHTML=`<div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:20px;margin-bottom:16px;text-align:center;"><div style="font-size:48px;margin-bottom:10px;">💳</div><div style="font-size:14px;">${t.dl_cards_title||'Prepaid Cards'}</div></div><input type="text" placeholder="${cardPH}" ${inputStyle} disabled><button ${btnGreen}>${t.dl_activate_card||'Activate Card'}</button>`;}
-    else if(activeMethod==='barcode'){loginHTML=`<div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:28px;margin-bottom:16px;text-align:center;"><div style="font-size:64px;margin-bottom:12px;">📱</div><div style="font-size:14px;">${t.dl_barcode_title||'Scan QR'}</div></div><input type="text" placeholder="${barcodePH}" ${inputStyle} disabled><button ${btnYellow}>${t.dl_scan_barcode||'Scan'}</button>`;}
+    else if(activeMethod==='cards'){loginHTML=`<div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:20px;margin-bottom:16px;text-align:center;"><div style="font-size:48px;margin-bottom:10px;">ًں’³</div><div style="font-size:14px;">${t.dl_cards_title||'Prepaid Cards'}</div></div><input type="text" placeholder="${cardPH}" ${inputStyle} disabled><button ${btnGreen}>${t.dl_activate_card||'Activate Card'}</button>`;}
+    else if(activeMethod==='barcode'){loginHTML=`<div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:28px;margin-bottom:16px;text-align:center;"><div style="font-size:64px;margin-bottom:12px;">ًں“±</div><div style="font-size:14px;">${t.dl_barcode_title||'Scan QR'}</div></div><input type="text" placeholder="${barcodePH}" ${inputStyle} disabled><button ${btnYellow}>${t.dl_scan_barcode||'Scan'}</button>`;}
     else{
         const upEnabled=document.getElementById('enableUserPassMixed').checked;
         const cardsEnabled=document.getElementById('enableCardsMixed').checked;
         const barcodeEnabled=document.getElementById('enableBarcodeMixed').checked;
         const allowSwitch=document.getElementById('allowSwitchMethods').checked;
         let tabs='',contents='',firstId='';
-        if(upEnabled){if(!firstId)firstId='tab-up';tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-up')" id="ptab-up">👤 ${t.dl_userpass_tab||'User/Pass'}</button>`;contents+=`<div id="tab-up" class="pcon" style="display:block;"><input type="text" placeholder="${userPH}" ${inputStyle} disabled><input type="password" placeholder="${passPH}" ${inputStyle} disabled><button ${btnBlue}>${loginBtn}</button></div>`;}
-        if(cardsEnabled){if(!firstId)firstId='tab-cards';tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-cards')" id="ptab-cards">💳 ${t.dl_cards_tab||'Cards'}</button>`;contents+=`<div id="tab-cards" class="pcon" style="display:${firstId==='tab-cards'?'block':'none'}"><input type="text" placeholder="${cardPH}" ${inputStyle} disabled><button ${btnGreen}>${t.dl_activate_card||'Activate'}</button></div>`;}
-        if(barcodeEnabled){if(!firstId)firstId='tab-barcode';tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-barcode')" id="ptab-barcode">📱 ${t.dl_barcode_tab||'Barcode'}</button>`;contents+=`<div id="tab-barcode" class="pcon" style="display:${firstId==='tab-barcode'?'block':'none'}"><input type="text" placeholder="${barcodePH}" ${inputStyle} disabled><button ${btnYellow}>${t.dl_scan_barcode||'Scan'}</button></div>`;}
+        if(upEnabled){if(!firstId)firstId='tab-up';tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-up')" id="ptab-up">ًں‘¤ ${t.dl_userpass_tab||'User/Pass'}</button>`;contents+=`<div id="tab-up" class="pcon" style="display:block;"><input type="text" placeholder="${userPH}" ${inputStyle} disabled><input type="password" placeholder="${passPH}" ${inputStyle} disabled><button ${btnBlue}>${loginBtn}</button></div>`;}
+        if(cardsEnabled){if(!firstId)firstId='tab-cards';tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-cards')" id="ptab-cards">ًں’³ ${t.dl_cards_tab||'Cards'}</button>`;contents+=`<div id="tab-cards" class="pcon" style="display:${firstId==='tab-cards'?'block':'none'}"><input type="text" placeholder="${cardPH}" ${inputStyle} disabled><button ${btnGreen}>${t.dl_activate_card||'Activate'}</button></div>`;}
+        if(barcodeEnabled){if(!firstId)firstId='tab-barcode';tabs+=`<button class="ptab" onclick="switchPTab(this,'tab-barcode')" id="ptab-barcode">ًں“± ${t.dl_barcode_tab||'Barcode'}</button>`;contents+=`<div id="tab-barcode" class="pcon" style="display:${firstId==='tab-barcode'?'block':'none'}"><input type="text" placeholder="${barcodePH}" ${inputStyle} disabled><button ${btnYellow}>${t.dl_scan_barcode||'Scan'}</button></div>`;}
         let tabsHTML=allowSwitch?`<div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">${tabs}</div>`:'';
         loginHTML=tabsHTML+contents;
     }
@@ -899,17 +899,17 @@ function downloadHTML() {
     const activeMethod=document.querySelector('.method-card.active')?.getAttribute('data-method')||'mixed';
     let loginBlock='';
     if(activeMethod==='userpass'){loginBlock=`<form action="" method="post" class="form"><div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div><div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div><button type="submit" class="fb">${loginBtn}</button></form>`;}
-    else if(activeMethod==='cards'){loginBlock=`<form action="" method="post" class="form"><div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:22px;margin-bottom:18px;text-align:center;"><div style="font-size:52px;margin-bottom:12px;">💳</div><div>${t.dl_cards_title||'Prepaid Cards'}</div></div><div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card||'Activate Card'}</button></form>`;}
-    else if(activeMethod==='barcode'){loginBlock=`<form action="" method="post" class="form"><div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:30px;margin-bottom:18px;text-align:center;"><div style="font-size:68px;margin-bottom:14px;">📱</div><div>${t.dl_barcode_title||'Scan QR'}</div></div><div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode||'Scan'}</button></form>`;}
+    else if(activeMethod==='cards'){loginBlock=`<form action="" method="post" class="form"><div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:22px;margin-bottom:18px;text-align:center;"><div style="font-size:52px;margin-bottom:12px;">ًں’³</div><div>${t.dl_cards_title||'Prepaid Cards'}</div></div><div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card||'Activate Card'}</button></form>`;}
+    else if(activeMethod==='barcode'){loginBlock=`<form action="" method="post" class="form"><div style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:10px;padding:30px;margin-bottom:18px;text-align:center;"><div style="font-size:68px;margin-bottom:14px;">ًں“±</div><div>${t.dl_barcode_title||'Scan QR'}</div></div><div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode||'Scan'}</button></form>`;}
     else{
         const upEnabled=document.getElementById('enableUserPassMixed').checked;
         const cardsEnabled=document.getElementById('enableCardsMixed').checked;
         const barcodeEnabled=document.getElementById('enableBarcodeMixed').checked;
         const allowSwitch=document.getElementById('allowSwitchMethods').checked;
         let tabsBtns='',tabContents='',first=true;
-        if(upEnabled){tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-up')" type="button">👤 ${t.dl_userpass_tab||'User/Pass'}</button>`;tabContents+=`<div id="tab-up" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div><div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div><button type="submit" class="fb">${loginBtn}</button></form></div>`;first=false;}
-        if(cardsEnabled){tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-cards')" type="button">💳 ${t.dl_cards_tab||'Cards'}</button>`;tabContents+=`<div id="tab-cards" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card||'Activate'}</button></form></div>`;first=false;}
-        if(barcodeEnabled){tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-barcode')" type="button">📱 ${t.dl_barcode_tab||'Barcode'}</button>`;tabContents+=`<div id="tab-barcode" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode||'Scan'}</button></form></div>`;}
+        if(upEnabled){tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-up')" type="button">ًں‘¤ ${t.dl_userpass_tab||'User/Pass'}</button>`;tabContents+=`<div id="tab-up" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="username" class="fi" placeholder="${userPH}" required></div><div class="fg"><input type="password" name="password" class="fi" placeholder="${passPH}" required></div><button type="submit" class="fb">${loginBtn}</button></form></div>`;first=false;}
+        if(cardsEnabled){tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-cards')" type="button">ًں’³ ${t.dl_cards_tab||'Cards'}</button>`;tabContents+=`<div id="tab-cards" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="card" class="fi" placeholder="${cardPH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#10b981,#34d399);">${t.dl_activate_card||'Activate'}</button></form></div>`;first=false;}
+        if(barcodeEnabled){tabsBtns+=`<button class="tab-btn${first?' active':''}" onclick="switchTab(event,'tab-barcode')" type="button">ًں“± ${t.dl_barcode_tab||'Barcode'}</button>`;tabContents+=`<div id="tab-barcode" class="tab-pane${first?' active':''}"><form action="" method="post"><div class="fg"><input type="text" name="barcode" class="fi" placeholder="${barcodePH}" required></div><button type="submit" class="fb" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">${t.dl_scan_barcode||'Scan'}</button></form></div>`;}
         loginBlock=`<div class="tabs">${allowSwitch?`<div class="tabs-bar">${tabsBtns}</div>`:''}${tabContents}</div>`;
     }
     const watermarkCSS=`.watermark{position:fixed;bottom:0;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.28);font-size:17px;font-weight:700;pointer-events:none;z-index:9999;letter-spacing:2px;user-select:none;padding:14px 28px;background:rgba(0,0,0,0.18);backdrop-filter:blur(4px);border-radius:12px 12px 0 0;text-shadow:0 2px 8px rgba(0,0,0,0.4);white-space:nowrap;}`;
@@ -920,23 +920,23 @@ function downloadHTML() {
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a'); a.href=url; a.download='login.html';
     document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-    showNotif(isArabic?'تم تحميل الملف بنجاح ✅':'File downloaded successfully ✅');
+    showNotif(isArabic?'طھظ… طھط­ظ…ظٹظ„ ط§ظ„ظ…ظ„ظپ ط¨ظ†ط¬ط§ط­ âœ…':'File downloaded successfully âœ…');
 }
 window.downloadHTML=downloadHTML;
 
 function resetDefaults() {
-    const msg=currentLang==='ar'?'هل أنت متأكد من استعادة الإعدادات الافتراضية؟':'Are you sure you want to restore default settings?';
+    const msg=currentLang==='ar'?'ظ‡ظ„ ط£ظ†طھ ظ…طھط£ظƒط¯ ظ…ظ† ط§ط³طھط¹ط§ط¯ط© ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ط§ظپطھط±ط§ط¶ظٹط©طں':'Are you sure you want to restore default settings?';
     if(!confirm(msg))return;
     document.getElementById('bgType').value='gradient'; document.getElementById('bgColor').value='#1a1a2e'; document.getElementById('gradientColor1').value='#667eea'; document.getElementById('gradientColor2').value='#764ba2'; showBgOptions('gradient');
     document.querySelectorAll('.bg-item').forEach(i=>i.classList.remove('active')); document.querySelector('.bg-item[data-bg="gradient-blue"]').classList.add('active');
     removeLogo(); document.getElementById('logoText').value='mikro-tools'; document.getElementById('logoColor').value='#4361ee'; document.getElementById('logoSize').value='medium';
     document.getElementById('pageTitle').value='by same7-01092503391'; document.getElementById('welcomeMessage').value='Welcome! Please log in to access the internet';
-    document.getElementById('usernamePlaceholder').value='Username'; document.getElementById('passwordPlaceholder').value='Password'; document.getElementById('loginButtonText').value='Login'; document.getElementById('footerText').value='© mikro-tools.com All rights reserved';
+    document.getElementById('usernamePlaceholder').value='Username'; document.getElementById('passwordPlaceholder').value='Password'; document.getElementById('loginButtonText').value='Login'; document.getElementById('footerText').value='آ© mikro-tools.com All rights reserved';
     document.getElementById('cardPlaceholder').value='CARD-XXXX-XXXX-XXXX'; document.getElementById('barcodePlaceholder').value='Enter barcode';
     document.querySelectorAll('.method-card').forEach(c=>{c.classList.remove('active');const s=c.querySelector('.method-settings');if(s)s.style.display='none';});
     const mixed=document.querySelector('.method-card[data-method="mixed"]'); mixed.classList.add('active'); mixed.querySelector('.method-settings').style.display='block';
     ['enableUserPassMixed','enableCardsMixed','enableBarcodeMixed','allowSwitchMethods'].forEach(id=>{document.getElementById(id).checked=true;});
-    updateLogoDisplay(); buildPreview(); showNotif(currentLang==='ar'?'تم استعادة الإعدادات ✅':'Default settings restored ✅');
+    updateLogoDisplay(); buildPreview(); showNotif(currentLang==='ar'?'طھظ… ط§ط³طھط¹ط§ط¯ط© ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ âœ…':'Default settings restored âœ…');
 }
 window.resetDefaults=resetDefaults;
 
@@ -957,5 +957,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <iframe class="mikro-icons-frame" src="mikro-icons.html" style="position:fixed;left:16px;bottom:16px;width:76px;height:230px;border:none;z-index:1000000;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-presence.js"></script>
 </body>
 </html>
+

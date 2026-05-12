@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#6366f1">
-    <title>الاشتراكات - MikroTools</title>
+    <title>ط§ظ„ط§ط´طھط±ط§ظƒط§طھ - MikroTools</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,26 +198,26 @@
                 <span class="auth-logo-text">MikroTools</span>
             </div>
             <div class="auth-tabs">
-                <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
-                <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب</button>
+                <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+                <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">ط¥ظ†ط´ط§ط، ط­ط³ط§ط¨</button>
             </div>
             <div class="auth-form active" id="formLogin">
                 <div class="auth-error" id="loginError"></div>
                 <div class="auth-success" id="loginSuccess"></div>
                 <div class="auth-field">
-                    <label>البريد الإلكتروني</label>
+                    <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
                     <input type="email" class="auth-input" id="loginEmail" placeholder="example@gmail.com">
                 </div>
                 <div class="auth-field">
-                    <label>كلمة المرور</label>
+                    <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                     <div class="auth-input-wrap">
-                        <input type="password" class="auth-input" id="loginPass" placeholder="••••••••" style="padding-left:44px;">
+                        <input type="password" class="auth-input" id="loginPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-left:44px;">
                         <button class="auth-eye" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button>
                     </div>
                 </div>
-                <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">نسيت كلمة المرور؟</a></div>
-                <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
-                <div class="auth-divider">أو</div>
+                <div class="auth-forgot"><a href="#" onclick="forgotPassword(event)">ظ†ط³ظٹطھ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±طں</a></div>
+                <button class="auth-btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
+                <div class="auth-divider">ط£ظˆ</div>
                 <button class="auth-google" onclick="doGoogle()">
                     <svg viewBox="0 0 24 24" style="width:18px;height:18px">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -225,31 +225,31 @@
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
-                    الدخول بـ Google
+                    ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google
                 </button>
             </div>
             <div class="auth-form" id="formRegister">
                 <div class="auth-error" id="registerError"></div>
                 <div class="auth-field">
-                    <label>البريد الإلكتروني</label>
+                    <label>ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ</label>
                     <input type="email" class="auth-input" id="regEmail" placeholder="example@gmail.com">
                 </div>
                 <div class="auth-field">
-                    <label>كلمة المرور</label>
+                    <label>ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                     <div class="auth-input-wrap">
-                        <input type="password" class="auth-input" id="regPass" placeholder="••••••••" style="padding-left:44px;">
+                        <input type="password" class="auth-input" id="regPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-left:44px;">
                         <button class="auth-eye" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button>
                     </div>
                 </div>
                 <div class="auth-field">
-                    <label>تأكيد كلمة المرور</label>
+                    <label>طھط£ظƒظٹط¯ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط±</label>
                     <div class="auth-input-wrap">
-                        <input type="password" class="auth-input" id="regPass2" placeholder="••••••••" style="padding-left:44px;">
+                        <input type="password" class="auth-input" id="regPass2" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-left:44px;">
                         <button class="auth-eye" onclick="togglePass('regPass2',this)"><i class="fas fa-eye"></i></button>
                     </div>
                 </div>
-                <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
-                <div class="auth-divider">أو</div>
+                <button class="auth-btn" id="registerBtn" onclick="doRegister()"><i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨</button>
+                <div class="auth-divider">ط£ظˆ</div>
                 <button class="auth-google" onclick="doGoogle()">
                     <svg viewBox="0 0 24 24" style="width:18px;height:18px">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -257,7 +257,7 @@
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
-                    الدخول بـ Google
+                    ط§ظ„ط¯ط®ظˆظ„ ط¨ظ€ Google
                 </button>
             </div>
         </div>
@@ -272,17 +272,17 @@
             </a>
             <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
-                <a href="index.html#tools" class="nav-link"><i class="fas fa-tools"></i> الأدوات</a>
-                <a href="pricing.html" class="nav-link active"><i class="fas fa-crown"></i> الاشتراكات</a>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> ط§ظ„ط±ط¦ظٹط³ظٹط©</a>
+                <a href="index.html#tools" class="nav-link"><i class="fas fa-tools"></i> ط§ظ„ط£ط¯ظˆط§طھ</a>
+                <a href="pricing.html" class="nav-link active"><i class="fas fa-crown"></i> ط§ظ„ط§ط´طھط±ط§ظƒط§طھ</a>
                 
                 <!-- Login/User Button -->
-                <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> تسجيل الدخول</button>
+                <button id="navLoginBtn" onclick="openAuthModal()"><i class="fas fa-user"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„</button>
                 <div style="position:relative;display:flex;align-items:center;">
                     <button id="navUserBtn" onclick="toggleUserDropdown()"></button>
                     <div class="user-dropdown" id="userDropdown">
-                        <div class="user-dropdown-email"><strong>مرحباً 👋</strong><span id="userEmailDisplay"></span></div>
-                        <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                        <div class="user-dropdown-email"><strong>ظ…ط±ط­ط¨ط§ظ‹ ًں‘‹</strong><span id="userEmailDisplay"></span></div>
+                        <button class="user-dropdown-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬</button>
                     </div>
                 </div>
                 
@@ -293,17 +293,17 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="page-hero-content">
-            <span class="page-hero-badge"><i class="fas fa-crown"></i> خطط الأسعار</span>
-            <h1 class="page-hero-title">اختر خطتك المناسبة</h1>
-            <p class="page-hero-subtitle">اشترك الآن واحصل على وصول كامل لجميع أدوات MikroTools المتقدمة</p>
+            <span class="page-hero-badge"><i class="fas fa-crown"></i> ط®ط·ط· ط§ظ„ط£ط³ط¹ط§ط±</span>
+            <h1 class="page-hero-title">ط§ط®طھط± ط®ط·طھظƒ ط§ظ„ظ…ظ†ط§ط³ط¨ط©</h1>
+            <p class="page-hero-subtitle">ط§ط´طھط±ظƒ ط§ظ„ط¢ظ† ظˆط§ط­طµظ„ ط¹ظ„ظ‰ ظˆطµظˆظ„ ظƒط§ظ…ظ„ ظ„ط¬ظ…ظٹط¹ ط£ط¯ظˆط§طھ MikroTools ط§ظ„ظ…طھظ‚ط¯ظ…ط©</p>
         </div>
     </section>
 
-    <!-- Subscription Status (يظهر للمستخدم المسجل فقط) -->
+    <!-- Subscription Status (ظٹط¸ظ‡ط± ظ„ظ„ظ…ط³طھط®ط¯ظ… ط§ظ„ظ…ط³ط¬ظ„ ظپظ‚ط·) -->
     <div id="subscriptionStatus" style="display: none;">
         <div class="sub-status-box" id="statusBox">
-            <div class="sub-status-title" id="statusTitle">جاري التحقق...</div>
-            <div class="sub-status-text" id="statusText">جاري التحقق من حالة اشتراكك</div>
+            <div class="sub-status-title" id="statusTitle">ط¬ط§ط±ظٹ ط§ظ„طھط­ظ‚ظ‚...</div>
+            <div class="sub-status-text" id="statusText">ط¬ط§ط±ظٹ ط§ظ„طھط­ظ‚ظ‚ ظ…ظ† ط­ط§ظ„ط© ط§ط´طھط±ط§ظƒظƒ</div>
             <div class="sub-expiry-date" id="expiryDate">--</div>
         </div>
     </div>
@@ -311,8 +311,8 @@
     <!-- Pricing Section -->
     <section class="pricing-section">
         <div class="section-header">
-            <h2 class="section-title">باقات الاشتراك</h2>
-            <p class="section-subtitle">اختر الباقة التي تناسبك. الدفع عبر فودافون كاش والتفعيل فوري.</p>
+            <h2 class="section-title">ط¨ط§ظ‚ط§طھ ط§ظ„ط§ط´طھط±ط§ظƒ</h2>
+            <p class="section-subtitle">ط§ط®طھط± ط§ظ„ط¨ط§ظ‚ط© ط§ظ„طھظٹ طھظ†ط§ط³ط¨ظƒ. ط§ظ„ط¯ظپط¹ ط¹ط¨ط± ظپظˆط¯ط§ظپظˆظ† ظƒط§ط´ ظˆط§ظ„طھظپط¹ظٹظ„ ظپظˆط±ظٹ.</p>
         </div>
         
         <div class="pricing-grid" id="pricingGrid">
@@ -320,45 +320,45 @@
             <!-- Weekly Plan -->
             <div class="pricing-card weekly">
                 <div class="plan-icon"><i class="fas fa-calendar-week"></i></div>
-                <h3 class="plan-name">الاشتراك الأسبوعي</h3>
+                <h3 class="plan-name">ط§ظ„ط§ط´طھط±ط§ظƒ ط§ظ„ط£ط³ط¨ظˆط¹ظٹ</h3>
                 <div class="plan-price">
-                    <span class="currency">جنيه</span>
+                    <span class="currency">ط¬ظ†ظٹظ‡</span>
                     <span class="amount">50</span>
-                    <span class="period">/ أسبوع</span>
+                    <span class="period">/ ط£ط³ط¨ظˆط¹</span>
                 </div>
                 <ul class="plan-features">
-                    <li><i class="fas fa-check-circle"></i> وصول كامل لجميع الأدوات</li>
-                    <li><i class="fas fa-check-circle"></i> إعدادات هوت سبوت المتقدمة</li>
-                    <li><i class="fas fa-check-circle"></i> دمج خطوط v6 و v7</li>
-                    <li><i class="fas fa-check-circle"></i> دعم فني لمدة أسبوع</li>
-                    <li><i class="fas fa-check-circle"></i> تحديثات مجانية</li>
+                    <li><i class="fas fa-check-circle"></i> ظˆطµظˆظ„ ظƒط§ظ…ظ„ ظ„ط¬ظ…ظٹط¹ ط§ظ„ط£ط¯ظˆط§طھ</li>
+                    <li><i class="fas fa-check-circle"></i> ط¥ط¹ط¯ط§ط¯ط§طھ ظ‡ظˆطھ ط³ط¨ظˆطھ ط§ظ„ظ…طھظ‚ط¯ظ…ط©</li>
+                    <li><i class="fas fa-check-circle"></i> ط¯ظ…ط¬ ط®ط·ظˆط· v6 ظˆ v7</li>
+                    <li><i class="fas fa-check-circle"></i> ط¯ط¹ظ… ظپظ†ظٹ ظ„ظ…ط¯ط© ط£ط³ط¨ظˆط¹</li>
+                    <li><i class="fas fa-check-circle"></i> طھط­ط¯ظٹط«ط§طھ ظ…ط¬ط§ظ†ظٹط©</li>
                 </ul>
                 <button class="btn-whatsapp" onclick="subscribe('weekly')">
-                    <i class="fab fa-whatsapp"></i> اشترك الآن
+                    <i class="fab fa-whatsapp"></i> ط§ط´طھط±ظƒ ط§ظ„ط¢ظ†
                 </button>
             </div>
 
             <!-- Monthly Plan -->
             <div class="pricing-card monthly">
-                <div class="popular-badge"><i class="fas fa-fire"></i> الأكثر شيوعاً</div>
+                <div class="popular-badge"><i class="fas fa-fire"></i> ط§ظ„ط£ظƒط«ط± ط´ظٹظˆط¹ط§ظ‹</div>
                 <div class="plan-icon"><i class="fas fa-calendar-alt"></i></div>
-                <h3 class="plan-name">الاشتراك الشهري</h3>
+                <h3 class="plan-name">ط§ظ„ط§ط´طھط±ط§ظƒ ط§ظ„ط´ظ‡ط±ظٹ</h3>
                 <div class="plan-price">
-                    <span class="currency">جنيه</span>
+                    <span class="currency">ط¬ظ†ظٹظ‡</span>
                     <span class="amount">100</span>
-                    <span class="period">/ شهر</span>
+                    <span class="period">/ ط´ظ‡ط±</span>
                 </div>
                 <ul class="plan-features">
-                    <li><i class="fas fa-check-circle"></i> وصول كامل لجميع الأدوات</li>
-                    <li><i class="fas fa-check-circle"></i> إعدادات هوت سبوت المتقدمة</li>
-                    <li><i class="fas fa-check-circle"></i> دمج خطوط v6 و v7</li>
-                    <li><i class="fas fa-check-circle"></i> دعم فني لمدة شهر كامل</li>
-                    <li><i class="fas fa-check-circle"></i> تحديثات مجانية</li>
-                    <li><i class="fas fa-check-circle"></i> أولوية في الدعم الفني</li>
-                    <li><i class="fas fa-check-circle"></i> وصول للميزات الجديدة أولاً</li>
+                    <li><i class="fas fa-check-circle"></i> ظˆطµظˆظ„ ظƒط§ظ…ظ„ ظ„ط¬ظ…ظٹط¹ ط§ظ„ط£ط¯ظˆط§طھ</li>
+                    <li><i class="fas fa-check-circle"></i> ط¥ط¹ط¯ط§ط¯ط§طھ ظ‡ظˆطھ ط³ط¨ظˆطھ ط§ظ„ظ…طھظ‚ط¯ظ…ط©</li>
+                    <li><i class="fas fa-check-circle"></i> ط¯ظ…ط¬ ط®ط·ظˆط· v6 ظˆ v7</li>
+                    <li><i class="fas fa-check-circle"></i> ط¯ط¹ظ… ظپظ†ظٹ ظ„ظ…ط¯ط© ط´ظ‡ط± ظƒط§ظ…ظ„</li>
+                    <li><i class="fas fa-check-circle"></i> طھط­ط¯ظٹط«ط§طھ ظ…ط¬ط§ظ†ظٹط©</li>
+                    <li><i class="fas fa-check-circle"></i> ط£ظˆظ„ظˆظٹط© ظپظٹ ط§ظ„ط¯ط¹ظ… ط§ظ„ظپظ†ظٹ</li>
+                    <li><i class="fas fa-check-circle"></i> ظˆطµظˆظ„ ظ„ظ„ظ…ظٹط²ط§طھ ط§ظ„ط¬ط¯ظٹط¯ط© ط£ظˆظ„ط§ظ‹</li>
                 </ul>
                 <button class="btn-whatsapp" onclick="subscribe('monthly')">
-                    <i class="fab fa-whatsapp"></i> اشترك الآن
+                    <i class="fab fa-whatsapp"></i> ط§ط´طھط±ظƒ ط§ظ„ط¢ظ†
                 </button>
             </div>
 
@@ -368,32 +368,32 @@
     <!-- How it works -->
     <section class="how-it-works">
         <div class="section-header">
-            <h2 class="section-title">كيفية الاشتراك؟</h2>
-            <p class="section-subtitle">ثلاث خطوات بسيطة للحصول على وصول كامل</p>
+            <h2 class="section-title">ظƒظٹظپظٹط© ط§ظ„ط§ط´طھط±ط§ظƒطں</h2>
+            <p class="section-subtitle">ط«ظ„ط§ط« ط®ط·ظˆط§طھ ط¨ط³ظٹط·ط© ظ„ظ„ط­طµظˆظ„ ط¹ظ„ظ‰ ظˆطµظˆظ„ ظƒط§ظ…ظ„</p>
         </div>
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">1</div>
-                <h3 class="step-title">سجل دخولك</h3>
-                <p class="step-desc">سجل دخولك بالإيميل أو Google</p>
+                <h3 class="step-title">ط³ط¬ظ„ ط¯ط®ظˆظ„ظƒ</h3>
+                <p class="step-desc">ط³ط¬ظ„ ط¯ط®ظˆظ„ظƒ ط¨ط§ظ„ط¥ظٹظ…ظٹظ„ ط£ظˆ Google</p>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
-                <h3 class="step-title">اختر وادفع</h3>
-                <p class="step-desc">اختار الباقة وادفع عبر فودافون كاش</p>
+                <h3 class="step-title">ط§ط®طھط± ظˆط§ط¯ظپط¹</h3>
+                <p class="step-desc">ط§ط®طھط§ط± ط§ظ„ط¨ط§ظ‚ط© ظˆط§ط¯ظپط¹ ط¹ط¨ط± ظپظˆط¯ط§ظپظˆظ† ظƒط§ط´</p>
             </div>
             <div class="step-card">
                 <div class="step-number">3</div>
-                <h3 class="step-title">تفعيل فوري</h3>
-                <p class="step-desc">ابعت سكرين شوت وهنفعل حسابك</p>
+                <h3 class="step-title">طھظپط¹ظٹظ„ ظپظˆط±ظٹ</h3>
+                <p class="step-desc">ط§ط¨ط¹طھ ط³ظƒط±ظٹظ† ط´ظˆطھ ظˆظ‡ظ†ظپط¹ظ„ ط­ط³ط§ط¨ظƒ</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p class="footer-text"><i class="fas fa-phone-alt"></i> للتواصل: 01092503391 - Sameh El-Sayed</p>
-        <p class="copyright">© 2026 MikroTools. جميع الحقوق محفوظة.</p>
+        <p class="footer-text"><i class="fas fa-phone-alt"></i> ظ„ظ„طھظˆط§طµظ„: 01092503391 - Sameh El-Sayed</p>
+        <p class="copyright">آ© 2026 MikroTools. ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ‚ ظ…ط­ظپظˆط¸ط©.</p>
     </footer>
 
     <!-- Firebase & Scripts -->
@@ -449,31 +449,31 @@
                 if (expiry && expiry > now) {
                     // Active subscription
                     statusBox.className = 'sub-status-box active';
-                    statusTitle.innerHTML = '<i class="fas fa-check-circle"></i> اشتراكك نشط';
-                    statusText.textContent = subscription.type === 'monthly' ? 'الاشتراك الشهري' : 'الاشتراك الأسبوعي';
-                    expiryDate.textContent = 'حتى: ' + expiry.toLocaleDateString('ar-EG');
+                    statusTitle.innerHTML = '<i class="fas fa-check-circle"></i> ط§ط´طھط±ط§ظƒظƒ ظ†ط´ط·';
+                    statusText.textContent = subscription.type === 'monthly' ? 'ط§ظ„ط§ط´طھط±ط§ظƒ ط§ظ„ط´ظ‡ط±ظٹ' : 'ط§ظ„ط§ط´طھط±ط§ظƒ ط§ظ„ط£ط³ط¨ظˆط¹ظٹ';
+                    expiryDate.textContent = 'ط­طھظ‰: ' + expiry.toLocaleDateString('ar-EG');
                     
                     // Hide pricing cards if active
                     document.getElementById('pricingGrid').style.display = 'none';
-                    document.querySelector('.section-subtitle').textContent = 'لديك اشتراك نشط! يمكنك استخدام جميع الأدوات.';
+                    document.querySelector('.section-subtitle').textContent = 'ظ„ط¯ظٹظƒ ط§ط´طھط±ط§ظƒ ظ†ط´ط·! ظٹظ…ظƒظ†ظƒ ط§ط³طھط®ط¯ط§ظ… ط¬ظ…ظٹط¹ ط§ظ„ط£ط¯ظˆط§طھ.';
                 } else if (expiry && expiry <= now) {
                     // Expired
                     statusBox.className = 'sub-status-box expired';
-                    statusTitle.innerHTML = '<i class="fas fa-exclamation-triangle"></i> اشتراكك منتهي';
-                    statusText.textContent = 'يرجى تجديد الاشتراك للاستمرار';
-                    expiryDate.textContent = 'انتهى في: ' + expiry.toLocaleDateString('ar-EG');
+                    statusTitle.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ط§ط´طھط±ط§ظƒظƒ ظ…ظ†طھظ‡ظٹ';
+                    statusText.textContent = 'ظٹط±ط¬ظ‰ طھط¬ط¯ظٹط¯ ط§ظ„ط§ط´طھط±ط§ظƒ ظ„ظ„ط§ط³طھظ…ط±ط§ط±';
+                    expiryDate.textContent = 'ط§ظ†طھظ‡ظ‰ ظپظٹ: ' + expiry.toLocaleDateString('ar-EG');
                 } else {
                     // No subscription
                     statusBox.className = 'sub-status-box inactive';
-                    statusTitle.innerHTML = '<i class="fas fa-info-circle"></i> لا يوجد اشتراك';
-                    statusText.textContent = 'اختر باقة أدناه للاشتراك';
+                    statusTitle.innerHTML = '<i class="fas fa-info-circle"></i> ظ„ط§ ظٹظˆط¬ط¯ ط§ط´طھط±ط§ظƒ';
+                    statusText.textContent = 'ط§ط®طھط± ط¨ط§ظ‚ط© ط£ط¯ظ†ط§ظ‡ ظ„ظ„ط§ط´طھط±ط§ظƒ';
                     expiryDate.textContent = '--';
                 }
             } catch (error) {
                 console.error('Error checking subscription:', error);
                 statusBox.className = 'sub-status-box inactive';
-                statusTitle.textContent = 'خطأ في التحقق';
-                statusText.textContent = 'حاول مرة أخرى';
+                statusTitle.textContent = 'ط®ط·ط£ ظپظٹ ط§ظ„طھط­ظ‚ظ‚';
+                statusText.textContent = 'ط­ط§ظˆظ„ ظ…ط±ط© ط£ط®ط±ظ‰';
             }
         }
         
@@ -507,8 +507,8 @@
                 return;
             }
             
-            const planName = plan === 'weekly' ? 'الأسبوعي (50 جنيه)' : 'الشهري (100 جنيه)';
-            const message = `مرحباً Sameh،\n\nأرغب في الاشتراك ${planName}\n\nبريدي الإلكتروني: ${user.email}\nUID: ${user.uid}\n\nتم الدفع عبر فودافون كاش ✅`;
+            const planName = plan === 'weekly' ? 'ط§ظ„ط£ط³ط¨ظˆط¹ظٹ (50 ط¬ظ†ظٹظ‡)' : 'ط§ظ„ط´ظ‡ط±ظٹ (100 ط¬ظ†ظٹظ‡)';
+            const message = `ظ…ط±ط­ط¨ط§ظ‹ SamehطŒ\n\nط£ط±ط؛ط¨ ظپظٹ ط§ظ„ط§ط´طھط±ط§ظƒ ${planName}\n\nط¨ط±ظٹط¯ظٹ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ: ${user.email}\nUID: ${user.uid}\n\nطھظ… ط§ظ„ط¯ظپط¹ ط¹ط¨ط± ظپظˆط¯ط§ظپظˆظ† ظƒط§ط´ âœ…`;
             
             window.open(`https://wa.me/201092503391?text=${encodeURIComponent(message)}`, '_blank');
         };
@@ -537,16 +537,16 @@
         }
         function getErrMsg(c) {
             const m = {
-                'auth/invalid-email': 'البريد الإلكتروني غير صحيح',
-                'auth/user-not-found': 'لا يوجد حساب بهذا البريد',
-                'auth/wrong-password': 'كلمة المرور غير صحيحة',
-                'auth/invalid-credential': 'البريد أو كلمة المرور غير صحيحة',
-                'auth/email-already-in-use': 'هذا البريد مسجّل مسبقاً',
-                'auth/weak-password': 'كلمة المرور ضعيفة',
-                'auth/too-many-requests': 'محاولات كثيرة',
-                'auth/popup-closed-by-user': 'تم إغلاق نافذة Google'
+                'auth/invalid-email': 'ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط؛ظٹط± طµط­ظٹط­',
+                'auth/user-not-found': 'ظ„ط§ ظٹظˆط¬ط¯ ط­ط³ط§ط¨ ط¨ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯',
+                'auth/wrong-password': 'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©',
+                'auth/invalid-credential': 'ط§ظ„ط¨ط±ظٹط¯ ط£ظˆ ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± طµط­ظٹط­ط©',
+                'auth/email-already-in-use': 'ظ‡ط°ط§ ط§ظ„ط¨ط±ظٹط¯ ظ…ط³ط¬ظ‘ظ„ ظ…ط³ط¨ظ‚ط§ظ‹',
+                'auth/weak-password': 'ظƒظ„ظ…ط© ط§ظ„ظ…ط±ظˆط± ط¶ط¹ظٹظپط©',
+                'auth/too-many-requests': 'ظ…ط­ط§ظˆظ„ط§طھ ظƒط«ظٹط±ط©',
+                'auth/popup-closed-by-user': 'طھظ… ط¥ط؛ظ„ط§ظ‚ ظ†ط§ظپط°ط© Google'
             };
-            return m[c] || 'حدث خطأ، حاول مرة أخرى';
+            return m[c] || 'ط­ط¯ط« ط®ط·ط£طŒ ط­ط§ظˆظ„ ظ…ط±ط© ط£ط®ط±ظ‰';
         }
         function showAuthErr(id, msg) {
             const el = document.getElementById(id);
@@ -559,14 +559,14 @@
             const p = document.getElementById('loginPass').value;
             document.getElementById('loginError').classList.remove('show');
             document.getElementById('loginSuccess').classList.remove('show');
-            if (!e || !p) { showAuthErr('loginError', 'يرجى ملء جميع الحقول'); return; }
+            if (!e || !p) { showAuthErr('loginError', 'ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„'); return; }
             const btn = document.getElementById('loginBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ الدخول...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¯ط®ظˆظ„...';
             try {
                 await window._signInWithEmailAndPassword(window._auth, e, p);
             } catch (err) { showAuthErr('loginError', getErrMsg(err.code)); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„'; }
         }
         
         async function doRegister() {
@@ -574,15 +574,15 @@
             const p = document.getElementById('regPass').value;
             const p2 = document.getElementById('regPass2').value;
             document.getElementById('registerError').classList.remove('show');
-            if (!e || !p || !p2) { showAuthErr('registerError', 'يرجى ملء جميع الحقول'); return; }
-            if (p !== p2) { showAuthErr('registerError', 'كلمتا المرور غير متطابقتين'); return; }
+            if (!e || !p || !p2) { showAuthErr('registerError', 'ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„'); return; }
+            if (p !== p2) { showAuthErr('registerError', 'ظƒظ„ظ…طھط§ ط§ظ„ظ…ط±ظˆط± ط؛ظٹط± ظ…طھط·ط§ط¨ظ‚طھظٹظ†'); return; }
             const btn = document.getElementById('registerBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ الإنشاء...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ط¬ط§ط±ظچ ط§ظ„ط¥ظ†ط´ط§ط،...';
             try {
                 await window._createUserWithEmailAndPassword(window._auth, e, p);
             } catch (err) { showAuthErr('registerError', getErrMsg(err.code)); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> إنشاء الحساب'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> ط¥ظ†ط´ط§ط، ط§ظ„ط­ط³ط§ط¨'; }
         }
         
         async function doGoogle() {
@@ -594,11 +594,11 @@
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
             ['loginError', 'loginSuccess'].forEach(id => document.getElementById(id).classList.remove('show'));
-            if (!email) { showAuthErr('loginError', 'أدخل بريدك الإلكتروني أولاً'); return; }
+            if (!email) { showAuthErr('loginError', 'ط£ط¯ط®ظ„ ط¨ط±ظٹط¯ظƒ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ط£ظˆظ„ط§ظ‹'); return; }
             try {
                 await window._sendPasswordResetEmail(window._auth, email);
                 const s = document.getElementById('loginSuccess');
-                s.textContent = 'تم إرسال رابط الاستعادة ✅';
+                s.textContent = 'طھظ… ط¥ط±ط³ط§ظ„ ط±ط§ط¨ط· ط§ظ„ط§ط³طھط¹ط§ط¯ط© âœ…';
                 s.classList.add('show');
             } catch (err) { showAuthErr('loginError', getErrMsg(err.code)); }
         }
@@ -638,5 +638,8 @@
         });
     </script>
 
+<script src="mikro-presence.js"></script>
 </body>
 </html>
+
+
