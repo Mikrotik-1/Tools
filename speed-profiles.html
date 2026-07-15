@@ -2,23 +2,21 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Free tool to create professional MikroTik speed profiles - Hotspot and Broadband">
+    <meta name="description" content="Professional paid tool to create MikroTik speed profiles for Hotspot and Broadband">
     <meta name="keywords" content="MikroTik, Speed Profiles, Hotspot, Broadband, Pricing, Speeds">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     <link rel="canonical" href="https://mikro-tools.com/speed-profiles.html">
     <meta property="og:title" content="Speed Profile Generator | MikroTools">
-    <meta property="og:description" content="Free tool to create professional MikroTik speed profiles">
+    <meta property="og:description" content="Professional paid tool to create MikroTik speed profiles">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mikro-tools.com/speed-profiles.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <title>Speed Profile Generator | MikroTools - Free MikroTik Tools</title>
-    <script src="https://pl28619829.profitablecpmratenetwork.com/19/45/77/1945771f4f7acfc4e2d9ebfa1cb8d71c.js"></script>
+    <title>Speed Profile Generator | MikroTools Professional Tools</title>
     <style>
         :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--danger:#ef4444;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
         *{margin:0;padding:0;box-sizing:border-box;}
@@ -488,10 +486,10 @@
         </div>
 
         <div class="controls-section">
-            <button class="btn btn-primary" id="generateBtn" onclick="handleGenerate()">
+            <button class="btn btn-primary" id="generateBtn" data-paid-action onclick="handleGenerate()">
                 <i class="fas fa-magic"></i><span data-i18n="generate_script">Generate Script</span>
             </button>
-            <button class="btn btn-secondary" onclick="copyScript()" id="copyBtn"><i class="fas fa-copy"></i><span data-i18n="copy_script">Copy Script</span></button>
+            <button class="btn btn-secondary" data-paid-action onclick="copyScript()" id="copyBtn"><i class="fas fa-copy"></i><span data-i18n="copy_script">Copy Script</span></button>
             <button class="btn btn-danger" onclick="resetAll()"><i class="fas fa-redo"></i><span data-i18n="reset">Reset</span></button>
         </div>
 
@@ -699,14 +697,8 @@ function switchAuthTab(tab){
 document.getElementById('authOverlay').addEventListener('click',function(e){ if(e.target===this) closeAuthModal(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAuthModal(); });
 
-// ===== handleGenerate: التحقق من الدخول أولاً =====
 function handleGenerate(){
-  if(window._firebaseUser){
-    generateScript(); // مسجل دخول → شغّل مباشرة
-  } else {
-    window._pendingGenerate=true; // حفظ الطلب
-    openAuthModal();              // افتح modal الدخول
-  }
+  generateScript();
 }
 
 function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else if(el.tagName==='OPTION')el.textContent=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
@@ -735,8 +727,8 @@ document.addEventListener('DOMContentLoaded',function(){updateProfiles();});
 </script>
 
 <script>(function(){const BIN_ID='6984fe4d43b1c97be9684aa8',API_KEY='$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{headers:{'X-Master-Key':API_KEY}}).then(r=>r.json()).then(data=>{const rec=data.record||{};if(!rec.analytics)rec.analytics={pages:{},daily:{},totalVisits:0};const page=document.title||window.location.pathname,today=new Date().toDateString();rec.analytics.pages[page]=(rec.analytics.pages[page]||0)+1;rec.analytics.daily[today]=(rec.analytics.daily[today]||0)+1;rec.analytics.totalVisits=(rec.analytics.totalVisits||0)+1;return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(rec)});}).catch(()=>{});})();</script>
-<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

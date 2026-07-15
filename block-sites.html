@@ -2,13 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Block Sites | MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://pl28619829.profitablecpmratenetwork.com/19/45/77/1945771f4f7acfc4e2d9ebfa1cb8d71c.js"></script>
     <style>
         :root {
             --primary: #6366f1; --secondary: #10b981; --danger: #ef4444; --dark: #1e293b;
@@ -369,15 +367,15 @@
                 <div id="typeAlert-v6"></div>
             </div>
             <!-- Lock hint v6 -->
-            <div class="generate-lock-hint" id="lockHint-v6"><i class="fas fa-lock"></i><span>سجّل دخولك لتوليد السكربت</span></div>
+            <div class="generate-lock-hint" id="lockHint-v6"><i class="fas fa-lock"></i><span>توليد السكربت متاح للمشتركين</span></div>
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="handleGenerate('v6')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
+                <button class="btn btn-primary" data-paid-action onclick="handleGenerate('v6')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
                 <button class="btn btn-secondary" onclick="resetForm('v6')"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
             </div>
             <div id="resultSection-v6" class="result-section">
                 <div class="result-header">
                     <h3 class="result-title"><i class="fas fa-code"></i> 🔵 RouterOS v6 — <span data-i18n="result_title">Generated Script</span></h3>
-                    <button class="btn btn-secondary" onclick="copyScript('v6')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
+                    <button class="btn btn-secondary" data-paid-action onclick="copyScript('v6')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
                 </div>
                 <textarea id="outputScript-v6" class="script-output" readonly></textarea>
             </div>
@@ -418,15 +416,15 @@
                 <div id="typeAlert-v7"></div>
             </div>
             <!-- Lock hint v7 -->
-            <div class="generate-lock-hint" id="lockHint-v7"><i class="fas fa-lock"></i><span>سجّل دخولك لتوليد السكربت</span></div>
+            <div class="generate-lock-hint" id="lockHint-v7"><i class="fas fa-lock"></i><span>توليد السكربت متاح للمشتركين</span></div>
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="handleGenerate('v7')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
+                <button class="btn btn-primary" data-paid-action onclick="handleGenerate('v7')"><i class="fas fa-shield-alt"></i> <span data-i18n="generate_btn">Generate Block Script</span></button>
                 <button class="btn btn-secondary" onclick="resetForm('v7')"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
             </div>
             <div id="resultSection-v7" class="result-section">
                 <div class="result-header">
                     <h3 class="result-title"><i class="fas fa-code"></i> 🟣 RouterOS v7 — <span data-i18n="result_title">Generated Script</span></h3>
-                    <button class="btn btn-secondary" onclick="copyScript('v7')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
+                    <button class="btn btn-secondary" data-paid-action onclick="copyScript('v7')" style="min-width:auto;padding:.75rem 1.5rem;"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
                 </div>
                 <textarea id="outputScript-v7" class="script-output" readonly></textarea>
             </div>
@@ -525,7 +523,7 @@ document.getElementById('authClose').addEventListener('click',closeAuthModal);
 
 // ===== PROTECTED GENERATE =====
 function isLoggedIn(){return !!(window._auth&&window._auth.currentUser);}
-function handleGenerate(ver){if(!isLoggedIn()){window._pendingGenerate=ver;openAuthModal();return;}generateScript(ver);}
+function handleGenerate(ver){generateScript(ver);}
 window.handleGenerate=handleGenerate;
 
 // ===== MAIN LOGIC =====
@@ -555,15 +553,11 @@ function fallbackCopy(el){el.select();el.setSelectionRange(0,99999);document.exe
 function resetForm(ver){document.getElementById('sitesInput-'+ver).value='';document.getElementById('groupName-'+ver).value='';document.getElementById('interfaceName-'+ver).value='OUT';document.getElementById('outputScript-'+ver).value='';document.getElementById('resultSection-'+ver).style.display='none';document.getElementById('siteAlert-'+ver).innerHTML='';document.getElementById('typeAlert-'+ver).innerHTML='';document.querySelectorAll('#sitesGrid-'+ver+' .site-card').forEach(function(c){c.classList.remove('active');});document.querySelectorAll('#blockTypes-'+ver+' .type-btn').forEach(function(b){b.classList.remove('active');});document.querySelector('#blockTypes-'+ver+' .type-btn').classList.add('active');state[ver].blockType='layer7';}
 window.resetForm=resetForm;
 
-(function() {
-    var blocked = ["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"];
-    var orig = window.open;
-    window.open = function(url, name, specs) { if (url && blocked.some(function(d) { return url.includes(d); })) { return null; } return orig.apply(this, arguments); };
-})();
 </script>
 
 <iframe class="mikro-icons-frame" src="mikro-icons.html" style="position:fixed;left:16px;bottom:16px;width:76px;height:230px;border:none;z-index:1000000;background:transparent;pointer-events:auto;" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

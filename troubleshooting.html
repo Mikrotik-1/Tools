@@ -398,7 +398,6 @@
         function likeProblem(btn){const n=parseInt(btn.textContent.match(/\((\d+)\)/)[1]),lang=document.documentElement.lang;btn.innerHTML=`<i class="fas fa-thumbs-up"></i> ${lang==='ar'?'أعجبني':'Like'} (${n+1})`;btn.style.background='var(--primary-light)';btn.style.color='white';setTimeout(()=>{btn.style.background='#f8fafc';btn.style.color='var(--gray)';},1000);}
         function toggleMobileDropdown(type){document.getElementById(`mobile${type.charAt(0).toUpperCase()+type.slice(1)}Dropdown`).classList.toggle('active');}
     </script>
-    <script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments)};})();</script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -479,6 +478,7 @@ document.getElementById('authClose').addEventListener('click',closeAuthModal);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAuthModal();var dd=document.getElementById('userDropdown');if(dd)dd.classList.remove('open');}});
 </script>
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

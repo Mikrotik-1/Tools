@@ -5,7 +5,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="محلل سجلات المايكروتيك - أداة مجانية لتحليل وفهم سجلات جهاز المايكروتيك بسهولة">
+    <meta name="description" content="محلل سجلات المايكروتيك - أداة احترافية مدفوعة لتحليل وفهم سجلات جهاز المايكروتيك">
     <meta name="keywords" content="ميكروتيك, محلل سجلات, تحليل سجلات, MikroTik, Log Analyzer">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <title>MikroTools | محلل سجلات المايكروتيك</title>
-    <script src="https://pl28619829.profitablecpmratenetwork.com/19/45/77/1945771f4f7acfc4e2d9ebfa1cb8d71c.js"></script>
     <style>
         :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-card:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
         *{margin:0;padding:0;box-sizing:border-box;}
@@ -284,7 +283,7 @@
             <h5 style="color:var(--primary-dark);margin-bottom:15px;" data-i18n="write_command">✍️ اكتب الأمر ده في التيرمينال:</h5>
             <div class="command-text">log print</div>
             <div style="text-align:center;margin:20px 0;">
-                <button class="copy-command-btn" onclick="handleCopyCommand('log print',this)"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
+                <button class="copy-command-btn" data-paid-action onclick="handleCopyCommand('log print',this)"><i class="fas fa-copy"></i><span data-i18n="copy_command">نسخ الأمر</span></button>
             </div>
         </div>
     </div>
@@ -317,8 +316,8 @@
                 <span class="example-btn" onclick="loadExample('vpn')">🔐 <span data-i18n="vpn_connections">اتصالات VPN</span></span>
             </div>
         </div>
-        <div id="analyzeLockHint" class="lock-hint" style="display:none;margin-bottom:8px;"><i class="fas fa-lock"></i> سجّل دخولك لتحليل السجلات</div>
-        <button class="analyze-btn" onclick="handleAnalyze()">
+        <div id="analyzeLockHint" class="lock-hint" style="display:none;margin-bottom:8px;"><i class="fas fa-lock"></i> التحليل متاح للمشتركين</div>
+        <button class="analyze-btn" data-paid-action onclick="handleAnalyze()">
             <i class="fas fa-chart-pie"></i>
             <span data-i18n="analyze_button">اضغط هنا لتحليل السجلات</span>
             <i class="fas fa-arrow-left"></i>
@@ -375,7 +374,6 @@ document.getElementById('langEn').addEventListener('click',()=>setLanguage('en')
 document.getElementById('langAr').addEventListener('click',()=>setLanguage('ar'));
 setLanguage(localStorage.getItem('language')||'ar');
 </script>
-<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -412,14 +410,12 @@ function closeAuthModal(){document.getElementById('authOverlay').classList.remov
 window.openAuthModal=openAuthModal; window.closeAuthModal=closeAuthModal;
 
 function handleCopyCommand(cmd){
-    if(window._auth&&window._auth.currentUser){copyCommand(cmd);}
-    else{window._pendingCopy=cmd;openAuthModal();}
+    copyCommand(cmd);
 }
 window.handleCopyCommand=handleCopyCommand;
 
 function handleAnalyze(){
-    if(window._auth&&window._auth.currentUser){analyzeLogs();}
-    else{window._pendingAnalyze=true;openAuthModal();}
+    analyzeLogs();
 }
 window.handleAnalyze=handleAnalyze;
 
@@ -447,6 +443,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAuthMo
 </script>
 
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
     <!-- Firebase Firestore Module -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-        import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+        import { getFirestore, collection, getDocs, getDoc, setDoc, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
         const firebaseConfig = {
             apiKey:"AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",
             authDomain:"mikro-tools.firebaseapp.com",
@@ -21,7 +21,7 @@
         };
         const fbApp = initializeApp(firebaseConfig);
         window._db_fs = getFirestore(fbApp);
-        window._fs = { collection, getDocs, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot };
+        window._fs = { collection, getDocs, getDoc, setDoc, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot };
         window._firestoreReady = true;
         document.dispatchEvent(new Event('firestoreReady'));
     </script>
@@ -541,6 +541,49 @@
                     </div>
                 </div>
                 <div class="table-container" style="margin-top:30px">
+                    <div class="table-title"><i class="fas fa-key"></i> باسوردات الاشتراك المدفوع</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:20px">
+                        <div class="form-group">
+                            <label>حالة حماية نتائج الأدوات</label>
+                            <select class="form-control" id="paywallEnabled">
+                                <option value="true">مفعل - التوليد والتحميل مدفوع</option>
+                                <option value="false">متوقف - النتائج مفتوحة</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>مدة تفعيل الأدوات بالساعات</label>
+                            <input type="number" class="form-control" id="paywallDuration" value="24" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>باسورد جديد</label>
+                            <input type="text" class="form-control" id="newAccessCode" placeholder="مثال: MT-2026">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start;margin-bottom:20px">
+                        <div class="form-group">
+                            <label>نطاق استخدام الباسورد</label>
+                            <select class="form-control" id="newAccessScope" onchange="toggleAccessPagesPicker()">
+                                <option value="all">كل أدوات الموقع</option>
+                                <option value="pages">أدوات صفحات معينة فقط</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="accessPagesPicker" style="display:none">
+                            <label>اختر الصفحات</label>
+                            <div id="accessPagesList" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+                        <button class="btn btn-primary" style="width:auto" onclick="savePaywallSettings()"><i class="fas fa-save"></i> حفظ إعدادات القفل</button>
+                        <button class="btn btn-primary" style="width:auto;background:var(--success)" onclick="addAccessCode()"><i class="fas fa-plus"></i> إضافة الباسورد</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>الباسورد</th><th>النطاق</th><th>الحالة</th><th>تاريخ الإنشاء</th><th>إجراءات</th></tr></thead>
+                            <tbody id="accessCodesBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-container" style="margin-top:30px">
                     <div class="table-title"><i class="fas fa-history"></i>سجلات النظام</div>
                     <div id="systemLogs" style="max-height:300px;overflow-y:auto"></div>
                 </div>
@@ -782,16 +825,16 @@ ${typesText}
         let currentFilter = 'all', searchQuery = '', currentMessageId = null, realtimeInterval = null, sidebarOpen = false, lastAnalyticsSync = null, lastProblemsSync = null;
         const SITE_ITEMS = [
             { name:'الرئيسية', path:'index.html', section:'عام', type:'صفحة' },
-            { name:'إعدادات Hotspot + PPP', path:'hotspot.html', section:'Hotspot', type:'مجانية' },
-            { name:'دمج خطوط v6', path:'merge-v6.html', section:'دمج', type:'مجانية' },
-            { name:'دمج خطوط v7', path:'merge-v7.html', section:'دمج', type:'مجانية' },
+            { name:'إعدادات Hotspot + PPP', path:'hotspot.html', section:'Hotspot', type:'مدفوعة' },
+            { name:'دمج خطوط v6', path:'merge-v6.html', section:'دمج', type:'مدفوعة' },
+            { name:'دمج خطوط v7', path:'merge-v7.html', section:'دمج', type:'مدفوعة' },
             { name:'تصميم هوت سبوت', path:'Hotspot Editor.html', section:'تصميم', type:'مدفوعة' },
             { name:'مصمم الكروت', path:'CardEditor.html', section:'تصميم', type:'مدفوعة' },
-            { name:'حجب المواقع', path:'block-sites.html', section:'حجب', type:'مجانية' },
-            { name:'بروفايلات السرعة', path:'speed-profiles.html', section:'Hotspot', type:'مجانية' },
+            { name:'حجب المواقع', path:'block-sites.html', section:'حجب', type:'مدفوعة' },
+            { name:'بروفايلات السرعة', path:'speed-profiles.html', section:'Hotspot', type:'مدفوعة' },
             { name:'محلل السجلات', path:'log.html', section:'أدوات', type:'مدفوعة' },
-            { name:'المشكلات الشائعة', path:'troubleshooting.html', section:'دعم', type:'مجانية' },
-            { name:'حاسبة سعة الشبكة', path:'capacity-calculator.html', section:'أدوات', type:'مجانية' },
+            { name:'المشكلات الشائعة', path:'troubleshooting.html', section:'دعم', type:'مدفوعة' },
+            { name:'حاسبة سعة الشبكة', path:'capacity-calculator.html', section:'أدوات', type:'مدفوعة' },
             { name:'من نحن', path:'about.html', section:'عام', type:'صفحة' },
             { name:'الأسعار', path:'pricing.html', section:'عام', type:'صفحة' },
             { name:'التحديثات', path:'updates.html', section:'عام', type:'صفحة' },
@@ -943,6 +986,31 @@ ${typesText}
             }
         }
 
+        async function loadPaywallFromFirestore() {
+            try {
+                await waitForFirestore();
+                if (!window._db_fs) return null;
+                const { doc, getDoc } = window._fs;
+                const snap = await getDoc(doc(window._db_fs, 'site_settings', 'paywall'));
+                if (!snap.exists()) return null;
+                const payload = snap.data()?.payload;
+                return typeof payload === 'string' ? JSON.parse(payload) : (payload || null);
+            } catch (e) {
+                console.error('Firestore paywall load error:', e);
+                return null;
+            }
+        }
+
+        async function savePaywallToFirestore(paywall) {
+            await waitForFirestore();
+            if (!window._db_fs) throw new Error('Firestore is unavailable');
+            const { doc, setDoc } = window._fs;
+            await setDoc(doc(window._db_fs, 'site_settings', 'paywall'), {
+                payload: JSON.stringify(paywall),
+                updatedAt: new Date().toISOString()
+            });
+        }
+
         // ===== Update Problem in Firestore =====
         async function updateProblemInFirestore(problem) {
             try {
@@ -1021,6 +1089,13 @@ ${typesText}
                 if (d.analytics) systemData.analytics = d.analytics;
                 if (d.adminData) systemData.adminData = d.adminData;
                 if (!systemData.adminData.systemLogs) systemData.adminData.systemLogs = [];
+                const firestorePaywall = await loadPaywallFromFirestore();
+                if (firestorePaywall) {
+                    systemData.adminData.paywall = firestorePaywall;
+                } else if (systemData.adminData.paywall) {
+                    try { await savePaywallToFirestore(systemData.adminData.paywall); } catch (e) { console.error('Paywall migration error:', e); }
+                }
+                ensurePaywallDefaults();
 
                 // Load problems from Firestore
                 systemData.problems = await loadProblemsFromFirestore();
@@ -1032,7 +1107,7 @@ ${typesText}
                 lastAnalyticsSync = new Date();
                 await saveSystemData();
 
-                updateDashboard(); updateMessagesDisplay(); updateVisitorsDisplay(); updatePagesDisplay(); updateRealtimeData(); startRealtimeUpdates();
+                updateDashboard(); updateMessagesDisplay(); updateVisitorsDisplay(); updatePagesDisplay(); updateRealtimeData(); renderPaywallSettings(); startRealtimeUpdates();
                 telegramSystem.init();
                 syncTelegramStats();
                 startNewProblemListener();
@@ -1266,15 +1341,14 @@ ${typesText}
             const total = systemData.problems.length;
             const solved = systemData.problems.filter(p=>p.solved).length;
             const pending = total - solved;
-            const tools = SITE_ITEMS.filter(i => i.type === 'مجانية' || i.type === 'مدفوعة');
-            const freeTools = SITE_ITEMS.filter(i => i.type === 'مجانية').length;
+            const tools = SITE_ITEMS.filter(i => i.type === 'مدفوعة');
             const paidTools = SITE_ITEMS.filter(i => i.type === 'مدفوعة').length;
             const topTypeEntry = Object.entries(systemData.problems.reduce((acc,p)=>{ const key = p.type || 'other'; acc[key]=(acc[key]||0)+1; return acc; },{})).sort((a,b)=>b[1]-a[1])[0];
             const totalViews = getTotalPageViews();
             const live = getLiveVisitorsCount();
             if (overview) {
                 overview.innerHTML = [
-                    ['إجمالي الأدوات', tools.length, `${freeTools} مجانية / ${paidTools} مدفوعة`],
+                    ['إجمالي الأدوات', tools.length, `${paidTools} أداة مدفوعة بالكامل`],
                     ['صفحات الموقع', SITE_ITEMS.length, 'صفحات عامة وأدوات ونظام'],
                     ['مشاهدات الصفحات', totalViews.toLocaleString('ar-EG'), 'من JSONBin الحقيقي'],
                     ['زوار مباشرون', live.toLocaleString('ar-EG'), 'حسب آخر قراءة متاحة'],
@@ -1294,7 +1368,7 @@ ${typesText}
                 const maxViews = Math.max(...SITE_ITEMS.map(getPageViewsFor), 1);
                 details.innerHTML = SITE_ITEMS.map(item => {
                     const views = getPageViewsFor(item);
-                    const badge = item.type === 'مدفوعة' ? 'badge-warning' : item.type === 'مجانية' ? 'badge-success' : 'badge-info';
+                    const badge = item.type === 'مدفوعة' ? 'badge-warning' : 'badge-info';
                     const popularity = views === 0 ? 'لا توجد بيانات' : views >= maxViews * 0.7 ? 'عالية' : views >= maxViews * 0.3 ? 'متوسطة' : 'هادئة';
                     return `<tr><td><strong>${item.name}</strong><span class="page-path">${item.path}</span></td><td>${item.section}</td><td><span class="badge ${badge}">${item.type}</span></td><td>${views.toLocaleString('ar-EG')}</td><td><span class="badge badge-primary">${popularity}</span></td></tr>`;
                 }).join('');
@@ -1431,6 +1505,127 @@ ${typesText}
             }).join('');
         }
 
+        // ===== Paid Access Codes =====
+        function ensurePaywallDefaults() {
+            if (!systemData.adminData) systemData.adminData = {};
+            if (!systemData.adminData.paywall) systemData.adminData.paywall = { enabled:true, durationHours:24, codes:[] };
+            const p = systemData.adminData.paywall;
+            p.enabled = p.enabled !== false;
+            p.durationHours = Number(p.durationHours || 24);
+            p.codes = Array.isArray(p.codes) ? p.codes : [];
+            return p;
+        }
+        function getAccessPages() {
+            return SITE_ITEMS
+                .filter(item => item.path && item.path !== 'admin.html')
+                .map(item => ({ name:item.name, path:item.path }));
+        }
+        function renderAccessPagesPicker() {
+            const c = document.getElementById('accessPagesList');
+            if (!c) return;
+            c.innerHTML = getAccessPages().map(item => `
+                <label style="display:flex;align-items:center;gap:8px;background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px;font-size:13px;cursor:pointer">
+                    <input type="checkbox" class="access-page-check" value="${item.path}">
+                    <span>${item.name}</span>
+                </label>
+            `).join('');
+        }
+        function toggleAccessPagesPicker() {
+            const picker = document.getElementById('accessPagesPicker');
+            const scope = document.getElementById('newAccessScope')?.value;
+            if (picker) picker.style.display = scope === 'pages' ? 'block' : 'none';
+        }
+        function renderPaywallSettings() {
+            const p = ensurePaywallDefaults();
+            const enabled = document.getElementById('paywallEnabled');
+            const duration = document.getElementById('paywallDuration');
+            if (enabled) enabled.value = String(p.enabled);
+            if (duration) duration.value = p.durationHours;
+            renderAccessPagesPicker();
+            renderAccessCodes();
+            toggleAccessPagesPicker();
+        }
+        function getSelectedAccessPages() {
+            return [...document.querySelectorAll('.access-page-check:checked')].map(input => input.value);
+        }
+        function describeCodeScope(code) {
+            if (code.scope === 'all' || code.allPages) return 'كل الأدوات';
+            const pages = Array.isArray(code.pages) ? code.pages : [];
+            if (!pages.length) return 'لا توجد أدوات';
+            const names = pages.map(path => (getAccessPages().find(p => p.path === path)?.name || path));
+            return names.join('، ');
+        }
+        function renderAccessCodes() {
+            const body = document.getElementById('accessCodesBody');
+            if (!body) return;
+            const codes = ensurePaywallDefaults().codes;
+            if (!codes.length) {
+                body.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:25px">لا توجد باسوردات بعد</td></tr>';
+                return;
+            }
+            body.innerHTML = codes.map((code, index) => `
+                <tr>
+                    <td><strong style="direction:ltr;display:inline-block">${code.code}</strong></td>
+                    <td>${describeCodeScope(code)}</td>
+                    <td><span class="badge ${code.active === false ? 'badge-danger' : 'badge-success'}">${code.active === false ? 'متوقف' : 'مفعل'}</span></td>
+                    <td>${code.createdAt ? new Date(code.createdAt).toLocaleString('ar-EG') : '-'}</td>
+                    <td>
+                        <button class="action-btn btn-view" onclick="toggleAccessCode(${index})"><i class="fas fa-power-off"></i>${code.active === false ? 'تفعيل' : 'تعطيل'}</button>
+                        <button class="action-btn btn-delete" onclick="deleteAccessCode(${index})"><i class="fas fa-trash"></i>حذف</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        async function savePaywallData() {
+            const paywall = ensurePaywallDefaults();
+            await savePaywallToFirestore(paywall);
+            saveSystemData();
+        }
+        async function savePaywallSettings() {
+            const p = ensurePaywallDefaults();
+            p.enabled = document.getElementById('paywallEnabled').value === 'true';
+            p.durationHours = Math.max(1, Number(document.getElementById('paywallDuration').value || 24));
+            await savePaywallData();
+            renderPaywallSettings();
+            showNotification('تم حفظ إعدادات القفل', 'success');
+            addSystemLog('تم تحديث نظام باسوردات الاشتراك', 'success');
+        }
+        async function addAccessCode() {
+            const p = ensurePaywallDefaults();
+            const codeValue = document.getElementById('newAccessCode').value.trim();
+            const scope = document.getElementById('newAccessScope').value;
+            const pages = scope === 'pages' ? getSelectedAccessPages() : [];
+            if (!codeValue) { showNotification('اكتب الباسورد أولا', 'error'); return; }
+            if (scope === 'pages' && !pages.length) { showNotification('اختر صفحة واحدة على الأقل', 'error'); return; }
+            if (p.codes.some(c => String(c.code).trim() === codeValue)) { showNotification('هذا الباسورد موجود بالفعل', 'error'); return; }
+            p.codes.unshift({ code:codeValue, active:true, scope, pages, createdAt:new Date().toISOString() });
+            document.getElementById('newAccessCode').value = '';
+            document.querySelectorAll('.access-page-check').forEach(input => input.checked = false);
+            await savePaywallData();
+            renderPaywallSettings();
+            showNotification('تم إضافة الباسورد', 'success');
+        }
+        async function toggleAccessCode(index) {
+            const p = ensurePaywallDefaults();
+            if (!p.codes[index]) return;
+            p.codes[index].active = p.codes[index].active === false;
+            await savePaywallData();
+            renderAccessCodes();
+        }
+        async function deleteAccessCode(index) {
+            const p = ensurePaywallDefaults();
+            if (!p.codes[index]) return;
+            if (!confirm('حذف هذا الباسورد؟')) return;
+            p.codes.splice(index, 1);
+            await savePaywallData();
+            renderAccessCodes();
+        }
+        window.toggleAccessPagesPicker = toggleAccessPagesPicker;
+        window.savePaywallSettings = savePaywallSettings;
+        window.addAccessCode = addAccessCode;
+        window.toggleAccessCode = toggleAccessCode;
+        window.deleteAccessCode = deleteAccessCode;
+
         // ===== Settings =====
         async function updateAdminSettings() {
             const nu = document.getElementById('newUsername').value.trim();
@@ -1493,7 +1688,7 @@ ${typesText}
                     if (page === 'pages') updatePagesDisplay();
                     if (page === 'realtime') updateRealtimeData();
                     if (page === 'telegram') { telegramSystem.updateUI(); telegramSystem.updateLogsUI(); }
-                    if (page === 'settings') updateSystemLogs();
+                    if (page === 'settings') { updateSystemLogs(); renderPaywallSettings(); }
                 });
             });
 

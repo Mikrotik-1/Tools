@@ -2,13 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
-     crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="إعدادات الهوت سبوت والبرودباند - أداة مجانية لتوليد سكريبتات ميكروتيك احترافية">
+    <meta name="description" content="إعدادات الهوت سبوت والبرودباند - أداة احترافية مدفوعة لتوليد سكريبتات ميكروتيك">
     <meta name="keywords" content="ميكروتيك, هوت سبوت, برودباند, MikroTik, Hotspot, Script Generator">
     <meta name="author" content="Sameh El-Sayed - 01092503391">
     <meta name="google-site-verification" content="google6096a3c525d406ea" />
@@ -242,13 +240,13 @@
             </div>
         </div>
         <div class="btn-group">
-            <button class="btn btn-primary" onclick="requestGenerate()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">توليد السكربت</span></button>
+            <button class="btn btn-primary" data-paid-action onclick="requestGenerate()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">توليد السكربت</span></button>
             <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">إعادة تعيين</span></button>
         </div>
         <div id="resultSection" class="result-section">
             <div class="result-header">
                 <h3 class="result-title"><i class="fas fa-code"></i> <span data-i18n="result_title">السكربت الناتج</span></h3>
-                <button class="btn btn-secondary" onclick="copyScript()"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">نسخ السكربت</span></button>
+                <button class="btn btn-secondary" data-paid-action onclick="copyScript()"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">نسخ السكربت</span></button>
             </div>
             <textarea id="outputScript" class="script-output" readonly></textarea>
         </div>
@@ -285,12 +283,7 @@ const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block
 const SIGNATURE="By Same7_01092503391";let currentSubnet=24,descriptionTimeout;
 
 // ===== PAYWALL =====
-var PAYWALL_PASSWORD='0166843763';
-var paywallCallback=null;
-function openPaywall(cb){paywallCallback=cb;document.getElementById('paywall-modal').style.display='flex';document.getElementById('paywall-password').value='';document.getElementById('paywall-error').style.display='none';setTimeout(function(){document.getElementById('paywall-password').focus();},100);}
-function closePaywall(){document.getElementById('paywall-modal').style.display='none';paywallCallback=null;}
-function checkPaywallPassword(){var v=document.getElementById('paywall-password').value.trim();if(v===PAYWALL_PASSWORD){document.getElementById('paywall-modal').style.display='none';if(paywallCallback)paywallCallback();}else{document.getElementById('paywall-error').style.display='block';document.getElementById('paywall-password').style.borderColor='#ef4444';setTimeout(function(){document.getElementById('paywall-password').style.borderColor='#e2e8f0';},1500);}}
-function requestGenerate(){openPaywall(function(){generateHotspotScript();});}
+function requestGenerate(){generateHotspotScript();}
 // ===== END PAYWALL =====
 
 function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
@@ -311,8 +304,8 @@ function copyScript(){const el=document.getElementById('outputScript');if(!el.va
 function resetForm(){document.getElementById('newIp').value='10.0.0.1/24';document.getElementById('newInterface').value='OUT';document.getElementById('dhcpInterface').value='WAN';selectSubnet(24);document.getElementById('outputScript').value='';document.getElementById('resultSection').style.display='none';hideDescription();}
 document.addEventListener('DOMContentLoaded',function(){selectSubnet(24);document.addEventListener('click',function(e){if(!e.target.closest('.subnet-box')&&!e.target.closest('.subnet-description'))hideDescription();});});
 </script>
-<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

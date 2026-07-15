@@ -2,8 +2,6 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867"
-     crossorigin="anonymous"></script>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -255,13 +253,13 @@
         </div>
         <div id="lines-container" class="lines-container"></div>
         <div class="btn-group">
-            <button class="btn btn-primary" onclick="requestGenerate()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">Generate v6 Script</span></button>
+            <button class="btn btn-primary" data-paid-action onclick="requestGenerate()"><i class="fas fa-play"></i> <span data-i18n="generate_btn">Generate v6 Script</span></button>
             <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-redo"></i> <span data-i18n="reset_btn">Reset</span></button>
         </div>
         <div id="resultSection" class="result-section">
             <div class="result-header">
                 <h3 class="result-title"><i class="fas fa-code"></i> <span data-i18n="result_title">Generated Script</span></h3>
-                <button class="btn btn-secondary" onclick="copyScript()"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
+                <button class="btn btn-secondary" data-paid-action onclick="copyScript()"><i class="fas fa-copy"></i> <span data-i18n="copy_btn">Copy Script</span></button>
             </div>
             <textarea id="outputScript" class="script-output" readonly></textarea>
         </div>
@@ -293,12 +291,7 @@ const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block
 const SIGNATURE="By Same7_01092503391";let lineCount=2;
 
 // ===== PAYWALL =====
-var PAYWALL_PASSWORD='0166843763';
-var paywallCallback=null;
-function openPaywall(cb){paywallCallback=cb;document.getElementById('paywall-modal').style.display='flex';document.getElementById('paywall-password').value='';document.getElementById('paywall-error').style.display='none';setTimeout(function(){document.getElementById('paywall-password').focus();},100);}
-function closePaywall(){document.getElementById('paywall-modal').style.display='none';paywallCallback=null;}
-function checkPaywallPassword(){var v=document.getElementById('paywall-password').value.trim();if(v===PAYWALL_PASSWORD){document.getElementById('paywall-modal').style.display='none';if(paywallCallback)paywallCallback();}else{document.getElementById('paywall-error').style.display='block';document.getElementById('paywall-password').style.borderColor='#ef4444';setTimeout(function(){document.getElementById('paywall-password').style.borderColor='#e2e8f0';},1500);}}
-function requestGenerate(){openPaywall(function(){generateV6Script();});}
+function requestGenerate(){generateV6Script();}
 // ===== END PAYWALL =====
 
 function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');document.getElementById('selectedCount').textContent=translations[lang][`lines_${lineCount}`];}
@@ -331,8 +324,8 @@ document.addEventListener('click',function(e){if(!e.target.closest('.inner-dropd
 document.addEventListener('DOMContentLoaded',function(){createLineInputs();document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('innerDropdownList').classList.remove('active');document.querySelector('.inner-dropdown-box').classList.remove('active');const n=document.getElementById('navLinks');if(n.classList.contains('active')){n.classList.remove('active');document.querySelector('#menuToggle i').className='fas fa-bars';}}});});
 </script>
 <script>(function(){const BIN_ID='6984fe4d43b1c97be9684aa8',API_KEY='$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{headers:{'X-Master-Key':API_KEY}}).then(r=>r.json()).then(data=>{const rec=data.record||{};if(!rec.analytics)rec.analytics={pages:{},daily:{},totalVisits:0};const page=document.title||window.location.pathname,today=new Date().toDateString();rec.analytics.pages[page]=(rec.analytics.pages[page]||0)+1;rec.analytics.daily[today]=(rec.analytics.daily[today]||0)+1;rec.analytics.totalVisits=(rec.analytics.totalVisits||0)+1;return fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(rec)});}).catch(()=>{});})();</script>
-<script>(function(){const b=["jumanchu-dragondiyaa.site","transcube-uy7.xyz","vp.jumanchu-dragondiyaa.site"],o=window.open;window.open=function(u,n,s){if(u&&b.some(d=>u.includes(d)))return null;return o.apply(this,arguments);};})();</script>
 <script src="mikro-chatbot.js"></script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

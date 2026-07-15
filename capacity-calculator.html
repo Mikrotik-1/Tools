@@ -221,9 +221,9 @@
                         <option value="isp">مزود خدمة صغير</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" id="calculateBtn" onclick="handleCalculate()"><i class="fas fa-lock"></i> سجّل دخول لحساب السعة</button>
+                <button class="btn btn-primary" id="calculateBtn" data-paid-action onclick="handleCalculate()"><i class="fas fa-calculator"></i> احسب السعة</button>
                 <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-rotate-right"></i> قيم مقترحة</button>
-                <div class="login-note show" id="loginNote">يجب تسجيل الدخول أولًا لاستخدام الحاسبة.</div>
+                <div class="login-note" id="loginNote">نتيجة الحاسبة متاحة للمشتركين.</div>
             </section>
 
             <section class="results">
@@ -256,7 +256,7 @@
                     <h3><i class="fas fa-file-lines"></i> تقرير مختصر</h3>
                     <p id="reportPreview">اضغط احسب لعرض ملخص مناسب للنسخ أو الإرسال.</p>
                     <div class="copy-row">
-                        <button class="btn btn-primary" onclick="copyReport()"><i class="fas fa-copy"></i> نسخ التقرير</button>
+                        <button class="btn btn-primary" data-paid-action onclick="copyReport()"><i class="fas fa-copy"></i> نسخ التقرير</button>
                     </div>
                     <div class="notice">مهم: لا تعتمد على الحساب وحده في الشبكات الكبيرة. راقب الاستهلاك الفعلي من Interface و Queues لمدة يومين على الأقل.</div>
                 </div>
@@ -280,7 +280,7 @@
                 panelTitle: "بيانات الشبكة", customers: "عدد العملاء", customersHint: "إجمالي المشتركين", avgSpeed: "متوسط سرعة العميل", avgHint: "مثال: لو أغلب العملاء باقة 2 ميجا اكتب 2.",
                 peak: "نسبة الذروة", headroom: "هامش أمان", uploadRatio: "نسبة الرفع", fromDown: "من الداون", lineCapacity: "سعة الخط الواحد",
                 networkType: "نوع الشبكة", adviceHint: "يؤثر على النصيحة", normal: "20% عادي", balanced: "30% متوازن", high: "50% استخدام عالي", smallIsp: "مزود خدمة صغير",
-                calcLogin: "سجّل دخول لحساب السعة", calcNow: "احسب السعة", defaults: "قيم مقترحة", loginNote: "يجب تسجيل الدخول أولًا لاستخدام الحاسبة.",
+                calcLogin: "احسب السعة", calcNow: "احسب السعة", defaults: "قيم مقترحة", loginNote: "نتيجة الحاسبة متاحة للمشتركين.",
                 ready: "جاهز للحساب", resultTitle: "اكتب بيانات الشبكة واضغط احسب", resultText: "هنحسب سرعة التحميل والرفع المناسبة، وعدد الخطوط المقترح، وهل الدمج مطلوب أم لا.",
                 down: "Download مطلوب", up: "Upload مطلوب", activeUsers: "العملاء وقت الذروة", lines: "عدد الخطوط", recommendation: "التوصية", recEmpty: "ستظهر هنا النصيحة المناسبة بعد الحساب.",
                 notesTitle: "ملاحظات مهمة", noteEmpty: "الحساب تقديري ويحتاج مراجعة حسب الاستخدام الحقيقي.", reportTitle: "تقرير مختصر", reportEmpty: "اضغط احسب لعرض ملخص مناسب للنسخ أو الإرسال.",
@@ -304,7 +304,7 @@
                 panelTitle: "Network data", customers: "Customers", customersHint: "Total subscribers", avgSpeed: "Average customer speed", avgHint: "Example: if most plans are 2 Mbps, enter 2.",
                 peak: "Peak usage", headroom: "Safety headroom", uploadRatio: "Upload ratio", fromDown: "of download", lineCapacity: "Single line capacity",
                 networkType: "Network type", adviceHint: "Affects the advice", normal: "20% normal", balanced: "30% balanced", high: "50% heavy use", smallIsp: "Small ISP",
-                calcLogin: "Login to calculate capacity", calcNow: "Calculate capacity", defaults: "Suggested values", loginNote: "You must log in first to use the calculator.",
+                calcLogin: "Calculate capacity", calcNow: "Calculate capacity", defaults: "Suggested values", loginNote: "Calculator results are available to subscribers.",
                 ready: "Ready to calculate", resultTitle: "Enter network data and calculate", resultText: "We will calculate suitable download/upload bandwidth, suggested line count, and whether merging is needed.",
                 down: "Required download", up: "Required upload", activeUsers: "Peak active users", lines: "Lines", recommendation: "Recommendation", recEmpty: "The recommendation will appear here after calculation.",
                 notesTitle: "Important notes", noteEmpty: "This is an estimate and should be reviewed against real usage.", reportTitle: "Short report", reportEmpty: "Calculate to show a report suitable for copying or sending.",
@@ -354,7 +354,7 @@
             if (networkOptions[3]) networkOptions[3].textContent = tr.smallIsp;
             document.querySelector(".btn-secondary").innerHTML = `<i class="fas fa-rotate-right"></i> ${tr.defaults}`;
             document.getElementById("loginNote").textContent = tr.loginNote;
-            if (!window.capacityCurrentUser) document.getElementById("calculateBtn").innerHTML = `<i class="fas fa-lock"></i> ${tr.calcLogin}`;
+            if (!window.capacityCurrentUser) document.getElementById("calculateBtn").innerHTML = `<i class="fas fa-calculator"></i> ${tr.calcNow}`;
             set("#verdict", tr.ready);
             document.getElementById("verdict").innerHTML = `<i class="fas fa-circle-check"></i> ${tr.ready}`;
             set("#resultTitle", tr.resultTitle);
@@ -459,24 +459,16 @@
                 const initial = (email.trim().charAt(0) || tr.signedFallback.charAt(0)).toUpperCase();
                 loginStateLink.innerHTML = `<i class="fas fa-user-check"></i><span class="user-initial" title="${email || tr.signedFallback}">${initial}</span>`;
                 loginStateLink.href = "#";
-                calculateCapacity();
             } else {
-                calcBtn.innerHTML = `<i class="fas fa-lock"></i> ${tr.calcLogin}`;
-                loginNote.classList.add("show");
+                calcBtn.innerHTML = `<i class="fas fa-calculator"></i> ${tr.calcNow}`;
+                loginNote.classList.remove("show");
                 loginStateLink.innerHTML = `<i class="fas fa-user"></i> ${tr.login}`;
                 loginStateLink.href = "login.html?redirect=capacity-calculator.html";
                 window.applyCapacityLanguage();
             }
         });
 
-        function requireLogin() {
-            if (currentUser) return true;
-            window.location.href = "login.html?redirect=capacity-calculator.html";
-            return false;
-        }
-
         function handleCalculate() {
-            if (!requireLogin()) return;
             calculateCapacity();
         }
 
@@ -486,7 +478,6 @@
         }
 
         function calculateCapacity() {
-            if (!currentUser) return;
             const tr = window.CAPACITY_I18N[window.getCapacityLang()];
             const customers = numberValue("customers", 1);
             const avgSpeed = numberValue("avgSpeed", 1);
@@ -566,7 +557,6 @@ ${tr.recReport}: ${recommendation}`;
         }
 
         function copyReport() {
-            if (!requireLogin()) return;
             if (!lastReport) calculateCapacity();
             navigator.clipboard.writeText(lastReport);
         }
@@ -579,7 +569,6 @@ ${tr.recReport}: ${recommendation}`;
             document.getElementById("uploadRatio").value = 0.3;
             document.getElementById("lineCapacity").value = 100;
             document.getElementById("networkType").value = "mixed";
-            if (currentUser) calculateCapacity();
         }
 
         window.handleCalculate = handleCalculate;
@@ -587,6 +576,7 @@ ${tr.recReport}: ${recommendation}`;
         window.copyReport = copyReport;
         window.resetForm = resetForm;
     </script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>

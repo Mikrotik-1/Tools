@@ -2,14 +2,12 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5052451029292867" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WiFi Card Designer - MikroTools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://pl28619829.profitablecpmratenetwork.com/19/45/77/1945771f4f7acfc4e2d9ebfa1cb8d71c.js"></script>
     <style>
         :root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#10b981;--accent:#f59e0b;--dark:#1e293b;--light:#f8fafc;--gray:#64748b;--gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#d946ef 100%);--gradient-dark:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);--shadow:0 20px 40px rgba(99,102,241,0.1);--shadow-lg:0 30px 60px rgba(0,0,0,0.15);--border-radius:16px;}
         *{margin:0;padding:0;box-sizing:border-box;}
@@ -441,18 +439,13 @@
                     <!-- DOWNLOAD SECTION -->
                     <div class="dl-section">
                         <h4><i class="fas fa-download" style="color:var(--primary-light)"></i><span data-i18n="save_card">Save Card as Image</span></h4>
-                        <!-- Lock hint shown when not logged in -->
-                        <div class="dl-lock-hint" id="dlLockHint">
-                            <i class="fas fa-lock"></i>
-                            <span>سجّل دخولك لتحميل الكارت</span>
-                        </div>
                         <div class="dl-opts">
                             <div class="dl-opt sel" id="dlOptPng" onclick="selectDlOpt('fmt','png',this)"><i class="fas fa-file-image"></i> PNG</div>
                             <div class="dl-opt" id="dlOptJpg" onclick="selectDlOpt('fmt','jpg',this)"><i class="fas fa-file-image"></i> JPG</div>
                             <div class="dl-opt sel" id="dlOpt2x" onclick="selectDlOpt('scale','2',this)"><i class="fas fa-expand-arrows-alt"></i> 2x HD</div>
                             <div class="dl-opt" id="dlOpt3x" onclick="selectDlOpt('scale','3',this)"><i class="fas fa-expand-arrows-alt"></i> 3x Ultra</div>
                         </div>
-                        <button class="dl-btn-main" onclick="handleDownloadCard()"><i class="fas fa-download"></i><span data-i18n="download_image">Download Card Image</span></button>
+                        <button class="dl-btn-main" data-paid-action onclick="handleDownloadCard()"><i class="fas fa-download"></i><span data-i18n="download_image">Download Card Image</span></button>
                     </div>
                 </div>
             </div>
@@ -469,8 +462,8 @@
                     <div class="form-group" style="margin:0;"><label class="form-label" data-i18n="paper_size">Paper Size</label><select id="cd_paper_size" class="form-control" onchange="buildPrintPreview()"><option value="a4">A4</option><option value="a5">A5</option><option value="letter">Letter</option></select></div>
                 </div>
                 <div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <button class="btn btn-primary" onclick="printCards()"><i class="fas fa-print"></i><span data-i18n="print_now">Print Now</span></button>
-                    <button class="btn btn-success" onclick="downloadCardsHTML()"><i class="fas fa-download"></i><span data-i18n="download_cards">Download Cards HTML</span></button>
+                    <button class="btn btn-primary" data-paid-action onclick="printCards()"><i class="fas fa-print"></i><span data-i18n="print_now">Print Now</span></button>
+                    <button class="btn btn-success" data-paid-action onclick="downloadCardsHTML()"><i class="fas fa-download"></i><span data-i18n="download_cards">Download Cards HTML</span></button>
                 </div>
             </div>
             <div style="background:#e5e7eb;border-radius:12px;padding:20px;">
@@ -728,14 +721,7 @@ function updateCardPreview(){
 }
 window.updateCardPreview=updateCardPreview;
 
-// Protected download - checks auth first
 function handleDownloadCard(){
-    const user=window._auth&&window._auth.currentUser;
-    if(!user){
-        window._pendingDownload=true;
-        openAuthModal();
-        return;
-    }
     downloadCardAsImage();
 }
 window.handleDownloadCard=handleDownloadCard;
@@ -848,6 +834,7 @@ window.downloadCardsHTML=downloadCardsHTML;
 let notifTimer=null;
 function showNotif(msg){const n=document.getElementById('notification');document.getElementById('notifMsg').textContent=msg;n.classList.add('show');clearTimeout(notifTimer);notifTimer=setTimeout(()=>n.classList.remove('show'),3000);}
 </script>
+<script src="mikro-access.js"></script>
 <script src="mikro-presence.js"></script>
 </body>
 </html>
