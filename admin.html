@@ -991,7 +991,7 @@ ${typesText}
                 await waitForFirestore();
                 if (!window._db_fs) return null;
                 const { doc, getDoc } = window._fs;
-                const snap = await getDoc(doc(window._db_fs, 'site_settings', 'paywall'));
+                const snap = await getDoc(doc(window._db_fs, 'problems', 'mikrotools_paywall_config'));
                 if (!snap.exists()) return null;
                 const payload = snap.data()?.payload;
                 return typeof payload === 'string' ? JSON.parse(payload) : (payload || null);
@@ -1005,7 +1005,7 @@ ${typesText}
             await waitForFirestore();
             if (!window._db_fs) throw new Error('Firestore is unavailable');
             const { doc, setDoc } = window._fs;
-            await setDoc(doc(window._db_fs, 'site_settings', 'paywall'), {
+            await setDoc(doc(window._db_fs, 'problems', 'mikrotools_paywall_config'), {
                 payload: JSON.stringify(paywall),
                 updatedAt: new Date().toISOString()
             });
@@ -1579,16 +1579,27 @@ ${typesText}
         async function savePaywallData() {
             const paywall = ensurePaywallDefaults();
             await savePaywallToFirestore(paywall);
+            localStorage.setItem('mikrotools_paid_config', JSON.stringify(paywall));
             saveSystemData();
         }
         async function savePaywallSettings() {
             const p = ensurePaywallDefaults();
+            const previousEnabled = p.enabled;
+            const previousDuration = p.durationHours;
             p.enabled = document.getElementById('paywallEnabled').value === 'true';
             p.durationHours = Math.max(1, Number(document.getElementById('paywallDuration').value || 24));
-            await savePaywallData();
-            renderPaywallSettings();
-            showNotification('تم حفظ إعدادات القفل', 'success');
-            addSystemLog('تم تحديث نظام باسوردات الاشتراك', 'success');
+            try {
+                await savePaywallData();
+                renderPaywallSettings();
+                showNotification('تم حفظ إعدادات القفل', 'success');
+                addSystemLog('تم تحديث نظام باسوردات الاشتراك', 'success');
+            } catch (e) {
+                p.enabled = previousEnabled;
+                p.durationHours = previousDuration;
+                renderPaywallSettings();
+                console.error('Paywall settings save error:', e);
+                showNotification('تعذر حفظ الإعدادات: ' + e.message, 'error');
+            }
         }
         async function addAccessCode() {
             const p = ensurePaywallDefaults();
@@ -1598,27 +1609,51 @@ ${typesText}
             if (!codeValue) { showNotification('اكتب الباسورد أولا', 'error'); return; }
             if (scope === 'pages' && !pages.length) { showNotification('اختر صفحة واحدة على الأقل', 'error'); return; }
             if (p.codes.some(c => String(c.code).trim() === codeValue)) { showNotification('هذا الباسورد موجود بالفعل', 'error'); return; }
-            p.codes.unshift({ code:codeValue, active:true, scope, pages, createdAt:new Date().toISOString() });
-            document.getElementById('newAccessCode').value = '';
-            document.querySelectorAll('.access-page-check').forEach(input => input.checked = false);
-            await savePaywallData();
-            renderPaywallSettings();
-            showNotification('تم إضافة الباسورد', 'success');
+            const newCode = { code:codeValue, active:true, scope, pages, createdAt:new Date().toISOString() };
+            p.codes.unshift(newCode);
+            try {
+                await savePaywallData();
+                document.getElementById('newAccessCode').value = '';
+                document.querySelectorAll('.access-page-check').forEach(input => input.checked = false);
+                renderPaywallSettings();
+                showNotification('تم إضافة الباسورد', 'success');
+            } catch (e) {
+                const addedIndex = p.codes.indexOf(newCode);
+                if (addedIndex !== -1) p.codes.splice(addedIndex, 1);
+                renderAccessCodes();
+                console.error('Access code save error:', e);
+                showNotification('تعذر حفظ الباسورد: ' + e.message, 'error');
+            }
         }
         async function toggleAccessCode(index) {
             const p = ensurePaywallDefaults();
             if (!p.codes[index]) return;
+            const previousActive = p.codes[index].active;
             p.codes[index].active = p.codes[index].active === false;
-            await savePaywallData();
-            renderAccessCodes();
+            try {
+                await savePaywallData();
+                renderAccessCodes();
+            } catch (e) {
+                p.codes[index].active = previousActive;
+                renderAccessCodes();
+                console.error('Access code toggle error:', e);
+                showNotification('تعذر تحديث الباسورد: ' + e.message, 'error');
+            }
         }
         async function deleteAccessCode(index) {
             const p = ensurePaywallDefaults();
             if (!p.codes[index]) return;
             if (!confirm('حذف هذا الباسورد؟')) return;
-            p.codes.splice(index, 1);
-            await savePaywallData();
-            renderAccessCodes();
+            const removedCode = p.codes.splice(index, 1)[0];
+            try {
+                await savePaywallData();
+                renderAccessCodes();
+            } catch (e) {
+                p.codes.splice(index, 0, removedCode);
+                renderAccessCodes();
+                console.error('Access code delete error:', e);
+                showNotification('تعذر حذف الباسورد: ' + e.message, 'error');
+            }
         }
         window.toggleAccessPagesPicker = toggleAccessPagesPicker;
         window.savePaywallSettings = savePaywallSettings;
