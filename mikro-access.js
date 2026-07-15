@@ -12,7 +12,7 @@
     var FIRESTORE_URL = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents/problems/mikrotools_paywall_config?key=' + FIREBASE_API_KEY;
     var ACCESS_KEY = 'mikrotools_paid_access';
     var CONFIG_CACHE_KEY = 'mikrotools_paid_config';
-    var state = { config: null, loading: false, pendingAction: null };
+    var state = { config: null, loading: false, pendingAction: null, approvedTarget: null, statusTimer: null, monitorTimer: null };
 
     function now() { return Date.now(); }
 
@@ -38,8 +38,21 @@
     }
 
     function formatLeft(ms) {
-        var hours = Math.max(0, Math.ceil(ms / 36e5));
-        return hours <= 1 ? 'اقل من ساعة' : hours + ' ساعة';
+        var minutes = Math.max(0, Math.ceil(ms / 60000));
+        if (minutes < 60) return minutes + ' دقيقة';
+        var hours = Math.floor(minutes / 60);
+        var remainingMinutes = minutes % 60;
+        return remainingMinutes ? hours + ' ساعة و' + remainingMinutes + ' دقيقة' : hours + ' ساعة';
+    }
+
+    function formatDuration(ms) {
+        var totalSeconds = Math.max(0, Math.floor(ms / 1000));
+        var days = Math.floor(totalSeconds / 86400);
+        var hours = Math.floor((totalSeconds % 86400) / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+        var clock = [hours, minutes, seconds].map(function (value) { return String(value).padStart(2, '0'); }).join(':');
+        return days > 0 ? days + ' يوم ' + clock : clock;
     }
 
     function getCodeText(code) {
@@ -61,10 +74,11 @@
         paywall.codes.forEach(function (item) {
             if (!item || item.expiresAt || !item.createdAt) return;
             var createdAt = Date.parse(item.createdAt);
-            var durationHours = Math.max(1, Number(item.durationHours || paywall.durationHours || 24));
+            var durationMinutes = Math.max(1, Number(item.durationMinutes || (item.durationHours || paywall.durationHours || 24) * 60));
             if (Number.isFinite(createdAt)) {
-                item.durationHours = durationHours;
-                item.expiresAt = new Date(createdAt + durationHours * 36e5).toISOString();
+                item.durationMinutes = durationMinutes;
+                item.durationHours = durationMinutes / 60;
+                item.expiresAt = new Date(createdAt + durationMinutes * 60000).toISOString();
             }
         });
         return paywall;
@@ -131,6 +145,12 @@
             '#mikroAccessBtn{width:100%;margin-top:12px;padding:14px;border:0;border-radius:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:16px;font-weight:800;cursor:pointer}',
             '#mikroAccessBtn:disabled{opacity:.65;cursor:not-allowed}',
             '#mikroAccessMsg{min-height:22px;margin-top:12px;font-size:13px;text-align:center;color:#fca5a5}',
+            '#mikroAccessStatus{position:fixed;right:16px;bottom:16px;z-index:2147482000;width:min(330px,calc(100vw - 32px));box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:10px;padding:12px 14px;box-shadow:0 14px 34px rgba(15,23,42,.3);font-family:Tajawal,Arial,sans-serif;direction:rtl}',
+            '#mikroAccessStatusTitle{font-size:13px;font-weight:800;margin-bottom:7px;color:#c4b5fd}',
+            '#mikroAccessStatusTimes{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:#cbd5e1}',
+            '#mikroAccessStatusTimes strong{display:block;margin-top:2px;color:#fff;font-size:15px;direction:ltr;text-align:right}',
+            '#mikroAccessStatusExpiry{margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:#94a3b8}',
+            '@media(max-width:600px){#mikroAccessStatus{right:10px;bottom:10px;width:calc(100vw - 20px);padding:10px 12px}}',
             '.mikro-access-hidden{overflow:hidden!important}'
         ].join('');
         document.head.appendChild(style);
@@ -183,6 +203,81 @@
         msg.textContent = text;
     }
 
+    function removeSessionStatus() {
+        var status = document.getElementById('mikroAccessStatus');
+        if (status) status.remove();
+        if (state.statusTimer) {
+            clearInterval(state.statusTimer);
+            state.statusTimer = null;
+        }
+    }
+
+    function clearAccessSession() {
+        localStorage.removeItem(ACCESS_KEY);
+        removeSessionStatus();
+    }
+
+    function updateSessionStatus() {
+        var session = readSession();
+        if (!session || Number(session.expiresAt) <= now()) {
+            clearAccessSession();
+            return;
+        }
+        ensureStyles();
+        var status = document.getElementById('mikroAccessStatus');
+        if (!status) {
+            status = document.createElement('div');
+            status.id = 'mikroAccessStatus';
+            status.setAttribute('role', 'status');
+            status.innerHTML = '<div id="mikroAccessStatusTitle">اشتراكك مفعل</div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusExpiry"></div>';
+            document.body.appendChild(status);
+        }
+        var unlockedAt = Date.parse(session.unlockedAt || '');
+        var used = Number.isFinite(unlockedAt) ? now() - unlockedAt : 0;
+        document.getElementById('mikroAccessUsed').textContent = formatDuration(used);
+        document.getElementById('mikroAccessRemaining').textContent = formatDuration(Number(session.expiresAt) - now());
+        document.getElementById('mikroAccessStatusExpiry').textContent = 'ينتهي في: ' + new Date(Number(session.expiresAt)).toLocaleString('ar-EG');
+    }
+
+    function renderSessionStatus() {
+        updateSessionStatus();
+        if (!state.statusTimer && readSession()) {
+            state.statusTimer = setInterval(updateSessionStatus, 1000);
+        }
+    }
+
+    async function validateCurrentSession() {
+        var session = readSession();
+        if (!session || Number(session.expiresAt) <= now()) {
+            clearAccessSession();
+            return { allowed: false, reason: 'expired' };
+        }
+        var config = cacheConfig(await loadFirestoreConfig());
+        state.config = config;
+        if (config.enabled === false) return { allowed: true, session: session, config: config };
+        var match = config.codes.find(function (item) {
+            return item && getCodeText(item.code) === getCodeText(session.code);
+        });
+        var codeExpiresAt = match ? Date.parse(match.expiresAt || '') : NaN;
+        if (!match || match.active === false || (Number.isFinite(codeExpiresAt) && codeExpiresAt <= now())) {
+            clearAccessSession();
+            return { allowed: false, reason: 'revoked', config: config };
+        }
+        if (!codeAllowsPage(match)) return { allowed: false, reason: 'page', config: config };
+        if (Number.isFinite(codeExpiresAt) && Number(session.expiresAt) > codeExpiresAt) {
+            session.expiresAt = codeExpiresAt;
+            localStorage.setItem(ACCESS_KEY, JSON.stringify(session));
+            renderSessionStatus();
+        }
+        return { allowed: true, session: session, config: config };
+    }
+
+    async function monitorCurrentSession() {
+        if (!readSession()) return;
+        try { await validateCurrentSession(); }
+        catch (error) { /* Keep the local timer visible during a temporary network interruption. */ }
+    }
+
     async function validateCode() {
         if (state.loading) return;
         var input = document.getElementById('mikroAccessInput');
@@ -193,7 +288,7 @@
         state.loading = true;
         if (button) { button.disabled = true; button.textContent = 'جاري التحقق...'; }
         try {
-            if (!state.config) state.config = await loadConfig();
+            state.config = cacheConfig(await loadFirestoreConfig());
             if (state.config.enabled === false) { completeUnlock(); return; }
             var match = state.config.codes.find(function (item) {
                 return item && getCodeText(item.code) === typed;
@@ -216,6 +311,7 @@
                 scope: match.scope === 'all' || match.allPages === true ? 'all' : 'pages',
                 pages: Array.isArray(match.pages) ? match.pages.map(normalizePage) : []
             }));
+            renderSessionStatus();
             showMessage('تم التفعيل لمدة ' + formatLeft(expiresAt - now()), true);
             setTimeout(completeUnlock, 300);
         } catch (error) {
@@ -227,17 +323,31 @@
     }
 
     async function requireAccess(action) {
-        if (hasValidSession()) { if (typeof action === 'function') action(); return true; }
-        if (state.config && state.config.enabled === false) { if (typeof action === 'function') action(); return true; }
-        state.pendingAction = typeof action === 'function' ? action : null;
-        createOverlay();
-        if (!state.config) {
+        if (readSession()) {
             try {
-                state.config = await loadConfig();
-                if (state.config.enabled === false) completeUnlock();
+                var sessionCheck = await validateCurrentSession();
+                if (sessionCheck.allowed) {
+                    if (typeof action === 'function') action();
+                    return true;
+                }
             } catch (error) {
-                showMessage('تعذر الاتصال بنظام الاشتراكات، حاول بعد قليل');
+                state.pendingAction = typeof action === 'function' ? action : null;
+                createOverlay();
+                showMessage('تعذر التأكد من حالة الاشتراك الآن، حاول مرة اخرى');
+                return false;
             }
+        }
+        state.pendingAction = typeof action === 'function' ? action : null;
+        try {
+            state.config = cacheConfig(await loadFirestoreConfig());
+            if (state.config.enabled === false) {
+                completeUnlock();
+                return true;
+            }
+            createOverlay();
+        } catch (error) {
+            createOverlay();
+            showMessage('تعذر الاتصال بنظام الاشتراكات، حاول بعد قليل');
         }
         return false;
     }
@@ -245,15 +355,24 @@
     function installPaidActionGuard() {
         document.addEventListener('click', function (event) {
             var target = event.target && event.target.closest ? event.target.closest('[data-paid-action]') : null;
-            if (!target || hasValidSession() || (state.config && state.config.enabled === false)) return;
+            if (!target) return;
+            if (state.approvedTarget === target) {
+                state.approvedTarget = null;
+                return;
+            }
             event.preventDefault();
             event.stopImmediatePropagation();
-            requireAccess(function () { target.click(); });
+            requireAccess(function () {
+                state.approvedTarget = target;
+                target.click();
+            });
         }, true);
     }
 
     function boot() {
         installPaidActionGuard();
+        renderSessionStatus();
+        if (!state.monitorTimer) state.monitorTimer = setInterval(monitorCurrentSession, 10000);
         loadConfig().then(function (config) { state.config = config; }).catch(function () {});
     }
 

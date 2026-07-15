@@ -559,8 +559,15 @@
                             <input type="text" class="form-control" id="newAccessCode" placeholder="مثال: MT-2026">
                         </div>
                         <div class="form-group">
-                            <label>صلاحية الباسورد الجديد بالساعات</label>
+                            <label>مدة صلاحية الباسورد الجديد</label>
                             <input type="number" class="form-control" id="newAccessDuration" value="24" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>وحدة المدة</label>
+                            <select class="form-control" id="newAccessDurationUnit">
+                                <option value="hours">ساعة</option>
+                                <option value="minutes">دقيقة</option>
+                            </select>
                         </div>
                     </div>
                     <div style="display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start;margin-bottom:20px">
@@ -1520,10 +1527,11 @@ ${typesText}
             p.codes.forEach(code => {
                 if (!code || code.expiresAt || !code.createdAt) return;
                 const createdAt = Date.parse(code.createdAt);
-                const durationHours = Math.max(1, Number(code.durationHours || p.durationHours || 24));
+                const durationMinutes = Math.max(1, Number(code.durationMinutes || (code.durationHours || p.durationHours || 24) * 60));
                 if (Number.isFinite(createdAt)) {
-                    code.durationHours = durationHours;
-                    code.expiresAt = new Date(createdAt + durationHours * 36e5).toISOString();
+                    code.durationMinutes = durationMinutes;
+                    code.durationHours = durationMinutes / 60;
+                    code.expiresAt = new Date(createdAt + durationMinutes * 60000).toISOString();
                 }
             });
             return p;
@@ -1650,7 +1658,9 @@ ${typesText}
         async function addAccessCode() {
             const p = ensurePaywallDefaults();
             const codeValue = document.getElementById('newAccessCode').value.trim();
-            const durationHours = Math.max(1, Number(document.getElementById('newAccessDuration').value || 24));
+            const durationValue = Math.max(1, Number(document.getElementById('newAccessDuration').value || 24));
+            const durationUnit = document.getElementById('newAccessDurationUnit').value;
+            const durationMinutes = durationUnit === 'minutes' ? durationValue : durationValue * 60;
             const scope = document.getElementById('newAccessScope').value;
             const pages = scope === 'pages' ? getSelectedAccessPages() : [];
             if (!codeValue) { showNotification('اكتب الباسورد أولا', 'error'); return; }
@@ -1662,9 +1672,10 @@ ${typesText}
                 active:true,
                 scope,
                 pages,
-                durationHours,
+                durationMinutes,
+                durationHours:durationMinutes / 60,
                 createdAt:createdAt.toISOString(),
-                expiresAt:new Date(createdAt.getTime() + durationHours * 36e5).toISOString()
+                expiresAt:new Date(createdAt.getTime() + durationMinutes * 60000).toISOString()
             };
             p.codes.unshift(newCode);
             try {
@@ -1702,13 +1713,14 @@ ${typesText}
             if (!code) return;
             const previousExpiry = code.expiresAt;
             const previousActive = code.active;
-            const durationHours = Math.max(1, Number(code.durationHours || p.durationHours || 24));
+            const durationMinutes = Math.max(1, Number(code.durationMinutes || (code.durationHours || p.durationHours || 24) * 60));
             code.active = true;
-            code.expiresAt = new Date(Date.now() + durationHours * 36e5).toISOString();
+            code.expiresAt = new Date(Date.now() + durationMinutes * 60000).toISOString();
             try {
                 await savePaywallData();
                 renderAccessCodes();
-                showNotification(`تم تجديد الباسورد لمدة ${durationHours} ساعة`, 'success');
+                const durationText = durationMinutes < 60 ? `${durationMinutes} دقيقة` : `${durationMinutes / 60} ساعة`;
+                showNotification(`تم تجديد الباسورد لمدة ${durationText}`, 'success');
             } catch (e) {
                 code.expiresAt = previousExpiry;
                 code.active = previousActive;
