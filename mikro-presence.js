@@ -5,19 +5,18 @@
     var path = (location.pathname || '').split('/').pop() || 'index.html';
     if (blockedPages.indexOf(path) !== -1) return;
 
-    var BIN_ID = '6984fe4d43b1c97be9684aa8';
-    var API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
-    var API_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+    var FIREBASE_API_KEY = 'AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4';
+    var FIRESTORE_BASE = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents/problems/';
     var VISITOR_KEY = 'mikrotools_visitor_id';
-    var SESSION_KEY = 'mikrotools_session_id';
-    var HEARTBEAT_INTERVAL = 45000;
-    var ONLINE_TIMEOUT = 120000;
-    var REQUEST_TIMEOUT = 6000;
+    var SESSION_KEY = 'mikrotools_presence_id';
+    var FIRST_SEEN_KEY = 'mikrotools_presence_first_seen';
+    var HEARTBEAT_INTERVAL = 30000;
+    var REQUEST_TIMEOUT = 7000;
     var heartbeatTimer = null;
     var isSending = false;
 
     function uid(prefix) {
-        return prefix + '_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 9);
+        return prefix + '_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
     }
 
     function getOrCreate(key, prefix) {
@@ -29,91 +28,58 @@
         return value;
     }
 
+    function getFirstSeen() {
+        var value = localStorage.getItem(FIRST_SEEN_KEY);
+        if (!value) {
+            value = new Date().toISOString();
+            localStorage.setItem(FIRST_SEEN_KEY, value);
+        }
+        return value;
+    }
+
     function getDeviceType() {
-        var w = window.innerWidth || screen.width || 1024;
-        if (w <= 767) return 'موبايل';
-        if (w <= 1024) return 'تابلت';
+        var width = window.innerWidth || screen.width || 1024;
+        if (width <= 767) return 'موبايل';
+        if (width <= 1024) return 'تابلت';
         return 'كمبيوتر';
     }
 
-    function normalizeRecord(record) {
-        record = record || {};
-        record.analytics = record.analytics || {};
-        record.analytics.pages = record.analytics.pages || {};
-        record.analytics.daily = record.analytics.daily || {};
-        record.analytics.activeSessions = record.analytics.activeSessions || {};
-        return record;
-    }
-
-    function cleanupSessions(sessions, now) {
-        Object.keys(sessions || {}).forEach(function (key) {
-            var lastSeen = new Date(sessions[key].lastSeen || 0).getTime();
-            if (!lastSeen || now - lastSeen > ONLINE_TIMEOUT) delete sessions[key];
-        });
+    function firestoreFields(active, nowIso, sessionId, visitorId) {
+        return {
+            kind: { stringValue: 'mikro_presence' },
+            id: { stringValue: sessionId },
+            visitorId: { stringValue: visitorId },
+            page: { stringValue: document.title || path },
+            path: { stringValue: path },
+            url: { stringValue: location.pathname || '/' + path },
+            device: { stringValue: getDeviceType() },
+            language: { stringValue: document.documentElement.lang || navigator.language || 'ar' },
+            firstSeen: { stringValue: getFirstSeen() },
+            lastSeen: { stringValue: nowIso },
+            active: { booleanValue: active !== false }
+        };
     }
 
     async function heartbeat(active) {
-        if (isSending) return;
+        if (isSending && active !== false) return;
         isSending = true;
         var controller = new AbortController();
         var timeoutId = setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT);
-        var now = Date.now();
-        var nowIso = new Date(now).toISOString();
-        var visitorId = getOrCreate(VISITOR_KEY, 'visitor');
         var sessionId = getOrCreate(SESSION_KEY, 'session');
+        var visitorId = getOrCreate(VISITOR_KEY, 'visitor');
+        var documentId = 'mikro_presence_' + sessionId.replace(/[^a-zA-Z0-9_-]/g, '');
+        var url = FIRESTORE_BASE + encodeURIComponent(documentId) + '?key=' + FIREBASE_API_KEY;
 
         try {
-            var response = await fetch(API_URL + '/latest', {
-                headers: { 'X-Master-Key': API_KEY },
-                cache: 'no-cache',
-                signal: controller.signal
-            });
-            if (!response.ok) throw new Error('HTTP ' + response.status);
-            var data = await response.json();
-            var record = normalizeRecord(data.record);
-            var sessions = record.analytics.activeSessions;
-
-            cleanupSessions(sessions, now);
-            if (active === false) {
-                delete sessions[sessionId];
-            } else {
-                sessions[sessionId] = {
-                    id: sessionId,
-                    visitorId: visitorId,
-                    page: document.title || path,
-                    path: path,
-                    url: location.pathname,
-                    device: getDeviceType(),
-                    language: document.documentElement.lang || navigator.language || 'ar',
-                    firstSeen: sessions[sessionId]?.firstSeen || nowIso,
-                    lastSeen: nowIso
-                };
-            }
-
-            var activeList = Object.values(sessions);
-            record.analytics.liveNow = activeList.length;
-            record.analytics.currentOnline = activeList.length;
-            record.analytics.activeVisitors = activeList.length;
-            record.analytics.currentPages = activeList.reduce(function (acc, item) {
-                acc[item.path || item.page || 'unknown'] = (acc[item.path || item.page || 'unknown'] || 0) + 1;
-                return acc;
-            }, {});
-            record.analytics.liveActivity = activeList
-                .sort(function (a, b) { return new Date(b.lastSeen) - new Date(a.lastSeen); })
-                .slice(0, 30);
-            record.analytics.lastPresenceUpdate = nowIso;
-
-            await fetch(API_URL, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': API_KEY,
-                    'X-Bin-Versioning': 'false'
-                },
-                body: JSON.stringify(record),
-                keepalive: active === false,
-                signal: active === false ? undefined : controller.signal
-            });
+            var options = {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fields: firestoreFields(active, new Date().toISOString(), sessionId, visitorId) }),
+                keepalive: active === false
+            };
+            if (active !== false) options.signal = controller.signal;
+            var response = await fetch(url, options);
+            if (!response.ok) throw new Error('Firestore HTTP ' + response.status);
         } catch (error) {
             if (window.console) console.warn('MikroTools presence skipped:', error.message);
         } finally {
@@ -123,7 +89,7 @@
     }
 
     function startPresence() {
-        setTimeout(function () { heartbeat(true); }, 2500);
+        heartbeat(true);
         heartbeatTimer = setInterval(function () { heartbeat(true); }, HEARTBEAT_INTERVAL);
     }
 
@@ -131,13 +97,9 @@
         if (document.visibilityState === 'visible') heartbeat(true);
     });
     window.addEventListener('pagehide', function () { heartbeat(false); });
-    window.addEventListener('beforeunload', function () { heartbeat(false); });
 
-    if (document.readyState === 'complete') {
-        startPresence();
-    } else {
-        window.addEventListener('load', startPresence, { once: true });
-    }
+    if (document.readyState === 'complete') startPresence();
+    else window.addEventListener('load', startPresence, { once: true });
 
     window.MikroToolsPresence = {
         refresh: function () { return heartbeat(true); },

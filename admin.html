@@ -10,7 +10,7 @@
     <!-- Firebase Firestore Module -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-        import { getFirestore, collection, getDocs, getDoc, setDoc, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+        import { getFirestore, collection, getDocs, getDoc, setDoc, updateDoc, deleteDoc, doc, orderBy, query, where, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
         const firebaseConfig = {
             apiKey:"AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",
             authDomain:"mikro-tools.firebaseapp.com",
@@ -21,7 +21,7 @@
         };
         const fbApp = initializeApp(firebaseConfig);
         window._db_fs = getFirestore(fbApp);
-        window._fs = { collection, getDocs, getDoc, setDoc, updateDoc, deleteDoc, doc, orderBy, query, onSnapshot };
+        window._fs = { collection, getDocs, getDoc, setDoc, updateDoc, deleteDoc, doc, orderBy, query, where, onSnapshot };
         window._firestoreReady = true;
         document.dispatchEvent(new Event('firestoreReady'));
     </script>
@@ -871,7 +871,7 @@ ${typesText}
             const now = Date.now();
             return Object.values(sessions).filter(session => {
                 const lastSeen = new Date(session.lastSeen || 0).getTime();
-                return lastSeen && now - lastSeen <= 120000;
+                return session.active !== false && lastSeen && now - lastSeen <= 120000;
             });
         }
         function hasPresenceTracking() {
@@ -997,6 +997,51 @@ ${typesText}
             }
         }
 
+        async function loadPresenceFromFirestore() {
+            try {
+                await waitForFirestore();
+                if (!window._db_fs) return null;
+                const { collection, getDocs, query, where } = window._fs;
+                const q = query(collection(window._db_fs, 'problems'), where('kind', '==', 'mikro_presence'));
+                const snap = await getDocs(q);
+                const sessions = {};
+                snap.forEach(d => {
+                    const session = { ...d.data(), _docId:d.id };
+                    const lastSeen = new Date(session.lastSeen || 0).getTime();
+                    if (session.active !== false && lastSeen && Date.now() - lastSeen <= 120000) {
+                        sessions[session.id || d.id] = session;
+                    }
+                });
+                return sessions;
+            } catch (e) {
+                console.error('Firestore presence load error:', e);
+                return null;
+            }
+        }
+
+        async function refreshPresenceData() {
+            const sessions = await loadPresenceFromFirestore();
+            if (sessions === null) return false;
+            const activeList = Object.values(sessions);
+            const currentPages = activeList.reduce((acc, item) => {
+                const key = item.path || item.page || 'unknown';
+                acc[key] = (acc[key] || 0) + 1;
+                return acc;
+            }, {});
+            systemData.analytics = {
+                ...systemData.analytics,
+                activeSessions:sessions,
+                liveNow:activeList.length,
+                currentOnline:activeList.length,
+                activeVisitors:activeList.length,
+                currentPages,
+                activePages:currentPages,
+                liveActivity:activeList,
+                lastPresenceUpdate:new Date().toISOString()
+            };
+            return true;
+        }
+
         async function loadPaywallFromFirestore() {
             try {
                 await waitForFirestore();
@@ -1107,6 +1152,7 @@ ${typesText}
                     try { await savePaywallToFirestore(systemData.adminData.paywall); } catch (e) { console.error('Paywall migration error:', e); }
                 }
                 ensurePaywallDefaults();
+                await refreshPresenceData();
 
                 // Load problems from Firestore
                 systemData.problems = await loadProblemsFromFirestore();
@@ -1387,21 +1433,27 @@ ${typesText}
         }
 
         async function refreshAnalyticsData(silent = false) {
+            let analyticsLoaded = false;
             try {
                 const d = await db.getData();
                 if (d.analytics) systemData.analytics = { pages: {}, daily: {}, ...d.analytics };
                 if (d.adminData) systemData.adminData = { ...systemData.adminData, ...d.adminData };
                 if (!systemData.adminData.systemLogs) systemData.adminData.systemLogs = [];
-                lastAnalyticsSync = new Date();
-                syncTelegramStats();
-                updateDashboard();
-                updateVisitorsDisplay();
-                updatePagesDisplay();
-                updateRealtimeData();
-                if (!silent) showNotification('تم تحديث البيانات الحقيقية', 'success');
+                analyticsLoaded = true;
             } catch(e) {
                 console.error('Analytics refresh error:', e);
-                if (!silent) showNotification('تعذر تحديث التحليلات الآن', 'error');
+            }
+            const presenceLoaded = await refreshPresenceData();
+            lastAnalyticsSync = new Date();
+            syncTelegramStats();
+            updateDashboard();
+            updateVisitorsDisplay();
+            updatePagesDisplay();
+            updateRealtimeData();
+            if (!silent) {
+                if (presenceLoaded) showNotification('تم تحديث النشاط الحي', 'success');
+                else if (analyticsLoaded) showNotification('تم تحديث التحليلات', 'success');
+                else showNotification('تعذر تحديث النشاط الحي الآن', 'error');
             }
         }
 
@@ -1433,7 +1485,7 @@ ${typesText}
                     <div style="display:flex;align-items:center;gap:15px;padding:15px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0">
                         <div style="width:45px;height:45px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;font-size:18px"><i class="fas fa-user"></i></div>
                         <div style="flex:1"><div style="color:#1e293b;font-weight:600">${a.id || a.visitorId || 'زائر_' + (i+1)}</div><div style="color:#64748b;font-size:13px">${a.page || a.path || 'صفحة غير محددة'} - ${a.device || 'غير متاح'}</div></div>
-                        <div style="font-size:12px;color:#64748b;background:#f1f5f9;padding:6px 12px;border-radius:20px">${a.time ? formatDate(a.time) : 'نشط الآن'}</div>
+                        <div style="font-size:12px;color:#64748b;background:#f1f5f9;padding:6px 12px;border-radius:20px">${a.lastSeen ? new Date(a.lastSeen).toLocaleTimeString('ar-EG') : (a.time ? formatDate(a.time) : 'نشط الآن')}</div>
                     </div>`).join('');
                 return;
             }
@@ -1444,7 +1496,7 @@ ${typesText}
 
         function startRealtimeUpdates() {
             if (realtimeInterval) clearInterval(realtimeInterval);
-            realtimeInterval = setInterval(() => refreshAnalyticsData(true), 30000);
+            realtimeInterval = setInterval(() => refreshAnalyticsData(true), 15000);
         }
 
         // ===== Visitors/Pages =====
