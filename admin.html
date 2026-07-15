@@ -558,6 +558,10 @@
                             <label>باسورد جديد</label>
                             <input type="text" class="form-control" id="newAccessCode" placeholder="مثال: MT-2026">
                         </div>
+                        <div class="form-group">
+                            <label>صلاحية الباسورد الجديد بالساعات</label>
+                            <input type="number" class="form-control" id="newAccessDuration" value="24" min="1">
+                        </div>
                     </div>
                     <div style="display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start;margin-bottom:20px">
                         <div class="form-group">
@@ -578,7 +582,7 @@
                     </div>
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>الباسورد</th><th>النطاق</th><th>الحالة</th><th>تاريخ الإنشاء</th><th>إجراءات</th></tr></thead>
+                            <thead><tr><th>الباسورد</th><th>النطاق</th><th>الحالة</th><th>تاريخ الإنشاء</th><th>ينتهي في</th><th>الوقت المتبقي</th><th>إجراءات</th></tr></thead>
                             <tbody id="accessCodesBody"></tbody>
                         </table>
                     </div>
@@ -1513,6 +1517,15 @@ ${typesText}
             p.enabled = p.enabled !== false;
             p.durationHours = Number(p.durationHours || 24);
             p.codes = Array.isArray(p.codes) ? p.codes : [];
+            p.codes.forEach(code => {
+                if (!code || code.expiresAt || !code.createdAt) return;
+                const createdAt = Date.parse(code.createdAt);
+                const durationHours = Math.max(1, Number(code.durationHours || p.durationHours || 24));
+                if (Number.isFinite(createdAt)) {
+                    code.durationHours = durationHours;
+                    code.expiresAt = new Date(createdAt + durationHours * 36e5).toISOString();
+                }
+            });
             return p;
         }
         function getAccessPages() {
@@ -1544,6 +1557,9 @@ ${typesText}
             renderAccessPagesPicker();
             renderAccessCodes();
             toggleAccessPagesPicker();
+            if (!window._mikroAccessCodesTimer) {
+                window._mikroAccessCodesTimer = setInterval(renderAccessCodes, 60000);
+            }
         }
         function getSelectedAccessPages() {
             return [...document.querySelectorAll('.access-page-check:checked')].map(input => input.value);
@@ -1555,26 +1571,56 @@ ${typesText}
             const names = pages.map(path => (getAccessPages().find(p => p.path === path)?.name || path));
             return names.join('، ');
         }
+        function getCodeExpiry(code) {
+            const value = Date.parse(code?.expiresAt || '');
+            return Number.isFinite(value) ? value : null;
+        }
+        function isCodeExpired(code) {
+            const expiresAt = getCodeExpiry(code);
+            return expiresAt !== null && expiresAt <= Date.now();
+        }
+        function formatCodeRemaining(code) {
+            const expiresAt = getCodeExpiry(code);
+            if (expiresAt === null) return 'بدون انتهاء';
+            const remaining = expiresAt - Date.now();
+            if (remaining <= 0) return 'انتهت الصلاحية';
+            const totalMinutes = Math.ceil(remaining / 60000);
+            const days = Math.floor(totalMinutes / 1440);
+            const hours = Math.floor((totalMinutes % 1440) / 60);
+            const minutes = totalMinutes % 60;
+            if (days > 0) return `${days} يوم و${hours} ساعة`;
+            if (hours > 0) return `${hours} ساعة و${minutes} دقيقة`;
+            return `${minutes} دقيقة`;
+        }
         function renderAccessCodes() {
             const body = document.getElementById('accessCodesBody');
             if (!body) return;
             const codes = ensurePaywallDefaults().codes;
             if (!codes.length) {
-                body.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:25px">لا توجد باسوردات بعد</td></tr>';
+                body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;padding:25px">لا توجد باسوردات بعد</td></tr>';
                 return;
             }
-            body.innerHTML = codes.map((code, index) => `
+            body.innerHTML = codes.map((code, index) => {
+                const expired = isCodeExpired(code);
+                const expiresAt = getCodeExpiry(code);
+                const statusClass = expired || code.active === false ? 'badge-danger' : 'badge-success';
+                const statusText = expired ? 'منتهي' : (code.active === false ? 'متوقف' : 'مفعل');
+                return `
                 <tr>
                     <td><strong style="direction:ltr;display:inline-block">${code.code}</strong></td>
                     <td>${describeCodeScope(code)}</td>
-                    <td><span class="badge ${code.active === false ? 'badge-danger' : 'badge-success'}">${code.active === false ? 'متوقف' : 'مفعل'}</span></td>
+                    <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>${code.createdAt ? new Date(code.createdAt).toLocaleString('ar-EG') : '-'}</td>
+                    <td>${expiresAt === null ? 'غير محدد' : new Date(expiresAt).toLocaleString('ar-EG')}</td>
+                    <td><strong style="color:${expired ? '#dc2626' : '#059669'}">${formatCodeRemaining(code)}</strong></td>
                     <td>
-                        <button class="action-btn btn-view" onclick="toggleAccessCode(${index})"><i class="fas fa-power-off"></i>${code.active === false ? 'تفعيل' : 'تعطيل'}</button>
+                        ${expired
+                            ? `<button class="action-btn btn-view" onclick="renewAccessCode(${index})"><i class="fas fa-redo"></i>تجديد</button>`
+                            : `<button class="action-btn btn-view" onclick="toggleAccessCode(${index})"><i class="fas fa-power-off"></i>${code.active === false ? 'تفعيل' : 'تعطيل'}</button>`}
                         <button class="action-btn btn-delete" onclick="deleteAccessCode(${index})"><i class="fas fa-trash"></i>حذف</button>
                     </td>
                 </tr>
-            `).join('');
+            `}).join('');
         }
         async function savePaywallData() {
             const paywall = ensurePaywallDefaults();
@@ -1604,12 +1650,22 @@ ${typesText}
         async function addAccessCode() {
             const p = ensurePaywallDefaults();
             const codeValue = document.getElementById('newAccessCode').value.trim();
+            const durationHours = Math.max(1, Number(document.getElementById('newAccessDuration').value || 24));
             const scope = document.getElementById('newAccessScope').value;
             const pages = scope === 'pages' ? getSelectedAccessPages() : [];
             if (!codeValue) { showNotification('اكتب الباسورد أولا', 'error'); return; }
             if (scope === 'pages' && !pages.length) { showNotification('اختر صفحة واحدة على الأقل', 'error'); return; }
             if (p.codes.some(c => String(c.code).trim() === codeValue)) { showNotification('هذا الباسورد موجود بالفعل', 'error'); return; }
-            const newCode = { code:codeValue, active:true, scope, pages, createdAt:new Date().toISOString() };
+            const createdAt = new Date();
+            const newCode = {
+                code:codeValue,
+                active:true,
+                scope,
+                pages,
+                durationHours,
+                createdAt:createdAt.toISOString(),
+                expiresAt:new Date(createdAt.getTime() + durationHours * 36e5).toISOString()
+            };
             p.codes.unshift(newCode);
             try {
                 await savePaywallData();
@@ -1640,6 +1696,27 @@ ${typesText}
                 showNotification('تعذر تحديث الباسورد: ' + e.message, 'error');
             }
         }
+        async function renewAccessCode(index) {
+            const p = ensurePaywallDefaults();
+            const code = p.codes[index];
+            if (!code) return;
+            const previousExpiry = code.expiresAt;
+            const previousActive = code.active;
+            const durationHours = Math.max(1, Number(code.durationHours || p.durationHours || 24));
+            code.active = true;
+            code.expiresAt = new Date(Date.now() + durationHours * 36e5).toISOString();
+            try {
+                await savePaywallData();
+                renderAccessCodes();
+                showNotification(`تم تجديد الباسورد لمدة ${durationHours} ساعة`, 'success');
+            } catch (e) {
+                code.expiresAt = previousExpiry;
+                code.active = previousActive;
+                renderAccessCodes();
+                console.error('Access code renewal error:', e);
+                showNotification('تعذر تجديد الباسورد: ' + e.message, 'error');
+            }
+        }
         async function deleteAccessCode(index) {
             const p = ensurePaywallDefaults();
             if (!p.codes[index]) return;
@@ -1659,6 +1736,7 @@ ${typesText}
         window.savePaywallSettings = savePaywallSettings;
         window.addAccessCode = addAccessCode;
         window.toggleAccessCode = toggleAccessCode;
+        window.renewAccessCode = renewAccessCode;
         window.deleteAccessCode = deleteAccessCode;
 
         // ===== Settings =====

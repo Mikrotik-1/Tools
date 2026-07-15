@@ -9,7 +9,7 @@
     var API_KEY = '$2a$10$sDP72/VHq2TmDVYz8R1P1uwCbqVkDiIKs9yAeh0hxrEHnKnggxa0G';
     var API_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID + '/latest';
     var FIREBASE_API_KEY = 'AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4';
-    var FIRESTORE_URL = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents/site_settings/paywall?key=' + FIREBASE_API_KEY;
+    var FIRESTORE_URL = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents/problems/mikrotools_paywall_config?key=' + FIREBASE_API_KEY;
     var ACCESS_KEY = 'mikrotools_paid_access';
     var CONFIG_CACHE_KEY = 'mikrotools_paid_config';
     var state = { config: null, loading: false, pendingAction: null };
@@ -58,6 +58,15 @@
         paywall.enabled = paywall.enabled !== false;
         paywall.durationHours = Number(paywall.durationHours || 24);
         paywall.codes = Array.isArray(paywall.codes) ? paywall.codes : [];
+        paywall.codes.forEach(function (item) {
+            if (!item || item.expiresAt || !item.createdAt) return;
+            var createdAt = Date.parse(item.createdAt);
+            var durationHours = Math.max(1, Number(item.durationHours || paywall.durationHours || 24));
+            if (Number.isFinite(createdAt)) {
+                item.durationHours = durationHours;
+                item.expiresAt = new Date(createdAt + durationHours * 36e5).toISOString();
+            }
+        });
         return paywall;
     }
 
@@ -91,14 +100,19 @@
     }
 
     async function loadConfig() {
-        try { return cacheConfig(await loadFirestoreConfig()); }
-        catch (firestoreError) {
-            try { return cacheConfig(await loadLegacyConfig()); }
-            catch (legacyError) {
-                var cached = readCachedConfig();
-                if (cached) return cached;
-                throw legacyError;
+        var firestoreError = null;
+        for (var attempt = 0; attempt < 2; attempt++) {
+            try { return cacheConfig(await loadFirestoreConfig()); }
+            catch (error) {
+                firestoreError = error;
+                if (attempt === 0) await new Promise(function (resolve) { setTimeout(resolve, 700); });
             }
+        }
+        try { return cacheConfig(await loadLegacyConfig()); }
+        catch (legacyError) {
+            var cached = readCachedConfig();
+            if (cached) return cached;
+            throw firestoreError || legacyError;
         }
     }
 
@@ -182,12 +196,19 @@
             if (!state.config) state.config = await loadConfig();
             if (state.config.enabled === false) { completeUnlock(); return; }
             var match = state.config.codes.find(function (item) {
-                return item && item.active !== false && getCodeText(item.code) === typed;
+                return item && getCodeText(item.code) === typed;
             });
-            if (!match) { showMessage('الباسورد غير صحيح او غير مفعل'); return; }
+            if (!match) { showMessage('الباسورد غير صحيح'); return; }
+            if (match.active === false) { showMessage('الباسورد غير مفعل'); return; }
+            var codeExpiresAt = Date.parse(match.expiresAt || '');
+            if (Number.isFinite(codeExpiresAt) && codeExpiresAt <= now()) {
+                showMessage('انتهت صلاحية الباسورد');
+                return;
+            }
             if (!codeAllowsPage(match)) { showMessage('الباسورد صحيح لكنه غير مفعل لهذه الصفحة'); return; }
 
             var expiresAt = now() + Math.max(1, Number(state.config.durationHours || 24)) * 36e5;
+            if (Number.isFinite(codeExpiresAt)) expiresAt = Math.min(expiresAt, codeExpiresAt);
             localStorage.setItem(ACCESS_KEY, JSON.stringify({
                 code: typed,
                 expiresAt: expiresAt,
