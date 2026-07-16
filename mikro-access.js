@@ -145,6 +145,10 @@
             '#mikroAccessBtn{width:100%;margin-top:12px;padding:14px;border:0;border-radius:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:16px;font-weight:800;cursor:pointer}',
             '#mikroAccessBtn:disabled{opacity:.65;cursor:not-allowed}',
             '#mikroAccessMsg{min-height:22px;margin-top:12px;font-size:13px;text-align:center;color:#fca5a5}',
+            '#mikroAccessContact{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);text-align:center}',
+            '#mikroAccessContact p{margin:0 0 9px;color:#cbd5e1;font-size:13px}',
+            '#mikroAccessWhatsapp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:12px;border-radius:10px;background:#25d366;color:#fff;text-decoration:none;font-size:14px;font-weight:800;transition:background .2s,transform .2s}',
+            '#mikroAccessWhatsapp:hover{background:#1fb85a;transform:translateY(-1px)}',
             '#mikroAccessStatus{position:fixed;right:16px;bottom:16px;z-index:2147482000;width:min(330px,calc(100vw - 32px));box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:10px;padding:12px 14px;box-shadow:0 14px 34px rgba(15,23,42,.3);font-family:Tajawal,Arial,sans-serif;direction:rtl}',
             '#mikroAccessStatusTitle{font-size:13px;font-weight:800;margin-bottom:7px;color:#c4b5fd}',
             '#mikroAccessStatusTimes{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:#cbd5e1}',
@@ -161,8 +165,10 @@
         if (existing) return existing;
         ensureStyles();
         var overlay = document.createElement('div');
+        var whatsappMessage = 'مرحبًا، أريد الاشتراك في MikroTools والحصول على باسورد لتفعيل أداة: ' + (document.title || page);
+        var whatsappUrl = 'https://wa.me/201092503391?text=' + encodeURIComponent(whatsappMessage);
         overlay.id = 'mikroAccessOverlay';
-        overlay.innerHTML = '<div id="mikroAccessBox"><button id="mikroAccessClose" type="button" title="اغلاق">&times;</button><h2>الميزة دي مدفوعة</h2><p>ادخل باسورد الاشتراك لاستخدام الأداة أو الحصول على النتيجة. تقدر تكمل تصفح الموقع عادي في أي وقت.</p><input id="mikroAccessInput" type="password" autocomplete="off" placeholder="اكتب الباسورد هنا"><button id="mikroAccessBtn" type="button">فتح الميزة</button><div id="mikroAccessMsg"></div></div>';
+        overlay.innerHTML = '<div id="mikroAccessBox"><button id="mikroAccessClose" type="button" title="اغلاق">&times;</button><h2>الميزة دي مدفوعة</h2><p>ادخل باسورد الاشتراك لاستخدام الأداة أو الحصول على النتيجة. تقدر تكمل تصفح الموقع عادي في أي وقت.</p><input id="mikroAccessInput" type="password" autocomplete="off" placeholder="اكتب الباسورد هنا"><button id="mikroAccessBtn" type="button">فتح الميزة</button><div id="mikroAccessMsg"></div><div id="mikroAccessContact"><p>ليس لديك باسورد اشتراك؟</p><a id="mikroAccessWhatsapp" href="' + whatsappUrl + '" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i><span>تواصل عبر واتساب للاشتراك</span></a></div></div>';
         document.body.appendChild(overlay);
         document.documentElement.classList.add('mikro-access-hidden');
 
