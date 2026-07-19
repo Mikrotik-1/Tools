@@ -12,6 +12,7 @@
     var FIRESTORE_URL = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents/problems/mikrotools_paywall_config?key=' + FIREBASE_API_KEY;
     var ACCESS_KEY = 'mikrotools_paid_access';
     var CONFIG_CACHE_KEY = 'mikrotools_paid_config';
+    var STATUS_POSITION_KEY = 'mikrotools_access_status_position';
     var state = { config: null, loading: false, pendingAction: null, approvedTarget: null, statusTimer: null, monitorTimer: null };
 
     function now() { return Date.now(); }
@@ -150,11 +151,13 @@
             '#mikroAccessWhatsapp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:12px;border-radius:10px;background:#25d366;color:#fff;text-decoration:none;font-size:14px;font-weight:800;transition:background .2s,transform .2s}',
             '#mikroAccessWhatsapp:hover{background:#1fb85a;transform:translateY(-1px)}',
             '#mikroAccessStatus{position:fixed;right:16px;bottom:16px;z-index:2147482000;width:min(330px,calc(100vw - 32px));box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:10px;padding:12px 14px;box-shadow:0 14px 34px rgba(15,23,42,.3);font-family:Tajawal,Arial,sans-serif;direction:rtl}',
-            '#mikroAccessStatusTitle{font-size:13px;font-weight:800;margin-bottom:7px;color:#c4b5fd}',
+            '#mikroAccessStatusTitle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;font-weight:800;margin:-4px -4px 7px;padding:4px;color:#c4b5fd;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}',
+            '#mikroAccessStatusTitle:active{cursor:grabbing}',
+            '#mikroAccessStatusMove{color:#818cf8;font-size:14px;pointer-events:none}',
             '#mikroAccessStatusTimes{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:#cbd5e1}',
             '#mikroAccessStatusTimes strong{display:block;margin-top:2px;color:#fff;font-size:15px;direction:ltr;text-align:right}',
             '#mikroAccessStatusExpiry{margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:#94a3b8}',
-            '@media(max-width:600px){#mikroAccessStatus{right:10px;bottom:10px;width:calc(100vw - 20px);padding:10px 12px}}',
+            '@media(max-width:600px){#mikroAccessStatus{right:10px;bottom:10px;width:min(310px,calc(100vw - 20px));padding:10px 12px}}',
             '.mikro-access-hidden{overflow:hidden!important}'
         ].join('');
         document.head.appendChild(style);
@@ -223,6 +226,87 @@
         removeSessionStatus();
     }
 
+    function clampStatusPosition(status, left, top) {
+        var margin = 8;
+        var maxLeft = Math.max(margin, window.innerWidth - status.offsetWidth - margin);
+        var maxTop = Math.max(margin, window.innerHeight - status.offsetHeight - margin);
+        return {
+            left: Math.min(Math.max(margin, left), maxLeft),
+            top: Math.min(Math.max(margin, top), maxTop)
+        };
+    }
+
+    function saveStatusPosition(status) {
+        try {
+            var rect = status.getBoundingClientRect();
+            var maxLeft = Math.max(1, window.innerWidth - rect.width);
+            var maxTop = Math.max(1, window.innerHeight - rect.height);
+            localStorage.setItem(STATUS_POSITION_KEY, JSON.stringify({
+                x: Math.min(1, Math.max(0, rect.left / maxLeft)),
+                y: Math.min(1, Math.max(0, rect.top / maxTop))
+            }));
+        } catch (e) {}
+    }
+
+    function restoreStatusPosition(status) {
+        try {
+            var saved = JSON.parse(localStorage.getItem(STATUS_POSITION_KEY) || 'null');
+            if (!saved || !Number.isFinite(Number(saved.x)) || !Number.isFinite(Number(saved.y))) return;
+            var maxLeft = Math.max(0, window.innerWidth - status.offsetWidth);
+            var maxTop = Math.max(0, window.innerHeight - status.offsetHeight);
+            var position = clampStatusPosition(status, Number(saved.x) * maxLeft, Number(saved.y) * maxTop);
+            status.style.right = 'auto';
+            status.style.bottom = 'auto';
+            status.style.left = position.left + 'px';
+            status.style.top = position.top + 'px';
+        } catch (e) {}
+    }
+
+    function enableStatusDrag(status) {
+        if (!status || status.getAttribute('data-drag-ready') === '1') return;
+        var handle = document.getElementById('mikroAccessStatusTitle');
+        if (!handle) return;
+        status.setAttribute('data-drag-ready', '1');
+        handle.setAttribute('title', 'اسحب لنقل المربع - اضغط مرتين لإرجاعه');
+        var drag = null;
+
+        handle.addEventListener('pointerdown', function (event) {
+            if (event.pointerType === 'mouse' && event.button !== 0) return;
+            var rect = status.getBoundingClientRect();
+            drag = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, left: rect.left, top: rect.top };
+            status.style.right = 'auto';
+            status.style.bottom = 'auto';
+            status.style.left = rect.left + 'px';
+            status.style.top = rect.top + 'px';
+            handle.setPointerCapture(event.pointerId);
+            event.preventDefault();
+        });
+
+        handle.addEventListener('pointermove', function (event) {
+            if (!drag || event.pointerId !== drag.pointerId) return;
+            var position = clampStatusPosition(status, drag.left + event.clientX - drag.startX, drag.top + event.clientY - drag.startY);
+            status.style.left = position.left + 'px';
+            status.style.top = position.top + 'px';
+            event.preventDefault();
+        });
+
+        function finishDrag(event) {
+            if (!drag || event.pointerId !== drag.pointerId) return;
+            drag = null;
+            saveStatusPosition(status);
+        }
+        handle.addEventListener('pointerup', finishDrag);
+        handle.addEventListener('pointercancel', finishDrag);
+        handle.addEventListener('dblclick', function () {
+            localStorage.removeItem(STATUS_POSITION_KEY);
+            status.style.left = '';
+            status.style.top = '';
+            status.style.right = '';
+            status.style.bottom = '';
+        });
+        window.addEventListener('resize', function () { restoreStatusPosition(status); });
+    }
+
     function updateSessionStatus() {
         var session = readSession();
         if (!session || Number(session.expiresAt) <= now()) {
@@ -235,8 +319,10 @@
             status = document.createElement('div');
             status.id = 'mikroAccessStatus';
             status.setAttribute('role', 'status');
-            status.innerHTML = '<div id="mikroAccessStatusTitle">اشتراكك مفعل</div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusExpiry"></div>';
+            status.innerHTML = '<div id="mikroAccessStatusTitle"><span>اشتراكك مفعل</span><i id="mikroAccessStatusMove" class="fas fa-arrows-alt" aria-hidden="true"></i></div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusExpiry"></div>';
             document.body.appendChild(status);
+            enableStatusDrag(status);
+            requestAnimationFrame(function () { restoreStatusPosition(status); });
         }
         var unlockedAt = Date.parse(session.unlockedAt || '');
         var used = Number.isFinite(unlockedAt) ? now() - unlockedAt : 0;
@@ -270,7 +356,7 @@
             return { allowed: false, reason: 'revoked', config: config };
         }
         if (!codeAllowsPage(match)) return { allowed: false, reason: 'page', config: config };
-        if (Number.isFinite(codeExpiresAt) && Number(session.expiresAt) > codeExpiresAt) {
+        if (Number.isFinite(codeExpiresAt) && Number(session.expiresAt) !== codeExpiresAt) {
             session.expiresAt = codeExpiresAt;
             localStorage.setItem(ACCESS_KEY, JSON.stringify(session));
             renderSessionStatus();
@@ -308,8 +394,8 @@
             }
             if (!codeAllowsPage(match)) { showMessage('الباسورد صحيح لكنه غير مفعل لهذه الصفحة'); return; }
 
-            var expiresAt = now() + Math.max(1, Number(state.config.durationHours || 24)) * 36e5;
-            if (Number.isFinite(codeExpiresAt)) expiresAt = Math.min(expiresAt, codeExpiresAt);
+            var codeDurationMinutes = Math.max(1, Number(match.durationMinutes || (match.durationHours || state.config.durationHours || 24) * 60));
+            var expiresAt = Number.isFinite(codeExpiresAt) ? codeExpiresAt : now() + codeDurationMinutes * 60000;
             localStorage.setItem(ACCESS_KEY, JSON.stringify({
                 code: typed,
                 expiresAt: expiresAt,

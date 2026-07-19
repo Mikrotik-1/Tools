@@ -567,6 +567,7 @@
                             <select class="form-control" id="newAccessDurationUnit">
                                 <option value="hours">ساعة</option>
                                 <option value="minutes">دقيقة</option>
+                                <option value="days">يوم</option>
                             </select>
                         </div>
                     </div>
@@ -1652,6 +1653,19 @@ ${typesText}
             if (hours > 0) return `${hours} ساعة و${minutes} دقيقة`;
             return `${minutes} دقيقة`;
         }
+        function formatCodeDurationMinutes(totalMinutes) {
+            const minutes = Math.max(1, Number(totalMinutes || 1));
+            if (minutes % 1440 === 0) return `${minutes / 1440} يوم`;
+            if (minutes >= 1440) {
+                const days = Math.floor(minutes / 1440);
+                const hours = Math.floor((minutes % 1440) / 60);
+                const restMinutes = minutes % 60;
+                return `${days} يوم${hours ? ` و${hours} ساعة` : ''}${restMinutes ? ` و${restMinutes} دقيقة` : ''}`;
+            }
+            if (minutes % 60 === 0) return `${minutes / 60} ساعة`;
+            if (minutes > 60) return `${Math.floor(minutes / 60)} ساعة و${minutes % 60} دقيقة`;
+            return `${minutes} دقيقة`;
+        }
         function renderAccessCodes() {
             const body = document.getElementById('accessCodesBody');
             if (!body) return;
@@ -1712,7 +1726,7 @@ ${typesText}
             const codeValue = document.getElementById('newAccessCode').value.trim();
             const durationValue = Math.max(1, Number(document.getElementById('newAccessDuration').value || 24));
             const durationUnit = document.getElementById('newAccessDurationUnit').value;
-            const durationMinutes = durationUnit === 'minutes' ? durationValue : durationValue * 60;
+            const durationMinutes = durationUnit === 'minutes' ? durationValue : durationUnit === 'days' ? durationValue * 1440 : durationValue * 60;
             const scope = document.getElementById('newAccessScope').value;
             const pages = scope === 'pages' ? getSelectedAccessPages() : [];
             if (!codeValue) { showNotification('اكتب الباسورد أولا', 'error'); return; }
@@ -1771,7 +1785,7 @@ ${typesText}
             try {
                 await savePaywallData();
                 renderAccessCodes();
-                const durationText = durationMinutes < 60 ? `${durationMinutes} دقيقة` : `${durationMinutes / 60} ساعة`;
+                const durationText = formatCodeDurationMinutes(durationMinutes);
                 showNotification(`تم تجديد الباسورد لمدة ${durationText}`, 'success');
             } catch (e) {
                 code.expiresAt = previousExpiry;
