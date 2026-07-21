@@ -10,9 +10,11 @@
     var API_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID + '/latest';
     var FIREBASE_API_KEY = 'AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4';
     var FIRESTORE_URL = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents/problems/mikrotools_paywall_config?key=' + FIREBASE_API_KEY;
+    var FIRESTORE_DOCUMENTS_URL = 'https://firestore.googleapis.com/v1/projects/mikro-tools/databases/(default)/documents';
     var ACCESS_KEY = 'mikrotools_paid_access';
     var CONFIG_CACHE_KEY = 'mikrotools_paid_config';
     var STATUS_POSITION_KEY = 'mikrotools_access_status_position';
+    var DEVICE_KEY = 'mikrotools_paid_device_id';
     var state = { config: null, loading: false, pendingAction: null, approvedTarget: null, statusTimer: null, monitorTimer: null };
 
     function now() { return Date.now(); }
@@ -60,6 +62,90 @@
         return String(code || '').trim();
     }
 
+    function getDeviceId() {
+        var existing = '';
+        try { existing = localStorage.getItem(DEVICE_KEY) || ''; } catch (e) {}
+        if (existing) return existing;
+        var bytes = new Uint8Array(18);
+        if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(bytes);
+        else for (var i = 0; i < bytes.length; i++) bytes[i] = Math.floor(Math.random() * 256);
+        var id = Array.prototype.map.call(bytes, function (value) { return value.toString(16).padStart(2, '0'); }).join('');
+        try { localStorage.setItem(DEVICE_KEY, id); } catch (e) {}
+        return id;
+    }
+
+    function fallbackClaimHash(value) {
+        function part(seed) {
+            var hash = seed >>> 0;
+            for (var i = 0; i < value.length; i++) {
+                hash ^= value.charCodeAt(i);
+                hash = Math.imul(hash, 16777619) >>> 0;
+            }
+            return hash.toString(16).padStart(8, '0');
+        }
+        return part(2166136261) + part(2246822519) + part(3266489917) + part(668265263);
+    }
+
+    async function getClaimId(code) {
+        var value = 'mikrotools:' + getCodeText(code);
+        if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+            var digest = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+            return 'key_' + Array.prototype.map.call(new Uint8Array(digest), function (byte) { return byte.toString(16).padStart(2, '0'); }).join('');
+        }
+        return 'key_' + fallbackClaimHash(value);
+    }
+
+    function claimDocumentUrl(claimId, extraQuery) {
+        return FIRESTORE_DOCUMENTS_URL + '/problems/' + encodeURIComponent('mikrotools_claim_' + claimId) + '?key=' + FIREBASE_API_KEY + (extraQuery || '');
+    }
+
+    function firestoreString(fields, name) {
+        return fields && fields[name] && fields[name].stringValue ? fields[name].stringValue : '';
+    }
+
+    async function loadDeviceClaim(code) {
+        var claimId = await getClaimId(code);
+        var response = await fetch(claimDocumentUrl(claimId), { cache: 'no-store' });
+        if (response.status === 404) return { id: claimId, claim: null };
+        if (!response.ok) throw new Error('Device claim HTTP ' + response.status);
+        var data = await response.json();
+        return { id: claimId, claim: { deviceId: firestoreString(data.fields, 'deviceId'), claimedAt: firestoreString(data.fields, 'claimedAt') } };
+    }
+
+    async function claimCodeForDevice(item) {
+        var deviceId = getDeviceId();
+        var current = await loadDeviceClaim(item.code);
+        if (current.claim) return { allowed: current.claim.deviceId === deviceId, deviceId: deviceId };
+        var expiresAt = item.expiresAt && Number.isFinite(Date.parse(item.expiresAt)) ? new Date(item.expiresAt).toISOString() : new Date(now() + 365 * 86400000).toISOString();
+        var body = {
+            fields: {
+                deviceId: { stringValue: deviceId },
+                claimedAt: { stringValue: new Date().toISOString() },
+                expiresAt: { stringValue: expiresAt },
+                deviceLabel: { stringValue: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent || '') ? 'Mobile' : 'Computer' }
+            }
+        };
+        var response = await fetch(claimDocumentUrl(current.id, '&currentDocument.exists=false'), {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        if (response.ok) return { allowed: true, deviceId: deviceId };
+        if (response.status === 409 || response.status === 412) {
+            var winner = await loadDeviceClaim(item.code);
+            return { allowed: !!(winner.claim && winner.claim.deviceId === deviceId), deviceId: deviceId };
+        }
+        throw new Error('Device claim HTTP ' + response.status);
+    }
+
+    async function verifySessionDevice(session, item) {
+        if (!session || !item) return false;
+        var currentDeviceId = getDeviceId();
+        if (!session.deviceId || session.deviceId !== currentDeviceId) return false;
+        var current = await loadDeviceClaim(item.code);
+        return !!(current.claim && current.claim.deviceId === currentDeviceId);
+    }
+
     function codeAllowsPage(item) {
         if (!item) return false;
         if (item.scope === 'all' || item.allPages === true) return true;
@@ -73,6 +159,7 @@
         paywall.durationHours = Number(paywall.durationHours || 24);
         paywall.codes = Array.isArray(paywall.codes) ? paywall.codes : [];
         paywall.codes.forEach(function (item) {
+            if (item) item.singleDevice = item.singleDevice !== false;
             if (!item || item.expiresAt || !item.createdAt) return;
             var createdAt = Date.parse(item.createdAt);
             var durationMinutes = Math.max(1, Number(item.durationMinutes || (item.durationHours || paywall.durationHours || 24) * 60));
@@ -356,6 +443,10 @@
             return { allowed: false, reason: 'revoked', config: config };
         }
         if (!codeAllowsPage(match)) return { allowed: false, reason: 'page', config: config };
+        if (match.singleDevice !== false && !(await verifySessionDevice(session, match))) {
+            clearAccessSession();
+            return { allowed: false, reason: 'device', config: config };
+        }
         if (Number.isFinite(codeExpiresAt) && Number(session.expiresAt) !== codeExpiresAt) {
             session.expiresAt = codeExpiresAt;
             localStorage.setItem(ACCESS_KEY, JSON.stringify(session));
@@ -394,10 +485,17 @@
             }
             if (!codeAllowsPage(match)) { showMessage('الباسورد صحيح لكنه غير مفعل لهذه الصفحة'); return; }
 
+            var deviceClaim = match.singleDevice === false ? { allowed:true, deviceId:getDeviceId() } : await claimCodeForDevice(match);
+            if (!deviceClaim.allowed) {
+                showMessage('الباسورد مستخدم بالفعل على جهاز آخر. تواصل مع الإدارة لفك ارتباط الجهاز');
+                return;
+            }
+
             var codeDurationMinutes = Math.max(1, Number(match.durationMinutes || (match.durationHours || state.config.durationHours || 24) * 60));
             var expiresAt = Number.isFinite(codeExpiresAt) ? codeExpiresAt : now() + codeDurationMinutes * 60000;
             localStorage.setItem(ACCESS_KEY, JSON.stringify({
                 code: typed,
+                deviceId: deviceClaim.deviceId,
                 expiresAt: expiresAt,
                 unlockedAt: new Date().toISOString(),
                 scope: match.scope === 'all' || match.allPages === true ? 'all' : 'pages',

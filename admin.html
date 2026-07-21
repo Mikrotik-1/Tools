@@ -590,7 +590,7 @@
                     </div>
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>الباسورد</th><th>النطاق</th><th>الحالة</th><th>تاريخ الإنشاء</th><th>ينتهي في</th><th>الوقت المتبقي</th><th>إجراءات</th></tr></thead>
+                            <thead><tr><th>الباسورد</th><th>النطاق</th><th>الجهاز</th><th>الحالة</th><th>تاريخ الإنشاء</th><th>ينتهي في</th><th>الوقت المتبقي</th><th>إجراءات</th></tr></thead>
                             <tbody id="accessCodesBody"></tbody>
                         </table>
                     </div>
@@ -1570,6 +1570,46 @@ ${typesText}
         }
 
         // ===== Paid Access Codes =====
+        let accessClaimsCache = null;
+        function fallbackAccessClaimHash(value) {
+            const part = seed => {
+                let hash = seed >>> 0;
+                for (let i = 0; i < value.length; i++) {
+                    hash ^= value.charCodeAt(i);
+                    hash = Math.imul(hash, 16777619) >>> 0;
+                }
+                return hash.toString(16).padStart(8, '0');
+            };
+            return part(2166136261) + part(2246822519) + part(3266489917) + part(668265263);
+        }
+        async function getAccessClaimId(code) {
+            const value = 'mikrotools:' + String(code || '').trim();
+            if (window.crypto?.subtle && window.TextEncoder) {
+                const digest = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+                return 'key_' + [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('');
+            }
+            return 'key_' + fallbackAccessClaimHash(value);
+        }
+        async function refreshAccessClaims() {
+            try {
+                await waitForFirestore();
+                if (!window._db_fs) return;
+                const { doc, getDoc } = window._fs;
+                accessClaimsCache = {};
+                const codes = ensurePaywallDefaults().codes;
+                await Promise.all(codes.map(async code => {
+                    if (!code) return;
+                    if (!code.claimId) code.claimId = await getAccessClaimId(code.code);
+                    const snapshot = await getDoc(doc(window._db_fs, 'problems', 'mikrotools_claim_' + code.claimId));
+                    if (snapshot.exists()) accessClaimsCache[code.claimId] = snapshot.data();
+                }));
+                renderAccessCodes();
+            } catch (error) {
+                console.error('Access claims load error:', error);
+                accessClaimsCache = {};
+                renderAccessCodes();
+            }
+        }
         function ensurePaywallDefaults() {
             if (!systemData.adminData) systemData.adminData = {};
             if (!systemData.adminData.paywall) systemData.adminData.paywall = { enabled:true, durationHours:24, codes:[] };
@@ -1578,6 +1618,7 @@ ${typesText}
             p.durationHours = Number(p.durationHours || 24);
             p.codes = Array.isArray(p.codes) ? p.codes : [];
             p.codes.forEach(code => {
+                if (code) code.singleDevice = code.singleDevice !== false;
                 if (!code || code.expiresAt || !code.createdAt) return;
                 const createdAt = Date.parse(code.createdAt);
                 const durationMinutes = Math.max(1, Number(code.durationMinutes || (code.durationHours || p.durationHours || 24) * 60));
@@ -1617,9 +1658,10 @@ ${typesText}
             if (duration) duration.value = p.durationHours;
             renderAccessPagesPicker();
             renderAccessCodes();
+            refreshAccessClaims();
             toggleAccessPagesPicker();
             if (!window._mikroAccessCodesTimer) {
-                window._mikroAccessCodesTimer = setInterval(renderAccessCodes, 60000);
+                window._mikroAccessCodesTimer = setInterval(refreshAccessClaims, 60000);
             }
         }
         function getSelectedAccessPages() {
@@ -1671,7 +1713,7 @@ ${typesText}
             if (!body) return;
             const codes = ensurePaywallDefaults().codes;
             if (!codes.length) {
-                body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;padding:25px">لا توجد باسوردات بعد</td></tr>';
+                body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#64748b;padding:25px">لا توجد باسوردات بعد</td></tr>';
                 return;
             }
             body.innerHTML = codes.map((code, index) => {
@@ -1679,10 +1721,17 @@ ${typesText}
                 const expiresAt = getCodeExpiry(code);
                 const statusClass = expired || code.active === false ? 'badge-danger' : 'badge-success';
                 const statusText = expired ? 'منتهي' : (code.active === false ? 'متوقف' : 'مفعل');
+                const claim = code.claimId && accessClaimsCache ? accessClaimsCache[code.claimId] : null;
+                const deviceText = accessClaimsCache === null
+                    ? '<span style="color:#64748b">جاري الفحص...</span>'
+                    : claim
+                        ? `<span class="badge badge-info"><i class="fas fa-user-lock"></i> مرتبط بـ ${claim.deviceLabel === 'Mobile' ? 'موبايل' : 'كمبيوتر'}</span><div style="font-size:11px;color:#64748b;margin-top:5px">${claim.claimedAt ? new Date(claim.claimedAt).toLocaleString('ar-EG') : ''}</div>`
+                        : '<span class="badge badge-warning">لم يستخدم بعد</span>';
                 return `
                 <tr>
                     <td><strong style="direction:ltr;display:inline-block">${code.code}</strong></td>
                     <td>${describeCodeScope(code)}</td>
+                    <td>${deviceText}</td>
                     <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>${code.createdAt ? new Date(code.createdAt).toLocaleString('ar-EG') : '-'}</td>
                     <td>${expiresAt === null ? 'غير محدد' : new Date(expiresAt).toLocaleString('ar-EG')}</td>
@@ -1691,6 +1740,7 @@ ${typesText}
                         ${expired
                             ? `<button class="action-btn btn-view" onclick="renewAccessCode(${index})"><i class="fas fa-redo"></i>تجديد</button>`
                             : `<button class="action-btn btn-view" onclick="toggleAccessCode(${index})"><i class="fas fa-power-off"></i>${code.active === false ? 'تفعيل' : 'تعطيل'}</button>`}
+                        ${claim ? `<button class="action-btn btn-view" onclick="resetAccessDevice(${index})"><i class="fas fa-unlink"></i>فك الجهاز</button>` : ''}
                         <button class="action-btn btn-delete" onclick="deleteAccessCode(${index})"><i class="fas fa-trash"></i>حذف</button>
                     </td>
                 </tr>
@@ -1736,6 +1786,8 @@ ${typesText}
             const newCode = {
                 code:codeValue,
                 active:true,
+                singleDevice:true,
+                claimId:await getAccessClaimId(codeValue),
                 scope,
                 pages,
                 durationMinutes,
@@ -1795,6 +1847,25 @@ ${typesText}
                 showNotification('تعذر تجديد الباسورد: ' + e.message, 'error');
             }
         }
+        async function resetAccessDevice(index) {
+            const p = ensurePaywallDefaults();
+            const code = p.codes[index];
+            if (!code) return;
+            if (!confirm('فك ارتباط هذا الباسورد من الجهاز الحالي؟ سيتمكن جهاز جديد من استخدامه.')) return;
+            try {
+                await waitForFirestore();
+                const claimId = code.claimId || await getAccessClaimId(code.code);
+                const { deleteDoc, doc } = window._fs;
+                await deleteDoc(doc(window._db_fs, 'problems', 'mikrotools_claim_' + claimId));
+                if (accessClaimsCache) delete accessClaimsCache[claimId];
+                renderAccessCodes();
+                showNotification('تم فك ارتباط الجهاز من الباسورد', 'success');
+                addSystemLog('تم فك ارتباط جهاز من باسورد الاشتراك', 'warning');
+            } catch (error) {
+                console.error('Access device reset error:', error);
+                showNotification('تعذر فك ارتباط الجهاز: ' + error.message, 'error');
+            }
+        }
         async function deleteAccessCode(index) {
             const p = ensurePaywallDefaults();
             if (!p.codes[index]) return;
@@ -1802,6 +1873,12 @@ ${typesText}
             const removedCode = p.codes.splice(index, 1)[0];
             try {
                 await savePaywallData();
+                try {
+                    const claimId = removedCode.claimId || await getAccessClaimId(removedCode.code);
+                    const { deleteDoc, doc } = window._fs;
+                    await deleteDoc(doc(window._db_fs, 'problems', 'mikrotools_claim_' + claimId));
+                    if (accessClaimsCache) delete accessClaimsCache[claimId];
+                } catch (claimError) { console.warn('Access claim cleanup error:', claimError); }
                 renderAccessCodes();
             } catch (e) {
                 p.codes.splice(index, 0, removedCode);
