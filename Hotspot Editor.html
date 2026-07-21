@@ -867,12 +867,20 @@ async function getPremiumBackgroundData(templateId) {
     if(premiumBackgroundCache[templateId]) return premiumBackgroundCache[templateId];
     const path=PREMIUM_BACKGROUND_PATHS[templateId];
     if(!path) return '';
-    const response=await fetch(path,{cache:'force-cache'});
-    if(!response.ok) throw new Error('Background asset HTTP '+response.status);
-    const blob=await response.blob();
-    const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error||new Error('Could not read background'));reader.readAsDataURL(blob);});
-    premiumBackgroundCache[templateId]=dataUrl;
-    return dataUrl;
+    const urls=[path];
+    try { const absolute=new URL(path,document.baseURI).href; if(absolute!==path) urls.push(absolute); } catch(error) {}
+    for(const url of urls) {
+        try {
+            const response=await fetch(url,{cache:'force-cache'});
+            if(!response.ok) continue;
+            const blob=await response.blob();
+            const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error||new Error('Could not read background'));reader.readAsDataURL(blob);});
+            premiumBackgroundCache[templateId]=dataUrl;
+            return dataUrl;
+        } catch(error) {}
+    }
+    console.warn('Premium background could not be embedded; using the built-in template background.');
+    return '';
 }
 function refreshTemplateUI() {
     document.querySelectorAll('.template-card').forEach(card => card.classList.toggle('active', !templateIsCustom && card.dataset.template===currentTemplateId));
@@ -906,7 +914,11 @@ function getBackgroundCSS(theme,embeddedPremiumBackground) {
     const type=document.getElementById('bgType').value;
     const pattern=theme.pattern||'none';
     const premiumPath=PREMIUM_BACKGROUND_PATHS[currentTemplateId];
-    if(!templateIsCustom&&premiumPath){const source=embeddedPremiumBackground||premiumPath;return `background-color:${theme.c1};background-image:linear-gradient(rgba(2,6,23,.16),rgba(2,6,23,.34)),url('${source}');background-position:center;background-size:cover;background-repeat:no-repeat;`;}
+    if(!templateIsCustom&&premiumPath){
+        if(embeddedPremiumBackground==='') return `background-color:${theme.c1};background-image:${pattern},linear-gradient(135deg,${theme.c1},${theme.c2});background-position:center;background-size:cover;background-repeat:no-repeat;`;
+        const source=embeddedPremiumBackground||premiumPath;
+        return `background-color:${theme.c1};background-image:linear-gradient(rgba(2,6,23,.16),rgba(2,6,23,.34)),url('${source}');background-position:center;background-size:cover;background-repeat:no-repeat;`;
+    }
     if(type==='color') return `background-color:${document.getElementById('bgColor').value};background-image:${pattern};`;
     if(type==='image') {
         const src=document.getElementById('bgPreviewImg').src;
