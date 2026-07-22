@@ -10,7 +10,7 @@
     { title: "دمج خطوط v7", url: "merge-v7.html", words: ["v7", "دمج", "خطوط", "load", "balance", "balancing", "pcc"] },
     { title: "حجب المواقع", url: "block-sites.html", words: ["حجب", "موقع", "مواقع", "يوتيوب", "تيك", "فيس", "facebook", "youtube", "layer7", "tls"] },
     { title: "بروفايلات السرعة", url: "speed-profiles.html", words: ["سرعة", "سرعات", "بروفايل", "queue", "profile", "limit", "upload", "download"] },
-    { title: "تصميم هوت سبوت", url: "Hotspot%20Editor.html", words: ["تصميم", "صفحة", "لوجن", "login", "template", "html"] },
+    { title: "تصميم هوت سبوت", url: "Hotspot%20Editor.html?v=20260722-2", words: ["تصميم", "صفحة", "لوجن", "login", "template", "html"] },
     { title: "مصمم الكروت", url: "CardEditor.html", words: ["كارت", "كروت", "card", "voucher", "طباعة"] },
     { title: "محلل السجلات", url: "log.html", words: ["لوج", "سجل", "سجلات", "log", "logs", "error", "خطأ"] },
     { title: "المشكلات الشائعة", url: "troubleshooting.html", words: ["مشكلة", "مشاكل", "حل", "trouble", "internet", "نت", "dns", "ping"] },
