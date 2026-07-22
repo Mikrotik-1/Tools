@@ -1,10 +1,9 @@
-
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /private/
 
+Disallow: /admin.html
+Disallow: /get-chat-id.html
+Disallow: /telegram-setup.html
+Disallow: /preview.html
 
-
-
-
+Sitemap: https://mikro-tools.com/sitemap.xml

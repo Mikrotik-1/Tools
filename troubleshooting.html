@@ -5,7 +5,26 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV99LZRKBJ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VV99LZRKBJ');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Troubleshooting & Solutions | MikroTools</title>
+    <title>حلول مشاكل MikroTik الشائعة | MikroTools</title>
+    <meta name="description" content="دليل عملي لحل أشهر مشاكل MikroTik والهوت سبوت والدمج مع أدوات احترافية ودعم فني من MikroTools.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://mikro-tools.com/troubleshooting.html">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://mikro-tools.com/troubleshooting.html">
+    <meta property="og:title" content="حلول مشاكل MikroTik الشائعة | MikroTools">
+    <meta property="og:description" content="حلول عملية لمشكلات MikroTik والهوت سبوت ودمج الخطوط.">
+    <meta property="og:image" content="https://mikro-tools.com/assets/social/mikrotools-share.jpg?v=20260722-1">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="MikroTools">
+    <meta property="og:locale" content="ar_EG">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="حلول مشاكل MikroTik | MikroTools">
+    <meta name="twitter:description" content="دليل عملي لمشكلات الميكروتيك الشائعة.">
+    <meta name="twitter:image" content="https://mikro-tools.com/assets/social/mikrotools-share.jpg?v=20260722-1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -371,10 +390,46 @@
             }
         }
 
+        const TELEGRAM_NOTIFY_CONFIG={
+            botToken:'8032439649:AAFqVT11FDtk3GMtEyerUUQ1m-_m76Vxdm0',
+            chatId:'83208458'
+        };
+
+        function escapeTelegramHtml(value){
+            return String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        async function notifyTelegramProblem(problem){
+            const typeMap={network:'شبكة واتصال',dhcp:'مشاكل DHCP',performance:'أداء وبطء',hardware:'هاردوير',other:'أخرى'};
+            const message=`🆕 <b>مشكلة جديدة في MikroTools</b>\n\n👤 <b>المستخدم:</b> ${escapeTelegramHtml(problem.user||'مجهول')}\n🏷️ <b>النوع:</b> ${escapeTelegramHtml(typeMap[problem.type]||problem.type||'غير محدد')}\n📝 <b>المشكلة:</b>\n${escapeTelegramHtml(problem.problem)}\n\n📅 <b>التوقيت:</b> ${escapeTelegramHtml(new Date(problem.date).toLocaleString('ar-EG'))}\n━━━━━━━━━━━━━━━\n🔗 <a href="https://mikro-tools.com/admin.html">فتح لوحة التحكم والرد</a>`;
+            const endpoint=`https://api.telegram.org/bot${TELEGRAM_NOTIFY_CONFIG.botToken}/sendMessage`;
+            for(let attempt=0;attempt<2;attempt++){
+                const controller=new AbortController();
+                const timeout=setTimeout(()=>controller.abort(),8000);
+                try{
+                    const response=await fetch(endpoint,{
+                        method:'POST',
+                        headers:{'Content-Type':'application/json'},
+                        body:JSON.stringify({chat_id:TELEGRAM_NOTIFY_CONFIG.chatId,text:message,parse_mode:'HTML',disable_web_page_preview:true}),
+                        signal:controller.signal
+                    });
+                    const result=await response.json();
+                    if(response.ok&&result.ok)return true;
+                    console.warn('Telegram notification rejected:',result.description||response.status);
+                }catch(error){
+                    console.warn('Telegram notification failed:',error.message);
+                }finally{
+                    clearTimeout(timeout);
+                }
+                if(attempt===0)await new Promise(resolve=>setTimeout(resolve,1000));
+            }
+            return false;
+        }
+
         async function saveProblemToJSONBin(problem){
             const db=await getFirestore();
             const {collection,addDoc}=window._firestoreApi;
-            await addDoc(collection(db,'problems'),problem);
+            return addDoc(collection(db,'problems'),problem);
         }
 
         function setLanguage(lang){localStorage.setItem('language',lang);const html=document.documentElement,body=document.body;if(lang==='ar'){html.setAttribute('lang','ar');html.setAttribute('dir','rtl');body.classList.add('ar','rtl');body.classList.remove('en');}else{html.setAttribute('lang','en');html.setAttribute('dir','ltr');body.classList.add('en');body.classList.remove('ar','rtl');}document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=translations[lang][key];else if(el.tagName==='OPTION')el.textContent=translations[lang][key];else el.innerHTML=translations[lang][key];}});document.getElementById('langEn').classList.toggle('active',lang==='en');document.getElementById('langAr').classList.toggle('active',lang==='ar');}
@@ -401,11 +456,11 @@
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getFirestore, collection, addDoc, getDocs, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, collection, addDoc, getDocs, orderBy, query, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 const app = initializeApp({apiKey:"AIzaSyAfgN8SAIhSU3AN-Az2Kzw2EP-XpptEsN4",authDomain:"mikro-tools.firebaseapp.com",projectId:"mikro-tools",storageBucket:"mikro-tools.firebasestorage.app",messagingSenderId:"22698503616",appId:"1:22698503616:web:de7a3802b2fd746cc2ec25"});
 const auth=getAuth(app); const provider=new GoogleAuthProvider();
 window._db=getFirestore(app);
-window._firestoreApi={collection,addDoc,getDocs,orderBy,query};
+window._firestoreApi={collection,addDoc,getDocs,orderBy,query,updateDoc};
 window._auth=auth; window._provider=provider;
 window._signInWithEmailAndPassword=signInWithEmailAndPassword;
 window._createUserWithEmailAndPassword=createUserWithEmailAndPassword;
@@ -435,7 +490,7 @@ function handleSubmitProblem(){
     else{window._pendingSubmit=true;openAuthModal();}
 }
 window.handleSubmitProblem=handleSubmitProblem;
-function doSubmitProblem(){
+async function doSubmitProblem(){
     const lang=document.documentElement.lang;
     const problemText=document.getElementById('problemText').value.trim();
     const user=window._auth&&window._auth.currentUser;
@@ -443,16 +498,30 @@ function doSubmitProblem(){
     const userName=user.email||user.displayName||'Anonymous';
     const problemType=document.getElementById('problemType').value;
     if(!problemText){alert(lang==='ar'?'الرجاء كتابة وصف المشكلة':'Please write the problem description');return;}
-    const newProblem={user:userName,type:problemType,problem:problemText,date:new Date().toISOString(),likes:0,solved:false};
+    const newProblem={user:userName,type:problemType,problem:problemText,date:new Date().toISOString(),likes:0,solved:false,telegramNotified:false};
     displayNewProblem(newProblem);
-    saveProblemToJSONBin(newProblem).then(()=>{
+    const submitBtn=document.getElementById('submitBtn');
+    const originalButtonHtml=submitBtn.innerHTML;
+    submitBtn.disabled=true;
+    submitBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+(lang==='ar'?'جاري الإرسال...':'Sending...');
+    try{
+        const problemRef=await saveProblemToJSONBin(newProblem);
+        const telegramNotified=await notifyTelegramProblem(newProblem);
+        try{
+            await window._firestoreApi.updateDoc(problemRef,{telegramNotified,telegramNotifiedAt:telegramNotified?new Date().toISOString():null});
+        }catch(statusError){
+            console.warn('Notification status update failed:',statusError);
+        }
         alert(lang==='ar'?'✅ شكرا...سيقوم الدعم الفنى بالرد عليكم قريبا!':'✅ Thank you... Support team will reply to you soon!');
-        loadProblems();
-    }).catch((e)=>{
+        document.getElementById('addProblemForm').reset();
+        await loadProblems();
+    }catch(e){
         console.error('Save error:',e);
         alert(lang==='ar'?'⚠️ حدث خطأ أثناء الحفظ':'⚠️ Error saving problem');
-    });
-    document.getElementById('addProblemForm').reset();
+    }finally{
+        submitBtn.disabled=false;
+        submitBtn.innerHTML=originalButtonHtml;
+    }
 }
 window.doSubmitProblem=doSubmitProblem;
 function switchAuthTab(t){var isL=t==='login';document.getElementById('tabLogin').classList.toggle('active',isL);document.getElementById('tabRegister').classList.toggle('active',!isL);document.getElementById('formLogin').classList.toggle('active',isL);document.getElementById('formRegister').classList.toggle('active',!isL);['loginError','loginSuccess','registerError'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('show');});}

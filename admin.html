@@ -957,7 +957,6 @@ ${typesText}
                 updateDashboard();
                 updateRealtimeData();
                 if (newProblems.length > 0) {
-                    newProblems.forEach(p => telegramSystem.sendNewProblemAlert(p));
                     showNotification(`تم استقبال ${newProblems.length} رسالة جديدة`, 'success');
                     addSystemLog(`تم استقبال ${newProblems.length} رسالة جديدة من Firestore`, 'info');
                 }
