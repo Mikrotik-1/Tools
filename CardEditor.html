@@ -584,8 +584,8 @@ const translations={en:{home:"Home",merge:"Merge",hotspot:"Hotspot",design_block
 
 translations.en.custom_voucher_toggle="Use custom card number";
 translations.ar.custom_voucher_toggle="استخدام رقم كارت مخصص";
-translations.en.ready_templates="10 Ready Templates";
-translations.ar.ready_templates="10 قوالب جاهزة";
+translations.en.ready_templates="20 Ready Templates";
+translations.ar.ready_templates="20 قالباً جاهزاً";
 
 let currentLang=localStorage.getItem('language')||'en';
 let cardMode='voucher';
@@ -604,7 +604,17 @@ const cardTemplates=[
     {id:'ocean',nameEn:'Ocean Blue',nameAr:'محيط أزرق',c1:'#0c4a6e',c2:'#0891b2',pattern:'radial-gradient(ellipse at 20% 115%,rgba(103,232,249,.5) 0 23%,transparent 23.5%),radial-gradient(ellipse at 75% 115%,rgba(125,211,252,.35) 0 30%,transparent 30.5%)',size:'100% 100%',opacity:.55},
     {id:'neon',nameEn:'Neon Circuit',nameAr:'دوائر نيون',c1:'#0f172a',c2:'#312e81',pattern:'linear-gradient(rgba(34,211,238,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.3) 1px,transparent 1px)',size:'22px 22px',opacity:.3},
     {id:'graphite',nameEn:'Graphite Pro',nameAr:'جرافيت برو',c1:'#334155',c2:'#0f172a',pattern:'repeating-linear-gradient(135deg,rgba(255,255,255,.13) 0 1px,transparent 1px 5px)',size:'auto',opacity:.22},
-    {id:'sunset',nameEn:'Sunset Glow',nameAr:'وهج الغروب',c1:'#9a3412',c2:'#be123c',pattern:'radial-gradient(circle at 82% 18%,rgba(253,186,116,.7) 0 10%,transparent 10.5%),radial-gradient(circle at 82% 18%,transparent 0 16%,rgba(255,255,255,.18) 16.5% 17%,transparent 17.5%)',size:'100% 100%',opacity:.62}
+    {id:'sunset',nameEn:'Sunset Glow',nameAr:'وهج الغروب',c1:'#9a3412',c2:'#be123c',pattern:'radial-gradient(circle at 82% 18%,rgba(253,186,116,.7) 0 10%,transparent 10.5%),radial-gradient(circle at 82% 18%,transparent 0 16%,rgba(255,255,255,.18) 16.5% 17%,transparent 17.5%)',size:'100% 100%',opacity:.62},
+    {id:'prism',nameEn:'Prism Studio',nameAr:'استوديو بريزم',c1:'#0f172a',c2:'#475569',pattern:'conic-gradient(from 205deg at 76% 24%,transparent 0 18%,rgba(125,211,252,.52) 18% 24%,transparent 24% 54%,rgba(248,250,252,.22) 54% 61%,transparent 61%)',size:'100% 100%',opacity:.72},
+    {id:'aurora',nameEn:'Aurora Signal',nameAr:'إشارة أورورا',c1:'#083344',c2:'#164e63',pattern:'radial-gradient(ellipse at 16% 110%,rgba(45,212,191,.75) 0 25%,transparent 25.5%),radial-gradient(ellipse at 62% 112%,rgba(56,189,248,.45) 0 32%,transparent 32.5%),linear-gradient(112deg,transparent 58%,rgba(255,255,255,.18) 58.5% 60%,transparent 60.5%)',size:'100% 100%',opacity:.7},
+    {id:'copper',nameEn:'Copper Mesh',nameAr:'شبكة نحاسية',c1:'#292524',c2:'#78350f',pattern:'linear-gradient(30deg,rgba(251,146,60,.32) 12%,transparent 12.5%,transparent 87%,rgba(251,146,60,.32) 87.5%),linear-gradient(150deg,rgba(255,255,255,.09) 12%,transparent 12.5%,transparent 87%,rgba(255,255,255,.09) 87.5%)',size:'24px 42px',opacity:.55},
+    {id:'frost',nameEn:'Frosted Blue',nameAr:'أزرق جليدي',c1:'#1e3a8a',c2:'#0e7490',pattern:'radial-gradient(circle at 15% 15%,rgba(255,255,255,.55) 0 2px,transparent 2.5px),linear-gradient(125deg,transparent 0 58%,rgba(224,242,254,.22) 58.5% 71%,transparent 71.5%)',size:'34px 34px,100% 100%',opacity:.42},
+    {id:'magma',nameEn:'Magma Core',nameAr:'نواة ماجما',c1:'#18181b',c2:'#7f1d1d',pattern:'radial-gradient(circle at 88% 18%,rgba(251,146,60,.82) 0 8%,transparent 8.5%),linear-gradient(115deg,transparent 0 52%,rgba(239,68,68,.38) 52.5% 55%,transparent 55.5% 64%,rgba(251,146,60,.2) 64.5% 67%,transparent 67.5%)',size:'100% 100%',opacity:.8},
+    {id:'botanic',nameEn:'Botanic Line',nameAr:'خطوط نباتية',c1:'#14532d',c2:'#052e16',pattern:'radial-gradient(ellipse at 0 100%,rgba(134,239,172,.48) 0 18%,transparent 18.5%),radial-gradient(ellipse at 100% 0,rgba(74,222,128,.3) 0 24%,transparent 24.5%),repeating-linear-gradient(35deg,transparent 0 27px,rgba(255,255,255,.08) 28px 29px)',size:'100% 100%',opacity:.65},
+    {id:'metro',nameEn:'Metro Pulse',nameAr:'نبض المترو',c1:'#172554',c2:'#1d4ed8',pattern:'linear-gradient(90deg,transparent 0 66%,rgba(250,204,21,.8) 66.5% 69%,transparent 69.5%),repeating-linear-gradient(0deg,transparent 0 22px,rgba(255,255,255,.12) 23px 24px)',size:'100% 100%',opacity:.67},
+    {id:'coral',nameEn:'Coral Reef',nameAr:'الشعاب المرجانية',c1:'#134e4a',c2:'#be123c',pattern:'radial-gradient(circle at 12% 85%,rgba(45,212,191,.66) 0 13%,transparent 13.5%),radial-gradient(circle at 86% 16%,rgba(251,113,133,.55) 0 15%,transparent 15.5%),linear-gradient(145deg,transparent 42%,rgba(255,255,255,.16) 42.5% 44%,transparent 44.5%)',size:'100% 100%',opacity:.72},
+    {id:'signal',nameEn:'Signal Yellow',nameAr:'إشارة صفراء',c1:'#111827',c2:'#27272a',pattern:'linear-gradient(125deg,transparent 0 53%,rgba(250,204,21,.92) 53.5% 61%,transparent 61.5%),repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 31px)',size:'100% 100%',opacity:.82},
+    {id:'lunar',nameEn:'Lunar Silver',nameAr:'فضي قمري',c1:'#1e293b',c2:'#475569',pattern:'radial-gradient(circle at 82% 22%,rgba(241,245,249,.72) 0 9%,transparent 9.5%),radial-gradient(circle at 82% 22%,transparent 0 16%,rgba(203,213,225,.26) 16.5% 17%,transparent 17.5%),repeating-radial-gradient(circle at 10% 100%,rgba(255,255,255,.12) 0 1px,transparent 2px 14px)',size:'100% 100%',opacity:.68}
 ];
 const customTemplatePattern={pattern:'radial-gradient(circle at 20% 80%,rgba(255,255,255,1) 1px,transparent 1px),radial-gradient(circle at 80% 20%,rgba(255,255,255,1) 1px,transparent 1px)',size:'30px 30px',opacity:.07};
 
@@ -933,7 +943,7 @@ let notifTimer=null;
 function showNotif(msg){const n=document.getElementById('notification');document.getElementById('notifMsg').textContent=msg;n.classList.add('show');clearTimeout(notifTimer);notifTimer=setTimeout(()=>n.classList.remove('show'),3000);}
 </script>
 <script src="mikro-access.js?v=20260721-1"></script>
-<script src="mikro-presence.js?v=20260715-3"></script>
+<script src="mikro-presence.js?v=20260725-1"></script>
 </body>
 </html>
 

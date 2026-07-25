@@ -417,7 +417,7 @@
                 </div>
                 <div class="table-container">
                     <div class="table-title"><i class="fas fa-list"></i>قائمة الزوار</div>
-                    <div class="table-responsive"><table><thead><tr><th>#</th><th>معرف الزائر</th><th>أول زيارة</th><th>آخر زيارة</th><th>عدد الزيارات</th><th>الصفحات</th><th>الحالة</th></tr></thead><tbody id="visitorsTableBody"></tbody></table></div>
+                    <div class="table-responsive"><table><thead><tr><th>#</th><th>الزائر</th><th>الجهاز</th><th>المصدر</th><th>مسار الصفحات</th><th>آخر إجراء</th><th>المدة</th><th>الحالة</th><th>التفاصيل</th></tr></thead><tbody id="visitorsTableBody"></tbody></table></div>
                 </div>
                 <div class="export-buttons">
                     <button class="export-btn" onclick="exportVisitorsData()"><i class="fas fa-file-excel"></i>تصدير البيانات</button>
@@ -997,6 +997,33 @@ ${typesText}
             }
         }
 
+        function parsePresenceJson(value) {
+            try {
+                const parsed = JSON.parse(value || '[]');
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function presenceDurationSeconds(session) {
+            const stored = Number(session.durationSeconds || 0);
+            if (stored > 0) return stored;
+            const start = new Date(session.sessionStarted || session.firstSeen || 0).getTime();
+            const end = new Date(session.lastSeen || 0).getTime();
+            return start && end && end >= start ? Math.round((end - start) / 1000) : 0;
+        }
+
+        function formatDurationSeconds(seconds) {
+            const total = Math.max(0, Number(seconds) || 0);
+            const hours = Math.floor(total / 3600);
+            const minutes = Math.floor((total % 3600) / 60);
+            const secs = Math.floor(total % 60);
+            if (hours) return `${hours}س ${minutes}د`;
+            if (minutes) return `${minutes}د ${secs}ث`;
+            return `${secs}ث`;
+        }
+
         async function loadPresenceFromFirestore() {
             try {
                 await waitForFirestore();
@@ -1004,15 +1031,22 @@ ${typesText}
                 const { collection, getDocs, query, where } = window._fs;
                 const q = query(collection(window._db_fs, 'problems'), where('kind', '==', 'mikro_presence'));
                 const snap = await getDocs(q);
-                const sessions = {};
+                const all = [];
+                const active = {};
+                const now = Date.now();
                 snap.forEach(d => {
                     const session = { ...d.data(), _docId:d.id };
+                    session.events = parsePresenceJson(session.eventsJson);
+                    session.pages = parsePresenceJson(session.pagesJson);
+                    session.durationSeconds = presenceDurationSeconds(session);
+                    all.push(session);
                     const lastSeen = new Date(session.lastSeen || 0).getTime();
-                    if (session.active !== false && lastSeen && Date.now() - lastSeen <= 120000) {
-                        sessions[session.id || d.id] = session;
+                    if (session.active !== false && lastSeen && now - lastSeen <= 120000) {
+                        active[session.id || d.id] = session;
                     }
                 });
-                return sessions;
+                all.sort((a,b) => new Date(b.lastSeen || 0) - new Date(a.lastSeen || 0));
+                return { active, all };
             } catch (e) {
                 console.error('Firestore presence load error:', e);
                 return null;
@@ -1020,20 +1054,53 @@ ${typesText}
         }
 
         async function refreshPresenceData() {
-            const sessions = await loadPresenceFromFirestore();
-            if (sessions === null) return false;
+            const presence = await loadPresenceFromFirestore();
+            if (presence === null) return false;
+            const sessions = presence.active;
+            const history = presence.all;
             const activeList = Object.values(sessions);
             const currentPages = activeList.reduce((acc, item) => {
                 const key = item.path || item.page || 'unknown';
                 acc[key] = (acc[key] || 0) + 1;
                 return acc;
             }, {});
+            const uniqueVisitors = new Set(history.map(item => item.visitorId || item.id).filter(Boolean));
+            const pages = {};
+            const daily = {};
+            let totalPageViews = 0;
+            history.forEach(session => {
+                const visitedPages = session.pages.length ? session.pages : [{ path:session.path, title:session.page }];
+                visitedPages.forEach(page => {
+                    const key = page.path || page.title || session.path || 'unknown';
+                    pages[key] = (pages[key] || 0) + 1;
+                    totalPageViews++;
+                });
+                const day = new Date(session.sessionStarted || session.firstSeen || session.lastSeen || 0);
+                if (!Number.isNaN(day.getTime())) {
+                    const key = day.toISOString().slice(0,10);
+                    daily[key] = (daily[key] || 0) + 1;
+                }
+            });
+            const totalDuration = history.reduce((sum,item) => sum + presenceDurationSeconds(item), 0);
+            const avgSeconds = history.length ? Math.round(totalDuration / history.length) : 0;
+            const bounced = history.filter(item => (Number(item.pageCount || item.pages.length || 1) <= 1) && Number(item.eventCount || item.events.length || 0) <= 1).length;
             systemData.analytics = {
                 ...systemData.analytics,
                 activeSessions:sessions,
+                presenceHistory:history,
+                visitors:history,
                 liveNow:activeList.length,
                 currentOnline:activeList.length,
                 activeVisitors:activeList.length,
+                uniqueVisitors:uniqueVisitors.size,
+                totalVisits:history.length,
+                todayVisits:history.filter(item => isSameDay(item.sessionStarted || item.firstSeen || item.lastSeen)).length,
+                pageViews:totalPageViews,
+                pages,
+                daily,
+                avgDuration:formatDurationSeconds(avgSeconds),
+                averageDuration:formatDurationSeconds(avgSeconds),
+                bounceRate:history.length ? Math.round((bounced/history.length)*100)+'%' : '0%',
                 currentPages,
                 activePages:currentPages,
                 liveActivity:activeList,
@@ -1334,7 +1401,7 @@ ${typesText}
             const solved = systemData.problems.filter(m=>m.solved).length;
             const pending = total - solved;
             const today = systemData.problems.filter(m => isSameDay(m.date)).length;
-            const visitors = Math.max(getAnalyticsValue('uniqueVisitors'), getAnalyticsValue('totalVisits'));
+            const visitors = getAnalyticsValue('uniqueVisitors') || getAnalyticsValue('totalVisits');
             document.getElementById('totalVisitors').textContent = visitors.toLocaleString('ar-EG');
             document.getElementById('totalMessages').textContent = total.toLocaleString('ar-EG');
             document.getElementById('pendingMessages').textContent = pending.toLocaleString('ar-EG');
@@ -1458,6 +1525,23 @@ ${typesText}
         }
 
         // ===== Realtime =====
+        function escapeAdminHtml(value) {
+            return String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+        }
+        function formatPresenceAction(action) {
+            const names = {
+                page_view:'مشاهدة الصفحة',
+                click:'ضغط',
+                template_select:'اختيار قالب',
+                download:'تحميل',
+                login_action:'محاولة تسجيل الدخول',
+                logout_action:'تسجيل الخروج',
+                navigate:'انتقال إلى صفحة',
+                form_submit:'إرسال نموذج'
+            };
+            return names[action] || action || 'حدث';
+        }
+
         function updateRealtimeData() {
             const live = getLiveVisitorsCount();
             const activeSessions = getActiveSessions();
@@ -1484,8 +1568,12 @@ ${typesText}
                 c.innerHTML = activity.slice(0,12).map((a,i) => `
                     <div style="display:flex;align-items:center;gap:15px;padding:15px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0">
                         <div style="width:45px;height:45px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;font-size:18px"><i class="fas fa-user"></i></div>
-                        <div style="flex:1"><div style="color:#1e293b;font-weight:600">${a.id || a.visitorId || 'زائر_' + (i+1)}</div><div style="color:#64748b;font-size:13px">${a.page || a.path || 'صفحة غير محددة'} - ${a.device || 'غير متاح'}</div></div>
-                        <div style="font-size:12px;color:#64748b;background:#f1f5f9;padding:6px 12px;border-radius:20px">${a.lastSeen ? new Date(a.lastSeen).toLocaleTimeString('ar-EG') : (a.time ? formatDate(a.time) : 'نشط الآن')}</div>
+                        <div style="flex:1;min-width:0">
+                            <div style="color:#1e293b;font-weight:600">${escapeAdminHtml(a.visitorId || a.id || 'زائر_' + (i+1))}</div>
+                            <div style="color:#64748b;font-size:13px">${escapeAdminHtml(a.page || a.path || 'صفحة غير محددة')} · ${escapeAdminHtml(a.device || 'غير متاح')} · ${escapeAdminHtml(a.browser || '')}</div>
+                            <div style="color:#4361ee;font-size:12px;margin-top:4px"><i class="fas fa-mouse-pointer"></i> ${escapeAdminHtml(a.lastActionLabel || a.lastAction || 'مشاهدة الصفحة')}</div>
+                        </div>
+                        <div style="text-align:left"><div style="font-size:12px;color:#64748b;background:#f1f5f9;padding:6px 12px;border-radius:20px">${a.lastSeen ? new Date(a.lastSeen).toLocaleTimeString('ar-EG') : 'نشط الآن'}</div><div style="font-size:11px;color:#94a3b8;margin-top:5px">${formatDurationSeconds(presenceDurationSeconds(a))}</div></div>
                     </div>`).join('');
                 return;
             }
@@ -1502,15 +1590,34 @@ ${typesText}
         // ===== Visitors/Pages =====
         function updateVisitorsDisplay() {
             const tbody = document.getElementById('visitorsTableBody');
-            const visitors = systemData.analytics?.visitors || systemData.analytics?.visitorList || getActiveSessions();
+            const visitors = systemData.analytics?.presenceHistory || systemData.analytics?.visitors || systemData.analytics?.visitorList || getActiveSessions();
             if (tbody) {
                 if (Array.isArray(visitors) && visitors.length) {
-                    tbody.innerHTML = visitors.slice(0,100).map((v,i) => `<tr><td>${i+1}</td><td><div style="font-weight:600">${v.id || v.visitorId || 'زائر'}</div><div style="font-size:12px;color:#64748b">${v.location || '-'} - ${v.device || '-'}</div></td><td>${v.firstVisit ? formatDate(v.firstVisit) : (v.firstSeen ? formatDate(v.firstSeen) : '-')}</td><td>${v.lastVisit ? formatDate(v.lastVisit) : (v.lastSeen ? formatDate(v.lastSeen) : '-')}</td><td>${Number(v.visits || 1).toLocaleString('ar-EG')}</td><td>${Array.isArray(v.pages) ? v.pages.join(', ') : (v.path || v.page || '-')}</td><td><span class="badge badge-success">حقيقي</span></td></tr>`).join('');
+                    const now = Date.now();
+                    tbody.innerHTML = visitors.slice(0,200).map((v,i) => {
+                        const pageList = Array.isArray(v.pages) && v.pages.length ? v.pages : parsePresenceJson(v.pagesJson);
+                        const eventList = Array.isArray(v.events) && v.events.length ? v.events : parsePresenceJson(v.eventsJson);
+                        const pageNames = pageList.length ? pageList.map(page => page.path || page.title).filter(Boolean) : [v.path || v.page || '-'];
+                        const eventsHtml = eventList.length ? eventList.slice(-15).reverse().map(event => `<div style="display:grid;grid-template-columns:75px 125px minmax(160px,1fr);gap:8px;padding:7px 0;border-bottom:1px solid #e2e8f0;font-size:12px"><span>${event.at ? new Date(event.at).toLocaleTimeString('ar-EG') : '-'}</span><b style="color:#4361ee">${escapeAdminHtml(formatPresenceAction(event.action))}</b><span>${escapeAdminHtml(event.label || '-')}</span></div>`).join('') : '<div style="padding:8px;color:#64748b">لا توجد أحداث تفصيلية لهذه الجلسة القديمة.</div>';
+                        const isLive = v.active !== false && new Date(v.lastSeen || 0).getTime() && now - new Date(v.lastSeen).getTime() <= 120000;
+                        const source = v.campaignSource ? `${v.campaignSource}${v.campaignName ? ' / '+v.campaignName : ''}` : (v.referrer || 'مباشر');
+                        return `<tr>
+                            <td>${i+1}</td>
+                            <td><div style="font-weight:700" title="${escapeAdminHtml(v.visitorId || v.id || '')}">${escapeAdminHtml((v.visitorId || v.id || 'زائر').slice(0,18))}</div><div style="font-size:11px;color:#64748b">${v.signedIn ? 'مسجل دخول' : 'زائر'} · ${v.lastSeen ? formatDate(v.lastSeen) : '-'}</div></td>
+                            <td><div>${escapeAdminHtml(v.device || '-')} · ${escapeAdminHtml(v.os || '-')}</div><div style="font-size:11px;color:#64748b">${escapeAdminHtml(v.browser || '-')} · ${escapeAdminHtml(v.viewport || v.screen || '-')}</div></td>
+                            <td>${escapeAdminHtml(source)}</td>
+                            <td><div style="max-width:260px;white-space:normal">${pageNames.slice(-6).map(escapeAdminHtml).join(' ← ')}</div><div style="font-size:11px;color:#64748b">${Number(v.pageCount || pageNames.length || 1).toLocaleString('ar-EG')} صفحة</div></td>
+                            <td><div>${escapeAdminHtml(v.lastActionLabel || v.lastAction || 'مشاهدة الصفحة')}</div><div style="font-size:11px;color:#64748b">${Number(v.eventCount || eventList.length || 0).toLocaleString('ar-EG')} حدث</div></td>
+                            <td>${formatDurationSeconds(presenceDurationSeconds(v))}</td>
+                            <td><span class="badge ${isLive?'badge-success':'badge-info'}">${isLive?'مباشر الآن':'انتهت'}</span></td>
+                            <td><details><summary style="cursor:pointer;color:#4361ee;font-weight:700;white-space:nowrap">عرض النشاط</summary><div style="position:absolute;left:24px;right:24px;z-index:20;margin-top:8px;background:white;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 16px 40px rgba(15,23,42,.16);max-height:330px;overflow:auto;text-align:right"><div style="margin-bottom:10px;font-weight:700">جلسة ${escapeAdminHtml(v.id || '-')} · بدأت ${v.sessionStarted ? new Date(v.sessionStarted).toLocaleString('ar-EG') : '-'}</div>${eventsHtml}</div></details></td>
+                        </tr>`;
+                    }).join('');
                 } else {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;padding:30px">لا توجد قائمة زوار مفصلة في ملف التحليلات حاليا، الأرقام بالأعلى من إجمالي JSONBin الحقيقي.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#64748b;padding:30px">ستظهر تفاصيل الزيارات الجديدة هنا بعد رفع ملف التتبع المحدث.</td></tr>';
                 }
             }
-            document.getElementById('uniqueVisitors').textContent = Math.max(getAnalyticsValue('uniqueVisitors'), getAnalyticsValue('totalVisits')).toLocaleString('ar-EG');
+            document.getElementById('uniqueVisitors').textContent = getAnalyticsValue('uniqueVisitors').toLocaleString('ar-EG');
             document.getElementById('totalVisits').textContent = getAnalyticsValue('totalVisits').toLocaleString('ar-EG');
             document.getElementById('avgDuration').textContent = systemData.analytics?.avgDuration || systemData.analytics?.averageDuration || 'غير متاح';
             document.getElementById('bounceRate').textContent = systemData.analytics?.bounceRate || 'غير متاح';
@@ -1527,9 +1634,16 @@ ${typesText}
             if (tbody) {
                 const maxViews = Math.max(...pages.map(p=>p.views), 1);
                 tbody.innerHTML = pages.map(p => {
+                    const history = systemData.analytics?.presenceHistory || [];
+                    const pageSessions = history.filter(session => {
+                        const visited = Array.isArray(session.pages) ? session.pages : parsePresenceJson(session.pagesJson);
+                        return (session.path === p.path) || visited.some(page => (page.path || page.title) === p.path);
+                    });
+                    const unique = new Set(pageSessions.map(session => session.visitorId || session.id).filter(Boolean)).size;
+                    const avgSeconds = pageSessions.length ? Math.round(pageSessions.reduce((sum,session) => sum + presenceDurationSeconds(session),0)/pageSessions.length) : 0;
                     const level = p.views === 0 ? 'لا توجد بيانات' : p.views >= maxViews * 0.7 ? 'عالية جدا' : p.views >= maxViews * 0.3 ? 'عالية' : 'متوسطة';
                     const badge = p.views === 0 ? 'badge-info' : p.views >= maxViews * 0.7 ? 'badge-success' : p.views >= maxViews * 0.3 ? 'badge-warning' : 'badge-info';
-                    return `<tr><td><i class="fas fa-file" style="color:#4361ee;margin-left:10px"></i>${p.name}<span class="page-path">${p.path}</span></td><td>${p.views.toLocaleString('ar-EG')}</td><td>غير متاح</td><td>غير متاح</td><td><span class="badge ${badge}">${level}</span></td></tr>`;
+                    return `<tr><td><i class="fas fa-file" style="color:#4361ee;margin-left:10px"></i>${p.name}<span class="page-path">${p.path}</span></td><td>${p.views.toLocaleString('ar-EG')}</td><td>${unique.toLocaleString('ar-EG')}</td><td>${pageSessions.length?formatDurationSeconds(avgSeconds):'-'}</td><td><span class="badge ${badge}">${level}</span></td></tr>`;
                 }).join('');
             }
         }
