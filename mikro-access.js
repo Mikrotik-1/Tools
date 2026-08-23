@@ -244,17 +244,25 @@
             '#mikroAccessWhatsapp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:12px;border-radius:10px;background:#25d366;color:#fff;text-decoration:none;font-size:14px;font-weight:800;transition:background .2s,transform .2s}',
             '#mikroAccessWhatsapp:hover{background:#1fb85a;transform:translateY(-1px)}',
             '#navLoginBtn,#navUserBtn,#userDropdown,#authOverlay,#loginStateLink{display:none!important}',
-            '#mikroAccessStatus{position:fixed;right:12px;bottom:12px;z-index:2147482000;width:min(250px,calc(100vw - 24px));box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:9px;padding:8px 10px;box-shadow:0 10px 25px rgba(15,23,42,.28);font-family:Tajawal,Arial,sans-serif;direction:rtl}',
-            '#mikroAccessStatusTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;margin:-2px -2px 5px;padding:2px;color:#c4b5fd;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}',
-            '#mikroAccessStatusTitle:active{cursor:grabbing}',
-            '#mikroAccessStatusMove{color:#818cf8;font-size:14px;pointer-events:none}',
+            '#mikroAccessStatus{position:fixed;right:12px;bottom:12px;z-index:2147482000;box-sizing:border-box;font-family:Tajawal,Arial,sans-serif;direction:rtl;color:#fff}',
+            '#mikroAccessStatus.mikro-access-nav{position:relative;right:auto;bottom:auto;display:inline-flex;align-items:center;flex:0 0 auto;z-index:2147482000}',
+            '#mikroAccessStatusToggle{display:flex;align-items:center;gap:7px;min-height:38px;padding:8px 11px;border:1px solid rgba(74,222,128,.45);border-radius:11px;background:rgba(22,101,52,.24);color:#dcfce7;font:800 11px Tajawal,Arial,sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 5px 16px rgba(15,23,42,.16)}',
+            '#mikroAccessStatusToggle:hover,#mikroAccessStatus.open #mikroAccessStatusToggle{background:rgba(22,163,74,.34);border-color:#4ade80;color:#fff}',
+            '#mikroAccessStatusDot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.14)}',
+            '#mikroAccessCompactRemaining{direction:ltr;font-weight:700;color:#bbf7d0}',
+            '#mikroAccessStatusChevron{font-size:9px;transition:transform .2s}',
+            '#mikroAccessStatus.open #mikroAccessStatusChevron{transform:rotate(180deg)}',
+            '#mikroAccessStatusPanel{display:none;position:absolute;right:0;bottom:calc(100% + 8px);width:245px;box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:10px;padding:10px 11px;box-shadow:0 14px 34px rgba(15,23,42,.34)}',
+            '#mikroAccessStatus.open #mikroAccessStatusPanel{display:block}',
+            '#mikroAccessStatus.mikro-access-nav #mikroAccessStatusPanel{top:calc(100% + 9px);bottom:auto}',
+            '#mikroAccessStatusTitle{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;margin-bottom:7px;color:#c4b5fd}',
             '#mikroAccessStatusTimes{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10px;color:#cbd5e1}',
             '#mikroAccessStatusTimes strong{display:block;margin-top:1px;color:#fff;font-size:13px;direction:ltr;text-align:right}',
             '#mikroAccessStatusFooter{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1)}',
             '#mikroAccessStatusExpiry{font-size:9px;color:#94a3b8;line-height:1.35}',
             '#mikroAccessLogout{flex:0 0 auto;border:1px solid rgba(248,113,113,.45);border-radius:6px;background:rgba(127,29,29,.28);color:#fecaca;padding:4px 7px;font:700 10px Tajawal,Arial,sans-serif;cursor:pointer}',
             '#mikroAccessLogout:hover{background:rgba(185,28,28,.5);color:#fff}',
-            '@media(max-width:600px){#mikroAccessStatus{right:8px;bottom:8px;width:min(235px,calc(100vw - 16px));padding:7px 9px}}',
+            '@media(max-width:600px){#mikroAccessStatus{right:8px;bottom:8px}#mikroAccessStatusPanel{width:min(235px,calc(100vw - 16px))}#mikroAccessStatusToggle{min-height:34px;padding:7px 9px}#mikroAccessStatusLabel{display:none}}',
             '.mikro-access-hidden{overflow:hidden!important}'
         ].join('');
         document.head.appendChild(style);
@@ -416,16 +424,33 @@
             status = document.createElement('div');
             status.id = 'mikroAccessStatus';
             status.setAttribute('role', 'status');
-            status.innerHTML = '<div id="mikroAccessStatusTitle"><span>اشتراكك مفعل</span><i id="mikroAccessStatusMove" class="fas fa-arrows-alt" aria-hidden="true"></i></div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusFooter"><div id="mikroAccessStatusExpiry"></div><button id="mikroAccessLogout" type="button">تسجيل خروج</button></div>';
-            document.body.appendChild(status);
+            status.innerHTML = '<button id="mikroAccessStatusToggle" type="button" aria-expanded="false"><span id="mikroAccessStatusDot"></span><span id="mikroAccessStatusLabel">الاشتراك مفعل</span><span id="mikroAccessCompactRemaining">00:00</span><i id="mikroAccessStatusChevron" class="fas fa-chevron-down" aria-hidden="true"></i></button><div id="mikroAccessStatusPanel"><div id="mikroAccessStatusTitle"><i class="fas fa-shield-alt" aria-hidden="true"></i><span>تفاصيل الاشتراك</span></div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusFooter"><div id="mikroAccessStatusExpiry"></div><button id="mikroAccessLogout" type="button">تسجيل خروج</button></div></div>';
+            var navLogin = document.getElementById('navLoginBtn') || document.getElementById('loginStateLink');
+            if (navLogin && navLogin.parentNode) {
+                status.classList.add('mikro-access-nav');
+                navLogin.parentNode.insertBefore(status, navLogin);
+            } else {
+                document.body.appendChild(status);
+            }
+            document.getElementById('mikroAccessStatusToggle').addEventListener('click', function (event) {
+                event.stopPropagation();
+                var isOpen = status.classList.toggle('open');
+                this.setAttribute('aria-expanded', String(isOpen));
+            });
+            document.getElementById('mikroAccessStatusPanel').addEventListener('click', function (event) { event.stopPropagation(); });
             document.getElementById('mikroAccessLogout').addEventListener('click', clearAccessSession);
-            enableStatusDrag(status);
-            requestAnimationFrame(function () { restoreStatusPosition(status); });
+            document.addEventListener('click', function () {
+                status.classList.remove('open');
+                var toggle = document.getElementById('mikroAccessStatusToggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
         }
         var unlockedAt = Date.parse(session.unlockedAt || '');
         var used = Number.isFinite(unlockedAt) ? now() - unlockedAt : 0;
         document.getElementById('mikroAccessUsed').textContent = formatDuration(used);
-        document.getElementById('mikroAccessRemaining').textContent = formatDuration(Number(session.expiresAt) - now());
+        var remaining = Number(session.expiresAt) - now();
+        document.getElementById('mikroAccessRemaining').textContent = formatDuration(remaining);
+        document.getElementById('mikroAccessCompactRemaining').textContent = formatLeft(remaining);
         document.getElementById('mikroAccessStatusExpiry').textContent = 'ينتهي في: ' + new Date(Number(session.expiresAt)).toLocaleString('ar-EG');
     }
 
