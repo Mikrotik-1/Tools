@@ -251,6 +251,7 @@
             '#mikroAccessWhatsapp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:12px;border-radius:10px;background:#25d366;color:#fff;text-decoration:none;font-size:14px;font-weight:800;transition:background .2s,transform .2s}',
             '#mikroAccessWhatsapp:hover{background:#1fb85a;transform:translateY(-1px)}',
             '#navLoginBtn,#navUserBtn,#userDropdown,#authOverlay,#loginStateLink{display:none!important}',
+            '.mikro-access-slot{display:inline-flex;align-items:center;flex:0 0 auto}',
             '#mikroAccessStatus{position:fixed;right:12px;bottom:12px;z-index:2147482000;box-sizing:border-box;font-family:Tajawal,Arial,sans-serif;direction:rtl;color:#fff}',
             '#mikroAccessStatus.mikro-access-nav{position:relative;right:auto;bottom:auto;display:inline-flex;align-items:center;flex:0 0 auto;z-index:2147482000}',
             '#mikroAccessStatusToggle{display:flex;align-items:center;gap:6px;min-height:36px;padding:7px 10px;border:1px solid rgba(74,222,128,.45);border-radius:10px;background:rgba(22,101,52,.24);color:#dcfce7;font:800 11px Tajawal,Arial,sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 5px 16px rgba(15,23,42,.16)}',
@@ -431,8 +432,12 @@
             status.id = 'mikroAccessStatus';
             status.setAttribute('role', 'status');
             status.innerHTML = '<button id="mikroAccessStatusToggle" type="button" aria-expanded="false"><span id="mikroAccessStatusDot"></span><span id="mikroAccessStatusLabel">مفعل</span><span id="mikroAccessCompactRemaining">0د</span><i id="mikroAccessStatusChevron" class="fas fa-chevron-down" aria-hidden="true"></i></button><div id="mikroAccessStatusPanel"><div id="mikroAccessStatusTitle"><i class="fas fa-shield-alt" aria-hidden="true"></i><span>تفاصيل الاشتراك</span></div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusFooter"><div id="mikroAccessStatusExpiry"></div><button id="mikroAccessLogout" type="button">تسجيل خروج</button></div></div>';
+            var explicitSlot = document.querySelector('[data-mikro-access-slot]');
             var navLogin = document.getElementById('navLoginBtn') || document.getElementById('loginStateLink');
-            if (navLogin && navLogin.parentNode) {
+            if (explicitSlot) {
+                status.classList.add('mikro-access-nav');
+                explicitSlot.appendChild(status);
+            } else if (navLogin && navLogin.parentNode) {
                 status.classList.add('mikro-access-nav');
                 navLogin.parentNode.insertBefore(status, navLogin);
             } else {
