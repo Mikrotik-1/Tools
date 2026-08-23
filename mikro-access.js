@@ -2,7 +2,7 @@
     'use strict';
 
     var excludedPages = ['admin.html', 'mikro-icons.html'];
-    var page = (location.pathname || '').split('/').pop() || 'index.html';
+    var page = normalizePage(location.pathname);
     if (excludedPages.indexOf(page) !== -1) return;
 
     var BIN_ID = '6984fe4d43b1c97be9684aa8';
@@ -20,7 +20,9 @@
     function now() { return Date.now(); }
 
     function normalizePage(value) {
-        return String(value || '').split('?')[0].split('#')[0].split('/').pop() || 'index.html';
+        var normalized = String(value || '').split('?')[0].split('#')[0].split('/').pop() || 'index.html';
+        try { normalized = decodeURIComponent(normalized); } catch (e) {}
+        return normalized;
     }
 
     function readSession() {
