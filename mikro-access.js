@@ -54,6 +54,13 @@
         return remainingMinutes ? hours + ' ساعة و' + remainingMinutes + ' دقيقة' : hours + ' ساعة';
     }
 
+    function formatCompactLeft(ms) {
+        var minutes = Math.max(0, Math.ceil(ms / 60000));
+        if (minutes >= 1440) return Math.floor(minutes / 1440) + 'ي';
+        if (minutes >= 60) return Math.floor(minutes / 60) + 'س';
+        return minutes + 'د';
+    }
+
     function formatDuration(ms) {
         var totalSeconds = Math.max(0, Math.floor(ms / 1000));
         var days = Math.floor(totalSeconds / 86400);
@@ -246,15 +253,14 @@
             '#navLoginBtn,#navUserBtn,#userDropdown,#authOverlay,#loginStateLink{display:none!important}',
             '#mikroAccessStatus{position:fixed;right:12px;bottom:12px;z-index:2147482000;box-sizing:border-box;font-family:Tajawal,Arial,sans-serif;direction:rtl;color:#fff}',
             '#mikroAccessStatus.mikro-access-nav{position:relative;right:auto;bottom:auto;display:inline-flex;align-items:center;flex:0 0 auto;z-index:2147482000}',
-            '#mikroAccessStatusToggle{display:flex;align-items:center;gap:7px;min-height:38px;padding:8px 11px;border:1px solid rgba(74,222,128,.45);border-radius:11px;background:rgba(22,101,52,.24);color:#dcfce7;font:800 11px Tajawal,Arial,sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 5px 16px rgba(15,23,42,.16)}',
+            '#mikroAccessStatusToggle{display:flex;align-items:center;gap:6px;min-height:36px;padding:7px 10px;border:1px solid rgba(74,222,128,.45);border-radius:10px;background:rgba(22,101,52,.24);color:#dcfce7;font:800 11px Tajawal,Arial,sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 5px 16px rgba(15,23,42,.16)}',
             '#mikroAccessStatusToggle:hover,#mikroAccessStatus.open #mikroAccessStatusToggle{background:rgba(22,163,74,.34);border-color:#4ade80;color:#fff}',
             '#mikroAccessStatusDot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.14)}',
-            '#mikroAccessCompactRemaining{direction:ltr;font-weight:700;color:#bbf7d0}',
+            '#mikroAccessCompactRemaining{direction:rtl;font-weight:800;color:#bbf7d0;padding-right:5px;border-right:1px solid rgba(187,247,208,.25)}',
             '#mikroAccessStatusChevron{font-size:9px;transition:transform .2s}',
             '#mikroAccessStatus.open #mikroAccessStatusChevron{transform:rotate(180deg)}',
-            '#mikroAccessStatusPanel{display:none;position:absolute;right:0;bottom:calc(100% + 8px);width:245px;box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:10px;padding:10px 11px;box-shadow:0 14px 34px rgba(15,23,42,.34)}',
+            '#mikroAccessStatusPanel{display:none;position:fixed;left:8px;top:72px;width:230px;box-sizing:border-box;background:#172033;color:#fff;border:1px solid rgba(139,92,246,.45);border-radius:10px;padding:10px 11px;box-shadow:0 14px 34px rgba(15,23,42,.34);z-index:2147483000}',
             '#mikroAccessStatus.open #mikroAccessStatusPanel{display:block}',
-            '#mikroAccessStatus.mikro-access-nav #mikroAccessStatusPanel{top:calc(100% + 9px);bottom:auto}',
             '#mikroAccessStatusTitle{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;margin-bottom:7px;color:#c4b5fd}',
             '#mikroAccessStatusTimes{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10px;color:#cbd5e1}',
             '#mikroAccessStatusTimes strong{display:block;margin-top:1px;color:#fff;font-size:13px;direction:ltr;text-align:right}',
@@ -262,7 +268,7 @@
             '#mikroAccessStatusExpiry{font-size:9px;color:#94a3b8;line-height:1.35}',
             '#mikroAccessLogout{flex:0 0 auto;border:1px solid rgba(248,113,113,.45);border-radius:6px;background:rgba(127,29,29,.28);color:#fecaca;padding:4px 7px;font:700 10px Tajawal,Arial,sans-serif;cursor:pointer}',
             '#mikroAccessLogout:hover{background:rgba(185,28,28,.5);color:#fff}',
-            '@media(max-width:600px){#mikroAccessStatus{right:8px;bottom:8px}#mikroAccessStatusPanel{width:min(235px,calc(100vw - 16px))}#mikroAccessStatusToggle{min-height:34px;padding:7px 9px}#mikroAccessStatusLabel{display:none}}',
+            '@media(max-width:600px){#mikroAccessStatus{right:8px;bottom:8px}#mikroAccessStatusPanel{width:min(225px,calc(100vw - 16px))}#mikroAccessStatusToggle{min-height:33px;padding:6px 8px}}',
             '.mikro-access-hidden{overflow:hidden!important}'
         ].join('');
         document.head.appendChild(style);
@@ -424,7 +430,7 @@
             status = document.createElement('div');
             status.id = 'mikroAccessStatus';
             status.setAttribute('role', 'status');
-            status.innerHTML = '<button id="mikroAccessStatusToggle" type="button" aria-expanded="false"><span id="mikroAccessStatusDot"></span><span id="mikroAccessStatusLabel">الاشتراك مفعل</span><span id="mikroAccessCompactRemaining">00:00</span><i id="mikroAccessStatusChevron" class="fas fa-chevron-down" aria-hidden="true"></i></button><div id="mikroAccessStatusPanel"><div id="mikroAccessStatusTitle"><i class="fas fa-shield-alt" aria-hidden="true"></i><span>تفاصيل الاشتراك</span></div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusFooter"><div id="mikroAccessStatusExpiry"></div><button id="mikroAccessLogout" type="button">تسجيل خروج</button></div></div>';
+            status.innerHTML = '<button id="mikroAccessStatusToggle" type="button" aria-expanded="false"><span id="mikroAccessStatusDot"></span><span id="mikroAccessStatusLabel">مفعل</span><span id="mikroAccessCompactRemaining">0د</span><i id="mikroAccessStatusChevron" class="fas fa-chevron-down" aria-hidden="true"></i></button><div id="mikroAccessStatusPanel"><div id="mikroAccessStatusTitle"><i class="fas fa-shield-alt" aria-hidden="true"></i><span>تفاصيل الاشتراك</span></div><div id="mikroAccessStatusTimes"><span>استخدمت<strong id="mikroAccessUsed">00:00:00</strong></span><span>متبقي<strong id="mikroAccessRemaining">00:00:00</strong></span></div><div id="mikroAccessStatusFooter"><div id="mikroAccessStatusExpiry"></div><button id="mikroAccessLogout" type="button">تسجيل خروج</button></div></div>';
             var navLogin = document.getElementById('navLoginBtn') || document.getElementById('loginStateLink');
             if (navLogin && navLogin.parentNode) {
                 status.classList.add('mikro-access-nav');
@@ -436,6 +442,7 @@
                 event.stopPropagation();
                 var isOpen = status.classList.toggle('open');
                 this.setAttribute('aria-expanded', String(isOpen));
+                if (isOpen) positionStatusPanel();
             });
             document.getElementById('mikroAccessStatusPanel').addEventListener('click', function (event) { event.stopPropagation(); });
             document.getElementById('mikroAccessLogout').addEventListener('click', clearAccessSession);
@@ -450,8 +457,23 @@
         document.getElementById('mikroAccessUsed').textContent = formatDuration(used);
         var remaining = Number(session.expiresAt) - now();
         document.getElementById('mikroAccessRemaining').textContent = formatDuration(remaining);
-        document.getElementById('mikroAccessCompactRemaining').textContent = formatLeft(remaining);
+        document.getElementById('mikroAccessCompactRemaining').textContent = formatCompactLeft(remaining);
         document.getElementById('mikroAccessStatusExpiry').textContent = 'ينتهي في: ' + new Date(Number(session.expiresAt)).toLocaleString('ar-EG');
+    }
+
+    function positionStatusPanel() {
+        var toggle = document.getElementById('mikroAccessStatusToggle');
+        var panel = document.getElementById('mikroAccessStatusPanel');
+        if (!toggle || !panel) return;
+        var rect = toggle.getBoundingClientRect();
+        var margin = 8;
+        var panelWidth = panel.offsetWidth || 230;
+        var panelHeight = panel.offsetHeight || 150;
+        var left = Math.min(Math.max(margin, rect.right - panelWidth), Math.max(margin, window.innerWidth - panelWidth - margin));
+        var top = rect.bottom + margin;
+        if (top + panelHeight > window.innerHeight - margin) top = Math.max(margin, rect.top - panelHeight - margin);
+        panel.style.left = left + 'px';
+        panel.style.top = top + 'px';
     }
 
     function renderSessionStatus() {
