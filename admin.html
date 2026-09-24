@@ -270,6 +270,7 @@
                 <li class="nav-item"><a href="#" class="nav-link" data-page="realtime"><i class="fas fa-clock"></i><span>مباشر</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link" data-page="telegram"><i class="fab fa-telegram"></i><span>إشعارات Telegram</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link" data-page="settings"><i class="fas fa-cog"></i><span>الإعدادات</span></a></li>
+                <li class="nav-item"><a href="radius.html" class="nav-link"><i class="fas fa-server"></i><span>إدارة الراديوس · تحضير</span></a></li>
             </ul>
         </div>
         <div class="main-content" id="mainContent">
@@ -844,9 +845,10 @@ ${typesText}
             { name:'مصمم الكروت', path:'CardEditor.html', section:'تصميم', type:'مدفوعة' },
             { name:'حجب المواقع', path:'block-sites.html', section:'حجب', type:'مدفوعة' },
             { name:'بروفايلات السرعة', path:'speed-profiles.html', section:'Hotspot', type:'مدفوعة' },
-            { name:'محلل السجلات', path:'log.html', section:'أدوات', type:'مدفوعة' },
+            { name:'دكتور الشبكة', path:'log.html', section:'أدوات', type:'مدفوعة' },
             { name:'المشكلات الشائعة', path:'troubleshooting.html', section:'دعم', type:'مدفوعة' },
             { name:'حاسبة سعة الشبكة', path:'capacity-calculator.html', section:'أدوات', type:'مدفوعة' },
+            { name:'إدارة الراديوس', path:'radius.html', section:'RADIUS', type:'تحضير' },
             { name:'من نحن', path:'about.html', section:'عام', type:'صفحة' },
             { name:'الأسعار', path:'pricing.html', section:'عام', type:'صفحة' },
             { name:'التحديثات', path:'updates.html', section:'عام', type:'صفحة' },
@@ -2056,6 +2058,7 @@ ${typesText}
 
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
+                    if (!this.dataset.page) return;
                     e.preventDefault();
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');

@@ -1,0 +1,9 @@
+.git
+.env*
+node_modules
+.radius-venv
+.radius-lab
+.platform-data
+test-results
+__pycache__
+*.pyc

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e293b">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="تحضير إدارة RADIUS لشبكات MikroTik: الراوترات والباقات ومشتركو Hotspot وPPPoE ودفعات الكروت، قبل ربط السيرفر.">
+  <title>إدارة الراديوس | MikroTools</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/radius/radius.css">
+  <link rel="stylesheet" href="assets/radius/identity.css">
+  <script defer src="assets/radius/core.js"></script>
+  <script defer src="assets/radius/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">انتقل للمحتوى</a>
+  <header class="site-header"><div class="site-header-inner"><a class="site-logo" href="index.html"><span class="site-logo-mark"><svg aria-hidden="true"><use href="assets/radius/icons.svg#wifi"/></svg></span><strong dir="ltr">MikroTools</strong></a><nav class="site-links" aria-label="الموقع"><a href="index.html">الرئيسية</a><a href="hotspot.html">الهوت سبوت</a><a href="CardEditor.html">مصمم الكروت</a><a class="selected" href="radius.html">مركز الشبكة</a></nav><a class="site-lab-link" href="radius-lab.html"><svg aria-hidden="true"><use href="assets/radius/icons.svg#pulse"/></svg> معمل الاتصال</a></div></header>
+  <aside class="sidebar workspace-navigation">
+    <nav aria-label="أقسام الراديوس">
+      <a href="#overview" data-view="overview" aria-current="page"><svg aria-hidden="true"><use href="assets/radius/icons.svg#grid"/></svg> نظرة عامة</a>
+      <a href="#routers" data-view="routers"><svg aria-hidden="true"><use href="assets/radius/icons.svg#router"/></svg> الراوترات <b id="nav-routers">0</b></a>
+      <a href="#plans" data-view="plans"><svg aria-hidden="true"><use href="assets/radius/icons.svg#plans"/></svg> الباقات <b id="nav-plans">0</b></a>
+      <a href="#subscribers" data-view="subscribers"><svg aria-hidden="true"><use href="assets/radius/icons.svg#users"/></svg> المشتركون <b id="nav-subscribers">0</b></a>
+      <a href="#vouchers" data-view="vouchers"><svg aria-hidden="true"><use href="assets/radius/icons.svg#cards"/></svg> دفعات الكروت</a>
+      <a href="#devices" data-view="devices"><svg aria-hidden="true"><use href="assets/radius/icons.svg#device"/></svg> أجهزة العملاء وUBNT</a>
+      <a href="#distributors" data-view="distributors"><svg aria-hidden="true"><use href="assets/radius/icons.svg#shop"/></svg> الموزّعون</a>
+      <a href="#invoices" data-view="invoices"><svg aria-hidden="true"><use href="assets/radius/icons.svg#invoice"/></svg> الفواتير</a>
+      <a href="#accounts" data-view="accounts"><svg aria-hidden="true"><use href="assets/radius/icons.svg#wallet"/></svg> الحسابات والتحصيل</a>
+      <a href="#sessions" data-view="sessions"><svg aria-hidden="true"><use href="assets/radius/icons.svg#pulse"/></svg> الجلسات والاستهلاك</a>
+      <a href="#settings" data-view="settings"><svg aria-hidden="true"><use href="assets/radius/icons.svg#settings"/></svg> الإعدادات</a>
+      <a href="#connection" data-view="connection"><svg aria-hidden="true"><use href="assets/radius/icons.svg#link"/></svg> ربط السيرفر</a>
+    </nav>
+  </aside>
+  <div class="shell">
+    <header class="topbar"><span><span id="network-label">مساحة العمل</span> <span class="crumb">/</span> <strong id="breadcrumb">نظرة عامة</strong></span><span class="tag warning"><span class="status-dot amber"></span> وضع التحضير</span></header>
+    <main id="main" tabindex="-1">
+      <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>حضّر بيانات شبكتك قبل ربط السيرفر</strong><p>المسودات محفوظة في هذا المتصفح فقط، وليست حسابات مفعّلة. لا تُدخل كلمات مرور أو أسرار الراوترات. صدّر نسخة لنقلها لاحقًا.</p></div><button type="button" class="btn small" id="export-top">تصدير المسودة ↓</button></div>
+      <p id="storage-error" class="error-banner" role="alert" hidden></p>
+      <noscript><p class="error-banner">فعّل JavaScript لاستخدام لوحة التحضير. لم يتم تشغيل أي خدمة RADIUS.</p></noscript>
+
+      <section id="view-overview" class="view" aria-labelledby="title-overview">
+        <div class="network-hero"><div class="network-hero-copy"><span class="hero-kicker"><svg aria-hidden="true"><use href="assets/radius/icons.svg#router"/></svg> مركز إدارة شبكتك</span><h1 id="title-overview">كل تفاصيل شبكتك.<br><span>تحت إيدك.</span></h1><p>من أول مشترك لآخر فاتورة؛ رتّب شغلك، جهّز باقاتك، وابدأ اختبار الاتصال من نفس المكان.</p><div class="hero-buttons"><button class="btn primary" data-create="subscribers"><svg aria-hidden="true"><use href="assets/radius/icons.svg#plus"/></svg> إضافة مشترك</button><a class="btn hero-secondary" href="radius-lab.html">تجربة الربط <svg aria-hidden="true"><use href="assets/radius/icons.svg#arrow"/></svg></a></div><small>مساحة التحضير · التفعيل من معمل الاتصال</small></div><div class="network-map" aria-label="الراوترات والمشتركون والمحاسبة في مركز واحد"><div class="map-orbit orbit-one"></div><div class="map-orbit orbit-two"></div><div class="map-center"><svg aria-hidden="true"><use href="assets/radius/icons.svg#wifi"/></svg><strong dir="ltr">MikroTools</strong><small>مركز الشبكة</small></div><div class="map-node node-router"><svg aria-hidden="true"><use href="assets/radius/icons.svg#router"/></svg><span>الراوترات</span></div><div class="map-node node-users"><svg aria-hidden="true"><use href="assets/radius/icons.svg#users"/></svg><span>المشتركون</span></div><div class="map-node node-cards"><svg aria-hidden="true"><use href="assets/radius/icons.svg#cards"/></svg><span>الكروت والباقات</span></div><div class="map-node node-wallet"><svg aria-hidden="true"><use href="assets/radius/icons.svg#wallet"/></svg><span>الحسابات</span></div></div></div>
+        <div class="task-shortcuts"><button data-create="vouchers"><span class="shortcut-icon violet"><svg aria-hidden="true"><use href="assets/radius/icons.svg#cards"/></svg></span><span><strong>جهّز دفعة كروت</strong><small>اختر الباقة والموزّع</small></span><svg class="shortcut-arrow" aria-hidden="true"><use href="assets/radius/icons.svg#arrow"/></svg></button><button data-create="invoices"><span class="shortcut-icon teal"><svg aria-hidden="true"><use href="assets/radius/icons.svg#invoice"/></svg></span><span><strong>أنشئ فاتورة</strong><small>اشتراك وخصم وعمولة</small></span><svg class="shortcut-arrow" aria-hidden="true"><use href="assets/radius/icons.svg#arrow"/></svg></button><button data-create="devices"><span class="shortcut-icon blue"><svg aria-hidden="true"><use href="assets/radius/icons.svg#device"/></svg></span><span><strong>أضف جهاز عميل</strong><small>UBNT وراوترات العملاء</small></span><svg class="shortcut-arrow" aria-hidden="true"><use href="assets/radius/icons.svg#arrow"/></svg></button></div>
+        <div class="section-title-row"><h2>نظرة على شبكتك</h2><span>من البيانات التي حفظتها</span></div>
+        <div class="stats-grid">
+          <article class="stat"><span class="stat-symbol blue" aria-hidden="true">⌘</span><p>الراوترات المخططة</p><strong id="stat-routers">0</strong><small>بانتظار الربط</small></article>
+          <article class="stat"><span class="stat-symbol violet" aria-hidden="true">♙</span><p>مسودات المشتركين</p><strong id="stat-subscribers">0</strong><small>Hotspot وPPPoE</small></article>
+          <article class="stat"><span class="stat-symbol teal" aria-hidden="true">▤</span><p>الباقات المحفوظة</p><strong id="stat-plans">0</strong><small>سرعة وصلاحية وحصة بيانات</small></article>
+          <article class="stat"><span class="stat-symbol orange" aria-hidden="true">◷</span><p>المتصلون الآن</p><strong class="unavailable">—</strong><small>متاح بعد ربط السيرفر</small></article>
+        </div>
+        <div class="overview-grid">
+          <article class="panel"><div class="panel-heading"><h2>خطوات تجهيز الشبكة</h2><span id="progress-label" class="tag">0 / 3</span></div><div class="progress-track"><div id="progress-bar"></div></div><div id="setup-steps" class="steps"></div><div class="panel-footer">الخطوة التالية بعد التحضير: تجهيز الـVPS وربطه.</div></article>
+          <article class="panel connection-card"><span class="server-symbol" aria-hidden="true">▰<br>▰</span><h2>جاهز للخطوة القادمة؟</h2><p>السيرفر هيستقبل طلبات الدخول والمحاسبة من الراوترات عبر اتصال آمن.</p><div class="connection-summary"><span>خدمة RADIUS</span><span class="tag warning">لم تُفعّل</span></div><div class="connection-summary"><span>الربط بالراوترات</span><span>بانتظار الـVPS</span></div><a class="btn" href="#connection">مراجعة خطة الربط ←</a></article>
+        </div>
+        <article class="panel activity-panel"><div class="panel-heading"><h2>آخر التعديلات على المسودة</h2><span class="muted">على هذا المتصفح</span></div><div id="recent-activity"></div></article>
+      </section>
+
+      <section id="view-routers" class="view" hidden aria-labelledby="title-routers">
+        <div class="page-heading"><div><p class="eyebrow">NETWORK ACCESS SERVERS</p><h1 id="title-routers">الراوترات</h1><p>أضف أجهزة MikroTik وحدد الخدمة المطلوبة لكل جهاز.</p></div><button class="btn primary" data-create="routers">＋ إضافة راوتر</button></div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن راوتر<input type="search" data-search="routers" placeholder="اسم الراوتر أو الموقع" autocomplete="off"></label><span class="tag">إعدادات مخططة</span></div><div id="table-routers" class="table-wrap"></div></article>
+      </section>
+      <section id="view-plans" class="view" hidden aria-labelledby="title-plans">
+        <div class="page-heading"><div><p class="eyebrow">SERVICE PLANS</p><h1 id="title-plans">الباقات</h1><p>حدد سرعة التحميل والرفع والحصة والصلاحية لكل باقة.</p></div><button class="btn primary" data-create="plans">＋ إضافة باقة</button></div>
+        <div class="quick-actions"><span class="muted">ابدأ بقالب وعدّل القيم:</span><button class="btn small" data-template="daily">كارت يوم</button><button class="btn small" data-template="weekly">باقة أسبوع</button><button class="btn small" data-template="monthly">اشتراك PPPoE شهري</button></div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن باقة<input type="search" data-search="plans" placeholder="اسم الباقة" autocomplete="off"></label><span class="tag">تُطبّق بعد التفعيل</span></div><div id="table-plans" class="table-wrap"></div></article>
+      </section>
+      <section id="view-subscribers" class="view" hidden aria-labelledby="title-subscribers">
+        <div class="page-heading"><div><p class="eyebrow">SUBSCRIBERS</p><h1 id="title-subscribers">المشتركون</h1><p>جهّز أسماء حسابات Hotspot وPPPoE واربطها بالراوتر والباقة.</p></div><button class="btn primary" data-create="subscribers">＋ إضافة مشترك</button></div>
+        <div class="quick-actions"><button class="btn small" id="subscriber-template">تنزيل قالب CSV</button><button class="btn small" id="import-subscribers">استيراد CSV</button><button class="btn small" id="export-subscribers">تصدير المشتركين CSV</button><input id="subscribers-file" type="file" accept=".csv,text/csv" hidden><span class="muted">الاستيراد يضيف مسودات، بدون كلمات مرور.</span></div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن مشترك<input type="search" data-search="subscribers" placeholder="اسم الحساب أو الاسم التعريفي" autocomplete="off"></label><label>الخدمة<select id="subscriber-service"><option value="all">كل الخدمات</option><option value="hotspot">Hotspot</option><option value="pppoe">برودباند · PPPoE</option><option value="mac">MAC Address</option></select></label></div><div id="table-subscribers" class="table-wrap"></div></article>
+      </section>
+      <section id="view-vouchers" class="view" hidden aria-labelledby="title-vouchers">
+        <div class="page-heading"><div><p class="eyebrow">HOTSPOT VOUCHERS</p><h1 id="title-vouchers">دفعات الكروت</h1><p>حضّر دفعات بأسماء حسابات فريدة. كلمات المرور والتفعيل بعد ربط السيرفر.</p></div><button class="btn primary" data-create="vouchers">＋ تجهيز دفعة</button></div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن دفعة<input type="search" data-search="vouchers" placeholder="اسم الدفعة" autocomplete="off"></label><span class="tag" id="voucher-count">0 كارت مخطط</span></div><div id="table-vouchers" class="table-wrap"></div></article>
+      </section>
+      <section id="view-devices" class="view" hidden aria-labelledby="title-devices">
+        <div class="page-heading"><div><p class="eyebrow">DEVICE MANAGEMENT</p><h1 id="title-devices">أجهزة العملاء وUBNT</h1><p>دليل الأجهزة داخل الفروع، مع طريقة الإدارة والمشترك التابع له الجهاز.</p></div><button class="btn primary" data-create="devices">＋ إضافة جهاز</button></div>
+        <div class="inline-note">الدخول للأجهزة يحتاج VPN ومسارات داخل شبكة الفرع. عناوين الإدارة لا تُفتح على الإنترنت، وبيانات الدخول لا تُحفظ في هذه المسودة.</div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن جهاز<input type="search" data-search="devices" placeholder="الاسم، العنوان، الموديل أو المشترك"></label><label>الشركة<select id="device-vendor"><option value="all">كل الأجهزة</option><option value="ubnt">Ubiquiti / UBNT</option><option value="mikrotik">MikroTik</option><option value="tplink">TP-Link</option><option value="tenda">Tenda</option><option value="other">أخرى</option></select></label></div><div id="table-devices" class="table-wrap"></div></article>
+      </section>
+      <section id="view-distributors" class="view" hidden aria-labelledby="title-distributors">
+        <div class="page-heading"><div><p class="eyebrow">DISTRIBUTORS</p><h1 id="title-distributors">الموزّعون</h1><p>جهّز بيانات الموزّعين ونسب العمولة، واربطهم بالمشتركين ودفعات الكروت.</p></div><button class="btn primary" data-create="distributors">＋ إضافة موزّع</button></div>
+        <div class="inline-note">حسابات دخول الموزّعين وصلاحياتهم وحدود البيع تُفعّل من السيرفر لاحقًا. نسبة العمولة هنا تُستخدم لتخطيط الفواتير.</div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن موزّع<input type="search" data-search="distributors" placeholder="الاسم أو الكود أو الهاتف"></label><span class="tag">بيانات تحضير</span></div><div id="table-distributors" class="table-wrap"></div></article>
+      </section>
+      <section id="view-invoices" class="view" hidden aria-labelledby="title-invoices">
+        <div class="page-heading"><div><p class="eyebrow">DRAFT INVOICES</p><h1 id="title-invoices">الفواتير</h1><p>حضّر فواتير الاشتراكات والخصومات والعمولات، واطبع نسخة للمراجعة.</p></div><button class="btn primary" data-create="invoices">＋ مسودة فاتورة</button></div>
+        <div class="inline-note">كل الفواتير مسودات غير مُصدرة وليست فواتير ضريبية أو إيصالات دفع. المبالغ بالجنيه المصري.</div>
+        <article class="panel"><div class="table-toolbar"><label class="search-label">بحث عن فاتورة<input type="search" data-search="invoices" placeholder="رقم الفاتورة أو المشترك"></label><button class="btn small" id="export-invoices">تصدير الفواتير CSV</button></div><div id="table-invoices" class="table-wrap"></div></article>
+      </section>
+      <section id="view-accounts" class="view" hidden aria-labelledby="title-accounts">
+        <div class="page-heading"><div><p class="eyebrow">PLANNED ACCOUNTS</p><h1 id="title-accounts">الحسابات والتحصيل</h1><p>راجع الحسابات المتوقعة من مسودات الفواتير والتحصيل. لا توجد حركة مالية فعلية.</p></div><button class="btn primary" data-create="payments">＋ مسودة تحصيل</button></div>
+        <div class="stats-grid"><article class="stat"><p>صافي الفواتير المخطط</p><strong id="account-total">0</strong><small>جنيه مصري</small></article><article class="stat"><p>التحصيل المخطط</p><strong id="account-paid">0</strong><small>لم يتم تحصيله فعليًا</small></article><article class="stat"><p>المتبقي المخطط</p><strong id="account-due">0</strong><small>بعد مسودات التحصيل</small></article><article class="stat"><p>عمولات الموزّعين المخططة</p><strong id="account-commission">0</strong><small>من صافي الفواتير</small></article></div>
+        <article class="panel"><div class="panel-heading"><h2>مسودات التحصيل</h2></div><div class="table-toolbar"><label class="search-label">بحث في التحصيل<input type="search" data-search="payments" placeholder="رقم الفاتورة أو مرجع التحصيل"></label><button class="btn small" id="export-payments">تصدير التحصيل المخطط CSV</button></div><div id="table-payments" class="table-wrap"></div></article>
+      </section>
+      <section id="view-settings" class="view" hidden aria-labelledby="title-settings">
+        <div class="page-heading"><div><p class="eyebrow">WORKSPACE SETTINGS</p><h1 id="title-settings">الإعدادات</h1><p>إعدادات الهوية والفواتير، وتفضيلات المحاسبة المخططة عند ربط السيرفر.</p></div></div>
+        <article class="panel"><form id="settings-form"><div class="form-grid">
+          <label>اسم الشبكة<input name="networkName" required maxlength="80"></label><label>هاتف الدعم (اختياري)<input name="supportPhone" maxlength="30" dir="ltr"></label>
+          <label>بادئة أرقام الفواتير<input name="invoicePrefix" required maxlength="12" dir="ltr"></label><label>العملة<select name="currency"><option value="EGP">جنيه مصري — EGP</option></select></label>
+          <label>تحديث المحاسبة المخطط (ثانية)<input type="number" name="interimSeconds" min="60" max="3600" step="1" required><small>إعداد مقترح للراوتر بعد الربط، وليس تحديثًا مفعّلًا.</small></label>
+          <label>المنطقة الزمنية للعرض<select name="timezone"><option value="Africa/Cairo">القاهرة</option><option value="UTC">UTC</option><option value="Asia/Riyadh">الرياض</option></select></label>
+        </div><p id="settings-error" class="form-error" role="alert" hidden></p><button class="btn primary" type="submit">حفظ الإعدادات</button></form></article>
+        <article class="panel permissions-panel"><h2>صلاحيات التشغيل بعد الربط</h2><p class="muted">الأدوار المطلوبة: مدير الشبكة، محاسب، موزّع، وفني أجهزة. التحقق من الهوية وعزل بيانات كل موزّع يُنفّذان على السيرفر قبل التفعيل.</p><button class="btn" disabled>إدارة حسابات الدخول — بعد ربط الـVPS</button></article>
+      </section>
+      <section id="view-sessions" class="view" hidden aria-labelledby="title-sessions">
+        <div class="page-heading"><div><p class="eyebrow">LIVE ACCOUNTING</p><h1 id="title-sessions">الجلسات والاستهلاك</h1><p>بيانات الاتصال الفعلية تظهر هنا بعد تفعيل المحاسبة على الراوتر.</p></div><span class="tag warning">غير متاح حاليًا</span></div>
+        <article class="panel empty-state large"><span class="empty-symbol" aria-hidden="true">◷</span><h2>في انتظار أول اتصال بالسيرفر</h2><p>لم يصل أي سجل محاسبة. بعد الربط ستظهر الجلسات ووقت الاتصال والاستهلاك، مع إمكانية فصل المشترك.</p><a class="btn primary" href="#connection">عرض متطلبات الربط</a></article>
+      </section>
+      <section id="view-connection" class="view" hidden aria-labelledby="title-connection">
+        <div class="page-heading"><div><p class="eyebrow">SERVER CONNECTION</p><h1 id="title-connection">الربط بالـVPS</h1><p>نقطة التوقف الحالية: تحضير الموقع، ثم تجهيز السيرفر وتفعيله.</p></div><span class="tag warning">لم يتم الربط</span></div>
+        <article class="panel"><h2>مسار الربط المقترح</h2><div class="network-flow"><div><strong>لوحة MikroTools</strong><small>إدارة الباقات والمشتركين</small></div><span aria-hidden="true">⇄</span><div><strong>API + FreeRADIUS</strong><small>على الـVPS</small></div><span aria-hidden="true">⇄</span><div><strong>MikroTik</strong><small>VPN · Hotspot / PPPoE</small></div></div><p class="muted">بيانات الدخول والمحاسبة تمر بالسيرفر؛ تصفّح العملاء يمر بخط الإنترنت الخاص بالشبكة.</p></article>
+        <article class="panel"><h2>مراجعة التجهيز</h2><div id="readiness-list" class="steps"></div></article>
+        <div class="overview-grid">
+          <article class="panel"><h2>المرحلة التالية على السيرفر</h2><ol class="deployment-list"><li>تجهيز Linux وتثبيت FreeRADIUS وقاعدة البيانات.</li><li>تشغيل API آمن للوحة، مع تسجيل دخول وصلاحيات المدير والمحاسب والموزّع والفني.</li><li>إعداد VPN وتسجيل كل راوتر بمفتاح مستقل.</li><li>إعداد الوصول لأجهزة UBNT وراوترات العملاء عبر شبكة الإدارة واختبار المسارات.</li><li>نقل المسودات وإنشاء بيانات الدخول على السيرفر.</li><li>تفعيل الفواتير والتحصيل وسجل العمليات المركزي.</li><li>اختبار الدخول والمحاسبة والحصص وفصل الجلسات والنسخ الاحتياطي.</li></ol><p class="inline-note">هذه الصفحة لا تتصل بسيرفر ولا تحفظ بيانات دخوله.</p><button class="btn" disabled>تفعيل الاتصال — بعد تجهيز الـVPS</button></article>
+          <article class="panel"><h2>نسخة التحضير</h2><p class="muted">ملف JSON شامل للراوترات والباقات والمشتركين والكروت والأجهزة والموزّعين والفواتير والتحصيل والإعدادات. الاستيراد يستبدل المسودة الحالية بعد التأكيد.</p><div class="backup-actions"><button class="btn primary" id="export-backup">تصدير نسخة JSON</button><button class="btn" id="import-backup">استيراد نسخة</button></div><input id="backup-file" type="file" accept=".json,application/json" hidden><p id="save-status" class="muted"></p><div class="inline-note">الحفظ على هذا المتصفح فقط، وليس مزامنة سحابية. امسح المسودة من الأجهزة المشتركة بعد تصديرها.</div><button class="btn danger-text" id="reset-workspace">مسح المسودة من هذا المتصفح</button></article>
+        </div>
+      </section>
+      <footer class="page-footer"><span>MikroTools · RADIUS</span><span>مرحلة التحضير — لا توجد حسابات مفعّلة</span></footer>
+    </main>
+  </div>
+  <dialog id="editor-dialog" aria-labelledby="editor-title"><form id="editor-form"><div class="dialog-header"><h2 id="editor-title"></h2><button class="icon-button" type="button" data-close aria-label="إغلاق">×</button></div><p id="editor-description" class="muted"></p><div id="editor-fields" class="form-grid"></div><p id="form-error" class="form-error" role="alert" hidden></p><div class="dialog-footer"><button class="btn primary" type="submit">حفظ المسودة</button><button class="btn" type="button" data-close>إلغاء</button></div></form></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-header"><h2 id="confirm-title">تأكيد الإجراء</h2></div><p id="confirm-message"></p><div class="dialog-footer"><button class="btn danger" id="confirm-yes">تأكيد</button><button class="btn" id="confirm-no" autofocus>إلغاء</button></div></dialog>
+  <dialog id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-header"><h2 id="detail-title"></h2><button class="icon-button" id="close-detail" aria-label="إغلاق">×</button></div><div id="detail-content"></div><div class="dialog-footer"><button class="btn primary" id="print-invoice" hidden>طباعة نسخة مراجعة</button><button class="btn" id="close-detail-bottom">إغلاق</button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

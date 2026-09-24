@@ -1,0 +1,16 @@
+{
+  "name": "mikrotools-site",
+  "private": true,
+  "scripts": {
+    "test:doctor": "node --test tests/doctor.test.cjs",
+    "doctor:cloud": "python doctor/cloud_server.py",
+    "test": "node --test tests/radius*.test.cjs",
+    "test:browser": "node tests/radius-browser.cjs",
+    "platform": "node platform/server.cjs",
+    "platform:create-tenant": "node platform/create-tenant.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0",
+    "playwright": "^1.63.0"
+  }
+}
