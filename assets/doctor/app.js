@@ -62,7 +62,7 @@
   async function runScan(){
     if(busy)return; busy=true; $('dr-scan').disabled=true; $('dr-demo').disabled=true; $('dr-scan').classList.add('dr-loading'); status('جارٍ اتصال سيرفر الموقع بالراوتر وتحليل البيانات…');
     const body={host:form.elements.host.value.trim(),username:form.elements.username.value.trim(),password:form.elements.password.value};
-    try { const response=await fetch('/api/doctor/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(60000)}); const result=await response.json(); if(!response.ok)throw Error(result.error||'تعذر الفحص.'); snapshot=result; render(); status('تم الاتصال بالميكروتك واكتمل الفحص.'); }
+    try { const response=await fetch('/api/doctor/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(60000)}); const contentType=response.headers.get('content-type')||''; if(!contentType.toLowerCase().includes('application/json'))throw Error('???? ??? ??????? ??? ????? ??? ????????? ???????. ???? ????? ???? ????? ?????? ?????? ???????? ????? ??????? ????? ??????? ?????? ???????.'); const result=await response.json(); if(!response.ok)throw Error(result.error||'تعذر الفحص.'); snapshot=result; render(); status('تم الاتصال بالميكروتك واكتمل الفحص.'); }
     catch(error) { status(error.name==='TypeError'?'تعذر الوصول إلى خدمة التحليل على سيرفر الموقع.':(error.message||'تعذر الاتصال.'),true); }
     finally { form.elements.password.value=''; body.password=''; busy=false; $('dr-scan').disabled=false; $('dr-demo').disabled=false; $('dr-scan').classList.remove('dr-loading'); }
   }
